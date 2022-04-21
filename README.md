@@ -1,6 +1,7 @@
 # RoadMap
 
-
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Obbligatorio
+- ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) Facoltativo
   
 <b>tre applicazioni:</b>
   - [ ] ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)  Game, informazioni e curiosità sui propri cari, fare giochi a tema animalesco, e confrontare prodotti dello store. Mobile first, solo online, nessuno database
