@@ -4,7 +4,7 @@
 - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) Facoltativo
   
 <b>tre applicazioni:</b>
-  - [ ] ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)  Game, informazioni e curiosità sui propri cari, fare giochi a tema animalesco, e confrontare prodotti dello store. Mobile first, solo online, nessuno database
+  - [] ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)  Game, informazioni e curiosità sui propri cari, fare giochi a tema animalesco, e confrontare prodotti dello store. Mobile first, solo online, nessuno database
   - [ ] ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Front-office, applicazione per i clienti, mobile first, attività di accesso e uso di tutti i servizi online e per la prenotazione di quelli in presenza per i clienti regulare
   - [ ] ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Back-office, applicazione per gli impiegati dell'azienda che, sede per sede, inseriscono e rimuovono servizi e prodotti, gestiscono prezzi e descrizioni, controllano e modificano le prenotazioni..
   
