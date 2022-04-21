@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# RoadMap
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<b>tre applicazioni:</b>
+  - [ ] Game, informazioni e curiosità sui propri cari, fare giochi a tema animalesco, e confrontare prodotti dello store. Mobile first, solo online, nessuno database
+  - [ ] Front-office, applicazione per i clienti, mobile first, attività di accesso e uso di tutti i servizi online e per la prenotazione di quelli in presenza per i clienti regulare
+  - [ ] Back-office, applicazione per gli impiegati dell'azienda che, sede per sede, inseriscono e rimuovono servizi e prodotti, gestiscono prezzi e descrizioni, controllano e modificano le prenotazioni..
 
-## Available Scripts
+## Game
 
-In the project directory, you can run:
+- [ ] <b>Quiz: usando la stessa API delle curiosità il sistema genera domande a caso</b>
+- [ ] Memory: usando API di immagini il sistema crea coppie di immagini e le dispone nascoste. L'utente deve scoprirle a coppie
+- [ ] Impiccato: usando API di dizionari di termini sugli animali il sistema presenta una parola complessa che l'utente deve indovinare lettera per lettera
+- [ ] Scova le differenze: due immagini simili ma con piccoli particolari differenti che l'utente deve scovare (SVG)
 
-### `npm start`
+## Front-office
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Il front-office è un'applicazione web tradizionale, solo online, sia per device mobili sia per PC, orietata a fornire accesso ai prodotti e ai servizi offerti dall'azienda.
+<b>Servizi di comunità:
+  - [ ] leaderboard con punteggi dei vari giochi del game
+  - [ ] bacheca eccolo qua 
+    - [ ] bacheca cerco partner
+    - [ ] bacheca aiutatemi
+    - [ ] ecc
+  </b>
+<b>e-commerce: catalogo ragionato e diviso per sezioni di prodotti per animali acquistabili online: 
+  
+  - [ ] cibo
+  - [ ] prodotti sanitari
+  - [ ] accessoristica 
+    - [ ] cuccioli
+  </b>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<b>Servizi in presenza:  ogni servizio prevede una parte di illustrazione del servizio e una parte di accesso e prenotazione (secondo sede e disponibilità) 
+  
+  - [ ] veterinario
+  - [ ] dog sitter 
+    - [ ] toelettatura
+    - [ ] pensione estiva
+    - [ ] psicologo
+    - [ ] visita a domicilio per animali soli
+    - [ ] ecc   
+  </b>
+  
+  - Servizi online
+    - [ ] videoconferenze con l'esperto
+    - [ ] videoconferenze con veterinario
+    - [ ] videoconferenze con il proprio animale in ospedale
+    - [ ] videoconferenze in pensione
+    - [ ] ecc
+  
+  
+## Back-office
+Il back-office è la parte dell'applicazione che permette agli amministratori di gestire i dati dei clienti e abilitare e configurare i servizi e i prodotti. E' un'applicazione web tradizionale, solo online, principalmente per PC.
 
-### `npm test`
+<b> Anagrafica clienti: per gestire le informazioni sui clienti: 
+- [ ] registrazione
+- [ ] login
+- [ ] cambio password
+- [ ] reset password
+- [ ] cancellazione
+- [ ] preferenze
+- [ ] animali preferiti
+- [ ] punteggio dei giochi
+</b>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<b> Servizi di comunità: 
+- [ ] controllare messaggi in bacheca
+- [ ] cancellare messaggi in bacheca
+</b>
 
-### `npm run build`
+<b>
+Gestione e-commerce: 
+  
+  - [ ] aggiungere prodotti
+  - [ ] togliere prodotti
+  - [ ] prezzi
+  - [ ] descrizioni
+  - [ ] categoria
+    - [ ] sottocategorie
+  - [ ] immagine (URI online)
+    - [ ] uploadata sul file system del server
+</b>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<b>
+Servizi in presenza: 
+  
+  - [ ] prenotare servizi in presenza
+  - [ ] modificare prenotazioni
+  - [ ] cancellare prenotazioni
+  - [ ] visualizzare disponibilità
+  - [ ] calendari separati ( in una sede posso avere molti veterinari, molte camere della pensione
+</b>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Servizi online
+  - [ ] prenotare servizi online
+  - [ ] moficare prenotazioni
+  - [ ] cancellare prenotazioni
+  - [ ] controllare disponibilità
+  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
