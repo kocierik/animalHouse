@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Hello from 'shared';
-Hello();
 </script>
 
 <template>
