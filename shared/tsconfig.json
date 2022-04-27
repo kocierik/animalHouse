@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target" : "ES2015",
+    "module": "system",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true,
+    "preserveConstEnums": true,
+    "outFile": "../../built/local/tsc.js",
+    "sourceMap": true,
+    "lib" : ["es2015", "DOM"]
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
