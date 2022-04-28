@@ -1,7 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import MemoryGame from './components/memoryGame/MemoryGame.vue';
+</script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello</h1>
+  <MemoryGame />
 </template>
 
-<style></style>
+<style>
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+}
+</style>
