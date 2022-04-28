@@ -3,7 +3,9 @@ import './memory.css';
 import type { Card } from './utility/cards';
 import cards from './utility/cards';
 
-const checkCard = (card: Card): void => {};
+const checkCard = (card: Card): void => {
+  card.view = true;
+};
 </script>
 
 <template>
