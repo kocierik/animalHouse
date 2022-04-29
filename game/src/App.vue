@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CuriosityCard from './components/curiosities/CuriosityCard.vue'
 </script>
 
 <template>
@@ -73,6 +74,7 @@
       </div>
     </div>
   </nav>
+    <CuriosityCard />
 </template>
 
 <style></style>
