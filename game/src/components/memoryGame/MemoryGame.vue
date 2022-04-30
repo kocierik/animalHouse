@@ -21,30 +21,24 @@ const checkCard = (card: Card): void => {
     selectTwo = card;
   }
   result = cards.value.filter((x) => x.selected == true);
-  console.log(result);
   if (result.length > 1) {
-    console.log(result);
     if (result[0].firstName == result[1].firstName) {
       cards.value.filter((x) => {
         if (result[0] == x || result[1] == x) {
           x.view = 'hidden';
+          x.selected = false;
         }
       });
     } else {
-      console.log(result);
+      console.log(result.map((x) => console.log(x)));
       console.log('NO');
     }
+    cards.value.map((x) => (x.selected = false));
     selectOne = defaultCard;
     selectTwo = defaultCard;
+
     result = [];
   }
-  // if (check.length > 1 && check[0].firstName == check[1].firstName) {
-  //   card.view = 'hidden';
-  // }
-
-  // if (selectOne.value == 0) selectOne.value = card.id;
-  // else selectTwo.value = card.id;
-  // if (selectTwo.value != 0) {
 };
 </script>
 
