@@ -24,6 +24,7 @@
   flex-direction: column;
   background-color: blue;
   margin: 10px;
+  cursor: pointer;
 }
 .value{
   display: flex;
