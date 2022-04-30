@@ -1,24 +1,33 @@
-import { ref } from 'vue';
+import { ref, type StyleValue } from 'vue';
 
 export interface Card {
   firstName: string;
   id: number;
-  view: boolean;
+  view: StyleValue;
   bg: string;
+  selected: boolean;
 }
 
 const cards = ref<Card[]>([
-  { firstName: 'Frank', id: 1, view: false, bg: 'white' },
-  { firstName: 'Vic', id: 2, view: false, bg: 'white' },
-  { firstName: 'Gina', id: 3, view: false, bg: 'white' },
-  { firstName: 'Jessi', id: 4, view: false, bg: 'white' },
-  { firstName: 'Erik', id: 5, view: false, bg: 'white' },
-  { firstName: 'Man', id: 6, view: false, bg: 'white' },
-  { firstName: 'MAttia', id: 7, view: false, bg: 'white' },
-  { firstName: 'FABBIO', id: 8, view: false, bg: 'white' },
-  { firstName: 'Jay', id: 9, view: false, bg: 'white' },
+  { firstName: 'Frank', id: 1, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Frank', id: 2, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Vic', id: 3, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Vic', id: 4, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Gina', id: 5, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Gina', id: 6, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Jessi', id: 7, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Jessi', id: 8, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Erik', id: 9, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Erik', id: 10, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Man', id: 11, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Man', id: 12, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'MAttia', id: 13, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'MAttia', id: 14, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'FABBIO', id: 15, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'FABBIO', id: 16, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Jay', id: 17, view: 'visible', bg: 'blue', selected: false },
+  { firstName: 'Jay', id: 18, view: 'visible', bg: 'blue', selected: false },
 ]);
 
-cards.value = cards.value.concat(...cards.value);
 cards.value = cards.value.sort(() => Math.random() - 0.5);
 export default cards;
