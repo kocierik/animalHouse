@@ -3,6 +3,6 @@
 
 <template>
   <main>
-    home
+    Personal
   </main>
 </template>
