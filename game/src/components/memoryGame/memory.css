@@ -7,13 +7,14 @@
   height: 100%;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 #memory{
   display: flex;
-  background-color: red;
-  width: 100%;
-  height: 50%;
+  /* background-color: red; */
+  width: 90%;
+  height: 35%;
   flex-wrap: wrap;
   flex-direction: row;
 }
@@ -22,15 +23,15 @@
   display: flex;
   flex: 1 1 25%;
   flex-direction: column;
-  background-color: blue;
+  /* background-color: blue; */
   margin: 10px;
   cursor: pointer;
 }
 .value{
   display: flex;
   flex: 1 1 auto;
-  background-color: yellow;
+  background-color: whitesmoke;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  padding: 10px;
 }
