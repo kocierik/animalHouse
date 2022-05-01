@@ -3,6 +3,6 @@
 
 <template>
   <main>
-    home
+    games!
   </main>
 </template>
