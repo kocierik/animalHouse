@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import './memory.css';
+import { defaultCard } from './utility/cards';
 
-import { ref } from 'vue';
 import type { Card } from './utility/cards';
 import cards from './utility/cards';
-
-const defaultCard: Card = { firstName: ' ', id: 0, view: 'visible', bg: '', selected: false, opacity: 1 };
+import swal from 'sweetalert';
 
 let selectOne: Card = defaultCard;
 let selectTwo: Card = defaultCard;
@@ -29,16 +28,6 @@ const checkCard = (card: Card): void => {
     result = [];
   }
   if (result.length > 1) {
-    console.log(result);
-    if (result[0].id == result[1].id) {
-      console.log('UGOALI');
-      result[0].opacity = 1;
-      result[0].selected = false;
-      selectOne = defaultCard;
-      selectTwo = defaultCard;
-      result = [];
-      return;
-    }
     if (result[0].firstName == result[1].firstName) {
       cards.value.filter((x) => {
         if (result[0] == x || result[1] == x) {
@@ -46,9 +35,8 @@ const checkCard = (card: Card): void => {
           x.selected = false;
         }
       });
-    } else {
-      console.log(result.map((x) => console.log(x)));
-      console.log('NO');
+      // console.log(isWin.length + ' cards length = ' + cards.value.length);
+      if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) swal('You Win!');
     }
     cards.value.map((x) => {
       x.selected = false;
