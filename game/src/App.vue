@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import CuriosityCard from './components/curiosities/CuriosityCard.vue'
+import FactsSection from './components/personal/FactsSection.vue'
+import MusicCard from './components/personal/MusicCard.vue'
+import ImageCard from './components/personal/ImageCard.vue'
 </script>
 
 <template>
@@ -74,7 +76,9 @@ import CuriosityCard from './components/curiosities/CuriosityCard.vue'
       </div>
     </div>
   </nav>
-    <CuriosityCard />
+    <FactsSection/>
+    <ImageCard/>
+    <MusicCard/>
 </template>
 
 <style></style>
