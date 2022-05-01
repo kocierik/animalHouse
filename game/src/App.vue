@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import MemoryGame from './components/memoryGame/MemoryGame.vue';
+import QuizGame from './components/quizGame/QuizGame.vue';
 </script>
 
 <template>
-  <MemoryGame />
+  <QuizGame />
 </template>
 
 <style>
