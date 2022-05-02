@@ -3,10 +3,12 @@ import HomeView from '@/views/HomeView.vue';
 import PersonalView from '@/views/PersonalView.vue';
 import GamesView from '@/views/GamesView.vue';
 import MemoryGame from '../components/memoryGame/MemoryGame.vue';
+import QuizGame from '../components/quizGame/QuizGame.vue';
 export const HomeRoute = '/';
 export const GamesRoute = '/games';
 export const PersonalRoute = '/personal';
 export const GameMemory = '/games/memory';
+export const GameQuiz = '/games/quiz';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -29,6 +31,11 @@ const router = createRouter({
       path: GameMemory,
       name: 'memory',
       component: MemoryGame,
+    },
+    {
+      path: GameQuiz,
+      name: 'quiz',
+      component: QuizGame,
     },
   ],
 });
