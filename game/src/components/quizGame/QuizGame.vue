@@ -1,5 +1,5 @@
 import { ref } from 'vue'; /* eslint-disable indent */
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -56,6 +56,7 @@ export default {
           //adjust every question
           for (let i = 0; i < this.count; i++) {
             let q = response.results[i];
+            
             this.questions[i].question = q.question; // set questions
             switch (Math.floor(Math.random() * 4)) {
             case 0:
