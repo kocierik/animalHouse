@@ -34,6 +34,8 @@ game/*.njsproj
 game/*.sln
 game/*.sw?
 
-
-
+# SERVER
 server/node_modules
+
+# SHARED
+shared/node_modules
