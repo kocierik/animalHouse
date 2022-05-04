@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ref, onBeforeUnmount } from 'vue';
 import { Questions } from './utility';
 export default {
   data() {
