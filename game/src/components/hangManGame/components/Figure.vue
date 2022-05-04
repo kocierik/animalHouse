@@ -1,3 +1,12 @@
+<script>
+export default {
+  props: { wrongCount: { type: Number, default: 0 } },
+  setup(props) {
+    const lte = (num) => props.wrongCount >= num;
+    return { lte };
+  },
+};
+</script>
 <template>
   <svg height="250" width="200" class="figure-container">
     <!-- Rod -->
@@ -18,13 +27,3 @@
     <line v-if="lte(6)" x1="140" y1="150" x2="160" y2="180" />
   </svg>
 </template>
-
-<script>
-export default {
-  props: { wrongCount: { type: Number, default: 0 } },
-  setup(props) {
-    const lte = (num) => props.wrongCount >= num;
-    return { lte };
-  },
-};
-</script>

@@ -1,12 +1,12 @@
 import { ref, type StyleValue } from 'vue';
 
 export interface Card {
-  firstName: string;
-  id: number;
-  view: StyleValue;
-  bg: string;
-  selected: boolean;
-  opacity: number;
+  firstName?: string;
+  id?: number;
+  view?: StyleValue;
+  bg?: string;
+  selected?: boolean;
+  opacity?: number;
 }
 
 export const defaultCard: Card = {

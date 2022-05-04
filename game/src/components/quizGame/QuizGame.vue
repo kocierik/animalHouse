@@ -1,18 +1,19 @@
 <script lang="ts">
 import { Questions } from './utility';
-import { Api, ApiResponse } from 'shared';
+import type { Question } from './utility';
+import { Api } from 'shared';
 
 export default {
   data() {
     return {
-      fetchDone: false,
-      idx: 0,
-      selectedAnswer: '',
-      correctAnswers: 0,
-      wrongAnswers: 0,
-      count: 5,
-      difficulty: 'easy',
-      questions: Questions,
+      fetchDone: false as boolean,
+      idx: 0 as number,
+      selectedAnswer: '' as string,
+      correctAnswers: 0 as number,
+      wrongAnswers: 0 as number,
+      count: 5 as number,
+      difficulty: 'easy' as string,
+      questions: Questions as Question[],
     };
   },
   methods: {
