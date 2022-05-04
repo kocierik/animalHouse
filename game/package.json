@@ -10,6 +10,7 @@
     "lint": "eslint --ext  src/**/*.vue,src/**/*.js,src/**/*.jsx,src/**/*.cjs,src/**/*.mjs,src/**/*.ts,src/**/*.tsx,src/**/*.cts,src/**/*.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "party-js": "^2.1.2",
     "random-animals-api": "^1.2.6",
     "shared": "file:../shared",
     "sweetalert": "^2.1.2",
