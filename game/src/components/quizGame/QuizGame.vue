@@ -1,5 +1,6 @@
-import { ref } from 'vue'; /* eslint-disable indent */
 <script lang="ts">
+import { ref } from 'vue';
+import { Questions } from './utility';
 export default {
   data() {
     return {
@@ -10,33 +11,7 @@ export default {
       wrongAnswers: 0,
       count: 5,
       difficulty: 'easy',
-      questions: [
-        {
-          question: '',
-          answers: { a: '', b: '', c: '', d: '' },
-          correctAnswer: '',
-        },
-        {
-          question: '',
-          answers: { a: '', b: '', c: '', d: '' },
-          correctAnswer: '',
-        },
-        {
-          question: '',
-          answers: { a: '', b: '', c: '', d: '' },
-          correctAnswer: '',
-        },
-        {
-          question: '',
-          answers: { a: '', b: '', c: '', d: '' },
-          correctAnswer: '',
-        },
-        {
-          question: '',
-          answers: { a: '', b: '', c: '', d: '' },
-          correctAnswer: '',
-        },
-      ],
+      questions: Questions,
     };
   },
   methods: {
@@ -56,37 +31,37 @@ export default {
           //adjust every question
           for (let i = 0; i < this.count; i++) {
             let q = response.results[i];
-            
+
             this.questions[i].question = q.question; // set questions
             switch (Math.floor(Math.random() * 4)) {
-            case 0:
-              this.questions[i].answers.a = q.correct_answer;
-              this.questions[i].answers.b = q.incorrect_answers.shift();
-              this.questions[i].answers.c = q.incorrect_answers.shift();
-              this.questions[i].answers.d = q.incorrect_answers.shift();
-              this.questions[i].correctAnswer = 'a';
-              break;
-            case 1:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.correct_answer;
-              this.questions[i].answers.c = q.incorrect_answers.shift();
-              this.questions[i].answers.d = q.incorrect_answers.shift();
-              this.questions[i].correctAnswer = 'b';
-              break;
-            case 2:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.incorrect_answers.shift();
-              this.questions[i].answers.c = q.correct_answer;
-              this.questions[i].answers.d = q.incorrect_answers.shift();
-              this.questions[i].correctAnswer = 'c';
-              break;
-            case 3:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.incorrect_answers.shift();
-              this.questions[i].answers.c = q.incorrect_answers.shift();
-              this.questions[i].answers.d = q.correct_answer;
-              this.questions[i].correctAnswer = 'd';
-              break;
+              case 0:
+                this.questions[i].answers.a = q.correct_answer;
+                this.questions[i].answers.b = q.incorrect_answers.shift();
+                this.questions[i].answers.c = q.incorrect_answers.shift();
+                this.questions[i].answers.d = q.incorrect_answers.shift();
+                this.questions[i].correctAnswer = 'a';
+                break;
+              case 1:
+                this.questions[i].answers.a = q.incorrect_answers.shift();
+                this.questions[i].answers.b = q.correct_answer;
+                this.questions[i].answers.c = q.incorrect_answers.shift();
+                this.questions[i].answers.d = q.incorrect_answers.shift();
+                this.questions[i].correctAnswer = 'b';
+                break;
+              case 2:
+                this.questions[i].answers.a = q.incorrect_answers.shift();
+                this.questions[i].answers.b = q.incorrect_answers.shift();
+                this.questions[i].answers.c = q.correct_answer;
+                this.questions[i].answers.d = q.incorrect_answers.shift();
+                this.questions[i].correctAnswer = 'c';
+                break;
+              case 3:
+                this.questions[i].answers.a = q.incorrect_answers.shift();
+                this.questions[i].answers.b = q.incorrect_answers.shift();
+                this.questions[i].answers.c = q.incorrect_answers.shift();
+                this.questions[i].answers.d = q.correct_answer;
+                this.questions[i].correctAnswer = 'd';
+                break;
             }
 
             console.log(this.questions);
@@ -124,13 +99,7 @@ export default {
       this.selectedAnswer = '';
       this.correctAnswers = 0;
       this.wrongAnswers = 0;
-      this.questions = [
-        {
-          question: '',
-          answers: { a: '', b: '', c: '', d: '' },
-          correctAnswer: '',
-        },
-      ];
+      this.questions = Questions;
       this.fetchAPIData = false;
       this.getQuestion();
     },
@@ -157,7 +126,7 @@ export default {
         <h1 class="font-bold text-5xl text-center text-indigo-700">Simple Quiz</h1>
         <div class="bg-white p-10 rounded-lg shadow-lg w-full mt-1" ref="gameState" :style="{ visibility: 'hidden' }">
           <div v-if="idx < count">
-            <p class="text-2xl font-bold">{{ questions[idx]['question'] }}</p>
+            <p class="text-2xl font-bold" v-html="questions[idx]['question']"></p>
             <label
               v-for="(answer, index) in questions[idx].answers"
               :key="index"
@@ -177,7 +146,7 @@ export default {
                 @change="answered($event)"
                 :disabled="selectedAnswer != ''"
               />
-              {{ answer }}
+              <span v-html="answer"></span>
             </label>
             <div class="mt-6 flow-root">
               <button
