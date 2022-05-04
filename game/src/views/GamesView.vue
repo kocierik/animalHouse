@@ -1,48 +1,49 @@
 <script setup lang="ts">
 import * as router from '@/router/index';
+import Card from './gamesComponents/Card.vue';
+
+// in <script setup>
+
+const gameList = [
+  {
+    id: 0,
+    name: 'Memory',
+    url: router.GameMemory,
+  },
+  {
+    id: 1,
+    name: 'Quiz',
+    url: router.GameQuiz,
+  },
+  {
+    id: 2,
+    name: 'HangMan',
+    url: router.GameHangMan,
+  },
+  {
+    id: 3,
+    name: '2048',
+    url: router.GameDue,
+  },
+  {
+    id: 4,
+    name: 'Spot the difference',
+    url: router.GameSpot,
+  },
+  {
+    id: 5,
+    name: 'Test prova',
+    url: router.GameSpot,
+  },
+];
 </script>
 
 <template>
-  <main>
-    <router-link :to="router.GameMemory">
-      <a
-        href="#"
-        class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-      >
-        Memory
-      </a>
-    </router-link>
-    <router-link :to="router.GameQuiz">
-      <a
-        href="#"
-        class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-      >
-        Quiz
-      </a>
-    </router-link>
-    <router-link :to="router.GameHangMan">
-      <a
-        href="#"
-        class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-      >
-        HangMan
-      </a>
-    </router-link>
-    <router-link :to="router.GameDue">
-      <a
-        href="#"
-        class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-      >
-        2048
-      </a>
-    </router-link>
-    <router-link :to="router.GameSpot">
-      <a
-        href="#"
-        class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-      >
-        Spot the difference
-      </a>
-    </router-link>
-  </main>
+  <div class="flex justify-center flex-wrap p-10 gap-10">
+    <div v-for="game in gameList" :key="gameList.id">
+      <Card :name="game.name" :url="game.url" />
+    </div>
+  </div>
 </template>
+
+<style></style>
