@@ -8,16 +8,18 @@ export default {
   },
   setup(props, { emit }) {
     const finalMessage = computed(() => {
-      if (props.status === 'win')
-        return swal('Congratulations! You won! 😃', ' do you want play again?', {
-          buttons: ['Another time!', 'I want retry!'],
-        });
-      if (props.status === 'lose')
-        return swal('Unfortunately you lost. 😕', ' do you want play again?', {
-          buttons: ['Another time!', 'I want retry!'],
-        });
+      if (props.status === 'win') {
+        emit('reset');
+        return swal('Congratulations! You won! 😃');
+      }
+      if (props.status === 'lose') {
+        emit('reset');
+        return swal('Unfortunately you lost. 😕');
+      }
+
       return '';
     });
+
     const reset = () => emit('reset');
     return { finalMessage, reset };
   },
