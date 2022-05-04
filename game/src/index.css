@@ -2,10 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #app{
+html, body{
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
   height: 100%;
   width: 100%;
+}
+#app{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
