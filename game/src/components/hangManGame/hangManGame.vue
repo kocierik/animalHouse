@@ -1,12 +1,11 @@
 <template>
-  <Header />
-  <div class="game-container">
+  <div class="game-container flex-1">
+    <Header />
     <Figure :wrong-count="wrongLetters.length" />
     <WrongLetters :wrong-letters="wrongLetters" />
     <Word :letters="letters" :correct-letters="correctLetters" />
+    <Popup :status="status" :word="word" @reset="reset" />
   </div>
-  <Popup :status="status" :word="word" @reset="reset" />
-  <Notification :show="notification" />
 </template>
 
 <script lang="ts">
@@ -19,15 +18,14 @@ import Figure from './components/Figure.vue';
 import WrongLetters from './components/WrongLetters.vue';
 import Word from './components/Word.vue';
 import Popup from './components/Popup.vue';
-import Notification from './components/Notification.vue';
 
 import onKeydown from './assets/onKeydown';
 
-const words = ['programming', 'vuejs', 'composition'];
+const words = ['programming'];
 const randomWord = () => words[Math.floor(Math.random() * words.length)];
 
 export default {
-  components: { Header, Figure, Word, WrongLetters, Popup, Notification },
+  components: { Header, Figure, Word, WrongLetters, Popup },
   setup() {
     const word = ref(randomWord());
     const guessedLetters = ref([]);

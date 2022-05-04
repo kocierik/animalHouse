@@ -2,48 +2,30 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #34495e;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 80vh;
-  margin: 0;
-  overflow: hidden;
-}
 
-h1 {
-  margin: 20px 0 0;
-}
+
+
 
 .game-container {
-  padding: 20px 30px;
-  position: relative;
-  margin: auto;
-  height: 350px;
-  width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .figure-container {
   fill: transparent;
-  stroke: #fff;
+  stroke: #000;
   stroke-width: 4px;
   stroke-linecap: round;
 }
 
-.figure-part {
-  display: none;
-}
+
 
 .wrong-letters-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   display: flex;
   flex-direction: column;
-  text-align: right;
+  text-align: center;
 }
 
 .wrong-letters-container p {
@@ -51,30 +33,26 @@ h1 {
 }
 
 .wrong-letters-container span {
-  font-size: 24px;
+  font-size: 2rem;
 }
 
 .word {
   display: flex;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  padding: 2rem;
 }
 
 .letter {
-  border-bottom: 3px solid #2980b9;
+  border-bottom: 3px solid #000000;
   display: inline-flex;
-  font-size: 30px;
+  font-size: 2rem;
   align-items: center;
   justify-content: center;
-  margin: 0 3px;
-  height: 50px;
-  width: 20px;
+  margin: 0 2px;
+  height: 2.5rem;
+  width: 1.3rem;
 }
 
 .popup-container {
-  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
   bottom: 0;
@@ -87,8 +65,9 @@ h1 {
 }
 
 .popup {
-  background: #2980b9;
+  background: #000;
   border-radius: 5px;
+  color: #fff;
   box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
@@ -96,8 +75,8 @@ h1 {
 
 .popup button {
   cursor: pointer;
-  background-color: #fff;
-  color: #2980b9;
+  background-color: #000;
+  color: #fff;
   border: 0;
   margin-top: 20px;
   padding: 12px 20px;
