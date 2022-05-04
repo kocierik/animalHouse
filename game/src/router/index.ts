@@ -6,6 +6,7 @@ import MemoryGame from '../components/memoryGame/MemoryGame.vue';
 import QuizGame from '../components/quizGame/QuizGame.vue';
 import HangManGame from '../components/hangManGame/hangManGame.vue';
 import DueGame from '../components/dueGame/dueGame.vue';
+import SpotGame from '../components/spotGame/spotGame.vue';
 export const HomeRoute = '/';
 export const GamesRoute = '/games';
 export const PersonalRoute = '/personal';
@@ -13,6 +14,7 @@ export const GameMemory = '/games/memory';
 export const GameQuiz = '/games/quiz';
 export const GameHangMan = '/games/hangMan';
 export const GameDue = '/games/due48';
+export const GameSpot = '/games/spotGame';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -50,6 +52,11 @@ const router = createRouter({
       path: GameDue,
       name: 'due48',
       component: DueGame,
+    },
+    {
+      path: GameSpot,
+      name: 'spotGame',
+      component: SpotGame,
     },
   ],
 });

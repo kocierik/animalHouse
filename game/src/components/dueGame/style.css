@@ -227,3 +227,9 @@
     transform: scale(1);
   }
 }
+
+.backgroundIm{
+  background-image: url("./cane.webp") ;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

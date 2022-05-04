@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
           '--game-grid-size': state.size,
         }"
       >
-        <div ref="gameBoardElement" class="game-grid flex bg-black">
+        <div ref="gameBoardElement" class="game-grid flex backgroundIm">
           <div class="game-cell" v-for="n in state.size * state.size" :key="n"></div>
           <div
             v-for="tile in state.currentGame.tiles"
