@@ -2,7 +2,7 @@
 
 ### Network
 
-You can use ```Api`` and ```ApiResponse``` classes to make http requests.
+You can use ```Api``` and ```ApiResponse``` classes to make http requests.
 Here an example of a GET request:
 
 ```ts
