@@ -45,3 +45,24 @@ let postDog = async () => {
 }
 
 ```
+### Get Animal Pics
+Use the function ```getAnimailPicture``` to get random animal pictures. You can 
+choose which animals using the ```AnimalType``` enum.
+
+```ts
+<script setup lang="ts">
+import { ref, onBeforeMount } from 'vue'
+import { AnimalType, getAnimalPicture } from 'shared'
+
+let a = ref<string>()
+
+onBeforeMount(async () => {
+    a.value = await getAnimalPicture(AnimalType.Bunny)
+  });
+</script>
+
+<template>
+  <img :src=a />
+</template>
+
+```
