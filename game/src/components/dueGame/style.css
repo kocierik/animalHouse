@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+:root {
+  --game-grid-size: 4;
+  --game-grid-gap: 4px;
+  --game-border-radius: 8px;
+  --game-transition-speed: 100ms;
+  --game-animation-speed: 200ms;
+  --game-base-fontsize: 1rem;
+  --game-board-bg: #3f3f46;
+  --game-board-cell-bg: #27272a;
+}
+
+.game-grid-wrap {
+  padding: var(--game-grid-gap, 4px);
+  border-radius: var(--game-border-radius, 8px);
+  user-select: none;
+  font-size: calc(var(--game-base-fontsize) - var(--game-grid-gap));
+  background: var(--game-board-bg);
+}
+
+.game-grid {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(var(--game-grid-size, 4), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--game-grid-size, 4), minmax(0, 1fr));
+  gap: calc(var(--game-grid-gap, 4px) * 2);
+  aspect-ratio: 1;
+  padding: var(--game-grid-gap, 4px);
+  background: var(--game-board-bg);
+}
+
+.game-cell {
+  border-radius: var(--game-border-radius, 8px);
+  background: var(--game-board-cell-bg);
+}
+
+.game-tile {
+  position: absolute;
+  width: calc(100% / var(--game-grid-size, 4));
+  height: calc(100% / var(--game-grid-size, 4));
+  padding: var(--game-grid-gap, 4px);
+  transition: transform var(--game-transition-speed, 100ms) ease-in-out;
+  font-weight: bold;
+}
+
+.game-tile-merged {
+  z-index: 10;
+}
+
+.game-tile > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--game-border-radius, 8px);
+  font-size: var(--game-tile-fontsize, 1em);
+  background: var(--game-tile-background);
+  color: var(--game-tile-color);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.15);
+}
+
+.game-tile-2 {
+  --game-tile-background: #64748b;
+  --game-tile-color: #fff;
+}
+
+.game-tile-4 {
+  --game-tile-background: #818cf8;
+  --game-tile-color: #fff;
+}
+
+.game-tile-8 {
+  --game-tile-background: #fb923c;
+  --game-tile-color: #fff;
+}
+
+.game-tile-16 {
+  --game-tile-background: #ea580c;
+  --game-tile-color: #fff;
+}
+
+.game-tile-32 {
+  --game-tile-background: #ef4444;
+  --game-tile-color: #fff;
+}
+
+.game-tile-64 {
+  --game-tile-background: #dc2626;
+  --game-tile-color: #fff;
+}
+
+.game-tile-128 {
+  --game-tile-background: #facc15;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.85em;
+}
+
+.game-tile-256 {
+  --game-tile-background: #f59e0b;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.85em;
+}
+
+.game-tile-512 {
+  --game-tile-background: #eab308;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.85em;
+}
+
+.game-tile-1024 {
+  --game-tile-background: #34d399;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.6em;
+}
+
+.game-tile-2048 {
+  --game-tile-background: #10b981;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.6em;
+}
+
+.game-tile-4096 {
+  --game-tile-background: #60a5fa;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.6em;
+}
+
+.game-tile-8192 {
+  --game-tile-background: #6366f1;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.6em;
+}
+
+.game-tile-16384 {
+  --game-tile-background: #e879f9;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.525em;
+}
+
+.game-tile-32768 {
+  --game-tile-background: #ec4899;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.475em;
+}
+
+.game-tile-65536 {
+  --game-tile-background: #84cc16;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.45em;
+}
+
+.game-tile-super {
+  --game-tile-background: #0d9488;
+  --game-tile-color: #fff;
+  --game-tile-fontsize: 0.425em;
+}
+
+.game-tile .tile-enter-active {
+  animation-name: tile-appear;
+  animation-timing-function: ease;
+  animation-duration: var(--game-animation-speed, 200ms);
+  animation-delay: var(--game-transition-speed, 100ms);
+  animation-fill-mode: backwards;
+}
+
+.game-tile-merged .tile-enter-active {
+  animation-name: tile-pop;
+  animation-timing-function: ease;
+  animation-duration: var(--game-animation-speed, 200ms);
+  animation-delay: var(--game-transition-speed, 100ms);
+  animation-fill-mode: backwards;
+}
+
+.score-enter-active {
+  animation-name: score;
+  animation-timing-function: ease-in;
+  animation-duration: 600ms;
+  animation-fill-mode: both;
+}
+
+.score-leave-active {
+  animation: none;
+}
+
+@keyframes score {
+  0% {
+    transform: translateY(-25px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150px);
+    opacity: 0;
+  }
+}
+
+@keyframes tile-pop {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tile-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
