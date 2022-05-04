@@ -1,5 +1,7 @@
 <script lang="ts">
 import { Questions } from './utility';
+import { Api, ApiResponse } from 'shared';
+
 export default {
   data() {
     return {
@@ -16,61 +18,53 @@ export default {
   methods: {
     async getQuestion() {
       // get questions for quiz
-      await fetch(
+      let response = await Api.get(
         'https://opentdb.com/api.php?amount=' + this.count + '&category=27&type=multiple&difficulty=' + this.difficulty
-      )
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            alert('Server returned ' + response.status + ' : ' + response.statusText);
-          }
-        })
-        .then((response) => {
-          //adjust every question
-          for (let i = 0; i < this.count; i++) {
-            let q = response.results[i];
+      );
+      if (response.esit) {
+        //adjust every question
+        for (let i = 0; i < this.count; i++) {
+          let q = response.data.results[i];
 
-            this.questions[i].question = q.question; // set questions
-            switch (Math.floor(Math.random() * 4)) {
+          this.questions[i].question = q.question; // set questions
+          switch (Math.floor(Math.random() * 4)) {
             case 0:
-              this.questions[i].answers.a = q.correct_answer;
-              this.questions[i].answers.b = q.incorrect_answers.shift();
+            this.questions[i].answers.a = q.correct_answer;
+            this.questions[i].answers.b = q.incorrect_answers.shift();
               this.questions[i].answers.c = q.incorrect_answers.shift();
-              this.questions[i].answers.d = q.incorrect_answers.shift();
+            this.questions[i].answers.d = q.incorrect_answers.shift();
               this.questions[i].correctAnswer = 'a';
               break;
-            case 1:
+          case 1:
               this.questions[i].answers.a = q.incorrect_answers.shift();
               this.questions[i].answers.b = q.correct_answer;
-              this.questions[i].answers.c = q.incorrect_answers.shift();
+            this.questions[i].answers.c = q.incorrect_answers.shift();
               this.questions[i].answers.d = q.incorrect_answers.shift();
               this.questions[i].correctAnswer = 'b';
-              break;
+            break;
             case 2:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.incorrect_answers.shift();
+            this.questions[i].answers.a = q.incorrect_answers.shift();
+            this.questions[i].answers.b = q.incorrect_answers.shift();
               this.questions[i].answers.c = q.correct_answer;
-              this.questions[i].answers.d = q.incorrect_answers.shift();
+            this.questions[i].answers.d = q.incorrect_answers.shift();
               this.questions[i].correctAnswer = 'c';
-              break;
-            case 3:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.incorrect_answers.shift();
-              this.questions[i].answers.c = q.incorrect_answers.shift();
+            break;
+          case 3:
+            this.questions[i].answers.a = q.incorrect_answers.shift();
+            this.questions[i].answers.b = q.incorrect_answers.shift();
+            this.questions[i].answers.c = q.incorrect_answers.shift();
               this.questions[i].answers.d = q.correct_answer;
-              this.questions[i].correctAnswer = 'd';
+            this.questions[i].correctAnswer = 'd';
               break;
-            }
-
-            console.log(this.questions);
           }
-          this.fetchDone = true;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      this.showQuiz();
+
+          console.log(this.questions);
+        }
+        this.fetchDone = true;
+        this.showQuiz();
+      } else {
+        console.log('errore');
+      }
     },
     swap(first, second) {
       const tmp = first;
