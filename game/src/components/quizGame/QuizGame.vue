@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ref } from 'vue';
+import { ref, onBeforeUnmount } from 'vue';
 import { Questions } from './utility';
 export default {
   data() {
@@ -34,34 +34,34 @@ export default {
 
             this.questions[i].question = q.question; // set questions
             switch (Math.floor(Math.random() * 4)) {
-              case 0:
-                this.questions[i].answers.a = q.correct_answer;
-                this.questions[i].answers.b = q.incorrect_answers.shift();
-                this.questions[i].answers.c = q.incorrect_answers.shift();
-                this.questions[i].answers.d = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = 'a';
-                break;
-              case 1:
-                this.questions[i].answers.a = q.incorrect_answers.shift();
-                this.questions[i].answers.b = q.correct_answer;
-                this.questions[i].answers.c = q.incorrect_answers.shift();
-                this.questions[i].answers.d = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = 'b';
-                break;
-              case 2:
-                this.questions[i].answers.a = q.incorrect_answers.shift();
-                this.questions[i].answers.b = q.incorrect_answers.shift();
-                this.questions[i].answers.c = q.correct_answer;
-                this.questions[i].answers.d = q.incorrect_answers.shift();
-                this.questions[i].correctAnswer = 'c';
-                break;
-              case 3:
-                this.questions[i].answers.a = q.incorrect_answers.shift();
-                this.questions[i].answers.b = q.incorrect_answers.shift();
-                this.questions[i].answers.c = q.incorrect_answers.shift();
-                this.questions[i].answers.d = q.correct_answer;
-                this.questions[i].correctAnswer = 'd';
-                break;
+            case 0:
+              this.questions[i].answers.a = q.correct_answer;
+              this.questions[i].answers.b = q.incorrect_answers.shift();
+              this.questions[i].answers.c = q.incorrect_answers.shift();
+              this.questions[i].answers.d = q.incorrect_answers.shift();
+              this.questions[i].correctAnswer = 'a';
+              break;
+            case 1:
+              this.questions[i].answers.a = q.incorrect_answers.shift();
+              this.questions[i].answers.b = q.correct_answer;
+              this.questions[i].answers.c = q.incorrect_answers.shift();
+              this.questions[i].answers.d = q.incorrect_answers.shift();
+              this.questions[i].correctAnswer = 'b';
+              break;
+            case 2:
+              this.questions[i].answers.a = q.incorrect_answers.shift();
+              this.questions[i].answers.b = q.incorrect_answers.shift();
+              this.questions[i].answers.c = q.correct_answer;
+              this.questions[i].answers.d = q.incorrect_answers.shift();
+              this.questions[i].correctAnswer = 'c';
+              break;
+            case 3:
+              this.questions[i].answers.a = q.incorrect_answers.shift();
+              this.questions[i].answers.b = q.incorrect_answers.shift();
+              this.questions[i].answers.c = q.incorrect_answers.shift();
+              this.questions[i].answers.d = q.correct_answer;
+              this.questions[i].correctAnswer = 'd';
+              break;
             }
 
             console.log(this.questions);
@@ -108,21 +108,16 @@ export default {
       this.$refs.gameState.style.visibility = 'visible';
     },
   },
+  beforeMount() {
+    this.getQuestion();
+  },
 };
 </script>
 
 <template class="antialiased text-gray-700 bg-gray-100">
   <div class="flex w-full h-screen justify-center items-center">
     <div class="w-full max-w-xl p-3 justify-center items-center">
-      <div v-if="!fetchDone" class="flex justify-center items-center">
-        <button
-          @click="getQuestion"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-        >
-          Play Now
-        </button>
-      </div>
-      <div v-else>
+      <div>
         <h1 class="font-bold text-5xl text-center text-indigo-700">Simple Quiz</h1>
         <div class="bg-white p-10 rounded-lg shadow-lg w-full mt-1" ref="gameState" :style="{ visibility: 'hidden' }">
           <div v-if="idx < count">
