@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import swal from 'sweetalert';
 import { computed } from 'vue';
 export default {
@@ -20,7 +20,7 @@ export default {
       return '';
     });
 
-    const reset = () => emit('reset');
+    const reset: void = () => emit('reset');
     return { finalMessage, reset };
   },
 };

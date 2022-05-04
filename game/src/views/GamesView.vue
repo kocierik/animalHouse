@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import * as router from '@/router/index';
+import Card from './gamesComponents/Card.vue';
 
-// in <script setup>
+interface Game {
+  id: number;
+  name: string;
+  url: string;
+}
 
-const gameList = [
+const gameList: Game[] = [
   {
     id: 0,
     name: 'Memory',
@@ -39,7 +44,7 @@ const gameList = [
 
 <template>
   <div class="flex justify-center flex-wrap p-10 gap-10">
-    <div v-for="game in gameList" :key="gameList.id">
+    <div v-for="game in gameList" :key="game.id">
       <Card :name="game.name" :url="game.url" />
     </div>
   </div>

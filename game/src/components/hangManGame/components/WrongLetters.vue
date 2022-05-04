@@ -1,3 +1,10 @@
+<script>
+export default {
+  props: {
+    wrongLetters: { type: Array, default: () => [] },
+  },
+};
+</script>
 <template>
   <div class="wrong-letters-container">
     <div class="wrong-letters">
@@ -9,11 +16,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    wrongLetters: { type: Array, default: () => [] },
-  },
-};
-</script>

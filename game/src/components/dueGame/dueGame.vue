@@ -51,7 +51,7 @@ const onTouchMove = (e) => {
     touchStartPos.started = false;
   }
 };
-const onTouchEnd = (e) => {
+const onTouchEnd = () => {
   touchStartPos.started = false;
 };
 onMounted(() => {
