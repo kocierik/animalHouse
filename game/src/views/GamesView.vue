@@ -43,8 +43,8 @@ const gameList: Game[] = [
 </script>
 
 <template>
-  <div class="flex justify-center flex-wrap p-10 gap-10">
-    <div v-for="game in gameList" :key="game.id">
+  <div class="flex justify-center align-center h-full flex-wrap p-10 gap-10">
+    <div v-for="game in gameList" :key="game.id" class="self-center pb-5">
       <Card :name="game.name" :url="game.url" />
     </div>
   </div>
