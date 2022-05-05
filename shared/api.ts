@@ -40,5 +40,4 @@ export class ApiResponse<T> {
     this._esit = esit;
     this.data = data;
   }
-
 }

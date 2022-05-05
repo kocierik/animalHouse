@@ -1,4 +1,19 @@
 import { ref, type StyleValue } from 'vue';
+// import { AnimalType, getAnimalPicture } from 'shared';
+import { AnimalType, getAnimalPicture } from 'shared';
+
+const a = ref<string>();
+a.value = await getAnimalPicture(AnimalType.Bunny);
+const b = ref<string>();
+b.value = await getAnimalPicture(AnimalType.Panda);
+const c = ref<string>();
+c.value = await getAnimalPicture(AnimalType.Dog);
+const d = ref<string>();
+d.value = await getAnimalPicture(AnimalType.Duck);
+const e = ref<string>();
+e.value = await getAnimalPicture(AnimalType.Fox);
+const f = ref<string>();
+f.value = await getAnimalPicture(AnimalType.Koala);
 
 export interface Card {
   firstName?: string;
@@ -7,6 +22,7 @@ export interface Card {
   bg?: string;
   selected?: boolean;
   opacity?: number;
+  bgOut?: string;
 }
 
 export const defaultCard: Card = {
@@ -14,6 +30,7 @@ export const defaultCard: Card = {
   id: 0,
   view: 'visible',
   bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+  bgOut: '',
   selected: false,
   opacity: 1,
 };
@@ -24,6 +41,7 @@ const cards = ref<Card[]>([
     id: 1,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: a.value,
     selected: false,
     opacity: 1,
   },
@@ -32,6 +50,7 @@ const cards = ref<Card[]>([
     id: 2,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: a.value,
     selected: false,
     opacity: 1,
   },
@@ -40,6 +59,7 @@ const cards = ref<Card[]>([
     id: 3,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: b.value,
     selected: false,
     opacity: 1,
   },
@@ -48,6 +68,7 @@ const cards = ref<Card[]>([
     id: 4,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: b.value,
     selected: false,
     opacity: 1,
   },
@@ -56,6 +77,7 @@ const cards = ref<Card[]>([
     id: 5,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: c.value,
     selected: false,
     opacity: 1,
   },
@@ -64,6 +86,7 @@ const cards = ref<Card[]>([
     id: 6,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: c.value,
     selected: false,
     opacity: 1,
   },
@@ -72,6 +95,7 @@ const cards = ref<Card[]>([
     id: 7,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: d.value,
     selected: false,
     opacity: 1,
   },
@@ -80,6 +104,7 @@ const cards = ref<Card[]>([
     id: 8,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: d.value,
     selected: false,
     opacity: 1,
   },
@@ -88,6 +113,7 @@ const cards = ref<Card[]>([
     id: 9,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: e.value,
     selected: false,
     opacity: 1,
   },
@@ -96,6 +122,7 @@ const cards = ref<Card[]>([
     id: 10,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: e.value,
     selected: false,
     opacity: 1,
   },
@@ -104,6 +131,7 @@ const cards = ref<Card[]>([
     id: 11,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: f.value,
     selected: false,
     opacity: 1,
   },
@@ -112,21 +140,10 @@ const cards = ref<Card[]>([
     id: 12,
     view: 'visible',
     bg: 'https://www.my-personaltrainer.it/2021/04/13/alimentazione-gatto_900x760.jpeg',
+    bgOut: f.value,
     selected: false,
     opacity: 1,
   },
-  // { firstName: 'Jessi', id: 7, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'Jessi', id: 8, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'Erik', id: 9, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'Erik', id: 10, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'Man', id: 11, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'Man', id: 12, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'MAttia', id: 13, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'MAttia', id: 14, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'FABBIO', id: 15, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'FABBIO', id: 16, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'Jay', id: 17, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
-  // { firstName: 'Jay', id: 18, view: 'visible', bg: 'blue', selected: false, opacity: 1 },
 ]);
 
 cards.value = cards.value.sort(() => Math.random() - 0.5);
