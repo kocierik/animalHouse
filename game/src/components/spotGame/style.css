@@ -10,7 +10,6 @@ p {
   text-align: center;
 }
 
-
 #rightSide {
   position: absolute;
   width: 500px;
@@ -20,5 +19,5 @@ p {
   margin-top: 10%;
 }
 img {
- position: absolute;
+  position: absolute;
 }

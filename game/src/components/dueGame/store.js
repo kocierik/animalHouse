@@ -31,11 +31,7 @@ export const setGameGridSize = (size) => {
 };
 
 export const canMove = computed(() => {
-  return (
-    !state.currentGame.isGameover &&
-    !state.showPopupGridSize &&
-    !state.showPopupWin
-  );
+  return !state.currentGame.isGameover && !state.showPopupGridSize && !state.showPopupWin;
 });
 
 watch(

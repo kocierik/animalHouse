@@ -29,14 +29,11 @@ const getRandomAvailableCell = () => {
 };
 
 const getTileIndex = (pos) =>
-  state.currentGame.tiles.findIndex(
-    (tile) => tile.x === pos.x && tile.y === pos.y && !tile.t
-  );
+  state.currentGame.tiles.findIndex((tile) => tile.x === pos.x && tile.y === pos.y && !tile.t);
 
 const isCellAvailable = (pos) => getTileIndex(pos) === -1;
 
-const isWithinBounds = (pos) =>
-  pos.x >= 0 && pos.x < state.size && pos.y >= 0 && pos.y < state.size;
+const isWithinBounds = (pos) => pos.x >= 0 && pos.x < state.size && pos.y >= 0 && pos.y < state.size;
 
 const isTileMatcheAvailable = () => {
   for (let index = 0; index < state.currentGame.tiles.length; index++) {
@@ -145,8 +142,7 @@ export const move = (direction) => {
     setItem(`game-state-${state.size}`, state.currentGame, true);
   } else {
     state.currentGame.isGameover = !(
-      state.currentGame.tiles.length < state.size * state.size ||
-      isTileMatcheAvailable()
+      state.currentGame.tiles.length < state.size * state.size || isTileMatcheAvailable()
     );
     setItem(`game-state-${state.size}`, state.currentGame, true);
   }

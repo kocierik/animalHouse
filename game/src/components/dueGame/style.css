@@ -228,8 +228,8 @@
   }
 }
 
-.backgroundIm{
-  background-image: url("./cane.webp") ;
+.backgroundIm {
+  background-image: url('./cane.webp');
   background-repeat: no-repeat;
   background-size: cover;
 }

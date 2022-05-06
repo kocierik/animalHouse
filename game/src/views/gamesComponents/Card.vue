@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import * as router from '@/router/index';
-
 const props = defineProps({
   name: String,
   url: String,
