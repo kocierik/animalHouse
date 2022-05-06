@@ -1,38 +1,38 @@
 <template>
 <div class="content-center">
-  <a class="block max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
-    <div v-if=isLoading class="py=70">
-        <span> loading... </span>
+  
+  <div v-if=isLoading>
+     <LoadingSpinner /> 
+  </div>
+
+  <div v-else class="block max-w-sm bg-white rounded-lg border border-gray-200 p-6 shadow-md">
+    <div class="flex justify-start space-x-3">
+      <AnimalIcon class="mb-2 text-2xl font-bold tracking-tight" :animal=props.animal />
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900"> Pic of the day</h5>
     </div>
-    <div v-else>
-      <img :src=img />
-    </div>
-</a>
-<button @click="loadFact()" class="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-40 rounded-full">
-  Button
-</button>
+    <img :src=img />
+  </div>
 </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue'
-import { fetchCatImg } from "@/network/api"
+import LoadingSpinner from "@/components/common/LoadingSpinner.vue"
+import AnimalIcon from "@/components/common/AnimalIcon.vue"
+import { AnimalType, getAnimalPicture } from 'shared'
+
+const props = defineProps<{animal : AnimalType}>()
 
 let img = ref<string>("")
 let isLoading = ref<boolean>(false)
 
-const loadFact = async () => {
+onBeforeMount(async () => {
   isLoading.value = true
-  let resp = await fetchCatImg()
-  if (resp.esit && resp.data !== undefined) {
-    img.value = resp.data[0].url
-  } else {
-    console.error("Can't fetch image")
-  }
+  if (props.animal === undefined)
+    console.log("Cannot load picture of undefined")
+  img.value = await getAnimalPicture(props.animal)
   isLoading.value = false 
-}
-
-onBeforeMount(loadFact);
+});
 </script>
 
 
