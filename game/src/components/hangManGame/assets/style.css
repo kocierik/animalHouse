@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-
-
-
-
 .game-container {
   display: flex;
   align-items: center;
@@ -19,8 +15,6 @@
   stroke-width: 4px;
   stroke-linecap: round;
 }
-
-
 
 .wrong-letters-container {
   display: flex;

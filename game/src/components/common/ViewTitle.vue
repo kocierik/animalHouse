@@ -1,12 +1,10 @@
 <template>
-  <div class="bg-div" :style='`background-image: url(${props.background})`'>
+  <div class="bg-div" :style="`background-image: url(${props.background})`">
     {{ props.title }}
   </div>
 </template>
 <script lang="ts" setup>
-
-const props = defineProps<{ title : string, background: string }>();
-
+const props = defineProps<{ title: string; background: string }>();
 </script>
 
 <style>

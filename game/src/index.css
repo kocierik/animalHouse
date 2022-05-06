@@ -3,34 +3,34 @@
 @tailwind utilities;
 
 @layer utilities {
-    @variants responsive {
-        .masonry {
-            column-gap: 1.5em;
-            column-count: 1;
-        }
-        .masonry-sm {
-            column-gap: 1.5em;
-            column-count: 2;
-        }
-        .masonry-md {
-            column-gap: 1.5em;
-            column-count: 3;
-        }
-        .break-inside {
-            break-inside: avoid;
-        }
-
+  @variants responsive {
+    .masonry {
+      column-gap: 1.5em;
+      column-count: 1;
     }
+    .masonry-sm {
+      column-gap: 1.5em;
+      column-count: 2;
+    }
+    .masonry-md {
+      column-gap: 1.5em;
+      column-count: 3;
+    }
+    .break-inside {
+      break-inside: avoid;
+    }
+  }
 }
 
-html, body{
+html,
+body {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
   height: 100%;
   width: 100%;
 }
-#app{
+#app {
   height: 100%;
   width: 100%;
   display: flex;
