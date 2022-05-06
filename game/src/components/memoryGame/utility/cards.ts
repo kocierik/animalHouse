@@ -145,4 +145,6 @@ const cards = ref<Card[]>([
   },
 ]);
 
+cards.value = cards.value.sort(() => Math.random() - 0.5);
+
 export default cards;
