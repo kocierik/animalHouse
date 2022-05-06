@@ -24,23 +24,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { state } from '../store';
+import { ref, watch } from 'vue'
+import { state } from '../store'
 
-const animate = ref([]);
+const animate = ref([])
 
-let uid = 0;
+let uid = 0
 
 watch(
   () => state.currentGame.score,
   (score, prevScore) => {
-    const update = score - prevScore;
+    const update = score - prevScore
     if (update > 0) {
       if (animate.value.length > 10) {
-        animate.value.shift();
+        animate.value.shift()
       }
-      animate.value.push({ id: ++uid, v: update });
+      animate.value.push({ id: ++uid, v: update })
     }
   }
-);
+)
 </script>

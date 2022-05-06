@@ -1,22 +1,22 @@
 export const getItem = (key: string, defaultValue: number, parse = false) => {
-  const value = localStorage.getItem(key);
+  const value = localStorage.getItem(key)
   if (parse) {
-    let parsed = null;
+    let parsed = null
     try {
-      parsed = JSON.parse(value);
+      parsed = JSON.parse(value)
     } catch (e) {
-      parsed = null;
+      parsed = null
     }
 
-    return parsed || defaultValue;
+    return parsed || defaultValue
   }
 
-  return value || defaultValue;
-};
+  return value || defaultValue
+}
 
 export const setItem = (key: string, value: string, stringify = false) => {
-  localStorage.setItem(key, stringify ? JSON.stringify(value) : value);
-};
+  localStorage.setItem(key, stringify ? JSON.stringify(value) : value)
+}
 
 export const keysMap = {
   38: 0, // Up
@@ -31,11 +31,11 @@ export const keysMap = {
   68: 1, // D
   83: 2, // S
   65: 3, // A
-};
+}
 
 export const vectorsMap = [
   { x: 0, y: -1 }, // Up,
   { x: 1, y: 0 }, // Right
   { x: 0, y: 1 }, // Down
   { x: -1, y: 0 }, // Left
-];
+]

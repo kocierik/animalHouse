@@ -1,1 +1,1 @@
-export const PersonalAnimals = 'PersonalAnimals';
+export const PersonalAnimals = 'PersonalAnimals'

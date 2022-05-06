@@ -2,10 +2,10 @@
 export default {
   props: { wrongCount: { type: Number, default: 0 } },
   setup(props: { wrongCount: number }) {
-    const lte = (num: number) => props.wrongCount >= num;
-    return { lte };
+    const lte = (num: number) => props.wrongCount >= num
+    return { lte }
   },
-};
+}
 </script>
 <template>
   <svg height="250" width="200" class="figure-container">

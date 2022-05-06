@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-const props = defineProps<{ title: string; background: string }>();
+const props = defineProps<{ title: string; background: string }>()
 </script>
 
 <style>

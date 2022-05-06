@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 const props = defineProps<{
-  text: string;
-  image: string;
-  onClick(): void;
-}>();
+  text: string
+  image: string
+  onClick(): void
+}>()
 
-let selected = ref<boolean>(false);
+let selected = ref<boolean>(false)
 
 const clicked = () => {
-  selected.value = !selected.value;
-  props?.onClick();
-};
+  selected.value = !selected.value
+  props?.onClick()
+}
 </script>
 <template>
   <span

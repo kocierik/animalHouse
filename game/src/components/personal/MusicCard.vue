@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { AnimalType } from 'shared';
-import AnimalIcon from '@/components/common/AnimalIcon.vue';
+import type { AnimalType } from 'shared'
+import AnimalIcon from '@/components/common/AnimalIcon.vue'
 
-const props = defineProps<{ animal: AnimalType }>();
+const props = defineProps<{ animal: AnimalType }>()
 </script>

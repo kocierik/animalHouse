@@ -9,5 +9,5 @@
 </template>
 
 <script lang="ts" setup>
-import FactCard from '@/components/personal/FactCard.vue';
+import FactCard from '@/components/personal/FactCard.vue'
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Questions } from './utility';
-import type { Question } from './utility';
-import { Api } from 'shared';
+import { Questions } from './utility'
+import type { Question } from './utility'
+import { Api } from 'shared'
 
 export default {
   data() {
@@ -14,98 +14,98 @@ export default {
       count: 5 as number,
       difficulty: 'easy' as string,
       questions: Questions as Question[],
-    };
+    }
   },
   methods: {
     async getQuestion() {
       // get questions for quiz
       let response = await Api.get(
         'https://opentdb.com/api.php?amount=' + this.count + '&category=27&type=multiple&difficulty=' + this.difficulty
-      );
+      )
       if (response.esit) {
         //adjust every question
         for (let i = 0; i < this.count; i++) {
-          let q = response.data.results[i];
+          let q = response.data.results[i]
 
-          this.questions[i].question = q.question; // set questions
+          this.questions[i].question = q.question // set questions
           switch (Math.floor(Math.random() * 4)) {
             case 0:
-              this.questions[i].answers.a = q.correct_answer;
-              this.questions[i].answers.b = q.incorrect_answers.shift();
-              this.questions[i].answers.c = q.incorrect_answers.shift();
-              this.questions[i].answers.d = q.incorrect_answers.shift();
-              this.questions[i].correctAnswer = 'a';
-              break;
+              this.questions[i].answers.a = q.correct_answer
+              this.questions[i].answers.b = q.incorrect_answers.shift()
+              this.questions[i].answers.c = q.incorrect_answers.shift()
+              this.questions[i].answers.d = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 'a'
+              break
             case 1:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.correct_answer;
-              this.questions[i].answers.c = q.incorrect_answers.shift();
-              this.questions[i].answers.d = q.incorrect_answers.shift();
-              this.questions[i].correctAnswer = 'b';
-              break;
+              this.questions[i].answers.a = q.incorrect_answers.shift()
+              this.questions[i].answers.b = q.correct_answer
+              this.questions[i].answers.c = q.incorrect_answers.shift()
+              this.questions[i].answers.d = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 'b'
+              break
             case 2:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.incorrect_answers.shift();
-              this.questions[i].answers.c = q.correct_answer;
-              this.questions[i].answers.d = q.incorrect_answers.shift();
-              this.questions[i].correctAnswer = 'c';
-              break;
+              this.questions[i].answers.a = q.incorrect_answers.shift()
+              this.questions[i].answers.b = q.incorrect_answers.shift()
+              this.questions[i].answers.c = q.correct_answer
+              this.questions[i].answers.d = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 'c'
+              break
             case 3:
-              this.questions[i].answers.a = q.incorrect_answers.shift();
-              this.questions[i].answers.b = q.incorrect_answers.shift();
-              this.questions[i].answers.c = q.incorrect_answers.shift();
-              this.questions[i].answers.d = q.correct_answer;
-              this.questions[i].correctAnswer = 'd';
-              break;
+              this.questions[i].answers.a = q.incorrect_answers.shift()
+              this.questions[i].answers.b = q.incorrect_answers.shift()
+              this.questions[i].answers.c = q.incorrect_answers.shift()
+              this.questions[i].answers.d = q.correct_answer
+              this.questions[i].correctAnswer = 'd'
+              break
           }
 
-          console.log(this.questions);
+          console.log(this.questions)
         }
-        this.fetchDone = true;
-        this.showQuiz();
+        this.fetchDone = true
+        this.showQuiz()
       } else {
-        console.log('errore');
+        console.log('errore')
       }
     },
     swap(first, second) {
-      const tmp = first;
-      first = second;
-      second = tmp;
+      const tmp = first
+      first = second
+      second = tmp
     },
     answered(e) {
-      this.selectedAnswer = e.target.value;
+      this.selectedAnswer = e.target.value
       if (this.selectedAnswer == this.questions[this.idx].correctAnswer) {
-        this.correctAnswers++;
+        this.correctAnswers++
       } else {
-        this.wrongAnswers++;
+        this.wrongAnswers++
       }
     },
     nextQuestion() {
-      this.idx++;
-      this.selectedAnswer = '';
-      document.querySelectorAll('input').forEach((el) => (el.checked = false));
+      this.idx++
+      this.selectedAnswer = ''
+      document.querySelectorAll('input').forEach((el) => (el.checked = false))
     },
     showResults() {
-      this.idx++;
+      this.idx++
     },
     resetQuiz() {
-      this.idx = 0;
-      this.selectedAnswer = '';
-      this.correctAnswers = 0;
-      this.wrongAnswers = 0;
-      this.questions = Questions;
-      this.fetchAPIData = false;
-      this.getQuestion();
+      this.idx = 0
+      this.selectedAnswer = ''
+      this.correctAnswers = 0
+      this.wrongAnswers = 0
+      this.questions = Questions
+      this.fetchAPIData = false
+      this.getQuestion()
     },
     showQuiz() {
-      console.log(this.$refs.gameState);
-      this.$refs.gameState.style.visibility = 'visible';
+      console.log(this.$refs.gameState)
+      this.$refs.gameState.style.visibility = 'visible'
     },
   },
   beforeMount() {
-    this.getQuestion();
+    this.getQuestion()
   },
-};
+}
 </script>
 
 <template class="antialiased text-gray-700 bg-gray-100">
