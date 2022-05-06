@@ -14,15 +14,6 @@ d.value = await getAnimalPicture(AnimalType.Lizard);
 e.value = await getAnimalPicture(AnimalType.Fox);
 f.value = await getAnimalPicture(AnimalType.Koala);
 
-export const getImages = async () => {
-  a.value = await getAnimalPicture(AnimalType.Bunny);
-  b.value = await getAnimalPicture(AnimalType.Panda);
-  c.value = await getAnimalPicture(AnimalType.Dog);
-  d.value = await getAnimalPicture(AnimalType.Lizard);
-  e.value = await getAnimalPicture(AnimalType.Fox);
-  f.value = await getAnimalPicture(AnimalType.Koala);
-};
-
 export interface Card {
   firstName?: string;
   id?: number;
