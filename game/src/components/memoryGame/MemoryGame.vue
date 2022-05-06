@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import './memory.css';
-import { defaultCard } from './utility/cards';
+import { defaultCard, getImages } from './utility/cards';
 
 import type { Card } from './utility/cards';
 import cards from './utility/cards';
 import swal from 'sweetalert';
-
 let selectOne: Card = defaultCard;
 let selectTwo: Card = defaultCard;
 let result: Card[];
@@ -21,16 +20,26 @@ const resetValue = (): void => {
   result = [];
 };
 
+const resume = (): void => {
+  cards.value.map((x) => {
+    x.selected = false;
+    x.opacity = 1;
+    x.bg = defaultCard.bg;
+    x.view = 'visible';
+  });
+  getImages();
+  cards.value = cards.value.sort(() => Math.random() - 0.5);
+};
+
 const checkCard = (card: Card): void => {
   console.log(card.id);
   if (selectOne == defaultCard) {
     card.selected = true;
-    card.bg =
-      'https://media-assets.vanityfair.it/photos/614c461ca8e3915bdc20fc3c/4:3/w_1144,h_858,c_limit/Pesce-come-sceglierlo-P.jpg';
+    card.bg = card.bgOut;
     selectOne = card;
     card.opacity = 0.5;
   } else if (selectTwo == defaultCard) {
-    card.bg = 'https://www.zooplus.it/magazine/wp-content/uploads/2018/09/goldfisch-768x512.jpg';
+    card.bg = card.bgOut;
     card.opacity = 0.5;
 
     card.selected = true;
@@ -53,7 +62,10 @@ const checkCard = (card: Card): void => {
           x.selected = false;
         }
       });
-      if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) swal('You Win!');
+      if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
+        swal('You Win!');
+        resume();
+      }
     }
     setTimeout(resetValue, 1000);
   }
@@ -62,6 +74,12 @@ const checkCard = (card: Card): void => {
 
 <template>
   <section class="main">
+    <div class="flex p-10">
+      <a
+        class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
+        >Memory Game</a
+      >
+    </div>
     <div class="game">
       <div id="memory">
         <div
@@ -70,7 +88,9 @@ const checkCard = (card: Card): void => {
           :key="card.id"
           :style="{ visibility: card.view, opacity: card.opacity }"
         >
-          <div class="value" @click="checkCard(card)"><img v-bind:src="card.bg" /></div>
+          <div class="value" @click="checkCard(card)">
+            <img v-bind:src="card.bg" class="bg-cover" :style="{ maxWidth: 100, height: 290, backgroundSize: 300 }" />
+          </div>
         </div>
       </div>
     </div>

@@ -1,19 +1,27 @@
 import { ref, type StyleValue } from 'vue';
-// import { AnimalType, getAnimalPicture } from 'shared';
 import { AnimalType, getAnimalPicture } from 'shared';
 
 const a = ref<string>();
-a.value = await getAnimalPicture(AnimalType.Bunny);
 const b = ref<string>();
-b.value = await getAnimalPicture(AnimalType.Panda);
 const c = ref<string>();
-c.value = await getAnimalPicture(AnimalType.Dog);
 const d = ref<string>();
-d.value = await getAnimalPicture(AnimalType.Duck);
 const e = ref<string>();
-e.value = await getAnimalPicture(AnimalType.Fox);
 const f = ref<string>();
+a.value = await getAnimalPicture(AnimalType.Bunny);
+b.value = await getAnimalPicture(AnimalType.Panda);
+c.value = await getAnimalPicture(AnimalType.Dog);
+d.value = await getAnimalPicture(AnimalType.Lizard);
+e.value = await getAnimalPicture(AnimalType.Fox);
 f.value = await getAnimalPicture(AnimalType.Koala);
+
+export const getImages = async () => {
+  a.value = await getAnimalPicture(AnimalType.Bunny);
+  b.value = await getAnimalPicture(AnimalType.Panda);
+  c.value = await getAnimalPicture(AnimalType.Dog);
+  d.value = await getAnimalPicture(AnimalType.Lizard);
+  e.value = await getAnimalPicture(AnimalType.Fox);
+  f.value = await getAnimalPicture(AnimalType.Koala);
+};
 
 export interface Card {
   firstName?: string;
@@ -146,5 +154,4 @@ const cards = ref<Card[]>([
   },
 ]);
 
-cards.value = cards.value.sort(() => Math.random() - 0.5);
 export default cards;
