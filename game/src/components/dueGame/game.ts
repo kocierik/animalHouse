@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { nextTick } from 'vue';
 import { defaultGameState, state, setCurrentGame } from './store';
 import { setItem, vectorsMap } from './utils';
 
-const _eachCell = (cb) => {
-  for (var x = 0; x < state.size; x++) {
-    for (var y = 0; y < state.size; y++) {
+const _eachCell = (cb: { (x: any, y: any): void; (x: any, y: any): void; (arg0: number, arg1: number): void }) => {
+  for (let x = 0; x < state.size; x++) {
+    for (let y = 0; y < state.size; y++) {
       cb(x, y);
     }
   }
 };
 
 const getAvailableCells = () => {
-  const tiles = [];
+  const tiles: { x: any; y: any }[] = [];
 
   _eachCell((x, y) => {
     if (isCellAvailable({ x, y })) {
@@ -23,24 +24,27 @@ const getAvailableCells = () => {
 };
 
 const getRandomAvailableCell = () => {
-  var cells = getAvailableCells();
+  const cells = getAvailableCells();
 
   return cells.length ? cells[Math.floor(Math.random() * cells.length)] : false;
 };
 
-const getTileIndex = (pos) =>
-  state.currentGame.tiles.findIndex((tile) => tile.x === pos.x && tile.y === pos.y && !tile.t);
+const getTileIndex = (pos: { x: any; y: any }) =>
+  state.currentGame.tiles.findIndex(
+    (tile: { x: any; y: any; t: any }) => tile.x === pos.x && tile.y === pos.y && !tile.t
+  );
 
-const isCellAvailable = (pos) => getTileIndex(pos) === -1;
+const isCellAvailable = (pos: { x: any; y: any }) => getTileIndex(pos) === -1;
 
-const isWithinBounds = (pos) => pos.x >= 0 && pos.x < state.size && pos.y >= 0 && pos.y < state.size;
+const isWithinBounds = (pos: { x: any; y: any }) =>
+  pos.x >= 0 && pos.x < state.size && pos.y >= 0 && pos.y < state.size;
 
 const isTileMatcheAvailable = () => {
   for (let index = 0; index < state.currentGame.tiles.length; index++) {
     const tile = state.currentGame.tiles[index];
 
-    for (var direction = 0; direction < 4; direction++) {
-      var vector = vectorsMap[direction];
+    for (let direction = 0; direction < 4; direction++) {
+      const vector = vectorsMap[direction];
 
       const index = getTileIndex({
         x: tile.x + vector.x,
@@ -56,8 +60,8 @@ const isTileMatcheAvailable = () => {
   return false;
 };
 
-const addRandomTiles = (n) => {
-  for (var i = 0; i < n; i++) {
+const addRandomTiles = (n: number) => {
+  for (let i = 0; i < n; i++) {
     const randomCell = getRandomAvailableCell();
     if (randomCell) {
       state.currentGame.tiles.push({
@@ -69,8 +73,8 @@ const addRandomTiles = (n) => {
   }
 };
 
-export const move = (direction) => {
-  for (var index = state.currentGame.tiles.length - 1; index >= 0; --index) {
+export const move = (direction: number) => {
+  for (let index = state.currentGame.tiles.length - 1; index >= 0; --index) {
     if (state.currentGame.tiles[index].t) {
       state.currentGame.tiles.splice(index, 1);
     } else {
@@ -90,7 +94,7 @@ export const move = (direction) => {
     const tile = state.currentGame.tiles[tileIndex];
 
     if (tile) {
-      let pos = { x: tile.x, y: tile.y };
+      const pos = { x: tile.x, y: tile.y };
 
       do {
         pos.x = pos.x + vector.x;

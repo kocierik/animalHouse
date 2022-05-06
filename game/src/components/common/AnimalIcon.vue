@@ -6,7 +6,7 @@
 import { ref } from 'vue';
 import { AnimalType } from 'shared';
 
-const props = defineProps<{ animal: AnilmalType }>();
+const props = defineProps<{ animal: AnimalType }>();
 let value = ref<string>();
 
 if (props.animal === AnimalType.Cat) value.value = '🐱';

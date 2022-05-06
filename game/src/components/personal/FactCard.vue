@@ -1,3 +1,31 @@
+<script setup lang="ts">
+import { ref, onBeforeMount } from 'vue';
+import { fetchCatFacts } from '@/network/api';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
+import AnimalIcon from '@/components/common/AnimalIcon.vue';
+import type { AnimalType } from 'shared';
+
+const props = defineProps<{ animal: AnimalType }>();
+
+let fact = ref<string>('loading...');
+let isLoading = ref<boolean>(false);
+
+const loadFact = async () => {
+  isLoading.value = true;
+  let resp = await fetchCatFacts();
+  if (resp.esit && resp.data !== undefined) {
+    fact.value = resp.data.data[0];
+  } else {
+    fact.value = 'Error! Check your internet connection!';
+    // eslint-disable-next-line quotes
+    console.error("Can't fetch facts");
+  }
+  isLoading.value = false;
+};
+
+onBeforeMount(loadFact);
+</script>
+
 <template>
   <div class="content-center">
     <div v-if="isLoading" class="flex justify-center">
@@ -22,32 +50,5 @@
     </a>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, onBeforeMount } from 'vue';
-import { fetchCatFacts } from '@/network/api';
-import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
-import AnimalIcon from '@/components/common/AnimalIcon.vue';
-import { AnimalType } from 'shared';
-
-const props = defineProps<{ animal: AnimalType }>();
-
-let fact = ref<string>('loading...');
-let isLoading = ref<boolean>(false);
-
-const loadFact = async () => {
-  isLoading.value = true;
-  let resp = await fetchCatFacts();
-  if (resp.esit && resp.data !== undefined) {
-    fact.value = resp.data.data[0];
-  } else {
-    fact.value = 'Error! Check your internet connection!';
-    console.error("Can't fetch facts");
-  }
-  isLoading.value = false;
-};
-
-onBeforeMount(loadFact);
-</script>
 
 <style></style>

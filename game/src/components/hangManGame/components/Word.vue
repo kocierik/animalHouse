@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 export default {
   props: {
     letters: { type: Array, required: true },

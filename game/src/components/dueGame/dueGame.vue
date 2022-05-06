@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import GameScoreVue from './components/GameScore.vue';
 import GameControlsVue from './components/GameControls.vue';
@@ -14,7 +14,15 @@ const gameBoardElement = ref(null);
 const setBoardWidth = () => {
   state.boardWidth = gameBoardElement.value.clientWidth;
 };
-const onKeyDown = (e) => {
+const onKeyDown = (e: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  altKey: any;
+  ctrlKey: any;
+  metaKey: any;
+  shiftKey: any;
+  which: string | number;
+  preventDefault: () => void;
+}) => {
   if (!canMove.value) {
     return false;
   }
@@ -26,13 +34,13 @@ const onKeyDown = (e) => {
   }
 };
 const touchStartPos = { x: null, y: null, started: false };
-const onTouchStart = (e) => {
+const onTouchStart = (e: { touches: { clientY: null }[]; preventDefault: () => void }) => {
   touchStartPos.x = e.touches[0].clientX;
   touchStartPos.y = e.touches[0].clientY;
   touchStartPos.started = true;
   e.preventDefault();
 };
-const onTouchMove = (e) => {
+const onTouchMove = (e: { preventDefault: () => void; changedTouches: { clientY: number }[] }) => {
   if (!touchStartPos.started) {
     return;
   }
