@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './memory.css';
-import { defaultCard, getImages } from './utility/cards';
+import { defaultCard } from './utility/cards';
 
 import type { Card } from './utility/cards';
 import cards from './utility/cards';
@@ -27,7 +27,6 @@ const resume = (): void => {
     x.bg = defaultCard.bg;
     x.view = 'visible';
   });
-  getImages();
   cards.value = cards.value.sort(() => Math.random() - 0.5);
 };
 
