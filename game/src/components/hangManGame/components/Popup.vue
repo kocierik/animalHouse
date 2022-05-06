@@ -1,6 +1,6 @@
 <script lang="ts">
-import swal from 'sweetalert';
-import { computed } from 'vue';
+import swal from 'sweetalert'
+import { computed } from 'vue'
 export default {
   props: {
     status: { type: String, default: '' },
@@ -9,21 +9,21 @@ export default {
   setup(props: { status: string }, { emit }: unknown) {
     const finalMessage = computed(() => {
       if (props.status === 'win') {
-        emit('reset');
-        return swal('Congratulations! You won! 😃');
+        emit('reset')
+        return swal('Congratulations! You won! 😃')
       }
       if (props.status === 'lose') {
-        emit('reset');
-        return swal('Unfortunately you lost. 😕');
+        emit('reset')
+        return swal('Unfortunately you lost. 😕')
       }
 
-      return '';
-    });
+      return ''
+    })
 
-    const reset = () => emit('reset');
-    return { finalMessage, reset };
+    const reset = () => emit('reset')
+    return { finalMessage, reset }
   },
-};
+}
 </script>
 <template>
   <div v-if="finalMessage" class="popup-container" id="popup-container"></div>

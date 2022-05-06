@@ -1,27 +1,27 @@
-import { ref, type StyleValue } from 'vue';
-import { AnimalType, getAnimalPicture } from 'shared';
+import { ref, type StyleValue } from 'vue'
+import { AnimalType, getAnimalPicture } from 'shared'
 
-const a = ref<string>();
-const b = ref<string>();
-const c = ref<string>();
-const d = ref<string>();
-const e = ref<string>();
-const f = ref<string>();
-a.value = await getAnimalPicture(AnimalType.Bunny);
-b.value = await getAnimalPicture(AnimalType.Panda);
-c.value = await getAnimalPicture(AnimalType.Dog);
-d.value = await getAnimalPicture(AnimalType.Lizard);
-e.value = await getAnimalPicture(AnimalType.Fox);
-f.value = await getAnimalPicture(AnimalType.Koala);
+const a = ref<string>()
+const b = ref<string>()
+const c = ref<string>()
+const d = ref<string>()
+const e = ref<string>()
+const f = ref<string>()
+a.value = await getAnimalPicture(AnimalType.Bunny)
+b.value = await getAnimalPicture(AnimalType.Panda)
+c.value = await getAnimalPicture(AnimalType.Dog)
+d.value = await getAnimalPicture(AnimalType.Lizard)
+e.value = await getAnimalPicture(AnimalType.Fox)
+f.value = await getAnimalPicture(AnimalType.Koala)
 
 export interface Card {
-  firstName?: string;
-  id?: number;
-  view?: StyleValue;
-  bg?: string;
-  selected?: boolean;
-  opacity?: number;
-  bgOut?: string;
+  firstName?: string
+  id?: number
+  view?: StyleValue
+  bg?: string
+  selected?: boolean
+  opacity?: number
+  bgOut?: string
 }
 
 export const defaultCard: Card = {
@@ -32,7 +32,7 @@ export const defaultCard: Card = {
   bgOut: '',
   selected: false,
   opacity: 1,
-};
+}
 
 const cards = ref<Card[]>([
   {
@@ -143,8 +143,8 @@ const cards = ref<Card[]>([
     selected: false,
     opacity: 1,
   },
-]);
+])
 
-cards.value = cards.value.sort(() => Math.random() - 0.5);
+cards.value = cards.value.sort(() => Math.random() - 0.5)
 
-export default cards;
+export default cards

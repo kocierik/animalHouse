@@ -4,7 +4,7 @@ export default {
     letters: { type: Array, required: true },
     correctLetters: { type: Array, default: () => [] },
   },
-};
+}
 </script>
 <template>
   <div class="word">

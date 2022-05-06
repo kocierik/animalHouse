@@ -2,7 +2,7 @@
 const props = defineProps({
   name: String,
   url: String,
-});
+})
 </script>
 
 <template>

@@ -3,7 +3,7 @@ export default {
   props: {
     wrongLetters: { type: Array, default: () => [] },
   },
-};
+}
 </script>
 <template>
   <div class="wrong-letters-container">

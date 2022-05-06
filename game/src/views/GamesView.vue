@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import * as router from '@/router/index';
-import Card from './gamesComponents/Card.vue';
+import * as router from '@/router/index'
+import Card from './gamesComponents/Card.vue'
 
 interface Game {
-  id: number;
-  name: string;
-  url: string;
+  id: number
+  name: string
+  url: string
 }
 
 const gameList: Game[] = [
@@ -39,7 +39,7 @@ const gameList: Game[] = [
     name: 'Test prova',
     url: router.GameSpot,
   },
-];
+]
 </script>
 
 <template>

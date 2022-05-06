@@ -14,21 +14,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-import { state } from '../store';
-import party from 'party-js';
+import { state } from '../store'
+import party from 'party-js'
 
-const confetti = ref(null);
-let partyjsTimer = null;
+const confetti = ref(null)
+let partyjsTimer = null
 
 onMounted(() => {
   partyjsTimer = setInterval(() => {
     party.confetti(confetti.value, {
       count: party.variation.range(20, 50),
-    });
-  }, 750);
-});
+    })
+  }, 750)
+})
 
-onBeforeUnmount(() => clearInterval(partyjsTimer));
+onBeforeUnmount(() => clearInterval(partyjsTimer))
 </script>

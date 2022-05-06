@@ -1,74 +1,74 @@
 <script setup lang="ts">
-import './memory.css';
-import { defaultCard } from './utility/cards';
+import './memory.css'
+import { defaultCard } from './utility/cards'
 
-import type { Card } from './utility/cards';
-import cards from './utility/cards';
-import swal from 'sweetalert';
-let selectOne: Card = defaultCard;
-let selectTwo: Card = defaultCard;
-let result: Card[];
+import type { Card } from './utility/cards'
+import cards from './utility/cards'
+import swal from 'sweetalert'
+let selectOne: Card = defaultCard
+let selectTwo: Card = defaultCard
+let result: Card[]
 
 const resetValue = (): void => {
   cards.value.map((x) => {
-    x.selected = false;
-    x.opacity = 1;
-    x.bg = defaultCard.bg;
-  });
-  selectOne = defaultCard;
-  selectTwo = defaultCard;
-  result = [];
-};
+    x.selected = false
+    x.opacity = 1
+    x.bg = defaultCard.bg
+  })
+  selectOne = defaultCard
+  selectTwo = defaultCard
+  result = []
+}
 
 const resume = (): void => {
   cards.value.map((x) => {
-    x.selected = false;
-    x.opacity = 1;
-    x.bg = defaultCard.bg;
-    x.view = 'visible';
-  });
-  cards.value = cards.value.sort(() => Math.random() - 0.5);
-};
+    x.selected = false
+    x.opacity = 1
+    x.bg = defaultCard.bg
+    x.view = 'visible'
+  })
+  cards.value = cards.value.sort(() => Math.random() - 0.5)
+}
 
 const checkCard = (card: Card): void => {
-  console.log(card.id);
+  console.log(card.id)
   if (selectOne == defaultCard) {
-    card.selected = true;
-    card.bg = card.bgOut;
-    selectOne = card;
-    card.opacity = 0.5;
+    card.selected = true
+    card.bg = card.bgOut
+    selectOne = card
+    card.opacity = 0.5
   } else if (selectTwo == defaultCard) {
-    card.bg = card.bgOut;
-    card.opacity = 0.5;
+    card.bg = card.bgOut
+    card.opacity = 0.5
 
-    card.selected = true;
-    selectTwo = card;
+    card.selected = true
+    selectTwo = card
   }
-  result = cards.value.filter((x) => x.selected == true);
+  result = cards.value.filter((x) => x.selected == true)
   if (selectOne == selectTwo) {
-    card.opacity = 1;
-    selectOne = defaultCard;
-    card.bg = defaultCard.bg;
-    result[0].selected = false;
-    selectTwo = defaultCard;
-    result = [];
+    card.opacity = 1
+    selectOne = defaultCard
+    card.bg = defaultCard.bg
+    result[0].selected = false
+    selectTwo = defaultCard
+    result = []
   }
   if (result.length > 1) {
     if (result[0].firstName == result[1].firstName) {
       cards.value.filter((x) => {
         if (result[0] == x || result[1] == x) {
-          x.view = 'hidden';
-          x.selected = false;
+          x.view = 'hidden'
+          x.selected = false
         }
-      });
+      })
       if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
-        swal('You Win!');
-        resume();
+        swal('You Win!')
+        resume()
       }
     }
-    setTimeout(resetValue, 1000);
+    setTimeout(resetValue, 1000)
   }
-};
+}
 </script>
 
 <template>

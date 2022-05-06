@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import * as router from '@/router/index';
+import { ref } from 'vue'
+import * as router from '@/router/index'
 
-const defaultMenuClasses = 'w-full md:block md:w-auto';
+const defaultMenuClasses = 'w-full md:block md:w-auto'
 
-let menuOpen = false;
-let menuClasses = ref<string>('hidden ' + defaultMenuClasses);
+let menuOpen = false
+let menuClasses = ref<string>('hidden ' + defaultMenuClasses)
 
 const toggleMenu = () => {
-  menuOpen = !menuOpen;
-  if (menuOpen) menuClasses.value = defaultMenuClasses;
-  else menuClasses.value = 'hidden ' + defaultMenuClasses;
-  console.log(menuClasses);
-};
+  menuOpen = !menuOpen
+  if (menuOpen) menuClasses.value = defaultMenuClasses
+  else menuClasses.value = 'hidden ' + defaultMenuClasses
+  console.log(menuClasses)
+}
 </script>
 
 <template>

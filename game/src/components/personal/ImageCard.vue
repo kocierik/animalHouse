@@ -15,22 +15,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from 'vue';
-import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
-import AnimalIcon from '@/components/common/AnimalIcon.vue';
-import { AnimalType, getAnimalPicture } from 'shared';
+import { ref, onBeforeMount } from 'vue'
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue'
+import AnimalIcon from '@/components/common/AnimalIcon.vue'
+import { AnimalType, getAnimalPicture } from 'shared'
 
-const props = defineProps<{ animal: AnimalType }>();
+const props = defineProps<{ animal: AnimalType }>()
 
-let img = ref<string>('');
-let isLoading = ref<boolean>(false);
+let img = ref<string>('')
+let isLoading = ref<boolean>(false)
 
 onBeforeMount(async () => {
-  isLoading.value = true;
-  if (props.animal === undefined) console.log('Cannot load picture of undefined');
-  img.value = await getAnimalPicture(props.animal);
-  isLoading.value = false;
-});
+  isLoading.value = true
+  if (props.animal === undefined) console.log('Cannot load picture of undefined')
+  img.value = await getAnimalPicture(props.animal)
+  isLoading.value = false
+})
 </script>
 
 <style></style>

@@ -16,17 +16,17 @@
 </template>
 
 <script setup lang="ts">
-import { state, setGameGridSize } from '../store';
-import { hasGame, newGame } from '../game';
+import { state, setGameGridSize } from '../store'
+import { hasGame, newGame } from '../game'
 
-const gridSizes = [3, 4, 5];
+const gridSizes = [3, 4, 5]
 
 const onSelectGridSize = (size: number) => {
-  setGameGridSize(size);
-  state.showPopupGridSize = false;
+  setGameGridSize(size)
+  state.showPopupGridSize = false
 
   if (!hasGame()) {
-    newGame();
+    newGame()
   }
-};
+}
 </script>

@@ -1,5 +1,5 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution');
+require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
@@ -16,10 +16,17 @@ module.exports = {
     // enable additional rules
     indent: ['error', 2],
     quotes: ['error', 'single'],
-    semi: ['error', 'always'],
+    semi: ['error', 'never'],
+    'prettier/prettier': [
+      'error',
+      {
+        semi: false,
+        'no-console': false,
+      },
+    ],
     'no-empty': 'warn',
     'no-cond-assign': ['error', 'always'],
     'vue/multi-word-component-names': 'off',
     'typescript-eslint/no-explicit-any': 'off',
   },
-};
+}
