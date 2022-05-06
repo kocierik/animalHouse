@@ -21,6 +21,7 @@ game/pnpm-debug.log*
 game/lerna-debug.log*
 game/node_modules
 game/.DS_Store
+game/src/components/.DS_Store
 game/dist
 game/dist-ssr
 game/coverage
