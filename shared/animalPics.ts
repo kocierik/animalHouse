@@ -3,35 +3,32 @@ import { Api, ApiResponse } from './shared'
 const getRequest = async (endpoint: string) => {
   const response: ApiResponse<any> = await Api.get(endpoint);
   if (response.esit) {
-    console.log(response.data)
     return response.data;
   }
   else throw new Error(`Failed to fetch ${endpoint}`);
 };
 
 export enum AnimalType {
-  Cat, Dog, Fox, Bunny, Duck, Lizard, Shiba, Koala, Panda
+  Cat ="Cat", Dog="Dog", Fox="Fox", Bunny="Bunny", Duck="Duck", Lizard="Lizard", Shiba="Shiba", Koala="Koala", Panda="Panda"
 }
 
 export const getAnimalPicture = async (type : AnimalType) : Promise<string> => {
-  switch(+type) {
-    case AnimalType.Cat: 
+    if(type == AnimalType.Cat) 
       return (await getRequest("https://aws.random.cat/meow")).file;
-    case AnimalType.Dog:
+    if(type == AnimalType.Dog)
       return (await getRequest("https://dog.ceo/api/breeds/image/random")).message;
-    case AnimalType.Bunny:
+    if(type == AnimalType.Bunny)
       return (await getRequest("https://api.bunnies.io/v2/loop/random/?media=gif,png")).media.poster;
-    case AnimalType.Duck:
+    if(type == AnimalType.Duck)
       return (await getRequest("https://random-d.uk/api/v1/random?type=png")).url;
-    case AnimalType.Fox:
+    if(type == AnimalType.Fox)
       return (await getRequest("https://randomfox.ca/floof/")).image;
-    case AnimalType.Lizard:
+    if(type == AnimalType.Lizard)
       return (await getRequest("https://nekos.life/api/v2/img/lizard")).url;
-    case AnimalType.Shiba:
+    if(type == AnimalType.Shiba)
       return (await getRequest("http://shibe.online/api/shibes"))[0];
-    case AnimalType.Koala:
+    if(type == AnimalType.Koala)
       return (await getRequest("https://some-random-api.ml/img/koala")).link;
-    case AnimalType.Panda: return (await getRequest("https://some-random-api.ml/img/panda")).link;
-    default: throw new Error("Animal not found!");
-  }
+    if(type == AnimalType.Panda) return (await getRequest("https://some-random-api.ml/img/panda")).link;
+  else throw new Error(`Animal ${type} not found!`);
 };
