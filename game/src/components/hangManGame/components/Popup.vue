@@ -6,7 +6,7 @@ export default {
     status: { type: String, default: '' },
     word: { type: String, default: '' },
   },
-  setup(props, { emit }) {
+  setup(props: { status: string }, { emit }: unknown) {
     const finalMessage = computed(() => {
       if (props.status === 'win') {
         emit('reset');
@@ -20,7 +20,7 @@ export default {
       return '';
     });
 
-    const reset: void = () => emit('reset');
+    const reset = () => emit('reset');
     return { finalMessage, reset };
   },
 };

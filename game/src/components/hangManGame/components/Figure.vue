@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 export default {
   props: { wrongCount: { type: Number, default: 0 } },
-  setup(props) {
-    const lte = (num) => props.wrongCount >= num;
+  setup(props: { wrongCount: number }) {
+    const lte = (num: number) => props.wrongCount >= num;
     return { lte };
   },
 };

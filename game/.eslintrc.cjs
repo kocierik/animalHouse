@@ -19,5 +19,7 @@ module.exports = {
     semi: ['error', 'always'],
     'no-empty': 'warn',
     'no-cond-assign': ['error', 'always'],
+    'vue/multi-word-component-names': 'off',
+    'typescript-eslint/no-explicit-any': 'off',
   },
 };

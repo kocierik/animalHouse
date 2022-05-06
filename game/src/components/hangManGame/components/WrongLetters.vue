@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 export default {
   props: {
     wrongLetters: { type: Array, default: () => [] },

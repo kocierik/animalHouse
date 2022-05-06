@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { state } from '../store';
 import { newGame } from '../game';
 </script>

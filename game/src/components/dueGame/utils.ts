@@ -1,4 +1,4 @@
-export const getItem = (key, defaultValue, parse = false) => {
+export const getItem = (key: string, defaultValue: number, parse = false) => {
   const value = localStorage.getItem(key);
   if (parse) {
     let parsed = null;
@@ -14,7 +14,7 @@ export const getItem = (key, defaultValue, parse = false) => {
   return value || defaultValue;
 };
 
-export const setItem = (key, value, stringify = false) => {
+export const setItem = (key: string, value: string, stringify = false) => {
   localStorage.setItem(key, stringify ? JSON.stringify(value) : value);
 };
 
