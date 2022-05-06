@@ -23,10 +23,10 @@ else {
     <ViewTitle 
       :title="'Personal'" 
       :background="'https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true'"/>
-      <div class="md:flex md:flex-wrap">
-        <FactCard  v-for="a in animals" :animal="a" class="m-10"/>
-        <ImageCard v-for="a in animals" :animal="a" class="m-10"/>
-        <MusicCard v-for="a in animals" :animal="a" class="m-10"/>
+      <div class="masonry sm:masonry-sm md:masonry-md">
+        <FactCard  v-for="a in animals" :animal="a" class="m-10 break-inside"/>
+        <ImageCard v-for="a in animals" :animal="a" class="m-10 break-inside"/>
+        <MusicCard v-for="a in animals" :animal="a" class="m-10 break-inside"/>
         <AddImageCard />
     </div>
   </main>
