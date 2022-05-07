@@ -1,23 +1,23 @@
-h1 {
-  font-family: 'Wendy One', sans-serif;
-  font-size: 30px;
-  text-align: center;
+ .img-left, .img-right {
+	 background-image: url("http://nick.mtvnimages.com/nick/flipbooks/breadwinners/spot-the-difference/breadwinners-spot-the-difference-image02Q.jpg?quality=0.75");
+	 transition-duration: 0.5s;
+	 background-size: cover;
+	 width: 340px;
+	 height: 522px;
+	 display: block;
+	 float: left;
 }
+ .container_game {
+	position: relative;
 
-p {
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 20px;
-  text-align: center;
 }
-
-#rightSide {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  left: 500px;
-  border-left: 1px solid black;
-  margin-top: 10%;
+ .container_game:hover .img-right {
+	 left: 0;
+	 mix-blend-mode: difference;
 }
-img {
-  position: absolute;
+ .img-right {
+	 background-position: 100% 0;
+	 position: absolute;
+	 left: 345px;
 }
+ 
