@@ -1,10 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import './style.css'
+</script>
 
 <template>
-  <h1>Matching Game</h1>
-  <p>Click on the extra smiley face on the left side</p>
-  <div id="leftSide"></div>
-  <div id="rightSide"></div>
-</template>
+  <h1>Spot the Difference</h1>
+  <p>
+    Hover over the images. This is what the <code>difference</code> and <code>exclusion</code> blend modes were
+    originally used for (lining up image layers)
+  </p>
 
-<style></style>
+  <div class="container_game">
+    <div class="img-left"></div>
+    <div class="img-right"></div>
+  </div>
+</template>
