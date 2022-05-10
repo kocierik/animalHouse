@@ -1,5 +1,4 @@
  .img-left, .img-right {
-	 background-image: url("http://nick.mtvnimages.com/nick/flipbooks/breadwinners/spot-the-difference/breadwinners-spot-the-difference-image02Q.jpg?quality=0.75");
 	 transition-duration: 0.5s;
 	 background-size: cover;
 	 width: 340px;
@@ -9,7 +8,7 @@
 }
  .container_game {
 	position: relative;
-
+  width: 50%;
 }
  .container_game:hover .img-right {
 	 left: 0;
@@ -17,6 +16,7 @@
 }
  .img-right {
 	 background-position: 100% 0;
+   pointer-events: none;
 	 position: absolute;
 	 left: 345px;
 }
