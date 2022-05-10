@@ -20,6 +20,11 @@ const resetValue = (): void => {
   result = []
 }
 
+const findIt = (x: Card): void => {
+  x.view = 'hidden'
+  x.selected = false
+}
+
 const resume = (): void => {
   cards.value.map((x) => {
     x.selected = false
@@ -36,10 +41,8 @@ const checkCard = (card: Card): void => {
     card.selected = true
     card.bg = card.bgOut
     selectOne = card
-    card.opacity = 0.5
   } else if (selectTwo == defaultCard) {
     card.bg = card.bgOut
-    card.opacity = 0.5
 
     card.selected = true
     selectTwo = card
