@@ -1,214 +1,286 @@
 <template>
-  <div id="app">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="350px"
-      height="260px"
-      viewBox="0 0 350 275"
-      preserveAspectRatio="xMidYMid meet"
-    >
-      <line
-        v-if="strikes > 0"
-        x1="80"
-        y1="257"
-        x2="260"
-        y2="257"
-        style="stroke: black; fill: none; stroke-width: 2px"
-      />
-      <line
-        v-if="strikes > 1"
-        x1="100"
-        y1="257"
-        x2="100"
-        y2="40"
-        style="stroke: black; fill: none; stroke-width: 2px"
-      />
-      <line v-if="strikes > 2" x1="100" y1="40" x2="230" y2="40" style="stroke: black; fill: none; stroke-width: 2px" />
-      <line v-if="strikes > 3" x1="100" y1="80" x2="130" y2="40" style="stroke: black; fill: none; stroke-width: 2px" />
-      <line v-if="strikes > 4" x1="230" y1="40" x2="230" y2="80" style="stroke: black; fill: none; stroke-width: 2px" />
-      <circle v-if="strikes > 5" cx="230" cy="90" style="fill: khaki; stroke: black; stroke-width: 2px" r="20" />
-      <line
-        v-if="strikes > 6"
-        x1="230"
-        y1="110"
-        x2="230"
-        y2="170"
-        style="stroke: black; fill: none; stroke-width: 2px"
-      />
-      <line
-        v-if="strikes > 7"
-        x1="230"
-        y1="140"
-        x2="250"
-        y2="120"
-        style="stroke: black; fill: none; stroke-width: 2px"
-      />
-      <line
-        v-if="strikes > 8"
-        x1="230"
-        y1="140"
-        x2="210"
-        y2="120"
-        style="stroke: black; fill: none; stroke-width: 2px"
-      />
-      <line
-        v-if="strikes > 9"
-        x1="230"
-        y1="170"
-        x2="250"
-        y2="200"
-        style="stroke: black; fill: none; stroke-width: 2px"
-      />
-      <line
-        v-if="strikes > 10"
-        x1="230"
-        y1="170"
-        x2="210"
-        y2="200"
-        style="stroke: black; fill: none; stroke-width: 2px"
-      />
-    </svg>
+  <div id="gameHang">
+    <h1>Guess the {{ currentWord.length }}-letter word</h1>
+    <h3 style="margin-bottom: 40px">Choose from the letters below</h3>
+
+    <!-- A circular progress indicator -->
+    <div class="progress-circle">
+      <div class="pc-overlay">{{ progressPercent }}%</div>
+      <div
+        class="pc-background"
+        :style="{
+          background: `conic-gradient(#ec826f ${degrees}deg, #ddd ${degrees}deg)`,
+        }"
+      ></div>
+    </div>
+
+    <!-- The number of times the player has guessed -->
+    <div class="tries-count">{{ tries }} tries</div>
+
+    <!-- Displaying the guessed letters -->
     <div>
-      <div class="letter" v-for="letter in wordDisplayLetters">
-        {{ letter }}
+      <!-- Always remember to provide a key with v-for, 
+        so that vue knows exactly what render to do, 
+        and what to avoid -->
+      <input
+        readonly
+        class="word-display"
+        v-for="(l, i) in currentWord.split('')"
+        :key="i"
+        :value="getGuessedLetter(i)"
+      />
+    </div>
+
+    <!-- The alphabet buttons -->
+    <div class="button-container">
+      <div
+        class="button-disabling-overlay"
+        :style="{
+          pointerEvents: puzzleSolved ? 'all' : 'none',
+          background: puzzleSolved ? '#fff7' : '#0000',
+        }"
+      ></div>
+      <button
+        :class="getLetterButtonClass(l)"
+        v-for="l in alphabets"
+        :key="l"
+        :title="currentGuess.includes(l) ? `${l} already picked` : `Pick ${l}`"
+        :style="{ cursor: currentGuess.includes(l) ? 'default' : 'pointer' }"
+        @click="makeGuess(l)"
+      >
+        {{ l }}
+      </button>
+    </div>
+    <div>{{ message }}</div>
+    <div><button id="new_game" @click="loadGame">New Game</button></div>
+    <div id="credits">
+      <div>
+        Background Photo by
+        <a target="_blank" href="https://www.pexels.com/photo/date-arrow-calendar-time-5652114/">
+          Visual Tag Mx from Pexels
+        </a>
+      </div>
+      <div>
+        Word list from
+        <a target="_blank" href="https://www.ef.com/wwen/english-resources/english-vocabulary/top-3000-words/"
+          >https://www.ef.com/wwen/english-resources/english-vocabulary/top-3000-words/</a
+        >
       </div>
     </div>
-    <template v-if="initialized">
-      <div>
-        <div
-          @click="tryLetter(letter)"
-          class="possibleLetter"
-          :class="getStrikethroughClass(letter)"
-          v-for="letter in possibleLetters1"
-        >
-          {{ letter }}
-        </div>
-      </div>
-      <div>
-        <div
-          @click="tryLetter(letter)"
-          class="possibleLetter"
-          :class="getStrikethroughClass(letter)"
-          v-for="letter in possibleLetters2"
-        >
-          {{ letter }}
-        </div>
-      </div>
-      <div>
-        <div
-          @click="tryLetter(letter)"
-          class="possibleLetter"
-          :class="getStrikethroughClass(letter)"
-          v-for="letter in possibleLetters3"
-        >
-          {{ letter }}
-        </div>
-      </div>
-    </template>
-    <button @click="initialize()">New Game</button>
   </div>
 </template>
 
 <script>
+import Constants from './Constants'
 export default {
-  name: 'app',
-  data: function () {
+  name: 'WordGame',
+  data() {
     return {
-      strikes: 12,
-      word: 'HANGMAN',
-      wordLetters: ['H', 'A', 'N', 'G', 'M', 'A', 'N'],
-      wordDisplayLetters: ['H', 'A', 'N', 'G', 'M', 'A', 'N'],
-      usedLetters: [],
-      possibleLetters1: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
-      possibleLetters2: ['J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S'],
-      possibleLetters3: ['T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-      initialized: false,
-      wordBank: ['ZEBRA'],
+      currentWord: '',
+      currentGuess: [],
+      tries: 0,
+      progress: 0,
+      message: '',
     }
   },
+  mounted() {
+    this.loadGame()
+  },
+  computed: {
+    words() {
+      return Constants.WORD_LIST.split(',')
+    },
+    alphabets() {
+      return Constants.ALPHABETS.split('')
+    },
+    progressPercent() {
+      return Math.round((this.progress / this.currentWord.length) * 100)
+    },
+    degrees() {
+      return Math.round((this.progress / this.currentWord.length) * 360)
+    },
+    puzzleSolved() {
+      return this.progress === this.currentWord.length
+    },
+  },
   methods: {
-    initialize() {
-      this.initialized = true
-      this.strikes = 0
-      this.word = this.getRandomWord()
-      this.wordLetters = this.word.split('')
-      this.wordDisplayLetters = Array(this.word.length)
-      this.usedLetters = []
+    reset() {
+      this.currentWord = ''
+      this.currentGuess = []
+      this.tries = 0
+      this.progress = 0
+      this.message = ''
     },
-    getRandomWord() {
-      let index = Math.random() * (this.wordBank.length - 0)
-      index = Math.floor(index)
-
-      let word = this.wordBank[index]
-      this.wordBank.splice(index, 1) // remove the word so it won't be repeated
-      return word
+    loadGame() {
+      this.reset()
+      let rnd = Math.floor(Math.random() * this.words.length)
+      this.currentWord = this.words[rnd].toUpperCase()
     },
-    tryLetter(letter) {
-      if (this.usedLetters.includes(letter)) {
-        return
+    getGuessedLetter(index) {
+      if (this.currentGuess.includes(this.currentWord[index])) {
+        return this.currentWord[index]
       }
-      this.usedLetters.push(letter)
-      let match = false
-      for (let i = 0; i < this.wordDisplayLetters.length; i++) {
-        if (letter === this.wordLetters[i]) {
-          this.wordDisplayLetters.splice(i, 1, letter)
-          match = true
-        }
-      }
-      if (!match) {
-        this.strikes++
-        console.log(this.strikes)
-      }
+      return ''
     },
-    getStrikethroughClass(letter) {
-      if (this.usedLetters.includes(letter)) {
-        return 'diagonal-strike'
+    getLetterButtonClass(letter) {
+      if (this.currentGuess.includes(letter)) return 'letter-button-disabled'
+      return 'letter-button'
+    },
+    makeGuess(letter) {
+      if (this.currentGuess.includes(letter)) return
+      this.currentGuess.push(letter)
+      this.tries++
+      // this.currentWord.split("") -> converts the string to an array
+      // then the array is filtered upon which of its elements matches the letter
+      // the length of the filtered array is how many characters were guessed correctly
+      this.progress += this.currentWord.split('').filter((e) => e === letter).length
+      if (this.puzzleSolved) {
+        // solved
+        this.message = `Congratulations! You found the word ${this.currentWord} in ${this.tries} tries! Click on the button below to begin a new game.`
       }
-      return null
     },
   },
 }
 </script>
 
 <style>
-#app {
+@import url('https://fonts.googleapis.com/css2?family=Oxyden+Mono&family=Roboto+Slab:wght@400&display=swap');
+
+#gameHang {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+div {
+  padding: 20px;
+}
+h1,
+h2,
+h3 {
+  font-weight: 200;
+  color: darkcyan;
+}
+h3 {
+  color: #39aaaa;
+}
+.word-display {
+  font-family: 'Oxyden Mono', monospace;
+  color: #ec826f;
+  display: inline-block;
+  width: 2vw;
+  height: 2vw;
   text-align: center;
+  border: 0;
+  border-bottom: 2px solid #8aa1a0;
+  margin: 0px 0.3vmax;
+  padding: 8px;
+  font-size: 32px;
+  outline: none;
+  background-color: transparent;
 }
-.letter {
+.button-container {
+  position: relative;
+}
+.button-disabling-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.18s;
+}
+.letter-button,
+.letter-button-disabled {
   display: inline-block;
-  border-bottom: 1px solid;
-  margin: 0px 3px 0px 3px;
-  font-size: 30px;
-  min-width: 30px;
-  vertical-align: bottom;
+  text-align: center;
+  width: 40px;
+  border: 0;
+  background: #0490b3;
+  box-shadow: 1px 1px 3px #1116;
+  color: #fff;
+  margin: 0.5vw;
+  padding: 10px;
+  font-size: 20px;
+  transition: all 0.25s;
 }
-.possibleLetter {
-  display: inline-block;
-  margin: 10px 3px 0px 3px;
-  font-size: 30px;
-  min-width: 30px;
+.letter-button:hover {
+  background: #29b9b9;
+  transform: scale(1.2);
+  box-shadow: 2px 2px 4px #1114;
+}
+.letter-button-disabled {
+  background: #c0c2c188;
+  color: #9995;
+}
+.tries-count {
+  border: 50px;
+  background: #f8beb455;
+  color: #ec826f;
+  padding: 10px;
+  border-radius: 50px;
+  font-size: 14px;
+}
+.progress-circle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.pc-background {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background: #ddd;
+  margin-bottom: 20px;
+}
+.pc-overlay {
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 14px;
+  background: #fff;
+  position: absolute;
+  margin-top: 8px;
+  margin-left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#new_game {
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 3px #1112;
+  background: #fff;
+  padding: 12px;
   cursor: pointer;
+  transition: all 0.2s;
 }
-.diagonal-strike {
-  background: linear-gradient(
-    to left top,
-    transparent 47.75%,
-    currentColor 49.5%,
-    currentColor 50.5%,
-    transparent 52.25%
-  );
-  color: dimgrey;
+#new_game:hover {
+  color: #208f8f;
+  transform: scale(1.1);
 }
-button {
-  margin-top: 20px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 15px;
+#credits {
+  font-size: 0.7rem;
+  margin-top: 36px;
 }
-button:hover {
-  background-color: #e6e6e6;
-  border-color: #adadad;
+#credits div {
+  margin: 0;
+}
+#credits a {
+  color: darkcyan;
+}
+@media screen and (max-width: 1200px) {
+  #app {
+    width: 75vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  #app {
+    width: 90vw;
+  }
+  .word-display {
+    width: 3.2vw;
+  }
 }
 </style>
