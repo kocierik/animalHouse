@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
-import { GameTris } from '../router/index'
 
 interface Game {
   id: number
@@ -38,7 +37,7 @@ const gameList: Game[] = [
   {
     id: 5,
     name: 'Tic Tac Toe',
-    url: router.GameTris,
+    url: router.GameTicTacToe,
   },
 ]
 </script>
