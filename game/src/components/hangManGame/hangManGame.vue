@@ -1,24 +1,23 @@
 <template>
   <div id="gameHang">
-    <h1>Guess the {{ currentWord.length }}-letter word</h1>
-    <h3 style="margin-bottom: 40px">Choose from the letters below</h3>
+    <div class="flex justify-center p-4">Guess the {{ currentWord.length }}-letter word</div>
+    <div class="flex">
+      <!-- A circular progress indicator -->
+      <div class="progress-circle pr-5 flex justify-start">
+        <div class="flex pc-overlay">{{ progressPercent }}%</div>
+        <div
+          class="flex pc-background"
+          :style="{
+            background: `conic-gradient(#ec826f ${degrees}deg, #ddd ${degrees}deg)`,
+          }"
+        ></div>
+      </div>
 
-    <!-- A circular progress indicator -->
-    <div class="progress-circle">
-      <div class="pc-overlay">{{ progressPercent }}%</div>
-      <div
-        class="pc-background"
-        :style="{
-          background: `conic-gradient(#ec826f ${degrees}deg, #ddd ${degrees}deg)`,
-        }"
-      ></div>
+      <!-- The number of times the player has guessed -->
+      <div class="tries-count pl-5 flex">{{ tries }} tries</div>
     </div>
-
-    <!-- The number of times the player has guessed -->
-    <div class="tries-count">{{ tries }} tries</div>
-
     <!-- Displaying the guessed letters -->
-    <div>
+    <div class="flex justify-center p-10">
       <!-- Always remember to provide a key with v-for, 
         so that vue knows exactly what render to do, 
         and what to avoid -->
@@ -32,7 +31,7 @@
     </div>
 
     <!-- The alphabet buttons -->
-    <div class="button-container">
+    <div class="button-container flex flex-wrap justify-center">
       <div
         class="button-disabling-overlay"
         :style="{
@@ -52,21 +51,7 @@
       </button>
     </div>
     <div>{{ message }}</div>
-    <div><button id="new_game" @click="loadGame">New Game</button></div>
-    <div id="credits">
-      <div>
-        Background Photo by
-        <a target="_blank" href="https://www.pexels.com/photo/date-arrow-calendar-time-5652114/">
-          Visual Tag Mx from Pexels
-        </a>
-      </div>
-      <div>
-        Word list from
-        <a target="_blank" href="https://www.ef.com/wwen/english-resources/english-vocabulary/top-3000-words/"
-          >https://www.ef.com/wwen/english-resources/english-vocabulary/top-3000-words/</a
-        >
-      </div>
-    </div>
+    <div class="flex justify-center p-10"><button id="new_game" @click="loadGame">New Game</button></div>
   </div>
 </template>
 
@@ -154,9 +139,6 @@ export default {
   height: 100%;
 }
 
-div {
-  padding: 20px;
-}
 h1,
 h2,
 h3 {
@@ -169,20 +151,19 @@ h3 {
 .word-display {
   font-family: 'Oxyden Mono', monospace;
   color: #ec826f;
-  display: inline-block;
-  width: 2vw;
+  width: 2rem;
   height: 2vw;
   text-align: center;
   border: 0;
   border-bottom: 2px solid #8aa1a0;
   margin: 0px 0.3vmax;
   padding: 8px;
-  font-size: 32px;
+  font-size: 22px;
   outline: none;
   background-color: transparent;
 }
 .button-container {
-  position: relative;
+  max-width: 30rem;
 }
 .button-disabling-overlay {
   position: absolute;
@@ -216,17 +197,21 @@ h3 {
   color: #9995;
 }
 .tries-count {
+  display: flex;
+  flex: 0 1 100%;
   border: 50px;
-  background: #f8beb455;
   color: #ec826f;
   padding: 10px;
   border-radius: 50px;
   font-size: 14px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 .progress-circle {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+  display: flex;
+  flex: 0 1 30%;
+  justify-content: center;
 }
 .pc-background {
   border-radius: 50%;
@@ -249,6 +234,8 @@ h3 {
   align-items: center;
 }
 #new_game {
+  display: flex;
+  justify-content: center;
   border: 1px solid #ddd;
   box-shadow: 0px 0px 3px #1112;
   background: #fff;
@@ -276,11 +263,8 @@ h3 {
   }
 }
 @media screen and (max-width: 768px) {
-  #app {
-    width: 90vw;
-  }
-  .word-display {
-    width: 3.2vw;
-  }
+  /* .word-display {
+    width: 4.2vw;
+  } */
 }
 </style>
