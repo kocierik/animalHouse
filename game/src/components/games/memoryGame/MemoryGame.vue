@@ -65,7 +65,7 @@ const checkCard = (card: Card): void => {
         }
       })
       if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
-        swal('You Win!')
+        swal('Good job!', 'You found all the couples!', 'success')
         resume()
       }
     }
