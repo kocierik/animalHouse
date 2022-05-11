@@ -1,23 +1,23 @@
- .img-left, .img-right {
-	 transition-duration: 0.5s;
-	 background-size: cover;
-	 width: 340px;
-	 height: 522px;
-	 display: block;
-	 float: left;
+.img-left,
+.img-right {
+  transition-duration: 0.5s;
+  background-size: cover;
+  width: 340px;
+  height: 522px;
+  display: block;
+  float: left;
 }
- .container_game {
-	position: relative;
+.container_game {
+  position: relative;
   width: 50%;
 }
- .container_game:hover .img-right {
-	 left: 0;
-	 mix-blend-mode: difference;
+.container_game:hover .img-right {
+  left: 0;
+  mix-blend-mode: difference;
 }
- .img-right {
-	 background-position: 100% 0;
-   pointer-events: none;
-	 position: absolute;
-	 left: 345px;
+.img-right {
+  background-position: 100% 0;
+  pointer-events: none;
+  position: absolute;
+  left: 345px;
 }
- 
