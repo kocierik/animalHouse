@@ -15,7 +15,7 @@ interface Dog {
 
 let getDog = async () => {
   let resp: ApiResponse<Dog> = await Api.get<Dog>("www.dogs.org/api")
-  if (resp.esit()) {
+  if (resp.esit) {
     console.log(resp.data.name)
   } else {
     // Handle http errors
