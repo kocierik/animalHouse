@@ -58,6 +58,7 @@
 <script>
 import Constants from './Constants'
 import swal from 'sweetalert'
+import { Api } from 'shared'
 export default {
   name: 'WordGame',
   data() {
@@ -74,7 +75,7 @@ export default {
   },
   computed: {
     words() {
-      return Constants.WORD_LIST.split(',')
+      return this.currentWord.split(',')
     },
     alphabets() {
       return Constants.ALPHABETS.split('')
@@ -97,10 +98,11 @@ export default {
       this.progress = 0
       this.message = ''
     },
-    loadGame() {
+    async loadGame() {
       this.reset()
-      let rnd = Math.floor(Math.random() * this.words.length)
-      this.currentWord = this.words[rnd].toUpperCase()
+      let resp = await Api.get('https://random-word-api.herokuapp.com/word')
+      this.currentWord = resp.data[0].toUpperCase()
+      console.log(this.currentWord)
     },
     getGuessedLetter(index) {
       if (this.currentGuess.includes(this.currentWord[index])) {
