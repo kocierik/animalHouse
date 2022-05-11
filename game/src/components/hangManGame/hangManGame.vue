@@ -57,6 +57,7 @@
 
 <script>
 import Constants from './Constants'
+import swal from 'sweetalert'
 export default {
   name: 'WordGame',
   data() {
@@ -121,7 +122,8 @@ export default {
       this.progress += this.currentWord.split('').filter((e) => e === letter).length
       if (this.puzzleSolved) {
         // solved
-        this.message = `Congratulations! You found the word ${this.currentWord} in ${this.tries} tries! Click on the button below to begin a new game.`
+        swal('Good job!', `You found the word ${this.currentWord} in ${this.tries} tries!`, 'success')
+        this.loadGame()
       }
     },
   },
