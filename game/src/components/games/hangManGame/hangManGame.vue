@@ -102,7 +102,6 @@ export default {
       this.reset()
       let resp = await Api.get('https://random-word-api.herokuapp.com/word')
       this.currentWord = resp.data[0].toUpperCase()
-      console.log(this.currentWord)
     },
     getGuessedLetter(index) {
       if (this.currentGuess.includes(this.currentWord[index])) {
