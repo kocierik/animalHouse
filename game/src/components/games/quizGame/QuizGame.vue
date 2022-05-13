@@ -1,4 +1,5 @@
 <script lang="ts">
+import { ref } from 'vue'
 import { Questions } from './utility'
 import type { Question } from './utility'
 import { Api } from 'shared'
@@ -29,34 +30,34 @@ export default {
 
           this.questions[i].question = q.question // set questions
           switch (Math.floor(Math.random() * 4)) {
-          case 0:
-            this.questions[i].answers.a = q.correct_answer
-            this.questions[i].answers.b = q.incorrect_answers.shift()
-            this.questions[i].answers.c = q.incorrect_answers.shift()
-            this.questions[i].answers.d = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 'a'
-            break
-          case 1:
-            this.questions[i].answers.a = q.incorrect_answers.shift()
-            this.questions[i].answers.b = q.correct_answer
-            this.questions[i].answers.c = q.incorrect_answers.shift()
-            this.questions[i].answers.d = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 'b'
-            break
-          case 2:
-            this.questions[i].answers.a = q.incorrect_answers.shift()
-            this.questions[i].answers.b = q.incorrect_answers.shift()
-            this.questions[i].answers.c = q.correct_answer
-            this.questions[i].answers.d = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 'c'
-            break
-          case 3:
-            this.questions[i].answers.a = q.incorrect_answers.shift()
-            this.questions[i].answers.b = q.incorrect_answers.shift()
-            this.questions[i].answers.c = q.incorrect_answers.shift()
-            this.questions[i].answers.d = q.correct_answer
-            this.questions[i].correctAnswer = 'd'
-            break
+            case 0:
+              this.questions[i].answers[0] = q.correct_answer
+              this.questions[i].answers[1] = q.incorrect_answers.shift()
+              this.questions[i].answers[2] = q.incorrect_answers.shift()
+              this.questions[i].answers[3] = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 0
+              break
+            case 1:
+              this.questions[i].answers[0] = q.incorrect_answers.shift()
+              this.questions[i].answers[1] = q.correct_answer
+              this.questions[i].answers[2] = q.incorrect_answers.shift()
+              this.questions[i].answers[3] = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 1
+              break
+            case 2:
+              this.questions[i].answers[0] = q.incorrect_answers.shift()
+              this.questions[i].answers[1] = q.incorrect_answers.shift()
+              this.questions[i].answers[2] = q.correct_answer
+              this.questions[i].answers[3] = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 2
+              break
+            case 3:
+              this.questions[i].answers[0] = q.incorrect_answers.shift()
+              this.questions[i].answers[1] = q.incorrect_answers.shift()
+              this.questions[i].answers[2] = q.incorrect_answers.shift()
+              this.questions[i].answers[3] = q.correct_answer
+              this.questions[i].correctAnswer = 3
+              break
           }
 
           console.log(this.questions)
@@ -74,6 +75,7 @@ export default {
     },
     answered(e) {
       this.selectedAnswer = e.target.value
+      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = 'lightgreen'
       if (this.selectedAnswer == this.questions[this.idx].correctAnswer) {
         this.correctAnswers++
       } else {
@@ -83,6 +85,7 @@ export default {
     nextQuestion() {
       this.idx++
       this.selectedAnswer = ''
+      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
       document.querySelectorAll('input').forEach((el) => (el.checked = false))
     },
     showResults() {
@@ -120,12 +123,9 @@ export default {
               v-for="(answer, index) in questions[idx].answers"
               :key="index"
               :for="index"
+              ref="items"
               class="block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg"
-              :class="
-                ({ 'hover:bg-gray-100 cursor-pointer': selectedAnswer == '' },
-                { 'bg-green-200': index == questions[idx].correctAnswer && selectedAnswer != '' },
-                { 'bg-red-200': selectedAnswer == index })
-              "
+              :class="{ 'bg-red-200': selectedAnswer == index }"
             >
               <input
                 :id="index"
