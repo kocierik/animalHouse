@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center flex-col justify-items-center h-full">
+  <div class="flex justify-center flex-col justify-items-center p-5 h-full">
     <h1>Tic Tac Toe</h1>
     <div class="flex flex-col justify-center items-center p-10">
       <div v-if="winner" class="flex"></div>
