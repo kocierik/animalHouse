@@ -36,15 +36,26 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
-  height: 4rem;
+  width: 8rem;
+  height: 8rem;
+  font-size: 3em;
   margin: 2px;
-  font-size: 2em;
+  color: rgb(40, 16, 16);
   font-weight: bold;
+  border-radius: 1rem;
   border: 1px solid #3c4042;
-  background: #606368;
+  background-image: url('../assets/canarinoTris.jpeg');
+  background-size: cover;
 }
 button:focus {
   outline: none;
+}
+
+@media screen and (max-width: 700px) {
+  button {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2em;
+  }
 }
 </style>
