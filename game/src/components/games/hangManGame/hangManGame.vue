@@ -100,7 +100,7 @@ export default {
     },
     async loadGame() {
       this.reset()
-      let resp = await Api.get('https://random-word-api.herokuapp.com/word')
+      let resp = await Api.get('https://random-word-form.herokuapp.com/random/animal')
       this.currentWord = resp.data[0].toUpperCase()
     },
     getGuessedLetter(index) {
