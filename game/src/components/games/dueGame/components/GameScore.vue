@@ -1,7 +1,12 @@
 <template>
   <div class="flex mb-4">
     <div
-      class="ml-auto mr-4 relative bg-zinc-700 px-3 py-1 text-white rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)] text-center"
+      class="bg-zinc-700 px-4 mr-5 py-2 text-white font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
+    >
+      2048
+    </div>
+    <div
+      class="flex justify-center justify-evenly flex-col ml-auto mr-4 relative bg-zinc-700 px-3 py-1 text-white rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)] text-center"
     >
       <div class="text-xs font-bold uppercase">Score</div>
 
@@ -16,7 +21,9 @@
       </template>
     </div>
 
-    <div class="bg-zinc-700 px-3 py-1 text-white rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)] text-center">
+    <div
+      class="flex justify-center justify-evenly flex-col bg-zinc-700 px-3 py-1 text-white rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)] text-center"
+    >
       <div class="text-xs font-bold uppercase">Best Score</div>
       <div class="font-bold">{{ state.bestScores[state.size] || 0 }}</div>
     </div>
