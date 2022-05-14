@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { Questions } from './utility'
 import type { Question } from './utility'
 import { Api } from 'shared'
+import swal from 'sweetalert'
 
 export default {
   data() {
@@ -13,7 +14,7 @@ export default {
       correctAnswers: 0 as number,
       wrongAnswers: 0 as number,
       count: 5 as number,
-      difficulty: 'easy' as string,
+      difficulty: 'medium' as string,
       questions: Questions as Question[],
     }
   },
@@ -30,34 +31,34 @@ export default {
 
           this.questions[i].question = q.question // set questions
           switch (Math.floor(Math.random() * 4)) {
-            case 0:
-              this.questions[i].answers[0] = q.correct_answer
-              this.questions[i].answers[1] = q.incorrect_answers.shift()
-              this.questions[i].answers[2] = q.incorrect_answers.shift()
-              this.questions[i].answers[3] = q.incorrect_answers.shift()
-              this.questions[i].correctAnswer = 0
-              break
-            case 1:
-              this.questions[i].answers[0] = q.incorrect_answers.shift()
-              this.questions[i].answers[1] = q.correct_answer
-              this.questions[i].answers[2] = q.incorrect_answers.shift()
-              this.questions[i].answers[3] = q.incorrect_answers.shift()
-              this.questions[i].correctAnswer = 1
-              break
-            case 2:
-              this.questions[i].answers[0] = q.incorrect_answers.shift()
-              this.questions[i].answers[1] = q.incorrect_answers.shift()
-              this.questions[i].answers[2] = q.correct_answer
-              this.questions[i].answers[3] = q.incorrect_answers.shift()
-              this.questions[i].correctAnswer = 2
-              break
-            case 3:
-              this.questions[i].answers[0] = q.incorrect_answers.shift()
-              this.questions[i].answers[1] = q.incorrect_answers.shift()
-              this.questions[i].answers[2] = q.incorrect_answers.shift()
-              this.questions[i].answers[3] = q.correct_answer
-              this.questions[i].correctAnswer = 3
-              break
+          case 0:
+            this.questions[i].answers[0] = q.correct_answer
+            this.questions[i].answers[1] = q.incorrect_answers.shift()
+            this.questions[i].answers[2] = q.incorrect_answers.shift()
+            this.questions[i].answers[3] = q.incorrect_answers.shift()
+            this.questions[i].correctAnswer = 0
+            break
+          case 1:
+            this.questions[i].answers[0] = q.incorrect_answers.shift()
+            this.questions[i].answers[1] = q.correct_answer
+            this.questions[i].answers[2] = q.incorrect_answers.shift()
+            this.questions[i].answers[3] = q.incorrect_answers.shift()
+            this.questions[i].correctAnswer = 1
+            break
+          case 2:
+            this.questions[i].answers[0] = q.incorrect_answers.shift()
+            this.questions[i].answers[1] = q.incorrect_answers.shift()
+            this.questions[i].answers[2] = q.correct_answer
+            this.questions[i].answers[3] = q.incorrect_answers.shift()
+            this.questions[i].correctAnswer = 2
+            break
+          case 3:
+            this.questions[i].answers[0] = q.incorrect_answers.shift()
+            this.questions[i].answers[1] = q.incorrect_answers.shift()
+            this.questions[i].answers[2] = q.incorrect_answers.shift()
+            this.questions[i].answers[3] = q.correct_answer
+            this.questions[i].correctAnswer = 3
+            break
           }
 
           console.log(this.questions)
@@ -83,13 +84,18 @@ export default {
       }
     },
     nextQuestion() {
+      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
       this.idx++
       this.selectedAnswer = ''
-      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
       document.querySelectorAll('input').forEach((el) => (el.checked = false))
     },
     showResults() {
-      this.idx++
+      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
+      const msg = `Correct Answers: ${this.correctAnswers}  \n\n  Wrong Answers: ${this.wrongAnswers} `
+      swal('Good job!', msg, 'success')
+      this.resetQuiz()
+      this.getQuestion()
+      // this.idx++
     },
     resetQuiz() {
       this.idx = 0
@@ -124,7 +130,7 @@ export default {
               :key="index"
               :for="index"
               ref="items"
-              class="block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg"
+              class="block cursor-pointer mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg"
               :class="{ 'bg-red-200': selectedAnswer == index }"
             >
               <input
