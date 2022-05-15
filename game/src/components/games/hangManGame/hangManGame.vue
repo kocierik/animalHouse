@@ -17,7 +17,7 @@
       <div class="tries-count pl-5 flex">{{ tries }} tries</div>
     </div>
     <!-- Displaying the guessed letters -->
-    <div class="flex justify-center p-10">
+    <div class="flex justify-center p-10 flex-wrap">
       <!-- Always remember to provide a key with v-for, 
         so that vue knows exactly what render to do, 
         and what to avoid -->
@@ -154,13 +154,13 @@ h3 {
 .word-display {
   font-family: 'Oxyden Mono', monospace;
   color: #ec826f;
-  width: 2rem;
-  height: 2vw;
+  height: 2rem;
+  max-width: 2rem;
+
   text-align: center;
   border: 0;
   border-bottom: 2px solid #8aa1a0;
   margin: 0px 0.3vmax;
-  padding: 8px;
   font-size: 22px;
   outline: none;
   background-color: transparent;
@@ -180,7 +180,7 @@ h3 {
 .letter-button-disabled {
   display: inline-block;
   text-align: center;
-  width: 40px;
+
   border: 0;
   background: #0490b3;
   box-shadow: 1px 1px 3px #1116;
@@ -264,10 +264,5 @@ h3 {
   #app {
     width: 75vw;
   }
-}
-@media screen and (max-width: 768px) {
-  /* .word-display {
-    width: 4.2vw;
-  } */
 }
 </style>
