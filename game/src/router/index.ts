@@ -7,7 +7,7 @@ import MemoryGame from '../components/games/memoryGame/MemoryGame.vue'
 import QuizGame from '../components/games/quizGame/QuizGame.vue'
 import HangManGame from '../components/games/hangManGame/hangManGame.vue'
 import DueGame from '../components/games/dueGame/dueGame.vue'
-import SpotGame from '../components/games/spotGame/spotGame.vue'
+import MinesweeperGame from '../components/games/spotGame/MinesweeperGame.vue'
 import ticTacToeGame from '../components/games/ticTacToeGame/ticTacToeGame.vue'
 export const HomeRoute = '/'
 export const GamesRoute = '/games'
@@ -17,7 +17,7 @@ export const GameMemory = '/games/memory'
 export const GameQuiz = '/games/quiz'
 export const GameHangMan = '/games/hangMan'
 export const GameDue = '/games/due48'
-export const GameSpot = '/games/spotGame'
+export const GameMinesweeper = '/games/Minesweeper'
 export const GameTicTacToe = '/games/ticTacToeGame'
 
 const router = createRouter({
@@ -64,9 +64,9 @@ const router = createRouter({
       component: DueGame,
     },
     {
-      path: GameSpot,
-      name: 'spotGame',
-      component: SpotGame,
+      path: GameMinesweeper,
+      name: 'MinesweeperGame',
+      component: MinesweeperGame,
     },
     {
       path: GameTicTacToe,

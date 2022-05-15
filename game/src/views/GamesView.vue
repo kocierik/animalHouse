@@ -31,8 +31,8 @@ const gameList: Game[] = [
   },
   {
     id: 4,
-    name: 'Spot the difference',
-    url: router.GameSpot,
+    name: 'Minesweeper',
+    url: router.GameMinesweeper,
   },
   {
     id: 5,
