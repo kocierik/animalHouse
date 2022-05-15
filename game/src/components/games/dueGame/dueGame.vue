@@ -9,7 +9,7 @@ import PopupWinVue from './components/PopupWin.vue'
 import { state, canMove } from './store'
 import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
-import './style.css'
+import './style.scss'
 const gameBoardElement = ref(null)
 const setBoardWidth = () => {
   state.boardWidth = gameBoardElement.value.clientWidth

@@ -60,13 +60,9 @@ export default {
             this.questions[i].correctAnswer = 3
             break
           }
-
-          console.log(this.questions)
         }
         this.fetchDone = true
         this.showQuiz()
-      } else {
-        console.log('errore')
       }
     },
     swap(first, second) {
@@ -107,7 +103,6 @@ export default {
       this.getQuestion()
     },
     showQuiz() {
-      console.log(this.$refs.gameState)
       this.$refs.gameState.style.visibility = 'visible'
     },
   },

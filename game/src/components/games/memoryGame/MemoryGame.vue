@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import './memory.css'
 import { defaultCard } from './utility/cards'
 
 import type { Card } from './utility/cards'
@@ -36,7 +35,6 @@ const resume = (): void => {
 }
 
 const checkCard = (card: Card): void => {
-  console.log(card.id)
   if (selectOne == defaultCard) {
     card.selected = true
     card.bg = card.bgOut
@@ -100,5 +98,5 @@ const checkCard = (card: Card): void => {
 </template>
 
 <style lang="css">
-@import './memory.css';
+@import './memory.scss';
 </style>
