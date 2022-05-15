@@ -1,0 +1,119 @@
+$color_bg_light: #fff;
+$color_bg_flag: #0092db;
+
+$color_text_number_2: #2973b7;
+$color_text_number_3: #e96900;
+$color_text_number_4: #ae81ff;
+
+// colors
+$dark: #2c3e50;
+$medium: #34495e;
+$light: #7f8c8d;
+$green: #42b983;
+$border: #dddddd;
+$codebg: #f8f8f8;
+$red: #ff6666;
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  90% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@mixin bombAnimation {
+  animation-name: pop;
+  animation-duration: 0.5s;
+}
+
+#field {
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 30%;
+  text-align: center;
+  justify-content: center;
+  .cell {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: solid 1px $border;
+    background-color: $color_bg_light;
+    color: $green;
+    cursor: pointer;
+    p {
+      margin: 0;
+    }
+    &.isOpen {
+      @include bombAnimation;
+      background-color: $border;
+    }
+    &.count {
+      &.count2 {
+        color: $color_text_number_2;
+      }
+      &.count3 {
+        color: $color_text_number_3;
+      }
+      &.count4 {
+        color: $color_text_number_4;
+      }
+    }
+    &.hasFlag {
+      background-color: $border;
+    }
+    &:hover {
+      background-color: $codebg;
+    }
+    &.bombIng {
+      @include bombAnimation;
+      background-color: $color_text_number_3;
+    }
+    &.bomb {
+      background-color: $dark;
+    }
+    &.isFinished {
+      transition: all 1s ease;
+      transform: rotate(360deg);
+    }
+  }
+  .btn-restart {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background-color: $green;
+    padding: 4px 8px 5px;
+    border-radius: 4px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    &:hover {
+      @include bombAnimation;
+    }
+    &.finished {
+      display: block;
+    }
+  }
+  .message {
+    display: block;
+    text-align: center;
+    top: 0;
+    font-size: 40px;
+    line-height: 40px;
+    color: #2c3e50;
+    font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 500;
+    &.isFinished {
+      display: block;
+    }
+  }
+}
