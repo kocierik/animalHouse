@@ -1,11 +1,16 @@
 {
+  "include": ["env.d.ts", "src/**/*"],
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "out"
+    "outDir": "out",
+    "allowJs": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "lib": ["es2015"]
 }

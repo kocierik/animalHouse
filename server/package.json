@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node out/index.js",
+    "dev": "nodemon out/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.3",
-    "mongoose": "^6.3.3"
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.3",
+    "nodemon": "^2.0.16"
   }
 }
