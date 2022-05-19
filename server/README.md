@@ -1,6 +1,14 @@
-# SERVER
+# SERVER - Quick start
 
-## Quick start
+## Project structure
+
+0. __index.ts:__ server entrypoint
+1. __entitities:__ contains class/interface definition of the entities of the database
+2. __routes:__ contains endpoints definitions and implementations.
+3. __json:__ contains the class/interface definition of the various objects
+exchanged via http requests.
+
+## Run the project
 
 ### Database
 
