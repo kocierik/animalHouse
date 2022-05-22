@@ -27,35 +27,53 @@ and you should be ready to go.
 
 __NOTE:__ The db will run on localhost:27017
 
+__Il consiglio di Mattia:__ Per avere un migliore controllo sul db consiglio
+di scaricare la versione gratuita di [mingo](https://mingo.io/)
+
 ### Server
 
-Install ```nodejs``` and then the following dependeces:
+Install ```nodejs``` and then the dependeces doing:
 
 ```bash
-npm i tsc mongoose
+npm i 
 ```
 
-then to compile, from the root directory do:
+from server root directory. Then to compile do:
 
 ```bash
 tsc
 ```
 
-and to run the server do:
+and to run the server:
 
 ```bash
 npm start
 ```
 
 __NOTE:__ The server will run on [localhost:8080](http://localhost:8080)
+
+__Il consiglio di Mattia:__ Ho installato anche nodemon che si occupa di startare
+da solo node quando un file cambia.
+
+```
+nodemon out/index.js
+```
+
+Il mio consiglio pero' e' di compilare ed startare dando:
+
+```
+tsc && npm start
+```
+
 ### Swagger (optional)
 
 To run swagger pull and run the container with:
 
 ```bash
-docker pull swaggerapi/swagger-editor
 docker run -p 8081:8080 swaggerapi/swagger-editor
 ```
 __NOTE:__ Swagger editor will run on [localhost:8081](http://localhost:8081)
 
+__Il consiglio di Mattia:__ Consiglio fortemente di usare swagger per testare
+gli endpoint quando non si ha ancora un frontend disponibile.
 
