@@ -2,7 +2,6 @@ import swal from 'sweetalert';
 <script lang="ts">
 'use strict'
 
-//セルの状態を管理
 class Cell {
   constructor(row, column) {
     this.hasBomb = false
@@ -24,17 +23,13 @@ class Cell {
   }
 }
 
-//テーブルの状態管理
 class Table {
   constructor() {
-    //行
     this.row = []
     this.rowLength = 9
-    // 列
     this.columnLength = 9
     this.cellLength = this.rowLength * this.columnLength
     this.cells = []
-    //あたり
     this.bombLength = 10
     this.isFinished = false
     this.isGameOver = false
@@ -56,12 +51,10 @@ class Table {
     }
   }
   createBomb(position) {
-    //ボムの位置を決める
     var bombIndexes = []
     for (var i = 0; i < this.bombLength; i++) {
       var randomRow = position.row
       var randomColumn = position.column
-      //最初にクリックしたますと同じだったらやり直し
       while (position.row === randomRow && position.column === randomColumn) {
         randomRow = Math.floor(Math.random() * this.rowLength)
         randomColumn = Math.floor(Math.random() * this.columnLength)
@@ -70,11 +63,9 @@ class Table {
       bombIndexes.push(bombIndex)
     }
 
-    //ボム配置
     for (var i = 0; i < this.bombLength; i++) {
       this.cells[bombIndexes[i][0]][bombIndexes[i][1]].hasBomb = true
     }
-    //そのますの周りのボム数を調べる
     for (var i = 0; i < this.rowLength; i++) {
       for (var j = 0; j < this.columnLength; j++) {
         var bomCount = this.getbomCount(this.cells[i][j].neighborhood)
@@ -91,29 +82,22 @@ class Table {
       isOpen: true,
     }
     this.chageEachCellState(bombState)
-    //ボムだったら終わり
     this.isGameOver = true
     this.isFinished = true
     swal('Oh no!', 'You lose', 'warning')
   }
-  //近隣のセルのボム状況を反映
   changeCellState(clickedCell) {
-    //開く状態に変える
     this.applayOpenState(clickedCell)
-    //ボムかどうか判定
     if (this.isBombCell(clickedCell)) {
       this.changeTableStateToBomb()
       return
     }
-    //周りのセルの状態を反映
     this.checkNeighborhood(clickedCell)
-    //あがり判定
     this.isFinished = this.isFinish()
     if (this.isFinished) {
       this.chageEachCellState({ isFinished: true })
     }
   }
-  //ボムかどうか判定
   isBombCell(clickedCell) {
     if (clickedCell.hasBomb) {
       return true
@@ -121,9 +105,7 @@ class Table {
       return false
     }
   }
-  //周りのボムを調べて反映
   checkNeighborhood(clickedCell) {
-    //なかった場合に近隣を自動で開く
     if (clickedCell.bomCount === 0) {
       for (var i = 0; i < clickedCell.neighborhood.length; i++) {
         if (!clickedCell.neighborhood[i].isOpen) {
@@ -135,7 +117,6 @@ class Table {
       }
     }
   }
-  //まわりのセルを返却
   getNeighborhood(position) {
     var neighborhood = []
     for (var i = position.row - 1; i < position.row + 2; i++) {
@@ -150,7 +131,6 @@ class Table {
     }
     return neighborhood
   }
-  //周りのセルのボムの数を数えて返却
   getbomCount(neighborhood) {
     var count = 0
     for (var i = 0; i < neighborhood.length; i++) {
@@ -162,13 +142,11 @@ class Table {
     }
     return count
   }
-  //開く
   applayOpenState(clickedCell) {
     this.cells[clickedCell.position.row][clickedCell.position.column].update({
       isOpen: true,
     })
   }
-  //あがり判定
   isFinish() {
     var count = 0
     for (var i = 0; i < this.rowLength; i++) {
@@ -187,7 +165,6 @@ class Table {
       return false
     }
   }
-  //フラグだて
   buildFlag(clickedCell) {
     var cell = this.cells[clickedCell.position.row][clickedCell.position.column]
     if (cell.hasFlag) {
@@ -201,7 +178,6 @@ class Table {
     }
   }
 
-  //最初の状態に戻す
   clear() {
     var initialState = {
       hasFlag: false,
@@ -215,7 +191,6 @@ class Table {
     this.isFinished = false
     this.isGameOver = false
   }
-  //全てのセルの状態を変える
   chageEachCellState(stateObj) {
     for (var i = 0; i < this.rowLength; i++) {
       for (var j = 0; j < this.columnLength; j++) {
@@ -226,7 +201,6 @@ class Table {
 }
 
 var table = new Table()
-//状態を管理
 
 export default {
   data: function () {
@@ -249,7 +223,6 @@ export default {
       }
       this.table.changeCellState(data)
     },
-    //右クリックでフラグだて
     buildFlag: function (data) {
       if (this.table.isFinished) {
         return
@@ -257,7 +230,6 @@ export default {
       event.preventDefault()
       this.table.buildFlag(data)
     },
-    //やり直し
     restart: function () {
       this.table.clear()
       this.count = 0
