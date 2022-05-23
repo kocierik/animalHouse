@@ -1,4 +1,4 @@
-
+*.ignore
 # REACT
 front-office/node_modules
 front-office/build
@@ -38,5 +38,7 @@ game/*.sw?
 # SERVER
 server/node_modules
 server/mongo-volume/*
+server/out/*
+
 # SHARED
 shared/node_modules
