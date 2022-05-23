@@ -1,0 +1,251 @@
+swagger: "2.0"
+info:
+  description: "Animal houz back&."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+host: "localhost:8080"
+basePath: "/v1"
+tags:
+- name: "pet"
+- name: "store"
+- name: "user"
+    
+schemes:
+- "http"
+paths:
+  /user/register:
+    post:
+      tags:
+      - "user"
+      summary: "Create new user"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "UserCreation"
+        required: true
+        schema:
+          type: "object"
+          properties:
+              username:
+                type: "string"
+              password:
+                type: "string"
+              email:
+                type: "string"
+              firstName:
+                type: "string"
+              lastName:
+                type: "string"
+      responses:
+        "200":
+          description: "Success"
+  /user/login:
+    post:
+      tags:
+      - "user"
+      summary: "Login as an user"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "login"
+        required: true
+        schema:
+          type: "object"
+          properties:
+              username:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        "200":
+          description: "Success"  
+          schema:
+            type: "object"
+            properties:
+              token:
+                type: "string"
+  /user/test:
+    get:
+      tags:
+      - "user"
+      summary: "mattia's test"
+      security:  
+        - JWT: []
+      responses:
+        "200":
+          description: "ok"
+  /user/{guid}:
+    get:
+      tags:
+      - "user"
+      summary: "Get a user by ID"
+      parameters:
+        - in: "path"
+          name: "guid"
+          type: "string"
+          required: true
+          description: Numeric ID of the user to get
+      security:
+      - JWT: []
+      responses:
+        "200":
+          description: "ok"
+          schema:
+            $ref: "#/definitions/User"
+          
+  /pet:
+    get:
+        tags:
+        - "pet"
+        summary: "Finds Pet"
+        description: ""
+        operationId: "getPet"
+        parameters:
+        - name: "id"
+          in: "query"
+          description: "Id of the pet"
+          required: true
+          type: "integer"
+        responses:
+          "200":
+            description: "successful operation"
+            schema: 
+              $ref: "#/definitions/Pet"
+    post:
+      tags:
+      - "pet"
+      summary: "Add a new pet"
+      description: ""
+      operationId: "addPet"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object"
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
+      responses:
+        "200":
+          description: "Success"
+
+securityDefinitions:  
+  JWT:  
+    type: "apiKey"  
+    in: "header"  
+    name: "authorization" 
+    
+    
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      pets:
+        type: array # todo
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+            name: 
+              type: "string"
+      address: 
+        type: "object"
+        properties:
+          country:
+            type: "string"
+          city:
+            type: "string"
+          street:
+            type: "string"
+          cap:
+            type: "integer"
+      
+      
+  Species:
+    type: "string"
+    enum: &SPECIES
+      - Dog
+      - Cat
+      - Duck
+      - Fox
+      - Koala
+      - Panda
+      - Rabbit
+      
+  Pet:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      ownerId:
+        type: "integer"
+      specie:
+        type: "string"
+        enum: *SPECIES
+      age:
+        type: "integer"
+  
+  Product:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      price:
+        type: "number"
+      description:
+        type: "string"
+      image:
+        type: "string"
+      species:
+        type: "array"
+        items:
+          type: "string"
+          enum: *SPECIES
+      address:
+        type: "string"
+    
+  Shop:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      address: 
+        type: "object"
+        properties:
+          country:
+            type: "string"
+          city:
+            type: "string"
+          street:
+            type: "string"
+          cap:
+            type: "integer"
+      products:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            productId:
+              type: "integer"
+            quantity:
+              type: "integer"
