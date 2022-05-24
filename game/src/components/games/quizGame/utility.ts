@@ -7,27 +7,27 @@ export interface Question {
 export const Questions: Question[] = [
   {
     question: '',
-    answers: { a: '', b: '', c: '', d: '' },
+    answers: { 0: '', 1: '', 2: '', 3: '' },
     correctAnswer: '',
   },
   {
     question: '',
-    answers: { a: '', b: '', c: '', d: '' },
+    answers: { 0: '', 1: '', 2: '', 3: '' },
     correctAnswer: '',
   },
   {
     question: '',
-    answers: { a: '', b: '', c: '', d: '' },
+    answers: { 0: '', 1: '', 2: '', 3: '' },
     correctAnswer: '',
   },
   {
     question: '',
-    answers: { a: '', b: '', c: '', d: '' },
+    answers: { 0: '', 1: '', 2: '', 3: '' },
     correctAnswer: '',
   },
   {
     question: '',
-    answers: { a: '', b: '', c: '', d: '' },
+    answers: { 0: '', 1: '', 2: '', 3: '' },
     correctAnswer: '',
   },
 ]

@@ -8,7 +8,7 @@ export default {
 </script>
 <template>
   <div class="word">
-    <span class="letter" v-for="(letter, i) in letters" :key="i">
+    <span class="letter" v-for="(letter, i) in letters" :key="i" @focus="show">
       {{ correctLetters.includes(letter) ? letter : '' }}
     </span>
   </div>
