@@ -72,14 +72,22 @@ const toggleMenu = () => {
             <router-link :to="router.GamesRoute">
               <a
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-              >
+                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
                 Games
+              </a>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="router.LoginRoute">
+              <a
+                href="#"
+                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
+                login 
               </a>
             </router-link>
           </li>
         </ul>
       </div>
-    </div>
+  </div>
   </nav>
 </template>
