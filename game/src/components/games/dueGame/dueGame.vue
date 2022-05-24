@@ -9,7 +9,7 @@ import PopupWinVue from './components/PopupWin.vue'
 import { state, canMove } from './store'
 import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
-import './style.css'
+import './style.scss'
 const gameBoardElement = ref(null)
 const setBoardWidth = () => {
   state.boardWidth = gameBoardElement.value.clientWidth
@@ -91,16 +91,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="">
+  <div class="flex justify-center h-full items-center">
     <div class="max-w-[500px] p-10">
-      <div class="flex py-3">
-        <div
-          class="bg-zinc-700 px-4 py-2 text-white font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
-        >
-          2048
-        </div>
-      </div>
-
       <GameScoreVue />
 
       <div

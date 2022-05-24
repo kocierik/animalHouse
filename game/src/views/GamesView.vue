@@ -31,13 +31,13 @@ const gameList: Game[] = [
   },
   {
     id: 4,
-    name: 'Spot the difference',
-    url: router.GameSpot,
+    name: 'Minesweeper',
+    url: router.GameMinesweeper,
   },
   {
     id: 5,
-    name: 'Test prova',
-    url: router.GameSpot,
+    name: 'Tic Tac Toe',
+    url: router.GameTicTacToe,
   },
 ]
 </script>

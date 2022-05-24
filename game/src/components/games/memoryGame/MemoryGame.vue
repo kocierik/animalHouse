@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import './memory.css'
 import { defaultCard } from './utility/cards'
 
 import type { Card } from './utility/cards'
@@ -20,6 +19,11 @@ const resetValue = (): void => {
   result = []
 }
 
+const findIt = (x: Card): void => {
+  x.view = 'hidden'
+  x.selected = false
+}
+
 const resume = (): void => {
   cards.value.map((x) => {
     x.selected = false
@@ -31,15 +35,12 @@ const resume = (): void => {
 }
 
 const checkCard = (card: Card): void => {
-  console.log(card.id)
   if (selectOne == defaultCard) {
     card.selected = true
     card.bg = card.bgOut
     selectOne = card
-    card.opacity = 0.5
   } else if (selectTwo == defaultCard) {
     card.bg = card.bgOut
-    card.opacity = 0.5
 
     card.selected = true
     selectTwo = card
@@ -62,7 +63,7 @@ const checkCard = (card: Card): void => {
         }
       })
       if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
-        swal('You Win!')
+        swal('Good job!', 'You found all the couples!', 'success')
         resume()
       }
     }
@@ -97,5 +98,5 @@ const checkCard = (card: Card): void => {
 </template>
 
 <style lang="css">
-@import './memory.css';
+@import './memory.scss';
 </style>
