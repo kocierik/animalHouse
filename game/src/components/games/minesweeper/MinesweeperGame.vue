@@ -1,6 +1,6 @@
-import swal from 'sweetalert';
 <script lang="ts">
 'use strict'
+import swal from 'sweetalert'
 
 class Cell {
   constructor(row, column) {
