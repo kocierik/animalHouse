@@ -8,6 +8,7 @@ import * as router from '@/router/index'
 import * as lsh from '@/helpers/localStoreHelper'
 import type { AnimalType } from 'shared'
 import { ref } from 'vue'
+import Video from '../components/personal/VideoCard.vue'
 
 const animals = ref<AnimalType[]>()
 const a = localStorage.getItem(lsh.PersonalAnimals)
@@ -24,10 +25,11 @@ else {
       :background="'https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true'"
     />
     <div class="masonry sm:masonry-sm md:masonry-md">
-      <FactCard v-for="a in animals" :animal="a" class="m-10 break-inside" />
-      <ImageCard v-for="a in animals" :animal="a" class="m-10 break-inside" />
-      <MusicCard v-for="a in animals" :animal="a" class="m-10 break-inside" />
+      <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
+      <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
+      <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
       <AddImageCard />
+      <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
     </div>
   </main>
 </template>
