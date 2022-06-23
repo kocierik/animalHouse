@@ -11,7 +11,6 @@ const toggleMenu = () => {
   menuOpen = !menuOpen
   if (menuOpen) menuClasses.value = defaultMenuClasses
   else menuClasses.value = 'hidden ' + defaultMenuClasses
-  console.log(menuClasses)
 }
 </script>
 

@@ -37,7 +37,7 @@ game/*.sw?
 
 # SERVER
 server/node_modules
-server/mongo-volume
+server/mongo-volume/*
 server/out/*
 
 # SHARED

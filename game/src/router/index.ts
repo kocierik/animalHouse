@@ -4,11 +4,12 @@ import LoginView from '@/views/LoginView.vue'
 import PersonalView from '@/views/PersonalView.vue'
 import PersonalizeView from '@/views/PersonalizeView.vue'
 import GamesView from '@/views/GamesView.vue'
-import MemoryGame from '../components/memoryGame/MemoryGame.vue'
-import QuizGame from '../components/quizGame/QuizGame.vue'
-import HangManGame from '../components/hangManGame/hangManGame.vue'
-import DueGame from '../components/dueGame/dueGame.vue'
-import SpotGame from '../components/spotGame/spotGame.vue'
+import MemoryGame from '../components/games/memoryGame/MemoryGame.vue'
+import QuizGame from '../components/games/quizGame/QuizGame.vue'
+import HangManGame from '../components/games/hangManGame/hangManGame.vue'
+import DueGame from '../components/games/dueGame/dueGame.vue'
+import MinesweeperGame from '../components/games/spotGame/MinesweeperGame.vue'
+import ticTacToeGame from '../components/games/ticTacToeGame/ticTacToeGame.vue'
 export const HomeRoute = '/'
 export const LoginRoute = '/login'
 export const GamesRoute = '/games'
@@ -18,7 +19,8 @@ export const GameMemory = '/games/memory'
 export const GameQuiz = '/games/quiz'
 export const GameHangMan = '/games/hangMan'
 export const GameDue = '/games/due48'
-export const GameSpot = '/games/spotGame'
+export const GameMinesweeper = '/games/Minesweeper'
+export const GameTicTacToe = '/games/ticTacToeGame'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,9 +71,14 @@ const router = createRouter({
       component: DueGame,
     },
     {
-      path: GameSpot,
-      name: 'spotGame',
-      component: SpotGame,
+      path: GameMinesweeper,
+      name: 'MinesweeperGame',
+      component: MinesweeperGame,
+    },
+    {
+      path: GameTicTacToe,
+      name: 'ticTacToeGame',
+      component: ticTacToeGame,
     },
   ],
 })
