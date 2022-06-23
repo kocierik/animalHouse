@@ -7,7 +7,6 @@ const props = defineProps<{ animal: AnimalType }>()
 const getRandomVideo = (animal: AnimalType) => {
   const number = Math.floor(Math.random() * 3)
   const uri = 'https://www.youtube.com/embed/' + video.get(animal)[number] + '?autoplay=1&mute=1'
-  console.log(uri)
   return uri
 }
 </script>

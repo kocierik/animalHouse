@@ -1,7 +1,5 @@
-<script setup lang="ts">
-import Video from '../components/personal/VideoCard.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <main></main>
+  <main>Home</main>
 </template>
