@@ -73,7 +73,7 @@ export const loginPost = async (req: Request, res: Response) => {
     const token = await jwt.sign({authData: authData}, SECRET);
     return res.json({token})
   }
-  else return res.send("nope")
+  else return res.status(403).send("invalid username or password")
 }
 
 

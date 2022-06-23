@@ -10,9 +10,9 @@ export abstract class Api {
     let response = await fetch(url, options);
     if (response.status >= 200 && response.status < 300) {
       // Success
-      return new ApiResponse<T>(true, (await response.json() as T)) 
+      return new ApiResponse<T>(response.status, (await response.json() as T)) 
     } else 
-      return new ApiResponse<T>(false)
+      return new ApiResponse<T>(response.status)
   }
 
   public static async post<T>(url: string, body: any, auth=false) : Promise<ApiResponse<T>> {
@@ -29,9 +29,9 @@ export abstract class Api {
     let response = await fetch(url, options);
     if (response.status >= 200 && response.status < 300) {
       // Success
-      return new ApiResponse<T>(true, (await response.json() as T)) 
+      return new ApiResponse<T>(response.status, (await response.json() as T)) 
     } else 
-      return new ApiResponse<T>(false)
+      return new ApiResponse<T>(response.status)
   }
 
   /* Unfortunately we are forced to reimplement this method in all the projects */
@@ -43,13 +43,15 @@ export abstract class Api {
 export class ApiResponse<T> {
   public data? : T
   private _esit : boolean
+  public statusCode : number
 
   public get esit () : boolean {
     return this._esit;
   }
 
-  constructor(esit: boolean, data? : T){
-    this._esit = esit;
+  constructor(statusCode: number, data? : T){
+    this._esit =  statusCode >= 200 && statusCode < 300;
     this.data = data;
+    this.statusCode = statusCode
   }
 }

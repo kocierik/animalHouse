@@ -1,2 +1,2 @@
 export const PersonalAnimals = 'PersonalAnimals'
-export const AuthToken = "token"
+export const AuthToken = 'token'
