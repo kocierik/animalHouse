@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <footer class="p-4 color_footer rounded-lg shadow md:px-6 md:py-8">
+  <footer class="p-2 color_footer rounded-lg shadow md:px-6 md:py-8">
     <div class="sm:flex sm:items-center sm:justify-around">
       <a class="flex items-center mb-4 sm:mb-0">
         <img src="./assets/animalLogo.png" class="mr-5 h-20 w-18" alt="AnimalHouse Logo" />

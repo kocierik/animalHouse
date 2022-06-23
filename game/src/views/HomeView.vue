@@ -3,8 +3,10 @@ import Header from '../components/common/Header.vue'
 import Footer from '../components/common/Footer.vue'
 </script>
 <template>
-  <main>
-    <Header />
-    <Footer />
-  </main>
+  <Header />
+  <div class="flex flex-1 flex-end">
+    <div class="flex flex-1 flex-col flex-end">
+      <Footer />
+    </div>
+  </div>
 </template>
