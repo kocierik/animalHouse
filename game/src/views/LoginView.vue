@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { login } from '@/network/api'
 import { ref } from 'vue'
+import * as lh from '@/helpers/loginHelper'
 
 let username = ref<string>("")
 let password = ref<string>("")
@@ -29,8 +30,13 @@ const doLogin = async () => {
     }
     return
   } else {
+    lh.doLogin(resp.data.token)
     window.location.href = '/'
   }
+}
+
+if (lh.isLogged()) {
+  window.location.href = '/'
 }
 
 </script>
@@ -40,10 +46,8 @@ const doLogin = async () => {
     <div class="container px-6 py-12 h-full">
       <div href="#" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
         <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-          <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-              class="w-full"
-              alt="Phone image" />
+          <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0 flex justify-center">
+            <img class="object-contain w-full" src="/public/login.jpg"/>
           </div>
           <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
             <div v-if="error >= 0">
@@ -55,7 +59,7 @@ const doLogin = async () => {
                 <input
                   v-model="username"
                   type="text"
-                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  class="form-control block w-full px-7 py-3 text-xl font-normal text-gray-800 bg-white bg-clip-padding border-2 border-solid border-gray-800 rounded-3xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-500 focus:outline-none"
                   placeholder="Email address"/>
               </div>
 
@@ -63,23 +67,13 @@ const doLogin = async () => {
               <div class="mb-6">
                 <input
                   v-model="password"
-                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  class="form-control block w-full px-7 py-3 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-800 rounded-3xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-500 focus:outline-none"
                   placeholder="Password"/>
               </div>
 
               <div class="flex justify-between items-center mb-6">
-                <div class="form-group form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    id="exampleCheck3"
-                    checked
-                  />
-                  <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Remember me</label>
-                </div>
-                <a
-                  href="#!"
-                  class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">
+                <a href="#!"
+                  class="text-emerald-500 hover:text-emerald-600 focus:text-emarald-600 active:text-emarld-800 duration-200 transition ease-in-out">
                   Forgot password?
                 </a>
               </div>
@@ -87,7 +81,7 @@ const doLogin = async () => {
               <!-- Submit button -->
               <button
                 @click="doLogin"
-                class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                class="inline-block px-7 py-3 font-bold bg-emerald-400 text-xl leading-snug rounded-3xl shadow-md hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
               >
@@ -99,21 +93,15 @@ const doLogin = async () => {
                 <p class="text-center font-semibold mx-4 mb-0">OR</p>
               </div>
 
-              <a
-                class="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                style="background-color: #3b5998"
+              <button
+                class="inline-block px-7 py-3 font-bold bg-yellow-300 text-xl leading-snug rounded-3xl shadow-md hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                style=""
                 href="#!"
                 role="button"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="w-3.5 h-3.5 mr-2">
-                  <path
-                    fill="currentColor"
-                    d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
-                  />
-                </svg>
                 Signup
-              </a>
+              </button>
           </div>
         </div>
       </div>
