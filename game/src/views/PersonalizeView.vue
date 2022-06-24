@@ -32,7 +32,8 @@
 <script lang="ts" setup>
 import Chip from '@/components/common/Chip.vue'
 import * as lsh from '@/helpers/localStoreHelper'
-import { AnimalType } from 'shared'
+import { getAnimalCode } from '@/network/api'
+import { onBeforeMount, ref } from 'vue'
 
 interface AnimalChip {
   name: string
@@ -40,74 +41,28 @@ interface AnimalChip {
   selected: boolean
 }
 
-const animals: AnimalChip[] = [
-  {
-    name: AnimalType.Dog.toString(),
-    click: () => {
-      animals[0].selected = !animals[0].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Cat.toString(),
-    click: () => {
-      animals[1].selected = !animals[1].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Fox.toString(),
-    click: () => {
-      animals[2].selected = !animals[2].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Duck.toString(),
-    click: () => {
-      animals[3].selected = !animals[3].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Bunny.toString(),
-    click: () => {
-      animals[4].selected = !animals[4].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Koala.toString(),
-    click: () => {
-      animals[5].selected = !animals[5].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Panda.toString(),
-    click: () => {
-      animals[6].selected = !animals[6].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Shiba.toString(),
-    click: () => {
-      animals[7].selected = !animals[7].selected
-    },
-    selected: false,
-  },
-  {
-    name: AnimalType.Lizard.toString(),
-    click: () => {
-      animals[8].selected = !animals[8].selected
-    },
-    selected: false,
-  },
-]
+const animals = ref<AnimalChip[]>([])
+
+onBeforeMount(async () => {
+  let codes = await getAnimalCode()  
+  if (codes.esit) {
+    animals.value = codes.data.map(
+      element => {
+      return { 
+        name: element.value, 
+        click: () => {
+          animals.value[element.code].selected = !animals.value[element.code].selected
+        },
+        selected: false,
+      };
+    }
+  )
+  } // TODO handle error
+})
+
 
 const onConfirm = () => {
-  const toStore = animals.filter((e) => e.selected).map((e) => e.name)
+  const toStore = animals.value.filter((e) => e.selected).map((e) => e.name)
   localStorage.setItem(lsh.PersonalAnimals, JSON.stringify(toStore))
   window.location.href = '/personal'
 }

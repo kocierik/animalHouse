@@ -3,6 +3,7 @@ import express, { Request, Response} from 'express'
 import cors from 'cors'
 import * as parser from 'body-parser'
 import { registerPost, loginPost, verifyToken, getUser, test} from './routes/user'
+import { getAnimalCodes } from './routes/animal' 
 
 // Constants
 const port = 8080;
@@ -32,6 +33,8 @@ app.post(version + "/user/register", log, registerPost )
 app.post(version + "/user/login", log, loginPost)
 app.get(version + "/user/test", log, verifyToken, test)
 app.get(version + "/user/:guid", log, verifyToken, getUser)
+
+app.get(version + "/animals/", log, getAnimalCodes)
 
 
 app.listen(port, () => { console.log("[INFO] Server started at port " + port)})
