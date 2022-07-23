@@ -24,12 +24,12 @@ else {
       :title="'Personal'"
       :background="'https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true'"
     />
-    <div class="masonry sm:masonry-sm md:masonry-md">
-      <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
-      <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
-      <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
-      <AddImageCard />
-      <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside" />
+    <div class="masonry sm:masonry-sm md:masonry-md flex flex-col justify-center">
+      <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
+      <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
+      <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex flex-1 justify-center" />
+      <AddImageCard class="flex self-center" />
+      <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
     </div>
   </main>
 </template>
