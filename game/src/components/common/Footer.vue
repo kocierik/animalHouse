@@ -30,6 +30,6 @@
 
 <style>
 .color_footer {
-  background-color: #cfcfcf;
+  background-color: white;
 }
 </style>
