@@ -7,7 +7,9 @@ import Carousel from '../components/common/carousel.vue'
   <Header />
   <div class="flex flex-1 flex-end">
     <div class="flex flex-1 flex-col flex-end">
-      <Carousel />
+      <div class="flex-1 pt-10 pb-10">
+        <Carousel />
+      </div>
       <Footer />
     </div>
   </div>

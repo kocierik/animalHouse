@@ -14,7 +14,16 @@
         checked="checked"
       />
       <div class="carousel-item absolute opacity-0" style="height: 50vh">
-        <div class="block h-full w-full bg-indigo-500 text-white text-5xl text-center">Slide 1</div>
+        <div class="block h-full w-full bg-indigo-500 text-white text-5xl text-center">
+          <div
+            class="relative overflow-hidden bg-no-repeat bg-cover"
+            style="
+              background-position: 50%;
+              background-image: url('https://www.amoreaquattrozampe.it/wp-content/uploads/2020/04/740cane_jack_russel_AdobeStock.jpeg');
+              height: 100%;
+            "
+          ></div>
+        </div>
       </div>
       <label
         for="carousel-3"
@@ -30,7 +39,16 @@
       <!--Slide 2-->
       <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="" />
       <div class="carousel-item absolute opacity-0" style="height: 50vh">
-        <div class="block h-full w-full bg-orange-500 text-white text-5xl text-center">Slide 2</div>
+        <div class="block h-full w-full bg-orange-500 text-white text-5xl text-center">
+          <div
+            class="relative overflow-hidden bg-no-repeat bg-cover"
+            style="
+              background-position: 50%;
+              background-image: url('https://www.amoreaquattrozampe.it/wp-content/uploads/2020/04/740cane_jack_russel_AdobeStock.jpeg');
+              height: 100%;
+            "
+          ></div>
+        </div>
       </div>
       <label
         for="carousel-1"
@@ -46,7 +64,16 @@
       <!--Slide 3-->
       <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="" />
       <div class="carousel-item absolute opacity-0" style="height: 50vh">
-        <div class="block h-full w-full bg-green-500 text-white text-5xl text-center">Slide 3</div>
+        <div class="block h-full w-full bg-green-500 text-white text-5xl text-center">
+          <div
+            class="relative overflow-hidden bg-no-repeat bg-cover"
+            style="
+              background-position: 50%;
+              background-image: url('https://www.amoreaquattrozampe.it/wp-content/uploads/2020/04/740cane_jack_russel_AdobeStock.jpeg');
+              height: 100%;
+            "
+          ></div>
+        </div>
       </div>
       <label
         for="carousel-2"
