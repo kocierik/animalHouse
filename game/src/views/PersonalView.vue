@@ -28,7 +28,7 @@ else {
       <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
       <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
       <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex flex-1 justify-center" />
-      <AddImageCard />
+      <AddImageCard class="flex self-center" />
       <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
     </div>
   </main>
