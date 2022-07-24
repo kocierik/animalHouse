@@ -9,6 +9,7 @@ import * as lsh from '@/helpers/localStoreHelper'
 import type { AnimalType } from 'shared'
 import { ref } from 'vue'
 import Video from '../components/personal/VideoCard.vue'
+import Footer from '../components/common/Footer.vue'
 
 const animals = ref<AnimalType[]>()
 const a = localStorage.getItem(lsh.PersonalAnimals)
@@ -31,5 +32,6 @@ else {
       <AddImageCard class="flex self-center" />
       <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
     </div>
+    <Footer />
   </main>
 </template>
