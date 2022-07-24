@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
+import Footer from '../components/common/Footer.vue'
 
 interface Game {
   id: number
@@ -48,6 +49,7 @@ const gameList: Game[] = [
       <Card :name="game.name" :url="game.url" />
     </div>
   </div>
+  <Footer />
 </template>
 
 <style></style>
