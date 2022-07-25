@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import * as router from '@/router/index'
+import { ref } from 'vue'
+import type { Article } from './articles'
+const props = defineProps<{ articleInfo: Article }>()
+const article = ref(props.articleInfo)
+console.log(article.value)
 </script>
 <template>
   <div class="w-full p-3 max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-    <router-link :to="router.HomeCardProduct">
+    <router-link :to="{ path: router.HomeCardProduct + article.id, params: article }">
       <div
         class="flex items-end justify-end h-56 w-full bg-cover"
         style="
@@ -29,8 +34,8 @@ import * as router from '@/router/index'
         </button>
       </div>
       <div class="px-5 py-3">
-        <h3 class="text-gray-700 uppercase">Chanel</h3>
-        <span class="text-gray-500 mt-2">$12</span>
+        <h3 class="text-gray-700 uppercase">{{ props.articleInfo.name }}</h3>
+        <span class="text-gray-500 mt-2">{{ props.articleInfo.price }} $</span>
       </div>
     </router-link>
   </div>
