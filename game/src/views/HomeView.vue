@@ -14,10 +14,10 @@ import Shop from '../components/common/Shop.vue'
   <div class="flex flex-1 flex-end">
     <div class="flex flex-1 flex-col flex-end">
       <div class="flex-1 pt-10 pb-10">
-        <Shop />
         <SixCard />
         <Carousel />
         <Testimonials />
+        <Shop />
         <Billing />
         <TeamCards />
       </div>

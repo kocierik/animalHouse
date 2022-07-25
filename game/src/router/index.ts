@@ -9,6 +9,7 @@ import HangManGame from '../components/games/hangManGame/hangManGame.vue'
 import DueGame from '../components/games/dueGame/dueGame.vue'
 import MinesweeperGame from '../components/games/minesweeper/MinesweeperGame.vue'
 import ticTacToeGame from '../components/games/ticTacToeGame/ticTacToeGame.vue'
+import CardProductHome from '@/components/common/CardProduct.vue'
 export const HomeRoute = '/'
 export const GamesRoute = '/games'
 export const PersonalRoute = '/personal'
@@ -19,6 +20,7 @@ export const GameHangMan = '/games/hangMan'
 export const GameDue = '/games/due48'
 export const GameMinesweeper = '/games/Minesweeper'
 export const GameTicTacToe = '/games/ticTacToeGame'
+export const HomeCardProduct = '/home/product'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +29,11 @@ const router = createRouter({
       path: HomeRoute,
       name: 'home',
       component: HomeView,
+    },
+    {
+      path: HomeCardProduct,
+      name: 'product',
+      component: CardProductHome,
     },
     {
       path: PersonalRoute,
