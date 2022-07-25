@@ -5,6 +5,7 @@ import Carousel from '../components/common/Carousel.vue'
 import SixCard from '../components/common/SixCard.vue'
 import Billing from '../components/common/Billing.vue'
 import TeamCards from '../components/common/TeamCards.vue'
+import Testimonials from '../components/common/Testimonials.vue'
 </script>
 <template>
   <Header />
@@ -13,6 +14,7 @@ import TeamCards from '../components/common/TeamCards.vue'
       <div class="flex-1 pt-10 pb-10">
         <SixCard />
         <Carousel />
+        <Testimonials />
         <Billing />
         <TeamCards />
       </div>
