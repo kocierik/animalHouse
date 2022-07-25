@@ -6,6 +6,7 @@ import SixCard from '../components/common/SixCard.vue'
 import Billing from '../components/common/Billing.vue'
 import TeamCards from '../components/common/TeamCards.vue'
 import Testimonials from '../components/common/Testimonials.vue'
+import NewsLetter from '../components/common/NewsLetter.vue'
 </script>
 <template>
   <Header />
@@ -18,6 +19,7 @@ import Testimonials from '../components/common/Testimonials.vue'
         <Billing />
         <TeamCards />
       </div>
+      <NewsLetter />
       <Footer />
     </div>
   </div>
