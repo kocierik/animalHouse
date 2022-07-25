@@ -4,6 +4,7 @@ import Footer from '../components/common/Footer.vue'
 import Carousel from '../components/common/Carousel.vue'
 import SixCard from '../components/common/SixCard.vue'
 import Billing from '../components/common/Billing.vue'
+import TeamCards from '../components/common/TeamCards.vue'
 </script>
 <template>
   <Header />
@@ -13,6 +14,7 @@ import Billing from '../components/common/Billing.vue'
         <SixCard />
         <Carousel />
         <Billing />
+        <TeamCards />
       </div>
       <Footer />
     </div>
