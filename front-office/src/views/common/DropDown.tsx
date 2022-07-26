@@ -34,7 +34,7 @@ const DropDown = () => {
           <ItemDropdown/> 
           <button
             onClick={() => setIsList(!isList)}
-            className="text-xs bg-indigo-100 hover:bg-indigo-200 rounded-md mt-6 font-medium py-2 w-full leading-3 text-indigo-700"
+            className="text-xs bg-green-100 hover:bg-green-200 rounded-md mt-6 font-medium py-2 w-full leading-3 text-green-700"
           >
             Select
           </button>

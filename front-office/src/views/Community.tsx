@@ -5,6 +5,30 @@ import Navbar from './common/Navbar'
 import Rawtable from './common/Rawtable'
 
 const Community = () => {
+
+const users = [
+  {
+  id: 1,
+  name: 'Erik',
+  points: 13733,
+  data: '19 sept 2022',
+  game: 'tris',
+  },
+    {
+  id: 2,
+  name: 'man',
+  points: 13703,
+  data: '19 sept 2022',
+  game: 'tris',
+  },
+    {
+  id: 3,
+  name: 'io',
+  points: 133,
+  data: '19 sept 2022',
+  game: 'tris',
+  },
+]
   return (
     <div className="h-full">
       <Navbar />
@@ -34,10 +58,10 @@ const Community = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <Rawtable />
-                  <Rawtable />
-                  <Rawtable />
-                  <Rawtable />
+                  {users.map(user => {
+                    return <Rawtable name={user.name} points={user.points} data={user.data} game={user.game}/>
+                  })}
+
                 </tbody>
               </table>
             </div>
