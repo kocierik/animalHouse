@@ -5,9 +5,9 @@ export const doLogin = (token: string) => {
 }
 
 export const isLogged = () => {
-  return localStorage.getItem(AuthToken)
+  return localStorage.getItem(AuthToken) !== null
 }
 
-export const logout = () => {
+export const doLogout = () => {
   localStorage.removeItem(AuthToken)
 }
