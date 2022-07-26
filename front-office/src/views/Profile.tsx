@@ -1,12 +1,13 @@
 import React from 'react'
+import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 
 const Profile = () => {
   return (
-       <>
+    <>
       <Navbar />
       <main className="profile-page">
-        <section className="relative block" style={{ height: "500px" }}>
+        <section className="relative block" style={{ height: '500px' }}>
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
@@ -14,14 +15,11 @@ const Profile = () => {
                 "url('https://images.unsplash.com/photo-1601562219441-29e53a4d4d8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80')"
             }}
           >
-            <span
-              id="blackOverlay"
-              className="w-full h-full absolute opacity-50 bg-black"
-            ></span>
+            <span id="blackOverlay" className="w-full h-full absolute opacity-50 bg-black"></span>
           </div>
           <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-            style={{ height: "70px" }}
+            style={{ height: '70px' }}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -32,10 +30,7 @@ const Profile = () => {
               x="0"
               y="0"
             >
-              <polygon
-                className="text-gray-300 fill-current"
-                points="2560 0 2560 100 0 100"
-              ></polygon>
+              <polygon className="text-gray-300 fill-current" points="2560 0 2560 100 0 100"></polygon>
             </svg>
           </div>
         </section>
@@ -48,9 +43,9 @@ const Profile = () => {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={require("./common/assets/imageprofile.jpg")}
+                        src={require('./common/assets/imageprofile.jpg')}
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
-                        style={{ maxWidth: "150px" }}
+                        style={{ maxWidth: '150px' }}
                       />
                     </div>
                   </div>
@@ -59,7 +54,7 @@ const Profile = () => {
                       <button
                         className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                         type="button"
-                        style={{ transition: "all .15s ease" }}
+                        style={{ transition: 'all .15s ease' }}
                       >
                         Connect
                       </button>
@@ -68,33 +63,24 @@ const Profile = () => {
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          22
-                        </span>
+                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">22</span>
                         <span className="text-sm text-gray-500">Friends</span>
                       </div>
                       <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          10
-                        </span>
+                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">10</span>
                         <span className="text-sm text-gray-500">Photos</span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          89
-                        </span>
+                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">89</span>
                         <span className="text-sm text-gray-500">Comments</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
-                    Jenna Stones
-                  </h3>
+                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">Jenna Stones</h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>{" "}
-                    Los Angeles, California
+                    <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i> Los Angeles, California
                   </div>
                   <div className="mb-2 text-gray-700 mt-10">
                     <i className="fas fa-briefcase mr-2 text-lg text-gray-500"></i>
@@ -109,17 +95,11 @@ const Profile = () => {
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-gray-800">
-                        An artist of considerable range, Jenna the name taken by
-                        Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                        performs and records all of his own music, giving it a
-                        warm, intimate feel with a solid groove structure. An
-                        artist of considerable range.
+                        An artist of considerable range, Jenna the name taken by Melbourne-raised, Brooklyn-based Nick
+                        Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a
+                        solid groove structure. An artist of considerable range.
                       </p>
-                      <a
-                        href="#pablo"
-                        className="font-normal text-pink-500"
-                        onClick={e => e.preventDefault()}
-                      >
+                      <a href="#pablo" className="font-normal text-pink-500" onClick={(e) => e.preventDefault()}>
                         Show more
                       </a>
                     </div>
@@ -130,6 +110,7 @@ const Profile = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   )
 }
