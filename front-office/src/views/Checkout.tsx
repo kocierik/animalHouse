@@ -10,12 +10,10 @@ const Checkout = () => {
       <Navbar />
       <main className="lg:min-h-full lg:overflow-hidden lg:flex lg:flex-row-reverse pb-10">
         <section aria-labelledby="summary-heading" className=" bg-gray-50 w-full max-w-md flex-col lg:flex">
-
           <ul
             role="list"
             className="flex-col overflow-scroll	  flex items-center flex-auto  divide-y divide-gray-200 px-6"
           >
-            
             <ProductCart />
             <ProductCart />
             <ProductCart />
@@ -39,7 +37,7 @@ const Checkout = () => {
           </div>
         </section>
 
-      <MakePay />
+        <MakePay />
       </main>
       <Footer />
     </>
