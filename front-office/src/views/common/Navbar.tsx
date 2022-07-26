@@ -118,7 +118,7 @@ const Navbar = () => {
                         tabIndex={-1}
                         id="user-menu-item-0"
                       >
-                        Your Profile
+                   <Link to="/profile/">Your Profile</Link> 
                       </a>
 
                       <a
@@ -253,7 +253,7 @@ const Navbar = () => {
                     href="#"
                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                   >
-                    Your Profile
+                   <Link to="/profile/">Your Profile</Link> 
                   </a>
 
                   <a

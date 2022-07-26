@@ -5,6 +5,7 @@ import Home from './views/Home'
 import Shopping from './views/Shopping'
 import Community from './views/Community'
 import Service from './views/Service'
+import Profile from './views/Profile'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/shopping/" element={<Shopping />} />
       <Route path="/community/" element={<Community />} />
       <Route path="/service/" element={<Service />} />
+      <Route path="/profile/" element={<Profile/>} />
     </Routes>
   )
 }
