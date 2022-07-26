@@ -3,6 +3,7 @@ import Navbar from './common/Navbar'
 import DropDown from './common/DropDown'
 import Article from './common/Article'
 const Shopping = () => {
+  const producs = ["food","health product","accessories","animal"]
   return (
     <>
       <Navbar />
@@ -17,7 +18,7 @@ const Shopping = () => {
                 >
                   Store
                 </a>
-                <DropDown />
+                <DropDown list={producs}/>
               </div>
             </nav>
             <Article />

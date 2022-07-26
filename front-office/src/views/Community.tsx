@@ -5,7 +5,7 @@ import Navbar from './common/Navbar'
 import Rawtable from './common/Rawtable'
 
 const Community = () => {
-
+const games = ["minesweeper","2048","hangMan","memoryGame","quizGame","ticTacToe"]
 const users = [
   {
   id: 1,
@@ -36,7 +36,7 @@ const users = [
         <div className="py-8">
           <div className='flex  justify-between' style={{flexFlow: "wrap"}}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-          <DropDown />
+          <DropDown list={games}/>
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
