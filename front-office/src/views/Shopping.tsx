@@ -12,16 +12,15 @@ const Shopping = () => {
           <div className="container mx-auto justify-evenly	flex items-center flex-wrap pt-4 pb-12">
             <nav id="store" className="w-full  z-10 top-0 px-6 py-1">
               <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
-                <a
+                <span
                   className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
-                  href="#"
                 >
                   Store
-                </a>
+                </span>
                 <DropDown list={producs}/>
               </div>
-            </nav>
             <Article />
+            </nav>
           </div>
         </section>
       </div>
