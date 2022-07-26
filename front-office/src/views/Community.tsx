@@ -1,4 +1,5 @@
 import React from 'react'
+import DropDown from './common/DropDown'
 import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import Rawtable from './common/Rawtable'
@@ -9,8 +10,9 @@ const Community = () => {
       <Navbar />
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
-          <div>
-            <h2 className="text-2xl font-semibold leading-tight">Game leaderboard</h2>
+          <div className='flex  justify-between' style={{flexFlow: "wrap"}}>
+            <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
+          <DropDown />
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
