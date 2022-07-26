@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import LoginView from '@/views/LoginView.vue'
 import PersonalView from '@/views/PersonalView.vue'
 import PersonalizeView from '@/views/PersonalizeView.vue'
 import GamesView from '@/views/GamesView.vue'
@@ -12,6 +13,7 @@ import ticTacToeGame from '../components/games/ticTacToeGame/ticTacToeGame.vue'
 import CardProductHome from '@/components/common/CardProduct.vue'
 import { productArticles } from '../components/common/articles'
 export const HomeRoute = '/'
+export const LoginRoute = '/login'
 export const GamesRoute = '/games'
 export const PersonalRoute = '/personal'
 export const PersonalizeRoute = '/personal/personalize'
@@ -32,6 +34,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: LoginRoute,
+      name: 'login',
+      component: LoginView,
+    },
+{
       path: HomeCardProduct + ':id',
       name: 'product',
       component: CardProductHome,

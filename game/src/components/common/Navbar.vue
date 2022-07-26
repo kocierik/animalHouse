@@ -1,16 +1,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import * as router from '@/router/index'
+import * as lh from '@/helpers/loginHelper'
 
 const defaultMenuClasses = 'w-full md:block md:w-auto'
 
 let menuOpen = false
 let menuClasses = ref<string>('hidden ' + defaultMenuClasses)
+let isLogged = ref<bool>(lh.isLogged())
 
 const toggleMenu = () => {
   menuOpen = !menuOpen
   if (menuOpen) menuClasses.value = defaultMenuClasses
   else menuClasses.value = 'hidden ' + defaultMenuClasses
+}
+
+const login = () => {
+  window.location.href = "/login"
+}
+
+const logout = () => {
+  // TODO maybe an alert
+  lh.doLogout()
+  window.location.href = "/"
 }
 </script>
 
@@ -76,6 +88,23 @@ const toggleMenu = () => {
                 Games
               </a>
             </router-link>
+          </li>
+          <li>
+            <p
+              class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
+              </p>
+              <button 
+                v-if="isLogged"
+                @click="logout()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                Logout
+              </button>
+              <button 
+                v-else
+                @click="login()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                Login 
+              </button>
           </li>
         </ul>
       </div>
