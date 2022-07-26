@@ -7,7 +7,14 @@ const Navbar = () => {
   const showInfo = () => {
     setInfoProfile(!infoProfile)
   }
-
+  const [infoProfileMobile, setInfoProfileMobile] = useState(false)
+  const showInfoMobile = () => {
+    setInfoProfileMobile(!infoProfileMobile)
+  }
+  const [nav, setNar] = useState(false)
+  const showNav = () => {
+    setNar(!nav)
+  }
   return (
     <div className="">
       <nav className="bg-gray-800">
@@ -140,6 +147,7 @@ const Navbar = () => {
             </div>
             <div className="-mr-2 flex md:hidden">
               <button
+              onClick={showNav}
                 type="button"
                 className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 aria-controls="mobile-menu"
@@ -172,7 +180,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-
+        {(nav &&
         <div className="md:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a
@@ -180,38 +188,31 @@ const Navbar = () => {
               className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
               aria-current="page"
             >
-              Dashboard
+              <Link to="/">Dashboard</Link>
             </a>
 
             <a
               href="#"
               className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >
-              Team
+              <Link to="/service/">Service</Link>
             </a>
 
             <a
               href="#"
               className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >
-              Projects
+                           <Link to="/shopping/">Shopping</Link> 
             </a>
 
             <a
               href="#"
               className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >
-              Calendar
-            </a>
-
-            <a
-              href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Reports
+                            <Link to="/community/">Community</Link>
             </a>
           </div>
-          <div className="pt-4 pb-3 border-t border-gray-700">
+          <div className="pt-4 pb-3 border-t border-gray-700" onClick={showInfoMobile}>
             <div className="flex items-center px-5">
               <div className="flex-shrink-0">
                 <img
@@ -246,6 +247,7 @@ const Navbar = () => {
                 </svg>
               </button>
             </div>
+            {(infoProfileMobile &&
             <div className="mt-3 px-2 space-y-1">
               <a
                 href="#"
@@ -268,9 +270,11 @@ const Navbar = () => {
                 Sign out
               </a>
             </div>
+            )}
           </div>
         </div>
-      </nav>
+      )}
+          </nav>
     </div>
   )
 }
