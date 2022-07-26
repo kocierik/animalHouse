@@ -2,9 +2,7 @@
 import React, { useState } from 'react'
 import Navbar from './common/Navbar'
 
-
 const Home = () => {
-
   return (
     <>
       <Navbar />
