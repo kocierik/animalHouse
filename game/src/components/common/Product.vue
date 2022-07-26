@@ -16,7 +16,7 @@ console.log(article.value)
         "
       >
         <button
-          class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+          class="p-2 rounded-full bg-green-600 text-white mx-5 -mb-4 hover:bg-green-500 focus:outline-none focus:bg-green-400"
         >
           <svg
             class="h-5 w-5"
