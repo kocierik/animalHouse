@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
+import Footer from './common/Footer'
+import Navbar from './common/Navbar'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -66,6 +68,8 @@ export default function Example() {
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 
   return (
+    <>
+    <Navbar/>
     <div className="bg-white">
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
@@ -160,7 +164,7 @@ export default function Example() {
                   ))}
                 </div>
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                <a href={reviews.href} className="ml-3 text-sm font-medium text-green-600 hover:text-green-500">
                   {reviews.totalCount} reviews
                 </a>
               </div>
@@ -207,7 +211,7 @@ export default function Example() {
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm text-gray-900 font-medium">Size</h3>
-                  <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                  <a href="#" className="text-sm font-medium text-green-600 hover:text-green-500">
                     Size guide
                   </a>
                 </div>
@@ -225,7 +229,7 @@ export default function Example() {
                             size.inStock
                               ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
                               : 'bg-gray-50 text-gray-200 cursor-not-allowed',
-                            active ? 'ring-2 ring-indigo-500' : '',
+                            active ? 'ring-2 ring-green-500' : '',
                             'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
                           )
                         }
@@ -237,7 +241,7 @@ export default function Example() {
                               <span
                                 className={classNames(
                                   active ? 'border' : 'border-2',
-                                  checked ? 'border-indigo-500' : 'border-transparent',
+                                  checked ? 'border-green-500' : 'border-transparent',
                                   'absolute -inset-px rounded-md pointer-events-none'
                                 )}
                                 aria-hidden="true"
@@ -267,7 +271,7 @@ export default function Example() {
 
               <button
                 type="submit"
-                className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="mt-10 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
                 Add to bag
               </button>
@@ -309,5 +313,7 @@ export default function Example() {
         </div>
       </div>
     </div>
+      <Footer/>
+    </>
   )
 }

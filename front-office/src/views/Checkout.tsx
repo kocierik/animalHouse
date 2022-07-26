@@ -322,10 +322,6 @@ const Checkout = () =>  {
                 Pay {total}
               </button>
 
-              <p className="flex justify-center text-sm font-medium text-gray-500 mt-6">
-                <LockClosedIcon className="w-5 h-5 text-gray-400 mr-1.5" aria-hidden="true" />
-                Payment details stored in plain text
-              </p>
             </form>
           </div>
         </section>
