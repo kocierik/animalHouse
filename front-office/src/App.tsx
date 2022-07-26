@@ -1,19 +1,26 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
+import { Route, Routes } from 'react-router'
+import Home from './views/Home'
+import Shopping from './views/Shopping'
+import Community from './views/Community'
+import Service from './views/Service'
+import Profile from './views/Profile'
+import Checkout from './views/Checkout'
+import Product from './views/Product'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/shopping/" element={<Shopping />} />
+      <Route path="/community/" element={<Community />} />
+      <Route path="/service/" element={<Service />} />
+      <Route path="/profile/" element={<Profile />} />
+      <Route path="/checkout/" element={<Checkout />} />
+      <Route path="/product/" element={<Product />} />
+    </Routes>
+  )
 }
 
-export default App;
+export default App
