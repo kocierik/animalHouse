@@ -7,6 +7,7 @@ import Community from './views/Community'
 import Service from './views/Service'
 import Profile from './views/Profile'
 import Checkout from './views/Checkout'
+import Product from './views/Product'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Route path="/service/" element={<Service />} />
       <Route path="/profile/" element={<Profile />} />
       <Route path="/checkout/" element={<Checkout />} />
+      <Route path="/product/" element={<Product />} />
     </Routes>
   )
 }
