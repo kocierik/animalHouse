@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Shopping from '../Shopping'
 
 
 const Navbar = () => {
@@ -42,7 +44,7 @@ const Navbar = () => {
                     href="#"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Shopping
+                  <Link to="/shopping/"  >Shopping</Link>  
                   </a>
 
                   <a
