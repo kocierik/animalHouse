@@ -8,8 +8,10 @@ import MemoryGame from '../components/games/memoryGame/MemoryGame.vue'
 import QuizGame from '../components/games/quizGame/QuizGame.vue'
 import HangManGame from '../components/games/hangManGame/hangManGame.vue'
 import DueGame from '../components/games/dueGame/dueGame.vue'
-import MinesweeperGame from '../components/games/spotGame/MinesweeperGame.vue'
+import MinesweeperGame from '../components/games/minesweeper/MinesweeperGame.vue'
 import ticTacToeGame from '../components/games/ticTacToeGame/ticTacToeGame.vue'
+import CardProductHome from '@/components/common/CardProduct.vue'
+import { productArticles } from '../components/common/articles'
 export const HomeRoute = '/'
 export const LoginRoute = '/login'
 export const GamesRoute = '/games'
@@ -21,6 +23,7 @@ export const GameHangMan = '/games/hangMan'
 export const GameDue = '/games/due48'
 export const GameMinesweeper = '/games/Minesweeper'
 export const GameTicTacToe = '/games/ticTacToeGame'
+export const HomeCardProduct = '/home/product/'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +37,12 @@ const router = createRouter({
       path: LoginRoute,
       name: 'login',
       component: LoginView,
+    },
+{
+      path: HomeCardProduct + ':id',
+      name: 'product',
+      component: CardProductHome,
+      props: true,
     },
     {
       path: PersonalRoute,
