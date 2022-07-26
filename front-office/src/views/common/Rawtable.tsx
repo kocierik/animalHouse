@@ -3,13 +3,11 @@ import React from 'react'
 const Rawtable = () => {
   return (
     <tr>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-        <div className="flex">
+      <td className="px-5 text-center py-5 border-b border-gray-200 bg-white text-sm ">
           <div className="ml-3">
             <p className="text-gray-900 whitespace-no-wrap">Molly Sanders</p>
             <p className="text-gray-600 whitespace-no-wrap">000004</p>
           </div>
-        </div>
       </td>
       <td className=" py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">20,000</p>
