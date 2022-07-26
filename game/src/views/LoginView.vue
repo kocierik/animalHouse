@@ -2,6 +2,7 @@
 import { login } from '@/network/api'
 import { ref } from 'vue'
 import * as lh from '@/helpers/loginHelper'
+import ErrorBox from '@/components/common/ErrorBox.vue'
 
 let username = ref<string>("")
 let password = ref<string>("")
@@ -39,20 +40,23 @@ if (lh.isLogged()) {
   window.location.href = '/'
 }
 
+console.log(lh.isLogged())
 </script>
 
 <template>
   <section class="h-screen">
     <div class="container px-6 py-12 h-full">
       <div href="#" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
-        <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-          <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0 flex justify-center">
-            <img class="object-contain w-full" src="/public/login.jpg"/>
+        <div class="flex flex-wrap justify-around align-items-center h-full g-6 text-gray-800">
+
+          <div class="login-img h-100 w-1/2">
           </div>
-          <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
-            <div v-if="error >= 0">
-                {{ errors[error] }} 
+
+          <div class="lg:ml-20">
+            <div class="my-10" v-if="error >= 0">
+              <ErrorBox :title="'Ups, something went wrong :/'" :mex="errors[error]" />
               </div>
+
 
               <!-- Email input -->
               <div class="mb-6">
@@ -108,3 +112,12 @@ if (lh.isLogged()) {
     </div>
   </section>
 </template>
+
+<style>
+.login-img {
+  background-image: url("/login.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+</style>
+
