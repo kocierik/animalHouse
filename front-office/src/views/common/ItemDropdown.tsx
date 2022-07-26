@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ItemDropdown = () => {
+const ItemDropdown = (props: { game: string }) => {
   return (
     <>
                 <div className="flex items-center justify-between mt-4">
@@ -26,10 +26,9 @@ const ItemDropdown = () => {
                       </svg>
                     </div>
                   </div>
-                  <p className="text-sm leading-normal ml-2 text-gray-800">Accessoristica</p>
+                  <p className="text-sm leading-normal ml-2 text-gray-800">{props.game}</p>
                 </div>
               </div>
-              <p className="w-8 text-xs leading-3 text-right text-indigo-700">5,142</p>
             </div>
     </>
   )

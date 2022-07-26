@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ItemDropdown from './ItemDropdown'
 
-const DropDown = () => {
+const DropDown = (props: { list: string[] }) => {
   const [isList, setIsList] = useState(false)
   return (
     <div className='z-10'>
@@ -28,10 +28,9 @@ const DropDown = () => {
       </div>
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
-          <ItemDropdown/> 
-          <ItemDropdown/> 
-          <ItemDropdown/> 
-          <ItemDropdown/> 
+          {props.list.map(item => {
+            return <ItemDropdown game={item}/>   
+          })}
           <button
             onClick={() => setIsList(!isList)}
             className="text-xs bg-green-100 hover:bg-green-200 rounded-md mt-6 font-medium py-2 w-full leading-3 text-green-700"
