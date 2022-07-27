@@ -3,6 +3,7 @@ import { login } from '@/network/api'
 import { ref } from 'vue'
 import * as lh from '@/helpers/loginHelper'
 import ErrorBox from '@/components/common/ErrorBox.vue'
+import Footer1 from '../components/common/Footer.vue'
 
 let username = ref<string>('')
 let password = ref<string>('')
@@ -49,10 +50,11 @@ console.log(lh.isLogged())
       <div
         class="hidden bg-cover lg:block lg:w-2/4"
         style="
+          border-radius: 1rem;
           background-image: url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
         "
       >
-        <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+        <div style="border-radius: 1rem" class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
           <div>
             <h2 class="text-4xl font-bold text-white">Brand</h2>
 
@@ -126,12 +128,5 @@ console.log(lh.isLogged())
       </div>
     </div>
   </div>
+  <Footer1 />
 </template>
-
-<style>
-.login-img {
-  background-image: url('/login.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-</style>
