@@ -38,7 +38,7 @@ const router = createRouter({
       name: 'login',
       component: LoginView,
     },
-{
+    {
       path: HomeCardProduct + ':id',
       name: 'product',
       component: CardProductHome,

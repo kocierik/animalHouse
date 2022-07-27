@@ -17,7 +17,8 @@
       <div class="flex justify-center">
         <button
           @click="onConfirm"
-          class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+          class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+        >
           <svg xmlns="http://www.w3.org/2000/svg" class="m-2" width="24" height="24" viewBox="0 0 24 24">
             <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
           </svg>
@@ -43,22 +44,19 @@ interface AnimalChip {
 const animals = ref<AnimalChip[]>([])
 
 onBeforeMount(async () => {
-  let codes = await getAnimalCode()  
+  let codes = await getAnimalCode()
   if (codes.esit) {
-    animals.value = codes.data.map(
-      element => {
-      return { 
-        name: element.value, 
+    animals.value = codes.data.map((element) => {
+      return {
+        name: element.value,
         click: () => {
           animals.value[element.code].selected = !animals.value[element.code].selected
         },
         selected: false,
-      };
-    }
-  )
+      }
+    })
   } // TODO handle error
 })
-
 
 const onConfirm = () => {
   const toStore = animals.value.filter((e) => e.selected).map((e) => e.name)
