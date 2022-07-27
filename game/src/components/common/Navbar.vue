@@ -16,13 +16,13 @@ const toggleMenu = () => {
 }
 
 const login = () => {
-  window.location.href = "/login"
+  window.location.href = '/login'
 }
 
 const logout = () => {
   // TODO maybe an alert
   lh.doLogout()
-  window.location.href = "/"
+  window.location.href = '/'
 }
 </script>
 
@@ -63,7 +63,7 @@ const logout = () => {
             <router-link :to="router.HomeRoute">
               <a
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
               >
                 Home
               </a>
@@ -73,7 +73,7 @@ const logout = () => {
             <router-link :to="router.PersonalRoute">
               <a
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
               >
                 Personal
               </a>
@@ -83,28 +83,31 @@ const logout = () => {
             <router-link :to="router.GamesRoute">
               <a
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
               >
                 Games
               </a>
             </router-link>
           </li>
           <li>
-            <p
-              class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
-              </p>
-              <button 
+            <router-link :to="router.LoginRoute">
+              <a
                 v-if="isLogged"
                 @click="logout()"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                href="#"
+                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+              >
                 Logout
-              </button>
-              <button 
+              </a>
+              <a
                 v-else
                 @click="login()"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                Login 
-              </button>
+                href="#"
+                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+              >
+                Login
+              </a>
+            </router-link>
           </li>
         </ul>
       </div>
