@@ -34,7 +34,7 @@ const PostCard = (props) => {
           <textarea
             id="post-input"
             rows={3}
-            placeholder="What is on your mind?"
+            placeholder="What is on your pet mind?"
             value={inputText}
             className="flex-grow rounded font-sans placeholder-gray-400 self-start ml-3 sm:ml-4 mt-2 sm:mt-3 text-sm sm:text-base focus:outline-none"
             onChange={onChange}
@@ -43,12 +43,12 @@ const PostCard = (props) => {
 
         {/* Lower Half - Photo/Video & Post Buttons */}
         <div className="flex justify-between p-2 sm:p-4">
-          <button className="flex items-center px-3 sm:px-4 sm:py-2 text-sm space-x-2 max-h-10 rounded-full bg-gray-900 hover:bg-black text-white duration-150">
+          <button className="flex items-center px-3 sm:px-4 sm:py-2 text-sm space-x-2 max-h-10 rounded-full bg-green-500 hover:bg-black text-white duration-150">
             {/* <FaPhotoVideo /> */}
             <p>Photo/Video</p>
           </button>
           <button
-            className="px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-blue-400 hover:bg-blue-500 duration-150"
+            className="px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-green-400 hover:bg-green-500 duration-150"
             onClick={handleSubmit}
           >
             Post It

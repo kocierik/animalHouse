@@ -22,7 +22,7 @@ const PostHeader = (props) => {
         </div>
 
         {/* Location */}
-        <span className="flex items-center align text-blue-500 space-x-1 text-sm font-semibold">
+        <span className="flex items-center align text-green-500 space-x-1 text-sm font-semibold">
           {/* <FaMapMarkerAlt /> */}
           <p>{props.location}</p>
         </span>
