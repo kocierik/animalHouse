@@ -77,3 +77,13 @@ __NOTE:__ Swagger editor will run on [localhost:8081](http://localhost:8081)
 __Il consiglio di Mattia:__ Consiglio fortemente di usare swagger per testare
 gli endpoint quando non si ha ancora un frontend disponibile.
 
+### Per eseguire tutto simultaneamente utilizzare:
+```bash
+./exec.sh
+```
+ricordarsi ovviamente di dare i permessi `chmod` e di mettere `down` i container
+```bash
+docker-compose down
+docker stop (nome-Container) 
+docker stop 74140feae204
+```
