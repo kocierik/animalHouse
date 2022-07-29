@@ -5,38 +5,38 @@ import Navbar from './common/Navbar'
 import Rawtable from './common/Rawtable'
 
 const Community = () => {
-const games = ["minesweeper","2048","hangMan","memoryGame","quizGame","ticTacToe"]
-const users = [
-  {
-  id: 1,
-  name: 'Erik',
-  points: 13733,
-  data: '19 sept 2022',
-  game: 'tris',
-  },
+  const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
+  const users = [
     {
-  id: 2,
-  name: 'man',
-  points: 13703,
-  data: '19 sept 2022',
-  game: 'tris',
-  },
+      id: 1,
+      name: 'Erik',
+      points: 13733,
+      data: '19 sept 2022',
+      game: 'tris'
+    },
     {
-  id: 3,
-  name: 'io',
-  points: 133,
-  data: '19 sept 2022',
-  game: 'tris',
-  },
-]
+      id: 2,
+      name: 'man',
+      points: 13703,
+      data: '19 sept 2022',
+      game: 'tris'
+    },
+    {
+      id: 3,
+      name: 'io',
+      points: 133,
+      data: '19 sept 2022',
+      game: 'tris'
+    }
+  ]
   return (
     <div className="h-full">
       <Navbar />
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
-          <div className='flex  justify-between' style={{flexFlow: "wrap"}}>
+          <div className="flex  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-          <DropDown list={games}/>
+            <DropDown list={games} />
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
@@ -58,10 +58,9 @@ const users = [
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map(user => {
-                    return <Rawtable name={user.name} points={user.points} data={user.data} game={user.game}/>
+                  {users.map((user) => {
+                    return <Rawtable name={user.name} points={user.points} data={user.data} game={user.game} />
                   })}
-
                 </tbody>
               </table>
             </div>

@@ -1,4 +1,3 @@
-
 import { Disclosure } from '@headlessui/react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import Footer from './common/Footer'
@@ -19,9 +18,9 @@ const products = [
     size: '5L',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-04-product-01.jpg',
     imageAlt:
-      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.',
+      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
   },
-    {
+  {
     id: 1,
     name: 'Micro Backpack',
     href: '#',
@@ -30,9 +29,9 @@ const products = [
     size: '5L',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-04-product-01.jpg',
     imageAlt:
-      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.',
+      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
   },
-    {
+  {
     id: 1,
     name: 'Micro Backpack',
     href: '#',
@@ -41,17 +40,15 @@ const products = [
     size: '5L',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-04-product-01.jpg',
     imageAlt:
-      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.',
-  },
+      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
+  }
 ]
 
-const Checkout = () =>  {
+const Checkout = () => {
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <main className="lg:min-h-full lg:overflow-hidden lg:flex lg:flex-row-reverse">
-
-
         <h1 className="sr-only">Checkout</h1>
 
         {/* Mobile order summary */}
@@ -149,7 +146,6 @@ const Checkout = () =>  {
           </ul>
 
           <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
-
             <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
@@ -174,7 +170,7 @@ const Checkout = () =>  {
         >
           <div className="max-w-lg mx-auto">
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mt-5">Checkout </h1>
-              
+
             <form className="mt-5 p-5">
               <div className="grid grid-cols-12 gap-y-6 gap-x-4">
                 <div className="col-span-full">
@@ -313,20 +309,17 @@ const Checkout = () =>  {
                 </div>
               </div>
 
-
-
               <button
                 type="submit"
                 className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Pay {total}
               </button>
-
             </form>
           </div>
         </section>
       </main>
-      <Footer/>
+      <Footer />
     </>
   )
 }

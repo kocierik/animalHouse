@@ -4,7 +4,7 @@ import ItemDropdown from './ItemDropdown'
 const DropDown = (props: { list: string[] }) => {
   const [isList, setIsList] = useState(false)
   return (
-    <div className='z-10'>
+    <div className="z-10">
       <div
         onClick={() => setIsList(!isList)}
         className="w-64 p-4 shadow rounded bg-white text-sm font-medium leading-none text-gray-800 flex items-center justify-between cursor-pointer"
@@ -28,8 +28,8 @@ const DropDown = (props: { list: string[] }) => {
       </div>
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
-          {props.list.map(item => {
-            return <ItemDropdown game={item}/>   
+          {props.list.map((item) => {
+            return <ItemDropdown game={item} />
           })}
           <button
             onClick={() => setIsList(!isList)}
