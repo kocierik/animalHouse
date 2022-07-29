@@ -1,5 +1,4 @@
-
-import { postsData } from "./common/feedComponents/posts"
+import { postsData } from './common/feedComponents/posts'
 import PostCard from './common/feedComponents/PostCard'
 import FeedCard from './common/feedComponents/FeedCard'
 import React, { useState, useEffect } from 'react'
@@ -14,7 +13,7 @@ function Feed() {
   }, [posts])
 
   function getInitialPosts() {
-    const temp : any = localStorage.getItem('posts')
+    const temp: any = localStorage.getItem('posts')
     const savedPosts = JSON.parse(temp)
     return savedPosts || postsData
   }
@@ -135,25 +134,36 @@ function Feed() {
   return (
     <div id="main" className="App flex flex-1 flex-col p-5 items-center">
       <PostCard addPostProps={addPostToFeed} />
-      {posts.map((data: { id: any; name: any; location: any; timestamp: any; content: any; likes: any; comments: any; isLiked: any }) => {
-        return (
-          <FeedCard
-            key={uuidv4()}
-            id={data.id}
-            name={data.name}
-            location={data.location}
-            timestamp={data.timestamp}
-            content={data.content}
-            likes={data.likes}
-            comments={data.comments}
-            isLiked={data.isLiked}
-            addCommentProps={addCommentToPost}
-            handleLikeProps={likePost}
-            handleCommentDeleteProps={deleteComment}
-            handleCommentLikeProps={likeComment}
-          />
-        )
-      })}
+      {posts.map(
+        (data: {
+          id: any
+          name: any
+          location: any
+          timestamp: any
+          content: any
+          likes: any
+          comments: any
+          isLiked: any
+        }) => {
+          return (
+            <FeedCard
+              key={uuidv4()}
+              id={data.id}
+              name={data.name}
+              location={data.location}
+              timestamp={data.timestamp}
+              content={data.content}
+              likes={data.likes}
+              comments={data.comments}
+              isLiked={data.isLiked}
+              addCommentProps={addCommentToPost}
+              handleLikeProps={likePost}
+              handleCommentDeleteProps={deleteComment}
+              handleCommentLikeProps={likeComment}
+            />
+          )
+        }
+      )}
     </div>
   )
 }

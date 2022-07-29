@@ -42,7 +42,7 @@ const CommentFeed = (props) => {
                   </div>
 
                   {/* Title */}
-                  <p className="flex items-center text-blue-500 space-x-1 text-sm font-semibold">{data.title}</p>
+                  <p className="flex items-center text-green-500 space-x-1 text-sm font-semibold">{data.title}</p>
 
                   {/* Comment */}
                   <p className="text-sm pt-1 pb-2">{data.content}</p>
