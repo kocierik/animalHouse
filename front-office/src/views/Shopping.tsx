@@ -1,7 +1,7 @@
 import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import DropDown from './common/DropDown'
-import Article from './common/Article'
+import Article from './common/shoppingComponents/Article'
 const Shopping = () => {
   const producs = ['food', 'health product', 'accessories', 'animal']
   return (

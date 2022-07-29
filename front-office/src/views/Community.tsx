@@ -2,7 +2,7 @@ import React from 'react'
 import DropDown from './common/DropDown'
 import Footer from './common/Footer'
 import Navbar from './common/Navbar'
-import Rawtable from './common/Rawtable'
+import Rawtable from './common/communityComponents/Rawtable'
 
 const Community = () => {
   const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
