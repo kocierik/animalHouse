@@ -19,6 +19,7 @@ const CommentFeed = (props) => {
           <>
             {/* COLORE COMMENTI */}
             <div
+              key={data.id}
               className={
                 data.id === props.comments[props.comments.length - 1].id
                   ? 'flex items-center px-4 pb-4 rounded-b-lg space-x-4'
