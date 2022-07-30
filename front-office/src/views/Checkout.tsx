@@ -45,6 +45,8 @@ const products = [
 ]
 
 const Checkout = () => {
+  let productsss = JSON.parse(localStorage.getItem('cart') || '{}');
+  console.log(productsss)
   return (
     <>
       <Navbar />
