@@ -3,6 +3,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Footer from './common/Footer'
 import Navbar from './common/Navbar'
+import Reviewer from './common/shoppingComponents/Reviewer'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -310,6 +311,8 @@ export default function Example() {
               </div>
             </div>
           </div>
+                <Reviewer/>
+                <Reviewer/>
         </div>
       </div>
       <Footer />
