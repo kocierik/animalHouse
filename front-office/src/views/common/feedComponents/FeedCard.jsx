@@ -43,7 +43,7 @@ const FeedCard = (props) => {
   return (
     <>
       {/* Card Base */}
-      <div className="flex-row p-5 container max-w-md sm:max-w-lg h-auto rounded-lg shadow-md bg-white m-2">
+      <div className="flex-row p-1 container max-w-md sm:max-w-lg h-auto rounded-lg shadow-md bg-white m-2">
         {/* Top Fourth - Avatar & User/Post Info */}
         <PostHeader name={props.name} location={props.location} timestamp={props.timestamp} />
 
@@ -70,12 +70,12 @@ const FeedCard = (props) => {
               drawerState={drawerState}
             />
 
-            {/* Comment Field */}
+            {/* COLORE POSTA UN COMMENTO */}
             <div
               className={
                 props.comments.length === 0
-                  ? 'flex items-center px-4 pb-4 space-x-4 bg-gray-100 rounded-b-lg'
-                  : 'flex items-center px-4 pb-4 space-x-4 bg-gray-100'
+                  ? 'flex items-center px-4 pb-4 space-x-4  rounded-b-lg'
+                  : 'flex items-center px-4 pb-4 space-x-4 '
               }
             >
               <img
@@ -88,7 +88,7 @@ const FeedCard = (props) => {
                   type="text"
                   placeholder="Add a comment"
                   value={comment}
-                  className="placeholder-gray-400 rounded-full p-2 w-full bg-transparent border-2 border-gray-400 focus:outline-none"
+                  className="placeholder-gray-300 rounded-full m-1 w-full bg-transparent border-1 border-green-400 focus:outline-none"
                   onChange={onChange}
                 />
               </form>
