@@ -311,8 +311,7 @@ export default function Example() {
               </div>
             </div>
           </div>
-                <Reviewer/>
-                <Reviewer/>
+          <Reviewer />
         </div>
       </div>
       <Footer />
