@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import avatar from '../assets/imageprofile.jpg'
-// import { FaPhotoVideo } from 'react-icons/fa'
+import { FaPhotoVideo } from 'react-icons/fa'
 import './PostCard.css'
 
 const PostCard = (props) => {
@@ -44,7 +44,7 @@ const PostCard = (props) => {
         {/* Lower Half - Photo/Video & Post Buttons */}
         <div className="flex justify-between p-2 sm:p-4">
           <button className="flex items-center px-3 sm:px-4 sm:py-2 text-sm space-x-2 max-h-10 rounded-full bg-green-500 hover:bg-black text-white duration-150">
-            {/* <FaPhotoVideo /> */}
+            <FaPhotoVideo />
             <p>Photo/Video</p>
           </button>
           <button

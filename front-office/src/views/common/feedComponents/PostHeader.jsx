@@ -1,6 +1,6 @@
 import React from 'react'
 import avatar from '../assets/imageprofile.jpg'
-// import { FaEllipsisH, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaEllipsisH, FaMapMarkerAlt } from 'react-icons/fa'
 import TimeAgo from 'timeago-react'
 
 const PostHeader = (props) => {
@@ -18,12 +18,12 @@ const PostHeader = (props) => {
         {/* Name & Options */}
         <div className="flex w-full items-center justify-between">
           <p className="text-gray-600 font-bold">{props.name}</p>
-          {/* <FaEllipsisH className="text-gray-500 hover:text-current duration-150" /> */}
+          <FaEllipsisH className="text-gray-500 hover:text-current duration-150" />
         </div>
 
         {/* Location */}
         <span className="flex items-center align text-green-500 space-x-1 text-sm font-semibold">
-          {/* <FaMapMarkerAlt /> */}
+          <FaMapMarkerAlt />
           <p>{props.location}</p>
         </span>
 

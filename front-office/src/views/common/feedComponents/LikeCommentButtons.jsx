@@ -1,5 +1,5 @@
 import React from 'react'
-// import { FaCommentDots, FaHeart } from 'react-icons/fa'
+import { FaCommentDots, FaHeart } from 'react-icons/fa'
 
 const LikeCommentButtons = (props) => {
   function handlePostLike() {
@@ -11,13 +11,8 @@ const LikeCommentButtons = (props) => {
   }
 
   return (
-    <div
-      className={
-        props.drawerState
-          ? 'flex justify-start pl-2 pb-3 bg-gray-100'
-          : 'flex justify-start pl-2 pb-3 bg-gray-100 rounded-b-lg'
-      }
-    >
+    // COLORE LIKE E COMMENTO STATIC
+    <div className={props.drawerState ? 'flex justify-start pl-2 pb-3 ' : 'flex justify-start pl-2 pb-3  rounded-b-lg'}>
       {/* Like Button */}
       <button
         className={
@@ -27,7 +22,7 @@ const LikeCommentButtons = (props) => {
         }
         onClick={() => handlePostLike()}
       >
-        {/* <FaHeart className="fill-current" /> */}
+        <FaHeart className="fill-current" />
         <p>{props.isLiked ? 'Liked' : 'Like'}</p>
       </button>
 
@@ -36,7 +31,7 @@ const LikeCommentButtons = (props) => {
         className="flex items-center px-2 pt-3 space-x-2 max-h-10 rounded-full bg-transparent text-gray-600 hover:text-green-500 duration-150"
         onClick={() => handleDrawerInteraction()}
       >
-        {/* <FaCommentDots className='fill-current' /> */}
+        <FaCommentDots className="fill-current" />
         <p>Comment</p>
       </button>
     </div>
