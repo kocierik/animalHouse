@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="p-2 color_footer rounded-lg shadow md:px-6 md:py-8">
       <div className="sm:flex sm:items-center sm:justify-around">
         <a className="flex items-center mb-4 sm:mb-0">
-          <img src={require('./assets/animalLogo.png')} className="mr-5 h-20 w-18" alt="AnimalHouse Logo" />
+          {/* <img src={require('./assets/animalLogo.png')} className="mr-5 h-20 w-18" alt="AnimalHouse Logo" /> */}
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">AnimalHouse</span>
         </a>
         <ul className="flex flex-wrap items-center justify-center mb-6 text-sm text-black-500 sm:mb-0 dark:text-black-900">
