@@ -6,6 +6,7 @@ import Navbar from './common/Navbar'
 import Reviewer from './common/shoppingComponents/Reviewer'
 
 const product = {
+  id: 1,
   name: 'Basic Tee 6-Pack',
   price: '$192',
   href: '#',
@@ -63,10 +64,23 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+
+
 export default function Example() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+  
+  const addToCart = () =>{
+    let all = []
+    let a = JSON.parse(localStorage.getItem('cart') || '{}');
 
+    all.push(a);
+    all.push(product);
+    localStorage.setItem('cart', JSON.stringify(all));
+    console.log(all)
+  }
+
+  
   return (
     <>
       <Navbar />
@@ -103,7 +117,7 @@ export default function Example() {
           </nav>
 
           {/* Image gallery */}
-          <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
+          <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
             <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
               <img
                 src={product.images[0].src}
@@ -111,7 +125,7 @@ export default function Example() {
                 className="w-full h-full object-center object-cover"
               />
             </div>
-            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+            {/* <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
               <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
                 <img
                   src={product.images[1].src}
@@ -119,14 +133,7 @@ export default function Example() {
                   className="w-full h-full object-center object-cover"
                 />
               </div>
-              <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
-                <img
-                  src={product.images[2].src}
-                  alt={product.images[2].alt}
-                  className="w-full h-full object-center object-cover"
-                />
-              </div>
-            </div>
+            </div> */}
             <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
               <img
                 src={product.images[3].src}
@@ -270,7 +277,8 @@ export default function Example() {
                 </div>
 
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={addToCart}
                   className="mt-10 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Add to bag
