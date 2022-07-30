@@ -1,7 +1,7 @@
 import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import DropDown from './common/DropDown'
-import Article from './common/shoppingComponents/Article'
+import Articles from './common/shoppingComponents/Articles'
 const Shopping = () => {
   const producs = ['food', 'health product', 'accessories', 'animal']
   return (
@@ -17,7 +17,7 @@ const Shopping = () => {
                 </span>
                 <DropDown list={producs} />
               </div>
-              <Article />
+              <Articles />
             </nav>
           </div>
         </section>

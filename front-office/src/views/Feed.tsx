@@ -132,7 +132,7 @@ function Feed() {
   }
 
   return (
-    <div id="main" className="App flex flex-1 flex-col p-5 items-center">
+    <div id="main" className=" flex flex-1 flex-col p-5 items-center">
       <PostCard addPostProps={addPostToFeed} />
       {posts.map(
         (data: {
