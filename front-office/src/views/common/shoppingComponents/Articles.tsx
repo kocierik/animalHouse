@@ -11,7 +11,7 @@ const products = [
     color: 'Black'
   },
   {
-    id: 1,
+    id: 2,
     name: 'Basic Tee',
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -20,7 +20,7 @@ const products = [
     color: 'Black'
   },
   {
-    id: 1,
+    id: 3,
     name: 'Basic Tee',
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -29,7 +29,7 @@ const products = [
     color: 'Black'
   },
   {
-    id: 1,
+    id: 4,
     name: 'Basic Tee',
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -39,7 +39,7 @@ const products = [
   }
 ]
 
-const Article = () => {
+const Articles = () => {
   return (
     <Link to="/product/">
       <div className="bg-white">
@@ -74,4 +74,4 @@ const Article = () => {
     </Link>
   )
 }
-export default Article
+export default Articles
