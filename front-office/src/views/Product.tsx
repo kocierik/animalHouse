@@ -64,23 +64,20 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-
-
 export default function Example() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
-  
-  const addToCart = () =>{
-    let all = []
-    let a = JSON.parse(localStorage.getItem('cart') || '{}');
 
-    all.push(a);
-    all.push(product);
-    localStorage.setItem('cart', JSON.stringify(all));
+  const addToCart = () => {
+    let all = []
+    let a = JSON.parse(localStorage.getItem('cart') || '{}')
+
+    all.push(a)
+    all.push(product)
+    localStorage.setItem('cart', JSON.stringify(all))
     console.log(all)
   }
 
-  
   return (
     <>
       <Navbar />
