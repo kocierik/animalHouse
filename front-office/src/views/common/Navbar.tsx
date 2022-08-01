@@ -202,10 +202,10 @@ const Navbar = () => {
                   <div className="text-base font-medium leading-none text-white">Tom Cook</div>
                   <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
                 </div>
-                <Link to="/checkout/">
+                <Link to="/checkout/" className='flex flex-1'>
                   <button
                     type="button"
-                    className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="ml-auto bg-gray-800 flex flex-1 justify-end  flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   >
                     <span className="sr-only">cart</span>
 
