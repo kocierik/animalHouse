@@ -34,11 +34,11 @@ const Community = () => {
       <Navbar />
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
-          <div className="flex  justify-between" style={{ flexFlow: 'wrap' }}>
+          <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
             <DropDown list={games} />
           </div>
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+          <div className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
               <table className="min-w-full leading-normal text-center 	">
                 <thead>
