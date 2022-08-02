@@ -5,7 +5,7 @@ import Navbar from './common/Navbar'
 import Rawtable from './common/communityComponents/Rawtable'
 
 const Community = () => {
-  const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
+  const games = {'minesweeper': false, '2048' : false, 'hangMan': false, 'memoryGame': false, 'quizGame': false, 'ticTacToe': false}
   const users = [
     {
       id: 1,
@@ -19,7 +19,7 @@ const Community = () => {
       name: 'man',
       points: 13703,
       data: '19 sept 2022',
-      game: 'tris'
+      game: 'ticTacToe'
     },
     {
       id: 3,
@@ -29,6 +29,14 @@ const Community = () => {
       game: 'tris'
     }
   ]
+
+  const filtered = () =>{
+    Object.values(games).map(game => {
+        return (game === true) ? true : false
+    })
+    return false
+  }
+
   return (
     <div className="h-full">
       <Navbar />
@@ -59,8 +67,10 @@ const Community = () => {
                 </thead>
                 <tbody>
                   {users.map((user) => {
-                    return <Rawtable name={user.name} points={user.points} data={user.data} game={user.game} />
-                  })}
+                      if(filtered()) 
+                        return <Rawtable name={user.name} points={user.points} data={user.data} game={user.game} />
+                    })
+                  }
                 </tbody>
               </table>
             </div>

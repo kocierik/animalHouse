@@ -1,13 +1,18 @@
 import React from 'react'
 
-const ItemDropdown = (props: { game: string }) => {
+const ItemDropdown = (props: { game: any }) => {
+  const isSelected = (e: { target: { checked: any } }) =>{
+    console.log(e.target.checked)
+    props.game[1] = true
+    console.log(props.game)
+  }
   return (
     <>
       <div className="flex items-center justify-between mt-4">
         <div className="flex items-center">
           <div className="pl-4 flex items-center">
             <div className="bg-gray-100 dark:bg-gray-800 border rounded-sm border-gray-200 dark:border-gray-700 w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
-              <input type="checkbox" className="checkbox opacity-0 absolute cursor-pointer w-full h-full" />
+              <input type="checkbox" onChange={isSelected} className="checkbox opacity-0 absolute cursor-pointer w-full h-full" />
               <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
                 <svg
                   className="icon icon-tabler icon-tabler-check"

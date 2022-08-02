@@ -1,12 +1,17 @@
 import { useState } from 'react'
 import ItemDropdown from './ItemDropdown'
 
-const DropDown = (props: { list: string[] }) => {
+const DropDown = (props: { list: any }) => {
   const [isList, setIsList] = useState(false)
+
+  const filterData = () =>{
+    setIsList(!isList)
+  }
+  console.log(props.list)
   return (
     <div className="z-10">
       <div
-        onClick={() => setIsList(!isList)}
+        onClick={filterData}
         className="w-64 p-4 shadow rounded bg-white text-sm font-medium leading-none text-gray-800 flex items-center justify-between cursor-pointer"
       >
         Filter
@@ -28,11 +33,11 @@ const DropDown = (props: { list: string[] }) => {
       </div>
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
-          {props.list.map((item) => {
+          {Object.entries(props.list).map(item  => {
             return <ItemDropdown game={item} />
           })}
           <button
-            onClick={() => setIsList(!isList)}
+            onClick={filterData}
             className="text-xs bg-green-100 hover:bg-green-200 rounded-md mt-6 font-medium py-2 w-full leading-3 text-green-700"
           >
             Select
