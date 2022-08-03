@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { ChangeEventHandler } from 'react'
+import { List } from '../Community';
 
-const ItemDropdown = (props: { game: any }) => {
-  const isSelected = (e: { target: { checked: any } }) =>{
-    console.log(e.target.checked)
-    props.game[1] = true
-    console.log(props.game)
-  }
+interface Props {
+  gameInfo: List;
+// onChange: ChangeEventHandler<HTMLInputElement>;
+
+}
+
+const ItemDropdown = ({
+  gameInfo,
+  // onChange,
+}: Props) => {
   return (
     <>
       <div className="flex items-center justify-between mt-4">
         <div className="flex items-center">
           <div className="pl-4 flex items-center">
             <div className="bg-gray-100 dark:bg-gray-800 border rounded-sm border-gray-200 dark:border-gray-700 w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
-              <input type="checkbox" onChange={isSelected} className="checkbox opacity-0 absolute cursor-pointer w-full h-full" />
+              <input type="checkbox"  className="checkbox opacity-0 absolute cursor-pointer w-full h-full" />
               <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
                 <svg
                   className="icon icon-tabler icon-tabler-check"
@@ -31,7 +36,7 @@ const ItemDropdown = (props: { game: any }) => {
                 </svg>
               </div>
             </div>
-            <p className="text-sm leading-normal ml-2 text-gray-800">{props.game}</p>
+            <p className="text-sm leading-normal ml-2 text-gray-800">{gameInfo.name}</p>
           </div>
         </div>
       </div>

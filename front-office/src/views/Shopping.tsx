@@ -2,8 +2,9 @@ import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import DropDown from './common/DropDown'
 import Articles from './common/shoppingComponents/Articles'
+import { List } from './Community'
 const Shopping = () => {
-  const producs = ['food', 'health product', 'accessories', 'animal']
+  const producs :List[] = [{id:1, name:'food'},{id:2, name: 'health product'}, {id:3, name: 'accessories'}, {id:4, name:'animal'}]
   return (
     <>
       <Navbar />
@@ -15,7 +16,7 @@ const Shopping = () => {
                 <span className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
                   Store
                 </span>
-                <DropDown list={producs} />
+                <DropDown list={producs}  />
               </div>
               <Articles />
             </nav>

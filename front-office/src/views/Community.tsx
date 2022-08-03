@@ -1,18 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DropDown from './common/DropDown'
 import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import Rawtable from './common/communityComponents/Rawtable'
 
+export interface List {
+ id: number
+ name: string
+}
+
+interface User{
+  id: number
+  name: string
+  points: number
+  data: string
+  game: string
+}
+
 const Community = () => {
-  const games = {'minesweeper': false, '2048' : false, 'hangMan': false, 'memoryGame': false, 'quizGame': false, 'ticTacToe': false}
-  const users = [
+  
+  const games :List[] = [{id: 1, name: "minesweeper"}, {id: 2, name: "2048"}, {id: 3, name: "hangMan"}, {id:4, name:'memoryGame'},{id:5, name:'quizGame'}, {id:6, name:'ticTacToe'}]
+  const filtersIds : number[] = [];
+  
+  const users: User[] = [
     {
       id: 1,
       name: 'Erik',
       points: 13733,
       data: '19 sept 2022',
-      game: 'tris'
+      game: 'tris',
     },
     {
       id: 2,
@@ -26,16 +42,13 @@ const Community = () => {
       name: 'io',
       points: 133,
       data: '19 sept 2022',
-      game: 'tris'
+      game: 'ticTacToe'
     }
   ]
 
-  const filtered = () =>{
-    Object.values(games).map(game => {
-        return (game === true) ? true : false
-    })
-    return false
-  }
+  const [filteredIds, setFilterdIds] = useState([]);
+
+  
 
   return (
     <div className="h-full">
@@ -44,7 +57,7 @@ const Community = () => {
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-            <DropDown list={games} />
+            <DropDown list={games}/>
           </div>
           <div className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
@@ -67,8 +80,8 @@ const Community = () => {
                 </thead>
                 <tbody>
                   {users.map((user) => {
-                      if(filtered()) 
-                        return <Rawtable name={user.name} points={user.points} data={user.data} game={user.game} />
+                      // if(filtered()) 
+                        return <Rawtable  name={user.name} points={user.points} data={user.data} game={user.game} />
                     })
                   }
                 </tbody>
