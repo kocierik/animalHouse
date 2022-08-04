@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Rawtable = (props: { name: string; points: number; data: string; game: {id: string, name: string} }) => {
+const Rawtable = (props: { name: string; points: number; data: string; game: { id: string; name: string } }) => {
   return (
     <tr>
       <td className="px-5 text-center py-5 border-b border-gray-200 bg-white text-sm ">

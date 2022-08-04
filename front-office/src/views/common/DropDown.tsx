@@ -1,20 +1,20 @@
-import {  useState } from 'react'
+import { useState } from 'react'
 import { List } from '../Community'
 import ItemDropdown from './ItemDropdown'
 
-interface Props{
+interface Props {
   list: List[]
-  onSelectItem: (id: string) => void;
+  onSelectItem: (id: string) => void
 }
 
-const DropDown = ({ list, onSelectItem } :Props) => {
+const DropDown = ({ list, onSelectItem }: Props) => {
   const [isList, setIsList] = useState(false)
 
-  const filterData = () =>{
+  const filterData = () => {
     setIsList(!isList)
   }
 
-  const onItemDropDownChange = (id: string) =>{
+  const onItemDropDownChange = (id: string) => {
     onSelectItem(id)
   }
 
@@ -43,8 +43,8 @@ const DropDown = ({ list, onSelectItem } :Props) => {
       </div>
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
-          {list.map(item  => {
-            return <ItemDropdown gameInfo={item} onChange={onItemDropDownChange}/>
+          {list.map((item) => {
+            return <ItemDropdown gameInfo={item} onChange={onItemDropDownChange} />
           })}
           <button
             onClick={filterData}
