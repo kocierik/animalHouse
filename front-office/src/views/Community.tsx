@@ -61,7 +61,7 @@ const Community = () => {
     const isIdPresent = filteredIds?.includes(filteredId)
 
     if(isIdPresent){
-      let values = filteredIds.filter( id => id !== filteredId)
+      let values = filteredIds.filter( id => id === filteredId)
       setFilterdIds(values)
     }else{
       const newFilteredIds = [...filteredIds, filteredId];
