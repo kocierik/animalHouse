@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Rawtable = (props: { name: string; points: number; data: string; game: string }) => {
+const Rawtable = (props: { name: string; points: number; data: string; game: {id: string, name: string} }) => {
   return (
     <tr>
       <td className="px-5 text-center py-5 border-b border-gray-200 bg-white text-sm ">
@@ -18,7 +18,7 @@ const Rawtable = (props: { name: string; points: number; data: string; game: str
       <td className=" border-b border-gray-200 bg-white text-sm">
         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
           <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-          <span className="relative">{props.game}</span>
+          <span className="relative">{props.game.name}</span>
         </span>
       </td>
     </tr>

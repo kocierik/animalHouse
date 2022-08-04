@@ -4,7 +4,10 @@ import DropDown from './common/DropDown'
 import Articles from './common/shoppingComponents/Articles'
 import { List } from './Community'
 const Shopping = () => {
-  const producs :List[] = [{id:1, name:'food'},{id:2, name: 'health product'}, {id:3, name: 'accessories'}, {id:4, name:'animal'}]
+  const producs :List[] = [{id:"1", name:'food'},{id:"2", name: 'health product'}, {id:"3", name: 'accessories'}, {id:"4", name:'animal'}]
+  const filterHandler = () =>{
+    console.log("first")
+  }
   return (
     <>
       <Navbar />
@@ -16,7 +19,7 @@ const Shopping = () => {
                 <span className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
                   Store
                 </span>
-                <DropDown list={producs}  />
+                <DropDown list={producs} onSelectItem={filterHandler}  />
               </div>
               <Articles />
             </nav>

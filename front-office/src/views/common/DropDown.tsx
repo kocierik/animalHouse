@@ -1,18 +1,22 @@
-import { useState } from 'react'
+import {  useState } from 'react'
 import { List } from '../Community'
 import ItemDropdown from './ItemDropdown'
 
 interface Props{
   list: List[]
+  onSelectItem: (id: string) => void;
 }
 
-const DropDown = ({ list } :Props) => {
+const DropDown = ({ list, onSelectItem } :Props) => {
   const [isList, setIsList] = useState(false)
 
   const filterData = () =>{
     setIsList(!isList)
   }
 
+  const onItemDropDownChange = (id: string) =>{
+    onSelectItem(id)
+  }
 
   return (
     <div className="z-10">
@@ -40,7 +44,7 @@ const DropDown = ({ list } :Props) => {
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
           {list.map(item  => {
-            return <ItemDropdown gameInfo={item} />
+            return <ItemDropdown gameInfo={item} onChange={onItemDropDownChange}/>
           })}
           <button
             onClick={filterData}

@@ -4,49 +4,72 @@ import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import Rawtable from './common/communityComponents/Rawtable'
 
-export interface List {
- id: number
- name: string
-}
-
-interface User{
-  id: number
-  name: string
-  points: number
-  data: string
-  game: string
-}
-
-const Community = () => {
-  
-  const games :List[] = [{id: 1, name: "minesweeper"}, {id: 2, name: "2048"}, {id: 3, name: "hangMan"}, {id:4, name:'memoryGame'},{id:5, name:'quizGame'}, {id:6, name:'ticTacToe'}]
-  const filtersIds : number[] = [];
-  
   const users: User[] = [
     {
       id: 1,
       name: 'Erik',
       points: 13733,
       data: '19 sept 2022',
-      game: 'tris',
+      game: { id:"6" , name:'ticTacToe'}
     },
     {
       id: 2,
       name: 'man',
       points: 13703,
       data: '19 sept 2022',
-      game: 'ticTacToe'
+      game: { id:"6" , name:'ticTacToe'}
     },
     {
       id: 3,
       name: 'io',
       points: 133,
       data: '19 sept 2022',
-      game: 'ticTacToe'
+      game: { id:"6" , name:'ticTacToe'}
+    },
+    {
+      id: 4,
+      name: 'si',
+      points: 11333,
+      data: '19 sept 2022',
+      game: { id:"1" , name:'minesweeper'}
     }
   ]
 
-  const [filteredIds, setFilterdIds] = useState([]);
+export interface List {
+ id: string
+ name: string
+}
+
+export type Game  = List;
+interface User{
+  id: number
+  name: string
+  points: number
+  data: string
+  game: Game
+}
+
+ const games :Game[] = [{id: "1", name: "minesweeper"}, {id: "2", name: "2048"}, {id: "3", name: "hangMan"}, {id:"4", name:'memoryGame'},{id:"5", name:'quizGame'}, {id:"6", name:'ticTacToe'}]
+const Community = () => {
+  
+  const [filteredIds, setFilterdIds]= useState<string[]>(["1","2","3","4","5","6"]);
+
+
+  const onDropDownSelectItem = (filteredId: string) => {
+    
+    console.log(filteredId)
+    const isIdPresent = filteredIds?.includes(filteredId)
+
+    if(isIdPresent){
+      let values = filteredIds.filter( id => id !== filteredId)
+      setFilterdIds(values)
+    }else{
+      const newFilteredIds = [...filteredIds, filteredId];
+      setFilterdIds(newFilteredIds);
+    }
+
+  }
+
 
   
 
@@ -57,7 +80,7 @@ const Community = () => {
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-            <DropDown list={games}/>
+            <DropDown list={games} onSelectItem={onDropDownSelectItem} />
           </div>
           <div className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
@@ -80,7 +103,7 @@ const Community = () => {
                 </thead>
                 <tbody>
                   {users.map((user) => {
-                      // if(filtered()) 
+                     if(filteredIds.includes(user.game.id))
                         return <Rawtable  name={user.name} points={user.points} data={user.data} game={user.game} />
                     })
                   }
