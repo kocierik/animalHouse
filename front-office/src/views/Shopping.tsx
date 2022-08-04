@@ -57,6 +57,46 @@ const products: Product[] = [
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black'
+  },
+  {
+    id: '5',
+    name: 'Basic Tee',
+    category: { id: '1', name: 'food' },
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$35',
+    color: 'Black'
+  },
+  {
+    id: '6',
+    name: 'Basic Tee',
+    category: { id: '1', name: 'food' },
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$35',
+    color: 'Black'
+  },
+  {
+    id: '7',
+    name: 'Basic Tee',
+    category: { id: '2', name: 'health product' },
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$35',
+    color: 'Black'
+  },
+  {
+    id: '8',
+    name: 'Basic Tee',
+    category: { id: '1', name: 'food' },
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$35',
+    color: 'Black'
   }
 ]
 
@@ -96,10 +136,12 @@ const Shopping = () => {
                 </span>
                 <DropDown list={producs} onSelectItem={onDropDownSelectItem} />
               </div>
+              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
               {products.map((product) => {
                 if (filteredIds.includes(product.category.id)) return (
                 <Articles product={product} />)
               })}
+              </div>
             </nav>
           </div>
         </section>
