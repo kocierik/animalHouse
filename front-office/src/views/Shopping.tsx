@@ -20,7 +20,7 @@ export interface Product {
 const products: Product[] = [
   {
     id: '1',
-    name: 'Basic Tee',
+    name: 'accessorio',
     category: { id: '3', name: 'accessories' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -30,7 +30,7 @@ const products: Product[] = [
   },
   {
     id: '2',
-    name: 'Basic Tee',
+    name: 'accessorio',
     category: { id: '3', name: 'accessories' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -40,7 +40,7 @@ const products: Product[] = [
   },
   {
     id: '3',
-    name: 'Basic Tee',
+    name: 'accessorio',
     category: { id: '3', name: 'accessories' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -50,7 +50,7 @@ const products: Product[] = [
   },
   {
     id: '4',
-    name: 'Basic Tee',
+    name: 'accessorio',
     category: { id: '3', name: 'accessories' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -60,7 +60,7 @@ const products: Product[] = [
   },
   {
     id: '5',
-    name: 'Basic Tee',
+    name: 'food',
     category: { id: '1', name: 'food' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -70,7 +70,7 @@ const products: Product[] = [
   },
   {
     id: '6',
-    name: 'Basic Tee',
+    name: 'food',
     category: { id: '1', name: 'food' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -80,7 +80,7 @@ const products: Product[] = [
   },
   {
     id: '7',
-    name: 'Basic Tee',
+    name: 'health product',
     category: { id: '2', name: 'health product' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
@@ -90,7 +90,7 @@ const products: Product[] = [
   },
   {
     id: '8',
-    name: 'Basic Tee',
+    name: 'food',
     category: { id: '1', name: 'food' },
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
