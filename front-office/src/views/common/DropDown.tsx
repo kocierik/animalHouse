@@ -44,7 +44,7 @@ const DropDown = ({ list, onSelectItem }: Props) => {
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
           {list.map((item) => {
-            return <ItemDropdown gameInfo={item} onChange={onItemDropDownChange} />
+            return <ItemDropdown gameInfo={item} onChange={onItemDropDownChange} key={item.id}/>
           })}
           <button
             onClick={filterData}
