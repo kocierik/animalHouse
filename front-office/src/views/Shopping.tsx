@@ -139,7 +139,7 @@ const Shopping = () => {
               <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
               {products.map((product) => {
                 if (filteredIds.includes(product.category.id)) return (
-                <Articles product={product} />)
+                <Articles product={product} key={product.id} />)
               })}
               </div>
             </nav>

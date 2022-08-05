@@ -5,6 +5,31 @@ import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import Reviewer from './common/shoppingComponents/Reviewer'
 
+export interface UserReview {
+  id: number,
+  name: string,
+  star: number,
+  description: string,
+  data: string
+}
+
+  const usersReview : UserReview[] = [
+    {
+      id: 0,
+      name: 'Il man',
+      star: 5,
+      description: 'bello',
+      data: '2 months ago'
+    },
+    {
+      id: 1,
+      name: 'gyerik',
+      star: 3,
+      description: '3 stelline',
+      data: 'now'
+    }
+  ]
+
 const product = {
   id: 1,
   name: 'Basic Tee 6-Pack',
@@ -316,7 +341,11 @@ export default function Example() {
               </div>
             </div>
           </div>
-          <Reviewer />
+          {
+            usersReview.map(review => {
+              return <Reviewer review={review} key={review.id}/>
+            })
+          }
         </div>
       </div>
       <Footer />
