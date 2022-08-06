@@ -108,19 +108,24 @@ const Shopping = () => {
     { id: '4', name: 'animal' }
   ]
 
-  const [filteredIds, setFilterdIds] = useState<string[]>(['1', '2', '3', '4'])
+  const [filteredIds, setFilterdIds] = useState<string[]>(["1","2","3","4"])
+  let isInitial = true
 
   const onDropDownSelectItem = (filteredId: string) => {
-    console.log(filteredId)
+    if(isInitial)
+      setFilterdIds([])
+    isInitial = false
+    console.log(isInitial)
     const isIdPresent = filteredIds?.includes(filteredId)
-
+    console.log(isIdPresent)
     if (isIdPresent) {
       let values = filteredIds.filter((id) => id === filteredId)
       setFilterdIds(values)
     } else {
-      const newFilteredIds = [...filteredIds, filteredId]
-      setFilterdIds(newFilteredIds)
+       const newFilteredIds = [...filteredIds, filteredId]
+       setFilterdIds(newFilteredIds)
     }
+    console.log(filteredId)
   }
 
   return (
@@ -138,8 +143,13 @@ const Shopping = () => {
               </div>
               <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
               {products.map((product) => {
-                if (filteredIds.includes(product.category.id)) return (
-                <Articles product={product} key={product.id} />)
+                if (isInitial){
+                return (  
+                  <Articles product={product} key={product.id} />)
+                }
+                else if(filteredIds.includes(product.category.id)){
+                  return (<Articles product={product} key={product.id} />)
+                }
               })}
               </div>
             </nav>
