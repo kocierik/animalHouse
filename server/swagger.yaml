@@ -9,6 +9,7 @@ tags:
 - name: "pet"
 - name: "store"
 - name: "user"
+- name: "community"
     
 schemes:
 - "http"
@@ -92,7 +93,40 @@ paths:
           description: "ok"
           schema:
             $ref: "#/definitions/User"
-          
+            
+  /user/{guid}/score:
+    put:
+      tags:
+      - "user"
+      summary: "Add a game score to the specified user"
+      parameters:
+        - in: "path"
+          name: "guid"
+          type: "string"
+          required: true
+          description: Guid of the user
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+                game-guid:
+                  type: "string"
+                score:
+                  type: "number"
+      security:
+      - JWT: []
+      responses:
+        "200":
+          description: "ok"
+          schema:
+            type: "object"
+            properties:
+                game-guid:
+                  type: "string"
+                score:
+                  type: "number"
   /pet:
     get:
         tags:
@@ -127,7 +161,26 @@ paths:
       responses:
         "200":
           description: "Success"
-
+          
+  /community/game/:
+    get:
+        tags:
+        - "community"
+        summary: "Fids all games"
+        description: ""
+        responses:
+          "200":
+            description: "successful operation"
+            schema: 
+              type: "array"
+              items:
+                type: "object"
+                properties:
+                  name:
+                    type: "string"
+                  guid:
+                    type: "string"
+            
 securityDefinitions:  
   JWT:  
     type: "apiKey"  
