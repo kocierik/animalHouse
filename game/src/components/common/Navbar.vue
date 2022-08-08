@@ -57,7 +57,7 @@ const logout = () => {
         </svg>
       </button>
 
-      <div id="mobile-menu flexw-full" style="flex: auto" :class="menuClasses">
+      <div id="mobile-menu flex w-full" style="flex: auto" :class="menuClasses">
         <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
           <li>
             <router-link :to="router.HomeRoute">
@@ -89,7 +89,7 @@ const logout = () => {
               </a>
             </router-link>
           </li>
-          <li class="flex flex-1 justify-end">
+          <li class="flex flex-1 justify-start md:justify-end">
             <router-link :to="router.LoginRoute">
               <a
                 v-if="isLogged"
