@@ -7,7 +7,7 @@ const defaultMenuClasses = 'w-full md:block md:w-auto'
 
 let menuOpen = false
 let menuClasses = ref<string>('hidden ' + defaultMenuClasses)
-let isLogged = ref<bool>(lh.isLogged())
+let isLogged = ref<boolean>(lh.isLogged())
 let width = document.documentElement.clientWidth
 const toggleMenu = () => {
   menuOpen = !menuOpen
@@ -29,6 +29,9 @@ const logout = () => {
 <template>
   <nav class="border-gray-200 px-2 sm:px-4 py-2.5 shadow">
     <div class="container justify-between flex flex-wrap items-center mx-auto">
+      <a href="/" class="flex items-center ml-2">
+        <span class="p-1 mr-5 self-center text-xl font-semibold whitespace-nowrap">Animal House</span>
+      </a>
       <button
         @click="toggleMenu"
         data-collapse-toggle="mobile-menu"
@@ -54,7 +57,7 @@ const logout = () => {
         </svg>
       </button>
 
-      <div id="mobile-menu" :class="menuClasses">
+      <div id="mobile-menu flexw-full" style="flex: auto" :class="menuClasses">
         <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
           <li>
             <router-link :to="router.HomeRoute">
@@ -86,7 +89,7 @@ const logout = () => {
               </a>
             </router-link>
           </li>
-          <li>
+          <li class="flex flex-1 justify-end">
             <router-link :to="router.LoginRoute">
               <a
                 v-if="isLogged"
@@ -108,9 +111,6 @@ const logout = () => {
           </li>
         </ul>
       </div>
-      <a href="/" class="flex items-center ml-2">
-        <span class="p-1 self-center text-xl font-semibold whitespace-nowrap">Animal House</span>
-      </a>
     </div>
   </nav>
 </template>
