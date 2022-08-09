@@ -27,7 +27,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div class="border-2 border-y-green-100 rounded">
+  <div class="border-2 border-y-green-100 rounded shadow-lg">
     <nav class="border-gray-200 px-2 sm:px-4 py-2.5 shadow">
       <div class="container justify-between flex flex-wrap items-center mx-auto">
         <a href="/" class="flex items-center ml-2">
