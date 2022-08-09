@@ -1,23 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const history = useLocation();
   const [infoProfile, setInfoProfile] = useState(false)
-  const [isActive, setIsActive] = useState([
-    { id: 0, value: false },
-    { id: 1, value: false },
-    { id: 2, value: false },
-    { id: 3, value: false }
-  ])
-
-  const onSelectItem = (id: number): void => {
-    let items = [...isActive]
-    items.forEach((item) => {
-      item.id === id ? (item.value = true) : (item.value = false)
-    })
-    setIsActive(items)
-  }
 
   const showInfo = () => {
     setInfoProfile(!infoProfile)
@@ -45,38 +32,33 @@ const Navbar = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <a
-                    onClick={() => onSelectItem(0)}
-                    style={{ backgroundColor: isActive[0].value ? 'red' : '' }}
-                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                    aria-current="page"
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/"  ? "indigo" : ""}}
+                    className=" text-white px-3 py-2 rounded-md text-sm font-medium active"
                   >
                     <Link to="/">Dashboard</Link>
-                  </a>
+                  </span>
 
-                  <a
-                    onClick={() => onSelectItem(1)}
-                    style={{ backgroundColor: isActive[1].value ? 'red' : '' }}
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/service/"  ? "indigo" : ""}}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/service/">Service</Link>
-                  </a>
+                  </span>
 
-                  <a
-                    onClick={() => onSelectItem(2)}
-                    style={{ backgroundColor: isActive[2].value ? 'red' : '' }}
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/shopping/"  ? "indigo" : ""}}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/shopping/">Shopping</Link>
-                  </a>
+                  </span>
 
-                  <a
-                    onClick={() => onSelectItem(3)}
-                    style={{ backgroundColor: isActive[3].value ? 'red' : '' }}
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/community/"  ? "indigo" : ""}}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/community/">Community</Link>
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>
