@@ -5,6 +5,17 @@ import * as lh from '@/helpers/loginHelper'
 
 const defaultMenuClasses = 'w-full md:block md:w-auto'
 
+const changeColorNav = (id: string) => {
+  const dict = [{ name: 'isHome' }, { name: 'isPersonal' }, { name: 'isGames' }, { name: 'isLogin' }]
+
+  document.addEventListener('click', function () {
+    dict.forEach((element) => {
+      document.getElementById(element.name).style.backgroundColor = 'white'
+    })
+    document.getElementById(id).style.backgroundColor = 'Aquamarine'
+  })
+}
+
 let menuOpen = false
 let menuClasses = ref<string>('hidden ' + defaultMenuClasses)
 let isLogged = ref<boolean>(lh.isLogged())
@@ -60,7 +71,11 @@ const logout = () => {
 
         <div id="mobile-menu flex w-full " style="flex: auto" :class="menuClasses">
           <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-            <li class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+            <li
+              id="isHome"
+              v-on:click="changeColorNav('isHome')"
+              class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+            >
               <router-link :to="router.HomeRoute">
                 <a
                   href="#"
@@ -70,7 +85,11 @@ const logout = () => {
                 </a>
               </router-link>
             </li>
-            <li class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+            <li
+              id="isPersonal"
+              v-on:click="changeColorNav('isPersonal')"
+              class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+            >
               <router-link :to="router.PersonalRoute">
                 <a
                   href="#"
@@ -80,7 +99,11 @@ const logout = () => {
                 </a>
               </router-link>
             </li>
-            <li class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+            <li
+              id="isGames"
+              v-on:click="changeColorNav('isGames')"
+              class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+            >
               <router-link :to="router.GamesRoute">
                 <a
                   href="#"
@@ -90,7 +113,7 @@ const logout = () => {
                 </a>
               </router-link>
             </li>
-            <li class="flex flex-1 justify-start md:justify-end">
+            <li id="isLogin" v-on:click="changeColorNav('isLogin')" class="flex flex-1 justify-start md:justify-end">
               <router-link :to="router.LoginRoute" class="self-center ml-3">
                 <a
                   v-if="isLogged"
