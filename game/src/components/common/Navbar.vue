@@ -19,7 +19,6 @@ const changeColorNav = (id: string) => {
 let menuOpen = false
 let menuClasses = ref<string>('hidden ' + defaultMenuClasses)
 let isLogged = ref<boolean>(lh.isLogged())
-let width = document.documentElement.clientWidth
 const toggleMenu = () => {
   menuOpen = !menuOpen
   if (menuOpen) menuClasses.value = defaultMenuClasses
