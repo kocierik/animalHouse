@@ -4,7 +4,7 @@ import Navbar from './common/Navbar'
 import DropDown from './common/DropDown'
 import Articles from './common/shoppingComponents/Articles'
 import { List } from './Community'
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 
 export interface Product {
   id: string
@@ -109,17 +109,21 @@ const Shopping = () => {
   ]
 
   const [filteredIds, setFilterdIds] = useState<string[]>(["1","2","3","4"])
-  let isInitial = true
+  const [open, setOpen] = useState(true)
+
+  const onOpenMenu = () =>{
+    setOpen(!open)
+    if(open){
+      setFilterdIds([])
+    } 
+  }
 
   const onDropDownSelectItem = (filteredId: string) => {
-    if(isInitial)
-      setFilterdIds([])
-    isInitial = false
-    console.log(isInitial)
+    onOpenMenu()
     const isIdPresent = filteredIds?.includes(filteredId)
     console.log(isIdPresent)
     if (isIdPresent) {
-      let values = filteredIds.filter((id) => id === filteredId)
+      let values = filteredIds.filter((id) => id !== filteredId)
       setFilterdIds(values)
     } else {
        const newFilteredIds = [...filteredIds, filteredId]
@@ -136,18 +140,14 @@ const Shopping = () => {
           <div className="container mx-auto justify-evenly	flex items-center flex-wrap pt-4 pb-12">
             <nav id="store" className="w-full  z-10 top-0 px-6 py-1">
               <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
-                <span className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
+                <span  className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
                   Store
                 </span>
-                <DropDown list={producs} onSelectItem={onDropDownSelectItem} />
+              <span style={{'zIndex' :10}} onClick={onOpenMenu }><DropDown  list={producs} onSelectItem={onDropDownSelectItem} /></span>
               </div>
               <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
               {products.map((product) => {
-                if (isInitial){
-                return (  
-                  <Articles product={product} key={product.id} />)
-                }
-                else if(filteredIds.includes(product.category.id)){
+                if(filteredIds.includes(product.category.id)){
                   return (<Articles product={product} key={product.id} />)
                 }
               })}
