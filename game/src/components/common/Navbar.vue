@@ -130,7 +130,7 @@ const logout = () => {
                   v-on:click="changeColorNav('isLogin')"
                   @click="login()"
                   href="#"
-                  class="text-black hover:bg-green-100 hover:text-black px-4 py-2 rounded-md text-sm font-medium"
+                  class="shadow-inner hover:bg-green-100 hover:text-black px-4 py-2 rounded-md text-sm font-medium"
                 >
                   Login
                 </a>
