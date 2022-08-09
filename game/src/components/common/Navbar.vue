@@ -113,10 +113,12 @@ const logout = () => {
                 </a>
               </router-link>
             </li>
-            <li id="isLogin" v-on:click="changeColorNav('isLogin')" class="flex flex-1 justify-start md:justify-end">
+            <li class="flex flex-1 justify-start md:justify-end">
               <router-link :to="router.LoginRoute" class="self-center ml-3">
                 <a
                   v-if="isLogged"
+                  id="isLogin"
+                  v-on:click="changeColorNav('isLogin')"
                   @click="logout()"
                   href="#"
                   class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
@@ -125,6 +127,8 @@ const logout = () => {
                 </a>
                 <a
                   v-else
+                  id="isLogin"
+                  v-on:click="changeColorNav('isLogin')"
                   @click="login()"
                   href="#"
                   class="text-black hover:bg-green-100 hover:text-black px-4 py-2 rounded-md text-sm font-medium"
