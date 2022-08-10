@@ -1,234 +1,255 @@
 swagger: "2.0"
 info:
-  description: "Animal houz back&."
-  version: "1.0.0"
-  title: "Swagger Petstore"
-host: "localhost:8080"
-basePath: "/v1"
+  description: Animal houz back&.
+  version: 1.0.0
+  title: Swagger Petstore
+host: localhost:8080
+basePath: /v1
 tags:
-- name: "pet"
-- name: "store"
-- name: "user"
-- name: "community"
+- name: pet
+- name: store
+- name: user
+- name: community
     
 schemes:
-- "http"
+- http
 paths:
   /user/register:
     post:
       tags:
-      - "user"
-      summary: "Create new user"
+      - user
+      summary: Create new user
       parameters:
-      - in: "body"
-        name: "body"
-        description: "UserCreation"
+      - in: body
+        name: body
+        description: UserCreation
         required: true
         schema:
-          type: "object"
+          type: object
           properties:
               username:
-                type: "string"
+                type: string
               password:
-                type: "string"
+                type: string
               email:
-                type: "string"
+                type: string
               firstName:
-                type: "string"
+                type: string
               lastName:
-                type: "string"
+                type: string
       responses:
-        "200":
-          description: "Success"
+        200:
+          description: Success
   /user/login:
     post:
       tags:
-      - "user"
-      summary: "Login as an user"
+      - user
+      summary: Login as an user
       parameters:
-      - in: "body"
-        name: "body"
-        description: "login"
+      - in: body
+        name: body
+        description: login
         required: true
         schema:
-          type: "object"
+          type: object
           properties:
               username:
-                type: "string"
+                type: string
               password:
-                type: "string"
+                type: string
       responses:
-        "200":
-          description: "Success"  
+        200:
+          description: Success  
           schema:
-            type: "object"
+            type: object
             properties:
               token:
-                type: "string"
+                type: string
   /user/test:
     get:
       tags:
-      - "user"
-      summary: "mattia's test"
+      - user
+      summary: mattia's test
       security:  
         - JWT: []
       responses:
-        "200":
-          description: "ok"
+        200:
+          description: ok
   /user/{guid}:
     get:
       tags:
-      - "user"
-      summary: "Get a user by ID"
+      - user
+      summary: Get a user by ID
       parameters:
-        - in: "path"
-          name: "guid"
-          type: "string"
+        - in: path
+          name: guid
+          type: string
           required: true
           description: Numeric ID of the user to get
       security:
       - JWT: []
       responses:
-        "200":
-          description: "ok"
+        200:
+          description: ok
           schema:
             $ref: "#/definitions/User"
-            
+  
   /user/{guid}/score:
-    put:
+    get:
       tags:
-      - "user"
-      summary: "Add a game score to the specified user"
+      - user
+      summary: Get game scores of the specified user
       parameters:
-        - in: "path"
-          name: "guid"
-          type: "string"
+        - in: path
+          name: guid
+          type: string
           required: true
           description: Guid of the user
-        - in: "body"
-          name: "body"
-          required: true
-          schema:
-            type: "object"
-            properties:
-                gameGuid:
-                  type: "string"
-                score:
-                  type: "number"
       security:
       - JWT: []
       responses:
-        "200":
-          description: "ok"
+        200:
+          description: ok
           schema:
-            type: "object"
+            type: array
+            items:
+              type: object
+              properties:
+                  gameGuid:
+                    type: string
+                  score:
+                    type: number
+    put:
+      tags:
+      - user
+      summary: Add a game score to the specified user
+      parameters:
+        - in: path
+          name: guid
+          type: string
+          required: true
+          description: Guid of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
             properties:
-                game-guid:
-                  type: "string"
+                gameGuid:
+                  type: string
                 score:
-                  type: "number"
+                  type: number
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: object
+            properties:
+                gameGuid:
+                  type: string
+                score:
+                  type: number
   /pet:
     get:
         tags:
-        - "pet"
-        summary: "Finds Pet"
-        description: ""
-        operationId: "getPet"
+        - pet
+        summary: Finds Pet
+        operationId: getPet
         parameters:
-        - name: "id"
-          in: "query"
-          description: "Id of the pet"
+        - name: id
+          in: query
+          description: Id of the pet
           required: true
-          type: "integer"
+          type: integer
         responses:
-          "200":
-            description: "successful operation"
+          200:
+            description: successful operation
             schema: 
               $ref: "#/definitions/Pet"
     post:
       tags:
-      - "pet"
-      summary: "Add a new pet"
-      description: ""
-      operationId: "addPet"
+      - pet
+      summary: Add a new pet
+      operationId: addPet
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Pet object"
+      - in: body
+        name: body
+        description: Pet object
         required: true
         schema:
           $ref: "#/definitions/Pet"
       responses:
-        "200":
-          description: "Success"
+        200:
+          description: Success
           
   /community/game/:
     get:
         tags:
-        - "community"
-        summary: "Fids all games"
-        description: ""
+        - community
+        summary: Fids all games
         responses:
-          "200":
-            description: "successful operation"
+          200:
+            description: successful operation
             schema: 
-              type: "array"
+              type: array
               items:
-                type: "object"
+                type: object
                 properties:
                   name:
-                    type: "string"
+                    type: string
                   guid:
-                    type: "string"
+                    type: string
             
 securityDefinitions:  
   JWT:  
-    type: "apiKey"  
-    in: "header"  
-    name: "authorization" 
+    type: apiKey  
+    in: header  
+    name: authorization 
     
     
 definitions:
   User:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: integer
+        format: int64
       username:
-        type: "string"
+        type: string
       firstName:
-        type: "string"
+        type: string
       lastName:
-        type: "string"
+        type: string
       email:
-        type: "string"
+        type: string
       phone:
-        type: "string"
+        type: string
       pets:
         type: array # todo
         items:
-          type: "object"
+          type: object
           properties:
             id:
-              type: "integer"
+              type: integer
             name: 
-              type: "string"
+              type: string
       address: 
-        type: "object"
+        type: object
         properties:
           country:
-            type: "string"
+            type: string
           city:
-            type: "string"
+            type: string
           street:
-            type: "string"
+            type: string
           cap:
-            type: "integer"
+            type: integer
       
       
   Species:
-    type: "string"
+    type: string
     enum: &SPECIES
       - Dog
       - Cat
@@ -239,66 +260,66 @@ definitions:
       - Rabbit
       
   Pet:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: integer
+        format: int64
       name:
-        type: "string"
+        type: string
       ownerId:
-        type: "integer"
+        type: integer
       specie:
-        type: "string"
+        type: string
         enum: *SPECIES
       age:
-        type: "integer"
+        type: integer
   
   Product:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: integer
+        format: int64
       name:
-        type: "string"
+        type: string
       price:
-        type: "number"
+        type: number
       description:
-        type: "string"
+        type: string
       image:
-        type: "string"
+        type: string
       species:
-        type: "array"
+        type: array
         items:
-          type: "string"
+          type: string
           enum: *SPECIES
       address:
-        type: "string"
+        type: string
     
   Shop:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: integer
+        format: int64
       address: 
-        type: "object"
+        type: object
         properties:
           country:
-            type: "string"
+            type: string
           city:
-            type: "string"
+            type: string
           street:
-            type: "string"
+            type: string
           cap:
-            type: "integer"
+            type: integer
       products:
-        type: "array"
+        type: array
         items:
-          type: "object"
+          type: object
           properties:
             productId:
-              type: "integer"
+              type: integer
             quantity:
-              type: "integer"
+              type: integer
