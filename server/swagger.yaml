@@ -65,16 +65,24 @@ paths:
             properties:
               token:
                 type: string
-  /user/test:
+  /user/current:
     get:
       tags:
       - user
-      summary: mattia's test
+      summary: Retrieve information about the current user
       security:  
         - JWT: []
       responses:
         200:
           description: ok
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              _id:
+                type: string
+                
   /user/{id}:
     get:
       tags:
@@ -82,7 +90,7 @@ paths:
       summary: Get a user by ID
       parameters:
         - in: path
-          name: _id
+          name: id
           type: string
           required: true
           description: Numeric ID of the user to get
@@ -101,10 +109,10 @@ paths:
       summary: Get game scores of the specified user
       parameters:
         - in: path
-          name: _id
+          name: id
           type: string
           required: true
-          description: Id of the user
+          description: Guid of the user
       security:
       - JWT: []
       responses:
@@ -115,7 +123,7 @@ paths:
             items:
               type: object
               properties:
-                  gameId:
+                  gameGuid:
                     type: string
                   score:
                     type: number
@@ -125,10 +133,10 @@ paths:
       summary: Add a game score to the specified user
       parameters:
         - in: path
-          name: _id
+          name: id
           type: string
           required: true
-          description: Id of the user
+          description: Guid of the user
         - in: body
           name: body
           required: true
@@ -147,10 +155,49 @@ paths:
           schema:
             type: object
             properties:
-                gameId:
+                gameGuid:
                   type: string
                 score:
                   type: number
+  /user/{id}/cart:
+    put:
+      tags:
+      - user
+      summary: Add a product to the cart of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                  productId:
+                    type: string
+                  quantity:
+                    type: number
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                  productId:
+                    type: string
+                  quantity:
+                    type: number
+    
+    
   /pet:
     get:
         tags:

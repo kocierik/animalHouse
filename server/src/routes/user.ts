@@ -6,6 +6,7 @@ import { JsonUserCreation, JsonLogin} from '../json/JsonUser'
 import { JsonError } from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
+import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
 
 const SECRET = 'bigSecret'
 
@@ -19,14 +20,14 @@ export const verifyToken = async (req: Request, res: Response, next: Function) =
   if (authHeader !== undefined) {
     jwt.verify(authHeader, SECRET, (err, authData) => {
       if (err)
-        res.sendStatus(403)
+        res.sendStatus(STATUS_UNAUTHORIZED)
       else {
         req.authData = authData.authData
         next()
       }
     })
   } else
-    res.sendStatus(403)
+    res.sendStatus(STATUS_UNAUTHORIZED)
 }
 
 export const registerPost = async (req: Request, res: Response) => {
@@ -58,7 +59,7 @@ export const registerPost = async (req: Request, res: Response) => {
   user.phone = "todo"
 
   await user.save()
-  return res.status(200).send('user created successfully') 
+  return res.status(STATUS_OK).send('user created successfully') 
 }
 
 export const loginPost = async (req: Request, res: Response) => {
@@ -74,7 +75,7 @@ export const loginPost = async (req: Request, res: Response) => {
     const token = await jwt.sign({authData: authData}, SECRET);
     return res.json({token})
   }
-  else return res.status(403).json(new JsonError("invalid username or password"))
+  else return res.status(STATUS_UNAUTHORIZED).json(new JsonError("invalid username or password"))
 }
 
 
@@ -83,7 +84,7 @@ export const getUser = async (req: Request, res: Response) => {
   const pathId = req.params.id
   // Check user 
   if (pathId !== authId)
-    res.status(403).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else {
     const result = await User.find({'username' : req.authData.username, 'id': pathId})
     if (result.length !== 1) {
@@ -107,7 +108,7 @@ export const putScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
   // Check user 
   if (pathId !== authId)
-    res.status(403).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else {
     // Check game id 
     const gameId = req.body.gameId
@@ -120,7 +121,7 @@ export const putScore = async (req: Request, res: Response) => {
     score.gameId = req.body.gameId
     score.value = req.body.score
     await score.save()
-    return res.status(200).json(score)
+    return res.status(STATUS_OK).json(score)
   }
 }
 
@@ -129,14 +130,14 @@ export const getScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
   // Check user 
   if (pathId !== authId)
-    res.status(403).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else {
-    return res.status(200).json(await Score.find({userId: pathId}))
+    return res.status(STATUS_OK).json(await Score.find({userId: pathId}))
   }
 }
 
 
-export const test = async (req: Request, res: Response) => {
+export const getCurrentUser = async (req: Request, res: Response) => {
     res.json(req.authData)
 }
 
