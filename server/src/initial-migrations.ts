@@ -1,5 +1,4 @@
 import { Game } from './entities/Community'
-import {v4 as uuidv4} from 'uuid'
 
 export const initGames = async () => {
   Game.deleteMany({});
@@ -7,7 +6,6 @@ export const initGames = async () => {
     async (g: string) => {
       let game = new Game()
       game.name = g 
-      game.guid = uuidv4()
       await game.save()
     }
   )

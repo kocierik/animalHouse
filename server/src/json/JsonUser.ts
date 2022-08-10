@@ -14,7 +14,6 @@ export interface JsonLogin {
 }
 
 export interface JsonUser {
-  guid: string,
   username: string,
   email: string,
   firstName: string,

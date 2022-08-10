@@ -1,16 +1,14 @@
 import { Schema, model } from 'mongoose'
 
 interface IScore {
-  guid: string,
-  userguid: string,
-  gameguid: string,
+  userId: string,
+  gameId: string,
   value: number
 }
 
 const scoreSchema = new Schema<IScore>({
-  guid: {type: String, required: true},
-  userguid: { type: String, required: true },
-  gameguid: { type: String, required: true },
+  userId: { type: String, required: true },
+  gameId: { type: String, required: true },
   value: { type: Number, required: true}
 })
 
