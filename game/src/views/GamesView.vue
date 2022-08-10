@@ -15,37 +15,40 @@ const gameList: Game[] = [
     id: 0,
     name: 'Memory',
     url: router.GameMemory,
-    bgImage: 'https://i.pinimg.com/736x/f9/d0/ea/f9d0eab4d516b2b04a97f3e5c3fa8c69.jpg',
+    bgImage:
+      'https://static.vecteezy.com/ti/vettori-gratis/p1/4676383-colore-onde-sfondo-fluid-flow-ink-splash-abstract-flow-vibrant-color-trendy-poster-colorato-gradient-ink-in-water-3d-wave-liquid-shape-flow-wave-gratuito-vettoriale.jpg',
   },
   {
     id: 1,
     name: 'Quiz',
     url: router.GameQuiz,
-    bgImage: 'https://i.pinimg.com/736x/f9/d0/ea/f9d0eab4d516b2b04a97f3e5c3fa8c69.jpg',
+    bgImage:
+      'https://static.vecteezy.com/system/resources/previews/002/056/882/non_2x/colorful-waves-background-free-vector.jpg',
   },
   {
     id: 2,
     name: 'HangMan',
     url: router.GameHangMan,
-    bgImage: 'https://i.pinimg.com/736x/f9/d0/ea/f9d0eab4d516b2b04a97f3e5c3fa8c69.jpg',
+    bgImage: 'https://static.vecteezy.com/ti/vettori-gratis/p1/1907561-sfondo-onde-colorate-gratuito-vettoriale.jpg',
   },
   {
     id: 3,
     name: '2048',
     url: router.GameDue,
-    bgImage: 'https://i.pinimg.com/736x/f9/d0/ea/f9d0eab4d516b2b04a97f3e5c3fa8c69.jpg',
+    bgImage:
+      'https://png.pngtree.com/thumb_back/fh260/background/20200719/pngtree-gradient-colorful-abstract-design-image_360031.jpg',
   },
   {
     id: 4,
     name: 'Minesweeper',
     url: router.GameMinesweeper,
-    bgImage: 'https://i.pinimg.com/736x/f9/d0/ea/f9d0eab4d516b2b04a97f3e5c3fa8c69.jpg',
+    bgImage: 'https://i.pinimg.com/originals/ca/6b/0f/ca6b0f7177229f00b2ec1ea2f48385fd.jpg',
   },
   {
     id: 5,
     name: 'Tic Tac Toe',
     url: router.GameTicTacToe,
-    bgImage: 'https://i.pinimg.com/736x/f9/d0/ea/f9d0eab4d516b2b04a97f3e5c3fa8c69.jpg',
+    bgImage: 'https://c.neh.tw/thumb/f/720/5fc1c59b4fd94ddd8128.jpg',
   },
 ]
 </script>
