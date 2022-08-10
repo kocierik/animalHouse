@@ -4,7 +4,6 @@ import { ref } from 'vue'
 import type { Article } from './articles'
 const props = defineProps<{ articleInfo: Article }>()
 const article = ref(props.articleInfo)
-console.log(article.value)
 </script>
 <template>
   <div class="w-full p-3 max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
