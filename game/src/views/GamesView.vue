@@ -23,13 +23,13 @@ const gameList: Game[] = [
     name: 'Quiz',
     url: router.GameQuiz,
     bgImage:
-      'https://static.vecteezy.com/system/resources/previews/002/056/882/non_2x/colorful-waves-background-free-vector.jpg',
+      'https://www.creativefabrica.com/wp-content/uploads/2020/01/05/wave-colorful-background-Graphics-1-1-580x387.jpg',
   },
   {
     id: 2,
     name: 'HangMan',
     url: router.GameHangMan,
-    bgImage: 'https://static.vecteezy.com/ti/vettori-gratis/p1/1907561-sfondo-onde-colorate-gratuito-vettoriale.jpg',
+    bgImage: 'https://i.pinimg.com/600x315/58/40/4c/58404cb23b6a60cea480ed7576553b9a.jpg',
   },
   {
     id: 3,
