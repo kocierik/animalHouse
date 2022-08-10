@@ -75,14 +75,14 @@ paths:
       responses:
         200:
           description: ok
-  /user/{guid}:
+  /user/{id}:
     get:
       tags:
       - user
       summary: Get a user by ID
       parameters:
         - in: path
-          name: guid
+          name: _id
           type: string
           required: true
           description: Numeric ID of the user to get
@@ -94,17 +94,17 @@ paths:
           schema:
             $ref: "#/definitions/User"
   
-  /user/{guid}/score:
+  /user/{id}/score:
     get:
       tags:
       - user
       summary: Get game scores of the specified user
       parameters:
         - in: path
-          name: guid
+          name: _id
           type: string
           required: true
-          description: Guid of the user
+          description: Id of the user
       security:
       - JWT: []
       responses:
@@ -115,7 +115,7 @@ paths:
             items:
               type: object
               properties:
-                  gameGuid:
+                  gameId:
                     type: string
                   score:
                     type: number
@@ -125,17 +125,17 @@ paths:
       summary: Add a game score to the specified user
       parameters:
         - in: path
-          name: guid
+          name: _id
           type: string
           required: true
-          description: Guid of the user
+          description: Id of the user
         - in: body
           name: body
           required: true
           schema:
             type: object
             properties:
-                gameGuid:
+                gameId:
                   type: string
                 score:
                   type: number
@@ -147,7 +147,7 @@ paths:
           schema:
             type: object
             properties:
-                gameGuid:
+                gameId:
                   type: string
                 score:
                   type: number
@@ -199,7 +199,7 @@ paths:
                 properties:
                   name:
                     type: string
-                  guid:
+                  _id:
                     type: string
             
 securityDefinitions:  
