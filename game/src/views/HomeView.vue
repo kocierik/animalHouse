@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from '../components/common/Header.vue'
 import Footer from '../components/common/Footer.vue'
-import Carousel from '../components/common/Carousel.vue'
+import Carousel from '../components/common/carousel.vue'
 import SixCard from '../components/common/SixCard.vue'
 import Billing from '../components/common/Billing.vue'
 import TeamCards from '../components/common/TeamCards.vue'
