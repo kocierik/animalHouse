@@ -2,9 +2,9 @@ import { connect } from 'mongoose'
 import express, { Request, Response} from 'express'
 import cors from 'cors'
 import * as parser from 'body-parser'
-import { getAnimalCodes } from './routes/animal' 
-import { registerPost, loginPost, verifyToken, getUser, test} from './routes/user'
-import { getGames } from './routes/community'
+import * as animalRoutes from './routes/animal' 
+import * as userRoutes from './routes/user'
+import * as communityRoutes from './routes/community'
 import { initGames } from './initial-migrations'
 
 // Constants
@@ -25,21 +25,25 @@ async function db() {
 db().catch(err => console.log(err));
 
 // Log
-const log = (req: Request, res: Response, next: Function) => {
+const log = (req: Request, _: Response, next: Function) => {
   console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
   next()
 }
 
 // Routes
+// User
 app.get("/", (_: Request, res:Response) => {res.send("anemal houz") })
-app.post(version + "/user/register", log, registerPost )
-app.post(version + "/user/login", log, loginPost)
-app.get(version + "/user/test", log, verifyToken, test)
-app.get(version + "/user/:guid", log, verifyToken, getUser)
+app.post(version + "/user/register", log, userRoutes.registerPost )
+app.post(version + "/user/login", log, userRoutes.loginPost)
+app.get(version + "/user/test", log, userRoutes.verifyToken, userRoutes.test)
+app.get(version + "/user/:guid", log, userRoutes.verifyToken, userRoutes.getUser)
+app.put(version + "/user/:guid/score", log, userRoutes.verifyToken, userRoutes.putScore)
 
-app.get(version + "/animals/", log, getAnimalCodes)
+// Animal
+app.get(version + "/animals/", log, animalRoutes.getAnimalCodes)
 
-app.get(version + "/community/game/", log, getGames)
+// Community
+app.get(version + "/community/game/", log, communityRoutes.getGames)
 
 
 app.listen(port, () => { console.log("[INFO] Server started at port " + port)})
