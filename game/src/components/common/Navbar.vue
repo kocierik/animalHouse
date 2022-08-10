@@ -6,13 +6,13 @@ import * as lh from '@/helpers/loginHelper'
 const defaultMenuClasses = 'w-full md:block md:w-auto'
 
 const changeColorNav = (id: string) => {
-  const dict = [{ name: 'isHome' }, { name: 'isPersonal' }, { name: 'isGames' }, { name: 'isLogin' }]
+  const dict = [{ name: 'isHome' }, { name: 'isPersonal' }, { name: 'isGames' }]
 
   document.addEventListener('click', function () {
     dict.forEach((element) => {
       document.getElementById(element.name).style.backgroundColor = 'white'
     })
-    document.getElementById(id).style.backgroundColor = 'Aquamarine'
+    document.getElementById(id).style.backgroundColor = '#eafff1'
   })
 }
 
@@ -116,21 +116,19 @@ const logout = () => {
               <router-link :to="router.LoginRoute" class="self-center ml-3">
                 <a
                   v-if="isLogged"
-                  id="isLogin"
                   v-on:click="changeColorNav('isLogin')"
                   @click="logout()"
                   href="#"
-                  class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                  class="text-black hover:bg-yellow-100 bg-yellow-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Logout
                 </a>
                 <a
                   v-else
-                  id="isLogin"
                   v-on:click="changeColorNav('isLogin')"
                   @click="login()"
                   href="#"
-                  class="shadow-inner hover:bg-green-100 hover:text-black px-4 py-2 rounded-md text-sm font-medium"
+                  class="shadow-inner hover:bg-yellow-100 bg-yellow-200 hover:text-black px-4 py-2 rounded-md text-sm font-medium"
                 >
                   Login
                 </a>
