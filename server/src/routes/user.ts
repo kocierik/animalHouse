@@ -7,6 +7,8 @@ import { JsonError } from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
+import Product from '../entities/Product'
+import Cart, { IProductCount } from '../entities/Cart'
 
 const SECRET = 'bigSecret'
 
@@ -35,20 +37,20 @@ export const registerPost = async (req: Request, res: Response) => {
   
   // Password checks
   if (userCreation.password.length < 8)
-    return res.status(400).send('password must be at least 8 characters long')
+    return res.status(STATUS_BAD_REQUEST).send('password must be at least 8 characters long')
 
   // Look if username is already taken
   if ((await User.find({'username' : userCreation.username})).length != 0)
-    return res.status(400).send(`username ${userCreation.username} already taken`)
+    return res.status(STATUS_BAD_REQUEST).send(`username ${userCreation.username} already taken`)
 
   // Look if email is well formed
   /*const regExp = new RegExp('')
   if (!regExp.test(userCreation.password))
-    return res.status(400).send(`email ${userCreation.email} is malformed`)*/
+    return res.status(STATUS_BAD_REQUEST).send(`email ${userCreation.email} is malformed`)*/
 
   // Look if email is already taken
   if ((await User.find({'email' : userCreation.email})).length != 0)
-    return res.status(400).send(`email ${userCreation.email} already taken`)
+    return res.status(STATUS_BAD_REQUEST).send(`email ${userCreation.email} already taken`)
 
   const user = new User()
   user.username = userCreation.username
@@ -78,6 +80,9 @@ export const loginPost = async (req: Request, res: Response) => {
   else return res.status(STATUS_UNAUTHORIZED).json(new JsonError("invalid username or password"))
 }
 
+export const getCurrentUser = async (req: Request, res: Response) => {
+    res.json(req.authData)
+}
 
 export const getUser = async (req: Request, res: Response) => {
   const authId = req.authData.id
@@ -88,7 +93,7 @@ export const getUser = async (req: Request, res: Response) => {
   else {
     const result = await User.find({'username' : req.authData.username, 'id': pathId})
     if (result.length !== 1) {
-      res.status(400).json(new JsonError('Invalid id ' + pathId))
+      res.status(STATUS_BAD_REQUEST).json(new JsonError('Invalid id ' + pathId))
     }
     const jsonUser = {
       id: result[0]._id,
@@ -114,7 +119,7 @@ export const putScore = async (req: Request, res: Response) => {
     const gameId = req.body.gameId
 
     if (gameId === null || gameId === undefined || (await Game.find({_id: gameId})).length != 1)
-      return res.status(400).json(new JsonError("invalid game id " + gameId))
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError("invalid game id " + gameId))
 
     const score = new Score()
     score.userId = pathId 
@@ -136,8 +141,50 @@ export const getScore = async (req: Request, res: Response) => {
   }
 }
 
+export const putCart = async (req: Request, res: Response) => {
+  // Check user 
+  const authId = req.authData.id
+  const pathId = req.params.id
+  if (pathId !== authId)
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+  else {
+    let pqs: IProductCount[]
+    try {
+      pqs = req.body as IProductCount[] 
+    } catch(ex) {
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex))
+    }
 
-export const getCurrentUser = async (req: Request, res: Response) => {
-    res.json(req.authData)
+    // Check input data
+    pqs.forEach(async (pq: IProductCount) => {
+      const  response = await Product.exists({_id: pq.productId})
+      if (!response)
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Product id '${pq.productId}' not found`))
+      if (pq.count < 0) {
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Quantity for product '${pq.productId}' cannot be less than 0`))
+      }
+    })
+
+    // Check if we have to create the cart for the current user
+    const response = await Cart.exists({userId: pathId})
+    if (!response) {
+      // We have to create an empty cart
+      let cart = new Cart()
+      cart.userId = pathId
+      cart.products = []
+      await cart.save()
+    }
+
+    const cart = await Cart.findOne({userId: pathId})
+    cart.products = cart.products.concat(pqs)
+
+    try {
+      await cart.save()
+    } catch(ex) {
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex))
+    }
+
+    return res.status(STATUS_OK).json(cart.products)
+  }
 }
 
