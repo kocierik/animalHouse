@@ -115,7 +115,6 @@ export const putScore = async (req: Request, res: Response) => {
     if (gameId === null || gameId === undefined || (await Game.find({_id: gameId})).length != 1)
       return res.status(400).json(new JsonError("invalid game id " + gameId))
 
-    console.log((await Game.find({id: gameId}))[0])
     const score = new Score()
     score.userId = pathId 
     score.gameId = req.body.gameId
