@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import  { useState } from 'react'
-import { Link } from 'react-router-dom'
+
+import React, { useState } from 'react'
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const history = useLocation();
   const [infoProfile, setInfoProfile] = useState(false)
+
   const showInfo = () => {
     setInfoProfile(!infoProfile)
   }
@@ -30,19 +33,31 @@ const Navbar = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <span className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/"  ? "indigo" : ""}}
+                    className=" text-white px-3 py-2 rounded-md text-sm font-medium active"
+                  >
                     <Link to="/">Dashboard</Link>
                   </span>
 
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/service/"  ? "indigo" : ""}}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     <Link to="/service/">Service</Link>
                   </span>
 
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/shopping/"  ? "indigo" : ""}}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     <Link to="/shopping/">Shopping</Link>
                   </span>
 
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/community/"  ? "indigo" : ""}}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     <Link to="/community/">Community</Link>
                   </span>
                 </div>

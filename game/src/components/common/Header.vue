@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import * as router from '@/router/index'
+</script>
 <template>
   <header>
     <!-- Background image -->
@@ -25,7 +27,7 @@
               data-mdb-ripple-color="light"
               hover:bg-sky-700
             >
-              Personal Area
+              <router-link :to="{ path: router.PersonalRoute }"> Personal Area </router-link>
             </button>
           </div>
         </div>
