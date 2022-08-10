@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-interface IProductCount {
+export interface IProductCount {
   productId: string,
   count: number
 }
