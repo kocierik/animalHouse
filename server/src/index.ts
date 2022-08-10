@@ -38,6 +38,7 @@ app.post(version + "/user/login", log, userRoutes.loginPost)
 app.get(version + "/user/test", log, userRoutes.verifyToken, userRoutes.test)
 app.get(version + "/user/:guid", log, userRoutes.verifyToken, userRoutes.getUser)
 app.put(version + "/user/:guid/score", log, userRoutes.verifyToken, userRoutes.putScore)
+app.get(version + "/user/:guid/score/", log, userRoutes.verifyToken, userRoutes.getScore)
 
 // Animal
 app.get(version + "/animals/", log, animalRoutes.getAnimalCodes)

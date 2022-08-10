@@ -127,6 +127,17 @@ export const putScore = async (req: Request, res: Response) => {
   }
 }
 
+export const getScore = async (req: Request, res: Response) => {
+  const authGuid = req.authData.guid
+  const pathGuid = req.params.guid
+  // Check user 
+  if (pathGuid !== authGuid)
+    res.status(403).json(new JsonError( 'Can\'t access user with guid ' + pathGuid + ' (logged is ' + authGuid + ')'))
+  else {
+    return res.status(200).json(await Score.find({userguid: pathGuid}))
+  }
+}
+
 
 export const test = async (req: Request, res: Response) => {
     res.json(req.authData)
