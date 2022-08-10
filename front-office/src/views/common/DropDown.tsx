@@ -5,13 +5,15 @@ import ItemDropdown from './ItemDropdown'
 interface Props {
   list: List[]
   onSelectItem: (id: string) => void
+  onOpenMenu: any
 }
 
-const DropDown = ({ list, onSelectItem }: Props) => {
+const DropDown = ({ list, onSelectItem, onOpenMenu }: Props) => {
   const [isList, setIsList] = useState(false)
 
   const filterData = () => {
     setIsList(!isList)
+    onOpenMenu()
   }
 
   const onItemDropDownChange = (id: string) => {

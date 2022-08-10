@@ -116,18 +116,18 @@ const Shopping = () => {
     if(open){
       setFilterdIds([])
     } 
+    console.log("open " + open)
   }
 
   const onDropDownSelectItem = (filteredId: string) => {
-    onOpenMenu()
+    console.log("open2 " + open)
     const isIdPresent = filteredIds?.includes(filteredId)
-    console.log(isIdPresent)
     if (isIdPresent) {
       let values = filteredIds.filter((id) => id !== filteredId)
       setFilterdIds(values)
     } else {
-       const newFilteredIds = [...filteredIds, filteredId]
-       setFilterdIds(newFilteredIds)
+      const newFilteredIds = [...filteredIds, filteredId]
+      setFilterdIds(newFilteredIds)
     }
     console.log(filteredId)
   }
@@ -143,7 +143,7 @@ const Shopping = () => {
                 <span  className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
                   Store
                 </span>
-              <span style={{'zIndex' :10}} onClick={onOpenMenu }><DropDown  list={producs} onSelectItem={onDropDownSelectItem} /></span>
+              <span style={{'zIndex' :10}}  ><DropDown  list={producs} onOpenMenu={onOpenMenu} onSelectItem={onDropDownSelectItem} /></span>
               </div>
               <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
               {products.map((product) => {

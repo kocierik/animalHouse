@@ -56,29 +56,27 @@ const Community = () => {
   const [filteredIds, setFilterdIds]= useState<string[]>(["1","2","3","4","5","6"]);
   const [open, setOpen] = useState(true)
 
-
-  const onDropDownSelectItem = (filteredId: string) => {
-    
-    onOpenMenu()
-    const isIdPresent = filteredIds?.includes(filteredId)
-    console.log(isIdPresent)
-    if (isIdPresent) {
-      let values = filteredIds.filter((id) => id !== filteredId)
-      setFilterdIds(values)
-    } else {
-       const newFilteredIds = [...filteredIds, filteredId]
-       setFilterdIds(newFilteredIds)
-    }
-    console.log(filteredId)
-
-  }
-
   const onOpenMenu = () =>{
     setOpen(!open)
     if(open){
       setFilterdIds([])
     } 
+    console.log("open " + open)
   }
+
+  const onDropDownSelectItem = (filteredId: string) => {
+    console.log("open2 " + open)
+    const isIdPresent = filteredIds?.includes(filteredId)
+    if (isIdPresent) {
+      let values = filteredIds.filter((id) => id !== filteredId)
+      setFilterdIds(values)
+    } else {
+      const newFilteredIds = [...filteredIds, filteredId]
+      setFilterdIds(newFilteredIds)
+    }
+    console.log(filteredId)
+  }
+
 
   
 
@@ -89,7 +87,7 @@ const Community = () => {
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-            <span style={{'zIndex' :10}} onClick={onOpenMenu }><DropDown list={games} onSelectItem={onDropDownSelectItem} /></span>
+            <span style={{'zIndex' :10}}><DropDown list={games} onOpenMenu={onOpenMenu} onSelectItem={onDropDownSelectItem} /></span>
           </div>
           <div className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
