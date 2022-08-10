@@ -15,7 +15,7 @@ import Shop from '../components/common/Shop.vue'
     <div class="flex flex-1 flex-col flex-end">
       <div class="flex-1 pt-10 pb-10">
         <SixCard />
-        <Carousel />
+        <!-- <Carousel />  NON LO SO RICK -->
         <Testimonials />
         <Shop />
         <Billing />
