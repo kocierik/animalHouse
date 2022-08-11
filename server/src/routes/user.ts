@@ -2,13 +2,13 @@ import User from '../entities/User'
 import Score from '../entities/Score'
 import { Game } from '../entities/Community'
 import { Request, Response } from 'express'
-import { JsonUserCreation, JsonLogin} from '../json/JsonUser'
+import { JsonUserCreation, JsonLogin, JsonBuyingProduct} from '../json/JsonUser'
 import { JsonError } from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
 import Product from '../entities/Product'
-import Cart, { IProductCount } from '../entities/Cart'
+import Cart, { IProductInstance } from '../entities/Cart'
 
 const SECRET = 'bigSecret'
 
@@ -142,28 +142,38 @@ export const getScore = async (req: Request, res: Response) => {
 }
 
 export const putCart = async (req: Request, res: Response) => {
+  /* TODO backend should also check wheter all fields of a product are correct.
+    e.g. if you buy a tshirt you can't only specify the color, you need also the
+    size. */
+
   // Check user 
   const authId = req.authData.id
   const pathId = req.params.id
   if (pathId !== authId)
     res.status(STATUS_UNAUTHORIZED).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else {
-    let pqs: IProductCount[]
+    let pqs: IProductInstance[]
     try {
-      pqs = req.body as IProductCount[] 
+      pqs = req.body as IProductInstance[] 
     } catch(ex) {
       return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex))
     }
 
     // Check input data
-    pqs.forEach(async (pq: IProductCount) => {
-      const  response = await Product.exists({_id: pq.productId})
-      if (!response)
-        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Product id '${pq.productId}' not found`))
-      if (pq.count < 0) {
-        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Quantity for product '${pq.productId}' cannot be less than 0`))
-      }
-    })
+    for (let pq of pqs) {
+      const doc = await Product.findOne({ _id : pq.productId})
+      if (doc === null)
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Product ${pq.productId} not found`))
+
+      let evalOpt = (x: any, y: any[]) => x === null || x === undefined || y.includes(x) 
+
+      if (!evalOpt(pq.color, doc.colors))
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Color ${pq.color} isn't available for this product`))
+      if (!evalOpt(pq.size, doc.sizes))
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Size ${pq.size} isn't available for this product`))
+      if (!evalOpt(pq.type, doc.types))
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Type ${pq.type} isn't available for this product`))
+    }
 
     // Check if we have to create the cart for the current user
     const response = await Cart.exists({userId: pathId})
@@ -186,5 +196,29 @@ export const putCart = async (req: Request, res: Response) => {
 
     return res.status(STATUS_OK).json(cart.products)
   }
+}
+
+export const getCart = async (req: Request, res: Response) => {
+  // Check user 
+  const authId = req.authData.id
+  const pathId = req.params.id
+  if (pathId !== authId)
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError('Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+  else 
+    return res.status(STATUS_OK)
+              .json(await Promise.all(
+                (await Cart.findOne({userId: pathId}))
+                .products.map(
+                async (pInstance: IProductInstance) : Promise<JsonBuyingProduct> => {
+                  return {
+                    selectedColor: pInstance.color === undefined ? null : pInstance.color,
+                    selectedSize: pInstance.size === undefined ? null : pInstance.size,
+                    selectedType: pInstance.type === undefined ? null : pInstance.type,
+                    product: await Product.findOne({_id : pInstance.productId}) 
+                  }
+                }
+              )
+            )
+    )
 }
 

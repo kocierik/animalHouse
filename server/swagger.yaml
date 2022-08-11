@@ -161,6 +161,36 @@ paths:
                 score:
                   type: number
   /user/{id}/cart:
+    get:
+      tags:
+      - user
+      summary: Get the cart of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              type: object
+              required:
+                - productId
+              properties:
+                product:
+                  $ref: "#/definitions/Product"
+                selectedColor:
+                  type: string
+                selectedSize:
+                  type: string
+                selectedType:
+                  type: string
     put:
       tags:
       - user
@@ -177,12 +207,7 @@ paths:
           schema:
             type: array
             items:
-              type: object
-              properties:
-                  productId:
-                    type: string
-                  quantity:
-                    type: number
+              $ref: "#/definitions/ProductInstance"  
       security:
       - JWT: []
       responses:
@@ -191,14 +216,7 @@ paths:
           schema:
             type: array
             items:
-              type: object
-              properties:
-                  productId:
-                    type: string
-                  count:
-                    type: number
-    
-    
+              $ref: "#/definitions/ProductInstance" 
   /pet:
     get:
         tags:
@@ -364,6 +382,20 @@ definitions:
         items:
           type: string
       details:
+        type: string
+
+  ProductInstance:
+    type: object
+    required:
+      - productId
+    properties:
+      productId:
+        type: string
+      color:
+        type: string
+      size:
+        type: string
+      type:
         type: string
     
   Shop:
