@@ -7,17 +7,17 @@
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">AnimalHouse</span>
       </a>
       <ul class="flex flex-wrap items-center justify-center mb-6 text-sm text-black-500 sm:mb-0 dark:text-black-900">
-        <li>
-          <a href="#" class="mr-4 hover:underline md:mr-6">About</a>
+        <li class="flex mr-4 hover:bg-green-100 p-2 rounded md:mr-6">
+          <a href="#">About</a>
         </li>
-        <li>
-          <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+        <li class="flex mr-4 hover:bg-green-100 p-2 rounded md:mr-6">
+          <a href="#">Privacy Policy</a>
         </li>
-        <li>
-          <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+        <li class="flex mr-4 hover:bg-green-100 p-2 rounded md:mr-6">
+          <a href="#">Licensing</a>
         </li>
-        <li>
-          <a href="#" class="hover:underline">Contact</a>
+        <li class="flex no-underline hover:bg-green-100 p-2 rounded">
+          <a href="#" class="">Contact</a>
         </li>
       </ul>
     </div>
