@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-interface IProduct {
+export interface IProduct {
   name: string,
   price: number,
   categoryId: string,
@@ -9,6 +9,7 @@ interface IProduct {
   image: string,
   colors?: string[],
   sizes?: string[],
+  types?: string[],
   details?: string,
 }
 
@@ -21,6 +22,7 @@ const productSchema = new Schema<IProduct>({
   animalTargets: {type: [String], required: true},
   colors: {type: [String], required: false},
   sizes: {type: [String], required: false},
+  types: {type: [String], required: false},
   details: {type: String, required: false}
 })
 

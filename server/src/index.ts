@@ -43,6 +43,7 @@ app.get(version + "/user/current", log, userRoutes.verifyToken, userRoutes.getCu
 app.get(version + "/user/:id", log, userRoutes.verifyToken, userRoutes.getUser)
 app.put(version + "/user/:id/score", log, userRoutes.verifyToken, userRoutes.putScore)
 app.get(version + "/user/:id/score/", log, userRoutes.verifyToken, userRoutes.getScore)
+app.get(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.getCart)
 app.put(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.putCart)
 
 // Animal

@@ -1,18 +1,22 @@
 import { Schema, model } from 'mongoose'
 
-export interface IProductCount {
+export interface IProductInstance {
   productId: string,
-  count: number
+  color?: string,
+  type?: string,
+  size?: string
 }
 
 interface ICart {
   userId: string,
-  products: IProductCount[]
+  products: IProductInstance[]
 }
 
-const productCountSchema = new Schema<IProductCount>({
+const productCountSchema = new Schema<IProductInstance>({
   productId: {type: String, required: true },
-  count: {type: Number, required: true }
+  color: {type: String, required: false},
+  type: {type: String, required: false},
+  size: {type: String, required: false}
 })
 
 const cartSchema = new Schema<ICart>({
