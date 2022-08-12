@@ -45,6 +45,7 @@ app.put(version + "/user/:id/score", log, userRoutes.verifyToken, userRoutes.put
 app.get(version + "/user/:id/score/", log, userRoutes.verifyToken, userRoutes.getScore)
 app.get(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.getCart)
 app.put(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.putCart)
+app.delete(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.deleteCart)
 
 // Animal
 app.get(version + "/animals/", log, animalRoutes.getAnimalCodes)
