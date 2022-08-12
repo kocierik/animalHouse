@@ -1,4 +1,4 @@
-import { AnimalType } from '../../../../shared/animalPics'
+import { AnimalType } from 'shared'
 
 export const video = new Map<AnimalType, string[]>([
   [AnimalType.Cat, ['QtC3Bo9B0yI', 'fQ_DTui804I', 'hY7m5jjJ9mM']],
