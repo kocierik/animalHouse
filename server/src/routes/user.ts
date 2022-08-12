@@ -1,7 +1,9 @@
 import User from '../entities/User'
+import Score from '../entities/Score'
+import { Game } from '../entities/Community'
 import { Request, Response } from 'express'
-import { JsonUserCreation, JsonLogin, JsonUser} from '../json/JsonUser'
-import {v4 as uuidv4} from 'uuid'
+import { JsonUserCreation, JsonLogin} from '../json/JsonUser'
+import { JsonError } from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 
@@ -9,7 +11,7 @@ const SECRET = 'bigSecret'
 
 interface AuthData {
   username: string,
-  guid: string
+  id: string
 }
 
 export const verifyToken = async (req: Request, res: Response, next: Function) => {
@@ -48,7 +50,6 @@ export const registerPost = async (req: Request, res: Response) => {
     return res.status(400).send(`email ${userCreation.email} already taken`)
 
   const user = new User()
-  user.guid = uuidv4()
   user.username = userCreation.username
   user.email = userCreation.email
   user.password =  userCreation.password//bcrypt.hashSync(userCreation.password, 5)
@@ -68,27 +69,28 @@ export const loginPost = async (req: Request, res: Response) => {
   if (result.length === 1) {
     const authData: AuthData = {
       username: result[0].username,
-      guid: result[0].guid
+      id: result[0]._id.toString()
     }
     const token = await jwt.sign({authData: authData}, SECRET);
     return res.json({token})
   }
-  else return res.status(403).send("invalid username or password")
+  else return res.status(403).json(new JsonError("invalid username or password"))
 }
 
 
-export const getUser = async (req, res) => {
-  const authGuid = req.authData.guid
-  const pathGuid = req.params.guid
-  if (pathGuid !== authGuid)
-    res.status(403).send( 'Can\'t access user with guid ' + pathGuid + ' (logged is ' + authGuid + ')')
+export const getUser = async (req: Request, res: Response) => {
+  const authId = req.authData.id
+  const pathId = req.params.id
+  // Check user 
+  if (pathId !== authId)
+    res.status(403).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else {
-    const result = await User.find({'username' : req.authData.username, 'guid': pathGuid})
+    const result = await User.find({'username' : req.authData.username, 'id': pathId})
     if (result.length !== 1) {
-      res.status(400).send('Invalid guid ' + pathGuid)
+      res.status(400).json(new JsonError('Invalid id ' + pathId))
     }
     const jsonUser = {
-      guid: result[0].guid,
+      id: result[0]._id,
       username: result[0].username,
       firstName: result[0].firstName,
       lastName: result[0].lastName,
@@ -100,8 +102,41 @@ export const getUser = async (req, res) => {
   }
 }
 
-export const test = async (req, res) => {
-    res.json(req.authData)
+export const putScore = async (req: Request, res: Response) => {
+  const authId = req.authData.id
+  const pathId = req.params.id
+  // Check user 
+  if (pathId !== authId)
+    res.status(403).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+  else {
+    // Check game id 
+    const gameId = req.body.gameId
+
+    if (gameId === null || gameId === undefined || (await Game.find({_id: gameId})).length != 1)
+      return res.status(400).json(new JsonError("invalid game id " + gameId))
+
+    const score = new Score()
+    score.userId = pathId 
+    score.gameId = req.body.gameId
+    score.value = req.body.score
+    await score.save()
+    return res.status(200).json(score)
+  }
 }
 
+export const getScore = async (req: Request, res: Response) => {
+  const authId = req.authData.id
+  const pathId = req.params.id
+  // Check user 
+  if (pathId !== authId)
+    res.status(403).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+  else {
+    return res.status(200).json(await Score.find({userId: pathId}))
+  }
+}
+
+
+export const test = async (req: Request, res: Response) => {
+    res.json(req.authData)
+}
 
