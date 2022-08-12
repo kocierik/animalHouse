@@ -15,7 +15,7 @@ const article = ref(props.articleInfo)
         "
       >
         <button
-          class="p-2 rounded-full bg-green-600 text-white mx-5 -mb-4 hover:bg-green-500 focus:outline-none focus:bg-green-400"
+          class="p-2 rounded-full bg-green-500 text-white mx-5 -mb-4 hover:bg-green-600 focus:outline-none focus:bg-green-400"
         >
           <svg
             class="h-5 w-5"
