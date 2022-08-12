@@ -1,6 +1,8 @@
 import { Schema, model } from 'mongoose'
+import { Types } from 'mongoose'
 
 export interface IProductInstance {
+  _id: Types.ObjectId,
   productId: string,
   color?: string,
   type?: string,
@@ -9,7 +11,7 @@ export interface IProductInstance {
 
 interface ICart {
   userId: string,
-  products: IProductInstance[]
+  productInstances: IProductInstance[]
 }
 
 const productCountSchema = new Schema<IProductInstance>({
@@ -21,9 +23,10 @@ const productCountSchema = new Schema<IProductInstance>({
 
 const cartSchema = new Schema<ICart>({
   userId: {type: String, required: true},
-  products: {type: [productCountSchema], required: true}
+  productInstances: {type: [productCountSchema], required: true}
 })
 
 const Cart = model<ICart>('Cart', cartSchema)
+export const ProductInstance = model<IProductInstance>('ProductInstance', productCountSchema)
 
 export default Cart

@@ -32,6 +32,7 @@ export interface JsonAddress {
 }
 
 export interface JsonBuyingProduct {
+  productInstanceId: string,
   product: IProduct,
   selectedColor?: string,
   selectedType?: string,

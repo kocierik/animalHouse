@@ -9,6 +9,7 @@ import * as jwt from 'jsonwebtoken'
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
 import Product from '../entities/Product'
 import Cart, { IProductInstance } from '../entities/Cart'
+import { Types } from 'mongoose'
 
 const SECRET = 'bigSecret'
 
@@ -181,12 +182,12 @@ export const putCart = async (req: Request, res: Response) => {
       // We have to create an empty cart
       let cart = new Cart()
       cart.userId = pathId
-      cart.products = []
+      cart.productInstances = []
       await cart.save()
     }
 
     const cart = await Cart.findOne({userId: pathId})
-    cart.products = cart.products.concat(pqs)
+    cart.productInstances = cart.productInstances.concat(pqs)
 
     try {
       await cart.save()
@@ -194,7 +195,7 @@ export const putCart = async (req: Request, res: Response) => {
       return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex))
     }
 
-    return res.status(STATUS_OK).json(cart.products)
+    return res.status(STATUS_OK).json(cart.productInstances)
   }
 }
 
@@ -205,20 +206,50 @@ export const getCart = async (req: Request, res: Response) => {
   if (pathId !== authId)
     res.status(STATUS_UNAUTHORIZED).json(new JsonError('Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else 
-    return res.status(STATUS_OK)
-              .json(await Promise.all(
-                (await Cart.findOne({userId: pathId}))
-                .products.map(
-                async (pInstance: IProductInstance) : Promise<JsonBuyingProduct> => {
-                  return {
-                    selectedColor: pInstance.color === undefined ? null : pInstance.color,
-                    selectedSize: pInstance.size === undefined ? null : pInstance.size,
-                    selectedType: pInstance.type === undefined ? null : pInstance.type,
-                    product: await Product.findOne({_id : pInstance.productId}) 
-                  }
-                }
-              )
-            )
-    )
+    return res.status(STATUS_OK).json(await constructCartForUser(pathId))
 }
 
+export const deleteCart = async (req: Request, res: Response) => {
+  const authId = req.authData.id
+  const pathId = req.params.id
+  if (pathId !== authId)
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError('Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+  else {
+    const piIds = (req.body as string[]).map(x => { return new Types.ObjectId(x)})
+    let userCart = await Cart.findOne({userId: pathId})
+
+    if (!userCart)
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError('Cart is empty'))
+
+    const invalids = piIds.filter(
+      piId => {
+        userCart.productInstances.map(
+          pii => { return pii._id}
+        ).includes(piId)
+      })
+    if (invalids.length !== 0)
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(`${invalids} are not product instances of this cart`))
+
+    userCart.productInstances = userCart.productInstances.filter(pi => {!piIds.includes(pi._id)})
+
+    await userCart.save()
+    return res.status(STATUS_OK).json(await constructCartForUser(pathId))
+  } 
+}
+
+// Common functions 
+const constructCartForUser = async (userId: string) => {
+        const promises = (await Cart.findOne({userId: userId}))
+                ?.productInstances.map(
+                  async (pInstance: IProductInstance) : Promise<JsonBuyingProduct> => {
+                    return {
+                      productInstanceId: pInstance._id.toString(),
+                      selectedColor: pInstance.color === undefined ? null : pInstance.color,
+                      selectedSize: pInstance.size === undefined ? null : pInstance.size,
+                      selectedType: pInstance.type === undefined ? null : pInstance.type,
+                      product: await Product.findOne({_id : pInstance.productId}) 
+                    }
+                  }
+              )
+        return promises? await Promise.all(promises) : [] // The empty cart
+}
