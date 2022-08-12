@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { LockClosedIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const history = useLocation();
   const [infoProfile, setInfoProfile] = useState(false)
+
   const showInfo = () => {
     setInfoProfile(!infoProfile)
   }
@@ -31,21 +32,33 @@ const Navbar = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/"  ? "indigo" : ""}}
+                    className=" text-white px-3 py-2 rounded-md text-sm font-medium active"
+                  >
                     <Link to="/">Dashboard</Link>
-                  </a>
+                  </span>
 
-                  <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/service/"  ? "indigo" : ""}}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     <Link to="/service/">Service</Link>
-                  </a>
+                  </span>
 
-                  <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/shopping/"  ? "indigo" : ""}}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     <Link to="/shopping/">Shopping</Link>
-                  </a>
+                  </span>
 
-                  <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <span                
+                    style={{ backgroundColor: history.pathname === "/community/"  ? "indigo" : ""}}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     <Link to="/community/">Community</Link>
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>
@@ -61,13 +74,13 @@ const Navbar = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke="currentColor"
                       aria-hidden="true"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                       />
                     </svg>
@@ -202,7 +215,7 @@ const Navbar = () => {
                   <div className="text-base font-medium leading-none text-white">Tom Cook</div>
                   <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
                 </div>
-                <Link to="/checkout/" className='flex flex-1'>
+                <Link to="/checkout/" className="flex flex-1">
                   <button
                     type="button"
                     className="ml-auto bg-gray-800 flex flex-1 justify-end  flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
