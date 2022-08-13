@@ -183,24 +183,25 @@ const Navbar = () => {
         {nav && (
           <div className="md:hidden" id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <a
-                className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+              <span
+                style={{ backgroundColor: history.pathname === "/"  ? "indigo" : ""}}
+                className="text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
                 aria-current="page"
               >
                 <Link to="/">Dashboard</Link>
-              </a>
+              </span>
 
-              <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span style={{ backgroundColor: history.pathname === "/service/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 <Link to="/service/">Service</Link>
-              </a>
+              </span>
 
-              <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span style={{ backgroundColor: history.pathname === "/shopping/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 <Link to="/shopping/">Shopping</Link>
-              </a>
+              </span>
 
-              <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span style={{ backgroundColor: history.pathname === "/community/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 <Link to="/community/">Community</Link>
-              </a>
+              </span>
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700" onClick={showInfoMobile}>
               <div className="flex items-center px-5">
