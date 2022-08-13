@@ -22,8 +22,8 @@ const CommentFeed = (props) => {
               key={data.id}
               className={
                 data.id === props.comments[props.comments.length - 1].id
-                  ? 'flex items-center px-4 pb-4 rounded-b-lg space-x-4'
-                  : 'flex items-center px-4 pb-4  space-x-4'
+                  ? 'flex items-center px-4 pb-4 rounded-b-lg space-x-4 border-b border-gray-300/50'
+                  : 'flex items-center px-4 pb-4  space-x-4 border-b border-gray-300/50'
               }
             >
               <img
