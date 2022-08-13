@@ -179,18 +179,7 @@ paths:
           schema:
             type: array
             items:
-              type: object
-              required:
-                - productId
-              properties:
-                product:
-                  $ref: "#/definitions/Product"
-                selectedColor:
-                  type: string
-                selectedSize:
-                  type: string
-                selectedType:
-                  type: string
+              $ref: "#/definitions/ProductInstance"
     put:
       tags:
       - user
@@ -217,6 +206,32 @@ paths:
             type: array
             items:
               $ref: "#/definitions/ProductInstance" 
+    delete:
+      tags:
+      - user
+      summary: Delete a product from the cart of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"  
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"
   /pet:
     get:
         tags:
