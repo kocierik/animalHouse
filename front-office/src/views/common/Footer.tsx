@@ -2,13 +2,13 @@ import React from 'react'
 
 const Footer = () => {
   return (
-  <footer className="p-2 color_footer rounded-lg shadow md:px-6 md:py-8">
+  <footer className=" color_footer rounded-lg shadow md:px-6 py-10">
     <div className="sm:flex sm:items-center sm:justify-around p-10">
       <span className="flex justify-center mb-4 sm:mb-0">
         {/* <!-- <img src="./assets/animalLogo.png" className="mr-5 h-20 w-18" alt="AnimalHouse Logo" /> --> */}
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">AnimalHouse</span>
       </span>
-      <ul className="flex flex-wrap items-center justify-center mb-6 text-sm text-black-500 sm:mb-0 dark:text-black-900">
+      <ul className="flex justify-between flex-wrap items-center justify-center mb-6 text-sm text-black-500 sm:mb-0 dark:text-black-900">
         <li className="flex mr-4 hover:bg-green-100 p-2 rounded md:mr-6">
           <a href="#">About</a>
         </li>
