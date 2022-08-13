@@ -239,17 +239,6 @@ export const deleteCart = async (req: Request, res: Response) => {
 
 // Common functions 
 const constructCartForUser = async (userId: string) => {
-        const promises = (await Cart.findOne({userId: userId}))
-                ?.productInstances.map(
-                  async (pInstance: IProductInstance) : Promise<JsonBuyingProduct> => {
-                    return {
-                      productInstanceId: pInstance._id.toString(),
-                      selectedColor: pInstance.color === undefined ? null : pInstance.color,
-                      selectedSize: pInstance.size === undefined ? null : pInstance.size,
-                      selectedType: pInstance.type === undefined ? null : pInstance.type,
-                      product: await Product.findOne({_id : pInstance.productId}) 
-                    }
-                  }
-              )
+        const promises = (await Cart.findOne({userId: userId}))?.productInstances
         return promises? await Promise.all(promises) : [] // The empty cart
 }
