@@ -80,13 +80,13 @@ console.log(lh.isLogged())
               <ErrorBox :title="'Ups, something went wrong :/'" :mex="errors[error]" />
             </div>
             <div>
-              <label for="email" class="block mb-2 text-sm text-gray-600">Email Address</label>
+              <label for="username" class="block mb-2 text-sm text-gray-600">Username</label>
               <input
                 v-model="username"
-                type="email"
-                name="email"
+                type="username"
+                name="username"
                 id="email"
-                placeholder="example@example.com"
+                placeholder="username"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -150,13 +150,13 @@ console.log(lh.isLogged())
               <ErrorBox :title="'Ups, something went wrong :/'" :mex="errors[error]" />
             </div>
             <div>
-              <label for="email" class="block mb-2 text-sm text-gray-600">Email Address</label>
+              <label for="username" class="block mb-2 text-sm text-gray-600">Username</label>
               <input
                 v-model="username"
-                type="email"
-                name="email"
+                type="username"
+                name="username"
                 id="email"
-                placeholder="example@example.com"
+                placeholder="username"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -178,7 +178,7 @@ console.log(lh.isLogged())
                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
-            <label for="email" class="block mt-5 text-sm text-gray-600">Select your animals</label>
+            <label for="username" class="block mt-5 text-sm text-gray-600">Select your animals</label>
             <div class="flex justify-between flex-wrap flex-row pt-3">
               <div class="flex items-center mr-4" v-for="animal in AnimalType">
                 <input
