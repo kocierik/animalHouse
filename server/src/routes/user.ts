@@ -2,7 +2,7 @@ import User from '../entities/User'
 import Score from '../entities/Score'
 import { Game } from '../entities/Community'
 import { Request, Response } from 'express'
-import { JsonUserCreation, JsonLogin, JsonBuyingProduct} from '../json/JsonUser'
+import { JsonUserCreation, JsonLogin} from '../json/JsonUser'
 import { JsonError } from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
@@ -81,9 +81,7 @@ export const loginPost = async (req: Request, res: Response) => {
   else return res.status(STATUS_UNAUTHORIZED).json(new JsonError("invalid username or password"))
 }
 
-export const getCurrentUser = async (req: Request, res: Response) => {
-    res.json(req.authData)
-}
+export const getCurrentUser = async (req: Request, res: Response) => res.json(req.authData)
 
 export const getUser = async (req: Request, res: Response) => {
   const authId = req.authData.id
@@ -215,24 +213,23 @@ export const deleteCart = async (req: Request, res: Response) => {
   if (pathId !== authId)
     res.status(STATUS_UNAUTHORIZED).json(new JsonError('Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else {
-    const piIds = (req.body as string[]).map(x => { return new Types.ObjectId(x)})
+    const piIds = (req.body as string[]).map(x => new Types.ObjectId(x))
     let userCart = await Cart.findOne({userId: pathId})
 
     if (!userCart)
       return res.status(STATUS_BAD_REQUEST).json(new JsonError('Cart is empty'))
 
-    const invalids = piIds.filter(
-      piId => {
-        userCart.productInstances.map(
-          pii => { return pii._id}
-        ).includes(piId)
-      })
+    // Get all product instance ids that are passed into the body of the call but are not present into the cart
+    const invalids = piIds.filter(piId => !includesId(piId, userCart.productInstances.map(pii => pii._id)))
+
     if (invalids.length !== 0)
       return res.status(STATUS_BAD_REQUEST).json(new JsonError(`${invalids} are not product instances of this cart`))
 
-    userCart.productInstances = userCart.productInstances.filter(pi => {!piIds.includes(pi._id)})
+    // Remove passed product instance ids from the cart
+    userCart.productInstances = userCart.productInstances.filter(pi => !includesId(pi._id, piIds))
 
     await userCart.save()
+
     return res.status(STATUS_OK).json(await constructCartForUser(pathId))
   } 
 }
@@ -242,3 +239,6 @@ const constructCartForUser = async (userId: string) => {
         const promises = (await Cart.findOne({userId: userId}))?.productInstances
         return promises? await Promise.all(promises) : [] // The empty cart
 }
+
+const includesId = (id: Types.ObjectId, collection: any[]): boolean =>
+  collection.reduce((old: boolean, x: any)=> x._id.toString() === id.toString() || old , false)
