@@ -136,6 +136,13 @@ export const getScore = async (req: Request, res: Response) => {
   if (pathId !== authId)
     res.status(STATUS_UNAUTHORIZED).json(new JsonError( 'Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
   else {
+    if (req.query.id) {
+      // Check if a game with that id exists
+      if (await Game.exists({_id: req.query.id}))
+        return res.status(STATUS_OK).json(await Score.find({userId: pathId, gameId: req.query.id}))
+      else
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Invalid game id ${req.query.id}`))
+    }
     return res.status(STATUS_OK).json(await Score.find({userId: pathId}))
   }
 }
