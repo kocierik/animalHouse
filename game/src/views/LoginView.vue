@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { login } from '@/network/api'
 import { ref } from 'vue'
 import * as lh from '@/helpers/loginHelper'
 import ErrorBox from '@/components/common/ErrorBox.vue'
 import Footer1 from '../components/common/Footer.vue'
-import { AnimalType } from '../../../shared/animalPics'
+import { login, AnimalType } from 'shared'
 
 let username = ref<string>('')
 let password = ref<string>('')

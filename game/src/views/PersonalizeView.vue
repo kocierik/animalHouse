@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import Chip from '@/components/common/Chip.vue'
 import * as lsh from '@/helpers/localStoreHelper'
-import { getAnimalCode } from '@/network/api'
+import { getAnimalCode } from 'shared'
 import { onBeforeMount, ref } from 'vue'
 
 interface AnimalChip {

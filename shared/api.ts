@@ -34,9 +34,9 @@ export abstract class Api {
       return new ApiResponse<T>(response.status)
   }
 
-  /* Unfortunately we are forced to reimplement this method in all the projects */
-  protected static getToken() : string {
-    throw new Error("Cant get token from shared :(")
+  protected static getToken(): string {
+    const token = localStorage.getItem('token')
+    return token ?? 'not logged'
   }
 }
 

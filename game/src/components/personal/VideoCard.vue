@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onBeforeMount } from 'vue'
 import { video } from '../../network/models/VideoLink'
-import { AnimalType } from '../../../../shared/animalPics'
+import { AnimalType } from 'shared'
+
 const props = defineProps<{ animal: AnimalType }>()
 
 const getRandomVideo = (animal: AnimalType) => {
