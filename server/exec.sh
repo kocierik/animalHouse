@@ -1,1 +1,7 @@
-docker-compose up & docker run -p 8081:8080 swaggerapi/swagger-editor & (tsc && npm start)
+docker-compose up -d
+docker run -p 8081:8080 -d swaggerapi/swagger-editor 
+tsc
+echo "exec:"
+echo "npm start"
+echo "to start the server"
+

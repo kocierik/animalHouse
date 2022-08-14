@@ -210,6 +210,7 @@ paths:
       tags:
       - user
       summary: Delete a product from the cart of the specified user
+      description: Takes in the body a list of string representing the product instance ids you want to delete
       parameters:
         - in: path
           name: id
@@ -222,7 +223,8 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/ProductInstance"  
+              type:
+                string 
       security:
       - JWT: []
       responses:

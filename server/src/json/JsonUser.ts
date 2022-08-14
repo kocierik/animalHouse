@@ -30,11 +30,3 @@ export interface JsonAddress {
   street: string,
   cap: number
 }
-
-export interface JsonBuyingProduct {
-  productInstanceId: string,
-  product: IProduct,
-  selectedColor?: string,
-  selectedType?: string,
-  selectedSize?: string
-}
