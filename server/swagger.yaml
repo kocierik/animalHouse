@@ -114,6 +114,11 @@ paths:
           type: string
           required: true
           description: Guid of the user
+        - in: query
+          name: gameId
+          type: string
+          required: false
+          description: Optional id of the game you want the result
       security:
       - JWT: []
       responses:
@@ -284,6 +289,38 @@ paths:
                     type: string
                   _id:
                     type: string
+  /community/game/scoreboard:
+    get:
+        tags:
+        - community
+        summary: Fids the results for the scoreboard
+        parameters:
+          - in: query
+            name: gameId
+            type: string
+            required: false
+            description: Optional id of the game you want the results
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                type: object
+                properties:
+                  gameId:
+                    type: string
+                  scores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        userId:
+                          type: string
+                        score:
+                          type: number
   
   /market/product/:
     get:

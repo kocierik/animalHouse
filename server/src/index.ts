@@ -52,6 +52,7 @@ app.get(version + "/animals/", log, animalRoutes.getAnimalCodes)
 
 // Community
 app.get(version + "/community/game/", log, communityRoutes.getGames)
+app.get(version + "/community/game/scoreboard", log, communityRoutes.getScoreboard)
 
 // Market
 app.get(version + "/market/product/", log, marketRoutes.getProducts)
