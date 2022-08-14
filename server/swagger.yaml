@@ -10,6 +10,7 @@ tags:
 - name: store
 - name: user
 - name: community
+- name: market
     
 schemes:
 - http
@@ -65,16 +66,24 @@ paths:
             properties:
               token:
                 type: string
-  /user/test:
+  /user/current:
     get:
       tags:
       - user
-      summary: mattia's test
+      summary: Retrieve information about the current user
       security:  
         - JWT: []
       responses:
         200:
           description: ok
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              _id:
+                type: string
+                
   /user/{id}:
     get:
       tags:
@@ -82,7 +91,7 @@ paths:
       summary: Get a user by ID
       parameters:
         - in: path
-          name: _id
+          name: id
           type: string
           required: true
           description: Numeric ID of the user to get
@@ -101,10 +110,10 @@ paths:
       summary: Get game scores of the specified user
       parameters:
         - in: path
-          name: _id
+          name: id
           type: string
           required: true
-          description: Id of the user
+          description: Guid of the user
       security:
       - JWT: []
       responses:
@@ -115,7 +124,7 @@ paths:
             items:
               type: object
               properties:
-                  gameId:
+                  gameGuid:
                     type: string
                   score:
                     type: number
@@ -125,10 +134,10 @@ paths:
       summary: Add a game score to the specified user
       parameters:
         - in: path
-          name: _id
+          name: id
           type: string
           required: true
-          description: Id of the user
+          description: Guid of the user
         - in: body
           name: body
           required: true
@@ -147,10 +156,84 @@ paths:
           schema:
             type: object
             properties:
-                gameId:
+                gameGuid:
                   type: string
                 score:
                   type: number
+  /user/{id}/cart:
+    get:
+      tags:
+      - user
+      summary: Get the cart of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"
+    put:
+      tags:
+      - user
+      summary: Add a product to the cart of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"  
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance" 
+    delete:
+      tags:
+      - user
+      summary: Delete a product from the cart of the specified user
+      description: Takes in the body a list of string representing the product instance ids you want to delete
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: array
+            items:
+              type:
+                string 
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"
   /pet:
     get:
         tags:
@@ -201,6 +284,19 @@ paths:
                     type: string
                   _id:
                     type: string
+  
+  /market/product/:
+    get:
+        tags:
+        - market
+        summary: Fids all products
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                $ref: "#/definitions/Product"
             
 securityDefinitions:  
   JWT:  
@@ -278,23 +374,45 @@ definitions:
   Product:
     type: object
     properties:
-      id:
-        type: integer
-        format: int64
+      _id:
+        type: string
       name:
+        type: string
+      description:
         type: string
       price:
         type: number
-      description:
+      categoryId:
         type: string
       image:
         type: string
-      species:
+      animalTargets:
         type: array
         items:
           type: string
-          enum: *SPECIES
-      address:
+      colors:
+        type: array
+        items:
+          type: string
+      sizes:
+        type: array
+        items:
+          type: string
+      details:
+        type: string
+
+  ProductInstance:
+    type: object
+    required:
+      - productId
+    properties:
+      productId:
+        type: string
+      color:
+        type: string
+      size:
+        type: string
+      type:
         type: string
     
   Shop:
