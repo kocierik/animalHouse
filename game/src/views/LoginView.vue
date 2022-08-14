@@ -8,7 +8,7 @@ import { login, AnimalType } from 'shared'
 let username = ref<string>('')
 let password = ref<string>('')
 let error = ref<number>(-1)
-let isLogin = true
+let isLogin = false
 
 const errors = [
   'invalid username or password',

@@ -2,6 +2,7 @@
 import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
 import Footer from '../components/common/Footer.vue'
+import { saveResult } from '../components/games/saveResult'
 
 interface Game {
   id: number
@@ -51,6 +52,7 @@ const gameList: Game[] = [
     bgImage: 'https://c.neh.tw/thumb/f/720/5fc1c59b4fd94ddd8128.jpg',
   },
 ]
+saveResult()
 </script>
 
 <template>
