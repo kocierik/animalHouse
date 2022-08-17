@@ -125,7 +125,7 @@ export default {
         // solved
         swal({
           title: 'Good job!',
-          text: 'You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?',
+          text: `You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?`,
           icon: 'warning',
           buttons: true,
           dangerMode: false,
