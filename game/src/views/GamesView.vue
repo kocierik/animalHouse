@@ -3,7 +3,7 @@ import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
 import Footer from '../components/common/Footer.vue'
 import { saveResult } from '../components/games/saveResult'
-
+import * as lh from '@/helpers/loginHelper'
 interface Game {
   id: number
   name: string
@@ -52,7 +52,9 @@ const gameList: Game[] = [
     bgImage: 'https://c.neh.tw/thumb/f/720/5fc1c59b4fd94ddd8128.jpg',
   },
 ]
-saveResult()
+if (!lh.isLogged()) {
+  saveResult()
+}
 </script>
 
 <template>
