@@ -104,14 +104,14 @@ const saveDbResult = () => {
     console.log()
     console.log('====================================')
     swal({
-      title: 'Are you sure?',
-      text: 'Do you want save your record',
+      title: 'Good job!',
+      text: `You have done ${score2048} points! Do you want save your record?`,
       icon: 'warning',
       buttons: true,
       dangerMode: false,
     }).then((willSave) => {
       if (willSave) {
-        putUserScore()
+        // putUserScore()
         swal('Poof! Your record is saved!', {
           icon: 'success',
         })
