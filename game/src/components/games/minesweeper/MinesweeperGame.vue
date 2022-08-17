@@ -26,6 +26,8 @@ class Cell {
 class Table {
   constructor() {
     this.row = []
+    this.try = 0
+
     this.rowLength = 9
     this.columnLength = 9
     this.cellLength = this.rowLength * this.columnLength
@@ -44,6 +46,7 @@ class Table {
         this.cells[i].push(cell)
       }
     }
+    this.try = 0
     for (var i = 0; i < this.rowLength; i++) {
       for (var j = 0; j < this.columnLength; j++) {
         this.cells[i][j].neighborhood = this.getNeighborhood(this.cells[i][j].position)
@@ -84,7 +87,7 @@ class Table {
     this.chageEachCellState(bombState)
     this.isGameOver = true
     this.isFinished = true
-    swal('Oh no!', 'You lose', 'warning')
+    swal('Oh no!', `You lose in ${this.try} moves`, 'warning')
   }
   changeCellState(clickedCell) {
     this.applayOpenState(clickedCell)
@@ -102,6 +105,8 @@ class Table {
     if (clickedCell.hasBomb) {
       return true
     } else {
+      this.try++
+      console.log(this.try)
       return false
     }
   }
@@ -159,7 +164,23 @@ class Table {
       }
     }
     if (count === this.cellLength) {
-      swal('Good job!', 'You win!', 'success')
+      swal({
+        title: 'Good job!',
+        text: 'You won in ${this.try} tries! Do you want save your record?',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: false,
+      }).then((willSave) => {
+        if (willSave) {
+          // putUserScore()
+          swal('Poof! Your record is saved!', {
+            icon: 'success',
+          })
+        } else {
+          swal('Your record is NOT saved!')
+        }
+      })
+
       return true
     } else {
       return false
