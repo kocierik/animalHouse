@@ -13,6 +13,6 @@ export const login = async (username: string, password: string) =>
 
 export const getAnimalCode = async () => Api.get<{ code: number; name: String }[]>(_BASE_URL + _ANIMAL_CODES)
 export const postUserRegister = async () => Api.post<{ code: number;  name: String }[]>(_BASE_URL + _REGISTER_CODES,  "")
-export const putUserScore = async () => Api.post<{ code: number;  name: String }[]>(_BASE_URL + _SCORE_CODES,  score2048)
+export const putUserScore = async () => Api.post<{ code: number;  name: String }[]>(_BASE_URL + _SCORE_CODES,  "")
 
 // TODO insert here other calls!!!!
