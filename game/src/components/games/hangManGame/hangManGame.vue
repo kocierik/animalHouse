@@ -123,7 +123,22 @@ export default {
       this.progress += this.currentWord.split('').filter((e) => e === letter).length
       if (this.puzzleSolved) {
         // solved
-        swal('Good job!', `You found the word ${this.currentWord} in ${this.tries} tries!`, 'success')
+        swal({
+          title: 'Good job!',
+          text: 'You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: false,
+        }).then((willSave) => {
+          if (willSave) {
+            // putUserScore()
+            swal('Poof! Your record is saved!', {
+              icon: 'success',
+            })
+          } else {
+            swal('Your record is NOT saved!')
+          }
+        })
         this.loadGame()
       }
     },
