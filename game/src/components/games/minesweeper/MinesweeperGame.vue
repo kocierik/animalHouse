@@ -166,7 +166,7 @@ class Table {
     if (count === this.cellLength) {
       swal({
         title: 'Good job!',
-        text: 'You won in ${this.try} tries! Do you want save your record?',
+        text: `You won in ${this.try} tries! Do you want save your record?`,
         icon: 'warning',
         buttons: true,
         dangerMode: false,
