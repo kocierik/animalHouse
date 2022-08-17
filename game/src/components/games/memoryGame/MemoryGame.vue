@@ -4,10 +4,11 @@ import { defaultCard } from './utility/cards'
 import type { Card } from './utility/cards'
 import cards from './utility/cards'
 import swal from 'sweetalert'
+import { ref } from 'vue'
 let selectOne: Card = defaultCard
 let selectTwo: Card = defaultCard
 let result: Card[]
-
+let moves = ref(0)
 const resetValue = (): void => {
   cards.value.map((x) => {
     x.selected = false
@@ -31,10 +32,14 @@ const resume = (): void => {
     x.bg = defaultCard.bg
     x.view = 'visible'
   })
+  moves.value = 0
+
   cards.value = cards.value.sort(() => Math.random() - 0.5)
 }
 
 const checkCard = (card: Card): void => {
+  moves.value++
+  console.log(moves.value)
   if (selectOne == defaultCard) {
     card.selected = true
     card.bg = card.bgOut
@@ -63,7 +68,22 @@ const checkCard = (card: Card): void => {
         }
       })
       if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
-        swal('Good job!', 'You found all the couples!', 'success')
+        swal({
+          title: 'Good job!',
+          text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
+          icon: 'warning',
+          buttons: true,
+          dangerMode: false,
+        }).then((willSave) => {
+          if (willSave) {
+            // putUserScore()
+            swal('Poof! Your record is saved!', {
+              icon: 'success',
+            })
+          } else {
+            swal('Your record is NOT saved!')
+          }
+        })
         resume()
       }
     }
