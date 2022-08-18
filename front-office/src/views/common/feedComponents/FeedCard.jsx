@@ -43,7 +43,7 @@ const FeedCard = (props) => {
   return (
     <>
       {/* Card Base */}
-      <div className="flex-row p-1 container max-w-md sm:max-w-lg h-auto rounded-lg shadow-md bg-white m-2">
+      <div className="flex-row p-1 mb-14 container max-w-md sm:max-w-xl h-auto rounded-lg shadow-md bg-gray-50 m-2">
         {/* Top Fourth - Avatar & User/Post Info */}
         <PostHeader name={props.name} location={props.location} timestamp={props.timestamp} />
 
@@ -74,8 +74,8 @@ const FeedCard = (props) => {
             <div
               className={
                 props.comments.length === 0
-                  ? 'flex items-center px-4 pb-4 space-x-4  rounded-b-lg'
-                  : 'flex items-center px-4 pb-4 space-x-4 '
+                  ? 'flex items-center px-4 pb-4 space-x-4  rounded-b-lg border-b border-gray-300/50'
+                  : 'flex items-center px-4 pb-4 space-x-4 border-b border-gray-300/50'
               }
             >
               <img
