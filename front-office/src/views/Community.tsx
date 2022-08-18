@@ -3,17 +3,9 @@ import DropDown from './common/DropDown'
 import Footer from './common/Footer'
 import Navbar from './common/Navbar'
 import Rawtable from './common/communityComponents/Rawtable'
-import { getUserScore } from 'shared';
 
 const Community = () => {
-  const getLeaderboard = async () =>{
-    console.log(await getUserScore().then(result => result.data))
-    const records = await getUserScore().then(result => result.data)
-    return records
-  }
-getLeaderboard()
   const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
-  // const users = getLeaderboard()
   const users = [
     {
       id: 1,
