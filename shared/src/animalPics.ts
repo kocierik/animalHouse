@@ -1,4 +1,4 @@
-import { Api, ApiResponse } from './shared'
+import { Api, ApiResponse } from './api'
 
 const getRequest = async (endpoint: string) => {
   const response: ApiResponse<any> = await Api.get(endpoint);
