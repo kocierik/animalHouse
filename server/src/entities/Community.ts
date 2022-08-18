@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-interface IGame {
+export interface IGame {
   name: string
 }
 

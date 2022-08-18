@@ -310,6 +310,8 @@ paths:
                 properties:
                   gameId:
                     type: string
+                  gameName:
+                    type: string
                   scores:
                     type: array
                     items:
@@ -320,7 +322,9 @@ paths:
                         userId:
                           type: string
                         score:
-                          type: number
+                          type: array
+                          items:
+                            type: number
   
   /market/product/:
     get:
