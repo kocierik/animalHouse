@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import * as lh from '@/helpers/loginHelper'
 import Footer1 from "@/components/common/Footer.vue"
 import ErrorBox from '@/components/common/ErrorBox.vue'
 import { FRONTOFFICE } from '@/const'
-import { login } from 'shared'
+import { login, LoginHelper } from 'shared'
 
 /* If the user is already logged redirect to main page */
-if (lh.isLogged()) {
-  window.location.href = `${FRONTOFFICE}/register`
+if (LoginHelper.isLogged()) {
+  window.location.href = '/'
 }
 
 let username = ref<string>('')
@@ -37,13 +36,13 @@ const doLogin = async () => {
     }
     return
   } else {
-    lh.doLogin(resp.data.token)
+    LoginHelper.doLogin(resp.data.token)
     window.location.href = '/'
   }
 }
 
 const goToRegister = () => {
-  window.location.href = '/register'
+  window.location.href = `${FRONTOFFICE}/register`
 }
 </script>
 
@@ -77,7 +76,7 @@ const goToRegister = () => {
       </div>
       <div class="mt-8">
         <div class="my-10" v-if="error >= 0">
-          <ErrorBox :title="'Ups, something went wrong :/'" :mex="errors[error]" />
+          <ErrorBox :mex="errors[error]" />
         </div>
         <div>
           <label for="email" class="block mb-2 text-sm text-gray-600">Email Address</label>
