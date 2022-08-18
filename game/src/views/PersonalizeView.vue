@@ -8,6 +8,7 @@
       <p class="font-normal text-gray-700">Tell me what are your favourites animals:</p>
       <div class="m-5 flex flex-wrap justify-center space-y-2 space-x-2 items-end">
         <Chip
+          v-bind:key="a.name"
           v-for="a in animals"
           :text="a.name"
           image="https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg"

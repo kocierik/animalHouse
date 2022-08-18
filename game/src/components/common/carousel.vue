@@ -19,6 +19,7 @@
             class="relative overflow-hidden bg-no-repeat bg-cover"
             style="
               background-position: 50%;
+              background-size: cover;
               background-image: url('https://www.amoreaquattrozampe.it/wp-content/uploads/2020/04/740cane_jack_russel_AdobeStock.jpeg');
               height: 100%;
             "
@@ -44,7 +45,7 @@
             class="relative overflow-hidden bg-no-repeat bg-cover"
             style="
               background-position: 50%;
-              background-image: url('https://www.amoreaquattrozampe.it/wp-content/uploads/2020/04/740cane_jack_russel_AdobeStock.jpeg');
+              background-image: url('https://images.unsplash.com/photo-1586041247337-cbf8401140d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8M3x8fGVufDB8fHx8&w=1000&q=80');
               height: 100%;
             "
           ></div>
