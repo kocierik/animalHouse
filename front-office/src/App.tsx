@@ -8,6 +8,7 @@ import Service from './views/Service'
 import Profile from './views/Profile'
 import Checkout from './views/Checkout'
 import Product from './views/Product'
+import Login from './views/Login'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <Route path="/profile/" element={<Profile />} />
       <Route path="/checkout/" element={<Checkout />} />
       <Route path="/product/" element={<Product />} />
+      <Route path="/login" element={<Login/>} />
     </Routes>
   )
 }
