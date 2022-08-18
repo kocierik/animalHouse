@@ -1,4 +1,4 @@
-import { Api, ApiResponse } from './api'
+import { Api } from './api'
 
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/v1'
