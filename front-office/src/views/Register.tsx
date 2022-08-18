@@ -1,15 +1,33 @@
-import React from "react"
+import React, { useState } from "react"
+import { ApiRepository, ApiResponse, JsonUser } from 'shared'
 
 const Register = () =>  {
 
   const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
 
   const [pwdMatch, setPwdMatch] = useState(true)
 
-  const register = ()  
+  const register = async () => {
+    const input: JsonUser.IJsonRegistration = {
+        username: username,
+        email: email,
+        password: password,
+        name: name,
+        surname: surname
+      }
+
+    const response: ApiResponse<string>  = await ApiRepository.register(input)
+    if (response.esit) {
+     
+    } else {
+
+    }
+  }
+
   return <>
   <div className="bg-white">
     <div className="flex justify-center h-screen">
@@ -69,9 +87,21 @@ const Register = () =>  {
               <label htmlFor="email" className="block mb-2 mt-6 text-sm text-gray-600">Email Address</label>
               <input
                 type="text"
+                name="email"
+                onChange={event => setEmail(event.target.value)}
+                id="email"
+                placeholder="email"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
+            </div>
+            { /* Username */ }
+            <div>
+              <label htmlFor="username" className="block mb-2 mt-6 text-sm text-gray-600">Username</label>
+              <input
+                type="text"
                 name="username"
                 onChange={event => setUsername(event.target.value)}
-                id="email"
+                id="username"
                 placeholder="username"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
