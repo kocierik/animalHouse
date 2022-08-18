@@ -1,7 +1,5 @@
 import React from 'react'
 import DropDown from './common/DropDown'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 import Rawtable from './common/communityComponents/Rawtable'
 
 const Community = () => {
@@ -31,7 +29,6 @@ const Community = () => {
   ]
   return (
     <div className="h-full">
-      <Navbar />
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
@@ -67,7 +64,6 @@ const Community = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

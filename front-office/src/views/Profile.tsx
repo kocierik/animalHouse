@@ -1,6 +1,4 @@
 import React from 'react'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 import { JsonUser, JsonAddress } from '../../../server/src/json/JsonUser';
 import { JsonPet } from '../../../server/src/json/JsonPet';
 
@@ -17,7 +15,6 @@ const user : JsonUser[] = [{
 const Profile = () => {
   return (
     <>
-      <Navbar />
       <main className="profile-page">
         <section className="relative block" style={{ height: '500px' }}>
           <div
@@ -120,7 +117,6 @@ const Profile = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 import Reviewer from './common/shoppingComponents/Reviewer'
 
 const product = {
@@ -80,7 +78,6 @@ export default function Example() {
 
   return (
     <>
-      <Navbar />
       <div className="bg-white">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
@@ -319,7 +316,6 @@ export default function Example() {
           <Reviewer />
         </div>
       </div>
-      <Footer />
     </>
   )
 }

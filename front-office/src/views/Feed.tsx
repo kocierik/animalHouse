@@ -3,7 +3,6 @@ import PostCard from './common/feedComponents/PostCard'
 import FeedCard from './common/feedComponents/FeedCard'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import Footer from './common/Footer'
 
 function Feed() {
   const [posts, setPosts] = useState(getInitialPosts())
@@ -167,7 +166,6 @@ function Feed() {
           }
         )}
       </div>
-      <Footer />
     </>
   )
 }
