@@ -10,6 +10,11 @@ import { state, canMove } from './store'
 import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
 import './style.scss'
+import swal from 'sweetalert'
+import { putUserScore } from '../../../../../shared/apiRepository'
+
+let score2048: number
+
 const gameBoardElement = ref(null)
 const setBoardWidth = () => {
   state.boardWidth = gameBoardElement.value.clientWidth
@@ -24,6 +29,7 @@ const onKeyDown = (e: {
   preventDefault: () => void
 }) => {
   if (!canMove.value) {
+    saveDbResult()
     return false
   }
   const modifiers = e.altKey || e.ctrlKey || e.metaKey || e.shiftKey
@@ -88,6 +94,33 @@ onBeforeUnmount(() => {
   })
   gameBoardElement.value.removeEventListener('keydown', onKeyDown)
 })
+
+const saveDbResult = () => {
+  if (state.currentGame.isGameover) {
+    score2048 = JSON.parse(localStorage.getItem('game-bestscores'))
+    score2048 = score2048[Number(Object.keys(score2048))]
+    console.log(Number(Object.keys(score2048)))
+    console.log('====================================')
+    console.log()
+    console.log('====================================')
+    swal({
+      title: 'Good job!',
+      text: `You have done ${score2048} points! Do you want save your record?`,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: false,
+    }).then((willSave) => {
+      if (willSave) {
+        // putUserScore()
+        swal('Poof! Your record is saved!', {
+          icon: 'success',
+        })
+      } else {
+        swal('Your record is NOT saved!')
+      }
+    })
+  }
+}
 </script>
 
 <template>
