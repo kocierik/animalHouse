@@ -1,21 +1,13 @@
 <template>
-  <div class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md" role="alert">
-    <div class="flex">
-      <div class="py-1">
-        <svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-          <path
-            d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
-          />
-        </svg>
-      </div>
-      <div>
-        <p class="font-bold">{{ props.title }}</p>
-        <p class="text-sm">{{ props.mex }}</p>
-      </div>
-    </div>
+  <div id="alert-2" class="flex p-4 mb-4 bg-red-100 rounded-lg dark:bg-red-200" role="alert">
+  <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-red-700 dark:text-red-800" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">Info</span>
+  <div class="ml-3 text-sm font-medium text-red-700 dark:text-red-800">
+      {{ props.mex }}
   </div>
+</div>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps<{ title: string; mex: string }>()
+const props = defineProps<{ mex: string }>()
 </script>

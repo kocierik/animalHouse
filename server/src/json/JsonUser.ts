@@ -1,4 +1,5 @@
 import { JsonPet } from './JsonPet'
+import { IProduct } from '../entities/Product'
 
 export interface JsonUserCreation {
   username: string,
@@ -14,7 +15,6 @@ export interface JsonLogin {
 }
 
 export interface JsonUser {
-  guid: string,
   username: string,
   email: string,
   firstName: string,

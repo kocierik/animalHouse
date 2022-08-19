@@ -185,21 +185,22 @@ const Navbar = () => {
           <div className="md:hidden" id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <span
-                className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                style={{ backgroundColor: history.pathname === "/"  ? "indigo" : ""}}
+                className="text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
                 aria-current="page"
               >
                 <Link to="/">Dashboard</Link>
               </span>
 
-              <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span style={{ backgroundColor: history.pathname === "/service/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 <Link to="/service/">Service</Link>
               </span>
 
-              <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span style={{ backgroundColor: history.pathname === "/shopping/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 <Link to="/shopping/">Shopping</Link>
               </span>
 
-              <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span style={{ backgroundColor: history.pathname === "/community/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 <Link to="/community/">Community</Link>
               </span>
             </div>
@@ -228,13 +229,13 @@ const Navbar = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke="currentColor"
                       aria-hidden="true"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                       />
                     </svg>
