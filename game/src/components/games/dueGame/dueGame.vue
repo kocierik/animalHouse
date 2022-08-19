@@ -11,7 +11,6 @@ import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
 import './style.scss'
 import swal from 'sweetalert'
-import { putUserScore } from '../../../../../shared/apiRepository'
 
 let score2048: number
 
