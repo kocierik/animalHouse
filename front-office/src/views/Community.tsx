@@ -24,29 +24,7 @@ const CommunityPage =  () => {
   },[])
 
   const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
-  const users = [
-    {
-      id: 1,
-      name: 'Erik',
-      points: 13733,
-      data: '19 sept 2022',
-      game: 'tris'
-    },
-    {
-      id: 2,
-      name: 'man',
-      points: 13703,
-      data: '19 sept 2022',
-      game: 'tris'
-    },
-    {
-      id: 3,
-      name: 'io',
-      points: 133,
-      data: '19 sept 2022',
-      game: 'tris'
-    }
-  ]
+
   return (
     <div className="h-full">
       <Navbar />

@@ -88,9 +88,9 @@ export default function Example() {
               {product.breadcrumbs.map((breadcrumb) => (
                 <li key={breadcrumb.id}>
                   <div className="flex items-center">
-                    <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
+                    <span href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
                       {breadcrumb.name}
-                    </a>
+                    </span>
                     <svg
                       width={16}
                       height={20}
