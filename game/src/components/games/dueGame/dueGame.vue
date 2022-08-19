@@ -11,6 +11,7 @@ import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
 import './style.scss'
 import swal from 'sweetalert'
+import { ApiRepository } from 'shared'
 
 let score2048: number
 
@@ -98,10 +99,6 @@ const saveDbResult = () => {
   if (state.currentGame.isGameover) {
     score2048 = JSON.parse(localStorage.getItem('game-bestscores'))
     score2048 = score2048[Number(Object.keys(score2048))]
-    console.log(Number(Object.keys(score2048)))
-    console.log('====================================')
-    console.log()
-    console.log('====================================')
     swal({
       title: 'Good job!',
       text: `You have done ${score2048} points! Do you want save your record?`,
