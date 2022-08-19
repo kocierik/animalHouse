@@ -1,5 +1,6 @@
 import { Api } from './api'
 import type { IGameValues } from './json/Community';
+import type { IGameScore } from './json/GamesScores';
 
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/v1'
@@ -15,7 +16,7 @@ export const login = async (username: string, password: string) =>
 
 export const getAnimalCode = async () => Api.get<{ code: number; name: String }[]>(_BASE_URL + _ANIMAL_CODES)
 export const postUserRegister = async () => Api.post<{ code: number;  name: String }[]>(_BASE_URL + _REGISTER_CODES,  "")
-export const putUserScore = async () => Api.post<{ code: number;  name: String }[]>(_BASE_URL + _SCORE_CODES,  "")
+// export const putUserScore = async () => Api.post<IGameScore>(_BASE_URL + _SCORE_CODES,  "")
 export const getUserScore = async () => Api.get<IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
 
 // TODO insert here other calls!!!!
