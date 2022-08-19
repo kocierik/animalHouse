@@ -1,6 +1,6 @@
 import { Api } from './api'
 import type { IGameValues } from './json/Community';
-import type { IProductMarked } from './json/Articles';
+import type { IProductMarked } from './json/ProductMarked';
 
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/v1'
