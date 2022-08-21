@@ -49,3 +49,7 @@ server/out/*
 shared/node_modules
 shared/package-lock.json
 shared/.DS_Store
+
+# BACK-OFFICE
+back-office/node_modules
+back-office/package-lock.json
