@@ -47,8 +47,8 @@ const mongoCredentials = {
     site: "localhost:27017",
     dbname: "animal-house-db"
 };
+
 app.get('/db/showall', async function(req,res){
-    //res.send(await mongo.showAllProducts(mongoCredentials));
     let query = {};
     let result = await mongo.search(mongoCredentials,query)
     
