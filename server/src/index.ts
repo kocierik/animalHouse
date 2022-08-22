@@ -7,7 +7,8 @@ import * as userRoutes from './routes/user'
 import * as communityRoutes from './routes/community'
 import * as marketRoutes from './routes/market'
 import * as migrations from './initial-migrations'
-import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER} from './const'
+import { resolve } from 'path'
+import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER, BACKOFFICE_DIR} from './const'
 
 // Constants
 const app = express()
@@ -20,10 +21,12 @@ app.use(cors())
 	
 // Db initialization
 async function db() {
+  console.log("[INFO] connecting to db")
   await connect(`mongodb://${DB_USER}:${DB_SECRET}@${DB_ADDR}:${DB_PORT}/${DB_NAME}`);
   await migrations.initGames()
   await migrations.initProductCategories()
   await migrations.test()
+  console.log("[INFO] connected to db")
 }
 
 db().catch(err => console.log(err));
@@ -34,7 +37,12 @@ const log = (req: Request, _: Response, next: Function) => {
   next()
 }
 
-// Routes
+// Backoffice
+const pubDir = resolve(__dirname + BACKOFFICE_DIR) 
+console.log("[INFO] Pub dir is at " + pubDir)
+app.use(express.static(pubDir));
+
+// API Routes
 // User
 app.get("/", (_: Request, res:Response) => {res.send("anemal houz") })
 app.post(version + "/user/register", log, userRoutes.registerPost )
