@@ -19,6 +19,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.3",
     "nodemon": "^2.0.16",
-    "npm": "^8.10.0"
+    "npm": "^8.10.0",
+    "server-static": "^2.0.5"
   }
 }
