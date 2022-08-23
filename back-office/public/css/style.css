@@ -1,3 +1,30 @@
-h1{
-    color:red;
+.item{
+    display: block;
+    transition: transform .3s; /* Animation */
+    background-color: whitesmoke;
+    border-radius: 50px;
+    /*margin-right: 15pt;*/
+}
+.item:hover{
+    transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.item-image{
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+.item-title{
+    float: left;
+    padding-bottom: 10%;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+.item-price{
+    float: right;
+}   
+.item-remove{
+    width: 10%;
 }
