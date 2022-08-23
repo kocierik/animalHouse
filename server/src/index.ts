@@ -49,7 +49,7 @@ app.post(version + "/user/register", log, userRoutes.registerPost )
 app.post(version + "/user/login", log, userRoutes.loginPost)
 app.get(version + "/user/current", log, userRoutes.verifyToken, userRoutes.getCurrentUser)
 app.get(version + "/user/:id", log, userRoutes.verifyToken, userRoutes.getUser)
-app.put(version + "/user/:id/score", log, userRoutes.verifyToken, userRoutes.putScore)
+app.put(version + "/user/:id/score", log, userRoutes.verifyToken, userRoutes.putScore)    //TODO use post
 app.get(version + "/user/:id/score/", log, userRoutes.verifyToken, userRoutes.getScore)
 app.get(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.getCart)
 app.put(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.putCart)
@@ -63,7 +63,12 @@ app.get(version + "/community/game/", log, communityRoutes.getGames)
 app.get(version + "/community/game/scoreboard", log, communityRoutes.getScoreboard)
 
 // Market
-app.get(version + "/market/product/", log, marketRoutes.getProducts)
+app.get(version + "/market/products/", log, marketRoutes.getProducts) //retrieve all products
+app.get(version + "/market/products/:id", log, marketRoutes.getProduct)   //search 
+app.delete(version + "/market/products/:id", log, marketRoutes.deleteProduct) //remove
+app.post(version + "/market/products", log, marketRoutes.postProduct)  //insert
+
+
 
 
 app.listen(port, () => { console.log("[INFO] Server started at port " + port)})
