@@ -27,18 +27,6 @@ export const test = async () => {
       types: ["man", "child", "woman"],
       image: "https://www.impericon.com/media/catalog/product/s/p/spongebobsquarepants_happyface_yellow_girl_lg.jpg",
       animalTargets: ["human"]
-    },
-    {
-      _id: new Types.ObjectId("62f425273418f02b236b58b2"),
-      name: "Biliardo Cancelli",
-      description: "Enniente",
-      price: 113400000000,
-      categoryId: "62f3c0540ac73a2bc4764da7",
-      colors: ["white"],
-      sizes: [],
-      types: ["man"],
-      image: "https://i.pinimg.com/originals/4d/b6/f3/4db6f3360f7cc92a74da20c88f026a1f.jpg",
-      animalTargets: ["human"]
     }
   ])
 }

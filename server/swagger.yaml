@@ -293,7 +293,7 @@ paths:
     get:
         tags:
         - community
-        summary: Finds the results for the scoreboard
+        summary: Fids the results for the scoreboard
         parameters:
           - in: query
             name: gameId
@@ -326,11 +326,11 @@ paths:
                           items:
                             type: number
   
-  /market/products/:
+  /market/product/:
     get:
         tags:
         - market
-        summary: Finds all products
+        summary: Fids all products
         responses:
           200:
             description: successful operation
@@ -338,7 +338,6 @@ paths:
               type: array
               items:
                 $ref: "#/definitions/Product"
-                
             
 securityDefinitions:  
   JWT:  
