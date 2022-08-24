@@ -1,32 +1,45 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { ApiRepository, ApiResponse, JsonUser } from 'shared'
+import ErrorBox from './common/ErrorBox'
 
 const Register = () =>  {
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [retyped, setRetyped] = useState("")
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
 
-  const [pwdMatch, setPwdMatch] = useState(true)
+  const [isError, setIsError] = useState(false)
+  const [error, setError] = useState("")
+  const [doneClickable, setDoneClickable] = useState(false)
 
   const register = async () => {
+    if (!doneClickable) return;
+    setIsError(false)
     const input: JsonUser.IJsonRegistration = {
         username: username,
         email: email,
         password: password,
-        name: name,
-        surname: surname
+        firstName: name,
+        lastName: surname
       }
 
     const response: ApiResponse<string>  = await ApiRepository.register(input)
     if (response.esit) {
-     
+      window.location.href = "/register/animal"
     } else {
-
+      console.log(response.error!.mex)
+      setError(response.error!.mex)
+      setIsError(true)
     }
   }
+
+  useEffect(() => {
+    setDoneClickable(username !== "" && email !== "" && password !== "" && 
+    name !== "" && surname !== "" && retyped !== "" && retyped === password)
+  }, [username, email, password, name, surname, retyped, isError])
 
   return <>
   <div className="bg-white">
@@ -58,6 +71,7 @@ const Register = () =>  {
             <p className="mt-3 text-gray-500">Tell me more about you</p>
           </div>
           <div className="mt-8">
+            { isError? <ErrorBox text={error} /> : <div/> }
             { /* Name */ }
             <div>
               <label htmlFor="name" className="block mt-6 mb-2 text-sm text-gray-600">Name</label>
@@ -126,10 +140,11 @@ const Register = () =>  {
               <input
                 type="password"
                 id="confpassword"
-                onChange={event => setPwdMatch(event.target.value === password)}
+                onChange={event => setRetyped(event.target.value)}
                 placeholder="your password"
-                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
+            {retyped !== password && retyped !== "" ? <ErrorBox text="passwords do not match :/" /> : <div/>}
             </div>
 
             <div className="mt-6">
@@ -137,8 +152,7 @@ const Register = () =>  {
                 onClick={register}
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
-                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-green-500 rounded-md hover:bg-green-400 focus:outline-none focus:bg-green-400 focus:ring focus:ring-green-300 focus:ring-opacity-50"
-              >
+                className={(doneClickable? "bg-green-500 hover:bg-green-600  " : "bg-green-300 ") + " w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm rounded-md focus:outline-none"}>
                 Done!
               </button>
             </div>
