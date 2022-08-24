@@ -38,20 +38,20 @@ export const registerPost = async (req: Request, res: Response) => {
   
   // Password checks
   if (userCreation.password.length < 8)
-    return res.status(STATUS_BAD_REQUEST).send('password must be at least 8 characters long')
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError('password must be at least 8 characters long'))
 
   // Look if username is already taken
   if ((await User.find({'username' : userCreation.username})).length != 0)
-    return res.status(STATUS_BAD_REQUEST).send(`username ${userCreation.username} already taken`)
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`username ${userCreation.username} already taken`))
 
-  // Look if email is well formed
+  // Look if email is well formed TODO
   /*const regExp = new RegExp('')
   if (!regExp.test(userCreation.password))
     return res.status(STATUS_BAD_REQUEST).send(`email ${userCreation.email} is malformed`)*/
 
   // Look if email is already taken
   if ((await User.find({'email' : userCreation.email})).length != 0)
-    return res.status(STATUS_BAD_REQUEST).send(`email ${userCreation.email} already taken`)
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`email ${userCreation.email} already taken`))
 
   const user = new User()
   user.username = userCreation.username
@@ -61,8 +61,12 @@ export const registerPost = async (req: Request, res: Response) => {
   user.lastName = userCreation.lastName
   user.phone = "todo"
 
-  await user.save()
-  return res.status(STATUS_OK).send('user created successfully') 
+  try {
+    await user.save()
+  } catch (ex) {
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+  return res.status(STATUS_OK).json(user) 
 }
 
 export const loginPost = async (req: Request, res: Response) => {
@@ -162,7 +166,7 @@ export const putCart = async (req: Request, res: Response) => {
     try {
       pqs = req.body as IProductInstance[] 
     } catch(ex) {
-      return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex))
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.message))
     }
 
     // Check input data
@@ -197,7 +201,7 @@ export const putCart = async (req: Request, res: Response) => {
     try {
       await cart.save()
     } catch(ex) {
-      return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex))
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.message))
     }
 
     return res.status(STATUS_OK).json(cart.productInstances)

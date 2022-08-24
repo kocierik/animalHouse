@@ -31,7 +31,7 @@ export abstract class Api {
       // Success
       return new ApiResponse<T>(response.status, (await response.json() as T)) 
     } else 
-      return new ApiResponse<T>(response.status)
+      return new ApiResponse<T>(response.status, null, (await response.json() as JsonError))
   }
 
   protected static getToken(): string {
@@ -42,16 +42,25 @@ export abstract class Api {
 
 export class ApiResponse<T> {
   public data? : T
-  private _esit : boolean
-  public statusCode : number
+  public error?: JsonError
+  private _esit: boolean
+  public statusCode: number
 
-  public get esit () : boolean {
+  public get esit (): boolean {
     return this._esit;
   }
 
-  constructor(statusCode: number, data? : T){
+  constructor(statusCode: number, data? : T, error?: JsonError){
     this._esit =  statusCode >= 200 && statusCode < 300;
     this.data = data;
     this.statusCode = statusCode
+    this.error = error
   }
+
+}
+
+export class JsonError {
+  public mex: string
+
+  constructor(message: string) { this.mex = message }
 }
