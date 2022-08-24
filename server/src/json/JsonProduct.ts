@@ -9,5 +9,5 @@ export interface JsonProduct {
     colors?: string[],
     sizes?: string[],
     types?: string[],
-    details?: string,
+    details?: string
   }

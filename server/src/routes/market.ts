@@ -19,48 +19,36 @@ export const getProducts = async (_: Request, res: Response) => {
 
 export const getProduct = async (req: Request, res: Response) => {
     let query = {_id:req.params.id};
-    return res.status(STATUS_OK).json(await findProductsFromQuery(query))
+    return res.status(STATUS_OK).json(await Product.find(query));
 }
 
 export const deleteProduct = async (req: Request, res: Response) => {
     //TODO: check admin token + check input
-    if(JSON.stringify((await findProductsFromQuery({_id:req.params.id})))=="[]")
-      return res.status(STATUS_NOT_FOUND).json(new JsonError(`${req.params.it} is not a valid product id`))
+    if(JSON.stringify((await Product.find({_id:req.params.id})))=="[]")
+      return res.status(STATUS_NOT_FOUND).json(new JsonError(`${req.params.it} is not a valid product id`));
     Product.deleteOne({_id:req.params.id},function(){
       return res.status(STATUS_OK).send('product removed successfully');
     });
 }
 
 export const postProduct = async (req: Request, res: Response) => {
-    //TODO: check admin token
-    const productCreation = req.body as JsonProduct;
-    //CHECK INPUT
+    //TODO: check admin token + check input
+
+    let productCreation= req.body as JsonProduct; 
     const product = new Product();
 
-    /*
+
     product.name = productCreation.name;
     product.price = productCreation.price;
     product.categoryId = productCreation.categoryId;
     product.description = productCreation.description;
     product.animalTargets = productCreation.animalTargets;
     product.image = productCreation.image;
-    */
-    console.log(req.body);
-    product.name = "Prova1";
-    product.price = 123;
-    product.categoryId = "62f3c0540ac73a2bc4764da8";
-    product.description = "test di fede";
-    product.animalTargets = [];
-    product.image = "https://qph.cf2.quoracdn.net/main-qimg-020fac071c01a6321fe24013aa136e60-pjlq";
-
-  
+    product.colors = productCreation.colors;
+    product.sizes = productCreation.sizes;
+    product.types = productCreation.types;
+    product.details = productCreation.details;
+    console.log(product);
     await product.save();
-    return res.status(STATUS_OK).json(product);
-}
-
-
-// Common functions 
-const findProductsFromQuery = async (query) => {
-    const promises = (await Product.find(query));
-    return await Promise.all(promises);
+    return res.status(STATUS_OK).json((product));
 }
