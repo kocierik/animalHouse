@@ -8,10 +8,6 @@
 3. __json:__ contains the class/interface definition of the various objects
 exchanged via http requests.
 
-In ```const.ts``` are stored all constants needed by the server. By default the
-server will statically serve the folder indicated by the ```BACKOFFICE_DIR```
-constant.
-
 ## Run the project
 
 ### Database
@@ -81,16 +77,11 @@ __NOTE:__ Swagger editor will run on [localhost:8081](http://localhost:8081)
 __Il consiglio di Mattia:__ Consiglio fortemente di usare swagger per testare
 gli endpoint quando non si ha ancora un frontend disponibile.
 
-### exec script
-In order to setup all things run the ```exec.sh``` script.
+### Per eseguire tutto simultaneamente utilizzare:
 ```bash
 ./exec.sh
 ```
-
-__Il consiglio di Mattia:__ Se il tuo utente linux non appartiene al gruppo 
-```docker``` e' probabile che siano richiesti i permessi di sudo.
-
-Remember to stop the containers when finished.
+ricordarsi ovviamente di dare i permessi `chmod` e di mettere `down` i container
 ```bash
 docker-compose down
 docker stop (nome-Container) 
