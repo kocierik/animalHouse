@@ -7,6 +7,7 @@ interface IUser {
   firstName: string,
   lastName: string,
   phone: string,
+  animals: string[]
 }
 
 const userSchema = new Schema<IUser>({
@@ -15,7 +16,8 @@ const userSchema = new Schema<IUser>({
   password: {type: String, required: true},
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
-  phone: {type: String, required: true}
+  phone: {type: String, required: true},
+  animals: {type: [String], required: true, default: []}
 })
 
 const User = model<IUser>('User', userSchema)

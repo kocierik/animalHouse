@@ -6,19 +6,19 @@ info:
 host: localhost:8080
 basePath: /v1
 tags:
-- name: pet
 - name: store
-- name: user
+- name: users
+- name: animals 
 - name: community
 - name: market
     
 schemes:
 - http
 paths:
-  /user/register:
+  /users/register:
     post:
       tags:
-      - user
+      - users
       summary: Create new user
       parameters:
       - in: body
@@ -41,10 +41,10 @@ paths:
       responses:
         200:
           description: Success
-  /user/login:
+  /users/login:
     post:
       tags:
-      - user
+      - users
       summary: Login as an user
       parameters:
       - in: body
@@ -66,10 +66,10 @@ paths:
             properties:
               token:
                 type: string
-  /user/current:
+  /users/current:
     get:
       tags:
-      - user
+      - users
       summary: Retrieve information about the current user
       security:  
         - JWT: []
@@ -84,10 +84,10 @@ paths:
               _id:
                 type: string
                 
-  /user/{id}:
+  /users/{id}:
     get:
       tags:
-      - user
+      - users
       summary: Get a user by ID
       parameters:
         - in: path
@@ -103,10 +103,10 @@ paths:
           schema:
             $ref: "#/definitions/User"
   
-  /user/{id}/score:
+  /users/{id}/score:
     get:
       tags:
-      - user
+      - users
       summary: Get game scores of the specified user
       parameters:
         - in: path
@@ -135,7 +135,7 @@ paths:
                     type: number
     put:
       tags:
-      - user
+      - users
       summary: Add a game score to the specified user
       parameters:
         - in: path
@@ -165,10 +165,10 @@ paths:
                   type: string
                 score:
                   type: number
-  /user/{id}/cart:
+  /users/{id}/cart:
     get:
       tags:
-      - user
+      - users
       summary: Get the cart of the specified user
       parameters:
         - in: path
@@ -187,7 +187,7 @@ paths:
               $ref: "#/definitions/ProductInstance"
     put:
       tags:
-      - user
+      - users
       summary: Add a product to the cart of the specified user
       parameters:
         - in: path
@@ -213,7 +213,7 @@ paths:
               $ref: "#/definitions/ProductInstance" 
     delete:
       tags:
-      - user
+      - users
       summary: Delete a product from the cart of the specified user
       description: Takes in the body a list of string representing the product instance ids you want to delete
       parameters:
@@ -239,38 +239,21 @@ paths:
             type: array
             items:
               $ref: "#/definitions/ProductInstance"
-  /pet:
+  /animals/codes:
     get:
-        tags:
-        - pet
-        summary: Finds Pet
-        operationId: getPet
-        parameters:
-        - name: id
-          in: query
-          description: Id of the pet
-          required: true
-          type: integer
-        responses:
-          200:
-            description: successful operation
-            schema: 
-              $ref: "#/definitions/Pet"
-    post:
       tags:
-      - pet
-      summary: Add a new pet
-      operationId: addPet
-      parameters:
-      - in: body
-        name: body
-        description: Pet object
-        required: true
-        schema:
-          $ref: "#/definitions/Pet"
+      - animals
+      summary: Finds all animal tags
       responses:
         200:
-          description: Success
+          description: Ok
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+              value:
+                type: string
           
   /community/game/:
     get:
