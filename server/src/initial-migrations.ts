@@ -3,6 +3,7 @@ import { Types } from 'mongoose'
 import ProductCategory from './entities/ProductCategory';
 import Product from './entities/Product';
 import { GAMES } from './const'
+import AnimalCode from './entities/AnimalCode';
 
 export const test = async () => {
   await Product.deleteMany()
@@ -67,5 +68,38 @@ export const initProductCategories = async () => {
       name: 'beauty',
       _id: new Types.ObjectId('62f3c0540ac73a2bc4764dad')
     },
+  ])
+}
+
+export const initAnimalCodes = async () => {
+  await AnimalCode.deleteMany()
+  await AnimalCode.insertMany([
+      { code : 0,
+        value : "Dog"
+      },
+      { code : 1,
+        value : "Cat"
+      },
+      { code : 2,
+        value : "Fox"
+      },
+      { code : 3,
+        value : "Duck"
+      },
+      { code : 4,
+        value : "Bunny"
+      },
+      { code : 5,
+        value : "Koala"
+      },
+      { code : 6,
+        value : "Panda"
+      },
+      { code : 7,
+        value : "Shiba"
+      },
+      { code : 8,
+        value : "Lizard"
+      }
   ])
 }

@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
 import Product from '../entities/Product'
+import Animal, { IAnimal } from '../entities/Animal'
 import Cart, { IProductInstance } from '../entities/Cart'
 import { Types } from 'mongoose'
 
@@ -243,6 +244,30 @@ export const deleteCart = async (req: Request, res: Response) => {
 
     return res.status(STATUS_OK).json(await constructCartForUser(pathId))
   } 
+}
+
+export const putAnimal = async (req: Request, res: Response) => {
+  const authId = req.authData.id
+  const pathId = req.params.id
+  if (pathId !== authId)
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError('Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+  else {
+    let user = await User.findOne({_id: pathId})
+    if (user) {
+      let animals = []
+      try {
+        animals = req.body as IAnimal[]
+        await Animal.insertMany(animals)
+        user.animals.concat(animals.map((a: IAnimal) => a._id))
+        await user.save()
+        return res.status(STATUS_OK).json(user.animals)
+      } catch(ex) {
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.messagge))
+      }
+    } else {
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Can\'t find user with id ${pathId}`))
+    }
+  }
 }
 
 // Common functions 

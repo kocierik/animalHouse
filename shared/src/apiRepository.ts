@@ -3,9 +3,9 @@ import * as user from './json/user'
 
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/v1'
-const _AUTH = '/user/login'
-const _ANIMAL_CODES = '/animals/'
-const _USER_REGISTER = '/user/register'
+const _AUTH = '/users/login'
+const _ANIMAL_CODES = '/animals/codes'
+const _USER_REGISTER = '/users/register'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _AUTH, { username: username, password: password })

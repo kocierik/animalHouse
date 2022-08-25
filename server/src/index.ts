@@ -23,6 +23,7 @@ async function db() {
   await connect(`mongodb://${DB_USER}:${DB_SECRET}@${DB_ADDR}:${DB_PORT}/${DB_NAME}`);
   await migrations.initGames()
   await migrations.initProductCategories()
+  await migrations.initAnimalCodes()
   await migrations.test()
 }
 
@@ -37,18 +38,20 @@ const log = (req: Request, _: Response, next: Function) => {
 // Routes
 // User
 app.get("/", (_: Request, res:Response) => {res.send("anemal houz") })
-app.post(version + "/user/register", log, userRoutes.registerPost )
-app.post(version + "/user/login", log, userRoutes.loginPost)
-app.get(version + "/user/current", log, userRoutes.verifyToken, userRoutes.getCurrentUser)
-app.get(version + "/user/:id", log, userRoutes.verifyToken, userRoutes.getUser)
-app.put(version + "/user/:id/score", log, userRoutes.verifyToken, userRoutes.putScore)
-app.get(version + "/user/:id/score/", log, userRoutes.verifyToken, userRoutes.getScore)
-app.get(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.getCart)
-app.put(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.putCart)
-app.delete(version + "/user/:id/cart", log, userRoutes.verifyToken, userRoutes.deleteCart)
+app.post(version + "/users/register", log, userRoutes.registerPost )
+app.post(version + "/users/login", log, userRoutes.loginPost)
+app.get(version + "/users/current", log, userRoutes.verifyToken, userRoutes.getCurrentUser)
+app.get(version + "/users/:id", log, userRoutes.verifyToken, userRoutes.getUser)
+app.put(version + "/users/:id/score", log, userRoutes.verifyToken, userRoutes.putScore)
+app.get(version + "/users/:id/score/", log, userRoutes.verifyToken, userRoutes.getScore)
+app.get(version + "/users/:id/cart", log, userRoutes.verifyToken, userRoutes.getCart)
+app.put(version + "/users/:id/cart", log, userRoutes.verifyToken, userRoutes.putCart)
+app.delete(version + "/users/:id/cart", log, userRoutes.verifyToken, userRoutes.deleteCart)
+app.put(version + "/users/:id/animals", log, userRoutes.verifyToken, userRoutes.putAnimal)
 
 // Animal
-app.get(version + "/animals/", log, animalRoutes.getAnimalCodes)
+app.get(version + "/animals/codes", log, animalRoutes.getAnimalCodes)
+app.get(version + "/animals/:id", log, userRoutes.verifyToken, animalRoutes.getAnimalCodes)
 
 // Community
 app.get(version + "/community/game/", log, communityRoutes.getGames)
