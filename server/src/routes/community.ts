@@ -4,7 +4,7 @@ import Score from '../entities/Score'
 import { JsonScoreboardItem, JsonScoreboardScore } from '../json/JsonScoreboard'
 import User from '../entities/User'
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_INTERNAL_ERROR, GAMES } from '../const'
-import { JsonError } from '../json/JsonError'
+import JsonError from '../json/JsonError'
 
 export const getGames = async (_: Request, res: Response) => res.json(await Game.find({}).select("name").select("_id"))
 
