@@ -1,13 +1,10 @@
 import React from 'react'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 import DropDown from './common/DropDown'
 import Articles from './common/shoppingComponents/Articles'
 const Shopping = () => {
   const producs = ['food', 'health product', 'accessories', 'animal']
   return (
     <>
-      <Navbar />
       <div className="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
         <section className="bg-white py-8">
           <div className="container mx-auto justify-evenly	flex items-center flex-wrap pt-4 pb-12">
@@ -23,7 +20,6 @@ const Shopping = () => {
           </div>
         </section>
       </div>
-      <Footer />
     </>
   )
 }

@@ -1,4 +1,4 @@
-export class JsonError {
+export default class JsonError {
   mex: string
 
   constructor(mex: string) {

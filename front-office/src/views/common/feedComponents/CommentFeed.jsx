@@ -1,5 +1,4 @@
 import React from 'react'
-import avatar from '../assets/imageprofile.jpg'
 import TimeAgo from 'timeago-react'
 import { FaPencilAlt, FaHeart, FaTrash } from 'react-icons/fa'
 
@@ -27,7 +26,7 @@ const CommentFeed = (props) => {
               }
             >
               <img
-                src={avatar}
+                src="/imageprofile.jpg"
                 className="rounded-full flex-initial max-h-8 w-8 sm:max-h-10 sm:w-10"
                 alt="User profile"
               />

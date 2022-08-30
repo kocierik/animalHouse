@@ -3,12 +3,14 @@ import Score from '../entities/Score'
 import { Game } from '../entities/Community'
 import { Request, Response } from 'express'
 import { JsonUserCreation, JsonLogin} from '../json/JsonUser'
-import { JsonError } from '../json/JsonError'
+import { JsonAnimal } from '../json/JsonAnimal'
+import JsonError from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
 import Product, { IProduct } from '../entities/Product'
 import Cart, { ICart, IProductInstance } from '../entities/Cart'
+import Animal, { IAnimal } from '../entities/Animal'
 import { Types } from 'mongoose'
 
 const SECRET = 'bigSecret'
@@ -38,20 +40,20 @@ export const registerPost = async (req: Request, res: Response) => {
   
   // Password checks
   if (userCreation.password.length < 8)
-    return res.status(STATUS_BAD_REQUEST).send('password must be at least 8 characters long')
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError('password must be at least 8 characters long'))
 
   // Look if username is already taken
   if ((await User.find({'username' : userCreation.username})).length != 0)
-    return res.status(STATUS_BAD_REQUEST).send(`username ${userCreation.username} already taken`)
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`username ${userCreation.username} already taken`))
 
-  // Look if email is well formed
+  // Look if email is well formed TODO
   /*const regExp = new RegExp('')
   if (!regExp.test(userCreation.password))
     return res.status(STATUS_BAD_REQUEST).send(`email ${userCreation.email} is malformed`)*/
 
   // Look if email is already taken
   if ((await User.find({'email' : userCreation.email})).length != 0)
-    return res.status(STATUS_BAD_REQUEST).send(`email ${userCreation.email} already taken`)
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`email ${userCreation.email} already taken`))
 
   const user = new User()
   user.username = userCreation.username
@@ -61,8 +63,12 @@ export const registerPost = async (req: Request, res: Response) => {
   user.lastName = userCreation.lastName
   user.phone = "todo"
 
-  await user.save()
-  return res.status(STATUS_OK).send('user created successfully') 
+  try {
+    await user.save()
+  } catch (ex) {
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+  return res.status(STATUS_OK).json(user) 
 }
 
 export const loginPost = async (req: Request, res: Response) => {
@@ -255,6 +261,33 @@ export const deleteCart = async (req: Request, res: Response) => {
   } 
 }
 
+export const putAnimal = async (req: Request, res: Response) => {
+  const authId = req.authData.id
+  const pathId = req.params.id
+  if (pathId !== authId)
+    res.status(STATUS_UNAUTHORIZED).json(new JsonError('Can\'t access user with id ' + pathId + ' (logged is ' + authId + ')'))
+  else {
+    let user = await User.findOne({_id: pathId})
+    if (user) {
+      let animals = []
+      try {
+        animals = req.body as JsonAnimal[]
+      } catch(ex) {
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError("Invalid animal"))
+      }
+      try {
+        const inserted = await Animal.insertMany(animals.map(a => jsonAnimalToAnimal(a, pathId)))
+        inserted.forEach(i => addAnimalToUser(i._id, pathId))
+        return res.status(STATUS_OK).json(user.animals)
+      } catch(ex) {
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.messagge))
+      }
+    } else {
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Can\'t find user with id ${pathId}`))
+    }
+  }
+}
+
 // Common functions 
 const constructCartForUser = async (userId: string) => {
         const promises = (await Cart.findOne({userId: userId}))?.productInstances
@@ -263,3 +296,18 @@ const constructCartForUser = async (userId: string) => {
 
 const includesId = (id: Types.ObjectId, collection: any[]): boolean =>
   collection.reduce((old: boolean, x: any)=> x._id.toString() === id.toString() || old , false)
+
+const jsonAnimalToAnimal = (ja: JsonAnimal, uId: string) => 
+  ({
+    name: ja.name,
+    type: ja.type,
+    userId: uId,
+    age: ja.age
+  })
+
+const addAnimalToUser = async (aId: string, uId: string) => {
+  const animal = await Animal.findOne({_id: aId}).orFail()
+  const user = await User.findOne({_id: uId}).orFail()
+  user.animals.push(animal._id)
+  await user.save()
+}
