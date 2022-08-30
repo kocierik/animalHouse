@@ -1,7 +1,7 @@
 import React from 'react'
 import { JsonUser, JsonAddress } from '../../../server/src/json/JsonUser';
 import { JsonPet } from '../../../server/src/json/JsonPet';
-
+import image from  "./common/assets/imageProfile.jpg"
 const user : JsonUser[] = [{
   username: "erik",
   email: "erik@gmail.com",
@@ -52,7 +52,7 @@ const Profile = () => {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={require('./common/assets/imageprofile.jpg')}
+                        src={image}
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                         style={{ maxWidth: '150px' }}
                       />

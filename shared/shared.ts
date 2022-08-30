@@ -5,3 +5,5 @@ export * as Helpers from './src/helpers'
 export * as ApiRepository from './src/apiRepository'
 export * as JsonUser from './src/json/user'
 export * as JsonAnimal from './src/json/animal'
+export * as Community from "./src/json/Community"
+export * as ProductMarked from "./src/json/ProductMarked"

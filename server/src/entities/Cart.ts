@@ -9,7 +9,7 @@ export interface IProductInstance {
   size?: string
 }
 
-interface ICart {
+export interface ICart {
   userId: string,
   productInstances: IProductInstance[]
 }
