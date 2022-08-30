@@ -3,6 +3,7 @@ import Score from '../entities/Score'
 import { Game } from '../entities/Community'
 import { Request, Response } from 'express'
 import { JsonUserCreation, JsonLogin} from '../json/JsonUser'
+import { JsonAnimal } from '../json/JsonAnimal'
 import JsonError from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
@@ -256,10 +257,13 @@ export const putAnimal = async (req: Request, res: Response) => {
     if (user) {
       let animals = []
       try {
-        animals = req.body as IAnimal[]
-        await Animal.insertMany(animals)
-        user.animals.concat(animals.map((a: IAnimal) => a._id))
-        await user.save()
+        animals = req.body as JsonAnimal[]
+      } catch(ex) {
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError("Invalid animal"))
+      }
+      try {
+        const inserted = await Animal.insertMany(animals.map(a => jsonAnimalToAnimal(a, pathId)))
+        inserted.forEach(i => addAnimalToUser(i._id, pathId))
         return res.status(STATUS_OK).json(user.animals)
       } catch(ex) {
         return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.messagge))
@@ -278,3 +282,18 @@ const constructCartForUser = async (userId: string) => {
 
 const includesId = (id: Types.ObjectId, collection: any[]): boolean =>
   collection.reduce((old: boolean, x: any)=> x._id.toString() === id.toString() || old , false)
+
+const jsonAnimalToAnimal = (ja: JsonAnimal, uId: string) => 
+  ({
+    name: ja.name,
+    type: ja.type,
+    userId: uId,
+    age: ja.age
+  })
+
+const addAnimalToUser = async (aId: string, uId: string) => {
+  const animal = await Animal.findOne({_id: aId}).orFail()
+  const user = await User.findOne({_id: uId}).orFail()
+  user.animals.push(animal._id)
+  await user.save()
+}

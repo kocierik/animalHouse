@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { login, LoginHelper } from 'shared'
+import { ApiRepository, ApiResponse, Helpers, JsonUser} from 'shared'
 import ErrorBox from './common/ErrorBox';
 
 export default function Login() {
   /* If the user is already logged redirect to main page */
-  if (LoginHelper.isLogged()) {
+  if (Helpers.isLogged()) {
     window.location.href = '/'
   }
 
@@ -27,7 +27,7 @@ export default function Login() {
 
     if (error !== -1) return
 
-    let resp = await login(username, password)
+    let resp = await ApiRepository.login(username, password)
     if (!resp.esit) {
       if (resp.statusCode === 403) {
         setError(0)
@@ -36,8 +36,12 @@ export default function Login() {
       }
       return
     } else {
-      LoginHelper.doLogin(resp.data.token)
-      window.location.href = '/'
+      Helpers.doLogin(resp.data.token)
+      const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
+      if (resp2.esit) {
+        Helpers.setUserId(resp2.data?.id!)
+        window.location.href = '/'
+      }
     }
   }
 

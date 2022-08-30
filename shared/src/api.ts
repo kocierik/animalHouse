@@ -34,6 +34,25 @@ export abstract class Api {
       return new ApiResponse<T>(response.status, null, (await response.json() as JsonError))
   }
 
+  public static async put<T>(url: string, body: any, auth=false) : Promise<ApiResponse<T>> {
+    let options: RequestInit = {
+      method: 'PUT',
+      body : JSON.stringify(body),
+      headers: {
+        'Accept': 'application/json', 
+        'Content-Type': 'application/json',
+        'Authorization' : auth ? this.getToken() : ""
+      }
+    };
+
+    let response = await fetch(url, options);
+    if (response.status >= 200 && response.status < 300) {
+      // Success
+      return new ApiResponse<T>(response.status, (await response.json() as T)) 
+    } else 
+      return new ApiResponse<T>(response.status, null, (await response.json() as JsonError))
+  }
+
   protected static getToken(): string {
     const token = localStorage.getItem('token')
     return token ?? 'not logged'
