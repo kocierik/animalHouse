@@ -1,3 +1,4 @@
+import React from "react"
 import { Disclosure } from '@headlessui/react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 
@@ -19,7 +20,7 @@ const products = [
       'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
   },
   {
-    id: 1,
+    id: 2,
     name: 'Micro Backpack',
     href: '#',
     price: '$70.00',
@@ -30,7 +31,7 @@ const products = [
       'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
   },
   {
-    id: 1,
+    id: 3,
     name: 'Micro Backpack',
     href: '#',
     price: '$70.00',

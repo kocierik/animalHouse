@@ -8,9 +8,9 @@ import JsonError from '../json/JsonError'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
-import Product from '../entities/Product'
+import Product, { IProduct } from '../entities/Product'
+import Cart, { ICart, IProductInstance } from '../entities/Cart'
 import Animal, { IAnimal } from '../entities/Animal'
-import Cart, { IProductInstance } from '../entities/Cart'
 import { Types } from 'mongoose'
 
 const SECRET = 'bigSecret'
@@ -173,7 +173,12 @@ export const putCart = async (req: Request, res: Response) => {
 
     // Check input data
     for (let pq of pqs) {
-      const doc = await Product.findOne({ _id : pq.productId})
+      let doc: IProduct
+      try {
+        doc = await Product.findOne({ _id : pq.productId})
+      } catch(ex) {
+        return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Cannot find product with id ${pq.productId}`))
+      }
       if (doc === null)
         return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Product ${pq.productId} not found`))
 
@@ -188,16 +193,25 @@ export const putCart = async (req: Request, res: Response) => {
     }
 
     // Check if we have to create the cart for the current user
-    const response = await Cart.exists({userId: pathId})
-    if (!response) {
-      // We have to create an empty cart
-      let cart = new Cart()
-      cart.userId = pathId
-      cart.productInstances = []
-      await cart.save()
+    try {
+      const response = await Cart.exists({userId: pathId})
+      if (!response) {
+        // We have to create an empty cart
+        let cart = new Cart()
+        cart.userId = pathId
+        cart.productInstances = []
+        await cart.save()
+      }
+    } catch(ex) {
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(ex.message))
     }
 
-    const cart = await Cart.findOne({userId: pathId})
+    let cart: any
+    try {
+      cart = await Cart.findOne({userId: pathId})
+    } catch(ex) {
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Can\'t find cart with user id ${pathId}`))
+    }
     cart.productInstances = cart.productInstances.concat(pqs)
 
     try {

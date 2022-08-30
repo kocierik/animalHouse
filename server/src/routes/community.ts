@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Game } from '../entities/Community'
+import { Game, IGame } from '../entities/Community'
 import Score from '../entities/Score'
 import { JsonScoreboardItem, JsonScoreboardScore } from '../json/JsonScoreboard'
 import User from '../entities/User'
@@ -33,30 +33,30 @@ export const getScoreboard = async (req: Request, res: Response) => {
 
 const getScoreboardForGame = async (id: string) => {
   // Check if the game exists
-  if (await Game.exists({_id: id})) {
+  const game = await Game.findOne({_id: id}) 
+  if (game) {
     const scores = await Score.find({gameId: id})
 
     let result: JsonScoreboardItem = {
-      gameId: id,
+      gameId: game._id.toString(),
+      gameName: game.name,
       scores: []
     }
 
-    let userScoresMap = new Map<string, number>()
+    let userScoresMap = new Map<string, number[]>()
 
     for (let score of scores) {
       if (!userScoresMap.has(score.userId)) {
-        userScoresMap.set(score.userId, 0)
+        userScoresMap.set(score.userId, [])
       }
-      userScoresMap.set(score.userId, userScoresMap.get(score.userId) + score.value)
+      userScoresMap.get(score.userId).push(score.value)
     }
 
-    // sort
-    const sorted = new Map([...userScoresMap.entries()].sort((a, b) => a[1] - b[1]));
-
-    for (let [uId, scr] of sorted) {
+      console.log(userScoresMap)
+    for (let [uId, scr] of userScoresMap) {
       let jss: JsonScoreboardScore = {
         userId : uId,
-        score : scr,
+        score : scr.sort(),
         username : (await User.findOne({_id: uId})).username
       }
       
