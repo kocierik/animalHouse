@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import avatar from '../assets/imageprofile.jpg'
 import PostHeader from './PostHeader'
 import LikeCommentButtons from './LikeCommentButtons'
 import CommentFeed from './CommentFeed'
@@ -79,7 +78,7 @@ const FeedCard = (props) => {
               }
             >
               <img
-                src={avatar}
+                src="/imageprofile.png"
                 className="rounded-full flex-initial max-h-8 w-8 sm:max-h-10 sm:w-10"
                 alt="User profile"
               />

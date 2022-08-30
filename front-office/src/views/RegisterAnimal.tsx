@@ -1,68 +1,71 @@
 import React, { useEffect, useState } from "react"
 import { ApiRepository, ApiResponse, JsonAnimal, Helpers } from 'shared'
 import ErrorBox from './common/ErrorBox'
+import Select from "react-select"
+
+interface SelectProp {
+  label: string,
+  value: number 
+}
 
 const RegisterAnimal = () => {
   const [isError, setIsError] = useState(false)
   const [error, setError] = useState("")
 
   const [name, setName ] = useState("")
-  const [type, setType] = useState("")
+  const [type, setType] = useState(-1)
   const [age, setAge] = useState(-1)
 
   const [doneClickable, setDoneClickable] = useState(false)
 
+  
+  const [types, setTypes] = useState<SelectProp[]>([])
+  
   const register = async () => {
     if (!doneClickable) return;
     setIsError(false)
+
     const input: JsonAnimal.JsonAnimal = {
         name: name,
         type: type,
-        age: age as number
+        age: (age as number)
       }
 
     const response = await ApiRepository.registerAnimal([ input ], Helpers.getUserId())
     if (response.esit) {
       window.location.href = "/"
     } else {
-      console.log(response.error!.mex)
       setError(response.error!.mex)
       setIsError(true)
     }
   }
 
+  const fetchAnimalTypes = async () => {
+    const response = await ApiRepository.getAnimalCode()
+    if (response.esit) {
+      setTypes(response.data!.map(e => ({ value: e.code, label: e.value} as SelectProp)))
+    } else 
+      setTypes([])
+  }
+
   useEffect(() => {
-    setDoneClickable(name !== "" && type !== "" && age !== -1)
+    setDoneClickable(name !== "" && type !== -1 && age !== -1)
   }, [name, type, age])
+
+  useEffect(() => {
+    fetchAnimalTypes()
+  }, [])
 
   return <>
   <div className="bg-white">
-    <div className="flex justify-center h-screen">
-      <div
-        className="hidden bg-cover lg:block lg:w-2/4"
-        style={{
-        //border-radius: 1rem;
-          backgroundImage: "url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=htmlFormat&fit=crop&w=1470&q=80)",
-        }}>
-        <div 
-        //style="border-radius: 1rem" 
-        className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-          <div>
-            <h2 className="text-4xl font-bold text-white">Brand</h2>
-
-            <p className="max-w-xl mt-3 text-gray-300">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. In autem ipsa, nulla laboriosam dolores,
-              repellendus perferendis libero suscipit nam temporibus molestiae
-            </p>
-          </div>
-        </div>
-      </div>
-
+    <div 
+      className="flex justify-center h-screen block"
+      style={{ backgroundImage: "url('/animalbg.png')"}}>
       <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
-        <div className="flex-1">
+        <div className="flex-1 bg-white block p-8 rounded-lg shadow-lg">
           <div className="text-center">
-            <h2 className="text-4xl font-bold text-center text-gray-700">Nice to meet you!</h2>
-            <p className="mt-3 text-gray-500">Tell me more about you</p>
+            <h2 className="text-4xl font-bold text-center text-gray-700">Tell me about your firend!</h2>
+            <p className="mt-3 text-gray-500">subtitle</p>
           </div>
           <div className="mt-8">
             { isError? <ErrorBox text={error} /> : <div/> }
@@ -81,14 +84,7 @@ const RegisterAnimal = () => {
             { /* Type */ }
             <div>
               <label htmlFor="type" className="block mt-6 mb-2 text-sm text-gray-600">Surname</label>
-              <input
-                type="text"
-                onChange={event => setType(event.target.value)}
-                name="type"
-                id="type"
-                placeholder="type"
-                className="block w-full px-4 py-2 mt-2 mt-6 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
+              <Select options={types} onChange={(v) => setType(v?.value ?? -1)} />
             </div>
             { /* age */ }
             <div>
@@ -96,7 +92,7 @@ const RegisterAnimal = () => {
               <input
                 type="text"
                 name="age"
-                onChange={event => setAge(event.target.value)}
+                onChange={event => setAge(event.target.value as number)}
                 id="age"
                 placeholder="age"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -112,20 +108,6 @@ const RegisterAnimal = () => {
                 Done!
               </button>
             </div>
-
-            <p className="mt-6 text-sm text-center text-gray-400">
-              Already have an account?
-              <a
-                href="#"
-               /* click="
-                  () => {
-                    isLogin = false
-                    error = -1
-                  }
-                "*/
-                className="text-green-500 focus:outline-none focus:underline hover:underline"
-                > Sign in</a>!
-            </p>
         </div>
       </div>
       </div>

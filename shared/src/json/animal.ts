@@ -1,5 +1,5 @@
 export interface JsonAnimal {
   name: string,
-  age: number,
-  type: string
+  type: number,
+  age: number
 }
