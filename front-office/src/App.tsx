@@ -12,6 +12,7 @@ import Checkout from './views/Checkout'
 import Product from './views/Product'
 import Login from './views/Login'
 import Register from './views/Register'
+import RegisterAnimal from './views/RegisterAnimal'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       <Route path="/product/" element={<Product />} />
       <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<Register/>} />
+      <Route path="/register/animal" element={<RegisterAnimal/>} />
     </Routes>
     <Footer/>
     </div>

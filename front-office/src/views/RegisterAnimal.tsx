@@ -1,34 +1,29 @@
-import React, { useState, useEffect } from "react"
-import { ApiRepository, ApiResponse, JsonUser } from 'shared'
+import React, { useEffect, useState } from "react"
+import { ApiRepository, ApiResponse, JsonAnimal, Helpers } from 'shared'
 import ErrorBox from './common/ErrorBox'
 
-const Register = () =>  {
-
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [retyped, setRetyped] = useState("")
-  const [name, setName] = useState("")
-  const [surname, setSurname] = useState("")
-
+const RegisterAnimal = () => {
   const [isError, setIsError] = useState(false)
   const [error, setError] = useState("")
+
+  const [name, setName ] = useState("")
+  const [type, setType] = useState("")
+  const [age, setAge] = useState(-1)
+
   const [doneClickable, setDoneClickable] = useState(false)
 
   const register = async () => {
     if (!doneClickable) return;
     setIsError(false)
-    const input: JsonUser.JsonRegistration = {
-        username: username,
-        email: email,
-        password: password,
-        firstName: name,
-        lastName: surname
+    const input: JsonAnimal.JsonAnimal = {
+        name: name,
+        type: type,
+        age: age as number
       }
 
-    const response: ApiResponse<JsonUser.JsonUser>  = await ApiRepository.register(input)
+    const response = await ApiRepository.registerAnimal([ input ], Helpers.getUserId())
     if (response.esit) {
-      window.location.href = "/register/animal"
+      window.location.href = "/"
     } else {
       console.log(response.error!.mex)
       setError(response.error!.mex)
@@ -37,9 +32,8 @@ const Register = () =>  {
   }
 
   useEffect(() => {
-    setDoneClickable(username !== "" && email !== "" && password !== "" && 
-    name !== "" && surname !== "" && retyped !== "" && retyped === password)
-  }, [username, email, password, name, surname, retyped, isError])
+    setDoneClickable(name !== "" && type !== "" && age !== -1)
+  }, [name, type, age])
 
   return <>
   <div className="bg-white">
@@ -84,67 +78,29 @@ const Register = () =>  {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
-            { /* Surname */ }
+            { /* Type */ }
             <div>
-              <label htmlFor="surname" className="block mt-6 mb-2 text-sm text-gray-600">Surname</label>
+              <label htmlFor="type" className="block mt-6 mb-2 text-sm text-gray-600">Surname</label>
               <input
                 type="text"
-                onChange={event => setSurname(event.target.value)}
-                name="surname"
-                id="surname"
-                placeholder="surname"
+                onChange={event => setType(event.target.value)}
+                name="type"
+                id="type"
+                placeholder="type"
                 className="block w-full px-4 py-2 mt-2 mt-6 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
-            { /* Email */ }
+            { /* age */ }
             <div>
-              <label htmlFor="email" className="block mb-2 mt-6 text-sm text-gray-600">Email Address</label>
+              <label htmlFor="age" className="block mb-2 mt-6 text-sm text-gray-600">Email Address</label>
               <input
                 type="text"
-                name="email"
-                onChange={event => setEmail(event.target.value)}
-                id="email"
-                placeholder="email"
+                name="age"
+                onChange={event => setAge(event.target.value)}
+                id="age"
+                placeholder="age"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
-            </div>
-            { /* Username */ }
-            <div>
-              <label htmlFor="username" className="block mb-2 mt-6 text-sm text-gray-600">Username</label>
-              <input
-                type="text"
-                name="username"
-                onChange={event => setUsername(event.target.value)}
-                id="username"
-                placeholder="username"
-                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-
-            { /* Password */ }
-            <div className="mt-6">
-              <label htmlFor="password" className="text-sm text-gray-600">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={event => setPassword(event.target.value)}
-                placeholder="your password"
-                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-
-            { /* Confirm Password */ }
-            <div className="mt-6">
-              <label htmlFor="confpassword" className="text-sm text-gray-600">Retype password</label>
-              <input
-                type="password"
-                id="confpassword"
-                onChange={event => setRetyped(event.target.value)}
-                placeholder="your password"
-                className="block w-full px-4 py-2 mt-2 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            {retyped !== password && retyped !== "" ? <ErrorBox text="passwords do not match :/" /> : <div/>}
             </div>
 
             <div className="mt-6">
@@ -178,5 +134,4 @@ const Register = () =>  {
 </>
 }
 
-
-export default Register
+export default RegisterAnimal
