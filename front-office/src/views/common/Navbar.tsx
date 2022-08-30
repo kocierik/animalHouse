@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
+import { Helpers } from 'shared'
 
 const Navbar = () => {
   const history = useLocation();
   const [infoProfile, setInfoProfile] = useState(false)
+
+  const [isLogged, setLogged] = useState(Helpers.isLogged)
 
   const showInfo = () => {
     setInfoProfile(!infoProfile)
@@ -219,8 +222,7 @@ const Navbar = () => {
                 <Link to="/checkout/" className="flex flex-1">
                   <button
                     type="button"
-                    className="ml-auto bg-gray-800 flex flex-1 justify-end  flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
+                    className="ml-auto bg-gray-800 flex flex-1 justify-end  flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">cart</span>
 
                     <svg

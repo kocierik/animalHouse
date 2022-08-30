@@ -21,7 +21,7 @@ export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)
 
 export const getAnimalCode = async () =>
-  Api.get<{ code: number; name: String }[]>(_BASE_URL + _ANIMAL_CODES)
+  Api.get<{ code: number; value: String }[]>(_BASE_URL + _ANIMAL_CODES)
 
 export const registerAnimal = async (registration: animal.JsonAnimal[], userId: string) => 
   Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _ANIMAL_REGISTER, userId), registration, true)
