@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import Chip from '@/components/common/Chip.vue'
 import * as lsh from '@/helpers/localStoreHelper'
-import { getAnimalCode } from 'shared'
+import { ApiRepository } from 'shared'
 import { onBeforeMount, ref } from 'vue'
 
 interface AnimalChip {
@@ -45,7 +45,7 @@ interface AnimalChip {
 const animals = ref<AnimalChip[]>([])
 
 onBeforeMount(async () => {
-  let codes = await getAnimalCode()
+  let codes = await ApiRepository.getAnimalCode()
   if (codes.esit) {
     animals.value = codes.data.map((element) => {
       return {
