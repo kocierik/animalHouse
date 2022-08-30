@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import Navbar from './common/Navbar'
-import { login, LoginHelper } from 'shared'
+import { ApiRepository, ApiResponse, Helpers, JsonUser} from 'shared'
 import ErrorBox from './common/ErrorBox';
 
 export default function Login() {
   /* If the user is already logged redirect to main page */
-  if (LoginHelper.isLogged()) {
+  if (Helpers.isLogged()) {
     window.location.href = '/'
   }
 
@@ -28,7 +27,7 @@ export default function Login() {
 
     if (error !== -1) return
 
-    let resp = await login(username, password)
+    let resp = await ApiRepository.login(username, password)
     if (!resp.esit) {
       if (resp.statusCode === 403) {
         setError(0)
@@ -37,13 +36,16 @@ export default function Login() {
       }
       return
     } else {
-      LoginHelper.doLogin(resp.data.token)
-      window.location.href = '/'
+      Helpers.doLogin(resp.data.token)
+      const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
+      if (resp2.esit) {
+        Helpers.setUserId(resp2.data?.id!)
+        window.location.href = '/'
+      }
     }
   }
 
   return  <>
-    <Navbar />
   <div className="bg-white">
     <div className="flex justify-center h-screen">
       <div
@@ -66,7 +68,7 @@ export default function Login() {
         </div>
       </div>
 
-      <div v-if="isLogin" className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+      <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
         <div className="flex-1">
           <div className="text-center">
             <h2 className="text-4xl font-bold text-center text-gray-700">Login</h2>
@@ -75,7 +77,7 @@ export default function Login() {
           </div>
 
           <div className="mt-8">
-            <div className="my-10" v-if="error >= 0">
+            <div className="my-10">
             {  error != -1 ? <ErrorBox text={errors[error]}/>: <div/> }
             </div>
             <div>

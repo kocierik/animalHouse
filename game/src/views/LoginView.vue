@@ -3,10 +3,10 @@ import { ref } from 'vue'
 import Footer1 from "@/components/common/Footer.vue"
 import ErrorBox from '@/components/common/ErrorBox.vue'
 import { FRONTOFFICE } from '@/const'
-import { login, LoginHelper } from 'shared'
+import { ApiRepository, ApiResponse, Helpers, JsonUser} from 'shared'
 
 /* If the user is already logged redirect to main page */
-if (LoginHelper.isLogged()) {
+if (Helpers.isLogged()) {
   window.location.href = '/'
 }
 
@@ -27,7 +27,7 @@ const doLogin = async () => {
 
   if (error.value !== -1) return
 
-  let resp = await login(username.value, password.value)
+  let resp = await ApiRepository.login(username.value, password.value)
   if (!resp.esit) {
     if (resp.statusCode === 403) {
       error.value = 0
@@ -36,8 +36,12 @@ const doLogin = async () => {
     }
     return
   } else {
-    LoginHelper.doLogin(resp.data.token)
-    window.location.href = '/'
+    Helpers.doLogin(resp.data.token)
+    const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
+    if (resp2.esit) {
+      Helpers.setUserId(resp2.data!.id)
+      window.location.href = '/'
+    }
   }
 }
 

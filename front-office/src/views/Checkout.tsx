@@ -1,8 +1,6 @@
 import React from "react"
 import { Disclosure } from '@headlessui/react'
 import { LockClosedIcon } from '@heroicons/react/solid'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 
 const subtotal = '$210.00'
 const discount = { code: 'CHEAPSKATE', amount: '$24.00' }
@@ -50,7 +48,6 @@ const Checkout = () => {
   console.log(productsss)
   return (
     <>
-      <Navbar />
       <main className="lg:min-h-full lg:overflow-hidden lg:flex lg:flex-row-reverse">
         <h1 className="sr-only">Checkout</h1>
 
@@ -322,7 +319,6 @@ const Checkout = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

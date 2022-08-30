@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import avatar from '../assets/imageprofile.jpg'
 import { FaPhotoVideo } from 'react-icons/fa'
 import './PostCard.css'
 
@@ -29,7 +28,7 @@ const PostCard = (props) => {
           <div className="flex mb-8">
             <span className="">
               <img
-                src={avatar}
+                src="/imageprofile.jpg"
                 className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14  duration-150"
                 alt="User profile"
               />
