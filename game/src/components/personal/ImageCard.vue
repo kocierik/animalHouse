@@ -1,10 +1,10 @@
 <template>
-  <div class="content-center flex flex-1 justify-center">
+  <div class="content-center flex justify-center">
     <div v-if="isLoading">
       <LoadingSpinner />
     </div>
 
-    <div v-else class="flex flex-col flex-1 max-w-sm bg-white rounded-lg border border-gray-200 p-6 shadow-md">
+    <div v-else class="flex flex-col bg-llime flex-1 max-w-sm bg-white rounded-lg border border-gray-200 p-6 shadow-md">
       <div class="flex justify-start space-x-3">
         <AnimalIcon class="mb-2 text-2xl font-bold tracking-tight" :animal="props.animal" />
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Pic of the day</h5>

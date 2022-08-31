@@ -1,9 +1,9 @@
 <template>
   <a
     style="flex-flow: wrap"
-    class="flex flex-col self-center align-center max-w-sm bg-white rounded-lg border border-gray-200 shadow-md p-6"
+    class="flex flex-col self-center align-center max-w-sm bg-llime rounded-lg border border-gray-200 shadow-md p-6"
   >
-    <div style="text-align-last: center" class="justify-start space-x-3">
+    <div style="text-align-last: center" class="flex justify-start space-x-3">
       <AnimalIcon class="mb-2 text-2xl font-bold tracking-tight" :animal="props.animal" />
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Our playlist</h5>
     </div>

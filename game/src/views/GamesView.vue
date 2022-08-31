@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
-import Footer from '../components/common/Footer.vue'
 import { saveResult } from '../components/games/saveResult'
 import { Helpers } from 'shared'
 
@@ -66,7 +65,5 @@ if (!Helpers.isLogged()) {
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
-<style></style>
