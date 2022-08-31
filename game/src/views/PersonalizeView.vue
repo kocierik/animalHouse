@@ -32,8 +32,7 @@
 
 <script lang="ts" setup>
 import Chip from '@/components/common/Chip.vue'
-import * as lsh from '@/helpers/localStoreHelper'
-import { ApiRepository } from 'shared'
+import { ApiRepository, Helpers } from 'shared'
 import { onBeforeMount, ref } from 'vue'
 
 interface AnimalChip {
@@ -61,7 +60,7 @@ onBeforeMount(async () => {
 
 const onConfirm = () => {
   const toStore = animals.value.filter((e) => e.selected).map((e) => e.name)
-  localStorage.setItem(lsh.PersonalAnimals, JSON.stringify(toStore))
+  localStorage.setItem(Helpers.LS_PersonalAnimals, JSON.stringify(toStore))
   window.location.href = '/personal'
 }
 </script>

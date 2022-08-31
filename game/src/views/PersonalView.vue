@@ -5,14 +5,14 @@ import ImageCard from '@/components/personal/ImageCard.vue'
 import MusicCard from '@/components/personal/MusicCard.vue'
 import AddImageCard from '@/components/personal/AddImageCard.vue'
 import * as router from '@/router/index'
-import * as lsh from '@/helpers/localStoreHelper'
 import type { AnimalType } from 'shared'
+import { Helpers } from 'shared'
 import { ref } from 'vue'
-import Video from '../components/personal/VideoCard.vue'
-import Footer from '../components/common/Footer.vue'
+import Video from '@/components/personal/VideoCard.vue'
+import Footer from '@/components/common/Footer.vue'
 
 const animals = ref<AnimalType[]>()
-const a = localStorage.getItem(lsh.PersonalAnimals)
+const a = localStorage.getItem(Helpers.LS_PersonalAnimals)
 if (a === null) window.location.href = router.PersonalizeRoute
 else {
   animals.value = JSON.parse(a)

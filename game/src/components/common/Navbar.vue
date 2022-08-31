@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import * as router from '@/router/index'
-import * as lh from '@/helpers/loginHelper'
+import { Helpers } from 'shared'
 
 const defaultMenuClasses = 'w-full md:block md:w-auto'
 
@@ -18,7 +18,7 @@ const changeColorNav = (id: string) => {
 
 let menuOpen = false
 let menuClasses = ref<string>('hidden ' + defaultMenuClasses)
-let isLogged = ref<boolean>(lh.isLogged())
+let isLogged = ref<boolean>(Helpers.isLogged())
 const toggleMenu = () => {
   menuOpen = !menuOpen
   if (menuOpen) menuClasses.value = defaultMenuClasses
@@ -31,7 +31,7 @@ const login = () => {
 
 const logout = () => {
   // TODO maybe an alert
-  lh.doLogout()
+  Helpers.doLogout()
   window.location.href = '/'
 }
 </script>
