@@ -6,15 +6,11 @@ import * as router from '@/router/index'
     <!-- Background image -->
     <div
       class="relative overflow-hidden bg-no-repeat bg-cover"
-      style="
-        background-position: 50%;
-        background-image: url('/homeHeader.jpg');
-        height: 95vh;
-      "
+      style="background-position: 50%; background-image: url('/homeHeader.jpg'); height: 95vh"
     >
       <div
         class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
-        style="background-color: #fffa" 
+        style="background-color: #fffa"
       >
         <div class="flex justify-center items-center h-full">
           <div class="text-center text-white px-6 md:px-12">

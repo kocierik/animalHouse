@@ -14,10 +14,8 @@ import { FRONTOFFICE } from '@/const'
       </div>
     </main>
     <div class="flex justify-center">
-      <a :href="FRONTOFFICE + '/shop'"  class="flex justify m-8"> 
-        <button class="bg-lyellow px-6 py-3 rounded-full text-xl text-text font-bold mr-2">
-          Go to the shop 
-        </button>
+      <a :href="FRONTOFFICE + '/shop'" class="flex justify m-8">
+        <button class="bg-lyellow px-6 py-3 rounded-full text-xl text-text font-bold mr-2">Go to the shop</button>
       </a>
     </div>
   </div>

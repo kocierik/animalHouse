@@ -20,35 +20,35 @@ else {
 
 <template>
   <main class="m-8">
-    <h1 class="text-5xl font-black text-text"> Personal </h1>
+    <h1 class="text-5xl font-black text-text">Personal</h1>
     <div>
       <div class="my-4">
-        <h2 class="text-text text-2xl font-extrabold"> Facts </h2>
+        <h2 class="text-text text-2xl font-extrabold">Facts</h2>
         <div class="flex flex-wrap justify-evenly">
           <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
         </div>
       </div>
       <div class="my-4">
-        <h2 class="text-text text-2xl font-extrabold"> Pictures of the day</h2>
+        <h2 class="text-text text-2xl font-extrabold">Pictures of the day</h2>
         <div class="flex flex-wrap justify-evenly">
           <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
           <AddImageCard class="self-center" />
         </div>
       </div>
       <div class="my-4">
-        <h2 class="text-text text-2xl font-extrabold"> Our playlists</h2>
+        <h2 class="text-text text-2xl font-extrabold">Our playlists</h2>
         <div class="flex flex-wrap justify-evenly">
           <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
         </div>
       </div>
       <div class="my-4">
-        <h2 class="text-text text-2xl font-extrabold"> Videos of the day</h2>
+        <h2 class="text-text text-2xl font-extrabold">Videos of the day</h2>
         <div class="flex flex-wrap justify-evenly">
           <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
         </div>
       </div>
     </div>
-<!-- 
+    <!-- 
     <div class="masonry sm:masonry-sm md:masonry-md flex flex-wrap justify-center">
       <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
       <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />

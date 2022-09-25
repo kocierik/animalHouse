@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import ErrorBox from '@/components/common/ErrorBox.vue'
 import { FRONTOFFICE } from '@/const'
-import { ApiRepository, ApiResponse, Helpers, JsonUser} from 'shared'
+import { ApiRepository, ApiResponse, Helpers, JsonUser } from 'shared'
 
 /* If the user is already logged redirect to main page */
 if (Helpers.isLogged()) {
@@ -65,63 +65,60 @@ const goToRegister = () => {
 
       <div class="flex justify-start items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
         <div class="flex-1 rounded-lg shadow-lg p-6">
-      <div class="text-center">
-        <h2 class="text-4xl font-black text-center text-text">Login</h2>
-        <p class="mt-3 font-bold text-text-500">Sign in to access your account</p>
-      </div>
-      <div class="mt-8">
-        <div class="my-10" v-if="error >= 0">
-          <ErrorBox :mex="errors[error]" />
-        </div>
-        <div>
-          <label for="username" class="block font-bold mb-2 text-sm text-text">Username</label>
-          <input
-            v-model="username"
-            type="username"
-            name="username"
-            id="username"
-            placeholder="Your Username"
-            class="block w-full px-4 py-2 mt-2 text-text placeholder-gray-400 bg-white border border-lgreen rounded-full"
-          />
-        </div>
-
-        <div class="mt-6">
-          <div class="flex justify-between mb-2">
-            <label for="password" class="text-sm font-bold text-text">Password</label>
-            <a href="#" class="text-sm text-text-400 focus:text-green-500 hover:text-green-500 hover:underline"
-              >Forgot password?</a
-            >
+          <div class="text-center">
+            <h2 class="text-4xl font-black text-center text-text">Login</h2>
+            <p class="mt-3 font-bold text-text-500">Sign in to access your account</p>
           </div>
-          <input
-            v-model="password"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Your Password"
-            class="block w-full px-4 py-2 mt-2 text-text placeholder-gray-400 bg-white border border-lgreen rounded-full"
-          />
+          <div class="mt-8">
+            <div class="my-10" v-if="error >= 0">
+              <ErrorBox :mex="errors[error]" />
+            </div>
+            <div>
+              <label for="username" class="block font-bold mb-2 text-sm text-text">Username</label>
+              <input
+                v-model="username"
+                type="username"
+                name="username"
+                id="username"
+                placeholder="Your Username"
+                class="block w-full px-4 py-2 mt-2 text-text placeholder-gray-400 bg-white border border-lgreen rounded-full"
+              />
+            </div>
+
+            <div class="mt-6">
+              <div class="flex justify-between mb-2">
+                <label for="password" class="text-sm font-bold text-text">Password</label>
+                <a href="#" class="text-sm text-text-400 focus:text-green-500 hover:text-green-500 hover:underline"
+                  >Forgot password?</a
+                >
+              </div>
+              <input
+                v-model="password"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Your Password"
+                class="block w-full px-4 py-2 mt-2 text-text placeholder-gray-400 bg-white border border-lgreen rounded-full"
+              />
+            </div>
+            <div class="mt-6">
+              <button
+                @click="doLogin"
+                data-mdb-ripple="true"
+                data-mdb-ripple-color="light"
+                class="w-full px-4 py-2 tracking-wide font-extrabold text-text transition-colors duration-200 transform bg-lyellow rounded-full hover:bg-dyellow"
+              >
+                Sign in
+              </button>
+            </div>
+          </div>
+          <p class="mt-6 font-bold text-sm text-center text-text-400">
+            Don&#x27;t have an account yet?
+            <a href="#" @click="goToRegister" class="text-green-500 focus:outline-none focus:underline hover:underline">
+              Sign up </a
+            >.
+          </p>
         </div>
-        <div class="mt-6">
-          <button
-            @click="doLogin"
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="light"
-            class="w-full px-4 py-2 tracking-wide font-extrabold text-text transition-colors duration-200 transform bg-lyellow rounded-full hover:bg-dyellow"
-          >
-            Sign in
-          </button>
-        </div>
-      </div>
-        <p class="mt-6 font-bold text-sm text-center text-text-400">
-          Don&#x27;t have an account yet?
-          <a
-            href="#"
-            @click="goToRegister"
-            class="text-green-500 focus:outline-none focus:underline hover:underline">
-            Sign up
-          </a>.
-        </p>
-    </div>
       </div>
     </div>
   </div>
