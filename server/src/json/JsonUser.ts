@@ -2,31 +2,31 @@ import { JsonPet } from './JsonPet'
 import { IProduct } from '../entities/Product'
 
 export interface JsonUserCreation {
-  username: string,
-  password: string,
-  email: string,
-  firstName: string,
+  username: string
+  password: string
+  email: string
+  firstName: string
   lastName: string
 }
 
 export interface JsonLogin {
-  username: string,
+  username: string
   password: string
 }
 
 export interface JsonUser {
-  username: string,
-  email: string,
-  firstName: string,
-  lastName: string,
-  phone: string,
-  pet: JsonPet[],
-  address: JsonAddress 
+  username: string
+  email: string
+  firstName: string
+  lastName: string
+  phone: string
+  pet: JsonPet[]
+  address: JsonAddress
 }
 
 export interface JsonAddress {
-  country: string,
-  city: string,
-  street: string,
+  country: string
+  city: string
+  street: string
   cap: number
 }
