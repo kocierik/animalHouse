@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom'
 import { Helpers } from 'shared'
 
 const Navbar = () => {
-  const history = useLocation();
+  const history = useLocation()
   const [infoProfile, setInfoProfile] = useState(false)
 
   const [isLogged, setLogged] = useState(Helpers.isLogged)
@@ -35,29 +35,29 @@ const Navbar = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <span                
-                    style={{ backgroundColor: history.pathname === "/"  ? "indigo" : ""}}
+                  <span
+                    style={{ backgroundColor: history.pathname === '/' ? 'indigo' : '' }}
                     className=" text-white px-3 py-2 rounded-md text-sm font-medium active"
                   >
                     <Link to="/">Dashboard</Link>
                   </span>
 
-                  <span                
-                    style={{ backgroundColor: history.pathname === "/service/"  ? "indigo" : ""}}
+                  <span
+                    style={{ backgroundColor: history.pathname === '/service/' ? 'indigo' : '' }}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/service/">Service</Link>
                   </span>
 
-                  <span                
-                    style={{ backgroundColor: history.pathname === "/shopping/"  ? "indigo" : ""}}
+                  <span
+                    style={{ backgroundColor: history.pathname === '/shopping/' ? 'indigo' : '' }}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/shopping/">Shopping</Link>
                   </span>
 
-                  <span                
-                    style={{ backgroundColor: history.pathname === "/community/"  ? "indigo" : ""}}
+                  <span
+                    style={{ backgroundColor: history.pathname === '/community/' ? 'indigo' : '' }}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/community/">Community</Link>
@@ -187,22 +187,31 @@ const Navbar = () => {
           <div className="md:hidden" id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <span
-                style={{ backgroundColor: history.pathname === "/"  ? "indigo" : ""}}
+                style={{ backgroundColor: history.pathname === '/' ? 'indigo' : '' }}
                 className="text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
                 aria-current="page"
               >
                 <Link to="/">Dashboard</Link>
               </span>
 
-              <span style={{ backgroundColor: history.pathname === "/service/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span
+                style={{ backgroundColor: history.pathname === '/service/' ? 'indigo' : '' }}
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
                 <Link to="/service/">Service</Link>
               </span>
 
-              <span style={{ backgroundColor: history.pathname === "/shopping/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span
+                style={{ backgroundColor: history.pathname === '/shopping/' ? 'indigo' : '' }}
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
                 <Link to="/shopping/">Shopping</Link>
               </span>
 
-              <span style={{ backgroundColor: history.pathname === "/community/"  ? "indigo" : ""}} className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <span
+                style={{ backgroundColor: history.pathname === '/community/' ? 'indigo' : '' }}
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
                 <Link to="/community/">Community</Link>
               </span>
             </div>
@@ -222,7 +231,8 @@ const Navbar = () => {
                 <Link to="/checkout/" className="flex flex-1">
                   <button
                     type="button"
-                    className="ml-auto bg-gray-800 flex flex-1 justify-end  flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    className="ml-auto bg-gray-800 flex flex-1 justify-end  flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  >
                     <span className="sr-only">cart</span>
 
                     <svg

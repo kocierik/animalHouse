@@ -16,21 +16,21 @@ import RegisterAnimal from './views/RegisterAnimal'
 
 const App = () => {
   return (
-  <div>
-    <Navbar/>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/shopping/" element={<Shopping />} />
-      <Route path="/community/" element={<Community />} />
-      <Route path="/service/" element={<Service />} />
-      <Route path="/profile/" element={<Profile />} />
-      <Route path="/checkout/" element={<Checkout />} />
-      <Route path="/product/" element={<Product />} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/register" element={<Register/>} />
-      <Route path="/register/animal" element={<RegisterAnimal/>} />
-    </Routes>
-    <Footer/>
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/shopping/" element={<Shopping />} />
+        <Route path="/community/" element={<Community />} />
+        <Route path="/service/" element={<Service />} />
+        <Route path="/profile/" element={<Profile />} />
+        <Route path="/checkout/" element={<Checkout />} />
+        <Route path="/product/" element={<Product />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/register/animal" element={<RegisterAnimal />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }

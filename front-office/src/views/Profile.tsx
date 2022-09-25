@@ -1,15 +1,17 @@
 import React from 'react'
-import { JsonUser, JsonAddress } from '../../../server/src/json/JsonUser';
-import { JsonPet } from '../../../server/src/json/JsonPet';
-const user : JsonUser[] = [{
-  username: "erik",
-  email: "erik@gmail.com",
-  firstName: "erik",
-  lastName: "koci",
-  phone: "3484892032",
-  pet: [{id: 1, name: "qwerty"}],
-  address: {country: "riccione", city: "san clemente", street: "si", cap: 34322} 
-}]
+import { JsonUser, JsonAddress } from '../../../server/src/json/JsonUser'
+import { JsonPet } from '../../../server/src/json/JsonPet'
+const user: JsonUser[] = [
+  {
+    username: 'erik',
+    email: 'erik@gmail.com',
+    firstName: 'erik',
+    lastName: 'koci',
+    phone: '3484892032',
+    pet: [{ id: 1, name: 'qwerty' }],
+    address: { country: 'riccione', city: 'san clemente', street: 'si', cap: 34322 }
+  }
+]
 
 const Profile = () => {
   return (
@@ -107,7 +109,6 @@ const Profile = () => {
                         Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a
                         solid groove structure. An artist of considerable range.
                       </p>
-
                     </div>
                   </div>
                 </div>
