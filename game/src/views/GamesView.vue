@@ -66,4 +66,3 @@ if (!Helpers.isLogged()) {
     </div>
   </div>
 </template>
-

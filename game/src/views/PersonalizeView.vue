@@ -27,7 +27,7 @@
   </main>
   <div class="flex justify-center">
     <img src="https://cdn.pixabay.com/photo/2020/02/20/14/37/zebra-4864906_1280.png" />
-    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>

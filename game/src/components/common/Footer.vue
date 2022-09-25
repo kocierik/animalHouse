@@ -4,7 +4,7 @@
     <div class="sm:flex sm:items-center sm:justify-around p-10">
       <a class="flex justify-center mb-4 sm:mb-0">
         <!-- <img src="./assets/animalLogo.png" class="mr-5 h-20 w-18" alt="AnimalHouse Logo" /> -->
-        <img src="/logoTransparent.png" width="128" height="128"/>
+        <img src="/logoTransparent.png" width="128" height="128" />
       </a>
       <ul class="flex flex-wrap items-center justify-center mb-6 text-sm text-black-500 sm:mb-0 dark:text-black-900">
         <li class="flex mr-4 p-2 rounded md:mr-6">
@@ -16,7 +16,7 @@
         <li class="flex mr-4 p-2 rounded md:mr-6">
           <a href="#">Licensing</a>
         </li>
-        <li class="flex no-underline  p-2 rounded">
+        <li class="flex no-underline p-2 rounded">
           <a href="#" class="">Contact</a>
         </li>
       </ul>
