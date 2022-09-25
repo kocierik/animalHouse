@@ -1,5 +1,5 @@
 export interface JsonPet {
-  id: number,
+  id: number
   name: string
   // TODO add more usefull fields
 }

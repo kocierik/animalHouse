@@ -5,8 +5,7 @@ export interface IGame {
 }
 
 const gameSchema = new Schema<IGame>({
-  name: {type: String, required: true}
+  name: { type: String, required: true },
 })
 
 export const Game = model<IGame>('Game', gameSchema)
-
