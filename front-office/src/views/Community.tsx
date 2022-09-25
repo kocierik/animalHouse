@@ -1,25 +1,24 @@
 import React, { useCallback, useState } from 'react'
 import DropDown from './common/DropDown'
 import Rawtable from './common/communityComponents/Rawtable'
-import { ApiRepository } from 'shared';
-import useEffect from 'react';
+import { ApiRepository } from 'shared'
+import useEffect from 'react'
 import { Community } from 'shared'
 
-
-const CommunityPage =  () => {
+const CommunityPage = () => {
   const [usersData, setUsersData] = useState<Community.IGameValues[]>([])
-  
-  const handlePromise = async () =>{
-     if((await ApiRepository.getUserScore()).esit){
-      const val =  (await ApiRepository.getUserScore()).data! as Community.IGameValues[] // CONTROLLA
+
+  const handlePromise = async () => {
+    if ((await ApiRepository.getUserScore()).esit) {
+      const val = (await ApiRepository.getUserScore()).data! as Community.IGameValues[] // CONTROLLA
       setUsersData(val!)
       console.log(val!)
     }
   }
 
-  React.useEffect(() =>{  
+  React.useEffect(() => {
     handlePromise()
-  },[])
+  }, [])
 
   const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
 
@@ -48,11 +47,19 @@ const CommunityPage =  () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                  usersData.map(games => games.scores.map(user => {
-                    return <Rawtable name={user.username} key={user.userId} points={user.score[user.score.length-1]} data={user.username} game={games.gameName} />
-                  }))  
-                  }
+                  {usersData.map((games) =>
+                    games.scores.map((user) => {
+                      return (
+                        <Rawtable
+                          name={user.username}
+                          key={user.userId}
+                          points={user.score[user.score.length - 1]}
+                          data={user.username}
+                          game={games.gameName}
+                        />
+                      )
+                    })
+                  )}
                 </tbody>
               </table>
             </div>

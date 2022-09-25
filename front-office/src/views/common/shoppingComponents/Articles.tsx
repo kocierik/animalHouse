@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ApiRepository } from 'shared';
+import { ApiRepository } from 'shared'
 import { ProductMarked } from 'shared'
 
 const products = [
@@ -10,7 +10,7 @@ const products = [
     href: '#',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
+    price: '$35'
   },
   {
     id: 2,
@@ -42,17 +42,17 @@ const products = [
 ]
 
 const Articles = () => {
-  const [article, setArticle] = React.useState<ProductMarked.IProductMarked[]>() 
+  const [article, setArticle] = React.useState<ProductMarked.IProductMarked[]>()
 
-  const getMarketProduct = async () =>{
-    const values = await (await ApiRepository.getMarketProduct()).data 
+  const getMarketProduct = async () => {
+    const values = await (await ApiRepository.getMarketProduct()).data
     console.log(values)
     setArticle(values!)
   }
 
   React.useEffect(() => {
     getMarketProduct()
-  },[])
+  }, [])
 
   return (
     <Link to="/product/">
