@@ -1,29 +1,29 @@
 <script setup lang="ts"></script>
 <template>
-  <footer class="p-2 color_footer rounded-lg shadow md:px-6 md:py-8">
+  <footer class="p-2 bg-lgreen color_footer shadow md:px-6 md:py-8">
     <div class="sm:flex sm:items-center sm:justify-around p-10">
       <a class="flex justify-center mb-4 sm:mb-0">
         <!-- <img src="./assets/animalLogo.png" class="mr-5 h-20 w-18" alt="AnimalHouse Logo" /> -->
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">AnimalHouse</span>
+        <img src="/logoTransparent.png" width="128" height="128" />
       </a>
       <ul class="flex flex-wrap items-center justify-center mb-6 text-sm text-black-500 sm:mb-0 dark:text-black-900">
-        <li class="flex mr-4 hover:bg-green-100 p-2 rounded md:mr-6">
+        <li class="flex mr-4 p-2 rounded md:mr-6">
           <a href="#">About</a>
         </li>
-        <li class="flex mr-4 hover:bg-green-100 p-2 rounded md:mr-6">
+        <li class="flex mr-4 p-2 rounded md:mr-6">
           <a href="#">Privacy Policy</a>
         </li>
-        <li class="flex mr-4 hover:bg-green-100 p-2 rounded md:mr-6">
+        <li class="flex mr-4 p-2 rounded md:mr-6">
           <a href="#">Licensing</a>
         </li>
-        <li class="flex no-underline hover:bg-green-100 p-2 rounded">
+        <li class="flex no-underline p-2 rounded">
           <a href="#" class="">Contact</a>
         </li>
       </ul>
     </div>
     <span class="block text-sm text-black-500 sm:text-center dark:text-black-400 text-center">
       <div class="flex justify-center p-5">
-        <div class="w-8 text-gray-500">
+        <div class="w-8 text-text">
           <a href="#" class="hover:text-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current">
               <path
@@ -33,7 +33,7 @@
           </a>
         </div>
 
-        <div class="w-8 ml-2 text-gray-500">
+        <div class="w-8 ml-2 text-text">
           <a href="#" class="hover:text-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current">
               <path
@@ -42,7 +42,7 @@
             </svg>
           </a>
         </div>
-        <div class="w-8 ml-2 text-gray-500">
+        <div class="w-8 ml-2 text-text">
           <a href="#" class="hover:text-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current">
               <path
@@ -56,9 +56,3 @@
     </span>
   </footer>
 </template>
-
-<style>
-.color_footer {
-  background-color: white;
-}
-</style>

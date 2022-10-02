@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import Footer1 from "@/components/common/Footer.vue"
 import ErrorBox from '@/components/common/ErrorBox.vue'
 import { FRONTOFFICE } from '@/const'
-import { login, LoginHelper } from 'shared'
+import { ApiRepository, ApiResponse, Helpers, JsonUser } from 'shared'
 
 /* If the user is already logged redirect to main page */
-if (LoginHelper.isLogged()) {
+if (Helpers.isLogged()) {
   window.location.href = '/'
 }
 
@@ -27,7 +26,7 @@ const doLogin = async () => {
 
   if (error.value !== -1) return
 
-  let resp = await login(username.value, password.value)
+  let resp = await ApiRepository.login(username.value, password.value)
   if (!resp.esit) {
     if (resp.statusCode === 403) {
       error.value = 0
@@ -36,8 +35,12 @@ const doLogin = async () => {
     }
     return
   } else {
-    LoginHelper.doLogin(resp.data.token)
-    window.location.href = '/'
+    Helpers.doLogin(resp.data.token)
+    const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
+    if (resp2.esit) {
+      Helpers.setUserId(resp2.data!.id)
+      window.location.href = '/'
+    }
   }
 }
 
@@ -48,87 +51,75 @@ const goToRegister = () => {
 
 <template>
   <div class="bg-white">
-    <div class="flex justify-center h-screen">
+    <div class="flex justify-around p-8">
       <div
         class="hidden bg-cover lg:block lg:w-2/4"
         style="
           border-radius: 1rem;
-          background-image: url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+          background-image: url(/login.jpg);
+          background-size: contain;
+          background-position: right;
+          background-repeat: no-repeat;
         "
-      >
-        <div style="border-radius: 1rem" class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-          <div>
-            <h2 class="text-4xl font-bold text-white">Brand</h2>
+      />
 
-            <p class="max-w-xl mt-3 text-gray-300">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. In autem ipsa, nulla laboriosam dolores,
-              repellendus perferendis libero suscipit nam temporibus molestiae
-            </p>
+      <div class="flex justify-start items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+        <div class="flex-1 rounded-lg shadow-lg p-6">
+          <div class="text-center">
+            <h2 class="text-4xl font-black text-center text-text">Login</h2>
+            <p class="mt-3 font-bold text-text-500">Sign in to access your account</p>
           </div>
-        </div>
-      </div>
+          <div class="mt-8">
+            <div class="my-10" v-if="error >= 0">
+              <ErrorBox :mex="errors[error]" />
+            </div>
+            <div>
+              <label for="username" class="block font-bold mb-2 text-sm text-text">Username</label>
+              <input
+                v-model="username"
+                type="username"
+                name="username"
+                id="username"
+                placeholder="Your Username"
+                class="block w-full px-4 py-2 mt-2 text-text placeholder-gray-400 bg-white border border-lgreen rounded-full"
+              />
+            </div>
 
-      <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
-        <div class="flex-1">
-      <div class="text-center">
-        <h2 class="text-4xl font-bold text-center text-gray-700">Login</h2>
-        <p class="mt-3 text-gray-500">Sign in to access your account</p>
-      </div>
-      <div class="mt-8">
-        <div class="my-10" v-if="error >= 0">
-          <ErrorBox :mex="errors[error]" />
-        </div>
-        <div>
-          <label for="email" class="block mb-2 text-sm text-gray-600">Email Address</label>
-          <input
-            v-model="username"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="example@example.com"
-            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
-          />
-        </div>
-
-        <div class="mt-6">
-          <div class="flex justify-between mb-2">
-            <label for="password" class="text-sm text-gray-600">Password</label>
-            <a href="#" class="text-sm text-gray-400 focus:text-green-500 hover:text-green-500 hover:underline"
-              >Forgot password?</a
-            >
+            <div class="mt-6">
+              <div class="flex justify-between mb-2">
+                <label for="password" class="text-sm font-bold text-text">Password</label>
+                <a href="#" class="text-sm text-text-400 focus:text-green-500 hover:text-green-500 hover:underline"
+                  >Forgot password?</a
+                >
+              </div>
+              <input
+                v-model="password"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Your Password"
+                class="block w-full px-4 py-2 mt-2 text-text placeholder-gray-400 bg-white border border-lgreen rounded-full"
+              />
+            </div>
+            <div class="mt-6">
+              <button
+                @click="doLogin"
+                data-mdb-ripple="true"
+                data-mdb-ripple-color="light"
+                class="w-full px-4 py-2 tracking-wide font-extrabold text-text transition-colors duration-200 transform bg-lyellow rounded-full hover:bg-dyellow"
+              >
+                Sign in
+              </button>
+            </div>
           </div>
-          <input
-            v-model="password"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Your Password"
-            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
-          />
+          <p class="mt-6 font-bold text-sm text-center text-text-400">
+            Don&#x27;t have an account yet?
+            <a href="#" @click="goToRegister" class="text-green-500 focus:outline-none focus:underline hover:underline">
+              Sign up </a
+            >.
+          </p>
         </div>
-        <div class="mt-6">
-          <button
-            @click="doLogin"
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="light"
-            class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-400 focus:outline-none focus:bg-green-400 focus:ring focus:ring-green-300 focus:ring-opacity-50"
-          >
-            Sign in
-          </button>
-        </div>
-      </div>
-        <p class="mt-6 text-sm text-center text-gray-400">
-          Don&#x27;t have an account yet?
-          <a
-            href="#"
-            @click="goToRegister"
-            class="text-green-500 focus:outline-none focus:underline hover:underline">
-            Sign up
-          </a>.
-        </p>
-    </div>
       </div>
     </div>
   </div>
-  <Footer1 />
 </template>
