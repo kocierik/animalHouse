@@ -3,7 +3,7 @@
     <div class="container xl:max-w-6xl mx-auto px-4">
       <!-- Heading start -->
       <header class="text-center mx-auto mb-12 lg:px-20">
-        <h2 class="text-2xl leading-normal mb-2 font-bold text-black">What We Do</h2>
+        <h2 class="text-3xl leading-normal mb-2 font-black text-black">What We Do</h2>
         <svg
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"

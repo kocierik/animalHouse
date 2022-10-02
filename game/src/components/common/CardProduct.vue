@@ -2,8 +2,6 @@
 import type { Article } from './articles'
 
 const props = defineProps<{ params: Article }>()
-
-console.log(props)
 </script>
 <template>
   <div class="overflow-hidden dark:bg-gray-200">

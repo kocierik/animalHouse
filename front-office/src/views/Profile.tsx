@@ -1,23 +1,21 @@
 import React from 'react'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
-import { JsonUser, JsonAddress } from '../../../server/src/json/JsonUser';
-import { JsonPet } from '../../../server/src/json/JsonPet';
-import image from  "./common/assets/imageProfile.jpg"
-const user : JsonUser[] = [{
-  username: "erik",
-  email: "erik@gmail.com",
-  firstName: "erik",
-  lastName: "koci",
-  phone: "3484892032",
-  pet: [{id: 1, name: "qwerty"}],
-  address: {country: "riccione", city: "san clemente", street: "si", cap: 34322} 
-}]
+import { JsonUser, JsonAddress } from '../../../server/src/json/JsonUser'
+import { JsonPet } from '../../../server/src/json/JsonPet'
+const user: JsonUser[] = [
+  {
+    username: 'erik',
+    email: 'erik@gmail.com',
+    firstName: 'erik',
+    lastName: 'koci',
+    phone: '3484892032',
+    pet: [{ id: 1, name: 'qwerty' }],
+    address: { country: 'riccione', city: 'san clemente', street: 'si', cap: 34322 }
+  }
+]
 
 const Profile = () => {
   return (
     <>
-      <Navbar />
       <main className="profile-page">
         <section className="relative block" style={{ height: '500px' }}>
           <div
@@ -55,7 +53,7 @@ const Profile = () => {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={image}
+                        src="imageProfile.png"
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                         style={{ maxWidth: '150px' }}
                       />
@@ -111,7 +109,6 @@ const Profile = () => {
                         Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a
                         solid groove structure. An artist of considerable range.
                       </p>
-
                     </div>
                   </div>
                 </div>
@@ -120,7 +117,6 @@ const Profile = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

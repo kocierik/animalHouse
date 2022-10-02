@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import * as router from '@/router/index'
-import * as lh from '@/helpers/loginHelper'
+import { Helpers } from 'shared'
 
 const defaultMenuClasses = 'w-full md:block md:w-auto'
 
@@ -18,7 +18,7 @@ const changeColorNav = (id: string) => {
 
 let menuOpen = false
 let menuClasses = ref<string>('hidden ' + defaultMenuClasses)
-let isLogged = ref<boolean>(lh.isLogged())
+let isLogged = ref<boolean>(Helpers.isLogged())
 const toggleMenu = () => {
   menuOpen = !menuOpen
   if (menuOpen) menuClasses.value = defaultMenuClasses
@@ -31,17 +31,17 @@ const login = () => {
 
 const logout = () => {
   // TODO maybe an alert
-  lh.doLogout()
+  Helpers.doLogout()
   window.location.href = '/'
 }
 </script>
 
 <template>
-  <div class="border-2 border-y-green-100 rounded shadow-lg">
-    <nav class="border-gray-200 px-2 sm:px-4 py-2.5 shadow">
+  <div>
+    <nav class="px-2 sm:px-4">
       <div class="container justify-between flex flex-wrap items-center mx-auto">
         <a href="/" class="flex items-center ml-2">
-          <span class="p-1 mr-5 self-center text-xl font-semibold whitespace-nowrap">Animal House</span>
+          <img src="/logoTransparent.png" width="80" />
         </a>
         <button
           @click="toggleMenu"
@@ -68,7 +68,7 @@ const logout = () => {
           </svg>
         </button>
 
-        <div id="mobile-menu flex w-full " style="flex: auto" :class="menuClasses">
+        <div id="mobile-menu flex w-full" style="flex: auto" :class="menuClasses">
           <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
             <li
               id="isHome"

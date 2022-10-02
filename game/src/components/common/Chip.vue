@@ -16,8 +16,11 @@ const clicked = () => {
 <template>
   <span
     @click="clicked"
-    :style="{ 'background-color': selected ? '#FC4' : '#CCC' }"
-    class="rounded-full text-gray-500 font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max"
+    :class="
+      'bg-' +
+      (selected ? 'lgreen' : 'gray-300') +
+      ' rounded-full text-text font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max'
+    "
   >
     <img class="rounded-full w-9 h-9 max-w-none" alt="A" :src="props.image" />
     <span class="flex items-center px-3 py-2">

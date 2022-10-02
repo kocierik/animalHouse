@@ -6,7 +6,7 @@ const props = defineProps<{ articleInfo: Article }>()
 const article = ref(props.articleInfo)
 </script>
 <template>
-  <div class="w-full p-3 max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+  <div class="w-full p-3 max-w-sm bg-llime mx-auto rounded-lg shadow-lg overflow-hidden">
     <router-link :to="{ path: router.HomeCardProduct + article.id, params: article }">
       <div
         class="flex items-end justify-end h-56 w-full bg-cover"
@@ -15,7 +15,7 @@ const article = ref(props.articleInfo)
         "
       >
         <button
-          class="p-2 rounded-full bg-green-500 text-white mx-5 -mb-4 hover:bg-green-600 focus:outline-none focus:bg-green-400"
+          class="p-2 rounded-full bg-lgreen text-text mx-5 -mb-4 hover:dgreen focus:outline-none focus:bg-green-400"
         >
           <svg
             class="h-5 w-5"
@@ -33,8 +33,8 @@ const article = ref(props.articleInfo)
         </button>
       </div>
       <div class="px-5 py-3">
-        <h3 class="text-gray-700 uppercase">{{ props.articleInfo.name }}</h3>
-        <span class="text-gray-500 mt-2">{{ props.articleInfo.price }} $</span>
+        <h3 class="text-text font-extrabold text-2xl">{{ props.articleInfo.name }}</h3>
+        <span class="text-text text-l font-semibold mt-2">{{ props.articleInfo.price }} $</span>
       </div>
     </router-link>
   </div>

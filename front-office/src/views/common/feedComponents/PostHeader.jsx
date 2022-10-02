@@ -1,5 +1,4 @@
 import React from 'react'
-import avatar from '../assets/imageprofile.jpg'
 import { FaEllipsisH, FaMapMarkerAlt } from 'react-icons/fa'
 import TimeAgo from 'timeago-react'
 
@@ -8,7 +7,7 @@ const PostHeader = (props) => {
     <div className="flex pt-4 px-4 pb-2 w-full align items-center">
       {/* User Avatar */}
       <img
-        src={avatar}
+        src="/imageprofile.jpg"
         className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14 duration-150"
         alt="User profile"
       />

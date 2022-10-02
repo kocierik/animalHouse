@@ -5,14 +5,13 @@ import ImageCard from '@/components/personal/ImageCard.vue'
 import MusicCard from '@/components/personal/MusicCard.vue'
 import AddImageCard from '@/components/personal/AddImageCard.vue'
 import * as router from '@/router/index'
-import * as lsh from '@/helpers/localStoreHelper'
 import type { AnimalType } from 'shared'
+import { Helpers } from 'shared'
 import { ref } from 'vue'
-import Video from '../components/personal/VideoCard.vue'
-import Footer from '../components/common/Footer.vue'
+import Video from '@/components/personal/VideoCard.vue'
 
 const animals = ref<AnimalType[]>()
-const a = localStorage.getItem(lsh.PersonalAnimals)
+const a = localStorage.getItem(Helpers.LS_PersonalAnimals)
 if (a === null) window.location.href = router.PersonalizeRoute
 else {
   animals.value = JSON.parse(a)
@@ -20,18 +19,42 @@ else {
 </script>
 
 <template>
-  <main>
-    <ViewTitle
-      :title="'Personal'"
-      :background="'https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true'"
-    />
-    <div class="masonry sm:masonry-sm md:masonry-md flex flex-col justify-center">
-      <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
-      <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
-      <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex flex-1 justify-center" />
-      <AddImageCard class="flex self-center" />
-      <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-10 break-inside flex justify-center" />
+  <main class="m-8">
+    <h1 class="text-5xl font-black text-text">Personal</h1>
+    <div>
+      <div class="my-4">
+        <h2 class="text-text text-2xl font-extrabold">Facts</h2>
+        <div class="flex flex-wrap justify-evenly">
+          <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+        </div>
+      </div>
+      <div class="my-4">
+        <h2 class="text-text text-2xl font-extrabold">Pictures of the day</h2>
+        <div class="flex flex-wrap justify-evenly">
+          <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+          <AddImageCard class="self-center" />
+        </div>
+      </div>
+      <div class="my-4">
+        <h2 class="text-text text-2xl font-extrabold">Our playlists</h2>
+        <div class="flex flex-wrap justify-evenly">
+          <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+        </div>
+      </div>
+      <div class="my-4">
+        <h2 class="text-text text-2xl font-extrabold">Videos of the day</h2>
+        <div class="flex flex-wrap justify-evenly">
+          <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+        </div>
+      </div>
     </div>
-    <Footer />
+    <!-- 
+    <div class="masonry sm:masonry-sm md:masonry-md flex flex-wrap justify-center">
+      <FactCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+      <ImageCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+      <MusicCard v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+      <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+      <AddImageCard class="self-center" />
+    </div> -->
   </main>
 </template>
