@@ -5,6 +5,10 @@ import type { Card } from './utility/cards'
 import cards from './utility/cards'
 import swal from 'sweetalert'
 import { ref } from 'vue'
+import { MEMORYGAME } from 'shared/src/gameConstant'
+import { putUserScore } from 'shared/src/apiRepository'
+import { Helpers } from 'shared'
+
 let selectOne: Card = defaultCard
 let selectTwo: Card = defaultCard
 let result: Card[]
@@ -32,7 +36,6 @@ const resume = (): void => {
     x.bg = defaultCard.bg
     x.view = 'visible'
   })
-  moves.value = 0
 
   cards.value = cards.value.sort(() => Math.random() - 0.5)
 }
@@ -68,20 +71,30 @@ const checkCard = (card: Card): void => {
         }
       })
       if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
+        let points = moves.value
         swal({
           title: 'Good job!',
           text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
           icon: 'warning',
           buttons: true,
           dangerMode: false,
-        }).then((willSave) => {
+        }).then(async (willSave) => {
           if (willSave) {
-            // putUserScore()
+            console.log(points)
+            let totalScore = {
+              gameId: MEMORYGAME,
+              score: moves.value,
+            }
+            let response = await putUserScore(totalScore, Helpers.getUserId())
+            console.log(response)
+            moves.value = 0
+
             swal('Poof! Your record is saved!', {
               icon: 'success',
             })
           } else {
             swal('Your record is NOT saved!')
+            moves.value = 0
           }
         })
         resume()
