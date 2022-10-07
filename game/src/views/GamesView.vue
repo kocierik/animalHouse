@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
+import { createToaster } from '@meforma/vue-toaster'
+import { Helpers } from 'shared'
+const toaster = createToaster({
+  /* options */
+})
+if (!Helpers.isLogged())
+  toaster.show('Hey! You should register to save your scores!', {
+    type: 'success',
+    position: 'top',
+    duration: 10000,
+    max: 10000,
+  })
 
 interface Game {
   id: number
@@ -50,6 +62,7 @@ const gameList: Game[] = [
     bgImage: 'https://c.neh.tw/thumb/f/720/5fc1c59b4fd94ddd8128.jpg',
   },
 ]
+const show = () => {}
 </script>
 
 <template>
