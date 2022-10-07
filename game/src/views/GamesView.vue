@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
-import { saveResult } from '../components/games/saveResult'
-import { Helpers } from 'shared'
 
 interface Game {
   id: number
@@ -52,9 +50,6 @@ const gameList: Game[] = [
     bgImage: 'https://c.neh.tw/thumb/f/720/5fc1c59b4fd94ddd8128.jpg',
   },
 ]
-if (!Helpers.isLogged()) {
-  saveResult()
-}
 </script>
 
 <template>

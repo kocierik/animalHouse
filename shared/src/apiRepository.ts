@@ -1,9 +1,11 @@
 import { Api } from './api'
 import * as user from './json/user'
 import * as animal from './json/animal'
+import * as score from './json/GamesScores'
 import * as community from './json/Community'
 import { IProductMarked } from './json/ProductMarked'
 import { stringFormat } from './helpers'
+import { IGameScore } from './json/GamesScores'
 
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/v1'
@@ -13,7 +15,7 @@ const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
 const _ANIMAL_REGISTER = '/users/{0}/animals'
 const _REGISTER_CODES = '/register/'
-const _SCORE_CODES = '/user/:id/score/' 
+const _SCORE_CODES = '/users/{0}/score/' 
 const _LEADERBOARD_CODES = '/community/game/scoreboard' 
 const _MARKET_PRODUCT_CODES = '/market/product/' 
 
@@ -32,8 +34,11 @@ export const getAnimalCode = async () =>
 export const registerAnimal = async (registration: animal.JsonAnimal[], userId: string) => 
   Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _ANIMAL_REGISTER, userId), registration, true)
 export const postUserRegister = async () => Api.post<{ code: number;  name: String }[]>(_BASE_URL + _REGISTER_CODES,  "")
-export const putUserScore = async () => Api.post<{ code: number;  name: String }[]>(_BASE_URL + _SCORE_CODES,  "")
-export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
+
+export const putUserScore = async (gameScore: IGameScore, userId: string) =>
+ Api.put<score.IGameScore>(stringFormat(_BASE_URL + _SCORE_CODES, userId), gameScore, true)
+
+ export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
 export const getMarketProduct = async () => Api.get<IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
 
 // TODO insert here other calls!!!!

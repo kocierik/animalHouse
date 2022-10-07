@@ -1,5 +1,6 @@
 <script lang="ts">
 'use strict'
+import { putUserScore } from 'shared/src/apiRepository'
 import swal from 'sweetalert'
 
 class Cell {
@@ -172,7 +173,7 @@ class Table {
         dangerMode: false,
       }).then((willSave) => {
         if (willSave) {
-          // putUserScore()
+          putUserScore(this.try)
           swal('Poof! Your record is saved!', {
             icon: 'success',
           })

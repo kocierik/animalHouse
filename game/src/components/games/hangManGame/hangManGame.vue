@@ -58,7 +58,8 @@
 <script>
 import Constants from './Constants'
 import swal from 'sweetalert'
-import { Api } from 'shared'
+import { Api, Helpers } from 'shared'
+import { putUserScore } from '../../../../../shared/src/apiRepository'
 export default {
   name: 'WordGame',
   data() {
@@ -100,8 +101,8 @@ export default {
     },
     async loadGame() {
       this.reset()
-      let resp = await Api.get('https://random-word-form.herokuapp.com/random/animal')
-      this.currentWord = resp.data[0].toUpperCase()
+      // let resp = await Api.get('https://random-word-form.herokuapp.com/random/animal')
+      this.currentWord = 'A' //resp.data[0].toUpperCase()
     },
     getGuessedLetter(index) {
       if (this.currentGuess.includes(this.currentWord[index])) {
@@ -129,9 +130,14 @@ export default {
           icon: 'warning',
           buttons: true,
           dangerMode: false,
-        }).then((willSave) => {
+        }).then(async (willSave) => {
           if (willSave) {
-            // putUserScore()
+            let totalScore = {
+              gameId: '62f3c0540ac73a2bc4764da2',
+              score: this.tries,
+            }
+            let response = await putUserScore(totalScore, Helpers.getUserId())
+            console.log(response)
             swal('Poof! Your record is saved!', {
               icon: 'success',
             })
