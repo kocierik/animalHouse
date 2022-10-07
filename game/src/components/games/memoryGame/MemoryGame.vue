@@ -40,7 +40,7 @@ const resume = (): void => {
   cards.value = cards.value.sort(() => Math.random() - 0.5)
 }
 
-const checkCard = (card: Card): void => {
+const checkCard = async (card: Card): void => {
   moves.value++
   console.log(moves.value)
   if (selectOne == defaultCard) {
@@ -63,6 +63,8 @@ const checkCard = (card: Card): void => {
     result = []
   }
   if (result.length > 1) {
+    await new Promise((r) => setTimeout(r, 1500))
+
     if (result[0].firstName == result[1].firstName) {
       cards.value.filter((x) => {
         if (result[0] == x || result[1] == x) {
