@@ -1,6 +1,8 @@
 <script lang="ts">
 'use strict'
+import { Helpers } from 'shared'
 import { putUserScore } from 'shared/src/apiRepository'
+import { MINESWEEPER } from 'shared/src/gameConstant'
 import swal from 'sweetalert'
 
 class Cell {
@@ -165,15 +167,21 @@ class Table {
       }
     }
     if (count === this.cellLength) {
+      const points = this.try
       swal({
         title: 'Good job!',
         text: `You won in ${this.try} tries! Do you want save your record?`,
         icon: 'warning',
         buttons: true,
         dangerMode: false,
-      }).then((willSave) => {
+      }).then(async (willSave) => {
         if (willSave) {
-          putUserScore(this.try)
+          let totalScore = {
+            gameId: MINESWEEPER,
+            score: points,
+          }
+          let response = await putUserScore(totalScore, Helpers.getUserId())
+          console.log(response)
           swal('Poof! Your record is saved!', {
             icon: 'success',
           })
