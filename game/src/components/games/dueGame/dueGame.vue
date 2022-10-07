@@ -11,7 +11,9 @@ import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
 import './style.scss'
 import swal from 'sweetalert'
-import { ApiRepository } from 'shared'
+import { ApiRepository, Helpers } from 'shared'
+import { DUE48 } from 'shared/src/gameConstant'
+import { putUserScore } from '../../../../../shared/src/apiRepository'
 
 let score2048: number
 
@@ -101,18 +103,26 @@ const saveDbResult = () => {
     score2048 = score2048[Number(Object.keys(score2048))]
     swal({
       title: 'Good job!',
-      text: `You have done ${score2048} points! Do you want save your record?`,
+      text: `You have done ${state.currentGame.score} points! Do you want save your record?`,
       icon: 'warning',
       buttons: true,
       dangerMode: false,
     }).then((willSave) => {
       if (willSave) {
-        // putUserScore()
+        let totalScore = {
+          gameId: DUE48,
+          score: state.currentGame.score,
+        }
+
         swal('Poof! Your record is saved!', {
           icon: 'success',
+        }).then(async () => {
+          let response = await putUserScore(totalScore, Helpers.getUserId())
+          console.log(response)
+          document.location.reload()
         })
       } else {
-        swal('Your record is NOT saved!')
+        swal('Your record is NOT saved!').then(() => document.location.reload())
       }
     })
   }
