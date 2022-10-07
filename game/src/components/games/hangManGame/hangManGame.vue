@@ -58,7 +58,7 @@
 <script>
 import Constants from './Constants'
 import swal from 'sweetalert'
-import { Api, Helpers } from 'shared'
+import { Helpers } from 'shared'
 import { putUserScore } from '../../../../../shared/src/apiRepository'
 export default {
   name: 'WordGame',
