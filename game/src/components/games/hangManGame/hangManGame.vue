@@ -60,6 +60,8 @@ import Constants from './Constants'
 import swal from 'sweetalert'
 import { Helpers } from 'shared'
 import { putUserScore } from '../../../../../shared/src/apiRepository'
+import { HANGMAN } from '../../../../../shared/src/gameConstant'
+import { Api } from '../../../../../shared/src/api'
 export default {
   name: 'WordGame',
   data() {
@@ -101,8 +103,8 @@ export default {
     },
     async loadGame() {
       this.reset()
-      // let resp = await Api.get('https://random-word-form.herokuapp.com/random/animal')
-      this.currentWord = 'A' //resp.data[0].toUpperCase()
+      let resp = await Api.get('https://random-word-form.herokuapp.com/random/animal')
+      this.currentWord = resp.data[0].toUpperCase()
     },
     getGuessedLetter(index) {
       if (this.currentGuess.includes(this.currentWord[index])) {
@@ -133,7 +135,7 @@ export default {
         }).then(async (willSave) => {
           if (willSave) {
             let totalScore = {
-              gameId: '62f3c0540ac73a2bc4764da2',
+              gameId: HANGMAN,
               score: this.tries,
             }
             let response = await putUserScore(totalScore, Helpers.getUserId())
