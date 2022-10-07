@@ -126,6 +126,7 @@ export default {
       this.progress += this.currentWord.split('').filter((e) => e === letter).length
       if (this.puzzleSolved) {
         // solved
+        let point = this.tries
         swal({
           title: 'Good job!',
           text: `You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?`,
@@ -133,10 +134,11 @@ export default {
           buttons: true,
           dangerMode: false,
         }).then(async (willSave) => {
+          console.log(point)
           if (willSave) {
             let totalScore = {
               gameId: HANGMAN,
-              score: this.tries,
+              score: point,
             }
             let response = await putUserScore(totalScore, Helpers.getUserId())
             console.log(response)
