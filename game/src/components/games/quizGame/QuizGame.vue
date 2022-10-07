@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import { Questions } from './utility'
 import type { Question } from './utility'
-import { Api } from 'shared'
+import { Api, Helpers } from 'shared'
 import swal from 'sweetalert'
+import { QUIZGAME } from '../../../../../shared/src/gameConstant'
+import { putUserScore } from '../../../../../shared/src/apiRepository'
 
 export default {
   data() {
@@ -88,15 +90,21 @@ export default {
     showResults() {
       this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
       // const msg = `Correct Answers: ${this.correctAnswers}  \n\n  Wrong Answers: ${this.wrongAnswers} `
+      const points = this.correctAnswers
       swal({
         title: 'Good job!',
         text: `You have response correctly to ${this.correctAnswers} answers! Do you want save your record?`,
         icon: 'warning',
         buttons: true,
         dangerMode: false,
-      }).then((willSave) => {
+      }).then(async (willSave) => {
         if (willSave) {
-          // putUserScore()
+          let totalScore = {
+            gameId: QUIZGAME,
+            score: points,
+          }
+          let response = await putUserScore(totalScore, Helpers.getUserId())
+          console.log(response)
           swal('Poof! Your record is saved!', {
             icon: 'success',
           })
