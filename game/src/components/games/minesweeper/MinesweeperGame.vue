@@ -1,8 +1,7 @@
 <script lang="ts">
 'use strict'
-import { Helpers } from 'shared'
-import { putUserScore } from 'shared/src/apiRepository'
-import { MINESWEEPER } from 'shared/src/gameConstant'
+import { Helpers, GameConstant, ApiRepository } from 'shared'
+
 import swal from 'sweetalert'
 
 class Cell {
@@ -178,10 +177,10 @@ class Table {
         }).then(async (willSave) => {
           if (willSave) {
             let totalScore = {
-              gameId: MINESWEEPER,
+              gameId: GameConstant.MINESWEEPER,
               score: points,
             }
-            let response = await putUserScore(totalScore, Helpers.getUserId())
+            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
             console.log(response)
             swal('Poof! Your record is saved!', {
               icon: 'success',
