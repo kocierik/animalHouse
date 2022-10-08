@@ -1,23 +1,21 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue'
-import { fetchCatFacts } from '@/network/api'
 import LoadingSpinner from '@/components/common/LoadingSpinner.vue'
 import AnimalIcon from '@/components/common/AnimalIcon.vue'
-import type { AnimalType } from 'shared'
 import { fetchHoroscope } from '../../network/api'
 
 const props = defineProps<{ signType: string }>()
 
-let fact = ref<string>('loading...')
+let horoscope = ref<string>('loading...')
 let isLoading = ref<boolean>(false)
 
 const loadHoroscope = async () => {
   isLoading.value = true
   let resp = await fetchHoroscope(props.signType)
   if (resp.esit && resp.data !== undefined) {
-    fact.value = resp.data.horoscope
+    horoscope.value = resp.data.horoscope
   } else {
-    fact.value = 'Error! Check your internet connection!'
+    horoscope.value = 'Error! Check your internet connection!'
     // eslint-disable-next-line quotes
     console.error("Can't fetch horoscope")
   }
@@ -36,10 +34,10 @@ onBeforeMount(loadHoroscope)
       <div class="p-6">
         <div class="flex justify-start space-x-3">
           <!-- <AnimalIcon class="mb-2 text-2xl font-bold tracking-tight" :sign="props.signType" /> -->
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Fact!</h5>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ props.signType }}</h5>
         </div>
         <p class="text-text">
-          {{ fact }}
+          {{ horoscope }}
         </p>
       </div>
     </a>

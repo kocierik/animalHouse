@@ -51,6 +51,7 @@ else {
       <div class="my-4">
         <h2 class="text-text text-2xl font-extrabold">Horoscope</h2>
         <div class="flex flex-wrap justify-evenly">
+          <!-- CHANGE TO ANIMAL SIGN -->
           <HoroscopeCard signType="aries" />
         </div>
       </div>
