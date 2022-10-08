@@ -1,8 +1,19 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 import Card from './gamesComponents/Card.vue'
-import { saveResult } from '../components/games/saveResult'
+import { createToaster } from '@meforma/vue-toaster'
 import { Helpers } from 'shared'
+const toaster = createToaster({
+  /* options */
+})
+if (!Helpers.isLogged())
+  toaster.show('Hey! You should register to save your scores!', {
+    type: 'success',
+    position: 'top',
+    queue: false,
+    duration: 3000,
+    max: 1,
+  })
 
 interface Game {
   id: number
@@ -52,15 +63,16 @@ const gameList: Game[] = [
     bgImage: 'https://c.neh.tw/thumb/f/720/5fc1c59b4fd94ddd8128.jpg',
   },
 ]
-if (!Helpers.isLogged()) {
-  saveResult()
-}
 </script>
 
 <template>
   <div class="flex flex-1 flex-col">
     <div class="flex justify-center align-center lg:h-screen flex-wrap p-10 gap-10">
-      <div v-for="game in gameList" :key="game.id" class="self-center pb-5">
+      <div
+        v-for="game in gameList"
+        :key="game.id"
+        class="hover:-translate-y-1 hover:scale-105 duration-300 self-center pb-5"
+      >
         <Card :name="game.name" :url="game.url" :image="game.bgImage" />
       </div>
     </div>

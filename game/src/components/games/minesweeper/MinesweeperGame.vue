@@ -1,5 +1,7 @@
 <script lang="ts">
 'use strict'
+import { Helpers, GameConstant, ApiRepository } from 'shared'
+
 import swal from 'sweetalert'
 
 class Cell {
@@ -164,22 +166,37 @@ class Table {
       }
     }
     if (count === this.cellLength) {
-      swal({
-        title: 'Good job!',
-        text: `You won in ${this.try} tries! Do you want save your record?`,
-        icon: 'warning',
-        buttons: true,
-        dangerMode: false,
-      }).then((willSave) => {
-        if (willSave) {
-          // putUserScore()
-          swal('Poof! Your record is saved!', {
-            icon: 'success',
-          })
-        } else {
-          swal('Your record is NOT saved!')
-        }
-      })
+      const points = this.try
+      if (Helpers.isLogged()) {
+        swal({
+          title: 'Good job!',
+          text: `You won in ${this.try} tries! Do you want save your record?`,
+          icon: 'warning',
+          buttons: true,
+          dangerMode: false,
+        }).then(async (willSave) => {
+          if (willSave) {
+            let totalScore = {
+              gameId: GameConstant.MINESWEEPER,
+              score: points,
+            }
+            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+            console.log(response)
+            swal('Poof! Your record is saved!', {
+              icon: 'success',
+            })
+          } else {
+            swal('Your record is NOT saved!')
+          }
+        })
+      } else {
+        swal({
+          title: 'Good job!',
+          text: `You won in ${this.try} tries!`,
+          icon: 'warning',
+          dangerMode: false,
+        })
+      }
 
       return true
     } else {

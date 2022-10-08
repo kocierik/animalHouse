@@ -78,7 +78,7 @@ const logout = () => {
               <router-link :to="router.HomeRoute">
                 <a
                   href="#"
-                  class="block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+                  class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                 >
                   Home
                 </a>
@@ -92,7 +92,7 @@ const logout = () => {
               <router-link :to="router.PersonalRoute">
                 <a
                   href="#"
-                  class="block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+                  class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                 >
                   Personal
                 </a>
@@ -106,20 +106,20 @@ const logout = () => {
               <router-link :to="router.GamesRoute">
                 <a
                   href="#"
-                  class="block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+                  class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                 >
                   Games
                 </a>
               </router-link>
             </li>
             <li class="flex flex-1 justify-start md:justify-end">
-              <router-link :to="router.LoginRoute" class="self-center ml-3">
+              <router-link :to="router.LoginRoute" class="hover:-translate-y-1 duration-300 self-center ml-3">
                 <a
                   v-if="isLogged"
                   v-on:click="changeColorNav('isLogin')"
                   @click="logout()"
                   href="#"
-                  class="text-black hover:bg-yellow-100 lg:bg-yellow-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                  class="hover:-translate-y-1 hover:scale-110 duration-300 text-black hover:bg-yellow-100 lg:bg-yellow-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Logout
                 </a>
