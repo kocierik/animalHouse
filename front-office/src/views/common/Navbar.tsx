@@ -37,28 +37,28 @@ const Navbar = () => {
                 <div className="ml-10 flex items-baseline space-x-4">
                   <span
                     style={{ backgroundColor: history.pathname === '/' ? 'indigo' : '' }}
-                    className=" text-white px-3 py-2 rounded-md text-sm font-medium active"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-white px-3 py-2 rounded-md text-sm font-medium active"
                   >
                     <Link to="/">Dashboard</Link>
                   </span>
 
                   <span
                     style={{ backgroundColor: history.pathname === '/service/' ? 'indigo' : '' }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/service/">Service</Link>
                   </span>
 
                   <span
                     style={{ backgroundColor: history.pathname === '/shopping/' ? 'indigo' : '' }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/shopping/">Shopping</Link>
                   </span>
 
                   <span
                     style={{ backgroundColor: history.pathname === '/community/' ? 'indigo' : '' }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/community/">Community</Link>
                   </span>
