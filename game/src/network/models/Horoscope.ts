@@ -1,5 +1,5 @@
 export interface IHoroscope {
-  sign: string
+  sunsign: string
   date: string
   horoscope: string
 }

@@ -6,14 +6,14 @@ import AnimalIcon from '@/components/common/AnimalIcon.vue'
 import type { AnimalType } from 'shared'
 import { fetchHoroscope } from '../../network/api'
 
-const props = defineProps<{ sign: string }>()
+const props = defineProps<{ signType: string }>()
 
 let fact = ref<string>('loading...')
 let isLoading = ref<boolean>(false)
 
 const loadHoroscope = async () => {
   isLoading.value = true
-  let resp = await fetchHoroscope()
+  let resp = await fetchHoroscope(props.signType)
   if (resp.esit && resp.data !== undefined) {
     fact.value = resp.data.horoscope
   } else {
@@ -35,7 +35,7 @@ onBeforeMount(loadHoroscope)
     <a v-else class="block bg-llime max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
       <div class="p-6">
         <div class="flex justify-start space-x-3">
-          <AnimalIcon class="mb-2 text-2xl font-bold tracking-tight" :sign="props.sign" />
+          <!-- <AnimalIcon class="mb-2 text-2xl font-bold tracking-tight" :sign="props.signType" /> -->
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Fact!</h5>
         </div>
         <p class="text-text">
