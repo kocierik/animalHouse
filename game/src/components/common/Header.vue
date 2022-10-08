@@ -18,7 +18,7 @@ import * as router from '@/router/index'
             <h3 class="text-4xl text-text font-extrabold mb-8">For your Pet</h3>
             <button
               type="button"
-              class="hover:bg-blue-700 bg-lyellow text-black font-extrabold py-3 px-7 rounded-full"
+              class="hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-green-300 bg-lyellow text-black font-extrabold py-3 px-7 rounded-full"
               data-mdb-ripple="true"
               data-mdb-ripple-color="light"
               hover:bg-sky-700
