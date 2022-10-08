@@ -91,31 +91,38 @@ export default {
       this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
       // const msg = `Correct Answers: ${this.correctAnswers}  \n\n  Wrong Answers: ${this.wrongAnswers} `
       const points = this.correctAnswers
-      swal({
-        title: 'Good job!',
-        text: `You have response correctly to ${this.correctAnswers} answers! Do you want save your record?`,
-        icon: 'warning',
-        buttons: true,
-        dangerMode: false,
-      }).then(async (willSave) => {
-        if (willSave) {
-          let totalScore = {
-            gameId: QUIZGAME,
-            score: points,
+      if (Helpers.isLogged()) {
+        swal({
+          title: 'Good job!',
+          text: `You have response correctly to ${this.correctAnswers} answers! Do you want save your record?`,
+          icon: 'warning',
+          buttons: true,
+          dangerMode: false,
+        }).then(async (willSave) => {
+          if (willSave) {
+            let totalScore = {
+              gameId: QUIZGAME,
+              score: points,
+            }
+            let response = await putUserScore(totalScore, Helpers.getUserId())
+            console.log(response)
+            swal('Poof! Your record is saved!', {
+              icon: 'success',
+            })
+          } else {
+            swal('Your record is NOT saved!')
           }
-          let response = await putUserScore(totalScore, Helpers.getUserId())
-          console.log(response)
-          swal('Poof! Your record is saved!', {
-            icon: 'success',
-          })
-        } else {
-          swal('Your record is NOT saved!')
-        }
-      })
-      // swal('Good job!', msg, 'success')
+        })
+      } else {
+        swal({
+          title: 'Good job!',
+          text: `You have response correctly to ${this.correctAnswers} answers!`,
+          icon: 'warning',
+          dangerMode: false,
+        })
+      }
       this.resetQuiz()
       this.getQuestion()
-      // this.idx++
     },
     resetQuiz() {
       this.idx = 0

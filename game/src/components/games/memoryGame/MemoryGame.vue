@@ -74,31 +74,40 @@ const checkCard = async (card: Card): void => {
       })
       if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
         let points = moves.value
-        swal({
-          title: 'Good job!',
-          text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
-          icon: 'warning',
-          buttons: true,
-          dangerMode: false,
-        }).then(async (willSave) => {
-          if (willSave) {
-            console.log(points)
-            let totalScore = {
-              gameId: MEMORYGAME,
-              score: moves.value,
-            }
-            let response = await putUserScore(totalScore, Helpers.getUserId())
-            console.log(response)
-            moves.value = 0
+        if (Helpers.isLogged()) {
+          swal({
+            title: 'Good job!',
+            text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: false,
+          }).then(async (willSave) => {
+            if (willSave) {
+              console.log(points)
+              let totalScore = {
+                gameId: MEMORYGAME,
+                score: moves.value,
+              }
+              let response = await putUserScore(totalScore, Helpers.getUserId())
+              console.log(response)
+              moves.value = 0
 
-            swal('Poof! Your record is saved!', {
-              icon: 'success',
-            })
-          } else {
-            swal('Your record is NOT saved!')
-            moves.value = 0
-          }
-        })
+              swal('Poof! Your record is saved!', {
+                icon: 'success',
+              })
+            } else {
+              swal('Your record is NOT saved!')
+              moves.value = 0
+            }
+          })
+        } else {
+          swal({
+            title: 'Good job!',
+            text: `You found all the couples in ${moves.value} tries!`,
+            icon: 'warning',
+            dangerMode: false,
+          })
+        }
         resume()
       }
     }

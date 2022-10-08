@@ -127,28 +127,37 @@ export default {
       if (this.puzzleSolved) {
         // solved
         let point = this.tries
-        swal({
-          title: 'Good job!',
-          text: `You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?`,
-          icon: 'warning',
-          buttons: true,
-          dangerMode: false,
-        }).then(async (willSave) => {
-          console.log(point)
-          if (willSave) {
-            let totalScore = {
-              gameId: HANGMAN,
-              score: point,
+        if (Helpers.isLogged()) {
+          swal({
+            title: 'Good job!',
+            text: `You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?`,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: false,
+          }).then(async (willSave) => {
+            console.log(point)
+            if (willSave) {
+              let totalScore = {
+                gameId: HANGMAN,
+                score: point,
+              }
+              let response = await putUserScore(totalScore, Helpers.getUserId())
+              console.log(response)
+              swal('Poof! Your record is saved!', {
+                icon: 'success',
+              })
+            } else {
+              swal('Your record is NOT saved!')
             }
-            let response = await putUserScore(totalScore, Helpers.getUserId())
-            console.log(response)
-            swal('Poof! Your record is saved!', {
-              icon: 'success',
-            })
-          } else {
-            swal('Your record is NOT saved!')
-          }
-        })
+          })
+        } else {
+          swal({
+            title: 'Good job!',
+            text: `You found the word ${this.currentWord} in ${this.tries} tries!`,
+            icon: 'warning',
+            dangerMode: false,
+          })
+        }
         this.loadGame()
       }
     },
