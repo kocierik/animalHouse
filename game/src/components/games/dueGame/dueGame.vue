@@ -11,6 +11,7 @@ import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
 import './style.scss'
 import swal from 'sweetalert'
+import { GameConstant, ApiRepository, Helpers } from 'shared'
 
 let score2048: number
 
@@ -98,26 +99,38 @@ const saveDbResult = () => {
   if (state.currentGame.isGameover) {
     score2048 = JSON.parse(localStorage.getItem('game-bestscores'))
     score2048 = score2048[Number(Object.keys(score2048))]
-    console.log(Number(Object.keys(score2048)))
-    console.log('====================================')
-    console.log()
-    console.log('====================================')
-    swal({
-      title: 'Good job!',
-      text: `You have done ${score2048} points! Do you want save your record?`,
-      icon: 'warning',
-      buttons: true,
-      dangerMode: false,
-    }).then((willSave) => {
-      if (willSave) {
-        // putUserScore()
-        swal('Poof! Your record is saved!', {
-          icon: 'success',
-        })
-      } else {
-        swal('Your record is NOT saved!')
-      }
-    })
+    if (Helpers.isLogged()) {
+      swal({
+        title: 'Good job!',
+        text: `You have done ${state.currentGame.score} points! Do you want save your record?`,
+        icon: 'warning',
+        buttons: true,
+        dangerMode: false,
+      }).then((willSave) => {
+        if (willSave) {
+          let totalScore = {
+            gameId: GameConstant.DUE48,
+            score: state.currentGame.score,
+          }
+          swal('Poof! Your record is saved!', {
+            icon: 'success',
+          }).then(async () => {
+            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+            console.log(response)
+            document.location.reload()
+          })
+        } else {
+          swal('Your record is NOT saved!').then(() => document.location.reload())
+        }
+      })
+    } else {
+      swal({
+        title: 'Good job!',
+        text: `You have done ${state.currentGame.score} points!`,
+        icon: 'warning',
+        dangerMode: false,
+      }).then(() => document.location.reload())
+    }
   }
 }
 </script>

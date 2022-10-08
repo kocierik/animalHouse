@@ -58,7 +58,7 @@
 <script>
 import Constants from './Constants'
 import swal from 'sweetalert'
-import { Api } from 'shared'
+import { Helpers, Api, GameConstant, ApiRepository } from 'shared'
 export default {
   name: 'WordGame',
   data() {
@@ -123,22 +123,38 @@ export default {
       this.progress += this.currentWord.split('').filter((e) => e === letter).length
       if (this.puzzleSolved) {
         // solved
-        swal({
-          title: 'Good job!',
-          text: `You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?`,
-          icon: 'warning',
-          buttons: true,
-          dangerMode: false,
-        }).then((willSave) => {
-          if (willSave) {
-            // putUserScore()
-            swal('Poof! Your record is saved!', {
-              icon: 'success',
-            })
-          } else {
-            swal('Your record is NOT saved!')
-          }
-        })
+        let point = this.tries
+        if (Helpers.isLogged()) {
+          swal({
+            title: 'Good job!',
+            text: `You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?`,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: false,
+          }).then(async (willSave) => {
+            console.log(point)
+            if (willSave) {
+              let totalScore = {
+                gameId: GameConstant.HANGMAN,
+                score: point,
+              }
+              let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+              console.log(response)
+              swal('Poof! Your record is saved!', {
+                icon: 'success',
+              })
+            } else {
+              swal('Your record is NOT saved!')
+            }
+          })
+        } else {
+          swal({
+            title: 'Good job!',
+            text: `You found the word ${this.currentWord} in ${this.tries} tries!`,
+            icon: 'warning',
+            dangerMode: false,
+          })
+        }
         this.loadGame()
       }
     },
