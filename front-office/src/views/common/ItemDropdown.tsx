@@ -3,7 +3,7 @@ import React from 'react'
 const ItemDropdown = (props: { game: string }) => {
   return (
     <>
-      <div className="flex items-center justify-between mt-4">
+      <div className="hover:-translate-y-1  duration-300 flex items-center justify-between mt-4">
         <div className="flex items-center">
           <div className="pl-4 flex items-center">
             <div className="bg-gray-100 dark:bg-gray-800 border rounded-sm border-gray-200 dark:border-gray-700 w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
