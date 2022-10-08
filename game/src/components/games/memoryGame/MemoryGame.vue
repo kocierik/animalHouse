@@ -5,8 +5,8 @@ import type { Card } from './utility/cards'
 import cards from './utility/cards'
 import swal from 'sweetalert'
 import { ref } from 'vue'
-import { MEMORYGAME } from 'shared/src/gameConstant'
-import { putUserScore } from 'shared/src/apiRepository'
+import { GameConstant, ApiRepository } from 'shared'
+
 import { Helpers } from 'shared'
 
 let selectOne: Card = defaultCard
@@ -85,10 +85,10 @@ const checkCard = async (card: Card): void => {
             if (willSave) {
               console.log(points)
               let totalScore = {
-                gameId: MEMORYGAME,
+                gameId: GameConstant.MEMORYGAME,
                 score: moves.value,
               }
-              let response = await putUserScore(totalScore, Helpers.getUserId())
+              let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
               console.log(response)
               moves.value = 0
 

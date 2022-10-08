@@ -58,10 +58,7 @@
 <script>
 import Constants from './Constants'
 import swal from 'sweetalert'
-import { Helpers } from 'shared'
-import { putUserScore } from '../../../../../shared/src/apiRepository'
-import { HANGMAN } from '../../../../../shared/src/gameConstant'
-import { Api } from '../../../../../shared/src/api'
+import { Helpers, Api, GameConstant, ApiRepository } from 'shared'
 export default {
   name: 'WordGame',
   data() {
@@ -138,10 +135,10 @@ export default {
             console.log(point)
             if (willSave) {
               let totalScore = {
-                gameId: HANGMAN,
+                gameId: GameConstant.HANGMAN,
                 score: point,
               }
-              let response = await putUserScore(totalScore, Helpers.getUserId())
+              let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
               console.log(response)
               swal('Poof! Your record is saved!', {
                 icon: 'success',
