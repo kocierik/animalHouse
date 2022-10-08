@@ -10,8 +10,9 @@ if (!Helpers.isLogged())
   toaster.show('Hey! You should register to save your scores!', {
     type: 'success',
     position: 'top',
-    duration: 10000,
-    max: 10000,
+    queue: false,
+    duration: 3000,
+    max: 1,
   })
 
 interface Game {
