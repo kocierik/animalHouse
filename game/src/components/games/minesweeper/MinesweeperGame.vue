@@ -168,27 +168,36 @@ class Table {
     }
     if (count === this.cellLength) {
       const points = this.try
-      swal({
-        title: 'Good job!',
-        text: `You won in ${this.try} tries! Do you want save your record?`,
-        icon: 'warning',
-        buttons: true,
-        dangerMode: false,
-      }).then(async (willSave) => {
-        if (willSave) {
-          let totalScore = {
-            gameId: MINESWEEPER,
-            score: points,
+      if (Helpers.isLogged()) {
+        swal({
+          title: 'Good job!',
+          text: `You won in ${this.try} tries! Do you want save your record?`,
+          icon: 'warning',
+          buttons: true,
+          dangerMode: false,
+        }).then(async (willSave) => {
+          if (willSave) {
+            let totalScore = {
+              gameId: MINESWEEPER,
+              score: points,
+            }
+            let response = await putUserScore(totalScore, Helpers.getUserId())
+            console.log(response)
+            swal('Poof! Your record is saved!', {
+              icon: 'success',
+            })
+          } else {
+            swal('Your record is NOT saved!')
           }
-          let response = await putUserScore(totalScore, Helpers.getUserId())
-          console.log(response)
-          swal('Poof! Your record is saved!', {
-            icon: 'success',
-          })
-        } else {
-          swal('Your record is NOT saved!')
-        }
-      })
+        })
+      } else {
+        swal({
+          title: 'Good job!',
+          text: `You won in ${this.try} tries!`,
+          icon: 'warning',
+          dangerMode: false,
+        })
+      }
 
       return true
     } else {
