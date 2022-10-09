@@ -1,11 +1,9 @@
 <script lang="ts">
-import { ref } from 'vue'
 import { Questions } from './utility'
 import type { Question } from './utility'
 import { Api, Helpers } from 'shared'
 import swal from 'sweetalert'
-import { QUIZGAME } from '../../../../../shared/src/gameConstant'
-import { putUserScore } from '../../../../../shared/src/apiRepository'
+import { GameConstant, ApiRepository } from 'shared'
 
 export default {
   data() {
@@ -33,34 +31,34 @@ export default {
 
           this.questions[i].question = q.question // set questions
           switch (Math.floor(Math.random() * 4)) {
-            case 0:
-              this.questions[i].answers[0] = q.correct_answer
-              this.questions[i].answers[1] = q.incorrect_answers.shift()
-              this.questions[i].answers[2] = q.incorrect_answers.shift()
-              this.questions[i].answers[3] = q.incorrect_answers.shift()
-              this.questions[i].correctAnswer = 0
-              break
-            case 1:
-              this.questions[i].answers[0] = q.incorrect_answers.shift()
-              this.questions[i].answers[1] = q.correct_answer
-              this.questions[i].answers[2] = q.incorrect_answers.shift()
-              this.questions[i].answers[3] = q.incorrect_answers.shift()
-              this.questions[i].correctAnswer = 1
-              break
-            case 2:
-              this.questions[i].answers[0] = q.incorrect_answers.shift()
-              this.questions[i].answers[1] = q.incorrect_answers.shift()
-              this.questions[i].answers[2] = q.correct_answer
-              this.questions[i].answers[3] = q.incorrect_answers.shift()
-              this.questions[i].correctAnswer = 2
-              break
-            case 3:
-              this.questions[i].answers[0] = q.incorrect_answers.shift()
-              this.questions[i].answers[1] = q.incorrect_answers.shift()
-              this.questions[i].answers[2] = q.incorrect_answers.shift()
-              this.questions[i].answers[3] = q.correct_answer
-              this.questions[i].correctAnswer = 3
-              break
+          case 0:
+            this.questions[i].answers[0] = q.correct_answer
+            this.questions[i].answers[1] = q.incorrect_answers.shift()
+            this.questions[i].answers[2] = q.incorrect_answers.shift()
+            this.questions[i].answers[3] = q.incorrect_answers.shift()
+            this.questions[i].correctAnswer = 0
+            break
+          case 1:
+            this.questions[i].answers[0] = q.incorrect_answers.shift()
+            this.questions[i].answers[1] = q.correct_answer
+            this.questions[i].answers[2] = q.incorrect_answers.shift()
+            this.questions[i].answers[3] = q.incorrect_answers.shift()
+            this.questions[i].correctAnswer = 1
+            break
+          case 2:
+            this.questions[i].answers[0] = q.incorrect_answers.shift()
+            this.questions[i].answers[1] = q.incorrect_answers.shift()
+            this.questions[i].answers[2] = q.correct_answer
+            this.questions[i].answers[3] = q.incorrect_answers.shift()
+            this.questions[i].correctAnswer = 2
+            break
+          case 3:
+            this.questions[i].answers[0] = q.incorrect_answers.shift()
+            this.questions[i].answers[1] = q.incorrect_answers.shift()
+            this.questions[i].answers[2] = q.incorrect_answers.shift()
+            this.questions[i].answers[3] = q.correct_answer
+            this.questions[i].correctAnswer = 3
+            break
           }
         }
         this.fetchDone = true
@@ -101,10 +99,10 @@ export default {
         }).then(async (willSave) => {
           if (willSave) {
             let totalScore = {
-              gameId: QUIZGAME,
+              gameId: GameConstant.QUIZGAME,
               score: points,
             }
-            let response = await putUserScore(totalScore, Helpers.getUserId())
+            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
             console.log(response)
             swal('Poof! Your record is saved!', {
               icon: 'success',
