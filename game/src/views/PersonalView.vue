@@ -9,6 +9,7 @@ import type { AnimalType } from 'shared'
 import { Helpers } from 'shared'
 import { ref } from 'vue'
 import Video from '@/components/personal/VideoCard.vue'
+import HoroscopeCard from '../components/personal/horoscopeCard.vue'
 
 const animals = ref<AnimalType[]>()
 const a = localStorage.getItem(Helpers.LS_PersonalAnimals)
@@ -45,6 +46,13 @@ else {
         <h2 class="text-text text-2xl font-extrabold">Videos of the day</h2>
         <div class="flex flex-wrap justify-evenly">
           <Video v-for="a in animals" :animal="a" v-bind:key="a" class="m-1" />
+        </div>
+      </div>
+      <div class="my-4">
+        <h2 class="text-text text-2xl font-extrabold">Horoscope</h2>
+        <div class="flex flex-wrap justify-evenly">
+          <!-- CHANGE TO ANIMAL SIGN -->
+          <HoroscopeCard signType="aries" />
         </div>
       </div>
     </div>
