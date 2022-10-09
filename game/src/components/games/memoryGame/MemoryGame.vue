@@ -117,7 +117,7 @@ const checkCard = async (card: Card): void => {
 </script>
 
 <template>
-  <section class="main">
+  <section class="main animate-in fade-in zoom-in duration-500">
     <div class="flex p-10">
       <a
         class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
