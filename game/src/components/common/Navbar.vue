@@ -37,7 +37,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div>
+  <div class="animate-in fade-in zoom-in duration-500">
     <nav class="px-2 sm:px-4">
       <div class="container justify-between flex flex-wrap items-center mx-auto">
         <a href="/" class="flex items-center ml-2">
