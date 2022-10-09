@@ -48,7 +48,7 @@ const Checkout = () => {
   console.log(productsss)
   return (
     <>
-      <main className="lg:min-h-full lg:overflow-hidden lg:flex lg:flex-row-reverse">
+      <main         data-aos="fade-up" data-aos-duration="1500" className="lg:min-h-full lg:overflow-hidden lg:flex lg:flex-row-reverse">
         <h1 className="sr-only">Checkout</h1>
 
         {/* Mobile order summary */}

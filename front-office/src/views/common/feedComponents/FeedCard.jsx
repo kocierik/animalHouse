@@ -42,7 +42,10 @@ const FeedCard = (props) => {
   return (
     <>
       {/* Card Base */}
-      <div className="flex-row p-1 mb-14 container max-w-md sm:max-w-xl h-auto rounded-lg shadow-md bg-gray-50 m-2">
+      <div
+        data-aos="fade-up"
+        className="flex-row p-1 mb-14 container max-w-md sm:max-w-xl h-auto rounded-lg shadow-md bg-gray-50 m-2"
+      >
         {/* Top Fourth - Avatar & User/Post Info */}
         <PostHeader name={props.name} location={props.location} timestamp={props.timestamp} />
 
