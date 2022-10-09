@@ -5,7 +5,7 @@ import ItemDropdown from './ItemDropdown'
 const DropDown = (props: { list: string[] }) => {
   const [isList, setIsList] = useState(false)
   return (
-    <div className="z-10">
+    <div className="hover:-translate-y-1 hover:scale-105 duration-300 z-10">
       <div
         onClick={() => setIsList(!isList)}
         className="w-64 p-4 shadow rounded bg-white text-sm font-medium leading-none text-gray-800 flex items-center justify-between cursor-pointer"
@@ -34,7 +34,7 @@ const DropDown = (props: { list: string[] }) => {
           })}
           <button
             onClick={() => setIsList(!isList)}
-            className="text-xs bg-green-100 hover:bg-green-200 rounded-md mt-6 font-medium py-2 w-full leading-3 text-green-700"
+            className="hover:-translate-y-1 hover:scale-105 duration-300 text-xs bg-green-100 hover:bg-green-200 rounded-md mt-6 font-medium py-2 w-full leading-3 text-green-700"
           >
             Select
           </button>
