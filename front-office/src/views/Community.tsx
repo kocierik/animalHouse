@@ -47,16 +47,18 @@ const CommunityPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {usersData.map((games) =>
+                  {usersData.map((games) => 
                     games.scores.map((user) => {
                       return (
-                        <Rawtable
+                      user.score.map((value) => {
+                        return <Rawtable
                           name={user.username}
-                          key={user.userId}
-                          points={user.score[user.score.length - 1]}
+                          key={value}
+                          points={value}
                           data={user.username}
                           game={games.gameName}
-                        />
+                        />  
+                      })
                       )
                     })
                   )}
