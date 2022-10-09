@@ -52,7 +52,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -82,7 +82,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -115,7 +115,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -147,7 +147,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -180,7 +180,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -210,7 +210,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
