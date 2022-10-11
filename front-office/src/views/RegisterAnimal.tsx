@@ -33,7 +33,7 @@ const RegisterAnimal = () => {
     const userId = Helpers.getUserId()
     if (!userId) {
       setIsError(true)
-      setError("Must be logged to do this operation")
+      setError('Must be logged to do this operation')
       return
     }
 
