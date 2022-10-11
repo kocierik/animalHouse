@@ -55,8 +55,8 @@ jobs:
         cache: 'npm'
     - name: run npm install
       run: npm i
-    - name: npm build
-      run: npm build
+    - name: build with npm
+      run: npm run build
       
   game:
 
@@ -79,5 +79,5 @@ jobs:
         cache: 'npm'
     - name: run npm install
       run: npm i
-    - name: npm build
-      run: npm build
+    - name: build with npm
+      run: npm run build
