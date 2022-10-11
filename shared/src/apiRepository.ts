@@ -1,11 +1,11 @@
 import { Api } from './api'
-import * as user from './json/user'
-import * as animal from './json/animal'
-import * as score from './json/GamesScores'
-import * as community from './json/Community'
-import { IProductMarked } from './json/ProductMarked'
+import type * as user from './json/user'
+import type * as animal from './json/animal'
+import type * as score from './json/GamesScores'
+import type * as community from './json/Community'
+import type { IProductMarked } from './json/ProductMarked'
 import { stringFormat } from './helpers'
-import { IGameResult } from './json/GameResult';
+import type { IGameResult } from './json/GameResult';
 
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/v1'
