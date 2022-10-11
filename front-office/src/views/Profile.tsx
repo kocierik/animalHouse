@@ -1,16 +1,8 @@
 import React from 'react'
-import { JsonUser, JsonAddress } from '../../../server/src/json/JsonUser'
-import { JsonPet } from '../../../server/src/json/JsonPet'
-const user: JsonUser[] = [
-  {
-    username: 'erik',
-    email: 'erik@gmail.com',
-    firstName: 'erik',
-    lastName: 'koci',
-    phone: '3484892032',
-    pet: [{ id: 1, name: 'qwerty' }],
-    address: { country: 'riccione', city: 'san clemente', street: 'si', cap: 34322 }
-  }
+
+// Temporaneo
+const user = [
+  { username: "fuck", address: { city: "fuck" } }
 ]
 
 const Profile = () => {
@@ -18,7 +10,7 @@ const Profile = () => {
     <>
       <main className="profile-page" data-aos="zoom-in" data-aos-duration="1500">
         <section className="relative block" style={{ height: '500px' }}>
-          <div 
+          <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
