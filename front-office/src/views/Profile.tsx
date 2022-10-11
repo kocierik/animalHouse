@@ -18,7 +18,7 @@ const Profile = () => {
     <>
       <main className="profile-page" data-aos="zoom-in" data-aos-duration="1500">
         <section className="relative block" style={{ height: '500px' }}>
-          <div 
+          <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:

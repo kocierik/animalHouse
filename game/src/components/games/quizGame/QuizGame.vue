@@ -31,34 +31,34 @@ export default {
 
           this.questions[i].question = q.question // set questions
           switch (Math.floor(Math.random() * 4)) {
-          case 0:
-            this.questions[i].answers[0] = q.correct_answer
-            this.questions[i].answers[1] = q.incorrect_answers.shift()
-            this.questions[i].answers[2] = q.incorrect_answers.shift()
-            this.questions[i].answers[3] = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 0
-            break
-          case 1:
-            this.questions[i].answers[0] = q.incorrect_answers.shift()
-            this.questions[i].answers[1] = q.correct_answer
-            this.questions[i].answers[2] = q.incorrect_answers.shift()
-            this.questions[i].answers[3] = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 1
-            break
-          case 2:
-            this.questions[i].answers[0] = q.incorrect_answers.shift()
-            this.questions[i].answers[1] = q.incorrect_answers.shift()
-            this.questions[i].answers[2] = q.correct_answer
-            this.questions[i].answers[3] = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 2
-            break
-          case 3:
-            this.questions[i].answers[0] = q.incorrect_answers.shift()
-            this.questions[i].answers[1] = q.incorrect_answers.shift()
-            this.questions[i].answers[2] = q.incorrect_answers.shift()
-            this.questions[i].answers[3] = q.correct_answer
-            this.questions[i].correctAnswer = 3
-            break
+            case 0:
+              this.questions[i].answers[0] = q.correct_answer
+              this.questions[i].answers[1] = q.incorrect_answers.shift()
+              this.questions[i].answers[2] = q.incorrect_answers.shift()
+              this.questions[i].answers[3] = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 0
+              break
+            case 1:
+              this.questions[i].answers[0] = q.incorrect_answers.shift()
+              this.questions[i].answers[1] = q.correct_answer
+              this.questions[i].answers[2] = q.incorrect_answers.shift()
+              this.questions[i].answers[3] = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 1
+              break
+            case 2:
+              this.questions[i].answers[0] = q.incorrect_answers.shift()
+              this.questions[i].answers[1] = q.incorrect_answers.shift()
+              this.questions[i].answers[2] = q.correct_answer
+              this.questions[i].answers[3] = q.incorrect_answers.shift()
+              this.questions[i].correctAnswer = 2
+              break
+            case 3:
+              this.questions[i].answers[0] = q.incorrect_answers.shift()
+              this.questions[i].answers[1] = q.incorrect_answers.shift()
+              this.questions[i].answers[2] = q.incorrect_answers.shift()
+              this.questions[i].answers[3] = q.correct_answer
+              this.questions[i].correctAnswer = 3
+              break
           }
         }
         this.fetchDone = true
