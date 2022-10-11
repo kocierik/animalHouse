@@ -1,9 +1,9 @@
-export const getItem = (key: string, defaultValue: number, parse = false) => {
+export const getItem = (key: string, defaultValue: any, parse = false) => {
   const value = localStorage.getItem(key)
   if (parse) {
     let parsed = null
     try {
-      parsed = JSON.parse(value)
+      parsed = JSON.parse(value!)
     } catch (e) {
       parsed = null
     }

@@ -1,7 +1,7 @@
 export interface Question {
   question: string
   answers: { [key: string]: string }
-  correctAnswer: string
+  correctAnswer: number
 }
 
 export const Questions: Question[] = [

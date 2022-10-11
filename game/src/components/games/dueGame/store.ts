@@ -20,11 +20,11 @@ export const state = reactive({
   showPopupWin: false,
 })
 
-export const setCurrentGame = (game) => {
+export const setCurrentGame = (game: any) => {
   Object.assign(state.currentGame, game)
 }
 
-export const setGameGridSize = (size) => {
+export const setGameGridSize = (size: any) => {
   state.size = size
   setItem('game-size', size)
   setCurrentGame(getItem('game-state-' + size, defaultGameState(), true))

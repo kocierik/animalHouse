@@ -1,10 +1,19 @@
-<script lang="ts">
-'use strict'
+<script lang="ts" setup>
 import { Helpers, GameConstant, ApiRepository } from 'shared'
-
+import { ref } from 'vue'
 import swal from 'sweetalert'
+import { JsonGames } from 'shared'
 
 class Cell {
+  public hasBomb: boolean
+  public position: { row: any; column: any }
+  public bomCount: number
+  public isOpen: boolean
+  public hasFlag: boolean
+  public bombing: boolean
+  public isFinished: boolean
+  public neighborhood: any[]
+
   constructor(row, column) {
     this.hasBomb = false
     this.position = {
@@ -26,6 +35,16 @@ class Cell {
 }
 
 class Table {
+  public row: any[]
+  public try: number
+  public rowLength: number
+  public columnLength: number
+  public cellLength: number
+  public cells: any[]
+  public bombLength: number
+  public isFinished: boolean
+  public isGameOver: boolean
+
   constructor() {
     this.row = []
     this.try = 0
@@ -103,12 +122,11 @@ class Table {
       this.chageEachCellState({ isFinished: true })
     }
   }
-  isBombCell(clickedCell) {
+  isBombCell(clickedCell: any) {
     if (clickedCell.hasBomb) {
       return true
     } else {
       this.try++
-      console.log(this.try)
       return false
     }
   }
@@ -172,16 +190,19 @@ class Table {
           title: 'Good job!',
           text: `You won in ${this.try} tries! Do you want save your record?`,
           icon: 'warning',
-          buttons: true,
+          buttons: [true],
           dangerMode: false,
         }).then(async (willSave) => {
           if (willSave) {
-            let totalScore = {
+            const userId = Helpers.getUserId()
+            if (!userId) // TODO segnalare errore
+              return
+            const totalScore = {
+              userId: userId,
               gameId: GameConstant.MINESWEEPER,
               score: points,
-            }
-            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
-            console.log(response)
+            } as JsonGames.IGameResult
+            let response = await ApiRepository.putUserScore(totalScore, userId)
             swal('Poof! Your record is saved!', {
               icon: 'success',
             })
@@ -203,7 +224,7 @@ class Table {
       return false
     }
   }
-  buildFlag(clickedCell) {
+  buildFlag(clickedCell: any) {
     var cell = this.cells[clickedCell.position.row][clickedCell.position.column]
     if (cell.hasFlag) {
       cell.update({
@@ -229,7 +250,7 @@ class Table {
     this.isFinished = false
     this.isGameOver = false
   }
-  chageEachCellState(stateObj) {
+  chageEachCellState(stateObj: any) {
     for (var i = 0; i < this.rowLength; i++) {
       for (var j = 0; j < this.columnLength; j++) {
         this.cells[i][j].update(stateObj)
@@ -238,41 +259,33 @@ class Table {
   }
 }
 
-var table = new Table()
+let table = ref(new Table())
+let count = ref(0)
+let row = ref(table.value.row)
+let tableCell = ref(table.value.cells)
 
-export default {
-  data: function () {
-    return {
-      table: table,
-      count: 0,
-      row: table.row,
-      tableCell: table.cells,
-    }
-  },
-  methods: {
-    click: function (data) {
-      if (this.table.isFinished) {
+const click = (data: any) => {
+      if (table.value.isFinished) {
         swal('Oh no!', 'You lose', 'warning')
         return
       }
-      this.count++
-      if (this.count === 1) {
-        this.table.createBomb(data.position)
+      count.value++
+      if (count.value === 1) {
+        table.value.createBomb(data.position)
       }
-      this.table.changeCellState(data)
-    },
-    buildFlag: function (data) {
-      if (this.table.isFinished) {
+      table.value.changeCellState(data)
+}
+const buildFlag = (data: any) => {
+      if (table.value.isFinished) {
         return
       }
-      event.preventDefault()
-      this.table.buildFlag(data)
-    },
-    restart: function () {
-      this.table.clear()
-      this.count = 0
-    },
-  },
+      event?.preventDefault()
+      table.value.buildFlag(data)
+    }
+  
+const restart =  () => {
+      table.value.clear()
+      count.value = 0
 }
 </script>
 <template>
