@@ -1,7 +1,7 @@
-export const stringFormat = (str: string, ... args: string[]) => 
-    str.replace(/{(\d+)}/g,
-    (match, number) => typeof args[number] != 'undefined'? args[number]: match
-)
+export const stringFormat = (str: string, ...args: string[]) =>
+  str.replace(/{(\d+)}/g,
+    (match, number) => typeof args[number] != 'undefined' ? args[number] : match
+  )
 
 // LOCAL STORAGE
 export const LS_PersonalAnimals = 'PersonalAnimals'
@@ -16,4 +16,4 @@ export const doLogout = () => localStorage.removeItem(LS_AuthToken)
 
 export const setUserId = (userId: string) => localStorage.setItem(LS_UserId, userId)
 
-export const getUserId = (): string => localStorage.getItem(LS_UserId)
+export const getUserId = (): string | null => localStorage.getItem(LS_UserId)
