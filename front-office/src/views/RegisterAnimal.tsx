@@ -30,7 +30,14 @@ const RegisterAnimal = () => {
       age: age as number
     }
 
-    const response = await ApiRepository.registerAnimal([input], Helpers.getUserId())
+    const userId = Helpers.getUserId()
+    if (!userId) {
+      setIsError(true)
+      setError("Must be logged to do this operation")
+      return
+    }
+
+    const response = await ApiRepository.registerAnimal([input], userId)
     if (response.esit) {
       window.location.href = '/'
     } else {
@@ -95,7 +102,7 @@ const RegisterAnimal = () => {
                   <input
                     type="text"
                     name="age"
-                    onChange={(event) => setAge(event.target.value as number)}
+                    onChange={(event) => setAge(Number(event.target.value))}
                     id="age"
                     placeholder="age"
                     className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
