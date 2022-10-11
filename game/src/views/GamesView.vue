@@ -66,7 +66,7 @@ const gameList: Game[] = [
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col">
+  <div class="animate-in fade-in zoom-in duration-500 flex flex-1 flex-col">
     <div class="flex justify-center align-center lg:h-screen flex-wrap p-10 gap-10">
       <div
         v-for="game in gameList"

@@ -21,7 +21,7 @@ const Navbar = () => {
     setNar(!nav)
   }
   return (
-    <div className="">
+    <div         data-aos="fade-up"  data-aos-duration="1500" className="">
       <nav className="bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -37,28 +37,28 @@ const Navbar = () => {
                 <div className="ml-10 flex items-baseline space-x-4">
                   <span
                     style={{ backgroundColor: history.pathname === '/' ? 'indigo' : '' }}
-                    className=" text-white px-3 py-2 rounded-md text-sm font-medium active"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium active"
                   >
                     <Link to="/">Dashboard</Link>
                   </span>
 
                   <span
                     style={{ backgroundColor: history.pathname === '/service/' ? 'indigo' : '' }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/service/">Service</Link>
                   </span>
 
                   <span
                     style={{ backgroundColor: history.pathname === '/shopping/' ? 'indigo' : '' }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/shopping/">Shopping</Link>
                   </span>
 
                   <span
                     style={{ backgroundColor: history.pathname === '/community/' ? 'indigo' : '' }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     <Link to="/community/">Community</Link>
                   </span>
@@ -66,11 +66,11 @@ const Navbar = () => {
               </div>
             </div>
             <div className="hidden md:block z-20	">
-              <div className="ml-4 flex items-center md:ml-6">
+              <div className=" ml-4 flex items-center md:ml-6">
                 <Link to="/checkout/">
                   <button
                     type="button"
-                    className="bg-gray-800 p-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 bg-gray-800 p-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   >
                     <svg
                       className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"

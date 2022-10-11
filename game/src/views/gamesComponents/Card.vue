@@ -12,6 +12,7 @@ const props = defineProps({
 </style>
 <template>
   <div
+    data-aos="fade-up"
     v-bind:style="{ backgroundImage: 'url(' + props.image + ')' }"
     class="max-w-sm bg-white imageCover rounded-lg border border-gray-200 shadow-md dark:border-gray-700"
   >

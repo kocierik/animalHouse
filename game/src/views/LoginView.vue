@@ -50,7 +50,7 @@ const goToRegister = () => {
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-white animate-in fade-in zoom-in duration-500">
     <div class="flex justify-around p-8">
       <div
         class="hidden bg-cover lg:block lg:w-2/4"

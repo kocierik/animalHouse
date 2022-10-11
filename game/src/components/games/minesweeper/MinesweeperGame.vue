@@ -276,7 +276,7 @@ export default {
 }
 </script>
 <template>
-  <div id="field">
+  <div id="field" class="animate-in fade-in zoom-in duration-500">
     <p class="message p-10">Minesweeper's</p>
     <table class="flex justify-center p-2">
       <tbody>

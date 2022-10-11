@@ -141,7 +141,7 @@ export default {
 }
 </script>
 
-<template class="antialiased text-gray-700 bg-gray-100">
+<template class="animate-in fade-in zoom-in duration-500 antialiased text-gray-700 bg-gray-100">
   <div class="flex w-full h-screen justify-center items-center">
     <div class="w-full max-w-xl p-3 justify-center items-center">
       <div>

@@ -1,5 +1,5 @@
 <template>
-  <div id="gameHang">
+  <div id="gameHang" class="animate-in fade-in zoom-in duration-500">
     <div class="flex justify-center p-4">Guess the {{ currentWord.length }}-letter word</div>
     <div class="flex">
       <!-- A circular progress indicator -->
