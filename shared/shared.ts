@@ -8,3 +8,4 @@ export * as JsonUser from './src/json/user'
 export * as JsonAnimal from './src/json/animal'
 export * as Community from "./src/json/Community"
 export * as ProductMarked from "./src/json/ProductMarked"
+export * as JsonGames from "./src/json/Games"
