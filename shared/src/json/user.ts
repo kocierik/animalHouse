@@ -1,4 +1,4 @@
-import * as JsonAnimal from './animal'
+import type * as  JsonAnimal from './animal'
 
 export interface JsonRegistration {
   username: string,
