@@ -5,7 +5,7 @@ const Shopping = () => {
   const producs = ['food', 'health product', 'accessories', 'animal']
   return (
     <>
-      <div className="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+      <div data-aos="fade-up" data-aos-duration="1500" className="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
         <section className="bg-white py-8">
           <div className="container mx-auto justify-evenly	flex items-center flex-wrap pt-4 pb-12">
             <nav id="store" className="w-full  z-10 top-0 px-6 py-1">

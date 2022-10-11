@@ -136,7 +136,7 @@ const saveDbResult = () => {
 </script>
 
 <template>
-  <div class="flex justify-center h-full items-center">
+  <div class="animate-in fade-in zoom-in duration-500 flex justify-center h-full items-center">
     <div class="max-w-[500px] p-10">
       <GameScoreVue />
 

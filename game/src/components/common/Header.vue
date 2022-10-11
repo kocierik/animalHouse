@@ -5,7 +5,7 @@ import * as router from '@/router/index'
   <header>
     <!-- Background image -->
     <div
-      class="relative overflow-hidden bg-no-repeat bg-cover"
+      class="relative overflow-hidden bg-no-repeat bg-cover animate-in fade-in zoom-in duration-500"
       style="background-position: 50%; background-image: url('/homeHeader.jpg'); height: 95vh"
     >
       <div
