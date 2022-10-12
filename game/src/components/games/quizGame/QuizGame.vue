@@ -1,134 +1,151 @@
-<script lang="ts">
-import { ref } from 'vue'
+<script lang="ts" setup>
 import { Questions } from './utility'
 import type { Question } from './utility'
-import { Api } from 'shared'
+import { Api, Helpers } from 'shared'
 import swal from 'sweetalert'
+import { ref, onBeforeMount } from 'vue'
+import { GameConstant, ApiRepository } from 'shared'
 
-export default {
-  data() {
-    return {
-      fetchDone: false as boolean,
-      idx: 0 as number,
-      selectedAnswer: '' as string,
-      correctAnswers: 0 as number,
-      wrongAnswers: 0 as number,
-      count: 5 as number,
-      difficulty: 'medium' as string,
-      questions: Questions as Question[],
-    }
-  },
-  methods: {
-    async getQuestion() {
+      let fetchDone = ref( false)
+      let idx = ref( 0)
+      let selectedAnswer = ref( '')
+      let correctAnswers = ref( 0)
+      let wrongAnswers = ref( 0)
+      let count = ref( 5)
+      let difficulty = ref('medium')
+      let questions = ref( Questions)
+      let gameState = ref(null)
+      let items = ref([])
+
+    const  getQuestion = async () => {
       // get questions for quiz
-      let response = await Api.get(
-        'https://opentdb.com/api.php?amount=' + this.count + '&category=27&type=multiple&difficulty=' + this.difficulty
+      let response = await Api.get<any>(
+        'https://opentdb.com/api.php?amount=' + count.value + '&category=27&type=multiple&difficulty=' + difficulty.value
       )
       if (response.esit) {
         //adjust every question
-        for (let i = 0; i < this.count; i++) {
+        for (let i = 0; i < count.value; i++) {
           let q = response.data.results[i]
 
-          this.questions[i].question = q.question // set questions
+          questions.value[i].question = q.question // set questions
           switch (Math.floor(Math.random() * 4)) {
-          case 0:
-            this.questions[i].answers[0] = q.correct_answer
-            this.questions[i].answers[1] = q.incorrect_answers.shift()
-            this.questions[i].answers[2] = q.incorrect_answers.shift()
-            this.questions[i].answers[3] = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 0
-            break
-          case 1:
-            this.questions[i].answers[0] = q.incorrect_answers.shift()
-            this.questions[i].answers[1] = q.correct_answer
-            this.questions[i].answers[2] = q.incorrect_answers.shift()
-            this.questions[i].answers[3] = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 1
-            break
-          case 2:
-            this.questions[i].answers[0] = q.incorrect_answers.shift()
-            this.questions[i].answers[1] = q.incorrect_answers.shift()
-            this.questions[i].answers[2] = q.correct_answer
-            this.questions[i].answers[3] = q.incorrect_answers.shift()
-            this.questions[i].correctAnswer = 2
-            break
-          case 3:
-            this.questions[i].answers[0] = q.incorrect_answers.shift()
-            this.questions[i].answers[1] = q.incorrect_answers.shift()
-            this.questions[i].answers[2] = q.incorrect_answers.shift()
-            this.questions[i].answers[3] = q.correct_answer
-            this.questions[i].correctAnswer = 3
-            break
+            case 0:
+              questions.value[i].answers[0] = q.correct_answer
+              questions.value[i].answers[1] = q.incorrect_answers.shift()
+              questions.value[i].answers[2] = q.incorrect_answers.shift()
+              questions.value[i].answers[3] = q.incorrect_answers.shift()
+              questions.value[i].correctAnswer = 0
+              break
+            case 1:
+              questions.value[i].answers[0] = q.incorrect_answers.shift()
+              questions.value[i].answers[1] = q.correct_answer
+              questions.value[i].answers[2] = q.incorrect_answers.shift()
+              questions.value[i].answers[3] = q.incorrect_answers.shift()
+              questions.value[i].correctAnswer = 1
+              break
+            case 2:
+              questions.value[i].answers[0] = q.incorrect_answers.shift()
+              questions.value[i].answers[1] = q.incorrect_answers.shift()
+              questions.value[i].answers[2] = q.correct_answer
+              questions.value[i].answers[3] = q.incorrect_answers.shift()
+              questions.value[i].correctAnswer = 2
+              break
+            case 3:
+              questions.value[i].answers[0] = q.incorrect_answers.shift()
+              questions.value[i].answers[1] = q.incorrect_answers.shift()
+              questions.value[i].answers[2] = q.incorrect_answers.shift()
+              questions.value[i].answers[3] = q.correct_answer
+              questions.value[i].correctAnswer = 3
+              break
           }
         }
-        this.fetchDone = true
-        this.showQuiz()
+        fetchDone.value = true
+        showQuiz()
       }
-    },
-    swap(first, second) {
+    }
+
+    const swap = (first: any, second: any) => {
       const tmp = first
       first = second
       second = tmp
-    },
-    answered(e) {
-      this.selectedAnswer = e.target.value
-      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = 'lightgreen'
-      if (this.selectedAnswer == this.questions[this.idx].correctAnswer) {
-        this.correctAnswers++
+    } 
+
+    const answered = (e: any) => {
+      selectedAnswer.value = e.target.value
+      items.value[questions.value[idx.value].correctAnswer].style.backgroundColor = 'lightgreen'
+      if (selectedAnswer.value == questions.value[idx.value].correctAnswer) {
+        correctAnswers.value++
       } else {
-        this.wrongAnswers++
+        wrongAnswers.value++
       }
-    },
-    nextQuestion() {
-      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
-      this.idx++
-      this.selectedAnswer = ''
+    }
+
+    const nextQuestion = () => {
+      items.value[questions.value[idx.value].correctAnswer].style.backgroundColor = ''
+      idx.value++
+      selectedAnswer.value = ''
       document.querySelectorAll('input').forEach((el) => (el.checked = false))
-    },
-    showResults() {
-      this.$refs.items[this.questions[this.idx].correctAnswer].style.backgroundColor = ''
-      // const msg = `Correct Answers: ${this.correctAnswers}  \n\n  Wrong Answers: ${this.wrongAnswers} `
-      swal({
-        title: 'Good job!',
-        text: `You have response correctly to ${this.correctAnswers} answers! Do you want save your record?`,
-        icon: 'warning',
-        buttons: true,
-        dangerMode: false,
-      }).then((willSave) => {
-        if (willSave) {
-          // putUserScore()
-          swal('Poof! Your record is saved!', {
-            icon: 'success',
-          })
-        } else {
-          swal('Your record is NOT saved!')
-        }
-      })
-      // swal('Good job!', msg, 'success')
-      this.resetQuiz()
-      this.getQuestion()
-      // this.idx++
-    },
-    resetQuiz() {
-      this.idx = 0
-      this.selectedAnswer = ''
-      this.correctAnswers = 0
-      this.wrongAnswers = 0
-      this.questions = Questions
-      this.fetchAPIData = false
-      this.getQuestion()
-    },
-    showQuiz() {
-      this.$refs.gameState.style.visibility = 'visible'
-    },
-  },
-  beforeMount() {
-    this.getQuestion()
-  },
-}
+    }
+
+    const showResults = () => {
+      items.value[questions.value[idx.value].correctAnswer].style.backgroundColor = ''
+      // const msg = `Correct Answers: ${correctAnswers.value}  \n\n  Wrong Answers: ${wrongAnswers.value} `
+      const points = correctAnswers.value
+      if (Helpers.isLogged()) {
+        swal({
+          title: 'Good job!',
+          text: `You have response correctly to ${correctAnswers.value} answers! Do you want save your record?`,
+          icon: 'warning',
+          buttons: [true],
+          dangerMode: false,
+        }).then(async (willSave) => {
+          if (willSave) {
+            let totalScore = {
+              gameId: GameConstant.QUIZGAME,
+              score: points,
+            }
+            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+            console.log(response)
+            swal('Poof! Your record is saved!', {
+              icon: 'success',
+            })
+          } else {
+            swal('Your record is NOT saved!')
+          }
+        })
+      } else {
+        swal({
+          title: 'Good job!',
+          text: `You have response correctly to ${correctAnswers.value} answers!`,
+          icon: 'warning',
+          dangerMode: false,
+        })
+      }
+      resetQuiz()
+      getQuestion()
+    }
+
+    const resetQuiz = () => {
+      idx.value = 0
+      selectedAnswer.value = ''
+      correctAnswers.value = 0
+      wrongAnswers.value = 0
+      questions.value = Questions
+      //fetchAPIData.value = false
+      getQuestion()
+    }
+    const showQuiz = () => {
+      gameState.value.style.visibility = 'visible'
+    }
+  
+  onBeforeMount(() => {
+    getQuestion()
+  }
+  )
+
 </script>
 
-<template class="antialiased text-gray-700 bg-gray-100">
+<template class="animate-in fade-in zoom-in duration-500 antialiased text-gray-700 bg-gray-100">
   <div class="flex w-full h-screen justify-center items-center">
     <div class="w-full max-w-xl p-3 justify-center items-center">
       <div>
@@ -139,7 +156,7 @@ export default {
             <label
               v-for="(answer, index) in questions[idx].answers"
               :key="index"
-              :for="index"
+              :for=index
               ref="items"
               class="block cursor-pointer mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg"
               :class="{ 'bg-red-200': selectedAnswer == index }"

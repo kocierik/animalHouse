@@ -5,7 +5,7 @@ interface IProductCategory {
 }
 
 const productCategorySchema = new Schema<IProductCategory>({
-  name: {type: String, required: true}
+  name: { type: String, required: true },
 })
 
 const ProductCategory = model<IProductCategory>('ProductCategory', productCategorySchema)

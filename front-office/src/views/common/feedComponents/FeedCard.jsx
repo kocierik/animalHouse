@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import avatar from '../assets/imageprofile.jpg'
 import PostHeader from './PostHeader'
 import LikeCommentButtons from './LikeCommentButtons'
 import CommentFeed from './CommentFeed'
@@ -43,7 +42,10 @@ const FeedCard = (props) => {
   return (
     <>
       {/* Card Base */}
-      <div className="flex-row p-1 mb-14 container max-w-md sm:max-w-xl h-auto rounded-lg shadow-md bg-gray-50 m-2">
+      <div
+        data-aos="fade-up"
+        className="flex-row p-1 mb-14 container max-w-md sm:max-w-xl h-auto rounded-lg shadow-md bg-gray-50 m-2"
+      >
         {/* Top Fourth - Avatar & User/Post Info */}
         <PostHeader name={props.name} location={props.location} timestamp={props.timestamp} />
 
@@ -79,7 +81,7 @@ const FeedCard = (props) => {
               }
             >
               <img
-                src={avatar}
+                src="/imageprofile.png"
                 className="rounded-full flex-initial max-h-8 w-8 sm:max-h-10 sm:w-10"
                 alt="User profile"
               />

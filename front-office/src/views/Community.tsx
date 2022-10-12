@@ -1,33 +1,29 @@
 import React, { useCallback, useState } from 'react'
 import DropDown from './common/DropDown'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 import Rawtable from './common/communityComponents/Rawtable'
-import { ApiRepository } from 'shared';
-import useEffect from 'react';
+import { ApiRepository } from 'shared'
+import useEffect from 'react'
 import { Community } from 'shared'
 
-
-const CommunityPage =  () => {
+const CommunityPage = () => {
   const [usersData, setUsersData] = useState<Community.IGameValues[]>([])
-  
-  const handlePromise = async () =>{
-     if((await ApiRepository.getUserScore()).esit){
-      const val =  (await ApiRepository.getUserScore()).data! as Community.IGameValues[] // CONTROLLA
+
+  const handlePromise = async () => {
+    if ((await ApiRepository.getUserScore()).esit) {
+      const val = (await ApiRepository.getUserScore()).data! as Community.IGameValues[] // CONTROLLA
       setUsersData(val!)
       console.log(val!)
     }
   }
 
-  React.useEffect(() =>{  
+  React.useEffect(() => {
     handlePromise()
-  },[])
+  }, [])
 
   const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
 
   return (
-    <div className="h-full">
-      <Navbar />
+    <div className="h-full" data-aos="fade-up" data-aos-duration="1500">
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
@@ -51,18 +47,27 @@ const CommunityPage =  () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                  usersData.map(games => games.scores.map(user => {
-                    return <Rawtable name={user.username} key={user.userId} points={user.score[user.score.length-1]} data={user.username} game={games.gameName} />
-                  }))  
-                  }
+                  {usersData.map((games) =>
+                    games.scores.map((user) => {
+                      return user.score.map((value) => {
+                        return (
+                          <Rawtable
+                            name={user.username}
+                            key={value}
+                            points={value}
+                            data={user.username}
+                            game={games.gameName}
+                          />
+                        )
+                      })
+                    })
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

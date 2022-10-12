@@ -1,13 +1,9 @@
 import React from 'react'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 
 const Service = () => {
   return (
-    <div>
-      <Navbar />
+    <div data-aos="zoom-in" data-aos-duration="1500">
       Service
-      <Footer />
     </div>
   )
 }

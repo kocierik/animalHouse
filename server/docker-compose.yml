@@ -12,3 +12,8 @@ services:
           - ./mongo-volume:/data/db
       ports:
           - '27017-27019:27017-27019'
+  swagger:
+    image: 'swaggerapi/swagger-editor'
+    ports:
+          - '8081:8080'
+
