@@ -304,7 +304,7 @@ paths:
     get:
         tags:
         - community
-        summary: Fids all games
+        summary: Finds all games
         responses:
           200:
             description: successful operation
@@ -354,11 +354,17 @@ paths:
                           items:
                             type: number
   
-  /market/product/:
+  /market/products/{id}:
     get:
         tags:
         - market
-        summary: Fids all products
+        summary: Searches the specified product
+        parameters:
+          - in: path
+            name: id
+            type: string
+            required: true
+            description: Id of the product to be searched
         responses:
           200:
             description: successful operation
@@ -366,6 +372,47 @@ paths:
               type: array
               items:
                 $ref: "#/definitions/Product"
+    delete:
+      tags:
+      - market
+      summary: Deletes a product based on the received id
+      parameters: 
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the product to be deleted
+      responses:
+        200:
+          description: successful operation
+
+  /market/products:
+    post:
+        tags:
+        - market
+        summary: Creates a new product
+        parameters:
+          - in: body
+            name: body
+            description: UserCreation
+            required: true
+            schema:
+              type: object
+              properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+                  email:
+                    type: string
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+        responses:
+          200:
+            description: Success
+
             
 securityDefinitions:  
   JWT:  
