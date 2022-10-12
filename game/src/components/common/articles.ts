@@ -31,7 +31,7 @@ export const productArticles: Article[] = [
   {
     id: 3,
     price: 400,
-    name: 'FABIO',
+    name: 'GABRIELE',
     description: 'MAN',
     image: 'https://pixabay.com/it/illustrations/on-line-internet-icona-simboli-www-942408/',
   },

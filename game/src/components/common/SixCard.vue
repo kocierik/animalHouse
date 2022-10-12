@@ -1,9 +1,15 @@
 <template>
-  <div id="services" class="section relative pt-20 pb-8 md:pt-16 md:pb-0 bg-white">
+  <div
+    id="services"
+    data-aos="zoom-in"
+    data-aos-easing="linear"
+    data-aos-duration="1500"
+    class="section relative pt-20 pb-8 md:pt-16 md:pb-0 bg-white"
+  >
     <div class="container xl:max-w-6xl mx-auto px-4">
       <!-- Heading start -->
       <header class="text-center mx-auto mb-12 lg:px-20">
-        <h2 class="text-2xl leading-normal mb-2 font-bold text-black">What We Do</h2>
+        <h2 class="text-3xl leading-normal mb-2 font-black text-black">What We Do</h2>
         <svg
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +58,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -82,7 +88,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -115,7 +121,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -147,7 +153,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -180,7 +186,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->
@@ -210,7 +216,7 @@
         >
           <!-- service block -->
           <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2"
+            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
           >
             <div class="inline-block text-gray-900 mb-4">
               <!-- icon -->

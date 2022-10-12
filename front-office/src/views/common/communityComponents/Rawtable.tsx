@@ -2,7 +2,7 @@ import React from 'react'
 
 const Rawtable = (props: { name: string; points: number; data: string; game: string }) => {
   return (
-    <tr>
+    <tr className="hover:-translate-y-1 hover:scale-100 duration-300">
       <td className="px-5 text-center py-5 border-b border-gray-200 bg-white text-sm ">
         <div className="ml-3">
           <p className="text-gray-900 whitespace-no-wrap">{props.name}</p>

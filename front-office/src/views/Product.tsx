@@ -1,9 +1,7 @@
-import React from "react"
+import React from 'react'
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
-import Footer from './common/Footer'
-import Navbar from './common/Navbar'
 import Reviewer from './common/shoppingComponents/Reviewer'
 
 const product = {
@@ -81,7 +79,6 @@ export default function Example() {
 
   return (
     <>
-      <Navbar />
       <div className="bg-white">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
@@ -89,9 +86,9 @@ export default function Example() {
               {product.breadcrumbs.map((breadcrumb) => (
                 <li key={breadcrumb.id}>
                   <div className="flex items-center">
-                    <span href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
+                    <a ref={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
                       {breadcrumb.name}
-                    </span>
+                    </a>
                     <svg
                       width={16}
                       height={20}
@@ -320,7 +317,6 @@ export default function Example() {
           <Reviewer />
         </div>
       </div>
-      <Footer />
     </>
   )
 }

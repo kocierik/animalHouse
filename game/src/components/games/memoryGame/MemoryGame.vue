@@ -5,6 +5,10 @@ import type { Card } from './utility/cards'
 import cards from './utility/cards'
 import swal from 'sweetalert'
 import { ref } from 'vue'
+import { GameConstant, ApiRepository } from 'shared'
+
+import { Helpers } from 'shared'
+
 let selectOne: Card = defaultCard
 let selectTwo: Card = defaultCard
 let result: Card[]
@@ -32,12 +36,11 @@ const resume = (): void => {
     x.bg = defaultCard.bg
     x.view = 'visible'
   })
-  moves.value = 0
 
   cards.value = cards.value.sort(() => Math.random() - 0.5)
 }
 
-const checkCard = (card: Card): void => {
+const checkCard = async (card: Card): void => {
   moves.value++
   console.log(moves.value)
   if (selectOne == defaultCard) {
@@ -60,6 +63,8 @@ const checkCard = (card: Card): void => {
     result = []
   }
   if (result.length > 1) {
+    await new Promise((r) => setTimeout(r, 1500))
+
     if (result[0].firstName == result[1].firstName) {
       cards.value.filter((x) => {
         if (result[0] == x || result[1] == x) {
@@ -68,22 +73,41 @@ const checkCard = (card: Card): void => {
         }
       })
       if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
-        swal({
-          title: 'Good job!',
-          text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
-          icon: 'warning',
-          buttons: true,
-          dangerMode: false,
-        }).then((willSave) => {
-          if (willSave) {
-            // putUserScore()
-            swal('Poof! Your record is saved!', {
-              icon: 'success',
-            })
-          } else {
-            swal('Your record is NOT saved!')
-          }
-        })
+        let points = moves.value
+        if (Helpers.isLogged()) {
+          swal({
+            title: 'Good job!',
+            text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: false,
+          }).then(async (willSave) => {
+            if (willSave) {
+              console.log(points)
+              let totalScore = {
+                gameId: GameConstant.MEMORYGAME,
+                score: moves.value,
+              }
+              let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+              console.log(response)
+              moves.value = 0
+
+              swal('Poof! Your record is saved!', {
+                icon: 'success',
+              })
+            } else {
+              swal('Your record is NOT saved!')
+              moves.value = 0
+            }
+          })
+        } else {
+          swal({
+            title: 'Good job!',
+            text: `You found all the couples in ${moves.value} tries!`,
+            icon: 'warning',
+            dangerMode: false,
+          })
+        }
         resume()
       }
     }
@@ -93,7 +117,7 @@ const checkCard = (card: Card): void => {
 </script>
 
 <template>
-  <section class="main">
+  <section class="main animate-in fade-in zoom-in duration-500">
     <div class="flex p-10">
       <a
         class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"

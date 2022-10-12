@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node out/index.js",
     "dev": "nodemon out/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "eslint --fix & prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,6 @@
     "mongoose": "^6.3.3",
     "nodemon": "^2.0.16",
     "npm": "^8.10.0",
-    "server-static": "^2.0.5"
+    "prettier": "^2.6.2"
   }
 }

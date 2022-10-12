@@ -3,7 +3,6 @@ import PostCard from './common/feedComponents/PostCard'
 import FeedCard from './common/feedComponents/FeedCard'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import Footer from './common/Footer'
 
 function Feed() {
   const [posts, setPosts] = useState(getInitialPosts())
@@ -134,7 +133,12 @@ function Feed() {
 
   return (
     <>
-      <div id="main" className="mb-5 mt-5 flex flex-1 flex-col p-5 items-center">
+      <div
+        id="main"
+        data-aos="zoom-in"
+        data-aos-duration="1500"
+        className="mb-5 mt-5 flex flex-1 flex-col p-5 items-center"
+      >
         <PostCard addPostProps={addPostToFeed} />
         {posts.map(
           (data: {
@@ -167,7 +171,6 @@ function Feed() {
           }
         )}
       </div>
-      <Footer />
     </>
   )
 }

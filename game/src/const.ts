@@ -1,1 +1,1 @@
-export const FRONTOFFICE = "localhost:3000"
+export const FRONTOFFICE = 'http://localhost:3000'
