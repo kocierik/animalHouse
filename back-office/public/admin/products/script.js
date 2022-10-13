@@ -1,5 +1,5 @@
-function retrieveProduct(target, id) { //leave id blank to retrieve all products
-    var url = "/v1/market/products/" + id;
+function retrieveProducts(target) {
+    var url = "/v1/market/products/";
     fetch(url).then((response) => response.json()).then((data) => {
         $(target).text("");
 
@@ -15,7 +15,7 @@ function itemRemove(id) {
             type: 'DELETE',
             success: function (result) {
                 //alert(result);
-                retrieveProduct('#itemList', "");
+                retrieveProducts('#itemList');
             }
         });
     }
@@ -24,10 +24,10 @@ function itemRemove(id) {
 //item template
 const Item = ({ img, name, price, id }) => `
 <tr>
-    <td class="p-2 py-4 border-b border-solid border-gray-300">
+    <td class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
-            <div class="mr-4 h-12 w-12 bg-red-600 rounded-full block flex flex-row justify-center items-center text-white">
-                <img src="${img}"></div>
+            <div class="mr-4 h-16 w-16 block flex flex-row justify-center items-center text-white">
+                <img class="rounded-lg" src="${img}"></div>
             <div class="text-gray-700">${name}</div>
             <div class="text-gray-700">${price}</div>
         </div>
@@ -42,5 +42,5 @@ const Item = ({ img, name, price, id }) => `
 `;
 
 $(document).ready(function () {
-    retrieveProduct('#itemList', "");
+    retrieveProducts('#itemList');
 });
