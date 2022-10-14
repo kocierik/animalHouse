@@ -1,7 +1,15 @@
 <script lang="ts" setup>
 import type { Article } from './articles'
+import { ref } from 'vue'
 
 const props = defineProps<{ params: Article }>()
+
+let rotateimg = ref(false)
+let counter = ref("")
+
+const plus = () => { /*TODO*/ }
+const rotate = () => { /*TODO*/ }
+const minus = () => { /*TODO*/ }
 </script>
 <template>
   <div class="overflow-hidden dark:bg-gray-200">

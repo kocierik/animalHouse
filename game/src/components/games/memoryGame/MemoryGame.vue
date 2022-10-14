@@ -14,7 +14,7 @@ let selectTwo: Card = defaultCard
 let result: Card[]
 let moves = ref(0)
 const resetValue = (): void => {
-  cards.value.map((x) => {
+  cards.value.forEach(x => {
     x.selected = false
     x.opacity = 1
     x.bg = defaultCard.bg
@@ -30,7 +30,7 @@ const findIt = (x: Card): void => {
 }
 
 const resume = (): void => {
-  cards.value.map((x) => {
+  cards.value.forEach((x) => {
     x.selected = false
     x.opacity = 1
     x.bg = defaultCard.bg
@@ -40,7 +40,7 @@ const resume = (): void => {
   cards.value = cards.value.sort(() => Math.random() - 0.5)
 }
 
-const checkCard = async (card: Card): void => {
+const checkCard = async (card: Card): Promise<void> => {
   moves.value++
   console.log(moves.value)
   if (selectOne == defaultCard) {
@@ -53,7 +53,7 @@ const checkCard = async (card: Card): void => {
     card.selected = true
     selectTwo = card
   }
-  result = cards.value.filter((x) => x.selected == true)
+  result = cards.value.filter(x => x.selected === true)
   if (selectOne == selectTwo) {
     card.opacity = 1
     selectOne = defaultCard
@@ -79,7 +79,7 @@ const checkCard = async (card: Card): void => {
             title: 'Good job!',
             text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
             icon: 'warning',
-            buttons: true,
+            buttons: [true],
             dangerMode: false,
           }).then(async (willSave) => {
             if (willSave) {
@@ -88,7 +88,10 @@ const checkCard = async (card: Card): void => {
                 gameId: GameConstant.MEMORYGAME,
                 score: moves.value,
               }
-              let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+              const userId =  Helpers.getUserId()
+              if (!userId)
+                return
+              let response = await ApiRepository.putUserScore(totalScore, userId)
               console.log(response)
               moves.value = 0
 

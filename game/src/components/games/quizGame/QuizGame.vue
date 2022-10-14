@@ -1,21 +1,19 @@
 <script lang="ts" setup>
 import { Questions } from './utility'
-import type { Question } from './utility'
-import { Api, Helpers } from 'shared'
+import { Api, Helpers, GameConstant, ApiRepository, JsonGames} from 'shared'
 import swal from 'sweetalert'
 import { ref, onBeforeMount } from 'vue'
-import { GameConstant, ApiRepository } from 'shared'
 
-      let fetchDone = ref( false)
-      let idx = ref( 0)
-      let selectedAnswer = ref( '')
-      let correctAnswers = ref( 0)
-      let wrongAnswers = ref( 0)
-      let count = ref( 5)
-      let difficulty = ref('medium')
-      let questions = ref( Questions)
-      let gameState = ref(null)
-      let items = ref([])
+  let fetchDone = ref( false)
+  let idx = ref( 0)
+  let selectedAnswer = ref( '')
+  let correctAnswers = ref( 0)
+  let wrongAnswers = ref( 0)
+  let count = ref( 5)
+  let difficulty = ref('medium')
+  let questions = ref( Questions)
+  let gameState = ref<any>(null)
+  let items = ref<any>([])
 
     const  getQuestion = async () => {
       // get questions for quiz
@@ -100,11 +98,13 @@ import { GameConstant, ApiRepository } from 'shared'
           dangerMode: false,
         }).then(async (willSave) => {
           if (willSave) {
-            let totalScore = {
+            let totalScore : JsonGames.IGameResult = {
               gameId: GameConstant.QUIZGAME,
               score: points,
-            }
-            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+            } 
+            const userId =  Helpers.getUserId()
+            if (!userId) return
+            let response = await ApiRepository.putUserScore(totalScore, userId)
             console.log(response)
             swal('Poof! Your record is saved!', {
               icon: 'success',
@@ -154,7 +154,7 @@ import { GameConstant, ApiRepository } from 'shared'
           <div v-if="idx < count">
             <p class="text-2xl font-bold" v-html="questions[idx]['question']"></p>
             <label
-              v-for="(answer, index) in questions[idx].answers"
+              v-for="[answer, index] in questions[idx].answers"
               :key="index"
               :for=index
               ref="items"
