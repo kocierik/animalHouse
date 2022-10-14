@@ -10,9 +10,9 @@ const changeColorNav = (id: string) => {
 
   document.addEventListener('click', function () {
     dict.forEach((element) => {
-      document.getElementById(element.name).style.backgroundColor = 'white'
+      document.getElementById(element.name)!.style.backgroundColor = 'white'
     })
-    document.getElementById(id).style.backgroundColor = '#eafff1'
+    document.getElementById(id)!.style.backgroundColor = '#eafff1'
   })
 }
 

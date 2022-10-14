@@ -31,7 +31,6 @@
 </template>
 
 <script lang="ts" setup>
-import Chip from '@/components/common/Chip.vue'
 import { ApiRepository, Helpers } from 'shared'
 import { onBeforeMount, ref } from 'vue'
 
@@ -46,9 +45,9 @@ const animals = ref<AnimalChip[]>([])
 onBeforeMount(async () => {
   let codes = await ApiRepository.getAnimalCode()
   if (codes.esit) {
-    animals.value = codes.data.map((element) => {
+    animals.value = codes.data!.map((element) => {
       return {
-        name: element.value,
+        name: element.value as string,
         click: () => {
           animals.value[element.code].selected = !animals.value[element.code].selected
         },

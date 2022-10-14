@@ -10,8 +10,7 @@
         id="carousel-1"
         name="carousel"
         aria-hidden="true"
-        hidden=""
-        checked="checked"
+        checked="true"
       />
       <div class="carousel-item absolute opacity-0" style="height: 50vh">
         <div class="block h-full w-full bg-indigo-500 text-white text-5xl text-center">
@@ -38,7 +37,7 @@
       >
 
       <!--Slide 2-->
-      <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="" />
+      <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" />
       <div class="carousel-item absolute opacity-0" style="height: 50vh">
         <div class="block h-full w-full bg-orange-500 text-white text-5xl text-center">
           <div
@@ -63,7 +62,7 @@
       >
 
       <!--Slide 3-->
-      <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="" />
+      <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" />
       <div class="carousel-item absolute opacity-0" style="height: 50vh">
         <div class="block h-full w-full bg-green-500 text-white text-5xl text-center">
           <div

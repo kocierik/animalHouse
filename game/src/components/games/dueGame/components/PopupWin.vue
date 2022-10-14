@@ -20,11 +20,11 @@ import { state } from '../store'
 import party from 'party-js'
 
 const confetti = ref(null)
-let partyjsTimer = null
+let partyjsTimer :any = null
 
 onMounted(() => {
   partyjsTimer = setInterval(() => {
-    party.confetti(confetti.value, {
+    party.confetti(confetti.value!, {
       count: party.variation.range(20, 50),
     })
   }, 750)

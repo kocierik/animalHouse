@@ -34,7 +34,7 @@
 import { ref, watch } from 'vue'
 import { state } from '../store'
 
-const animate = ref([])
+const animate = ref<{id: number, v: number}[]>([])
 
 let uid = 0
 

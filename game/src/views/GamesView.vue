@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
-import Card from './gamesComponents/Card.vue'
-import { createToaster } from '@meforma/vue-toaster'
+import { createToaster } from  "@meforma/vue-toaster"
 import { Helpers } from 'shared'
 const toaster = createToaster({
   /* options */

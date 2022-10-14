@@ -2,7 +2,7 @@
 import { Helpers, GameConstant, ApiRepository } from 'shared'
 import { ref } from 'vue'
 import swal from 'sweetalert'
-import { JsonGames } from 'shared'
+import type { JsonGames } from 'shared'
 
 class Cell {
   public hasBomb: boolean
@@ -14,7 +14,7 @@ class Cell {
   public isFinished: boolean
   public neighborhood: any[]
 
-  constructor(row, column) {
+  constructor(row: number, column: number) {
     this.hasBomb = false
     this.position = {
       row: row,
@@ -27,10 +27,14 @@ class Cell {
     this.isFinished = false
     this.neighborhood = []
   }
-  update(dataObj) {
-    for (var variable in dataObj) {
-      this[variable] = dataObj[variable]
-    }
+  update(dataObj: any) {
+  if (dataObj.bomCount) this.bomCount = dataObj.bomCount
+  if (dataObj.isOpen) this.isOpen = dataObj.isOpen
+  if (dataObj.hasFlag) this.hasFlag = dataObj.hasFlag
+  if (dataObj.bombing) this.bombing = dataObj.bombing
+  if (dataObj.isFinished) this.isFinished = dataObj.isFinished
+  if (dataObj.neighborhood) this.neighborhood = dataObj.neighborhood
+  if (dataObj.position) this.position = dataObj.position
   }
 }
 
@@ -74,7 +78,7 @@ class Table {
       }
     }
   }
-  createBomb(position) {
+  createBomb(position: any) {
     var bombIndexes = []
     for (var i = 0; i < this.bombLength; i++) {
       var randomRow = position.row
@@ -110,7 +114,7 @@ class Table {
     this.isFinished = true
     swal('Oh no!', `You lose in ${this.try} moves`, 'warning')
   }
-  changeCellState(clickedCell) {
+  changeCellState(clickedCell: any) {
     this.applayOpenState(clickedCell)
     if (this.isBombCell(clickedCell)) {
       this.changeTableStateToBomb()
@@ -130,7 +134,7 @@ class Table {
       return false
     }
   }
-  checkNeighborhood(clickedCell) {
+  checkNeighborhood(clickedCell: any) {
     if (clickedCell.bomCount === 0) {
       for (var i = 0; i < clickedCell.neighborhood.length; i++) {
         if (!clickedCell.neighborhood[i].isOpen) {
@@ -142,7 +146,7 @@ class Table {
       }
     }
   }
-  getNeighborhood(position) {
+  getNeighborhood(position: any) {
     var neighborhood = []
     for (var i = position.row - 1; i < position.row + 2; i++) {
       for (var j = position.column - 1; j < position.column + 2; j++) {
@@ -156,7 +160,7 @@ class Table {
     }
     return neighborhood
   }
-  getbomCount(neighborhood) {
+  getbomCount(neighborhood: any) {
     var count = 0
     for (var i = 0; i < neighborhood.length; i++) {
       if (neighborhood[i]) {
@@ -167,7 +171,7 @@ class Table {
     }
     return count
   }
-  applayOpenState(clickedCell) {
+  applayOpenState(clickedCell : any) {
     this.cells[clickedCell.position.row][clickedCell.position.column].update({
       isOpen: true,
     })
