@@ -17,7 +17,7 @@ f.value = await getAnimalPicture(AnimalType.Koala)
 export interface Card {
   firstName?: string
   id?: number
-  view?: boolean,
+  view?: boolean
   bg?: string
   selected?: boolean
   opacity?: number

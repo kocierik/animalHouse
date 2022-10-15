@@ -21,23 +21,27 @@ const onKeyDown = (e: KeyboardEvent) => {
     return false
   }
   const modifiers = e.altKey || e.ctrlKey || e.metaKey || e.shiftKey
-  const mapped : number= keysMap(e.which)
+  const mapped: number = keysMap(e.which)
   if (!modifiers && mapped !== undefined) {
     e.preventDefault()
     move(mapped)
   }
 }
 
-interface TouchStartPos { x: number|null, y :number|null, started: boolean}
+interface TouchStartPos {
+  x: number | null
+  y: number | null
+  started: boolean
+}
 
-const touchStartPos:TouchStartPos = { x: null, y: null, started: false }
-const onTouchStart = (e: { touches: { clientY: number, clientX : number }[]; preventDefault: () => void }) => {
+const touchStartPos: TouchStartPos = { x: null, y: null, started: false }
+const onTouchStart = (e: { touches: { clientY: number; clientX: number }[]; preventDefault: () => void }) => {
   touchStartPos.x = e.touches[0].clientX
   touchStartPos.y = e.touches[0].clientY
   touchStartPos.started = true
   e.preventDefault()
 }
-const onTouchMove = (e: { preventDefault: () => void; changedTouches: { clientY: number, clientX: number }[] }) => {
+const onTouchMove = (e: { preventDefault: () => void; changedTouches: { clientY: number; clientX: number }[] }) => {
   if (!touchStartPos.started) {
     return
   }
@@ -104,9 +108,8 @@ const saveDbResult = () => {
           swal('Poof! Your record is saved!', {
             icon: 'success',
           }).then(async () => {
-            let userId =  Helpers.getUserId()
-            if (!userId)
-              return
+            let userId = Helpers.getUserId()
+            if (!userId) return
             let response = await ApiRepository.putUserScore(totalScore, userId)
             console.log(response)
             document.location.reload()
