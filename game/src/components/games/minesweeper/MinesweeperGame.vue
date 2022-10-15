@@ -28,13 +28,13 @@ class Cell {
     this.neighborhood = []
   }
   update(dataObj: any) {
-  if (dataObj.bomCount) this.bomCount = dataObj.bomCount
-  if (dataObj.isOpen) this.isOpen = dataObj.isOpen
-  if (dataObj.hasFlag) this.hasFlag = dataObj.hasFlag
-  if (dataObj.bombing) this.bombing = dataObj.bombing
-  if (dataObj.isFinished) this.isFinished = dataObj.isFinished
-  if (dataObj.neighborhood) this.neighborhood = dataObj.neighborhood
-  if (dataObj.position) this.position = dataObj.position
+    if (dataObj.bomCount) this.bomCount = dataObj.bomCount
+    if (dataObj.isOpen) this.isOpen = dataObj.isOpen
+    if (dataObj.hasFlag) this.hasFlag = dataObj.hasFlag
+    if (dataObj.bombing) this.bombing = dataObj.bombing
+    if (dataObj.isFinished) this.isFinished = dataObj.isFinished
+    if (dataObj.neighborhood) this.neighborhood = dataObj.neighborhood
+    if (dataObj.position) this.position = dataObj.position
   }
 }
 
@@ -171,7 +171,7 @@ class Table {
     }
     return count
   }
-  applayOpenState(clickedCell : any) {
+  applayOpenState(clickedCell: any) {
     this.cells[clickedCell.position.row][clickedCell.position.column].update({
       isOpen: true,
     })
@@ -199,7 +199,8 @@ class Table {
         }).then(async (willSave) => {
           if (willSave) {
             const userId = Helpers.getUserId()
-            if (!userId) // TODO segnalare errore
+            if (!userId)
+              // TODO segnalare errore
               return
             const totalScore = {
               userId: userId,
@@ -269,27 +270,27 @@ let row = ref(table.value.row)
 let tableCell = ref(table.value.cells)
 
 const click = (data: any) => {
-      if (table.value.isFinished) {
-        swal('Oh no!', 'You lose', 'warning')
-        return
-      }
-      count.value++
-      if (count.value === 1) {
-        table.value.createBomb(data.position)
-      }
-      table.value.changeCellState(data)
+  if (table.value.isFinished) {
+    swal('Oh no!', 'You lose', 'warning')
+    return
+  }
+  count.value++
+  if (count.value === 1) {
+    table.value.createBomb(data.position)
+  }
+  table.value.changeCellState(data)
 }
 const buildFlag = (data: any) => {
-      if (table.value.isFinished) {
-        return
-      }
-      event?.preventDefault()
-      table.value.buildFlag(data)
-    }
-  
-const restart =  () => {
-      table.value.clear()
-      count.value = 0
+  if (table.value.isFinished) {
+    return
+  }
+  event?.preventDefault()
+  table.value.buildFlag(data)
+}
+
+const restart = () => {
+  table.value.clear()
+  count.value = 0
 }
 </script>
 <template>

@@ -5,16 +5,14 @@ import type { Card } from './utility/cards'
 import cards from './utility/cards'
 import swal from 'sweetalert'
 import { ref } from 'vue'
-import { GameConstant, ApiRepository } from 'shared'
-
-import { Helpers } from 'shared'
+import { Helpers, GameConstant, ApiRepository, JsonGames } from 'shared'
 
 let selectOne: Card = defaultCard
 let selectTwo: Card = defaultCard
 let result: Card[] = []
 let moves = ref(0)
 const resetValue = (): void => {
-  cards.value.forEach(x => {
+  cards.value.forEach((x) => {
     x.selected = false
     x.opacity = 1
     x.bg = defaultCard.bg
@@ -34,7 +32,7 @@ const resume = (): void => {
     x.selected = false
     x.opacity = 1
     x.bg = defaultCard.bg
-    x.view =true
+    x.view = true
   })
 
   cards.value = cards.value.sort(() => Math.random() - 0.5)
@@ -90,13 +88,12 @@ const checkCard = async (card: Card): Promise<void> => {
           }).then(async (willSave) => {
             if (willSave) {
               console.log(points)
-              let totalScore = {
+              let totalScore: JsonGames.IGameResult = {
                 gameId: GameConstant.MEMORYGAME,
                 score: moves.value,
               }
-              const userId =  Helpers.getUserId()
-              if (!userId)
-                return
+              const userId = Helpers.getUserId()
+              if (!userId) return
               let response = await ApiRepository.putUserScore(totalScore, userId)
               console.log(response)
               moves.value = 0
@@ -135,13 +132,8 @@ const checkCard = async (card: Card): Promise<void> => {
     </div>
     <div class="game">
       <div id="memory">
-        <div
-          class="card"
-          v-for="card in cards"
-          :key="card.id"
-          :style="{ opacity: card.opacity }"                                                                                                                                                                                                 
-        >
-          <div v-if="card.view"  class="value" @click="checkCard(card)">
+        <div class="card" v-for="card in cards" :key="card.id" :style="{ opacity: card.opacity }">
+          <div v-if="card.view" class="value" @click="checkCard(card)">
             <img v-bind:src="card.bg" class="bg-cover" :style="{ maxWidth: 100, height: 290, backgroundSize: 300 }" />
           </div>
         </div>

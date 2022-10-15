@@ -20,7 +20,7 @@ import { state } from '../store'
 import party from 'party-js'
 
 const confetti = ref(null)
-let partyjsTimer :any = null
+let partyjsTimer: any = null
 
 onMounted(() => {
   partyjsTimer = setInterval(() => {

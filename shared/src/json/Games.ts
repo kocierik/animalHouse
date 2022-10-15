@@ -6,6 +6,6 @@ export interface IGameScore {
 }
 
 export interface IGameResult {
-  userId: string,
+  gameId: string,
   score: number,
 }

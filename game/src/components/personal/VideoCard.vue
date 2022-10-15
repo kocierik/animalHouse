@@ -2,7 +2,6 @@
 import { video } from '../../network/models/VideoLink'
 import type { AnimalType } from 'shared'
 
-
 const props = defineProps<{ animal: AnimalType }>()
 
 const getRandomVideo = (animal: AnimalType) => {
