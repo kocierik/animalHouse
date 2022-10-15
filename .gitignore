@@ -19,7 +19,6 @@ game/yarn-debug.log*
 game/yarn-error.log*
 game/pnpm-debug.log*
 game/lerna-debug.log*
-game/package-lock.json
 game/node_modules
 game/.DS_Store
 game/src/components/.DS_Store
