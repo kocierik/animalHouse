@@ -112,14 +112,14 @@ export default function Example() {
           </nav>
 
           {/* Image gallery */}
-          <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
-            <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
+          <div className="mt-6 max-w-xl mx-auto sm:px-6 lg:max-w-4xl lg:px-4 lg:grid lg:grid-cols-2 p-5 lg:gap-x-8">
+            {/* <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
               <img
                 src={product.images[0].src}
                 alt={product.images[0].alt}
                 className="w-full h-full object-center object-cover"
               />
-            </div>
+            </div> */}
             {/* <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
               <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
                 <img
@@ -136,15 +136,8 @@ export default function Example() {
                 className="w-full h-full object-center object-cover"
               />
             </div>
-          </div>
 
-          {/* Product info */}
-          <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
-            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
-            </div>
-
-            {/* Options */}
+              {/* Options */}
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl text-gray-900">{product.price}</p>
@@ -280,7 +273,13 @@ export default function Example() {
                 </button>
               </form>
             </div>
+          </div>
 
+          {/* Product info */}
+          <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+            </div>
             <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               {/* Description and details */}
               <div>
