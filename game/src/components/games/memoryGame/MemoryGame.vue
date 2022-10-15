@@ -11,7 +11,7 @@ import { Helpers } from 'shared'
 
 let selectOne: Card = defaultCard
 let selectTwo: Card = defaultCard
-let result: Card[]
+let result: Card[] = []
 let moves = ref(0)
 const resetValue = (): void => {
   cards.value.forEach(x => {
@@ -25,7 +25,7 @@ const resetValue = (): void => {
 }
 
 const findIt = (x: Card): void => {
-  x.view = 'hidden'
+  x.view = false
   x.selected = false
 }
 
@@ -34,7 +34,7 @@ const resume = (): void => {
     x.selected = false
     x.opacity = 1
     x.bg = defaultCard.bg
-    x.view = 'visible'
+    x.view =true
   })
 
   cards.value = cards.value.sort(() => Math.random() - 0.5)
@@ -53,7 +53,13 @@ const checkCard = async (card: Card): Promise<void> => {
     card.selected = true
     selectTwo = card
   }
-  result = cards.value.filter(x => x.selected === true)
+
+  let results: Card[] = []
+  for (let c of cards.value)
+    if (c.selected)
+      // @ts-ignore non ghea vanto altro
+      results.push(c)
+
   if (selectOne == selectTwo) {
     card.opacity = 1
     selectOne = defaultCard
@@ -68,11 +74,11 @@ const checkCard = async (card: Card): Promise<void> => {
     if (result[0].firstName == result[1].firstName) {
       cards.value.filter((x) => {
         if (result[0] == x || result[1] == x) {
-          x.view = 'hidden'
+          x.view = true
           x.selected = false
         }
       })
-      if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
+      if (cards.value.filter((x) => x.view).length == cards.value.length) {
         let points = moves.value
         if (Helpers.isLogged()) {
           swal({
@@ -133,9 +139,9 @@ const checkCard = async (card: Card): Promise<void> => {
           class="card"
           v-for="card in cards"
           :key="card.id"
-          :style="{ visibility: card.view, opacity: card.opacity }"
+          :style="{ opacity: card.opacity }"                                                                                                                                                                                                 
         >
-          <div class="value" @click="checkCard(card)">
+          <div v-if="card.view"  class="value" @click="checkCard(card)">
             <img v-bind:src="card.bg" class="bg-cover" :style="{ maxWidth: 100, height: 290, backgroundSize: 300 }" />
           </div>
         </div>

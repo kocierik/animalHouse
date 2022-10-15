@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+/* FIXME: @erik Le due immagini con id rotateSVG avevano come src il file:
+'../svgs/svg4.svg
+
+che non esiste.
+*/
 import type { Article } from './articles'
 import { ref } from 'vue'
 
@@ -107,14 +112,12 @@ const minus = () => { /*TODO*/ }
                 id="rotateSVG"
                 v-if="rotateimg == false"
                 class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer transform duration-100 dark:hidden"
-                src="../svgs/svg4.svg"
                 alt="dropdown"
               />
               <img
                 id="rotateSVG"
                 v-if="rotateimg == true"
                 class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer transform duration-100 dark:hidden rotate-180"
-                src="../svgs/svg4.svg"
                 alt="dropdown"
               />
             </div>

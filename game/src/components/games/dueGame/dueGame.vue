@@ -15,20 +15,13 @@ const gameBoardElement = ref<any>(null)
 const setBoardWidth = () => {
   state.boardWidth = gameBoardElement.value!.clientWidth
 }
-const onKeyDown = (e: {
-  altKey: any
-  ctrlKey: any
-  metaKey: any
-  shiftKey: any
-  which: string | number
-  preventDefault: () => void
-}) => {
+const onKeyDown = (e: KeyboardEvent) => {
   if (!canMove.value) {
     saveDbResult()
     return false
   }
   const modifiers = e.altKey || e.ctrlKey || e.metaKey || e.shiftKey
-  const mapped : number= keysMap[Number(e.which)]
+  const mapped : number= keysMap(e.which)
   if (!modifiers && mapped !== undefined) {
     e.preventDefault()
     move(mapped)
