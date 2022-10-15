@@ -18,19 +18,20 @@ export const setItem = (key: string, value: string, stringify = false) => {
   localStorage.setItem(key, stringify ? JSON.stringify(value) : value)
 }
 
-export const keysMap = {
-  38: 0, // Up
-  39: 1, // Right
-  40: 2, // Down
-  37: 3, // Left
-  75: 0, // Vim up
-  76: 1, // Vim right
-  74: 2, // Vim down
-  72: 3, // Vim left
-  87: 0, // W
-  68: 1, // D
-  83: 2, // S
-  65: 3, // A
+export const keysMap = (n: number): number => {
+  if (n === 38) return 0 // Up
+  if (n === 39) return 1 // Right
+  if (n === 40) return 2 // Down
+  if (n === 37) return 3 // Left
+  if (n === 75) return 0 // Vim up
+  if (n === 76) return 1 // Vim right
+  if (n === 74) return 2 // Vim down
+  if (n === 72) return 3 // Vim left
+  if (n === 87) return 0 // W
+  if (n === 68) return 1 // D
+  if (n === 83) return 2 // S
+  if (n === 65) return 3 // A
+  else return -1
 }
 
 export const vectorsMap = [
