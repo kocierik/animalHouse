@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
+import { useParams } from 'react-router-dom'
 
 const product = {
   id: 1,
@@ -75,6 +76,11 @@ export default function Example() {
     all.push(product)
     localStorage.setItem('cart', JSON.stringify(all))
     console.log(all)
+  }
+  const {id} = useParams()
+
+  const fetchProduct = () =>{
+    
   }
 
   return (
