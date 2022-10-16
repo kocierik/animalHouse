@@ -80,8 +80,8 @@ const Articles = () => {
     <div className="bg-white" data-aos="zoom-in" data-aos-duration="1500">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="mt-6 grid grid-cols-1 gap-y-20 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {article?.map((product) => (
-        <Link to={"product/" + product._id } >
+            {article?.map((product,i) => (
+        <Link to={"product/" + product._id } key={i}>
               <div
                 onMouseOut={() => changeBgOut(article)}
                 onMouseOver={() => changeBg(product._id, article)} ref={el => inputRef.current.push(el!)}
@@ -99,10 +99,10 @@ const Articles = () => {
                 <div className="mt-4 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">
-                      <a href={product.name}>
+                      <span>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {product.name}
-                      </a>
+                      </span>
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{product.description}</p>
                   </div>
