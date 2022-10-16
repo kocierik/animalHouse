@@ -3,12 +3,14 @@ import React from 'react'
 const Reviewer = () => {
   const UsersReview = [
     {
+      id: 1,
       name: 'Il man',
       star: 5,
       description: 'bello',
       added: '2 months ago'
     },
     {
+      id: 2,
       name: 'gyerik',
       star: 3,
       description: '3 stelline',
@@ -22,9 +24,9 @@ const Reviewer = () => {
               <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
             </div>
     <div className="mb-2 mt-5 rounded-t-8xl rounded-b-5xl overflow-hidden">
-      {UsersReview.map((user) => (
-        <>
-          <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40">
+      {UsersReview.map((user,i) => (
+        <div key={i}>
+          <div  className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40" >
             <div className="flex flex-wrap items-center">
               <img className="mr-6" src="uinel-assets/images/ecommerce-reviews/user.png" alt="" />
               <h4 className="w-full md:w-auto text-xl font-heading font-medium">{user.name}</h4>
@@ -33,7 +35,7 @@ const Reviewer = () => {
               <div className="inline-flex">
                 {Array.from(Array(user.star), (e, i) => {
                   return (
-                    <a className="inline-block mr-1" href="#">
+                    <a className="inline-block mr-1" href="#" key={i}>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M20 7.91677H12.4167L10 0.416763L7.58333 7.91677H0L6.18335 12.3168L3.81668 19.5834L10 15.0834L16.1834 19.5834L13.8167 12.3168L20 7.91677Z"
@@ -56,7 +58,7 @@ const Reviewer = () => {
               </div>
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
     </div>
