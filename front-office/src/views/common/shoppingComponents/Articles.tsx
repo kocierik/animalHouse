@@ -44,14 +44,14 @@ import { ProductMarked } from 'shared'
 const Articles = () => {
   const [article, setArticle] = React.useState<ProductMarked.IProductMarked[]>([])
 
-  const getMarketProduct = async () => {
-    const values = await (await ApiRepository.getMarketProduct()).data
+  const getMarketProducts = async () => {
+    const values = await (await ApiRepository.getMarketProducts()).data
     console.log(values)
     setArticle(values!)
   }
 
   React.useEffect(() => {
-    getMarketProduct()
+    getMarketProducts()
   }, [])
 
   const inputRef = useRef<HTMLHeadingElement[]>([])

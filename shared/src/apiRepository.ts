@@ -38,6 +38,6 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
  Api.put<score.IGameScore>(stringFormat(_BASE_URL + _SCORE_CODES, userId), gameScore, true)
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
-export const getMarketProduct = async () => Api.get<IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
+export const getMarketProducts = async () => Api.get<IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
 
 // TODO insert here other calls!!!!
