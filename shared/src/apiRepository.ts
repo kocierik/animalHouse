@@ -17,6 +17,7 @@ const _REGISTER_CODES = '/register/'
 const _SCORE_CODES = '/users/{0}/score/' 
 const _LEADERBOARD_CODES = '/community/game/scoreboard' 
 const _MARKET_PRODUCT_CODES = '/market/product/' 
+const SINGLE_MARKET_PRODUCT_CODES = '/market/products/' 
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _AUTH, { username: username, password: password })
@@ -38,6 +39,10 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
  Api.put<score.IGameScore>(stringFormat(_BASE_URL + _SCORE_CODES, userId), gameScore, true)
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
+
 export const getMarketProducts = async () => Api.get<IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
+export const getMarketProduct = async (productId: string) =>{
+   Api.get<IProductMarked>(_BASE_URL + SINGLE_MARKET_PRODUCT_CODES + productId)
+   }
 
 // TODO insert here other calls!!!!

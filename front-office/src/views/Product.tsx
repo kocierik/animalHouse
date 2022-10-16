@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
+import { ApiRepository, ApiResponse, ProductMarked } from 'shared'
 
 const product = {
   id: 1,
@@ -67,7 +68,7 @@ function classNames(...classes: string[]) {
 export default function Example() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
-
+  const [prod, setProd] = useState({})
   const addToCart = () => {
     let all = []
     let a = JSON.parse(localStorage.getItem('cart') || '{}')
@@ -79,9 +80,13 @@ export default function Example() {
   }
   const {id} = useParams()
 
-  const fetchProduct = () =>{
-    
+  const fetchProduct = async () =>{
+    const response= await ApiRepository.getMarketProduct(id!)
+    console.log(response)
   }
+  useEffect(()=>{
+    fetchProduct()
+  },[id])
 
   return (
     <>
