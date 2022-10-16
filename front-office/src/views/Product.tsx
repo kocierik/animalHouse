@@ -81,8 +81,10 @@ export default function Example() {
   const {id} = useParams()
 
   const fetchProduct = async () =>{
-    const response= await ApiRepository.getMarketProduct(id!)
-    console.log(response)
+    if ((await ApiRepository.getMarketProduct(id!)).esit) {
+      const val = (await ApiRepository.getMarketProduct(id!)).data! as ProductMarked.IProductMarked // CONTROLLA
+      setProd(val!)
+    }
   }
   useEffect(()=>{
     fetchProduct()

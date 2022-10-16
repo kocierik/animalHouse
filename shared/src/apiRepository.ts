@@ -2,8 +2,8 @@ import { Api } from './api'
 import type * as user from './json/user'
 import type * as animal from './json/animal'
 import type * as score from './json/Games'
+import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
-import type { IProductMarked } from './json/ProductMarked'
 import { stringFormat } from './helpers'
 
 // Server api urls
@@ -40,9 +40,9 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
 
-export const getMarketProducts = async () => Api.get<IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
-export const getMarketProduct = async (productId: string) =>{
-   Api.get<IProductMarked>(_BASE_URL + SINGLE_MARKET_PRODUCT_CODES + productId)
-   }
+export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
+export const getMarketProduct = async (productId: string) =>
+   Api.get<product.IProductMarked>(_BASE_URL + SINGLE_MARKET_PRODUCT_CODES + productId)
+   
 
 // TODO insert here other calls!!!!
