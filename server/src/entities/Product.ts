@@ -6,16 +6,13 @@ export interface IProduct {
   categoryId: string
   description: string
   animalTargets: string[]
-  image: Image[]
+  images: string[]
+  alt?: string[]
   colors?: string[]
   sizes?: string[]
   types?: string[]
   highlights?: string[]
   details?: string
-}
-export interface Image{
-  src: string,
-  alt: string
 }
 
 const productSchema = new Schema<IProduct>({
@@ -23,7 +20,8 @@ const productSchema = new Schema<IProduct>({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   categoryId: { type: String, required: true },
-  image: { type: [String], required: true },
+  images: { type: [String], required: true },
+  alt: { type: [String], required: false },
   animalTargets: { type: [String], required: true },
   colors: { type: [String], required: false },
   sizes: { type: [String], required: false },

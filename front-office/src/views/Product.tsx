@@ -146,7 +146,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
             </div> */}
             <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
               <img
-                src={prod?.image}
+                src={prod?.images[0]}
                 alt={prod?.name}
                 className="w-full h-full object-center object-cover"
               />
@@ -155,7 +155,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               {/* Options */}
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl text-gray-900">{prod?.price}$</p>
+              <span className="text-3xl text-gray-900"> <p className='pb-5'>{prod?.name}</p> <p className='text-2xl'>Price: {prod?.price}$</p></span>
 
               {/* Reviews */}
               <div className="mt-6">
@@ -188,13 +188,13 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                   <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                     <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                     <div className="flex items-center space-x-3">
-                      {product.colors.map((color) => (
+                      {
+                      prod && prod!.colors?.map((color) => (
                         <RadioGroup.Option
-                          key={color.name}
+                          key={color}
                           value={color}
                           className={({ active, checked }) =>
                             classNames(
-                              color.selectedClass,
                               active && checked ? 'ring ring-offset-1' : '',
                               !active && checked ? 'ring-2' : '',
                               '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
@@ -202,12 +202,11 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                           }
                         >
                           <RadioGroup.Label as="span" className="sr-only">
-                            {color.name}
+                            {color}
                           </RadioGroup.Label>
                           <span
                             aria-hidden="true"
                             className={classNames(
-                              color.class,
                               'h-8 w-8 border border-black border-opacity-10 rounded-full'
                             )}
                           />
@@ -226,57 +225,16 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                     </a>
                   </div>
 
-                  <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                    <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
+                  <div className="mt-4">
+                    <label className="sr-only">Choose a size</label>
                     <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                      {product.sizes.map((size) => (
-                        <RadioGroup.Option
-                          key={size.name}
-                          value={size}
-                          disabled={!size.inStock}
-                          className={({ active }) =>
-                            classNames(
-                              size.inStock
-                                ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
-                                : 'bg-gray-50 text-gray-200 cursor-not-allowed',
-                              active ? 'ring-2 ring-green-500' : '',
-                              'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
-                            )
-                          }
-                        >
-                          {({ active, checked }) => (
-                            <>
-                              <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                              {size.inStock ? (
-                                <span
-                                  className={classNames(
-                                    active ? 'border' : 'border-2',
-                                    checked ? 'border-green-500' : 'border-transparent',
-                                    'absolute -inset-px rounded-md pointer-events-none'
-                                  )}
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <span
-                                  aria-hidden="true"
-                                  className="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none"
-                                >
-                                  <svg
-                                    className="absolute inset-0 w-full h-full text-gray-200 stroke-2"
-                                    viewBox="0 0 100 100"
-                                    preserveAspectRatio="none"
-                                    stroke="currentColor"
-                                  >
-                                    <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                  </svg>
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </RadioGroup.Option>
-                      ))}
+                      {prod?.sizes?.map(size => {
+                        return (
+                          <div className='border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'>{size}</div>
+                        )
+                      })}
                     </div>
-                  </RadioGroup>
+                  </div>
                 </div>
 
                 <button
@@ -293,7 +251,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
           {/* Product info */}
           <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+              <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">Description</h1>
             </div>
             <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               {/* Description and details */}
@@ -306,11 +264,10 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
 
               <div className="mt-10">
-                <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
+              <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Highlights</h3>
                 <div className="mt-4">
-                  <ul role="list" className="pl-4 list-disc text-sm space-y-2">
-                    {product.highlights.map((highlight) => (
+                  <ul role="list" className="pl-10 list-disc text-sm space-y-3">
+                    {prod && prod.highlights?.map((highlight) => (
                       <li key={highlight} className="text-gray-400">
                         <span className="text-gray-600">{highlight}</span>
                       </li>
@@ -320,10 +277,10 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
 
               <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
+              <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Details</h3>
 
                 <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">{product.details}</p>
+                  <p className="text-sm text-gray-600">{prod?.details}</p>
                 </div>
               </div>
             </div>
