@@ -61,6 +61,7 @@ app.get(version + '/community/game/scoreboard', log, communityRoutes.getScoreboa
 
 // Market
 app.get(version + '/market/product/', log, marketRoutes.getProducts)
+app.get(version + '/market/products/:id', log, marketRoutes.getProduct)
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
