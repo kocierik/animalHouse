@@ -28,7 +28,7 @@ const Reviewer = () => {
         <div key={i}>
           <div  className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40" >
             <div className="flex flex-wrap items-center">
-              <img className="mr-6" src="uinel-assets/images/ecommerce-reviews/user.png" alt="" />
+              <img className="mr-6" src="" alt="" />
               <h4 className="w-full md:w-auto text-xl font-heading font-medium">{user.name}</h4>
               <div className="w-full md:w-px h-2 md:h-8 mx-8 bg-transparent md:bg-gray-200"></div>
               <span className="mr-4 text-xl font-heading font-medium">{user.star}</span>

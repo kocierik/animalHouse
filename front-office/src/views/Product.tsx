@@ -88,7 +88,8 @@ export default function Product() {
   }
   useEffect(()=>{
     setId(params.id!)
-    fetchProduct(id)
+    if(id)
+      fetchProduct(id)
   },[id])
 const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
   return (
