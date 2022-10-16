@@ -10,10 +10,10 @@ export const getProducts = async (_: Request, res: Response) => {
 export const getProduct = async (req: Request, res: Response) => {
   const pathId = req.params.id
     if (req.query.id) {
-      // Check if a game with that id exists
+      // Check if a product with that id exists
       if (await Product.exists({ _id: req.query.id }))
-        return res.status(STATUS_OK).json(await Product.findOne({ userId: pathId }))
+        return res.status(STATUS_OK).json(await Product.findById( pathId ))
       else return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Invalid product id ${req.query.id}`))
     }
-    return res.status(STATUS_OK).json(await Product.findOne({ userId: pathId }))
+    return res.status(STATUS_OK).json(await Product.findById( pathId ))
 }

@@ -69,6 +69,7 @@ export default function Example() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
   const [prod, setProd] = useState({})
+  const [id, setId] = useState("")
   const addToCart = () => {
     let all = []
     let a = JSON.parse(localStorage.getItem('cart') || '{}')
@@ -78,16 +79,18 @@ export default function Example() {
     localStorage.setItem('cart', JSON.stringify(all))
     console.log(all)
   }
-  const {id} = useParams()
+  const params = useParams()
 
-  const fetchProduct = async () =>{
-    if ((await ApiRepository.getMarketProduct(id!)).esit) {
-      const val = (await ApiRepository.getMarketProduct(id!)).data! as ProductMarked.IProductMarked // CONTROLLA
+  const fetchProduct = async (id: string) =>{
+    if ((await ApiRepository.getMarketProduct(id)).esit) {
+      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked // CONTROLLA
       setProd(val!)
+      console.log(val)
     }
   }
   useEffect(()=>{
-    fetchProduct()
+    setId(params.id!)
+    fetchProduct(id)
   },[id])
 
   return (
@@ -96,11 +99,11 @@ export default function Example() {
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
-              {product.breadcrumbs.map((breadcrumb) => (
-                <li key={breadcrumb.id}>
+              
+                <li key={prod._id}>
                   <div className="flex items-center">
-                    <a href={breadcrumb.href}  className="mr-2 text-sm font-medium text-gray-900">
-                      {breadcrumb.name}
+                    <a  className="mr-2 text-sm font-medium text-gray-900">
+                      {prod.categoryId}
                     </a>
                     <svg
                       width={16}
@@ -115,10 +118,10 @@ export default function Example() {
                     </svg>
                   </div>
                 </li>
-              ))}
+
               <li className="text-sm">
-                <a href={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                  {product.name}
+                <a aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                  {prod.name}
                 </a>
               </li>
             </ol>
@@ -144,8 +147,8 @@ export default function Example() {
             </div> */}
             <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
               <img
-                src={product.images[3].src}
-                alt={product.images[3].alt}
+                src={prod.image}
+                alt={prod.name}
                 className="w-full h-full object-center object-cover"
               />
             </div>
@@ -153,7 +156,7 @@ export default function Example() {
               {/* Options */}
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl text-gray-900">{product.price}</p>
+              <p className="text-3xl text-gray-900">{prod.price}$</p>
 
               {/* Reviews */}
               <div className="mt-6">
@@ -299,7 +302,7 @@ export default function Example() {
                 <h3 className="sr-only">Description</h3>
 
                 <div className="space-y-6">
-                  <p className="text-base text-gray-900">{product.description}</p>
+                  <p className="text-base text-gray-900">{prod.description}</p>
                 </div>
               </div>
 
