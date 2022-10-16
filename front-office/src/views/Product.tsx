@@ -90,7 +90,7 @@ export default function Example() {
     setId(params.id!)
     fetchProduct(id)
   },[id])
-
+const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
   return (
     <>
       <div className="bg-white">
@@ -161,11 +161,11 @@ export default function Example() {
                 <h3 className="sr-only">Reviews</h3>
                 <div className="flex items-center">
                   <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
+                    {valueProduct.map((rating) => (
                       <StarIcon
-                        key={rating}
+                        key={rating.star}
                         className={classNames(
-                          reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
+                          reviews.average > rating.star ? 'text-gray-900' : 'text-gray-200',
                           'h-5 w-5 flex-shrink-0'
                         )}
                         aria-hidden="true"
