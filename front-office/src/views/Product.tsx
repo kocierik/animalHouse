@@ -68,7 +68,7 @@ function classNames(...classes: string[]) {
 export default function Example() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
-  const [prod, setProd] = useState({})
+  const [prod, setProd] = useState<ProductMarked.IProductMarked>()
   const [id, setId] = useState("")
   const addToCart = () => {
     let all = []
@@ -77,7 +77,6 @@ export default function Example() {
     all.push(a)
     all.push(product)
     localStorage.setItem('cart', JSON.stringify(all))
-    console.log(all)
   }
   const params = useParams()
 
@@ -85,7 +84,6 @@ export default function Example() {
     if ((await ApiRepository.getMarketProduct(id)).esit) {
       const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked // CONTROLLA
       setProd(val!)
-      console.log(val)
     }
   }
   useEffect(()=>{
@@ -100,10 +98,10 @@ export default function Example() {
           <nav aria-label="Breadcrumb">
             <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
               
-                <li key={prod._id}>
+                <li key={prod?._id}>
                   <div className="flex items-center">
                     <a  className="mr-2 text-sm font-medium text-gray-900">
-                      {prod.categoryId}
+                      {prod?.categoryId}
                     </a>
                     <svg
                       width={16}
@@ -121,7 +119,7 @@ export default function Example() {
 
               <li className="text-sm">
                 <a aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                  {prod.name}
+                  {prod?.name}
                 </a>
               </li>
             </ol>
@@ -147,8 +145,8 @@ export default function Example() {
             </div> */}
             <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
               <img
-                src={prod.image}
-                alt={prod.name}
+                src={prod?.image}
+                alt={prod?.name}
                 className="w-full h-full object-center object-cover"
               />
             </div>
@@ -156,7 +154,7 @@ export default function Example() {
               {/* Options */}
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl text-gray-900">{prod.price}$</p>
+              <p className="text-3xl text-gray-900">{prod?.price}$</p>
 
               {/* Reviews */}
               <div className="mt-6">
@@ -302,7 +300,7 @@ export default function Example() {
                 <h3 className="sr-only">Description</h3>
 
                 <div className="space-y-6">
-                  <p className="text-base text-gray-900">{prod.description}</p>
+                  <p className="text-base text-gray-900">{prod?.description}</p>
                 </div>
               </div>
 
