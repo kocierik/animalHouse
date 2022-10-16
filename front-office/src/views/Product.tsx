@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ApiResponse, ProductMarked } from 'shared'
+import { ApiRepository, ProductMarked } from 'shared'
 
 const product = {
   id: 1,
@@ -65,7 +65,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Product() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
