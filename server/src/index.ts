@@ -1,13 +1,14 @@
 import { connect } from 'mongoose'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
+import { resolve } from 'path'
 import * as parser from 'body-parser'
 import * as animalRoutes from './routes/animal'
 import * as userRoutes from './routes/user'
 import * as communityRoutes from './routes/community'
 import * as marketRoutes from './routes/market'
 import * as migrations from './initial-migrations'
-import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER } from './const'
+import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER, BACKOFFICE_DIR } from './const'
 
 // Constants
 const app = express()
@@ -28,6 +29,11 @@ async function db() {
 }
 
 db().catch((err) => console.log(err))
+
+// Backoffice
+const pubDir = resolve(__dirname + BACKOFFICE_DIR)
+console.log("[INFO] Pub dir is at " + pubDir)
+app.use(express.static(pubDir));
 
 // Log
 const log = (req: Request, _: Response, next: Function) => {
@@ -60,6 +66,10 @@ app.get(version + '/community/game/', log, communityRoutes.getGames)
 app.get(version + '/community/game/scoreboard', log, communityRoutes.getScoreboard)
 
 // Market
+app.get(version + "/market/products/", log, marketRoutes.getProducts) //retrieve all products
+app.get(version + "/market/products/:id", log, marketRoutes.getProduct)   //search 
+app.delete(version + "/market/products/:id", log, marketRoutes.deleteProduct) //remove
+app.post(version + "/market/products", log, marketRoutes.postProduct)  //insert
 app.get(version + '/market/product/', log, marketRoutes.getProducts)
 
 app.listen(port, () => {

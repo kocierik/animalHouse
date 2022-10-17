@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
-import Card from './gamesComponents/Card.vue'
+// FIXME: @Erik questo plugin non ha supporto per ts. Prova ad usare questo che
+// dovrebbe anche essere meglio: https://github.com/ankurk91/vue-toast-notification
+// Dopo ricorda di cancellare anche il commento ts-ignore qua sotto.
+//@ts-ignore
 import { createToaster } from '@meforma/vue-toaster'
 import { Helpers } from 'shared'
 const toaster = createToaster({

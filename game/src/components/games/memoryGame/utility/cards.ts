@@ -1,4 +1,4 @@
-import { ref, type StyleValue } from 'vue'
+import { ref } from 'vue'
 import { AnimalType, getAnimalPicture } from 'shared'
 import gatto from '../assets/gatto.webp'
 const a = ref<string>()
@@ -17,7 +17,7 @@ f.value = await getAnimalPicture(AnimalType.Koala)
 export interface Card {
   firstName?: string
   id?: number
-  view?: StyleValue
+  view?: boolean
   bg?: string
   selected?: boolean
   opacity?: number
@@ -27,7 +27,7 @@ export interface Card {
 export const defaultCard: Card = {
   firstName: '',
   id: 0,
-  view: 'visible',
+  view: true,
   bg: gatto,
   bgOut: '',
   selected: false,
@@ -38,7 +38,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'Frank',
     id: 1,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: a.value,
     selected: false,
@@ -47,7 +47,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'Frank',
     id: 2,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: a.value,
     selected: false,
@@ -56,7 +56,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'Vic',
     id: 3,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: b.value,
     selected: false,
@@ -65,7 +65,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'Vic',
     id: 4,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: b.value,
     selected: false,
@@ -74,7 +74,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'Gina',
     id: 5,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: c.value,
     selected: false,
@@ -83,7 +83,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'Gina',
     id: 6,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: c.value,
     selected: false,
@@ -92,7 +92,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'bo1',
     id: 7,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: d.value,
     selected: false,
@@ -101,7 +101,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'bo1',
     id: 8,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: d.value,
     selected: false,
@@ -110,7 +110,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'bo2',
     id: 9,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: e.value,
     selected: false,
@@ -119,7 +119,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'bo2',
     id: 10,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: e.value,
     selected: false,
@@ -128,7 +128,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'bo3',
     id: 11,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: f.value,
     selected: false,
@@ -137,7 +137,7 @@ const cards = ref<Card[]>([
   {
     firstName: 'bo3',
     id: 12,
-    view: 'visible',
+    view: true,
     bg: gatto,
     bgOut: f.value,
     selected: false,

@@ -17,7 +17,11 @@ const Reviewer = () => {
   ]
 
   return (
-    <div className="mb-2  rounded-t-8xl rounded-b-5xl overflow-hidden">
+    <div className=" max-w-2xl mx-auto pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
+            </div>
+    <div className="mb-2 mt-5 rounded-t-8xl rounded-b-5xl overflow-hidden">
       {UsersReview.map((user) => (
         <>
           <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40">
@@ -54,6 +58,7 @@ const Reviewer = () => {
           </div>
         </>
       ))}
+    </div>
     </div>
   )
 }

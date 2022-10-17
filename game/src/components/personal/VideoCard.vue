@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { video } from '../../network/models/VideoLink'
-import { AnimalType } from 'shared'
+import type { AnimalType } from 'shared'
 
 const props = defineProps<{ animal: AnimalType }>()
 
 const getRandomVideo = (animal: AnimalType) => {
   const number = Math.floor(Math.random() * 3)
-  const uri = 'https://www.youtube.com/embed/' + video.get(animal)[number] + '?autoplay=1&mute=1'
+  const uri = 'https://www.youtube.com/embed/' + video.get(animal)![number] + '?autoplay=1&mute=1'
   return uri
 }
 </script>
