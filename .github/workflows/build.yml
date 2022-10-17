@@ -29,8 +29,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: run npm install
-      run: npm i
+    - name: run npm clean install
+      run: npm ci
     - name: compile ts
       run: tsc
       
@@ -53,8 +53,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: run npm install
-      run: npm i
+    - name: run npm clean install
+      run: npm ci
     - name: build with npm
       run: npm run build
       
@@ -77,7 +77,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: run npm install
-      run: npm i
+    - name: run npm clean install
+      run: npm ci
     - name: build with npm
       run: npm run build

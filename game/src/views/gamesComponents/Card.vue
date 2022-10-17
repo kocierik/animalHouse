@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const props = defineProps({
-  name: String,
-  url: String,
-  image: String,
-})
+const props = defineProps<{
+  name: string,
+  url: string,
+  image: string,
+}>()
 </script>
 <style>
 .imageCover {

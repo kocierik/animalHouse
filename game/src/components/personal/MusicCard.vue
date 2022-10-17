@@ -14,7 +14,6 @@
       width="100%"
       height="80"
       frameBorder="0"
-      allowfullscreen=""
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
     ></iframe>
   </a>
@@ -22,7 +21,6 @@
 
 <script lang="ts" setup>
 import type { AnimalType } from 'shared'
-import AnimalIcon from '@/components/common/AnimalIcon.vue'
 
 const props = defineProps<{ animal: AnimalType }>()
 </script>

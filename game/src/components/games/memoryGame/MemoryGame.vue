@@ -5,16 +5,14 @@ import type { Card } from './utility/cards'
 import cards from './utility/cards'
 import swal from 'sweetalert'
 import { ref } from 'vue'
-import { GameConstant, ApiRepository } from 'shared'
-
-import { Helpers } from 'shared'
+import { Helpers, GameConstant, ApiRepository, JsonGames } from 'shared'
 
 let selectOne: Card = defaultCard
 let selectTwo: Card = defaultCard
-let result: Card[]
+let result: Card[] = []
 let moves = ref(0)
 const resetValue = (): void => {
-  cards.value.map((x) => {
+  cards.value.forEach((x) => {
     x.selected = false
     x.opacity = 1
     x.bg = defaultCard.bg
@@ -25,22 +23,22 @@ const resetValue = (): void => {
 }
 
 const findIt = (x: Card): void => {
-  x.view = 'hidden'
+  x.view = false
   x.selected = false
 }
 
 const resume = (): void => {
-  cards.value.map((x) => {
+  cards.value.forEach((x) => {
     x.selected = false
     x.opacity = 1
     x.bg = defaultCard.bg
-    x.view = 'visible'
+    x.view = true
   })
 
   cards.value = cards.value.sort(() => Math.random() - 0.5)
 }
 
-const checkCard = async (card: Card): void => {
+const checkCard = async (card: Card): Promise<void> => {
   moves.value++
   console.log(moves.value)
   if (selectOne == defaultCard) {
@@ -53,7 +51,13 @@ const checkCard = async (card: Card): void => {
     card.selected = true
     selectTwo = card
   }
-  result = cards.value.filter((x) => x.selected == true)
+
+  let results: Card[] = []
+  for (let c of cards.value)
+    if (c.selected)
+      // @ts-ignore non ghea vanto altro
+      results.push(c)
+
   if (selectOne == selectTwo) {
     card.opacity = 1
     selectOne = defaultCard
@@ -68,27 +72,29 @@ const checkCard = async (card: Card): void => {
     if (result[0].firstName == result[1].firstName) {
       cards.value.filter((x) => {
         if (result[0] == x || result[1] == x) {
-          x.view = 'hidden'
+          x.view = true
           x.selected = false
         }
       })
-      if (cards.value.filter((x) => x.view == 'hidden').length == cards.value.length) {
+      if (cards.value.filter((x) => x.view).length == cards.value.length) {
         let points = moves.value
         if (Helpers.isLogged()) {
           swal({
             title: 'Good job!',
             text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
             icon: 'warning',
-            buttons: true,
+            buttons: [true],
             dangerMode: false,
           }).then(async (willSave) => {
             if (willSave) {
               console.log(points)
-              let totalScore = {
+              let totalScore: JsonGames.IGameResult = {
                 gameId: GameConstant.MEMORYGAME,
                 score: moves.value,
               }
-              let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+              const userId = Helpers.getUserId()
+              if (!userId) return
+              let response = await ApiRepository.putUserScore(totalScore, userId)
               console.log(response)
               moves.value = 0
 
@@ -126,13 +132,8 @@ const checkCard = async (card: Card): void => {
     </div>
     <div class="game">
       <div id="memory">
-        <div
-          class="card"
-          v-for="card in cards"
-          :key="card.id"
-          :style="{ visibility: card.view, opacity: card.opacity }"
-        >
-          <div class="value" @click="checkCard(card)">
+        <div class="card" v-for="card in cards" :key="card.id" :style="{ opacity: card.opacity }">
+          <div v-if="card.view" class="value" @click="checkCard(card)">
             <img v-bind:src="card.bg" class="bg-cover" :style="{ maxWidth: 100, height: 290, backgroundSize: 300 }" />
           </div>
         </div>

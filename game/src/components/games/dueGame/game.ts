@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { nextTick } from 'vue'
 import { defaultGameState, state, setCurrentGame } from './store'
 import { setItem, vectorsMap } from './utils'

@@ -2,7 +2,6 @@
 # REACT
 front-office/node_modules
 front-office/build
-front-office/package-lock.json
 front-office/.DS_Store
 front-office/.env.local
 front-office/.env.development.local
@@ -20,7 +19,6 @@ game/yarn-debug.log*
 game/yarn-error.log*
 game/pnpm-debug.log*
 game/lerna-debug.log*
-game/package-lock.json
 game/node_modules
 game/.DS_Store
 game/src/components/.DS_Store
@@ -42,10 +40,8 @@ game/*.sw?
 server/.DS_Store
 server/node_modules
 server/mongo-volume/*
-server/package-lock.json
 server/out/*
 
 # SHARED
 shared/node_modules
-shared/package-lock.json
 shared/.DS_Store

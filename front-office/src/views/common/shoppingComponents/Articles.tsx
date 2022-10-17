@@ -54,35 +54,37 @@ const Articles = () => {
     getMarketProduct()
   }, [])
 
-  const inputRef = useRef([])
+  const inputRef = useRef<HTMLHeadingElement[]>([])
 
-  const changeBg = (id: string, article: ProductMarked.IProductMarked[]) => {
-    article.forEach((element: ProductMarked.IProductMarked) => {
+  const changeBg = (id: string, articles: ProductMarked.IProductMarked[]) => {
+    let index = 0
+    articles.forEach((element: ProductMarked.IProductMarked) => {
       if (element._id !== id) {
-        // FIXME @erik l'id di mongo è una cosa alfanumerica non un numero.
-        // inputRef.current[element._id].style.opacity = "0.70"
+        inputRef.current[index].style.opacity = "0.70"
       }
+      index++
     })
+    index = 0
   }
 
   const changeBgOut = (article: ProductMarked.IProductMarked[]) => {
+    let index = 0
     article.forEach((element: ProductMarked.IProductMarked) => {
-      // FIXME @erik l'id di mongo è una cosa alfanumerica non un numero.
-      //inputRef.current[element._id].style.opacity = "1"
+      inputRef.current[index].style.opacity = "1"
+      index++
     })
+    index = 0
   }
 
   return (
-    <Link to="/product/">
-      <div className="bg-white" data-aos="zoom-in" data-aos-duration="1500">
+    <div className="bg-white" data-aos="zoom-in" data-aos-duration="1500">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="mt-6 grid grid-cols-1 gap-y-20 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {article?.map((product) => (
+        <Link to={"product/id=" + product._id } >
               <div
                 onMouseOut={() => changeBgOut(article)}
-                /* 
-                 FIXME @erik l'id di mongo è una cosa alfanumerica non un numero. 
-                onMouseOver={() => changeBg(product._id, article)} ref={el => inputRef.current[product._id] = el */
+                onMouseOver={() => changeBg(product._id, article)} ref={el => inputRef.current.push(el!)}
                 id={product._id}
                 key={product._id}
                 className="hover:-translate-y-1 hover:scale-105 duration-300 group relative"
@@ -107,11 +109,11 @@ const Articles = () => {
                   <p className="text-sm font-medium text-gray-900">{product.price} $</p>
                 </div>
               </div>
+            </Link>
             ))}
           </div>
         </div>
       </div>
-    </Link>
   )
 }
 export default Articles

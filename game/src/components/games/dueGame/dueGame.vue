@@ -1,59 +1,54 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import GameScoreVue from './components/GameScore.vue'
-import GameControlsVue from './components/GameControls.vue'
 import PopupTransitionVue from './components/PopupTransition.vue'
-import PopupSelectGridSizeVue from './components/PopupSelectGridSize.vue'
 import PopupGameoverVue from './components/PopupGameover.vue'
-import PopupWinVue from './components/PopupWin.vue'
 import { state, canMove } from './store'
 import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
 import './style.scss'
 import swal from 'sweetalert'
-import { GameConstant, ApiRepository, Helpers } from 'shared'
+import { GameConstant, ApiRepository, Helpers, JsonGames } from 'shared'
 
 let score2048: number
 
-const gameBoardElement = ref(null)
+const gameBoardElement = ref<any>(null)
 const setBoardWidth = () => {
-  state.boardWidth = gameBoardElement.value.clientWidth
+  state.boardWidth = gameBoardElement.value!.clientWidth
 }
-const onKeyDown = (e: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  altKey: any
-  ctrlKey: any
-  metaKey: any
-  shiftKey: any
-  which: string | number
-  preventDefault: () => void
-}) => {
+const onKeyDown = (e: KeyboardEvent) => {
   if (!canMove.value) {
     saveDbResult()
     return false
   }
   const modifiers = e.altKey || e.ctrlKey || e.metaKey || e.shiftKey
-  const mapped = keysMap[e.which]
+  const mapped: number = keysMap(e.which)
   if (!modifiers && mapped !== undefined) {
     e.preventDefault()
     move(mapped)
   }
 }
-const touchStartPos = { x: null, y: null, started: false }
-const onTouchStart = (e: { touches: { clientY: null }[]; preventDefault: () => void }) => {
+
+interface TouchStartPos {
+  x: number | null
+  y: number | null
+  started: boolean
+}
+
+const touchStartPos: TouchStartPos = { x: null, y: null, started: false }
+const onTouchStart = (e: { touches: { clientY: number; clientX: number }[]; preventDefault: () => void }) => {
   touchStartPos.x = e.touches[0].clientX
   touchStartPos.y = e.touches[0].clientY
   touchStartPos.started = true
   e.preventDefault()
 }
-const onTouchMove = (e: { preventDefault: () => void; changedTouches: { clientY: number }[] }) => {
+const onTouchMove = (e: { preventDefault: () => void; changedTouches: { clientY: number; clientX: number }[] }) => {
   if (!touchStartPos.started) {
     return
   }
   e.preventDefault()
-  var dx = e.changedTouches[0].clientX - touchStartPos.x
+  var dx = e.changedTouches[0].clientX - touchStartPos.x!
   var absDx = Math.abs(dx)
-  var dy = e.changedTouches[0].clientY - touchStartPos.y
+  var dy = e.changedTouches[0].clientY - touchStartPos.y!
   var absDy = Math.abs(dy)
   if (!canMove.value) {
     touchStartPos.started = false
@@ -97,25 +92,25 @@ onBeforeUnmount(() => {
 
 const saveDbResult = () => {
   if (state.currentGame.isGameover) {
-    score2048 = JSON.parse(localStorage.getItem('game-bestscores'))
-    score2048 = score2048[Number(Object.keys(score2048))]
     if (Helpers.isLogged()) {
       swal({
         title: 'Good job!',
         text: `You have done ${state.currentGame.score} points! Do you want save your record?`,
         icon: 'warning',
-        buttons: true,
+        buttons: [true],
         dangerMode: false,
       }).then((willSave) => {
         if (willSave) {
-          let totalScore = {
+          let totalScore: JsonGames.IGameResult = {
             gameId: GameConstant.DUE48,
-            score: state.currentGame.score,
+            score: state.currentGame.score as number,
           }
           swal('Poof! Your record is saved!', {
             icon: 'success',
           }).then(async () => {
-            let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
+            let userId = Helpers.getUserId()
+            if (!userId) return
+            let response = await ApiRepository.putUserScore(totalScore, userId)
             console.log(response)
             document.location.reload()
           })
