@@ -15,6 +15,7 @@ import Register from './views/Register'
 import RegisterAnimal from './views/RegisterAnimal'
 
 const App = () => {
+
   return (
     <div>
       <Navbar />
@@ -25,7 +26,7 @@ const App = () => {
         <Route path="/service/" element={<Service />} />
         <Route path="/profile/" element={<Profile />} />
         <Route path="/checkout/" element={<Checkout />} />
-        <Route path="/product/" element={<Product />} />
+        <Route path="/shopping/product/id=:id" element={<Product />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/register/animal" element={<RegisterAnimal />} />
