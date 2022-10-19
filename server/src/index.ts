@@ -4,6 +4,7 @@ import cors from 'cors'
 import { resolve } from 'path'
 import * as parser from 'body-parser'
 import * as animalRoutes from './routes/animal'
+import * as middlewares from './routes/middlewares'
 import * as userRoutes from './routes/user'
 import * as communityRoutes from './routes/community'
 import * as marketRoutes from './routes/market'
@@ -48,18 +49,18 @@ app.get('/', (_: Request, res: Response) => {
 })
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
-app.get(version + '/users/current', log, userRoutes.verifyToken, userRoutes.getCurrentUser)
-app.get(version + '/users/:id', log, userRoutes.verifyToken, userRoutes.getUser)
-app.put(version + '/users/:id/score', log, userRoutes.verifyToken, userRoutes.putScore)
-app.get(version + '/users/:id/score/', log, userRoutes.verifyToken, userRoutes.getScore)
-app.get(version + '/users/:id/cart', log, userRoutes.verifyToken, userRoutes.getCart)
-app.put(version + '/users/:id/cart', log, userRoutes.verifyToken, userRoutes.putCart)
-app.delete(version + '/users/:id/cart', log, userRoutes.verifyToken, userRoutes.deleteCart)
-app.put(version + '/users/:id/animals', log, userRoutes.verifyToken, userRoutes.putAnimal)
+app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)
+app.get(version + '/users/:id', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getUser)
+app.put(version + '/users/:id/score', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putScore)
+app.get(version + '/users/:id/score/', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getScore)
+app.get(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getCart)
+app.put(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putCart)
+app.delete(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteCart)
+app.put(version + '/users/:id/animals', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
 
 // Animal
 app.get(version + '/animals/codes', log, animalRoutes.getAnimalCodes)
-app.get(version + '/animals/:id', log, userRoutes.verifyToken, animalRoutes.getAnimalCodes)
+app.get(version + '/animals/:id', log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
 
 // Community
 app.get(version + '/community/game/', log, communityRoutes.getGames)

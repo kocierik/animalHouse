@@ -1,37 +1,19 @@
+import { Request, Response } from 'express'
+import * as jwt from 'jsonwebtoken'
+import * as bcrypt from 'bcrypt'
 import User from '../entities/User'
 import Score from '../entities/Score'
+import Admin from '../entities/Admin'
+import { AuthData } from './middlewares'
 import { Game } from '../entities/Community'
-import { Request, Response } from 'express'
 import { JsonUserCreation, JsonLogin } from '../json/JsonUser'
 import { JsonAnimal } from '../json/JsonAnimal'
 import JsonError from '../json/JsonError'
-import * as bcrypt from 'bcrypt'
-import * as jwt from 'jsonwebtoken'
-import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
+import { SECRET, STATUS_OK, STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED } from '../const'
 import Product, { IProduct } from '../entities/Product'
 import Cart, { ICart, IProductInstance } from '../entities/Cart'
 import Animal, { IAnimal } from '../entities/Animal'
 import { Types } from 'mongoose'
-
-const SECRET = 'bigSecret'
-
-interface AuthData {
-  username: string
-  id: string
-}
-
-export const verifyToken = async (req: Request, res: Response, next: Function) => {
-  const authHeader = req.headers['authorization']
-  if (authHeader !== undefined) {
-    jwt.verify(authHeader, SECRET, (err, authData) => {
-      if (err) res.sendStatus(STATUS_UNAUTHORIZED)
-      else {
-        req.authData = authData.authData
-        next()
-      }
-    })
-  } else res.sendStatus(STATUS_UNAUTHORIZED)
-}
 
 export const registerPost = async (req: Request, res: Response) => {
   const userCreation = req.body as JsonUserCreation
@@ -70,18 +52,39 @@ export const registerPost = async (req: Request, res: Response) => {
 }
 
 export const loginPost = async (req: Request, res: Response) => {
-  const login = req.body as JsonLogin
+  let login = null
+  try {
+    login = req.body as JsonLogin
+  } catch (err) {
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError("Invalid login body"))
+  }
 
   const hashed = login.password //bcrypt.hashSync(login.password, 5)
-  const result = await User.find({ username: login.username, password: hashed })
-  if (result.length === 1) {
-    const authData: AuthData = {
+
+  let authData: AuthData
+
+  if (login.admin) {
+    const result = await Admin.find({ username: login.username, password: hashed })
+    if (result.length !== 1) {
+      return res.status(STATUS_UNAUTHORIZED).json(new JsonError('invalid admin username or password'))
+    }
+    authData = {
       username: result[0].username,
       id: result[0]._id.toString(),
     }
-    const token = await jwt.sign({ authData: authData }, SECRET)
-    return res.json({ token })
-  } else return res.status(STATUS_UNAUTHORIZED).json(new JsonError('invalid username or password'))
+  } else {
+    const result = await User.find({ username: login.username, password: hashed })
+    if (result.length !== 1) {
+      return res.status(STATUS_UNAUTHORIZED).json(new JsonError('invalid username or password'))
+    }
+    authData = {
+      username: result[0].username,
+      id: result[0]._id.toString(),
+    }
+  }
+
+  const token = await jwt.sign({ authData: authData }, SECRET)
+  return res.json({ token })
 }
 
 export const getCurrentUser = async (req: Request, res: Response) => res.json(req.authData)
@@ -322,4 +325,9 @@ const addAnimalToUser = async (aId: string, uId: string) => {
   const user = await User.findOne({ _id: uId }).orFail()
   user.animals.push(animal._id)
   await user.save()
+}
+
+const isAdmin = async (id: string): Promise<boolean> => {
+  const x = await Admin.exists({ _id: id })
+  return x ? true : false
 }
