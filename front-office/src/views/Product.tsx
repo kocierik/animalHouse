@@ -182,14 +182,25 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                   </div>
 
                   <div className="mt-4">
+                  <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                     <label className="sr-only">Choose a size</label>
                     <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
                       {prod?.sizes?.map(size => {
                         return (
-                          <div className='border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'>{size}</div>
+                        <RadioGroup.Option
+                          key={size}
+                          value={size}
+                          className={({ active }) =>
+                            classNames(
+                               active ? "ring-2" : "",
+                              'border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'
+                            )
+                          }
+                        >{size}</RadioGroup.Option>
                         )
                       })}
                     </div>
+                  </RadioGroup>
                   </div>
                 </div>
 
