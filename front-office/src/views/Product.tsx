@@ -6,59 +6,7 @@ import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
 import { ApiRepository, ProductMarked } from 'shared'
 
-const product = {
-  id: 1,
-  name: 'Basic Tee 6-Pack',
-  price: '$192',
-  href: '#',
-  breadcrumbs: [
-    { id: 1, name: 'Men', href: '#' },
-    { id: 2, name: 'Clothing', href: '#' }
-  ],
-  images: [
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-      alt: 'Two each of gray, white, and black shirts laying flat.'
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-      alt: 'Model wearing plain black basic tee.'
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-      alt: 'Model wearing plain gray basic tee.'
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-      alt: 'Model wearing plain white basic tee.'
-    }
-  ],
-  colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' }
-  ],
-  sizes: [
-    { name: 'XXS', inStock: false },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-    { name: '2XL', inStock: true },
-    { name: '3XL', inStock: true }
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    'Hand cut and sewn locally',
-    'Dyed with our proprietary colors',
-    'Pre-washed & pre-shrunk',
-    'Ultra-soft 100% cotton'
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.'
-}
+
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
 function classNames(...classes: string[]) {
@@ -66,8 +14,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function Product() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+  const [selectedColor, setSelectedColor] = useState("")
+  const [selectedSize, setSelectedSize] = useState("")
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
   const [id, setId] = useState("")
   const addToCart = () => {
@@ -75,7 +23,7 @@ export default function Product() {
     let a = JSON.parse(localStorage.getItem('cart') || '{}')
 
     all.push(a)
-    all.push(product)
+    // all.push(product)
     localStorage.setItem('cart', JSON.stringify(all))
   }
   const params = useParams()
@@ -88,9 +36,12 @@ export default function Product() {
   }
   useEffect(()=>{
     setId(params.id!)
-    if(id)
+    setSelectedColor(prod?.colors![0]!)
+    if(id){
       fetchProduct(id)
-  },[id])
+      console.log(selectedColor)
+    }
+  },[id,selectedColor])
 const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
   return (
     <>
@@ -193,23 +144,28 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                         <RadioGroup.Option
                           key={color}
                           value={color}
-                          className={({ active, checked }) =>
+                          className={({ active }) =>
                             classNames(
-                              active && checked ? 'ring ring-offset-1' : '',
-                              !active && checked ? 'ring-2' : '',
-                              '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                               active ? 'ring-2 bg-'+color+"-500" : "bg-"+ color+ "-500",
+                              'h-8 w-8 border border-black border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
                             )
                           }
                         >
                           <RadioGroup.Label as="span" className="sr-only">
                             {color}
                           </RadioGroup.Label>
-                          <span
+                          <RadioGroup.Option
+                            key={color}
+                          value={color}
                             aria-hidden="true"
-                            className={classNames(
-                              'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                            )}
+                          className={({ active }) =>
+                            classNames(
+                               active ? 'ring-2 bg-'+color : "bg-"+ color,
+                              'h-8 w-8 border bg- border-black border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                            )
+                          }
                           />
+                          
                         </RadioGroup.Option>
                       ))}
                     </div>
