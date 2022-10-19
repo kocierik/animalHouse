@@ -3,15 +3,17 @@ import JsonError from '../json/JsonError'
 import { Request, Response } from 'express'
 import Product from '../entities/Product'
 import { JsonReview } from '../json/JsonReview'
+import Review from '../entities/Review'
 
 
 export const getReviews = async (req: Request, res: Response) => {
   const pathId = req.params.id
   if (pathId) {
-    // Check if a product with that id exists
-    if (await Product.exists({ _id: pathId })) return res.status(STATUS_OK).json(await Product.findById(pathId))
-    else return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Invalid product id ${pathId}`))
+    // Check existing review
+    if(res.status(STATUS_OK).json(await Review.find({productId: pathId}))){
+      return res.status(STATUS_OK).json(await Review.find({productId: pathId}))
+    } else return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Invalid  product id ${pathId}`))
   } else {
-    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Invalid product id ${pathId}`))
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Product id doesn't exist ${pathId}`))
   }
 }

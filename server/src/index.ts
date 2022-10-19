@@ -7,6 +7,7 @@ import * as animalRoutes from './routes/animal'
 import * as userRoutes from './routes/user'
 import * as communityRoutes from './routes/community'
 import * as marketRoutes from './routes/market'
+import * as reviewRoutes from "./routes/review"
 import * as migrations from './initial-migrations'
 import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER, BACKOFFICE_DIR } from './const'
 
@@ -75,7 +76,7 @@ app.get(version + '/market/product/', log, marketRoutes.getProducts)
 app.get(version + '/market/products/:id', log, marketRoutes.getProduct)
 
 // Reviews
-//app.get(version + '/product/:id/reviews', log, marketRoutes.getProduct)
+app.get(version + '/product/:id/reviews', log, reviewRoutes.getReviews)
 
 
 app.listen(port, () => {
