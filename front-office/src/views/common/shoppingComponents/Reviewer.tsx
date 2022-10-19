@@ -7,7 +7,6 @@ interface prodId {
 }
 
 const Reviewer = ({productId}:prodId) => {
-  console.log("id: ", productId)
   const UsersReview = [
     {
       id: 1,
@@ -28,9 +27,15 @@ const Reviewer = ({productId}:prodId) => {
   const [review,setReview] = useState<JsonReview.IReview[]>([])
 
   const fetchReview = async(productId : string) => {
-    const val = await (await ApiRepository.getProductReviews(productId)).data 
-    setReview(val!)
-    console.log(val)
+    if(productId){
+      if(await (await ApiRepository.getProductReviews(productId)).esit){
+      const val = await (await ApiRepository.getProductReviews(productId)).data 
+      setReview(val!)
+      console.log(val)
+      } else{
+        console.log("API review error")
+      }
+    } 
   }
 
   React.useEffect(()=>{
