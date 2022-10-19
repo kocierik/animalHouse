@@ -48,16 +48,16 @@ export const initReviews = async () =>{
   await Review.insertMany([
     {
     _id: new Types.ObjectId('11f425273418f02b236b5811'),
-    productId: "62f425273418f02b236b58b0",
     username: "erik",
+    productId: "62f425273418f02b236b58b0",
     comment: "il man è bravo",
     star: 5,
     date: new Date()
   },
   {
     _id: new Types.ObjectId('11f425273418f02b236b5812'),
-    productId: "62f425273418f02b236b58b0",
     username: "erik",
+    productId: "62f425273418f02b236b58b0",
     comment: "il man è molto bravo",
     star: 3,
     date: new Date()
