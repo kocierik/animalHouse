@@ -2,6 +2,7 @@ import { Game } from './entities/Community'
 import { Types } from 'mongoose'
 import ProductCategory from './entities/ProductCategory'
 import Product from './entities/Product'
+import Review from './entities/Review'
 import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 
@@ -39,6 +40,28 @@ export const test = async () => {
       highlights: ['beauty', 'confort', 'human', 'cold'],
       details: 'perfect for burn human',
     },
+  ])
+}
+
+export const initReviews = async () =>{
+  await Review.deleteMany();
+  await Review.insertMany([
+    {
+    _id: new Types.ObjectId('11f425273418f02b236b5811'),
+    productId: "62f425273418f02b236b58b0",
+    username: "erik",
+    comment: "il man è bravo",
+    star: 5,
+    date: new Date()
+  },
+  {
+    _id: new Types.ObjectId('11f425273418f02b236b5812'),
+    productId: "62f425273418f02b236b58b0",
+    username: "erik",
+    comment: "il man è molto bravo",
+    star: 3,
+    date: new Date()
+  },
   ])
 }
 
