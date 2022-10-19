@@ -39,7 +39,7 @@ export default function Product() {
     setSelectedColor(prod?.colors![0]!)
     if(id){
       fetchProduct(id)
-      console.log(selectedColor)
+      //console.log(selectedColor)
     }
   },[id,selectedColor])
 const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]

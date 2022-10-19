@@ -14,6 +14,6 @@ export const getReviews = async (req: Request, res: Response) => {
       return res.status(STATUS_OK).json(await Review.find({productId: pathId}))
     } else return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Invalid  product id ${pathId}`))
   } else {
-    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Product id doesn't exist ${pathId}`))
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Url Product id doesn't exist ${pathId}`))
   }
 }
