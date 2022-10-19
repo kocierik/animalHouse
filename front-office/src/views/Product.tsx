@@ -252,7 +252,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
             </div>
           </div>
-          <Reviewer />
+          <Reviewer productId={id}/>
         </div>
       </div>
     </>
