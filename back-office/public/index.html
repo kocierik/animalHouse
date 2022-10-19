@@ -69,12 +69,29 @@
 
             </div>
           </section>
-          <section class="p-4">
-            grafico vendite
-            <div id="chart1" class="h-64 w-1/2"></div>
-            grafico incassi
-            <div id="chart2" class="h-64 w-1/2"></div>
-          </section>
+
+          <div class="flex flex-wrap flex-row">
+            <div class="w-full lg:w-1/2">
+              <section class="m-4 bg-white border border-gray-300 border-solid rounded shadow">
+                <header class="border-b border-solid border-gray-300 p-4 text-lg font-medium">
+                  Sales chart
+                </header>
+                <section class="overflow-x-auto w-full">
+                  <div class="w-full h-96" id="chart1"></div>
+                </section>
+              </section>
+            </div>
+            <div class="w-full lg:w-1/2">
+              <section class="m-4 bg-white border border-gray-300 border-solid rounded shadow">
+                <header class="border-b border-solid border-gray-300 p-4 text-lg font-medium">
+                  Revenue chart
+                </header>
+                <section class="overflow-x-auto w-full">
+                  <div class="w-full h-96" id="chart2"></div>
+                </section>
+              </section>
+            </div>
+          </div>
         </section>
 
         <div class="flex flex-wrap flex-row">
@@ -206,6 +223,7 @@
               </section>
             </section>
           </div>
+        </div>
       </section>
 
 
