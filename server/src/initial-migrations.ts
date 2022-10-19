@@ -82,7 +82,7 @@ export const initProductCategories = async () => {
       _id: new Types.ObjectId('62f3c0540ac73a2bc4764da8'),
     },
     {
-      name: 'healt',
+      name: 'health',
       _id: new Types.ObjectId('62f3c0540ac73a2bc4764da9'),
     },
     {
