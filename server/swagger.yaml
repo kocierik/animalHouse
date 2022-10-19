@@ -413,7 +413,39 @@ paths:
           200:
             description: Success
 
-            
+  /product/{id}/reviews:
+    get:
+        tags:
+        - review
+        summary: Retrive reviews about a product
+        parameters:
+          - in: path
+            name: id
+            type: string
+            required: true
+            description: Id of the product to be searched
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                $ref: "#/definitions/Review"
+    delete:
+      tags:
+      - market
+      summary: Deletes a product based on the received id
+      parameters: 
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the product to be deleted
+      responses:
+        200:
+          description: successful operation
+
+        
 securityDefinitions:  
   JWT:  
     type: apiKey  
@@ -485,10 +517,8 @@ definitions:
         type: number
       categoryId:
         type: string
-      images:
-        type: array
-        items:
-          type: string
+      image:
+        type: string
       animalTargets:
         type: array
         items:
@@ -498,14 +528,6 @@ definitions:
         items:
           type: string
       sizes:
-        type: array
-        items:
-          type: string
-      types:
-        type: array
-        items:
-          type: string
-      highlights:
         type: array
         items:
           type: string
@@ -525,7 +547,23 @@ definitions:
         type: string
       type:
         type: string
-    
+  
+  Review:
+    type: object
+    properties:
+      _id:
+        type: string
+      username:
+        type: string
+      productId:
+        type: string
+      comment:
+        type: string
+      star:
+        type: number
+      date:
+        type: string
+  
   Shop:
     type: object
     properties:
