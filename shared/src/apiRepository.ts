@@ -4,6 +4,7 @@ import type * as animal from './json/animal'
 import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
+import type * as review from './json/Review'
 import { stringFormat } from './helpers'
 
 // Server api urls
@@ -18,6 +19,7 @@ const _SCORE_CODES = '/users/{0}/score/'
 const _LEADERBOARD_CODES = '/community/game/scoreboard' 
 const _MARKET_PRODUCT_CODES = '/market/product/' 
 const SINGLE_MARKET_PRODUCT_CODES = '/market/products/' 
+const _PRODUCT_REVIEW_CODES = '/product/{0}/reviews/' 
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _AUTH, { username: username, password: password })
@@ -43,6 +45,9 @@ export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_U
 export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
 export const getMarketProduct = async (productId: string) =>
    Api.get<product.IProductMarked>(_BASE_URL + SINGLE_MARKET_PRODUCT_CODES + productId)
+   
+export const getProductReviews = async (productId: string) =>
+   Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCT_REVIEW_CODES, productId))
    
 
 // TODO insert here other calls!!!!

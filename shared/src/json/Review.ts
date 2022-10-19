@@ -1,7 +1,7 @@
-export interface JsonReview {
+export interface IReview {
   username: string
   productId: string
-  comment: string
+  comment?: string
   star: number
   date: Date
 }

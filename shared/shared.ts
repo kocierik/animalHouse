@@ -9,3 +9,4 @@ export * as JsonAnimal from './src/json/animal'
 export * as Community from "./src/json/Community"
 export * as ProductMarked from "./src/json/ProductMarked"
 export * as JsonGames from "./src/json/Games"
+export * as JsonReview from './src/json/Review';
