@@ -4,7 +4,7 @@ function retrieveProducts(target) {
         $(target).text("");
 
         data.forEach(function (el) {
-            $(target).append([{ img: el.image, name: el.name, price: el.price, id: el._id }].map(Item));
+            $(target).append([{ img: el.image, name: el.name, price: el.price, id: el._id, description: el.description }].map(Item));
         });
     });
 }
@@ -22,14 +22,15 @@ function itemRemove(id) {
 }
 
 //item template
-const Item = ({ img, name, price, id }) => `
+const Item = ({ img, name, price, id, description }) => `
 <tr>
     <td class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
-            <div class="mr-4 h-16 w-16 block flex flex-row justify-center items-center text-white">
+            <div class="mr-4 h-16 w-16 block flex flex-row items-center">
                 <img class="rounded-lg" src="${img}"></div>
-            <div class="text-gray-700">${name}</div>
-            <div class="text-gray-700">${price}</div>
+            <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${name}</div>
+            <div class="mr-4 h-16 w-16 block flex flex-row items-center text-gray-700">${price} $</div>
+            <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${description}</div>
         </div>
 
     </td>
