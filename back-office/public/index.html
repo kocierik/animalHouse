@@ -18,6 +18,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+  <!-- chart -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 
 
   <title>Animal House - Dashboard</title>
@@ -66,8 +69,11 @@
 
             </div>
           </section>
-          <section id="chart" class="p-4">
-            <canvas id="myChart" width="200" height="200"></canvas>
+          <section class="p-4">
+            grafico vendite
+            <div id="chart1" class="h-64 w-1/2"></div>
+            grafico incassi
+            <div id="chart2" class="h-64 w-1/2"></div>
           </section>
         </section>
 
@@ -207,6 +213,7 @@
   </main>
 
   </div>
+  <script src="js/chart.js"></script>
 </body>
 
 </html>
