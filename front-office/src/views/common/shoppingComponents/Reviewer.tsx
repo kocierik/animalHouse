@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { ApiRepository, JsonReview } from 'shared';
+import useEffect from 'react';
 
-const Reviewer = () => {
+interface prodId {
+  productId: string
+}
+
+const Reviewer = ({productId}:prodId) => {
+  console.log("id: ", productId)
   const UsersReview = [
     {
       id: 1,
@@ -17,6 +24,18 @@ const Reviewer = () => {
       added: 'now'
     }
   ]
+
+  const [review,setReview] = useState<JsonReview.IReview[]>([])
+
+  const fetchReview = async(productId : string) => {
+    const val = await (await ApiRepository.getProductReviews(productId)).data 
+    setReview(val!)
+    console.log(val)
+  }
+
+  React.useEffect(()=>{
+    fetchReview(productId)
+  },[productId])
 
   return (
     <div className=" max-w-2xl mx-auto pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
