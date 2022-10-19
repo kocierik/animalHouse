@@ -12,7 +12,10 @@ new Chartist.Line('#chart1', {
     ]
 }, {
     showArea: true,
-    showPoint: true
+    showLine: true,
+    showPoint: true,
+    lineSmooth: true,
+    low: 0
 });
 
 
@@ -28,5 +31,8 @@ new Chartist.Line('#chart2', {
     ]
 }, {
     showArea: true,
-    showPoint: true
+    showLine: true,
+    showPoint: true,
+    lineSmooth: true,
+    low: 0
 });
