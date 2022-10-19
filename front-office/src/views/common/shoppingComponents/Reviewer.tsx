@@ -24,13 +24,13 @@ const Reviewer = ({productId}:prodId) => {
     }
   ]
 
-  const [review,setReview] = useState<JsonReview.IReview[]>([])
+  const [reviews,setReviews] = useState<JsonReview.IReview[]>([])
 
   const fetchReview = async(productId : string) => {
     if(productId){
       if(await (await ApiRepository.getProductReviews(productId)).esit){
       const val = await (await ApiRepository.getProductReviews(productId)).data 
-      setReview(val!)
+      setReviews(val!)
       console.log(val)
       } else{
         console.log("API review error")
@@ -48,16 +48,16 @@ const Reviewer = ({productId}:prodId) => {
               <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
             </div>
     <div className="mb-2 mt-5 rounded-t-8xl rounded-b-5xl overflow-hidden">
-      {UsersReview.map((user,i) => (
+      {reviews.map((review,i) => (
         <div key={i}>
           <div  className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40" >
             <div className="flex flex-wrap items-center">
               <img className="mr-6" src="" alt="" />
-              <h4 className="w-full md:w-auto text-xl font-heading font-medium">{user.name}</h4>
+              <h4 className="w-full md:w-auto text-xl font-heading font-medium">{review.username}</h4>
               <div className="w-full md:w-px h-2 md:h-8 mx-8 bg-transparent md:bg-gray-200"></div>
-              <span className="mr-4 text-xl font-heading font-medium">{user.star}</span>
+              <span className="mr-4 text-xl font-heading font-medium">{review.star}</span>
               <div className="inline-flex">
-                {Array.from(Array(user.star), (e, i) => {
+                {Array.from(Array(review.star), (e, i) => {
                   return (
                     <a className="inline-block mr-1" href="#" key={i}>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,10 +75,10 @@ const Reviewer = ({productId}:prodId) => {
           <div className="px-4 overflow-hidden md:px-16 pt-8 pb-12 bg-white">
             <div className="flex flex-wrap">
               <div className="w-full md:w-2/3 mb-6 md:mb-0">
-                <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">{user.description}</p>
+                <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">{review.comment}</p>
               </div>
               <div className="w-full md:w-1/3 text-right">
-                <p className="mb-8 text-sm text-gray-300">{user.added}</p>
+                <p className="mb-8 text-sm text-gray-300">{String(review.date)}</p>
               </div>
             </div>
           </div>
