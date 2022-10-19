@@ -25,6 +25,7 @@ async function db() {
   await migrations.initGames()
   await migrations.initProductCategories()
   await migrations.initAnimalCodes()
+  await migrations.initReviews()
   await migrations.test()
 }
 
@@ -72,6 +73,10 @@ app.delete(version + '/market/products/:id', log, marketRoutes.deleteProduct) //
 app.post(version + '/market/products', log, marketRoutes.postProduct) //insert
 app.get(version + '/market/product/', log, marketRoutes.getProducts)
 app.get(version + '/market/products/:id', log, marketRoutes.getProduct)
+
+// Reviews
+//app.get(version + '/product/:id/reviews', log, marketRoutes.getProduct)
+
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
