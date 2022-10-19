@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ProductMarked } from 'shared'
+import { ApiRepository, ProductMarked, ProductConstant, productConstant } from 'shared';
 
 
 const reviews = { href: '#', average: 4, totalCount: 117 }
@@ -53,7 +53,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                 <li key={prod?._id}>
                   <div className="flex items-center">
                     <a  className="mr-2 text-sm font-medium text-gray-900">
-                      {prod?.categoryId}
+                      {ProductConstant.PRODUCT_TYPE[prod?.categoryId as string]}
                     </a>
                     <svg
                       width={16}
