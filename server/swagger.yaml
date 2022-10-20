@@ -8,7 +8,7 @@ basePath: /v1
 tags:
 - name: pet
 - name: store
-- name: user
+- name: users
 - name: community
 - name: market
     
@@ -18,7 +18,7 @@ paths:
   /users/register:
     post:
       tags:
-      - user
+      - users
       summary: Create new user
       parameters:
       - in: body
@@ -44,7 +44,7 @@ paths:
   /users/login:
     post:
       tags:
-      - user
+      - users
       summary: Login as an user
       parameters:
       - in: body
@@ -69,7 +69,7 @@ paths:
   /users/:
     get:
       tags:
-      - user
+      - users
       summary: Get all users
       security:
       - JWT: []
@@ -78,6 +78,7 @@ paths:
           description: ok
           schema:
             $ref: "#/definitions/User"
+            
   /users/current:
     get:
       tags:
@@ -99,7 +100,7 @@ paths:
   /users/{id}:
     get:
       tags:
-      - user
+      - users
       summary: Get a user by ID
       parameters:
         - in: path
@@ -118,7 +119,7 @@ paths:
   /users/{id}/score:
     get:
       tags:
-      - user
+      - users
       summary: Get game scores of the specified user
       parameters:
         - in: path
@@ -147,7 +148,7 @@ paths:
                     type: number
     put:
       tags:
-      - user
+      - users
       summary: Add a game score to the specified user
       parameters:
         - in: path
@@ -180,7 +181,7 @@ paths:
   /users/{id}/cart:
     get:
       tags:
-      - user
+      - users
       summary: Get the cart of the specified user
       parameters:
         - in: path
@@ -199,7 +200,7 @@ paths:
               $ref: "#/definitions/ProductInstance"
     put:
       tags:
-      - user
+      - users
       summary: Add a product to the cart of the specified user
       parameters:
         - in: path
@@ -225,7 +226,7 @@ paths:
               $ref: "#/definitions/ProductInstance" 
     delete:
       tags:
-      - user
+      - users
       summary: Delete a product from the cart of the specified user
       description: Takes in the body a list of string representing the product instance ids you want to delete
       parameters:
