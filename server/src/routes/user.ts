@@ -112,6 +112,11 @@ export const getUser = async (req: Request, res: Response) => {
   }
 }
 
+export const getUsers = async (_: Request, res: Response) => {
+  return res.json(await User.find({}))
+}
+
+
 export const putScore = async (req: Request, res: Response) => {
   const authId = req.authData.id
   const pathId = req.params.id
