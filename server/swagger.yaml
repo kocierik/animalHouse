@@ -6,9 +6,9 @@ info:
 host: localhost:8080
 basePath: /v1
 tags:
+- name: pet
 - name: store
-- name: users
-- name: animals 
+- name: user
 - name: community
 - name: market
     
@@ -18,7 +18,7 @@ paths:
   /users/register:
     post:
       tags:
-      - users
+      - user
       summary: Create new user
       parameters:
       - in: body
@@ -41,12 +41,10 @@ paths:
       responses:
         200:
           description: Success
-          schema:
-            $ref: "#/definitions/User"
   /users/login:
     post:
       tags:
-      - users
+      - user
       summary: Login as an user
       parameters:
       - in: body
@@ -72,7 +70,7 @@ paths:
     get:
       tags:
       - users
-      summary: Retrieve information about the current user
+      summary: Retrieve information about the current users
       security:  
         - JWT: []
       responses:
@@ -81,7 +79,7 @@ paths:
           schema:
             type: object
             properties:
-              username:
+              usersname:
                 type: string
               _id:
                 type: string
@@ -89,7 +87,7 @@ paths:
   /users/{id}:
     get:
       tags:
-      - users
+      - user
       summary: Get a user by ID
       parameters:
         - in: path
@@ -103,12 +101,12 @@ paths:
         200:
           description: ok
           schema:
-            $ref: "#/definitions/User"
+            $ref: "#/definitions/users"
   
   /users/{id}/score:
     get:
       tags:
-      - users
+      - user
       summary: Get game scores of the specified user
       parameters:
         - in: path
@@ -137,7 +135,7 @@ paths:
                     type: number
     put:
       tags:
-      - users
+      - user
       summary: Add a game score to the specified user
       parameters:
         - in: path
@@ -170,7 +168,7 @@ paths:
   /users/{id}/cart:
     get:
       tags:
-      - users
+      - user
       summary: Get the cart of the specified user
       parameters:
         - in: path
@@ -189,7 +187,7 @@ paths:
               $ref: "#/definitions/ProductInstance"
     put:
       tags:
-      - users
+      - user
       summary: Add a product to the cart of the specified user
       parameters:
         - in: path
@@ -215,7 +213,7 @@ paths:
               $ref: "#/definitions/ProductInstance" 
     delete:
       tags:
-      - users
+      - user
       summary: Delete a product from the cart of the specified user
       description: Takes in the body a list of string representing the product instance ids you want to delete
       parameters:
@@ -241,64 +239,38 @@ paths:
             type: array
             items:
               $ref: "#/definitions/ProductInstance"
-  /users/{id}/animals:
-    put:
+  /pet:
+    get:
         tags:
-        - users
-        summary: Add an animal for the specified user
+        - pet
+        summary: Finds Pet
+        operationId: getPet
         parameters:
-          - in: path
-            name: id
-            type: string
-            required: true
-            description: Id of the user
-          - in: body
-            name: body
-            required: true
-            schema:
-              type: array
-              items:
-                $ref: "#/definitions/Animal"
-        security:
-          - JWT: []
+        - name: id
+          in: query
+          description: Id of the pet
+          required: true
+          type: integer
         responses:
           200:
-            description: ok
-            schema:
-              type: array
-              items:
-                $ref: "#/definitions/Animal" 
-  /animals/codes:
-    get:
+            description: successful operation
+            schema: 
+              $ref: "#/definitions/Pet"
+    post:
       tags:
-      - animals
-      summary: Finds all animal tags
+      - pet
+      summary: Add a new pet
+      operationId: addPet
+      parameters:
+      - in: body
+        name: body
+        description: Pet object
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
       responses:
         200:
-          description: Ok
-          schema:
-            type: object
-            properties:
-              code:
-                type: number
-              value:
-                type: string
-  /animals/{id}:
-    get:
-      tags:
-      - animals
-      summary: Finds detail of an animal
-      parameters:
-        - in: path
-          name: id
-          type: string
-          required: true
-          description: Id of the animal
-      responses:
-          200:
-            description: successful operation
-            schema:
-              $ref: "#/definitions/Animal"
+          description: Success
           
   /community/game/:
     get:
@@ -321,7 +293,7 @@ paths:
     get:
         tags:
         - community
-        summary: Fids the results for the scoreboard
+        summary: Finds the results for the scoreboard
         parameters:
           - in: query
             name: gameId
@@ -354,6 +326,19 @@ paths:
                           items:
                             type: number
   
+  /market/products/:
+    get:
+        tags:
+        - market
+        summary: Finds all products
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                $ref: "#/definitions/Product"
+
   /market/products/{id}:
     get:
         tags:
@@ -413,6 +398,9 @@ paths:
           200:
             description: Success
 
+
+                
+                
             
 securityDefinitions:  
   JWT:  
@@ -458,19 +446,34 @@ definitions:
             type: string
           cap:
             type: integer
-  Animal:
+      
+      
+  Species:
+    type: string
+    enum: &SPECIES
+      - Dog
+      - Cat
+      - Duck
+      - Fox
+      - Koala
+      - Panda
+      - Rabbit
+      
+  Pet:
     type: object
     properties:
-      _id:
-        type: string
+      id:
+        type: integer
+        format: int64
       name:
         type: string
-      type:
+      ownerId:
+        type: integer
+      specie:
         type: string
-      userId:
-        type: string
+        enum: *SPECIES
       age:
-        type: number
+        type: integer
   
   Product:
     type: object
