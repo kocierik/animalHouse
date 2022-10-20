@@ -49,6 +49,7 @@ app.get('/', (_: Request, res: Response) => {
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
 app.get(version + '/users/current', log, userRoutes.verifyToken, userRoutes.getCurrentUser)
+app.get(version + '/users/', log, userRoutes.verifyToken, userRoutes.getUsers)
 app.get(version + '/users/:id', log, userRoutes.verifyToken, userRoutes.getUser)
 app.put(version + '/users/:id/score', log, userRoutes.verifyToken, userRoutes.putScore)
 app.get(version + '/users/:id/score/', log, userRoutes.verifyToken, userRoutes.getScore)

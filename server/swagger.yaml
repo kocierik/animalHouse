@@ -66,6 +66,18 @@ paths:
             properties:
               token:
                 type: string
+  /users/:
+    get:
+      tags:
+      - user
+      summary: Get all users
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: "#/definitions/User"
   /users/current:
     get:
       tags:
@@ -101,7 +113,7 @@ paths:
         200:
           description: ok
           schema:
-            $ref: "#/definitions/users"
+            $ref: "#/definitions/User"
   
   /users/{id}/score:
     get:
