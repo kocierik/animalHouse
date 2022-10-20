@@ -1,6 +1,9 @@
 import JsonError from '@/json/JsonError'
 import Product, { IProduct } from '../entities/Product'
 import { IProductInstance } from '../entities/Cart'
+import { JsonProduct } from '@/json/JsonProduct'
+
+export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 
 export const findProductByid = async (id: string): Promise<IProduct> => {
   try {
@@ -26,3 +29,23 @@ export const evalProductInstance = async (pq: IProductInstance): Promise<boolean
 
 export const evalProductInstances = (productInstances: IProductInstance[]): Promise<boolean> =>
   Promise.all(productInstances.map(x => evalProductInstance(x))).then(x => x.reduce((old, cur) => old && cur))
+
+export const deleteProduct = (id: string) => Product.deleteOne({ _id: id })
+
+export const createProduct = async (productCreation: JsonProduct): Promise<IProduct> => {
+  const product = new Product();
+
+  product.name = productCreation.name;
+  product.price = productCreation.price;
+  product.categoryId = productCreation.categoryId;
+  product.description = productCreation.description;
+  product.animalTargets = productCreation.animalTargets;
+  product.image = productCreation.image;
+  product.colors = productCreation.colors;
+  product.sizes = productCreation.sizes;
+  product.types = productCreation.types;
+  product.details = productCreation.details;
+  await product.save();
+  return product as IProduct
+}
+
