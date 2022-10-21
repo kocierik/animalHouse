@@ -5,9 +5,18 @@ import * as ProductService from './productService'
 import * as CartService from './cartService'
 import * as AnimalService from './animalService'
 import { IProductInstance } from '../entities/Cart'
-import { JsonAnimal } from '@/json/JsonAnimal'
+import { JsonAnimal } from '../json/JsonAnimal'
+import { JsonLogin } from '../json/JsonUser'
+import { AuthData } from '../routes/middlewares'
+import Admin from '../entities/Admin'
 
-export const validateUserCreation = async (userCreation: JsonUserCreation): Promise<Boolean> => {
+export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
+  validateUserCreation(userCreation)
+    .then(userCreationToUser)
+    .then(x => x.save())
+    .then(x => x as IUser)
+
+const validateUserCreation = async (userCreation: JsonUserCreation): Promise<JsonUserCreation> => {
   // Password checks
   if (userCreation.password.length < 8)
     throw new JsonError('password must be at least 8 characters long')
@@ -25,10 +34,10 @@ export const validateUserCreation = async (userCreation: JsonUserCreation): Prom
   if ((await User.find({ email: userCreation.email })).length != 0)
     throw new JsonError(`email ${userCreation.email} already taken`)
 
-  return true
+  return userCreation
 }
 
-export const userCreationToUser = (userCreation: JsonUserCreation) => {
+const userCreationToUser = (userCreation: JsonUserCreation) => {
   const user = new User()
   user.username = userCreation.username
   user.email = userCreation.email
@@ -37,6 +46,35 @@ export const userCreationToUser = (userCreation: JsonUserCreation) => {
   user.lastName = userCreation.lastName
   user.phone = 'todo'
   return user
+}
+
+export const verifyLogin = (login: JsonLogin): Promise<AuthData> => {
+  const hashed = login.password //bcrypt.hashSync(login.password, 5)
+  if (login.admin)
+    return constructAuthDataForAdmin(login.username, login.password)
+  return constructAuthDataForUser(login.username, login.password)
+}
+
+const constructAuthDataForUser = async (username: string, password: string): Promise<AuthData> => {
+  const result = await User.find({ username: username, password: password })
+  if (result.length !== 1) {
+    throw new JsonError('invalid username or password')
+  }
+  return {
+    username: result[0].username,
+    id: result[0]._id.toString(),
+  } as AuthData
+}
+
+const constructAuthDataForAdmin = async (username: string, password: string): Promise<AuthData> => {
+  const result = await Admin.find({ username: username, password: password })
+  if (result.length !== 1) {
+    throw new JsonError('invalid admin username or password')
+  }
+  return {
+    username: result[0].username,
+    id: result[0]._id.toString(),
+  } as AuthData
 }
 
 export const findUserById = async (id: string): Promise<IUser> => {

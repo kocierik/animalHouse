@@ -22,7 +22,9 @@ app.use(cors())
 
 // Db initialization
 async function db() {
-  await connect(`mongodb://${DB_USER}:${DB_SECRET}@${DB_ADDR}:${DB_PORT}/${DB_NAME}`)
+  const uri = `mongodb://${DB_USER}:${DB_SECRET}@${DB_ADDR}:${DB_PORT}/${DB_NAME}`
+  console.log(uri)
+  await connect(uri)
   await migrations.initGames()
   await migrations.initProductCategories()
   await migrations.initAnimalCodes()

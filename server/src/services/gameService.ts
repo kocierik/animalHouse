@@ -1,5 +1,5 @@
-import Score from '@/entities/Score'
-import { JsonScoreboardItem, JsonScoreboardScore } from '@/json/JsonScoreboard'
+import Score from '../entities/Score'
+import { JsonScoreboardItem, JsonScoreboardScore } from '../json/JsonScoreboard'
 import { Game } from '../entities/Community'
 import * as UserService from './userService'
 
