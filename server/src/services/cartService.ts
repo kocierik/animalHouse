@@ -1,4 +1,4 @@
-import JsonError from '@/json/JsonError'
+import JsonError from '../json/JsonError'
 import { Types } from 'mongoose'
 import Cart, { ICart, IProductInstance } from '../entities/Cart'
 

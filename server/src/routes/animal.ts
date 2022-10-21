@@ -17,7 +17,7 @@ export const getAnimal = async (req: Request, res: Response) => {
   if (animal.userId !== req.authData.id)
     return res
       .status(STATUS_UNAUTHORIZED)
-      .json(new JsonError("Can't access animal with id " + animal.id + ' with this user'))
+      .json(new JsonError("Can't access animal with id " + animal._id + ' with this user'))
   else {
     return res.status(STATUS_OK).json(animal)
   }

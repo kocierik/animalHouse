@@ -1,7 +1,7 @@
-import JsonError from '@/json/JsonError'
+import JsonError from '../json/JsonError'
 import Product, { IProduct } from '../entities/Product'
 import { IProductInstance } from '../entities/Cart'
-import { JsonProduct } from '@/json/JsonProduct'
+import { JsonProduct } from '../json/JsonProduct'
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 
