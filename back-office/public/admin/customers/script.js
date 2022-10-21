@@ -12,8 +12,8 @@ function retrieveUsers(target) {
         });
     });
 }
-function userRemove(id) {
-    if (confirm('Are you sure you want to remove the product ' + id + '?')) {
+function userRemove(username, id) {
+    if (confirm('Are you sure you want to remove the user ' + username + " | " + id + '?')) {
         $.ajax({
             url: "/v1/users/" + id,
             type: 'DELETE',
@@ -47,7 +47,7 @@ const Item = ({ username, firstName, lastName, id, email, phone, address }) => `
         &nbsp;&nbsp;
         <a href="edit/?id=${id}"><i class="bi bi-pencil"></i></a>
         &nbsp;&nbsp;
-        <button onclick=itemRemove("${id}")><i class="bi bi-trash"></i></button>
+        <button onclick='itemRemove("${username}","${id}")'><i class="bi bi-trash"></i></button>
     </td>
 </tr>
 `;
