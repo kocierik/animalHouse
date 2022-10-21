@@ -8,8 +8,8 @@ function retrieveProducts(target) {
         });
     });
 }
-function itemRemove(id) {
-    if (confirm('Are you sure you want to remove the product ' + id + '?')) {
+function itemRemove(name, id) {
+    if (confirm('Are you sure you want to remove the product ' + name + " | " + id + '?')) {
         $.ajax({
             url: "/v1/market/products/" + id,
             type: 'DELETE',
@@ -37,7 +37,7 @@ const Item = ({ img, name, price, id, description }) => `
     <td class="text-right p-2 pr-4 border-b border-solid border-gray-300 text-gray-700">
         <a href="edit/?id=${id}"><i class="bi bi-pencil"></i></a>
         &nbsp;&nbsp;
-        <button onclick=itemRemove("${id}")><i class="bi bi-trash"></i></button>
+        <button onclick='itemRemove("${name}","${id}")'><i class="bi bi-trash"></i></button>
     </td>
 </tr>
 `;
