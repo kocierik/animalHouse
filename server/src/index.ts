@@ -77,6 +77,7 @@ app.get(version + '/market/products/:id', log, marketRoutes.getProduct)
 
 // Reviews
 app.get(version + '/product/:id/reviews', log, reviewRoutes.getReviews)
+app.post(version + '/product/:id/postreview', log, reviewRoutes.postReview)
 
 
 app.listen(port, () => {
