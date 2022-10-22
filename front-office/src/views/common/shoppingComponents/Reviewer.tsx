@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ApiRepository, JsonReview } from 'shared';
+import PostReview from './PostReview';
 
 interface prodId {
   productId: string
@@ -24,14 +25,18 @@ const Reviewer = ({productId}:prodId) => {
     fetchReview(productId)
   },[productId])
 
+
   return (
-    <div className=" max-w-2xl mx-auto pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
-            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+    <div className="max-w-2xl mx-auto  px-4 sm:px-6 lg:max-w-7xl  lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+            <div className="">
               <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
+            <div className=''>
+              <PostReview />
             </div>
-    <div className="mb-2 mt-5 rounded-t-8xl rounded-b-5xl overflow-hidden">
+            </div>
+    <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">
       {reviews.map((review,i) => (
-        <div key={i}>
+        <div key={i} data-aos="fade-up" data-aos-duration="1000" className="container mb-5 rounded-lg shadow-md divide-y divide-solid bg-gray-50 h-auto p-2">
           <div  className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40" >
             <div className="flex flex-wrap items-center">
               <img className="mr-6" src="" alt="" />
@@ -54,7 +59,7 @@ const Reviewer = ({productId}:prodId) => {
               </div>
             </div>
           </div>
-          <div className="px-4 overflow-hidden md:px-16 pt-8 pb-12 bg-white">
+          <div className="px-4 overflow-hidden md:px-16 pt-8 pb-1 bg-white">
             <div className="flex flex-wrap">
               <div className="w-full md:w-2/3 mb-6 md:mb-0">
                 <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">{review.comment}</p>
