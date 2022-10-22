@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_UNAUTHORIZED, SECRET } from '../const'
 import JsonError from '../json/JsonError'
-import Admin from '../entities/Admin'
+import * as AdminService from '../services/adminService'
 
 export interface AuthData {
   username: string
@@ -26,12 +26,6 @@ export const verifyUser = (req: Request, res: Response, next: Function) => {
   const authId = req.authData.id
   const pathId = req.params.id
 
-  if (pathId === authId || isAdmin(authId)) next()
+  if (pathId === authId || AdminService.isAdmin(authId)) next()
   else return res.status(STATUS_UNAUTHORIZED).json(new JsonError("Can't access user with id " + pathId))
-}
-
-/* Utils */
-const isAdmin = async (id: string): Promise<boolean> => {
-  const x = await Admin.exists({ _id: id })
-  return x ? true : false
 }

@@ -5,6 +5,7 @@ import Product from './entities/Product'
 import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
+import Admin from './entities/Admin'
 
 export const test = async () => {
   await User.deleteMany()
@@ -59,6 +60,16 @@ export const test = async () => {
       image: 'https://www.impericon.com/media/catalog/product/s/p/spongebobsquarepants_happyface_yellow_girl_lg.jpg',
       animalTargets: ['human'],
     },
+  ])
+}
+
+export const initAdmin = async () => {
+  await Admin.deleteMany()
+  await Admin.insertMany([
+    {
+      username: "admin",
+      password: "secret"
+    }
   ])
 }
 
