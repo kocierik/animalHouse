@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_UNAUTHORIZED, SECRET } from '../const'
-import JsonError from '../json/JsonError'
+import JsonError, { JsonVisibilityError } from '../json/JsonError'
 import * as AdminService from '../services/admin-service'
 
 export interface AuthData {
@@ -13,13 +13,13 @@ export const verifyToken = async (req: Request, res: Response, next: Function) =
   const authHeader = req.headers['authorization']
   if (authHeader !== undefined) {
     jwt.verify(authHeader, SECRET, (err, authData) => {
-      if (err) res.sendStatus(STATUS_UNAUTHORIZED)
+      if (err) res.sendStatus(STATUS_UNAUTHORIZED).json(new JsonVisibilityError(`error validating token: ${err}`))
       else {
         req.authData = authData.authData
         next()
       }
     })
-  } else res.sendStatus(STATUS_UNAUTHORIZED)
+  } else res.sendStatus(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Authentication header not found"))
 }
 
 export const verifyUser = (req: Request, res: Response, next: Function) => {
@@ -27,5 +27,5 @@ export const verifyUser = (req: Request, res: Response, next: Function) => {
   const pathId = req.params.id
 
   if (pathId === authId || AdminService.isAdmin(authId)) next()
-  else return res.status(STATUS_UNAUTHORIZED).json(new JsonError("Can't access user with id " + pathId))
+  else return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
 }
