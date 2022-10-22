@@ -3,17 +3,19 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { resolve } from 'path'
 import * as parser from 'body-parser'
-import * as animalRoutes from './routes/animal'
-import * as userRoutes from './routes/user'
-import * as communityRoutes from './routes/community'
-import * as marketRoutes from './routes/market'
+import * as animalRoutes from './routes/animal-routes'
+import * as middlewares from './routes/middlewares'
+import * as userRoutes from './routes/user-routes'
+import * as communityRoutes from './routes/community-routes'
+import * as marketRoutes from './routes/market-routes'
+import * as adminRoutes from './routes/admin-routes'
 import * as migrations from './initial-migrations'
-import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER, BACKOFFICE_DIR } from './const'
+import * as Const from './const'
 
 // Constants
 const app = express()
-const port = SERVER_PORT
-const version = CURR_API_VERSION
+const port = Const.SERVER_PORT
+const version = Const.CURR_API_VERSION
 
 // App initialization
 app.use(parser.json())
@@ -21,17 +23,21 @@ app.use(cors())
 
 // Db initialization
 async function db() {
-  await connect(`mongodb://${DB_USER}:${DB_SECRET}@${DB_ADDR}:${DB_PORT}/${DB_NAME}`)
+  const uri = `mongodb://${Const.DB_USER}:${Const.DB_SECRET}@${Const.DB_ADDR}:${Const.DB_PORT}/${Const.DB_NAME}`
+  await connect(uri)
   await migrations.initGames()
   await migrations.initProductCategories()
   await migrations.initAnimalCodes()
+  await migrations.initAnimalCodes()
+  await migrations.initAdmin()
+  // TODO remove
   await migrations.test()
 }
 
 db().catch((err) => console.log(err))
 
 // Backoffice
-const pubDir = resolve(__dirname + BACKOFFICE_DIR)
+const pubDir = resolve(__dirname + Const.BACKOFFICE_DIR)
 console.log("[INFO] Pub dir is at " + pubDir)
 app.use(express.static(pubDir));
 
@@ -48,29 +54,32 @@ app.get('/', (_: Request, res: Response) => {
 })
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
-app.get(version + '/users/current', log, userRoutes.verifyToken, userRoutes.getCurrentUser)
-app.get(version + '/users/:id', log, userRoutes.verifyToken, userRoutes.getUser)
-app.put(version + '/users/:id/score', log, userRoutes.verifyToken, userRoutes.putScore)
-app.get(version + '/users/:id/score/', log, userRoutes.verifyToken, userRoutes.getScore)
-app.get(version + '/users/:id/cart', log, userRoutes.verifyToken, userRoutes.getCart)
-app.put(version + '/users/:id/cart', log, userRoutes.verifyToken, userRoutes.putCart)
-app.delete(version + '/users/:id/cart', log, userRoutes.verifyToken, userRoutes.deleteCart)
-app.put(version + '/users/:id/animals', log, userRoutes.verifyToken, userRoutes.putAnimal)
+app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)
+app.get(version + '/users/:id', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getUser)
+app.put(version + '/users/:id/score', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putScore)
+app.get(version + '/users/:id/score/', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getScore)
+app.get(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getCart)
+app.put(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putCart)
+app.delete(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteCart)
+app.put(version + '/users/:id/animals', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
+
+// Admin
+app.post(version + '/admins/login', log, adminRoutes.postLogin)
 
 // Animal
 app.get(version + '/animals/codes', log, animalRoutes.getAnimalCodes)
-app.get(version + '/animals/:id', log, userRoutes.verifyToken, animalRoutes.getAnimalCodes)
+app.get(version + '/animals/:id', log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
 
 // Community
 app.get(version + '/community/game/', log, communityRoutes.getGames)
 app.get(version + '/community/game/scoreboard', log, communityRoutes.getScoreboard)
 
 // Market
-app.get(version + "/market/products/", log, marketRoutes.getProducts) //retrieve all products
+app.get(version + "/market/products", log, marketRoutes.getProducts) //retrieve all products
+// FIXME @lele/@man manca lo swagger. Probabilmente e' andato perso
 app.get(version + "/market/products/:id", log, marketRoutes.getProduct)   //search 
 app.delete(version + "/market/products/:id", log, marketRoutes.deleteProduct) //remove
 app.post(version + "/market/products", log, marketRoutes.postProduct)  //insert
-app.get(version + '/market/product/', log, marketRoutes.getProducts)
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)

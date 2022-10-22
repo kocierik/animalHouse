@@ -1,5 +1,7 @@
 import { Types } from 'mongoose'
 
+export const SECRET = "secret"
+
 export const STATUS_OK = 200
 export const STATUS_BAD_REQUEST = 400
 export const STATUS_UNAUTHORIZED = 403
