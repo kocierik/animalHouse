@@ -4,8 +4,37 @@ import ProductCategory from './entities/ProductCategory'
 import Product from './entities/Product'
 import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
+import User from './entities/User'
 
 export const test = async () => {
+  await User.deleteMany()
+  await User.insertMany([
+    {
+      email: "mattia@ah.com",
+      username: "mattia",
+      password: "mattia",
+      firstName: "mattia",
+      lastName: "girolimetto",
+      phone: "3333333333"
+    },
+    {
+      email: "man@ah.com",
+      username: "erikMan",
+      password: "erik",
+      firstName: "erik",
+      lastName: "koci",
+      phone: "3333333333"
+    },
+    {
+      email: "lele@ah.com",
+      username: "lele",
+      password: "gabriele",
+      firstName: "gabriele",
+      lastName: "crestanello",
+      phone: "3333333333"
+    },
+  ]
+  )
   await Product.deleteMany()
   await Product.insertMany([
     {
