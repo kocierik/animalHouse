@@ -33,6 +33,7 @@
 <script lang="ts" setup>
 import { ApiRepository, Helpers } from 'shared'
 import { onBeforeMount, ref } from 'vue'
+import Chip from '../components/common/Chip.vue'
 
 interface AnimalChip {
   name: string
