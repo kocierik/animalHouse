@@ -6,8 +6,8 @@ import Score from '../entities/Score'
 import JsonError from '../json/JsonError'
 import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
-import * as UserService from '../services/userService'
-import * as GameService from '../services/gameService'
+import * as UserService from '../services/user-service'
+import * as GameService from '../services/game-service'
 
 export const registerPost = async (req: Request, res: Response) => {
   try {

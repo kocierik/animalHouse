@@ -1,7 +1,7 @@
 import * as Const from '../const'
 import { Request, Response } from 'express'
 import JsonError from '../json/JsonError'
-import * as AnimalService from '../services/animalService'
+import * as AnimalService from '../services/animal-service'
 
 export const getAnimalCodes = async (_: Request, res: Response) =>
   res.status(Const.STATUS_OK).json(await AnimalService.getAnimalCodes())
