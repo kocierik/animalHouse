@@ -1,4 +1,4 @@
-import JsonError from '../json/JsonError'
+import JsonError, { JsonVisibilityError } from '../json/JsonError'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'
@@ -16,7 +16,7 @@ export const verifyLogin = (login: JsonLogin): Promise<AuthData> => {
 const constructAuthDataForAdmin = async (username: string, password: string): Promise<AuthData> => {
   const result = await Admin.find({ username: username, password: password })
   if (result.length !== 1) {
-    throw new JsonError('invalid admin username or password')
+    throw new JsonVisibilityError('invalid admin username or password')
   }
   return {
     username: result[0].username,

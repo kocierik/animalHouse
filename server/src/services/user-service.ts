@@ -1,5 +1,5 @@
 import { JsonUser, JsonUserCreation } from '../json/JsonUser'
-import JsonError from '../json/JsonError'
+import JsonError, { JsonVisibilityError } from '../json/JsonError'
 import User, { IUser } from '../entities/User'
 import * as ProductService from './product-service'
 import * as CartService from './cart-service'
@@ -56,7 +56,7 @@ export const verifyLogin = (login: JsonLogin): Promise<AuthData> => {
 const constructAuthDataForUser = async (username: string, password: string): Promise<AuthData> => {
   const result = await User.find({ username: username, password: password })
   if (result.length !== 1) {
-    throw new JsonError('invalid username or password')
+    throw new JsonVisibilityError('invalid username or password')
   }
   return {
     username: result[0].username,
