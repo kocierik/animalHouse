@@ -20,6 +20,7 @@ const _LEADERBOARD_CODES = '/community/game/scoreboard'
 const _MARKET_PRODUCT_CODES = '/market/product/' 
 const SINGLE_MARKET_PRODUCT_CODES = '/market/products/' 
 const _PRODUCT_REVIEW_CODES = '/product/{0}/reviews/' 
+const _POST_REVIEW_CODES = '/product/{0}/postreview/'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _AUTH, { username: username, password: password })
@@ -48,6 +49,9 @@ export const getMarketProduct = async (productId: string) =>
    
 export const getProductReviews = async (productId: string) =>
    Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCT_REVIEW_CODES, productId))
+   
+export const postProductReview = async (productId: string, review: review.IReview) =>
+   Api.post<review.IReview>(stringFormat(_BASE_URL + _POST_REVIEW_CODES, productId), review)
    
 
 // TODO insert here other calls!!!!
