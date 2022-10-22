@@ -23,7 +23,6 @@ export default function Product() {
     let a = JSON.parse(localStorage.getItem('cart') || '{}')
 
     all.push(a)
-    // all.push(product)
     localStorage.setItem('cart', JSON.stringify(all))
   }
   const params = useParams()
