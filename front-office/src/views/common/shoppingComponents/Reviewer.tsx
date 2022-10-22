@@ -31,7 +31,7 @@ const Reviewer = ({productId}:prodId) => {
             <div className="">
               <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
             <div className=''>
-              <PostReview />
+              <PostReview productId={productId}/>
             </div>
             </div>
     <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">

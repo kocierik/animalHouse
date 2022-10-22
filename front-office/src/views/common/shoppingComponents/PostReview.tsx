@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { ApiRepository, JsonReview } from 'shared';
 
-const PostReview = () => {
-return (
+interface prodId {
+  productId: string
+}
+
+const PostReview = ({productId} : prodId) => {
+  const textComment = useRef<HTMLTextAreaElement>(null)
+  
+  const postComment = async () =>{
+    console.log(textComment.current?.value)
+    const data : JsonReview.IReview = {
+      username: "erik",
+      productId: productId,
+      comment: "test",
+      star: 1,
+      date: new Date()
+    }
+    const val = await (await ApiRepository.postProductReview(productId,data)).data
+    console.log(val)
+  }
+
+  
+  return (
     <>
       {/* Card Base */}
     <div className="max-w-2xl mx-auto pb-16  px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
@@ -21,6 +42,7 @@ return (
           </div>
           <div className="flex ">
             <textarea
+              ref={textComment}
               id="post-input"
               rows={3}
               placeholder="What do you think about this article?"
@@ -31,7 +53,7 @@ return (
 
         {/* Lower Half - Photo/Video & Post Buttons */}
         <div className="flex p-2 justify-end sm:p-4 mr-5">
-          <button
+          <button onClick={postComment}
             className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-green-500 hover:bg-green-600 duration-150"
           >
             Post It
