@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ProductMarked, ProductConstant, productConstant } from 'shared';
+import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
 
 
 const reviews = { href: '#', average: 4, totalCount: 117 }
@@ -34,15 +34,34 @@ export default function Product() {
       setProd(val!)
     }
   }
+  
+    const [reviewsStar,setReviewsStar] = useState<JsonReview.IReview[]>([])
+    const [avarage,setAvarage] = useState(1)
+
+    const fetchReview = async(productId : string) => {
+      if(productId){
+        if(await (await ApiRepository.getProductReviews(productId)).esit){
+        const val = await (await ApiRepository.getProductReviews(productId)).data 
+        setReviewsStar(val!)
+        if(val){
+          const sum = val.reduce((b, a) => b + a.star,1);
+          setAvarage(sum/val?.length!)
+        }
+        } else{
+          console.log("API review error")
+        }
+      } 
+    }
   useEffect(()=>{
     setId(params.id!)
     setSelectedColor(prod?.colors![0]!)
     if(id){
       fetchProduct(id)
-      //console.log(selectedColor)
+      fetchReview(id)
     }
   },[id,selectedColor])
 const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
+
   return (
     <>
       <div className="bg-white">
@@ -117,7 +136,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                       <StarIcon
                         key={rating.star}
                         className={classNames(
-                          reviews.average > rating.star ? 'text-gray-900' : 'text-gray-200',
+                          avarage > rating.star ? 'text-gray-900' : 'text-gray-200',
                           'h-5 w-5 flex-shrink-0'
                         )}
                         aria-hidden="true"
@@ -126,7 +145,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                   </div>
                   <p className="sr-only">{reviews.average} out of 5 stars</p>
                   <a href={reviews.href} className="ml-3 text-sm font-medium text-green-600 hover:text-green-500">
-                    {reviews.totalCount} reviews
+                    {reviewsStar.length} reviews
                   </a>
                 </div>
               </div>

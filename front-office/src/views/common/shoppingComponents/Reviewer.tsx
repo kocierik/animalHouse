@@ -1,28 +1,11 @@
 import React, { useState } from 'react'
 import { ApiRepository, JsonReview } from 'shared';
-import useEffect from 'react';
 
 interface prodId {
   productId: string
 }
 
 const Reviewer = ({productId}:prodId) => {
-  const UsersReview = [
-    {
-      id: 1,
-      name: 'Il man',
-      star: 5,
-      description: 'bello',
-      added: '2 months ago'
-    },
-    {
-      id: 2,
-      name: 'gyerik',
-      star: 3,
-      description: '3 stelline',
-      added: 'now'
-    }
-  ]
 
   const [reviews,setReviews] = useState<JsonReview.IReview[]>([])
 
@@ -31,7 +14,6 @@ const Reviewer = ({productId}:prodId) => {
       if(await (await ApiRepository.getProductReviews(productId)).esit){
       const val = await (await ApiRepository.getProductReviews(productId)).data 
       setReviews(val!)
-      console.log(val)
       } else{
         console.log("API review error")
       }
