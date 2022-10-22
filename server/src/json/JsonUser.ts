@@ -11,7 +11,6 @@ export interface JsonUserCreation {
 export interface JsonLogin {
   username: string
   password: string
-  admin?: boolean
 }
 
 export interface JsonUser {

@@ -50,8 +50,6 @@ const userCreationToUser = (userCreation: JsonUserCreation) => {
 
 export const verifyLogin = (login: JsonLogin): Promise<AuthData> => {
   const hashed = login.password //bcrypt.hashSync(login.password, 5)
-  if (login.admin)
-    return constructAuthDataForAdmin(login.username, login.password)
   return constructAuthDataForUser(login.username, login.password)
 }
 
@@ -59,17 +57,6 @@ const constructAuthDataForUser = async (username: string, password: string): Pro
   const result = await User.find({ username: username, password: password })
   if (result.length !== 1) {
     throw new JsonError('invalid username or password')
-  }
-  return {
-    username: result[0].username,
-    id: result[0]._id.toString(),
-  } as AuthData
-}
-
-const constructAuthDataForAdmin = async (username: string, password: string): Promise<AuthData> => {
-  const result = await Admin.find({ username: username, password: password })
-  if (result.length !== 1) {
-    throw new JsonError('invalid admin username or password')
   }
   return {
     username: result[0].username,
@@ -124,13 +111,3 @@ export const addAnimalsToUser = async (userId: string, animals: JsonAnimal[]) =>
   } else
     throw new JsonError(`Can\'t find user with id ${userId}`)
 }
-
-
-
-
-
-
-
-
-
-

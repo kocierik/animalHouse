@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
-import * as jwt from 'jsonwebtoken'
-import Score from '../entities/Score'
 import { IProductInstance } from '../entities/Cart'
 import { JsonUserCreation, JsonLogin } from '../json/JsonUser'
 import { JsonAnimal } from '../json/JsonAnimal'
+import Score from '../entities/Score'
 import JsonError from '../json/JsonError'
+import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/userService'
 import * as GameService from '../services/gameService'
@@ -25,7 +25,9 @@ export const loginPost = async (req: Request, res: Response) => {
     const token = await jwt.sign({ authData: authData }, Const.SECRET)
     return res.status(Const.STATUS_OK).json({ token })
   } catch (err) {
-    return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError("Invalid login body"))
+    if (err instanceof JsonError)
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Invalid login body: ${err.message}`))
   }
 }
 

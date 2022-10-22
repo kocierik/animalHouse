@@ -8,13 +8,14 @@ import * as middlewares from './routes/middlewares'
 import * as userRoutes from './routes/user'
 import * as communityRoutes from './routes/community'
 import * as marketRoutes from './routes/market'
+import * as adminRoutes from './routes/admin'
 import * as migrations from './initial-migrations'
-import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER, BACKOFFICE_DIR } from './const'
+import * as Const from './const'
 
 // Constants
 const app = express()
-const port = SERVER_PORT
-const version = CURR_API_VERSION
+const port = Const.SERVER_PORT
+const version = Const.CURR_API_VERSION
 
 // App initialization
 app.use(parser.json())
@@ -22,19 +23,21 @@ app.use(cors())
 
 // Db initialization
 async function db() {
-  const uri = `mongodb://${DB_USER}:${DB_SECRET}@${DB_ADDR}:${DB_PORT}/${DB_NAME}`
-  console.log(uri)
+  const uri = `mongodb://${Const.DB_USER}:${Const.DB_SECRET}@${Const.DB_ADDR}:${Const.DB_PORT}/${Const.DB_NAME}`
   await connect(uri)
   await migrations.initGames()
   await migrations.initProductCategories()
   await migrations.initAnimalCodes()
+  await migrations.initAnimalCodes()
+  await migrations.initAdmin()
+  // TODO remove
   await migrations.test()
 }
 
 db().catch((err) => console.log(err))
 
 // Backoffice
-const pubDir = resolve(__dirname + BACKOFFICE_DIR)
+const pubDir = resolve(__dirname + Const.BACKOFFICE_DIR)
 console.log("[INFO] Pub dir is at " + pubDir)
 app.use(express.static(pubDir));
 
@@ -60,6 +63,9 @@ app.put(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.v
 app.delete(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteCart)
 app.put(version + '/users/:id/animals', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
 
+// Admin
+app.post(version + '/admins/login', log, adminRoutes.postLogin)
+
 // Animal
 app.get(version + '/animals/codes', log, animalRoutes.getAnimalCodes)
 app.get(version + '/animals/:id', log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
@@ -69,11 +75,11 @@ app.get(version + '/community/game/', log, communityRoutes.getGames)
 app.get(version + '/community/game/scoreboard', log, communityRoutes.getScoreboard)
 
 // Market
-app.get(version + "/market/products/", log, marketRoutes.getProducts) //retrieve all products
+app.get(version + "/market/products", log, marketRoutes.getProducts) //retrieve all products
+// FIXME @lele/@man manca lo swagger. Probabilmente e' andato perso
 app.get(version + "/market/products/:id", log, marketRoutes.getProduct)   //search 
 app.delete(version + "/market/products/:id", log, marketRoutes.deleteProduct) //remove
 app.post(version + "/market/products", log, marketRoutes.postProduct)  //insert
-app.get(version + '/market/product/', log, marketRoutes.getProducts)
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
