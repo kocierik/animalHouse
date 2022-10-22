@@ -23,7 +23,8 @@ const Reviewer = ({productId}:prodId) => {
 
   React.useEffect(()=>{
     fetchReview(productId)
-  },[productId])
+    
+  },[productId,reviews])
 
 
   return (
