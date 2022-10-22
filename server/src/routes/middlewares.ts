@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import { STATUS_UNAUTHORIZED, SECRET } from '../const'
 import JsonError from '../json/JsonError'
-import * as AdminService from '../services/adminService'
+import * as AdminService from '../services/admin-service'
 
 export interface AuthData {
   username: string

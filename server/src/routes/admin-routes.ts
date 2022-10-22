@@ -2,7 +2,7 @@ import { JsonLogin } from '../json/JsonUser'
 import { Request, Response } from 'express'
 import JsonError from '../json/JsonError'
 import * as jwt from 'jsonwebtoken'
-import * as AdminService from '../services/adminService'
+import * as AdminService from '../services/admin-service'
 import * as Const from '../const'
 
 export const postLogin = async (req: Request, res: Response) => {

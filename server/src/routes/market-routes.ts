@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { JsonProduct } from '../json/JsonProduct'
 import JsonError from '../json/JsonError'
 import * as Const from '../const'
-import * as ProductService from '../services/productService'
+import * as ProductService from '../services/product-service'
 
 export const getProducts = async (_: Request, res: Response) =>
   res.json(await ProductService.findAllProduct())

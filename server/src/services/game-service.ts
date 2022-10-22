@@ -1,7 +1,7 @@
 import Score from '../entities/Score'
 import { JsonScoreboardItem, JsonScoreboardScore } from '../json/JsonScoreboard'
 import { Game } from '../entities/Community'
-import * as UserService from './userService'
+import * as UserService from './user-service'
 
 export const isValidGame = async (id: string): Promise<boolean> => {
   return (await Game.find({ _id: id })).length === 1
