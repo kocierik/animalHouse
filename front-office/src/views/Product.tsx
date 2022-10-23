@@ -37,19 +37,13 @@ export default function Product() {
     const [reviewsStar,setReviewsStar] = useState<JsonReview.IReview[]>([])
     const [avarage,setAvarage] = useState(1)
 
-    const fetchReview = async(productId : string) => {
-      if(productId){
-        if(await (await ApiRepository.getProductReviews(productId)).esit){
+    const fetchReview = async(productId : string) =>  {
         const val = await (await ApiRepository.getProductReviews(productId)).data 
         setReviewsStar(val!)
         if(val){
           const sum = val.reduce((b, a) => b + a.star,1);
           setAvarage(sum/val?.length!)
         }
-        } else{
-          console.log("API review error")
-        }
-      } 
     }
   useEffect(()=>{
     setId(params.id!)
@@ -58,7 +52,10 @@ export default function Product() {
       fetchProduct(id)
       fetchReview(id)
     }
-  },[id,selectedColor])
+    console.log("ok")
+  },[id])
+
+
 const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
 
   return (
@@ -270,7 +267,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
             </div>
           </div>
-          <Reviewer productId={id}/>
+           <Reviewer productId={id} />
         </div>
       </div>
     </>
