@@ -1,30 +1,23 @@
-import React, { useState } from 'react'
-import { ApiRepository, JsonReview } from 'shared';
+import React, { useEffect, useState } from 'react'
+import { JsonReview, ApiRepository } from 'shared';
 import PostReview from './PostReview';
 
 interface prodId {
   productId: string
 }
 
-const Reviewer = ({productId}:prodId) => {
-
+const Reviewer = ( {productId}: prodId) => {
   const [reviews,setReviews] = useState<JsonReview.IReview[]>([])
+    const fetchReview = async(productId : string) =>  {
+        const val = await (await ApiRepository.getProductReviews(productId)).data 
+        setReviews(val!)
+    }
 
-  const fetchReview = async(productId : string) => {
-    if(productId){
-      if(await (await ApiRepository.getProductReviews(productId)).esit){
-      const val = await (await ApiRepository.getProductReviews(productId)).data 
-      setReviews(val!)
-      } else{
-        console.log("API review error")
-      }
-    } 
-  }
-
-  React.useEffect(()=>{
-    fetchReview(productId)
-    
-  },[productId,reviews])
+  useEffect(()=>{
+    if(productId)
+      fetchReview(productId)
+    console.log(reviews)
+  },[productId])
 
 
   return (
@@ -36,7 +29,7 @@ const Reviewer = ({productId}:prodId) => {
             </div>
             </div>
     <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">
-      {reviews.map((review,i) => (
+      {reviews.reverse()?.map((review,i) => (
         <div key={i} data-aos="fade-up" data-aos-duration="1000" className="container mb-5 rounded-lg shadow-md divide-y divide-solid bg-gray-50 h-auto p-2">
           <div  className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40" >
             <div className="flex flex-wrap items-center">
