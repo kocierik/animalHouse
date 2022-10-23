@@ -11,6 +11,7 @@ tags:
 - name: animals 
 - name: community
 - name: market
+- name: review
     
 schemes:
 - http
@@ -97,8 +98,7 @@ paths:
           type: string
           required: true
           description: Numeric ID of the user to get
-      security:
-      - JWT: []
+  
       responses:
         200:
           description: ok
@@ -413,6 +413,10 @@ paths:
           200:
             description: Success
 
+
+
+
+
   /product/{id}/reviews:
     get:
         tags:
@@ -445,7 +449,43 @@ paths:
         200:
           description: successful operation
 
-        
+  /product/{id}/postreview:
+    post:
+      tags:
+      - review
+      summary: Create a review
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Id of the product to be searched
+      - in: body
+        name: body
+        description: ReviewCreation
+        required: true
+        schema:
+          type: object
+          properties:
+              username:
+                type: string
+              productId:
+                type: string
+              comment:
+                type: string
+              star:
+                type: number
+              date:
+                type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Review"
+
+
+
+    
 securityDefinitions:  
   JWT:  
     type: apiKey  
