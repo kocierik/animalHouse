@@ -55,7 +55,6 @@ export default function Product() {
       fetchProduct(id)
       fetchReview(id)
     }
-    console.log("ok")
   },[id,post])
 
 

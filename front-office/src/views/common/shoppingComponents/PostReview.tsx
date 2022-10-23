@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { HTMLAttributes, useEffect, useRef } from 'react'
 import { ApiRepository, JsonReview } from 'shared';
 import useState from 'react';
 
@@ -10,8 +10,8 @@ interface IProps {
 
 const PostReview = (props : IProps) => {
   const {post, setPost, productId} = props
-  const textComment = useRef<HTMLTextAreaElement>(null)
-  
+  const [textComment, setTextComment] = React.useState('')
+
   const postComment = async () =>{
     //const user = await ApiRepository.getCurrentUser()
     
@@ -20,10 +20,11 @@ const PostReview = (props : IProps) => {
     const data : JsonReview.IReview = {
       username: "erik",
       productId: productId,
-      comment: textComment.current?.value,
+      comment: textComment,
       star: 4,
       date: new Date()
     }
+    setTextComment("")
     await (await ApiRepository.postProductReview(productId,data)).data
   }
 
@@ -47,7 +48,7 @@ const PostReview = (props : IProps) => {
           </div>
           <div className="flex ">
             <textarea
-              ref={textComment}
+              value={textComment} onChange={(e) => setTextComment(e.target.value)}
               id="post-input"
               rows={3}
               placeholder="What do you think about this article?"

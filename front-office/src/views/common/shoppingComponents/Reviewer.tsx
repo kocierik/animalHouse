@@ -21,7 +21,6 @@ const Reviewer = ( props : IProps ) => {
   useEffect(()=>{
     if(productId){
       fetchReview(productId)
-      console.log(reviews)
     }
   },[productId,post])
 
