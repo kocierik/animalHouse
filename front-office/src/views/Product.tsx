@@ -38,7 +38,7 @@ export default function Product() {
   }
   
     const [reviewsStar,setReviewsStar] = useState<JsonReview.IReview[]>([])
-    const [avarage,setAvarage] = useState(1)
+    const [avarage,setAvarage] = useState(0)
 
     const fetchReview = async(productId : string) =>  {
         const val = await (await ApiRepository.getProductReviews(productId)).data 
@@ -56,7 +56,7 @@ export default function Product() {
       fetchReview(id)
     }
     console.log("ok")
-  },[id])
+  },[id,post])
 
 
 const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
