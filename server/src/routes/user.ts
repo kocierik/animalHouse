@@ -87,29 +87,20 @@ export const loginPost = async (req: Request, res: Response) => {
 export const getCurrentUser = async (req: Request, res: Response) => res.json(req.authData)
 
 export const getUser = async (req: Request, res: Response) => {
-  const authId = req.authData.id
+  //const authId = req.authData.id
   const pathId = req.params.id
   // Check user
-  if (pathId !== authId)
-    res
-      .status(STATUS_UNAUTHORIZED)
-      .json(new JsonError("Can't access user with id " + pathId + ' (logged is ' + authId + ')'))
-  else {
-    const result = await User.find({ username: req.authData.username, id: pathId })
-    if (result.length !== 1) {
-      res.status(STATUS_BAD_REQUEST).json(new JsonError('Invalid id ' + pathId))
-    }
+
+    const result = await User.findById(pathId)
     const jsonUser = {
-      id: result[0]._id,
-      username: result[0].username,
-      firstName: result[0].firstName,
-      lastName: result[0].lastName,
-      email: result[0].email,
-      phone: result[0].phone,
+      username: result.username,
+      firstName: result.firstName,
+      lastName: result.lastName,
+      email: result.email,
+      phone: result.phone,
       // TODO more fields
     }
-    res.json(jsonUser)
-  }
+    return res.status(STATUS_OK).json(jsonUser)
 }
 
 export const putScore = async (req: Request, res: Response) => {

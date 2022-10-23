@@ -1,5 +1,5 @@
 import { Api } from './api'
-import type * as user from './json/user'
+import * as user from './json/user'
 import type * as animal from './json/animal'
 import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
@@ -11,6 +11,7 @@ import { stringFormat } from './helpers'
 const _BASE_URL = 'http://localhost:8080/v1'
 const _AUTH = '/users/login'
 const _ANIMAL_CODES = '/animals/codes'
+const _USER_INFO = '/users/{0}'
 const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
 const _ANIMAL_REGISTER = '/users/{0}/animals'
@@ -21,12 +22,15 @@ const _MARKET_PRODUCT_CODES = '/market/product/'
 const SINGLE_MARKET_PRODUCT_CODES = '/market/products/' 
 const _PRODUCT_REVIEW_CODES = '/product/{0}/reviews/' 
 const _POST_REVIEW_CODES = '/product/{0}/postreview/'
-
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _AUTH, { username: username, password: password })
 
 export const getCurrentUser = async () => 
   Api.get<user.JsonAuthInfo>(_BASE_URL + _USER_CURRENT, true)
+
+export const getUserInfoById = async (id: string) =>{
+  Api.get<user.JsonUser>(stringFormat(_BASE_URL+ _USER_INFO,id))
+}
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)
