@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { JsonReview, ApiRepository } from 'shared';
 import PostReview from './PostReview';
 
-interface prodId {
+interface IProps {
   productId: string
+  post: boolean
+  setPost: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Reviewer = ( props: any) => {
+const Reviewer = ( props : IProps ) => {
+  const {post, setPost, productId} = props
+
   const [reviews,setReviews] = useState<JsonReview.IReview[]>([])
 
     const fetchReview = async(productId : string) =>  {
@@ -15,11 +19,11 @@ const Reviewer = ( props: any) => {
     }
 
   useEffect(()=>{
-    if(props.productId){
-      fetchReview(props.productId)
+    if(productId){
+      fetchReview(productId)
       console.log(reviews)
     }
-  },[props.productId,props.post])
+  },[productId,post])
 
 
   return (
@@ -27,7 +31,7 @@ const Reviewer = ( props: any) => {
             <div className="">
               <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
             <div className=''>
-              <PostReview productId={props.productId} post={props.post} setPost={props.setPost}/>
+              <PostReview productId={productId} post={post} setPost={setPost}/>
             </div>
             </div>
     <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">

@@ -2,26 +2,29 @@ import React, { useEffect, useRef } from 'react'
 import { ApiRepository, JsonReview } from 'shared';
 import useState from 'react';
 
-interface prodId {
+interface IProps {
+  post: boolean
+  setPost: React.Dispatch<React.SetStateAction<boolean>>
   productId: string
 }
 
-const PostReview = (props: any) => {
+const PostReview = (props : IProps) => {
+  const {post, setPost, productId} = props
   const textComment = useRef<HTMLTextAreaElement>(null)
   
   const postComment = async () =>{
     //const user = await ApiRepository.getCurrentUser()
     
-    props.setPost(!props.post)
+    setPost(!post)
     
     const data : JsonReview.IReview = {
       username: "erik",
-      productId: props.productId,
+      productId: productId,
       comment: textComment.current?.value,
       star: 4,
       date: new Date()
     }
-    await (await ApiRepository.postProductReview(props.productId,data)).data
+    await (await ApiRepository.postProductReview(productId,data)).data
   }
 
   return (

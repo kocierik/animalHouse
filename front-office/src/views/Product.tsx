@@ -19,7 +19,7 @@ export default function Product() {
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
   const [id, setId] = useState("")
 
-    const [post, setPost] = useState(false) 
+    const [post, setPost] = useState<boolean>(null!) 
 
   const addToCart = () => {
     let all = []
