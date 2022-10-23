@@ -6,18 +6,19 @@ interface prodId {
   productId: string
 }
 
-const PostReview = ({productId} : prodId) => {
+const PostReview = (props: any) => {
   const textComment = useRef<HTMLTextAreaElement>(null)
-  
   const postComment = async () =>{
+    //const user = await ApiRepository.getCurrentUser()
     const data : JsonReview.IReview = {
       username: "erik",
-      productId: productId,
+      productId: props.productId,
       comment: textComment.current?.value,
       star: 1,
       date: new Date()
     }
-    await (await ApiRepository.postProductReview(productId,data)).data
+    props.setPost(!props.post)
+    await (await ApiRepository.postProductReview(props.productId,data)).data
   }
 
 

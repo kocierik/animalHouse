@@ -8,6 +8,7 @@ interface prodId {
 
 const Reviewer = ( {productId}: prodId) => {
   const [reviews,setReviews] = useState<JsonReview.IReview[]>([])
+  const [post, setPost] = useState(false)
     const fetchReview = async(productId : string) =>  {
         const val = await (await ApiRepository.getProductReviews(productId)).data 
         setReviews(val!)
@@ -17,7 +18,7 @@ const Reviewer = ( {productId}: prodId) => {
     if(productId)
       fetchReview(productId)
     console.log(reviews)
-  },[productId])
+  },[productId,post])
 
 
   return (
@@ -25,7 +26,7 @@ const Reviewer = ( {productId}: prodId) => {
             <div className="">
               <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
             <div className=''>
-              <PostReview productId={productId}/>
+              <PostReview productId={productId} post={post} setPost={setPost}/>
             </div>
             </div>
     <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">
@@ -38,7 +39,7 @@ const Reviewer = ( {productId}: prodId) => {
               <div className="w-full md:w-px h-2 md:h-8 mx-8 bg-transparent md:bg-gray-200"></div>
               <span className="mr-4 text-xl font-heading font-medium">{review.star}</span>
               <div className="inline-flex">
-                {Array.from(Array(review.star), (e, i) => {
+                {Array.from(Array(review.star), (_, i) => {
                   return (
                     <a className="inline-block mr-1" href="#" key={i}>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
