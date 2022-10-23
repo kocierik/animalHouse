@@ -18,6 +18,9 @@ export default function Product() {
   const [selectedSize, setSelectedSize] = useState("")
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
   const [id, setId] = useState("")
+
+    const [post, setPost] = useState(false) 
+
   const addToCart = () => {
     let all = []
     let a = JSON.parse(localStorage.getItem('cart') || '{}')
@@ -267,7 +270,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
             </div>
           </div>
-           <Reviewer productId={id} />
+           <Reviewer productId={id} post={post} setPost={setPost}/>
         </div>
       </div>
     </>

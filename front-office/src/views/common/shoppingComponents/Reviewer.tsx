@@ -6,19 +6,20 @@ interface prodId {
   productId: string
 }
 
-const Reviewer = ( {productId}: prodId) => {
+const Reviewer = ( props: any) => {
   const [reviews,setReviews] = useState<JsonReview.IReview[]>([])
-  const [post, setPost] = useState(false)
+
     const fetchReview = async(productId : string) =>  {
         const val = await (await ApiRepository.getProductReviews(productId)).data 
         setReviews(val!)
     }
 
   useEffect(()=>{
-    if(productId)
-      fetchReview(productId)
-    console.log(reviews)
-  },[productId,post])
+    if(props.productId){
+      fetchReview(props.productId)
+      console.log(reviews)
+    }
+  },[props.productId,props.post])
 
 
   return (
@@ -26,7 +27,7 @@ const Reviewer = ( {productId}: prodId) => {
             <div className="">
               <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
             <div className=''>
-              <PostReview productId={productId} post={post} setPost={setPost}/>
+              <PostReview productId={props.productId} post={props.post} setPost={props.setPost}/>
             </div>
             </div>
     <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">

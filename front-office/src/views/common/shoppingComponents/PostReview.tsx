@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ApiRepository, JsonReview } from 'shared';
 import useState from 'react';
 
@@ -8,19 +8,21 @@ interface prodId {
 
 const PostReview = (props: any) => {
   const textComment = useRef<HTMLTextAreaElement>(null)
+  
   const postComment = async () =>{
     //const user = await ApiRepository.getCurrentUser()
+    
+    props.setPost(!props.post)
+    
     const data : JsonReview.IReview = {
       username: "erik",
       productId: props.productId,
       comment: textComment.current?.value,
-      star: 1,
+      star: 4,
       date: new Date()
     }
-    props.setPost(!props.post)
     await (await ApiRepository.postProductReview(props.productId,data)).data
   }
-
 
   return (
     <>
