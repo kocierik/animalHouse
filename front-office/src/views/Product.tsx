@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { LegacyRef, RefObject, useEffect } from 'react'
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
 import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
+import useRef from 'react';
 
 
 const reviews = { href: '#', average: 4, totalCount: 117 }
@@ -14,26 +15,21 @@ function classNames(...classes: string[]) {
 }
 
 export default function Product() {
+  const colorTest = React.useRef<HTMLHeadingElement>(null)
   const [selectedColor, setSelectedColor] = useState("")
   const [selectedSize, setSelectedSize] = useState("")
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
   const [id, setId] = useState("")
+  const [productColor,setProductColor] = React.useState<string[]>([])
+  const [post, setPost] = useState<boolean>(null!) 
 
-    const [post, setPost] = useState<boolean>(null!) 
-
-  const addToCart = () => {
-    let all = []
-    let a = JSON.parse(localStorage.getItem('cart') || '{}')
-
-    all.push(a)
-    localStorage.setItem('cart', JSON.stringify(all))
-  }
   const params = useParams()
 
   const fetchProduct = async (id: string) =>{
     if ((await ApiRepository.getMarketProduct(id)).esit) {
       const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked // CONTROLLA
       setProd(val!)
+      setProductColor(val.colors!)
     }
   }
   
@@ -48,6 +44,7 @@ export default function Product() {
           setAvarage(sum/val?.length!)
         }
     }
+
   useEffect(()=>{
     setId(params.id!)
     setSelectedColor(prod?.colors![0]!)
@@ -96,22 +93,6 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
 
           {/* Image gallery */}
           <div className="mt-6 max-w-xl mx-auto sm:px-6 lg:max-w-4xl lg:px-4 lg:grid lg:grid-cols-2 p-5 lg:gap-x-8">
-            {/* <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
-              <img
-                src={product.images[0].src}
-                alt={product.images[0].alt}
-                className="w-full h-full object-center object-cover"
-              />
-            </div> */}
-            {/* <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-              <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
-                <img
-                  src={product.images[1].src}
-                  alt={product.images[1].alt}
-                  className="w-full h-full object-center object-cover"
-                />
-              </div>
-            </div> */}
             <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
               <img
                 src={prod?.images[0]}
@@ -157,34 +138,35 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                     <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                     <div className="flex items-center space-x-3">
                       {
-                      prod && prod!.colors?.map((color) => (
+                      productColor && productColor.map(
+                        (color) => {
+                        return (
                         <RadioGroup.Option
                           key={color}
+                          ref={colorTest}
                           value={color}
+                          style={{backgroundColor: color}}
+                          onClick={(()=> setProductColor(productColor.map(item => {
+                            if(item == color){
+                              return (
+                                color
+                              )
+                              } else {
+                                return item
+                              }
+                          })) )}
                           className={({ active }) =>
-                            classNames(
-                               active ? 'ring-1 bg-'+color+"-500" : "bg-"+ color+ "-500",
-                              'h-8 w-8 border border-black border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                          classNames(
+                              active ? 'ring-2 bg-white' : '',
+                              'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
                             )
                           }
                         >
                           <RadioGroup.Label as="span" className="sr-only">
                             {color}
                           </RadioGroup.Label>
-                          <RadioGroup.Option
-                            key={color}
-                          value={color}
-                            aria-hidden="true"
-                          className={({ active }) =>
-                            classNames(
-                               active ? 'ring-2 bg-'+color : "bg-"+ color,
-                              'h-8 w-8 border bg- border-black border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                            )
-                          }
-                          />
-                          
                         </RadioGroup.Option>
-                      ))}
+                       )})}
                     </div>
                   </RadioGroup>
                 </div>
@@ -224,7 +206,6 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
 
                 <button
                   type="button"
-                  onClick={addToCart}
                   className="mt-10 ring-1 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Add to bag
