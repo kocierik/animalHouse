@@ -62,7 +62,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
 
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-white" data-aos="zoom-in" data-aos-duration="1000" >
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -234,11 +234,11 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
           </div>
 
           {/* Product info */}
-          <div className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+          <div data-aos="fade-up" className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">Description</h1>
             </div>
-            <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+            <div data-aos="fade-up" data-aos-duration="500" className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               {/* Description and details */}
               <div>
                 <h3 className="sr-only">Description</h3>
