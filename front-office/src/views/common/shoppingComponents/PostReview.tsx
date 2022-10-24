@@ -1,11 +1,16 @@
 import React, { HTMLAttributes, useEffect, useRef } from 'react'
 import { ApiRepository, JsonReview } from 'shared';
 import useState from 'react';
+import { StarIcon } from '@heroicons/react/solid';
 
 interface IProps {
   post: boolean
   setPost: React.Dispatch<React.SetStateAction<boolean>>
   productId: string
+}
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
 }
 
 const PostReview = (props : IProps) => {
@@ -21,12 +26,15 @@ const PostReview = (props : IProps) => {
       username: "erik",
       productId: productId,
       comment: textComment,
-      star: 4,
+      star: star,
       date: new Date()
     }
     setTextComment("")
     await (await ApiRepository.postProductReview(productId,data)).data
   }
+
+const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
+const [star,setStar] = React.useState(0)
 
   return (
     <>
@@ -43,7 +51,20 @@ const PostReview = (props : IProps) => {
               />
             </span>
             <div className="flex flex-1 px-5 items-center">
-              <span className="font-black	text-lg	">erik</span>
+              <span className="font-black	text-lg	p-4">erik</span>
+              <div className=' flex '>
+                    {valueProduct.map((rating) => (
+                      <StarIcon
+                        key={rating.star}
+                        onClick={()=> setStar(rating.star)}
+                        className={classNames(
+                          star+1 > rating.star ? 'text-yellow-400 ' : 'text-gray-200',
+                          'h-7 w-7 flex-shrink-0 cursor-pointer	'
+                        )}
+                        aria-hidden="true"
+                      />
+                    ))}
+              </div>
             </div>
           </div>
           <div className="flex ">
