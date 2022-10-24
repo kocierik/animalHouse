@@ -50,7 +50,7 @@ const Checkout = () => {
     <>
       <main
         data-aos="fade-up"
-        data-aos-duration="1500"
+        data-aos-duration="500"
         className="lg:min-h-full lg:overflow-hidden lg:flex lg:flex-row-reverse"
       >
         <h1 className="sr-only">Checkout</h1>

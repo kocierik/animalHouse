@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
   return (
     <footer className=" color_footer rounded-lg shadow md:px-6 py-10">
-      <div data-aos="zoom-in" data-aos-duration="1500" className="sm:flex sm:items-center sm:justify-around p-10">
+      <div data-aos="zoom-in" data-aos-duration="500" className="sm:flex sm:items-center sm:justify-around p-10">
         <span className="flex justify-center mb-4 sm:mb-0">
           {/* <!-- <img src="./assets/animalLogo.png" className="mr-5 h-20 w-18" alt="AnimalHouse Logo" /> --> */}
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">AnimalHouse</span>

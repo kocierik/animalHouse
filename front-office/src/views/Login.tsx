@@ -45,7 +45,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="bg-white" data-aos="fade-up" data-aos-duration="1500">
+      <div className="bg-white" data-aos="fade-up" data-aos-duration="500">
         <div className="flex justify-center h-screen">
           <div
             className="hidden bg-cover lg:block lg:w-2/4"
