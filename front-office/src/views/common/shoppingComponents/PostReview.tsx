@@ -18,7 +18,7 @@ const PostReview = (props : IProps) => {
   const [textComment, setTextComment] = React.useState('')
 
   const postComment = async () =>{
-    //const user = await ApiRepository.getCurrentUser()
+    //const user = await (await ApiRepository.getCurrentUser()).data
     
     setPost(!post)
     
