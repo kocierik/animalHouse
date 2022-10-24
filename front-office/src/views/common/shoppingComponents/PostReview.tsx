@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ApiRepository, JsonReview } from 'shared';
 import useState from 'react';
 import { StarIcon } from '@heroicons/react/solid';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { Helpers } from 'shared';
 
 
 interface IProps {
@@ -16,23 +17,32 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+
 const PostReview = (props : IProps) => {
   const {post, setPost, productId} = props
   const [textComment, setTextComment] = React.useState('')
+  const [username,setUsername] = React.useState("")
   
+  const getUserInfo = async () =>{
+    if(Helpers.isLogged()){
+      const user =  (await ApiRepository.getCurrentUser()).data
+      setUsername(user?.username!)
+    }
+  }
+
   const postComment = async () =>{
-    //const user = await (await ApiRepository.getCurrentUser()).data
+
     if(star === 0){
     toast.warn("You should leave a star!", {
         position: toast.POSITION.TOP_CENTER
       });
       return
     }
-
+    await getUserInfo()
     setPost(!post)
     
     const data : JsonReview.IReview = {
-      username: "erik",
+      username: username,
       productId: productId,
       comment: textComment,
       star: star,
@@ -45,10 +55,15 @@ const PostReview = (props : IProps) => {
 const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
 const [star,setStar] = React.useState(0)
 
+useEffect(()=>{
+  getUserInfo()
+},[])
+
   return (
     <>
     <ToastContainer />
       {/* Card Base */}
+      {Helpers.isLogged() && 
     <div className="max-w-2xl mx-auto pb-16  px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
         {/* Top Half - Avatar & Text Box */}
         <div className="flex flex-col 	 content-start p-4">
@@ -61,7 +76,7 @@ const [star,setStar] = React.useState(0)
               />
             </span>
             <div className="flex flex-1 px-5 items-center">
-              <span className="font-black	text-lg	p-4">erik</span>
+              <span className="font-black	text-lg	p-4">{username}</span>
               <div className=' flex '>
                     {valueProduct.map((rating) => (
                       <StarIcon
@@ -77,7 +92,7 @@ const [star,setStar] = React.useState(0)
               </div>
             </div>
           </div>
-          <div className="flex ">
+           <div className="flex ">
             <textarea
               value={textComment} onChange={(e) => setTextComment(e.target.value)}
               id="post-input"
@@ -97,6 +112,7 @@ const [star,setStar] = React.useState(0)
           </button>
         </div>
       </div>
+      }
     </>
   )
 }
