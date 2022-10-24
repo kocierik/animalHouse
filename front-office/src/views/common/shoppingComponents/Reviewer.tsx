@@ -36,7 +36,7 @@ const Reviewer = ( props : IProps ) => {
             </div>
     <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">
       {reviews.reverse()?.map((review,i) => (
-        <div key={i} data-aos="fade-up" data-aos-duration="1000" className="container mb-5 rounded-lg shadow-md divide-y divide-solid bg-gray-50 h-auto p-2">
+        <div key={i} data-aos="fade-up" data-aos-duration="500" className="container mb-5 rounded-lg shadow-md divide-y divide-solid bg-gray-50 h-auto p-2">
           <div  className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40" >
             <div className="flex flex-wrap items-center">
               <img className="mr-6" src="" alt="" />
