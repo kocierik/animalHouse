@@ -207,9 +207,10 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                         <RadioGroup.Option
                           key={size}
                           value={size}
+                          onClick={(()=>setSelectedSize(size))}
                           className={({ active }) =>
                             classNames(
-                               active ? "ring-2" : "",
+                               active ? "ring-1 bg-green-400 " : "",
                               'border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'
                             )
                           }
