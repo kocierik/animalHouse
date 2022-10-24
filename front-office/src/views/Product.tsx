@@ -163,7 +163,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                           value={color}
                           className={({ active }) =>
                             classNames(
-                               active ? 'ring-2 bg-'+color+"-500" : "bg-"+ color+ "-500",
+                               active ? 'ring-1 bg-'+color+"-500" : "bg-"+ color+ "-500",
                               'h-8 w-8 border border-black border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
                             )
                           }
@@ -199,7 +199,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                   </div>
 
                   <div className="mt-4">
-                  <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
+                  <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                     <label className="sr-only">Choose a size</label>
                     <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
                       {prod?.sizes?.map(size => {
@@ -225,7 +225,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                 <button
                   type="button"
                   onClick={addToCart}
-                  className="mt-10 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="mt-10 ring-1 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Add to bag
                 </button>
