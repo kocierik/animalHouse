@@ -5,3 +5,9 @@ export interface IReview {
   star: number
   date: Date
 }
+
+export interface JsonProductSumUp {
+  average: number
+  total: number
+  percentage: string[]
+}

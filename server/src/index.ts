@@ -74,6 +74,7 @@ app.delete(version + '/market/products/:id', log, marketRoutes.deleteProduct) //
 app.post(version + '/market/products', log, marketRoutes.postProduct) //insert
 app.get(version + '/market/product/', log, marketRoutes.getProducts)
 app.get(version + '/market/products/:id', log, marketRoutes.getProduct)
+app.get(version + '/market/products/:id/sum-up', log, marketRoutes.getProductSumUp)
 
 // Reviews
 app.get(version + '/product/:id/reviews', log, reviewRoutes.getReviews)

@@ -3,6 +3,8 @@ import JsonError from '../json/JsonError'
 import { Request, Response } from 'express'
 import Product from '../entities/Product'
 import { JsonProduct } from '../json/JsonProduct'
+import Review from '../entities/Review'
+import JsonProductSumUp from '../json/JsonProductSumUp'
 
 export const getProducts = async (_: Request, res: Response) => {
   return res.json(await Product.find({}))
@@ -48,3 +50,22 @@ export const postProduct = async (req: Request, res: Response) => {
   await product.save()
   return res.status(STATUS_OK).json(product)
 }
+
+export const getProductSumUp = async (req: Request, res: Response) => {
+  try {
+    const reviews = await Review.find({ productId: req.path.id })
+    const avg = reviews.map(x => x.star).reduce((old, curr) => old + curr, 0) / reviews.length
+    const percentages = [1, 2, 3, 4, 5].map(y => reviews.filter(x => x.star == y).length / reviews.length * 100)
+
+    const result: JsonProductSumUp = {
+      average: avg,
+      total: reviews.length,
+      percentage: percentages.map(x => `${x}%`)
+    }
+    return res.status(STATUS_OK).json(result)
+  } catch (err) {
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+
+}
+
