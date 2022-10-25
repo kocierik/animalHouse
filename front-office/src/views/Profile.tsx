@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { ApiRepository } from 'shared';
-
-interface IUser {
-  username: string
-}
+import { ApiRepository, type JsonUser  } from 'shared';
+import { validate } from 'uuid';
 
 
 const Profile = () => {
 
-  const [user,setUser] = useState<IUser>()
+  const [user,setUser] = useState<JsonUser.JsonUser>()
   
+  const test = {
+    email: "man@ah.com",
+    username: "erikMan",
+    password: "erik",
+    firstName: "erik",
+    lastName: "koci",
+    phone: "3333333333",
+    animals: ["cane","gatto"],
+    address: {cap: 3434, city: "rimini",contry: "riccione", street:"via annibolina"}
+  }
+
+
   const getUserInfo = async () =>{
     const val = (await ApiRepository.getCurrentUser()).data
-    setUser(val!)
+    //setUser(val!)
+    
   }
   
   useEffect(()=>{
