@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ApiRepository, type JsonUser, Helpers } from 'shared';
-import { validate } from 'uuid';
-import { isLogged } from '../../../shared/src/helpers';
 
 
 const Profile = () => {
