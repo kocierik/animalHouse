@@ -10,7 +10,8 @@ tags:
 - name: users
 - name: animals 
 - name: community
-- name: market
+- name: products
+
     
 schemes:
 - http
@@ -97,8 +98,7 @@ paths:
           type: string
           required: true
           description: Numeric ID of the user to get
-      security:
-      - JWT: []
+  
       responses:
         200:
           description: ok
@@ -354,10 +354,10 @@ paths:
                           items:
                             type: number
   
-  /market/products/{id}:
+  /products/{id}:
     get:
         tags:
-        - market
+        - products
         summary: Searches the specified product
         parameters:
           - in: path
@@ -374,7 +374,7 @@ paths:
                 $ref: "#/definitions/Product"
     delete:
       tags:
-      - market
+      - products
       summary: Deletes a product based on the received id
       parameters: 
         - in: path
@@ -386,10 +386,10 @@ paths:
         200:
           description: successful operation
 
-  /market/products:
+  /products:
     post:
         tags:
-        - market
+        - products
         summary: Creates a new product
         parameters:
           - in: body
@@ -413,7 +413,77 @@ paths:
           200:
             description: Success
 
-            
+
+
+
+
+  /products/{id}/reviews:
+    get:
+        tags:
+        - products
+        summary: Retrive reviews about a product
+        parameters:
+          - in: path
+            name: id
+            type: string
+            required: true
+            description: Id of the product to be searched
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                $ref: "#/definitions/Review"
+    delete:
+      tags:
+      - products
+      summary: Deletes a product based on the received id
+      parameters: 
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the product to be deleted
+      responses:
+        200:
+          description: successful operation
+    post:
+      tags:
+      - products
+      summary: Create a review
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Id of the product to be searched
+      - in: body
+        name: body
+        description: ReviewCreation
+        required: true
+        schema:
+          type: object
+          properties:
+              username:
+                type: string
+              productId:
+                type: string
+              comment:
+                type: string
+              star:
+                type: number
+              date:
+                type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Review"
+
+
+
+    
 securityDefinitions:  
   JWT:  
     type: apiKey  
@@ -515,7 +585,23 @@ definitions:
         type: string
       type:
         type: string
-    
+  
+  Review:
+    type: object
+    properties:
+      _id:
+        type: string
+      username:
+        type: string
+      productId:
+        type: string
+      comment:
+        type: string
+      star:
+        type: number
+      date:
+        type: string
+  
   Shop:
     type: object
     properties:
