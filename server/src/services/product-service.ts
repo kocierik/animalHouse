@@ -2,6 +2,8 @@ import JsonError from '../json/JsonError'
 import Product, { IProduct } from '../entities/Product'
 import { IProductInstance } from '../entities/Cart'
 import { JsonProduct } from '../json/JsonProduct'
+import Review from '../entities/Review'
+import { JsonReview } from '../json/JsonReview';
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 
@@ -32,6 +34,21 @@ export const evalProductInstances = (productInstances: IProductInstance[]): Prom
 
 export const deleteProduct = (id: string) => Product.deleteOne({ _id: id })
 
+export const reviewById = (productId : string) =>{
+  return Review.find({productId: productId})
+}
+
+export const createReview = async (reviewCreation : JsonReview) =>{
+  const review = new Review()
+  review.username = reviewCreation.username
+  review.productId = reviewCreation.productId
+  review.comment = reviewCreation.comment
+  review.star = reviewCreation.star
+  review.date = reviewCreation.date
+  await review.save()
+  return review
+}
+
 export const createProduct = async (productCreation: JsonProduct): Promise<IProduct> => {
   const product = new Product();
 
@@ -40,7 +57,7 @@ export const createProduct = async (productCreation: JsonProduct): Promise<IProd
   product.categoryId = productCreation.categoryId;
   product.description = productCreation.description;
   product.animalTargets = productCreation.animalTargets;
-  product.image = productCreation.image;
+  product.images = [productCreation.image];
   product.colors = productCreation.colors;
   product.sizes = productCreation.sizes;
   product.types = productCreation.types;

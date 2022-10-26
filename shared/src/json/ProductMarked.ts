@@ -4,5 +4,13 @@ export interface IProductMarked{
   description: string,
   price: number,
   categoryId: string,
-  image: string
+  images: string[],
+  alt: string[],
+  animalTargets: string[]
+  colors?: string[],
+  sizes?: string[],
+  types?: string[],
+  highlights?: string[],
+  details?: string
 }
+
