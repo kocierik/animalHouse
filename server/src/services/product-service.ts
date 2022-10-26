@@ -2,7 +2,7 @@ import JsonError from '../json/JsonError'
 import Product, { IProduct } from '../entities/Product'
 import { IProductInstance } from '../entities/Cart'
 import { JsonProduct } from '../json/JsonProduct'
-import Review from '@/entities/Review'
+import Review from '../entities/Review'
 import { JsonReview } from '../json/JsonReview';
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
@@ -57,7 +57,7 @@ export const createProduct = async (productCreation: JsonProduct): Promise<IProd
   product.categoryId = productCreation.categoryId;
   product.description = productCreation.description;
   product.animalTargets = productCreation.animalTargets;
-  product.image = productCreation.image;
+  product.images = [productCreation.image];
   product.colors = productCreation.colors;
   product.sizes = productCreation.sizes;
   product.types = productCreation.types;

@@ -417,7 +417,7 @@ paths:
 
 
 
-  /product/{id}/reviews:
+  /products/{id}/reviews:
     get:
         tags:
         - products
@@ -448,8 +448,6 @@ paths:
       responses:
         200:
           description: successful operation
-
-  /product/{id}/postreview:
     post:
       tags:
       - products
