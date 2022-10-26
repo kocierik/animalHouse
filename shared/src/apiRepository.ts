@@ -18,8 +18,8 @@ const _ANIMAL_REGISTER = '/users/{0}/animals'
 const _REGISTER_CODES = '/register/'
 const _SCORE_CODES = '/users/{0}/score/' 
 const _LEADERBOARD_CODES = '/community/game/scoreboard' 
-const _MARKET_PRODUCT_CODES = '/market/product/' 
-const SINGLE_MARKET_PRODUCT_CODES = '/market/products/' 
+const _PRODUCT_CODES = '/product/' 
+const SINGLE_PRODUCT_CODES = '/products/' 
 const _PRODUCT_REVIEW_CODES = '/product/{0}/reviews/' 
 const _POST_REVIEW_CODES = '/product/{0}/postreview/'
 export const login = async (username: string, password: string) =>
@@ -47,9 +47,9 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
 
-export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
+export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _PRODUCT_CODES)
 export const getMarketProduct = async (productId: string) =>
-   Api.get<product.IProductMarked>(_BASE_URL + SINGLE_MARKET_PRODUCT_CODES + productId)
+   Api.get<product.IProductMarked>(_BASE_URL + SINGLE_PRODUCT_CODES + productId)
    
 export const getProductReviews = async (productId: string) =>
    Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCT_REVIEW_CODES, productId))

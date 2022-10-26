@@ -7,7 +7,6 @@ import * as animalRoutes from './routes/animal'
 import * as userRoutes from './routes/user'
 import * as communityRoutes from './routes/community'
 import * as marketRoutes from './routes/market'
-import * as reviewRoutes from "./routes/review"
 import * as migrations from './initial-migrations'
 import { SERVER_PORT, CURR_API_VERSION, DB_SECRET, DB_ADDR, DB_NAME, DB_PORT, DB_USER, BACKOFFICE_DIR } from './const'
 
@@ -68,16 +67,15 @@ app.get(version + '/community/game/', log, communityRoutes.getGames)
 app.get(version + '/community/game/scoreboard', log, communityRoutes.getScoreboard)
 
 // Market
-app.get(version + '/market/products/', log, marketRoutes.getProducts) //retrieve all products
-app.get(version + '/market/products/:id', log, marketRoutes.getProduct) //search
-app.delete(version + '/market/products/:id', log, marketRoutes.deleteProduct) //remove
-app.post(version + '/market/products', log, marketRoutes.postProduct) //insert
-app.get(version + '/market/product/', log, marketRoutes.getProducts)
-app.get(version + '/market/products/:id', log, marketRoutes.getProduct)
+app.get(version + '/products/', log, marketRoutes.getProducts) //retrieve all products
+app.get(version + '/products/:id', log, marketRoutes.getProduct) //search
+app.delete(version + '/products/:id', log, marketRoutes.deleteProduct) //remove
+app.post(version + '/products', log, marketRoutes.postProduct) //insert
+app.get(version + '/product/', log, marketRoutes.getProducts)
+app.get(version + '/products/:id', log, marketRoutes.getProduct)
 
-// Reviews
-app.get(version + '/product/:id/reviews', log, reviewRoutes.getReviews)
-app.post(version + '/product/:id/postreview', log, reviewRoutes.postReview)
+app.get(version + '/product/:id/reviews', log, marketRoutes.getReviews)
+app.post(version + '/product/:id/postreview', log, marketRoutes.postReview)
 
 
 app.listen(port, () => {
