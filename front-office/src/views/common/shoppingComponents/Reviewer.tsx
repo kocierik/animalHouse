@@ -15,7 +15,7 @@ const Reviewer = ( props : IProps ) => {
   const [reviews,setReviews] = useState<JsonReview.IReview[]>([])
 
     const fetchReview = async(productId : string) =>  {
-        const val = await (await ApiRepository.getProductReviews(productId)).data 
+        const val =  (await ApiRepository.getProductReviews(productId)).data 
         setReviews(val!)
     }
 
