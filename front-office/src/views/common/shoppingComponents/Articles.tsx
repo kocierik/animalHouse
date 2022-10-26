@@ -7,8 +7,7 @@ const Articles = () => {
   const [article, setArticle] = React.useState<ProductMarked.IProductMarked[]>([])
 
   const getMarketProducts = async () => {
-    const values = await (await ApiRepository.getMarketProducts()).data
-    console.log(values)
+    const values =  (await ApiRepository.getMarketProducts()).data
     setArticle(values!)
   }
 

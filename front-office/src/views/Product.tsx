@@ -25,7 +25,7 @@ export default function Product() {
 
   const fetchProduct = async (id: string) =>{
     if ((await ApiRepository.getMarketProduct(id)).esit) {
-      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked // CONTROLLA
+      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked 
       setProd(val!)
       setProductColor(val.colors!)
     }
@@ -35,7 +35,7 @@ export default function Product() {
     const [avarage,setAvarage] = useState(0)
 
     const fetchReview = async(productId : string) =>  {
-        const val = await (await ApiRepository.getProductReviews(productId)).data 
+        const val =  (await (ApiRepository.getProductReviews(productId))).data 
         setReviewsStar(val!)
         if(val){
           const sum = val.reduce((b, a) => b + a.star,1);
