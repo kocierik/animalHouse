@@ -8,7 +8,7 @@ const user = [
 const Profile = () => {
   return (
     <>
-      <main className="profile-page" data-aos="zoom-in" data-aos-duration="1500">
+      <main className="profile-page" data-aos="zoom-in" data-aos-duration="500">
         <section className="relative block" style={{ height: '500px' }}>
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"

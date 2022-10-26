@@ -23,7 +23,7 @@ const CommunityPage = () => {
   const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
 
   return (
-    <div className="h-full" data-aos="fade-up" data-aos-duration="1500">
+    <div className="h-full" data-aos="fade-up" data-aos-duration="500">
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>

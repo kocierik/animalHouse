@@ -3,7 +3,7 @@
     id="services"
     data-aos="zoom-in"
     data-aos-easing="linear"
-    data-aos-duration="1500"
+    data-aos-duration="500"
     class="section relative pt-20 pb-8 md:pt-16 md:pb-0 bg-white"
   >
     <div class="container xl:max-w-6xl mx-auto px-4">
