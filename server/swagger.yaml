@@ -354,7 +354,7 @@ paths:
                           items:
                             type: number
   
-  /market/products/{id}:
+  /products/{id}:
     get:
         tags:
         - market
@@ -386,7 +386,7 @@ paths:
         200:
           description: successful operation
 
-  /market/products:
+  /products:
     post:
         tags:
         - market

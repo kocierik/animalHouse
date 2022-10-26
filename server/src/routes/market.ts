@@ -3,6 +3,8 @@ import JsonError from '../json/JsonError'
 import { Request, Response } from 'express'
 import Product from '../entities/Product'
 import { JsonProduct } from '../json/JsonProduct'
+import Review from '../entities/Review'
+import { JsonReview } from '../json/JsonReview';
 
 export const getProducts = async (_: Request, res: Response) => {
   return res.json(await Product.find({}))
@@ -47,4 +49,42 @@ export const postProduct = async (req: Request, res: Response) => {
   console.log(product)
   await product.save()
   return res.status(STATUS_OK).json(product)
+}
+
+
+export const getReviews = async (req: Request, res: Response) => {
+  const pathId = req.params.id
+  if (pathId) {
+    // Check existing review
+    return res.status(STATUS_OK).json(await Review.find({productId: pathId}))   
+  } else {
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Url Product id doesn't exist ${pathId}`))
+  }
+}
+
+export const postReview = async (req: Request, res: Response) => {
+  const pathId = req.params.id
+  const reviewCreation = req.body as JsonReview
+  
+  // Check existing product
+  if (pathId) {
+    if(!reviewCreation.star)
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(`insert a valid number of star`))
+
+    const review = new Review()
+    review.username = reviewCreation.username
+    review.productId = reviewCreation.productId
+    review.comment = reviewCreation.comment
+    review.star = reviewCreation.star
+    review.date = reviewCreation.date
+    try {
+      await review.save()
+    } catch (error) {
+      return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Error on creation review: ${error.message}`))
+    }
+    return res.status(STATUS_OK).json(review)
+
+  } else {
+    return res.status(STATUS_BAD_REQUEST).json(new JsonError(`Url Product id doesn't exist ${pathId}`))
+  }
 }
