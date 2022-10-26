@@ -5,3 +5,6 @@ export default class JsonError {
     this.mex = mex
   }
 }
+
+export class JsonVisibilityError extends JsonError {
+}
