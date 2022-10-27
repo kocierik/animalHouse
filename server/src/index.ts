@@ -81,7 +81,7 @@ app.delete(version + '/products/:id', log, marketRoutes.deleteProduct) //remove
 app.post(version + '/products', log, marketRoutes.postProduct) //insert
 app.get(version + '/products/:id/reviews', log, marketRoutes.getReviews)
 app.post(version + '/products/:id/reviews', log, marketRoutes.postReview)
-app.get(version + '/market/products/:id/sum-up', log, marketRoutes.getProductSumUp)
+app.get(version + '/market/products/:id/reviews/sum-up', log, marketRoutes.getProductSumUp)
 
 
 app.listen(port, () => {

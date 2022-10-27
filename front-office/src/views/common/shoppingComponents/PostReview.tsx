@@ -49,7 +49,7 @@ const PostReview = (props: IProps) => {
       date: new Date()
     }
     setTextComment("")
-    await (await ApiRepository.postProductReview(productId, data)).data
+    await ApiRepository.postProductReview(productId, data)
   }
 
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
