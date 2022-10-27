@@ -22,7 +22,7 @@ const _MARKET_PRODUCT_CODES = '/market/products/'
 const SINGLE_MARKET_PRODUCT_CODES = '/market/products/'
 const _PRODUCT_REVIEW_CODES = '/product/{0}/reviews/'
 const _POST_REVIEW_CODES = '/product/{0}/postreview/'
-const _MARKET_PRODUCTS_REVIEWS_SUM_UP = '/market/products/{0}/reviews/sumups'
+const _MARKET_PRODUCTS_REVIEWS_SUM_UP = '/market/products/{0}/reviews/sum-up'
 
 
 export const login = async (username: string, password: string) =>
@@ -31,9 +31,8 @@ export const login = async (username: string, password: string) =>
 export const getCurrentUser = async () =>
   Api.get<user.JsonAuthInfo>(_BASE_URL + _USER_CURRENT, true)
 
-export const getUserInfoById = async (id: string) => {
+export const getUserInfoById = async (id: string) =>
   Api.get<user.JsonUser>(stringFormat(_BASE_URL + _USER_INFO, id))
-}
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)
@@ -51,6 +50,7 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
 
 export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
+
 export const getMarketProduct = async (productId: string) =>
   Api.get<product.IProductMarked>(_BASE_URL + SINGLE_MARKET_PRODUCT_CODES + productId)
 
