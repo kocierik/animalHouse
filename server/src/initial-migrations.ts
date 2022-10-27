@@ -5,8 +5,38 @@ import Product from './entities/Product'
 import Review from './entities/Review'
 import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
+import User from './entities/User'
+import Admin from './entities/Admin'
 
 export const test = async () => {
+  await User.deleteMany()
+  await User.insertMany([
+    {
+      email: "mattia@ah.com",
+      username: "mattia",
+      password: "mattia",
+      firstName: "mattia",
+      lastName: "girolimetto",
+      phone: "3333333333"
+    },
+    {
+      email: "man@ah.com",
+      username: "erikMan",
+      password: "erik",
+      firstName: "erik",
+      lastName: "koci",
+      phone: "3333333333"
+    },
+    {
+      email: "lele@ah.com",
+      username: "lele",
+      password: "gabriele",
+      firstName: "gabriele",
+      lastName: "crestanello",
+      phone: "3333333333"
+    },
+  ]
+  )
   await Product.deleteMany()
   await Product.insertMany([
     {
@@ -43,25 +73,13 @@ export const test = async () => {
   ])
 }
 
-export const initReviews = async () =>{
-  await Review.deleteMany();
-  await Review.insertMany([
+export const initAdmin = async () => {
+  await Admin.deleteMany()
+  await Admin.insertMany([
     {
-    _id: new Types.ObjectId('11f425273418f02b236b5811'),
-    username: "erik",
-    productId: "62f425273418f02b236b58b0",
-    comment: "il man è bravo",
-    star: 5,
-    date: new Date()
-  },
-  {
-    _id: new Types.ObjectId('11f425273418f02b236b5812'),
-    username: "erik",
-    productId: "62f425273418f02b236b58b0",
-    comment: "il man è molto bravo",
-    star: 3,
-    date: new Date()
-  },
+      username: "admin",
+      password: "secret"
+    }
   ])
 }
 

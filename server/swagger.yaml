@@ -10,8 +10,8 @@ tags:
 - name: users
 - name: animals 
 - name: community
-- name: market
-- name: review
+- name: products
+
     
 schemes:
 - http
@@ -354,10 +354,10 @@ paths:
                           items:
                             type: number
   
-  /market/products/{id}:
+  /products/{id}:
     get:
         tags:
-        - market
+        - products
         summary: Searches the specified product
         parameters:
           - in: path
@@ -374,7 +374,7 @@ paths:
                 $ref: "#/definitions/Product"
     delete:
       tags:
-      - market
+      - products
       summary: Deletes a product based on the received id
       parameters: 
         - in: path
@@ -386,10 +386,10 @@ paths:
         200:
           description: successful operation
 
-  /market/products:
+  /products:
     post:
         tags:
-        - market
+        - products
         summary: Creates a new product
         parameters:
           - in: body
@@ -417,10 +417,10 @@ paths:
 
 
 
-  /product/{id}/reviews:
+  /products/{id}/reviews:
     get:
         tags:
-        - review
+        - products
         summary: Retrive reviews about a product
         parameters:
           - in: path
@@ -437,7 +437,7 @@ paths:
                 $ref: "#/definitions/Review"
     delete:
       tags:
-      - market
+      - products
       summary: Deletes a product based on the received id
       parameters: 
         - in: path
@@ -448,11 +448,9 @@ paths:
       responses:
         200:
           description: successful operation
-
-  /product/{id}/postreview:
     post:
       tags:
-      - review
+      - products
       summary: Create a review
       parameters:
       - in: path

@@ -1,5 +1,5 @@
 import { Api } from './api'
-import * as user from './json/user'
+import type * as user from './json/user'
 import type * as animal from './json/animal'
 import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
@@ -16,14 +16,11 @@ const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
 const _ANIMAL_REGISTER = '/users/{0}/animals'
 const _REGISTER_CODES = '/register/'
-const _SCORE_CODES = '/users/{0}/score/'
-const _LEADERBOARD_CODES = '/community/game/scoreboard'
-const _MARKET_PRODUCT_CODES = '/market/products/'
-const SINGLE_MARKET_PRODUCT_CODES = '/market/products/'
-const _PRODUCT_REVIEW_CODES = '/product/{0}/reviews/'
-const _POST_REVIEW_CODES = '/product/{0}/postreview/'
+const _SCORE_CODES = '/users/{0}/score/' 
+const _LEADERBOARD_CODES = '/community/game/scoreboard' 
+const _PRODUCT_CODES = '/products/' 
+const _PRODUCT_REVIEW = '/products/{0}/reviews/' 
 const _MARKET_PRODUCTS_REVIEWS_SUM_UP = '/market/products/{0}/reviews/sum-up'
-
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _AUTH, { username: username, password: password })
@@ -49,18 +46,16 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _LEADERBOARD_CODES)
 
-export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _MARKET_PRODUCT_CODES)
-
+export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _PRODUCT_CODES)
 export const getMarketProduct = async (productId: string) =>
-  Api.get<product.IProductMarked>(_BASE_URL + SINGLE_MARKET_PRODUCT_CODES + productId)
-
+   Api.get<product.IProductMarked>(_BASE_URL + _PRODUCT_CODES + productId)
+   
 export const getProductReviews = async (productId: string) =>
-  Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCT_REVIEW_CODES, productId))
-
+   Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCT_REVIEW, productId))
+   
 export const postProductReview = async (productId: string, review: review.IReview) =>
-  Api.post<review.IReview>(stringFormat(_BASE_URL + _POST_REVIEW_CODES, productId), review)
-
+   Api.post<review.IReview>(stringFormat(_BASE_URL + _PRODUCT_REVIEW, productId), review)
+   
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
-  Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _MARKET_PRODUCTS_REVIEWS_SUM_UP, productId))
-
+   Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _MARKET_PRODUCTS_REVIEWS_SUM_UP, productId))
 // TODO insert here other calls!!!!
