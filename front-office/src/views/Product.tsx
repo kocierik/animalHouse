@@ -6,9 +6,6 @@ import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
 import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
 
-
-const reviews = { href: '#', average: 4, totalCount: 117 }
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
@@ -17,43 +14,42 @@ export default function Product() {
   const [selectedColor, setSelectedColor] = useState("")
   const [selectedSize, setSelectedSize] = useState("")
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
-  const [id, setId] = useState("")
-  const [productColor,setProductColor] = React.useState<string[]>([])
-  const [post, setPost] = useState<boolean>(null!) 
+  const [productColor, setProductColor] = React.useState<string[]>([])
+  const [post, setPost] = useState<boolean>(null!)
 
   const params = useParams()
+  const id = params.id
+  if (!id)
+    return <div />
 
-  const fetchProduct = async (id: string) =>{
+  const fetchProduct = async (id: string) => {
     if ((await ApiRepository.getMarketProduct(id)).esit) {
-      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked 
+      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked
       setProd(val!)
       setProductColor(val.colors!)
     }
   }
-  
-    const [reviewsStar,setReviewsStar] = useState<JsonReview.IReview[]>([])
-    const [avarage,setAvarage] = useState(0)
 
-    const fetchReview = async(productId : string) =>  {
-        const val =  (await (ApiRepository.getProductReviews(productId))).data 
-        setReviewsStar(val!)
-        if(val){
-          const sum = val.reduce((b, a) => b + a.star,1);
-          setAvarage(sum/val?.length!)
-        }
+  const [reviewsStar, setReviewsStar] = useState<JsonReview.IReview[]>([])
+  const [avarage, setAvarage] = useState(0)
+
+  const fetchReview = async (productId: string) => {
+    const val = (await (ApiRepository.getProductReviews(productId))).data
+    setReviewsStar(val!)
+    if (val) {
+      const sum = val.reduce((b, a) => b + a.star, 1);
+      setAvarage(sum / val?.length!)
     }
+  }
 
-  useEffect(()=>{
-    setId(params.id!)
+  useEffect(() => {
     setSelectedColor(prod?.colors![0]!)
-    if(id){
-      fetchProduct(id)
-      fetchReview(id)
-    }
-  },[id,post])
+    fetchProduct(id)
+    fetchReview(id)
+  }, [])
 
 
-const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
+  const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
 
   return (
     <>
@@ -61,25 +57,25 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
-              
-                <li key={prod?._id}>
-                  <div className="flex items-center">
-                    <a  className="mr-2 text-sm font-medium text-gray-900">
-                      {ProductConstant.PRODUCT_TYPE[prod?.categoryId as string]}
-                    </a>
-                    <svg
-                      width={16}
-                      height={20}
-                      viewBox="0 0 16 20"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      className="w-4 h-5 text-gray-300"
-                    >
-                      <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                    </svg>
-                  </div>
-                </li>
+
+              <li key={prod?._id}>
+                <div className="flex items-center">
+                  <a className="mr-2 text-sm font-medium text-gray-900">
+                    {ProductConstant.PRODUCT_TYPE[prod?.categoryId as string]}
+                  </a>
+                  <svg
+                    width={16}
+                    height={20}
+                    viewBox="0 0 16 20"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    className="w-4 h-5 text-gray-300"
+                  >
+                    <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                  </svg>
+                </div>
+              </li>
 
               <li className="text-sm">
                 <a aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
@@ -99,7 +95,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               />
             </div>
 
-              {/* Options */}
+            {/* Options */}
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <h2 className="sr-only">Product information</h2>
               <span className="text-3xl text-gray-900"> <p className='pb-5'>{prod?.name}</p> <p className='text-2xl'>Price: {prod?.price}$</p></span>
@@ -120,7 +116,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                       />
                     ))}
                   </div>
-                  <span  className="ml-3 text-sm font-medium text-green-600 hover:text-green-500">
+                  <span className="ml-3 text-sm font-medium text-green-600 hover:text-green-500">
                     {reviewsStar.length} reviews
                   </span>
                 </div>
@@ -135,26 +131,27 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                     <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                     <div className="flex items-center space-x-3">
                       {
-                      productColor && productColor.map(
-                        (color) => {
-                        return (
-                        <RadioGroup.Option
-                          key={color}
-                          value={color}
-                          style={{backgroundColor: color}}
-                          onClick={(()=>{setSelectedColor(color); console.log(selectedColor)})}
-                          className={({ active, checked }) =>
-                          classNames(
-                              active || checked ? 'ring-2 bg-white' : '',
-                              'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                        productColor && productColor.map(
+                          (color) => {
+                            return (
+                              <RadioGroup.Option
+                                key={color}
+                                value={color}
+                                style={{ backgroundColor: color }}
+                                onClick={(() => { setSelectedColor(color); console.log(selectedColor) })}
+                                className={({ active, checked }) =>
+                                  classNames(
+                                    active || checked ? 'ring-2 bg-white' : '',
+                                    'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                                  )
+                                }
+                              >
+                                <RadioGroup.Label as="span" className="sr-only">
+                                  {color}
+                                </RadioGroup.Label>
+                              </RadioGroup.Option>
                             )
-                          }
-                        >
-                          <RadioGroup.Label as="span" className="sr-only">
-                            {color}
-                          </RadioGroup.Label>
-                        </RadioGroup.Option>
-                       )})}
+                          })}
                     </div>
                   </RadioGroup>
                 </div>
@@ -166,26 +163,26 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                   </div>
 
                   <div className="mt-4">
-                  <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                    <label className="sr-only">Choose a size</label>
-                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                      {prod?.sizes?.map(size => {
-                        return (
-                        <RadioGroup.Option
-                          key={size}
-                          value={size}
-                          onClick={(()=>setSelectedSize(size))}
-                          className={({ active }) =>
-                            classNames(
-                               active ? "ring-1 bg-green-400 " : "",
-                              'border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'
-                            )
-                          }
-                        >{size}</RadioGroup.Option>
-                        )
-                      })}
-                    </div>
-                  </RadioGroup>
+                    <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
+                      <label className="sr-only">Choose a size</label>
+                      <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                        {prod?.sizes?.map(size => {
+                          return (
+                            <RadioGroup.Option
+                              key={size}
+                              value={size}
+                              onClick={(() => setSelectedSize(size))}
+                              className={({ active }) =>
+                                classNames(
+                                  active ? "ring-1 bg-green-400 " : "",
+                                  'border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'
+                                )
+                              }
+                            >{size}</RadioGroup.Option>
+                          )
+                        })}
+                      </div>
+                    </RadioGroup>
                   </div>
                 </div>
 
@@ -200,7 +197,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
           </div>
 
           {/* Product info */}
-          <div  className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+          <div className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">Description</h1>
             </div>
@@ -215,7 +212,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
 
               <div className="mt-10">
-              <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Highlights</h3>
+                <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Highlights</h3>
                 <div className="mt-4">
                   <ul role="list" className="pl-10 list-disc text-sm space-y-3">
                     {prod && prod.highlights?.map((highlight) => (
@@ -228,7 +225,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
 
               <div className="mt-10">
-              <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Details</h3>
+                <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Details</h3>
 
                 <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">{prod?.details}</p>
@@ -236,7 +233,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
               </div>
             </div>
           </div>
-           <Reviewer productId={id} post={post} setPost={setPost}/>
+          <Reviewer productId={id} post={post} setPost={setPost} />
         </div>
       </div>
     </>
