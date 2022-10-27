@@ -1,11 +1,10 @@
-import React, { LegacyRef, RefObject, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
 import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
-import useRef from 'react';
 
 
 const reviews = { href: '#', average: 4, totalCount: 117 }
@@ -15,7 +14,6 @@ function classNames(...classes: string[]) {
 }
 
 export default function Product() {
-  const colorTest = React.useRef<HTMLHeadingElement>(null)
   const [selectedColor, setSelectedColor] = useState("")
   const [selectedSize, setSelectedSize] = useState("")
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
@@ -27,7 +25,7 @@ export default function Product() {
 
   const fetchProduct = async (id: string) =>{
     if ((await ApiRepository.getMarketProduct(id)).esit) {
-      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked // CONTROLLA
+      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked 
       setProd(val!)
       setProductColor(val.colors!)
     }
@@ -37,7 +35,7 @@ export default function Product() {
     const [avarage,setAvarage] = useState(0)
 
     const fetchReview = async(productId : string) =>  {
-        const val = await (await ApiRepository.getProductReviews(productId)).data 
+        const val =  (await (ApiRepository.getProductReviews(productId))).data 
         setReviewsStar(val!)
         if(val){
           const sum = val.reduce((b, a) => b + a.star,1);
@@ -122,17 +120,16 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                       />
                     ))}
                   </div>
-                  <p className="sr-only">{reviews.average} out of 5 stars</p>
-                  <a href={reviews.href} className="ml-3 text-sm font-medium text-green-600 hover:text-green-500">
+                  <span  className="ml-3 text-sm font-medium text-green-600 hover:text-green-500">
                     {reviewsStar.length} reviews
-                  </a>
+                  </span>
                 </div>
               </div>
 
               <form className="mt-10">
                 {/* Colors */}
                 <div>
-                  <h3 className="text-sm text-gray-900 font-medium">Color</h3>
+                  <h3 className="text-md text-gray-900 font-medium">Color</h3>
 
                   <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                     <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
@@ -143,21 +140,12 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                         return (
                         <RadioGroup.Option
                           key={color}
-                          ref={colorTest}
                           value={color}
                           style={{backgroundColor: color}}
-                          onClick={(()=> setProductColor(productColor.map(item => {
-                            if(item == color){
-                              return (
-                                color
-                              )
-                              } else {
-                                return item
-                              }
-                          })) )}
-                          className={({ active }) =>
+                          onClick={(()=>{setSelectedColor(color); console.log(selectedColor)})}
+                          className={({ active, checked }) =>
                           classNames(
-                              active ? 'ring-2 bg-white' : '',
+                              active || checked ? 'ring-2 bg-white' : '',
                               'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
                             )
                           }
@@ -174,10 +162,7 @@ const valueProduct = [{star: 1},{star: 2},{star: 3},{star: 4},{star: 5}]
                 {/* Sizes */}
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm text-gray-900 font-medium">Size</h3>
-                    <a href="#" className="text-sm font-medium text-green-600 hover:text-green-500">
-                      Size guide
-                    </a>
+                    <h3 className="text-md text-gray-900 ">Size</h3>
                   </div>
 
                   <div className="mt-4">
