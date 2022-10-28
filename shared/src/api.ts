@@ -15,16 +15,19 @@ export abstract class Api {
       return new ApiResponse<T>(response.status)
   }
 
-  public static async post<T>(url: string, body: any, auth = false): Promise<ApiResponse<T>> {
+  public static async post<T>(url: string, body: any, auth = false, sendContentType=true): Promise<ApiResponse<T>> {
+    let headers : Headers = new Headers({'Accept' : 'application/json'})
+
+    if (auth)
+      headers.append("Authorization", this.getToken())
+    if (sendContentType) 
+        headers.append('Content-Type', 'application/json')
+
     let options: RequestInit = {
       method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': auth ? this.getToken() : ""
-      }
-    };
+      body : body instanceof FormData ? body : JSON.stringify(body),
+      headers: headers
+    }
 
     let response = await fetch(url, options);
     if (response.status >= 200 && response.status < 300) {
