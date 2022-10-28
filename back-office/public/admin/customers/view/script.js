@@ -16,8 +16,12 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 function retrieveProducts(id) {
-    var url = "/v1/market/products/" + id;
-    fetch(url).then((response) => response.json()).then((data) => {
+    var url = "/v1/users/" + id;
+    fetch(url, {
+        headers: {
+            'authorization': localStorage.token
+        }
+    }).then((response) => response.json()).then((data) => {
         data.forEach(function (el) {
             console.log(el);
             $("#grid-prod-name").val(el.name);

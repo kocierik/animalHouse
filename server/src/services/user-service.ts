@@ -37,6 +37,16 @@ const validateUserCreation = async (userCreation: JsonUserCreation): Promise<Jso
   return userCreation
 }
 
+export const getAllUSers = async () => {
+  const users = await User.find({})
+  let ret = []
+  for (const u of users) {
+    ret.push(userToJsonUser(u))
+  }
+  return ret
+}
+
+
 const userCreationToUser = (userCreation: JsonUserCreation) => {
   const user = new User()
   user.username = userCreation.username

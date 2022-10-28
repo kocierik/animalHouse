@@ -8,6 +8,8 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import User from '@/entities/User'
+
 
 export const registerPost = async (req: Request, res: Response) => {
   try {
@@ -17,6 +19,10 @@ export const registerPost = async (req: Request, res: Response) => {
       return res.status(Const.STATUS_BAD_REQUEST).json(err)
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
+}
+
+export const getUsers = async (req: Request, res: Response) => {
+  return res.status(Const.STATUS_OK).json(await UserService.getAllUSers())
 }
 
 export const loginPost = async (req: Request, res: Response) => {

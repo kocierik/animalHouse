@@ -2,7 +2,7 @@ function retrieveUsers(target) {
     var url = "/v1/users/";
     fetch(url, {
         headers: {
-            'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoRGF0YSI6eyJ1c2VybmFtZSI6InRhcGFyaW5obyIsImlkIjoiNjM1MTFiY2E4ZGIwM2ZkM2FlNjgwNzg0In0sImlhdCI6MTY2NjI2MTEyNH0.sFzoOm7Te87ig9vH_pTmPiV14qs0vuz9UxB-0XVjwr8'
+            'authorization': localStorage.token
         }
     }).then((response) => response.json()).then((data) => {
         $(target).text("");
@@ -47,7 +47,7 @@ const Item = ({ username, firstName, lastName, id, email, phone, address }) => `
         &nbsp;&nbsp;
         <a href="edit/?id=${id}"><i class="bi bi-pencil"></i></a>
         &nbsp;&nbsp;
-        <button onclick='itemRemove("${username}","${id}")'><i class="bi bi-trash"></i></button>
+        <button onclick='userRemove("${username}","${id}")'><i class="bi bi-trash"></i></button>
     </td>
 </tr>
 `;
