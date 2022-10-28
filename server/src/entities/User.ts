@@ -9,6 +9,7 @@ export interface IUser {
   lastName: string
   phone: string
   animals: string[]
+  profilePicture?: string
 }
 
 const userSchema = new Schema<IUser>({
@@ -19,6 +20,7 @@ const userSchema = new Schema<IUser>({
   lastName: { type: String, required: true },
   phone: { type: String, required: true },
   animals: { type: [String], required: true, default: [] },
+  profilePicture: {type: String, required: false}
 })
 
 const User = model<IUser>('User', userSchema)

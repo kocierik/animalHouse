@@ -21,6 +21,7 @@ export interface JsonUser {
   phone: string
   pet: JsonPet[]
   address: JsonAddress
+  profilePicture?: string
 }
 
 export interface JsonAddress {
