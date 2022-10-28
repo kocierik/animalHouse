@@ -2,6 +2,7 @@ import { connect } from 'mongoose'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { resolve } from 'path'
+import multer from 'multer'
 import * as parser from 'body-parser'
 import * as animalRoutes from './routes/animal-routes'
 import * as middlewares from './routes/middlewares'
@@ -11,11 +12,11 @@ import * as marketRoutes from './routes/market-routes'
 import * as adminRoutes from './routes/admin-routes'
 import * as migrations from './initial-migrations'
 import * as Const from './const'
-
 // Constants
 const app = express()
 const port = Const.SERVER_PORT
 const version = Const.CURR_API_VERSION
+const picDir = resolve(__dirname + Const.PICTURE_DIR) 
 
 // App initialization
 app.use(parser.json())
@@ -47,6 +48,22 @@ const log = (req: Request, _: Response, next: Function) => {
   next()
 }
 
+
+// Multer
+const storage = multer.diskStorage({
+  destination: picDir,
+  filename: (req: Request, _: any, cb: Function) => {
+    cb(null, req.params.id)
+  }
+})
+
+const upload = multer({storage: storage})
+
+console.log("[INFO] Pictures dir is at " + picDir)
+app.use('/pictures/', log, express.static(picDir));
+
+
+
 // Routes
 // User
 app.get('/', (_: Request, res: Response) => {
@@ -54,6 +71,7 @@ app.get('/', (_: Request, res: Response) => {
 })
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
+app.post(version + "/users/:id/picture", log, middlewares.verifyToken, middlewares.verifyUser, upload.single('profile'), userRoutes.postPicture)
 app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)
 app.get(version + '/users/:id', log, userRoutes.getUser)
 app.put(version + '/users/:id/score', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putScore)

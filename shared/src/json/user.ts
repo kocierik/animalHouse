@@ -15,7 +15,8 @@ export interface JsonUser {
   lastName: string,
   phone: string,
   animals: JsonAnimal.JsonAnimal[],
-  address: JsonAddress 
+  address: JsonAddress,
+  profilePicture?: string
 }
 
 export interface JsonAddress {
