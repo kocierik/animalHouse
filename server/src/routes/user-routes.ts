@@ -125,3 +125,10 @@ export const putAnimal = async (req: Request, res: Response) => {
       return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+
+export const postPicture = (_: Request, res: Response) => {
+  console.log(res)
+  console.log("son sicuro")
+  return res.status(Const.STATUS_OK).json({mex: "yey"})
+}

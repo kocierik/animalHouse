@@ -16,4 +16,4 @@ export const doLogout = () => localStorage.removeItem(LS_AuthToken)
 
 export const setUserId = (userId: string) => localStorage.setItem(LS_UserId, userId)
 
-export const getUserId = (): string | null => localStorage.getItem(LS_UserId)
+export const getUserId = (): string => localStorage.getItem(LS_UserId)

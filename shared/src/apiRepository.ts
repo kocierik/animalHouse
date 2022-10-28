@@ -14,6 +14,7 @@ const _ANIMAL_CODES = '/animals/codes'
 const _USER_INFO = '/users/{0}'
 const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
+const _USER_PICTURE = '/users/{0}/picture'
 const _ANIMAL_REGISTER = '/users/{0}/animals'
 const _REGISTER_CODES = '/register/'
 const _SCORE_CODES = '/users/{0}/score/' 
@@ -55,6 +56,12 @@ export const getProductReviews = async (productId: string) =>
    
 export const postProductReview = async (productId: string, review: review.IReview) =>
    Api.post<review.IReview>(stringFormat(_BASE_URL + _PRODUCT_REVIEW, productId), review)
-   
+
+export const postUserPicture = (userId: string, image: string|Blob) => {
+  const formdata = new FormData()
+  formdata.append("profile", image, 'image.jpg')
+  return Api.post(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
+} 
+
 
 // TODO insert here other calls!!!!
