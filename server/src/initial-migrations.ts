@@ -20,12 +20,14 @@ export const test = async () => {
       phone: "3333333333"
     },
     {
+      _id: new Types.ObjectId('635c088531e05da80c7faf61'),
       email: "man@ah.com",
       username: "erikMan",
       password: "erik",
       firstName: "erik",
       lastName: "koci",
-      phone: "3333333333"
+      phone: "3333333333",
+      profilePicture: File
     },
     {
       email: "lele@ah.com",
