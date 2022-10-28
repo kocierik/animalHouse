@@ -17,10 +17,19 @@ async function doLogin() {
     })
     const body = await response.json()
     if (response.status >= 200 && response.status < 300) {
-      localStorage.setItem("token", body.token)
+      localStorage.token = body.token
       window.location = "/index.html"
     } else {
       $("#errorDiv").text(body.mex)
     }
   }
+}
+
+function loginCheck() {
+  if (!localStorage.token) {
+    window.location.href = "/login.html"
+  }
+}
+function logout() {
+  localStorage.removeItem("token")
 }

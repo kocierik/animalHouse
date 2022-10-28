@@ -18,7 +18,9 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function retrieveUser(id) {
     var url = "/v1/users/" + id;
     fetch(url, {
-
+        headers: {
+            'authorization': localStorage.token
+        }
     }).then((response) => response.json()).then((data) => {
         data.forEach(function (el) {
             console.log(el);
