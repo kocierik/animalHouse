@@ -66,7 +66,7 @@ const constructAuthDataForUser = async (username: string, password: string): Pro
 
 export const findUserById = async (id: string): Promise<IUser> => {
   try {
-    const result = await User.findOne({ id: id })
+    const result = await User.findById(id)
     return result as IUser
   } catch (err) { return null }
 }
