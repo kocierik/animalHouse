@@ -1,4 +1,4 @@
-import { JsonPet } from './JsonPet'
+import { JsonAnimal } from "./JsonAnimal"
 
 export interface JsonUserCreation {
   username: string
@@ -6,6 +6,10 @@ export interface JsonUserCreation {
   email: string
   firstName: string
   lastName: string
+  country: string
+  city: string
+  street: string
+  zip: number
 }
 
 export interface JsonLogin {
@@ -14,12 +18,12 @@ export interface JsonLogin {
 }
 
 export interface JsonUser {
+  _id: string
   username: string
   email: string
   firstName: string
   lastName: string
-  phone: string
-  pet: JsonPet[]
+  animals: JsonAnimal[]
   address: JsonAddress
 }
 
@@ -27,5 +31,5 @@ export interface JsonAddress {
   country: string
   city: string
   street: string
-  cap: number
+  zip: number
 }

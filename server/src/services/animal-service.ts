@@ -2,17 +2,18 @@ import { JsonAnimal } from '../json/JsonAnimal'
 import Animal, { IAnimal } from '../entities/Animal'
 import AnimalCode from '../entities/AnimalCode'
 
-export const createAnimals = async (animals: JsonAnimal[], userId: string): Promise<IAnimal[]> => {
-  const inserted = await Animal.insertMany(animals.map((a) => jsonAnimalToAnimal(a, userId)))
-  return inserted as IAnimal[]
-}
+export const createAnimals = async (animals: JsonAnimal[]): Promise<IAnimal[]> =>
+  (await Animal.insertMany(animals.map(jsonAnimalToAnimal))) as IAnimal[]
 
-const jsonAnimalToAnimal = (ja: JsonAnimal, uId: string) => ({
-  name: ja.name,
-  type: ja.type,
-  userId: uId,
-  age: ja.age,
-})
+/**
+ * I know this can seems useless but it isn't (maybe)
+ */
+export const jsonAnimalToAnimal = (ja: JsonAnimal): IAnimal => ja as IAnimal
+
+/**
+ * I know this can seems useless but it isn't (maybe)
+ */
+export const animalToJsonAnimal = (animal: IAnimal) => animal as JsonAnimal
 
 export const getAnimalCodes = async () =>
   (await AnimalCode.find({})).map((x) => ({ code: x.code, value: x.value }))
