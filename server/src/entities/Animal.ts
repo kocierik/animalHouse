@@ -8,7 +8,7 @@ export interface IAnimal {
   age: number
 }
 
-const animalSchema = new Schema<IAnimal>({
+export const animalSchema = new Schema<IAnimal>({
   name: { type: String, required: true },
   type: { type: String, required: true },
   userId: { type: String, required: true },

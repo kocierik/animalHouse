@@ -33,13 +33,21 @@ export const loginPost = async (req: Request, res: Response) => {
   }
 }
 
-export const getCurrentUser =  (req: Request, res: Response) =>{
-    try {
-      return res.status(Const.STATUS_OK).json(req.authData)
-    } catch (error) {
-      return res.status(Const.STATUS_BAD_REQUEST).json(error.message)
-    }
+export const getCurrentUser = (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(req.authData)
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error.message)
   }
+}
+
+export const getAllUsers = async (_: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.getAllJsonUser())
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error.message)
+  }
+}
 
 export const getUser = async (req: Request, res: Response) => {
   const pathId = req.params.id
