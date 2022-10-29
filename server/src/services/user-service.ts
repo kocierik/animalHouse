@@ -1,6 +1,6 @@
 import { JsonUser, JsonUserCreation, JsonPicture } from '../json/JsonUser';
 import JsonError, { JsonVisibilityError } from '../json/JsonError'
-import User, { IUser } from '../entities/User'
+import User, { Address, IAddress, IUser } from '../entities/User'
 import * as ProductService from './product-service'
 import * as CartService from './cart-service'
 import * as AnimalService from './animal-service'
@@ -45,7 +45,14 @@ const userCreationToUser = (userCreation: JsonUserCreation) => {
   user.password = userCreation.password //bcrypt.hashSync(userCreation.password, 5)
   user.firstName = userCreation.firstName
   user.lastName = userCreation.lastName
-  user.phone = 'todo'
+
+  const address = new Address()
+  address.country = userCreation.country
+  address.city = userCreation.city
+  address.street = userCreation.street
+  address.zip = userCreation.zip
+
+  user.address = address
   return user
 }
 
@@ -72,14 +79,14 @@ export const findUserById = async (id: string): Promise<IUser> => {
   } catch (err) { return null }
 }
 
-export const userToJsonUser = (user: IUser)/*TODO:JsonUser*/ => ({
-  id: user._id,
+export const userToJsonUser = (user: IUser): JsonUser => ({
+  _id: user._id,
   username: user.username,
   firstName: user.firstName,
   lastName: user.lastName,
   email: user.email,
-  phone: user.phone,
-  // TODO more fields
+  animals: user.animals.map(AnimalService.animalToJsonAnimal),
+  address: user.address as IAddress
 })
 
 export const pictureToJsonPicture = (pic: IPicture)/*TODO:JsonUser*/ => ({
@@ -112,8 +119,8 @@ export const deleteFromUserCart = async (userId: string, piids: string[]) => {
 export const addAnimalsToUser = async (userId: string, animals: JsonAnimal[]) => {
   const user = await User.findById(userId)
   if (user) {
-    const inserted = await AnimalService.createAnimals(animals, userId)
-    user.animals.push(...inserted.map(x => x._id))
+    const inserted = await AnimalService.createAnimals(animals)
+    user.animals.push(...inserted)
     await user.save()
   } else
     throw new JsonError(`Can\'t find user with id ${userId}`)
@@ -131,3 +138,9 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   else
     throw new JsonError(`Can\'t find user with id ${userId}`)
 }
+export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then(x => x.map(userToJsonUser))
+
+
+
+
+

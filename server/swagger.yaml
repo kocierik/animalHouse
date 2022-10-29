@@ -16,6 +16,19 @@ tags:
 schemes:
 - http
 paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: Gets all users
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+
   /users/register:
     post:
       tags:
