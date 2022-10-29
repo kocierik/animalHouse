@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ApiRepository, type JsonUser, Helpers } from 'shared';
+import AnimalCard from './AnimalCard';
 
 
 const Profile = () => {
@@ -100,26 +101,17 @@ const Profile = () => {
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">{test?.username} </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i> {test.firstName} {test.lastName}
-                  </div>
-                  
-                  <div className="mb-2 text-gray-700 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-gray-500"></i>
-                    Solution Manager - Creative Tim Officer
-                  </div>
-                  <div className="mb-2 text-gray-700">
-                    <i className="fas fa-university mr-2 text-lg text-gray-500"></i>
-                    University of Computer Science
+                    <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {test.firstName} {test.lastName}
                   </div>
                 </div>
                 
                 <div className='flex flex-col items-center'>
-                  <div className="w-full  lg:w-4/12 px-4 lg:order-1">
+                  <div className="w-full   px-4 lg:order-1">
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8">
                       <div className='flex flex-row justify-center items-center'>
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">{test.animals.length}</span>
-                        <span className="text-sm text-gray-500">Animals</span>
+                      <div className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
+                        <AnimalCard />
+                        <AnimalCard />
                       </div>
                       </div>
                   {/* { Helpers.isLogged() &&   <div className="w-full lg:w-4/12  lg:order-3 lg:text-right lg:self-center">
