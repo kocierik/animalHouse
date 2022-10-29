@@ -27,7 +27,7 @@ export const test = async () => {
       firstName: "erik",
       lastName: "koci",
       phone: "3333333333",
-      profilePicture: File
+      profilePicture: null
     },
     {
       email: "lele@ah.com",

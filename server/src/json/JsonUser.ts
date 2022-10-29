@@ -24,6 +24,13 @@ export interface JsonUser {
   profilePicture?: string
 }
 
+export interface JsonPicture{
+  size: number,
+  filename: string
+  mimetype: string
+}
+
+
 export interface JsonAddress {
   country: string
   city: string
