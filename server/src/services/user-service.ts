@@ -89,7 +89,7 @@ export const userToJsonUser = (user: IUser): JsonUser => ({
   address: user.address as IAddress
 })
 
-export const pictureToJsonPicture = (pic: IPicture)/*TODO:JsonUser*/ => ({
+export const pictureToJsonPicture = (pic: IPicture) => ({
   size: pic.size,
   filename: pic.filename,
   mimetype: pic.mimetype
