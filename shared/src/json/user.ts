@@ -16,8 +16,15 @@ export interface JsonUser {
   phone: string,
   animals: JsonAnimal.JsonAnimal[],
   address: JsonAddress,
-  profilePicture?: string
+  profilePicture?: JsonPicture
 }
+
+export interface JsonPicture {
+  size: number,
+  filename: string
+  mimetype: string
+}
+
 
 export interface JsonAddress {
   country: string,
