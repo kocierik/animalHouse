@@ -7,6 +7,7 @@ const Profile = () => {
   const [user,setUser] = useState<JsonUser.JsonUser>()
   const [file, setFile] = useState<File>()
 
+  
   const test = {
     email: "man@ah.com",
     username: "erikMan",
@@ -25,10 +26,21 @@ const Profile = () => {
         console.log(resp, "error sendImage")
     }
   }
+
+  const getImage = async () =>{
+    const user = (await ApiRepository.getCurrentUser()).data
+    if(user){
+      console.log(user)
+      const userInfo = (await ApiRepository.getUserInfoById(user.id))
+      console.log(userInfo)
+    }
+  }
+
   useEffect(() =>{
     console.log(file)
     sendImage()
-  },[file])
+    getImage()
+  },[file,])
 
 
   
