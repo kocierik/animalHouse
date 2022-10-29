@@ -1,4 +1,4 @@
-import { JsonUser, JsonUserCreation } from '../json/JsonUser'
+import { JsonUser, JsonUserCreation, JsonPicture } from '../json/JsonUser';
 import JsonError, { JsonVisibilityError } from '../json/JsonError'
 import User, { IUser } from '../entities/User'
 import * as ProductService from './product-service'
@@ -9,6 +9,7 @@ import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'
+import { IPicture } from '../entities/User';
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -81,6 +82,12 @@ export const userToJsonUser = (user: IUser)/*TODO:JsonUser*/ => ({
   // TODO more fields
 })
 
+export const pictureToJsonPicture = (pic: IPicture)/*TODO:JsonUser*/ => ({
+  size: pic.size,
+  filename: pic.filename,
+  mimetype: pic.mimetype
+})
+
 export const addProductToUserCart = async (userId: string, pqs: IProductInstance[]): Promise<IProductInstance[]> => {
   /* TODO backend should also check wheter all fields of a product are correct.
     e.g. if you buy a tshirt you can't only specify the color, you need also the
@@ -109,5 +116,18 @@ export const addAnimalsToUser = async (userId: string, animals: JsonAnimal[]) =>
     user.animals.push(...inserted.map(x => x._id))
     await user.save()
   } else
+    throw new JsonError(`Can\'t find user with id ${userId}`)
+}
+
+export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
+  const user = await User.findById(userId)
+  if (user) {
+    try {
+      await User.updateOne( {_id: userId}, {profilePicture: picture})
+    } catch (err) {
+      throw new JsonError(err.message)
+    }
+  }
+  else
     throw new JsonError(`Can\'t find user with id ${userId}`)
 }

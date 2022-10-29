@@ -21,10 +21,8 @@ const Profile = () => {
   const sendImage = async () =>{
     if(file){
       const resp = await ApiRepository.postUserPicture(Helpers.getUserId(), file!) 
-      if (resp.esit)
-        console.log("GHESBORO")
-      else
-        console.log("Nope, sorry :(")
+      if (!resp.esit)
+        console.log(resp, "error sendImage")
     }
   }
   useEffect(() =>{

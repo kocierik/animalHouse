@@ -60,7 +60,7 @@ export const postProductReview = async (productId: string, review: review.IRevie
 export const postUserPicture = (userId: string, image: string|Blob) => {
   const formdata = new FormData()
   formdata.append("profile", image, 'image.jpg')
-  return Api.post(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
+  return Api.post<user.JsonPicture>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
 } 
 
 

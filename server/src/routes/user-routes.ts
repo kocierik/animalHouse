@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { IProductInstance } from '../entities/Cart'
-import { JsonUserCreation, JsonLogin } from '../json/JsonUser'
+import { JsonUserCreation, JsonLogin, JsonPicture } from '../json/JsonUser';
 import { JsonAnimal } from '../json/JsonAnimal'
 import Score from '../entities/Score'
 import JsonError, { JsonVisibilityError } from '../json/JsonError'
@@ -127,8 +127,16 @@ export const putAnimal = async (req: Request, res: Response) => {
 }
 
 
-export const postPicture = (_: Request, res: Response) => {
-  console.log(res)
-  console.log("son sicuro")
-  return res.status(Const.STATUS_OK).json({mex: "yey"})
+export const postPicture = (req: Request, res: Response) => {
+  try{
+    const pathId = req.params.id
+    const file = req.file as JsonPicture
+    const newData = UserService.pictureToJsonPicture(file)
+    return res.status(Const.STATUS_OK).json(UserService.addPictureToUser(pathId,newData))
+  } catch(ex){
+    if (ex instanceof JsonError)
+      return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
 }
