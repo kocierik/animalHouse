@@ -29,7 +29,7 @@ const DropDown = (props: { list: string[] }) => {
       </div>
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
-          {props.list.map((item,i) => {
+          {props.list.map((item, i) => {
             return <ItemDropdown game={item} key={i} />
           })}
           <button
