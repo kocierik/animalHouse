@@ -18,6 +18,7 @@ export const test = async () => {
       firstName: "mattia",
       lastName: "girolimetto",
       phone: "3333333333",
+      description: "ciao",
       profilePicture: null,
       animals: []
     },
@@ -28,6 +29,7 @@ export const test = async () => {
       password: "erik",
       firstName: "erik",
       lastName: "koci",
+      description: "ciao",
       phone: "3333333333",
       profilePicture: null,
       animals: []
@@ -39,6 +41,7 @@ export const test = async () => {
       firstName: "gabriele",
       lastName: "crestanello",
       phone: "3333333333",
+      description: "ciao",
       profilePicture: null,
       animals: []
     },

@@ -40,6 +40,7 @@ export interface JsonUser {
   email: string
   firstName: string
   lastName: string
+  description: string
   animals: JsonAnimal.JsonAnimal[]
   address: JsonAddress
   profilePicture?: string

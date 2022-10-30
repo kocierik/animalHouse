@@ -9,17 +9,6 @@ const Profile = () => {
   const [file, setFile] = useState<File>()
 
   
-  const test = {
-    email: "man@ah.com",
-    username: "erikMan",
-    password: "erik",
-    firstName: "erik",
-    lastName: "koci",
-    phone: "3333333333",
-    animals: ["cane","gatto"],
-    address: {cap: 3434, city: "rimini",contry: "riccione", street:"via annibolina"}
-  }
-
   const sendImage = async () =>{
     if(file){
       const resp = await ApiRepository.postUserPicture(Helpers.getUserId(), file!) 
@@ -32,16 +21,17 @@ const Profile = () => {
     const user = (await ApiRepository.getCurrentUser()).data
     if(user){
       console.log(user)
-      const userInfo = (await ApiRepository.getUserInfoById(user.id))
+      const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
       console.log(userInfo)
+      setUser(userInfo)
     }
   }
 
   useEffect(() =>{
     console.log(file)
-    sendImage()
     getImage()
-  },[file,])
+    sendImage()
+  },[file])
 
 
   
@@ -99,9 +89,9 @@ const Profile = () => {
                 
                 </div>
                 <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">{test?.username} </h3>
+                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">{user?.username} </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {test.firstName} {test.lastName}
+                    <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {user?.firstName} {user?.lastName}
                   </div>
                 </div>
                 
@@ -136,9 +126,7 @@ const Profile = () => {
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-gray-800">
-                        An artist of considerable range, Jenna the name taken by Melbourne-raised, Brooklyn-based Nick
-                        Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a
-                        solid groove structure. An artist of considerable range.
+                        {user?.description}
                       </p>
                     </div>
                   </div>
