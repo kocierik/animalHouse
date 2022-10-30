@@ -1,12 +1,13 @@
 import React from 'react'
 
-const Setting = () => {
+const Setting = (props: { setCanWrite: (arg0: boolean) => void; canWrite: any }) => {
   return (
-    <div style={{ position: 'relative', bottom: '30%' }} className="flex   justify-end px-4">
+    
+    <div className='flex p-5 self-end' onClick={() => props.setCanWrite(!props.canWrite)}>
       <button
         id="dropdownButton"
         data-dropdown-toggle="dropdown"
-        className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+        className="inline-block flex flex-end text-gray-500  flex-col justify-end  focus:ring-2 focus:outline-none focus:ring-gray-100  rounded-lg text-sm"
         type="button"
       >
         <span className="sr-only">Open dropdown</span>
@@ -22,13 +23,13 @@ const Setting = () => {
       </button>
       <div
         id="dropdown"
-        className="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+        className="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"
       >
         <ul className="py-1" aria-labelledby="dropdownButton">
           <li>
             <a
               href="#"
-              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100   "
             >
               Edit
             </a>
@@ -36,7 +37,7 @@ const Setting = () => {
           <li>
             <a
               href="#"
-              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100   "
             >
               Export Data
             </a>
@@ -44,7 +45,7 @@ const Setting = () => {
           <li>
             <a
               href="#"
-              className="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              className="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100   "
             >
               Delete
             </a>
