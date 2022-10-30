@@ -9,6 +9,7 @@ export interface IUser {
   firstName: string
   lastName: string
   animals: IAnimal[]
+  phone: string
   address: IAddress
   profilePicture?: IPicture 
 }
@@ -44,6 +45,7 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
+  phone: { type: String, required: true },
   animals: { type: [animalSchema], required: true, default: [] },
   address: { type: addressSchema },
   profilePicture: {type: picturesSchema, required: false}
