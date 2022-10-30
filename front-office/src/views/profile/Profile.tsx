@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ApiRepository, type JsonUser, Helpers } from 'shared';
+import Setting from '../common/Setting';
 import AnimalCard from './AnimalCard';
 
 
@@ -99,7 +100,7 @@ const Profile = () => {
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8">
                       <div className='flex flex-row justify-center items-center'>
-                      <div className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 md:flex-row">
+                      <div className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
                         <AnimalCard />
                         <AnimalCard />
                       </div>
@@ -122,13 +123,13 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-10 py-10 border-t border-gray-300 text-center">
-                  <div className="flex flex-wrap justify-center">
-                    <div className="w-full lg:w-9/12 px-4">
-                      <p className="mb-4 text-lg leading-relaxed text-gray-800">
-                        {user?.description}
-                      </p>
-                    </div>
+                <div className="mt-10 w-full py-10 border-t border-gray-300 text-center">
+                  <div className="flex w-full flex-wrap justify-center">
+                        <div className="flex flex-1 justify-center items-center bg-white rounded-lg border border-gray-200 shadow-md ">
+                          <textarea className=' flex w-full mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center resize-none	' value={user?.description} disabled >
+                          </textarea>
+                          <Setting />
+                        </div>
                   </div>
                 </div>
               </div>
