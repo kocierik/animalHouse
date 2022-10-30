@@ -1,8 +1,11 @@
 import React from 'react'
+import Setting from '../common/Setting'
 
-const AnimalCard = () => {
+const AnimalCard = (props: any) => {
   return (
-    <div className="w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md p-10 ">
+    <div className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+      {props.isOptionEnable && <Setting />}
+
       <div className="flex flex-col items-center">
         <img
           className="mb-3 w-24 h-24 rounded-full shadow-lg"
