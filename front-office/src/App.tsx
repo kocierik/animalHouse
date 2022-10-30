@@ -15,7 +15,6 @@ import Register from './views/Register'
 import RegisterAnimal from './views/RegisterAnimal'
 
 const App = () => {
-
   return (
     <div>
       <Navbar />
