@@ -29,8 +29,8 @@ const DropDown = (props: { list: string[] }) => {
       </div>
       {isList && (
         <div className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
-          {props.list.map((item) => {
-            return <ItemDropdown game={item} />
+          {props.list.map((item,i) => {
+            return <ItemDropdown game={item} key={i} />
           })}
           <button
             onClick={() => setIsList(!isList)}
