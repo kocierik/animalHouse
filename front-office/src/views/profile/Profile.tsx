@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ApiRepository, type JsonUser, Helpers } from 'shared'
 import Setting from '../common/Setting'
 import AnimalCard from './AnimalCard'
@@ -6,7 +6,9 @@ import AnimalCard from './AnimalCard'
 const Profile = () => {
   const [user, setUser] = useState<JsonUser.JsonUser>()
   const [file, setFile] = useState<File>()
-
+  const [isOptionEnable, setisOptionEnable] = useState(true)
+  const [canWrite, setCanWrite] = useState(false)
+  const textValue = useRef<HTMLTextAreaElement>(null)
   const sendImage = async () => {
     if (file) {
       const resp = await ApiRepository.postUserPicture(Helpers.getUserId(), file!)
@@ -21,6 +23,7 @@ const Profile = () => {
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
       console.log(userInfo)
       setUser(userInfo)
+      textValue.current!.value = userInfo?.description!
     }
   }
 
@@ -134,15 +137,19 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className="mt-10 w-full py-10 border-t border-gray-300 text-center">
-                  <div className="flex w-full flex-wrap justify-center">
-                    <div className="flex flex-1 justify-center items-center bg-white rounded-lg border border-gray-200 shadow-md ">
+                  <div className="flex w-full flex-wrap justify-center ">
+                    <div  className="flex flex-1  justify-center flex-col items-center bg-white rounded-lg border border-gray-200 shadow-md ">
+                      <Setting canWrite={canWrite} setCanWrite={setCanWrite}   />
                       <textarea
-                        className=" flex w-full mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center resize-none	"
-                        value={user?.description}
-                        disabled
+                        ref={textValue}
+                        style={{"borderWidth": canWrite ? '1px' : '0px', borderColor: "rgb(107 114 128)", borderRadius: "10px"}}
+                        className=" flex w-11/12	 mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center 	m-5"
+                        disabled={!canWrite}
+                        maxLength={300}
+                        rows={5}
                       ></textarea>
-                      <Setting />
                     </div>
+                    
                   </div>
                 </div>
               </div>
