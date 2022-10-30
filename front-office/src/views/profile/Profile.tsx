@@ -1,7 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { ApiRepository, type JsonUser, Helpers } from 'shared'
 import Setting from '../common/Setting'
 import AnimalCard from './AnimalCard'
+
+
+  export interface IsettingInfo{
+    name: string
+    setting: () => void
+  }
 
 const Profile = () => {
   const [user, setUser] = useState<JsonUser.JsonUser>()
@@ -9,12 +15,24 @@ const Profile = () => {
   const [isOptionEnable, setIsOptionEnable] = useState(true)
   const [canWrite, setCanWrite] = useState(false)
   const textValue = useRef<HTMLTextAreaElement>(null)
+
   const sendImage = async () => {
     if (file) {
       const resp = await ApiRepository.postUserPicture(Helpers.getUserId(), file!)
       if (!resp.esit) console.log(resp, 'error sendImage')
     }
   }
+
+  const callBack = () =>{
+    setCanWrite(!canWrite)
+  }
+
+  const settingInfoDesc : IsettingInfo[]= [{
+    name: "modify",
+    setting: callBack
+  }]
+  
+  const [info,setInfo] = useState(settingInfoDesc)
 
   const getImage = async () => {
     const user = (await ApiRepository.getCurrentUser()).data
@@ -28,7 +46,6 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    console.log(file)
     getImage()
     sendImage()
   }, [file])
@@ -108,7 +125,6 @@ const Profile = () => {
                     <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {user?.firstName} {user?.lastName}
                   </div>
                 </div>
-
                 <div className="flex flex-col items-center">
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8">
@@ -125,8 +141,8 @@ const Profile = () => {
                   <div className="flex w-full flex-wrap justify-center ">
                     <div className="flex flex-1  justify-center flex-col items-center bg-white rounded-lg border border-gray-200 shadow-md ">
                       {isOptionEnable && (
-                        <div onClick={() => setCanWrite(!canWrite)}>
-                          <Setting />{' '}
+                        <div style={{"width": "100%", display: "contents"}} >
+                          <Setting settingInfoDesk={info} />{' '}
                         </div>
                       )}
                       <textarea

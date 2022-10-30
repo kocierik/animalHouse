@@ -1,9 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { IsettingInfo } from '../profile/Profile';
+import {useEffect} from 'react';
 
-const Setting = () => {
+const Setting = (props: {settingInfoDesk : IsettingInfo[]}) => {
   const [isOpen, setIsOpen] = useState(false)
+  console.log(props.settingInfoDesk?.map(item => console.log(item)))
+  // props.settingInfoDesk
+  // useEffect(()=>{
+  //   console.log(props.settingInfoDesk)
+  // },[])
+
   return (
     <div className="flex p-5 self-end">
       <div className="ml-3 relative">
@@ -37,13 +45,13 @@ const Setting = () => {
             tabIndex={-1}
             z-10
           >
-            <a className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">
-              <Link to="/profile/">Your Profile</Link>
-            </a>
-
-            <a className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">
-              <Link to="/checkout/">Cart</Link>
-            </a>
+            {props.settingInfoDesk?.map((item,i) => {
+            return (
+            <span key={i}  className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">
+              <button onClick={() => {item.setting(); setIsOpen(!isOpen)}} >{item.name}</button>
+            </span>
+            )})
+            }
           </div>
         )}
       </div>
