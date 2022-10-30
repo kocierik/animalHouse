@@ -7,7 +7,7 @@ const Shopping = () => {
     <>
       <div
         data-aos="fade-up"
-        data-aos-duration="1500"
+        data-aos-duration="500"
         className="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal"
       >
         <section className="bg-white py-8">

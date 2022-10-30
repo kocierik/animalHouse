@@ -56,7 +56,7 @@ app.get(version + '/users/', log, middlewares.verifyToken, userRoutes.getUsers)
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
 app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)
-app.get(version + '/users/:id', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getUser)
+app.get(version + '/users/:id', log, userRoutes.getUser)
 app.put(version + '/users/:id/score', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putScore)
 app.get(version + '/users/:id/score/', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getScore)
 app.get(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getCart)
@@ -76,11 +76,14 @@ app.get(version + '/community/game/', log, communityRoutes.getGames)
 app.get(version + '/community/game/scoreboard', log, communityRoutes.getScoreboard)
 
 // Market
-app.get(version + "/market/products", log, marketRoutes.getProducts) //retrieve all products
-// FIXME @lele/@man manca lo swagger. Probabilmente e' andato perso
-app.get(version + "/market/products/:id", log, marketRoutes.getProduct)   //search 
-app.delete(version + "/market/products/:id", log, marketRoutes.deleteProduct) //remove
-app.post(version + "/market/products", log, marketRoutes.postProduct)  //insert
+app.get(version + '/products/', log, marketRoutes.getProducts) //retrieve all products
+app.get(version + '/products/:id', log, marketRoutes.getProduct) //search
+app.delete(version + '/products/:id', log, marketRoutes.deleteProduct) //remove
+app.post(version + '/products', log, marketRoutes.postProduct) //insert
+
+app.get(version + '/products/:id/reviews', log, marketRoutes.getReviews)
+app.post(version + '/products/:id/reviews', log, marketRoutes.postReview)
+
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
