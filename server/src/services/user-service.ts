@@ -84,6 +84,7 @@ export const userToJsonUser = (user: IUser): JsonUser => ({
   username: user.username,
   firstName: user.firstName,
   lastName: user.lastName,
+  phone: user.phone,
   email: user.email,
   animals: user.animals.map(AnimalService.animalToJsonAnimal),
   address: user.address as IAddress
