@@ -114,18 +114,8 @@ const Profile = () => {
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8">
                       <div className="flex flex-row justify-center items-center">
                         <div className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
-                          <AnimalCard
-                            canWrite={canWrite}
-                            setCanWrite={setCanWrite}
-                            isOptionEnable={isOptionEnable}
-                            setIsOptionEnable={setIsOptionEnable}
-                          />
-                          <AnimalCard
-                            canWrite={canWrite}
-                            setCanWrite={setCanWrite}
-                            isOptionEnable={isOptionEnable}
-                            setIsOptionEnable={setIsOptionEnable}
-                          />
+                          <AnimalCard isOptionEnable={isOptionEnable} />
+                          <AnimalCard isOptionEnable={isOptionEnable} />
                         </div>
                       </div>
                     </div>
@@ -134,7 +124,11 @@ const Profile = () => {
                 <div className="mt-10 w-full py-10 border-t border-gray-300 text-center">
                   <div className="flex w-full flex-wrap justify-center ">
                     <div className="flex flex-1  justify-center flex-col items-center bg-white rounded-lg border border-gray-200 shadow-md ">
-                      {isOptionEnable && <div onClick={() => setCanWrite(!canWrite)}><Setting /> </div>}
+                      {isOptionEnable && (
+                        <div onClick={() => setCanWrite(!canWrite)}>
+                          <Setting />{' '}
+                        </div>
+                      )}
                       <textarea
                         ref={textValue}
                         style={{

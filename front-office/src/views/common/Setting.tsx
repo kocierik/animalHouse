@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {useState} from 'react';
+import { useState } from 'react'
 
 const Setting = () => {
-  const [isOpen,setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="flex p-5 self-end" >
+    <div className="flex p-5 self-end">
       <div className="ml-3 relative">
         <div>
           <button
@@ -27,27 +27,26 @@ const Setting = () => {
             </svg>
           </button>
         </div>
-    {isOpen &&
-        <div
-          data-aos="zoom-in"
-          className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="user-menu-button"
-          tabIndex={-1}
-          z-10
-        >
-          <a className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">
-            <Link to="/profile/">Your Profile</Link>
-          </a>
+        {isOpen && (
+          <div
+            data-aos="zoom-in"
+            className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="user-menu-button"
+            tabIndex={-1}
+            z-10
+          >
+            <a className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">
+              <Link to="/profile/">Your Profile</Link>
+            </a>
 
-          <a className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">
-            <Link to="/checkout/">Cart</Link>
-          </a>
- 
-        </div>
-      }
-       </div>
+            <a className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">
+              <Link to="/checkout/">Cart</Link>
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
