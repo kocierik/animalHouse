@@ -23,14 +23,15 @@ const Profile = () => {
     }
   }
 
-  const callBack = () =>{
-    setCanWrite(!canWrite)
-  }
-
   const settingInfoDesc : IsettingInfo[]= [{
     name: "modify",
-    setting: callBack
-  }]
+    setting: () => setCanWrite(!canWrite)
+  },
+  {
+    name: "delete",
+    setting: () =>{textValue.current!.value = ""; setCanWrite(true) }
+  }
+]
   
   const [info,setInfo] = useState(settingInfoDesc)
 
@@ -154,6 +155,7 @@ const Profile = () => {
                         }}
                         className=" flex w-11/12	 mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center 	m-5"
                         disabled={!canWrite}
+                        onBlur={()=> setCanWrite(false)}
                         maxLength={300}
                         rows={5}
                       ></textarea>
