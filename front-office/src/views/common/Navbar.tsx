@@ -16,9 +16,9 @@ const Navbar = () => {
   const showInfoMobile = () => {
     setInfoProfileMobile(!infoProfileMobile)
   }
-  const [nav, setNar] = useState(false)
+  const [nav, setNav] = useState(false)
   const showNav = () => {
-    setNar(!nav)
+    setNav(!nav)
   }
   return (
     <div data-aos="fade-up" data-aos-duration="500" className="">
@@ -90,9 +90,9 @@ const Navbar = () => {
                     <span className="sr-only">favorites</span>
                   </button>
                 </Link>
-                <div className="ml-3 relative">
+                <div  className="ml-3 relative">
                   <div>
-                    <button
+                    <button 
                       onClick={showInfo}
                       type="button"
                       className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -109,7 +109,7 @@ const Navbar = () => {
                     </button>
                   </div>
                   {infoProfile && (
-                    <div
+                    <div  
                       className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                       role="menu"
                       data-aos="zoom-in"
@@ -149,7 +149,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            <div className="-mr-2 flex md:hidden ">
+            <div   className="-mr-2 flex md:hidden ">
               <button
                 onClick={showNav}
                 type="button"
@@ -185,7 +185,7 @@ const Navbar = () => {
           </div>
         </div>
         {nav && (
-          <div data-aos="zoom-in" className="md:hidden" id="mobile-menu">
+          <div  data-aos="zoom-in" className="md:hidden" id="mobile-menu">
             <div data-aos="zoom-in" className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <span
                 style={{ backgroundColor: history.pathname === '/' ? 'indigo' : '' }}
@@ -255,9 +255,9 @@ const Navbar = () => {
                 </Link>
               </div>
               {infoProfileMobile && (
-                <div data-aos="zoom-in" className="mt-3 px-2 space-y-1">
+                <div  data-aos="zoom-in" className="mt-3 px-2 space-y-1">
                   <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                    <Link to="/profile/">Your Profile</Link>
+                    <Link to="/profile/" >Your Profile</Link>
                   </a>
 
                   <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
