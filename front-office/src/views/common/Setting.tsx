@@ -6,17 +6,13 @@ import {useEffect} from 'react';
 
 const Setting = (props: {settingInfoDesk : IsettingInfo[]}) => {
   const [isOpen, setIsOpen] = useState(false)
-  console.log(props.settingInfoDesk?.map(item => console.log(item)))
-  // props.settingInfoDesk
-  // useEffect(()=>{
-  //   console.log(props.settingInfoDesk)
-  // },[])
 
   return (
     <div className="flex p-5 self-end">
       <div className="ml-3 relative">
-        <div>
+        <div >
           <button
+          
             id="dropdownButton"
             onClick={() => setIsOpen(!isOpen)}
             data-dropdown-toggle="dropdown"
@@ -43,7 +39,6 @@ const Setting = (props: {settingInfoDesk : IsettingInfo[]}) => {
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"
             tabIndex={-1}
-            z-10
           >
             {props.settingInfoDesk?.map((item,i) => {
             return (
