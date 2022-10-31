@@ -3,11 +3,10 @@ import { ApiRepository, type JsonUser, Helpers } from 'shared'
 import Setting from '../common/Setting'
 import AnimalCard from './AnimalCard'
 
-
-  export interface IsettingInfo{
-    name: string
-    setting: () => void
-  }
+export interface IsettingInfo {
+  name: string
+  setting: () => void
+}
 
 const Profile = () => {
   const [user, setUser] = useState<JsonUser.JsonUser>()
@@ -23,17 +22,21 @@ const Profile = () => {
     }
   }
 
-  const settingInfoDesc : IsettingInfo[]= [{
-    name: "modify",
-    setting: () => setCanWrite(!canWrite)
-  },
-  {
-    name: "delete",
-    setting: () =>{textValue.current!.value = ""; setCanWrite(true) }
-  }
-]
-  
-  const [info,setInfo] = useState(settingInfoDesc)
+  const settingInfoDescription: IsettingInfo[] = [
+    {
+      name: 'modify',
+      setting: () => setCanWrite(true)
+    },
+    {
+      name: 'delete',
+      setting: () => {
+        textValue.current!.value = ''
+        setCanWrite(true)
+      }
+    }
+  ]
+
+  const [info, setInfo] = useState(settingInfoDescription)
 
   const getImage = async () => {
     const user = (await ApiRepository.getCurrentUser()).data
@@ -142,7 +145,7 @@ const Profile = () => {
                   <div className="flex w-full flex-wrap justify-center ">
                     <div className="flex flex-1  justify-center flex-col items-center bg-white rounded-lg border border-gray-200 shadow-md ">
                       {isOptionEnable && (
-                        <div style={{"width": "100%", display: "contents"}} >
+                        <div style={{ width: '100%', display: 'contents' }}>
                           <Setting settingInfoDesk={info} />{' '}
                         </div>
                       )}
@@ -150,12 +153,12 @@ const Profile = () => {
                         ref={textValue}
                         style={{
                           borderWidth: canWrite ? '1px' : '0px',
-                          borderColor: 'rgb(107 114 128)',
+                          borderColor: '#E3E3E3',
                           borderRadius: '10px'
                         }}
                         className=" flex w-11/12	 mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center 	m-5"
                         disabled={!canWrite}
-                        onBlur={()=> setCanWrite(false)}
+                        onBlur={() => setCanWrite(false)}
                         maxLength={300}
                         rows={5}
                       ></textarea>
