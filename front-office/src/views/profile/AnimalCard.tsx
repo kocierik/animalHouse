@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Setting from '../common/Setting'
+import { IsettingInfo } from './Profile'
 
 const AnimalCard = (props: any) => {
+  const animalName = useRef<HTMLInputElement>(null)
+  const animalType = useRef<HTMLInputElement>(null)
+  const [canWrite, setCanWrite] = useState(false)
+
+  const settingAnimals: IsettingInfo[] = [
+    {
+      name: 'modify',
+      setting: () => setCanWrite(true)
+    },
+    {
+      name: 'delete',
+      setting: () => {
+        animalName.current!.value = ''
+      }
+    }
+  ]
+
+  const [animals, setAnimals] = useState(settingAnimals)
+
   return (
     <div className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
-      {props.isOptionEnable && <Setting />}
+      {props.isOptionEnable && <Setting settingInfoDesk={animals} />}
 
       <div className="flex flex-col items-center">
         <img
@@ -12,8 +32,30 @@ const AnimalCard = (props: any) => {
           src="https://i.pinimg.com/originals/31/7e/b5/317eb50bea6c358da1f073f425ed50e4.jpg"
           alt="Bonnie image"
         />
-        <h5 className="mb-1 text-xl font-medium text-gray-900 ">Bonnie Green</h5>
-        <span className="text-sm text-gray-500">Cat</span>
+        <input
+          style={{
+            borderWidth: canWrite ? '1px' : '0px',
+            borderColor: 'whitesmoke',
+            borderRadius: '10px'
+          }}
+          className=" bg-white mb-1 text-xl font-medium text-gray-90 text-center"
+          disabled={!canWrite}
+          onBlur={() => setCanWrite(false)}
+          defaultValue={'Stefano Volpe'}
+          ref={animalName}
+        />
+        <input
+          style={{
+            borderWidth: canWrite ? '1px' : '0px',
+            borderColor: 'whitesmoke',
+            borderRadius: '10px'
+          }}
+          className="bg-white text-sm text-center text-gray-500"
+          disabled={!canWrite}
+          onBlur={() => setCanWrite(false)}
+          defaultValue={'Fox'}
+          ref={animalType}
+        />
       </div>
     </div>
   )

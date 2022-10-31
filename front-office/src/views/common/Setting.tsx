@@ -1,18 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { IsettingInfo } from '../profile/Profile';
-import {useEffect} from 'react';
+import { IsettingInfo } from '../profile/Profile'
+import { useEffect } from 'react'
 
-const Setting = (props: {settingInfoDesk : IsettingInfo[]}) => {
+const Setting = (props: { settingInfoDesk: IsettingInfo[] }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className="flex p-5 self-end">
       <div className="ml-3 relative">
-        <div >
+        <div>
           <button
-          
             id="dropdownButton"
             onClick={() => setIsOpen(!isOpen)}
             data-dropdown-toggle="dropdown"
@@ -40,13 +39,26 @@ const Setting = (props: {settingInfoDesk : IsettingInfo[]}) => {
             aria-labelledby="user-menu-button"
             tabIndex={-1}
           >
-            {props.settingInfoDesk?.map((item,i) => {
-            return (
-            <span key={i}  className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">
-              <button onClick={() => {item.setting(); setIsOpen(!isOpen)}} >{item.name}</button>
-            </span>
-            )})
-            }
+            {props.settingInfoDesk?.map((item, i) => {
+              return (
+                <span
+                  key={i}
+                  className="block border-b border-gray-100 px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex={-1}
+                  id="user-menu-item-0"
+                >
+                  <button
+                    onClick={() => {
+                      item.setting()
+                      setIsOpen(!isOpen)
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                </span>
+              )
+            })}
           </div>
         )}
       </div>
