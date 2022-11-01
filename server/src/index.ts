@@ -71,7 +71,7 @@ app.get('/', (_: Request, res: Response) => {
 })
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
-app.post(version + "/users/:id/picture", log, middlewares.verifyToken, middlewares.verifyUser, upload.single('profile'), userRoutes.postPicture)
+app.put(version + "/users/:id/picture", log, middlewares.verifyToken, middlewares.verifyUser, upload.single('profile'), userRoutes.postPicture)
 app.get(version + '/users', log, userRoutes.getAllUsers)
 app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)
 app.get(version + '/users/:id', log, userRoutes.getUser)

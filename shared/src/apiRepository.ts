@@ -58,10 +58,10 @@ export const getProductReviews = async (productId: string) =>
 export const postProductReview = async (productId: string, review: review.IReview) =>
   Api.post<review.IReview>(stringFormat(_BASE_URL + _PRODUCTS_REVIEW, productId), review)
 
-export const postUserPicture = (userId: string, image: string|Blob) => {
+export const putUserPicture = (userId: string, image: string|Blob) => {
   const formdata = new FormData()
   formdata.append("profile", image, 'image.jpg')
-  return Api.post<user.JsonPicture>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
+  return Api.put<user.JsonPicture>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
 } 
 
 // TODO insert here other calls!!!!
