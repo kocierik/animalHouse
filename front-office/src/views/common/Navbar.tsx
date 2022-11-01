@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Helpers } from 'shared'
 
 const Navbar = () => {
   const history = useLocation()
+  const navigate = useNavigate()
   const [infoProfile, setInfoProfile] = useState(false)
 
   const [isLogged, setLogged] = useState(Helpers.isLogged)
@@ -124,7 +125,7 @@ const Navbar = () => {
                         tabIndex={-1}
                         id="user-menu-item-0"
                       >
-                        <Link to="/profile/">Your Profile</Link>
+                        <a className='cursor-pointer' onClick={() => {navigate("/profile/"); setInfoProfile(!infoProfile)}}>Your Profile</a>
                       </a>
 
                       <a
@@ -133,11 +134,11 @@ const Navbar = () => {
                         tabIndex={-1}
                         id="user-menu-item-1"
                       >
-                        <Link to="/checkout/">Cart</Link>
+                        <a className='cursor-pointer' onClick={() => {navigate("/checkout/"); setInfoProfile(!infoProfile)}}>Cart</a>
                       </a>
 
                       <a
-                        className="block px-4 py-2 text-sm text-gray-700"
+                      className='cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/"); setInfoProfile(!infoProfile)}}
                         role="menuitem"
                         tabIndex={-1}
                         id="user-menu-item-2"
@@ -192,28 +193,28 @@ const Navbar = () => {
                 className="text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
                 aria-current="page"
               >
-                <Link to="/">Dashboard</Link>
+                <a className=' text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/"); setNav(!nav)}}>Dashboard</a>
               </span>
 
               <span
                 style={{ backgroundColor: history.pathname === '/service/' ? 'indigo' : '' }}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
-                <Link to="/service/">Service</Link>
+                <a className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/service/"); setNav(!nav)}}>Service</a>
               </span>
 
               <span
                 style={{ backgroundColor: history.pathname === '/shopping/' ? 'indigo' : '' }}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
-                <Link to="/shopping/">Shopping</Link>
+                <a className=' text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/shopping/"); setNav(!nav)}}>Shopping</a>
               </span>
 
               <span
                 style={{ backgroundColor: history.pathname === '/community/' ? 'indigo' : '' }}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
-                <Link to="/community/">Community</Link>
+                <a onClick={() => {navigate("/community/"); setNav(!nav)}}  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Community</a>
               </span>
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700" onClick={showInfoMobile}>
@@ -229,42 +230,18 @@ const Navbar = () => {
                   <div className="text-base font-medium leading-none text-white">Tom Cook</div>
                   <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
                 </div>
-                <Link to="/checkout/" className="flex flex-1">
-                  <button
-                    type="button"
-                    className="ml-auto bg-gray-800 flex flex-1 justify-end  flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
-                    <span className="sr-only">cart</span>
-
-                    <svg
-                      className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                      />
-                    </svg>
-                  </button>
-                </Link>
-              </div>
+                              </div>
               {infoProfileMobile && (
                 <div  data-aos="zoom-in" className="mt-3 px-2 space-y-1">
                   <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                    <Link to="/profile/" >Your Profile</Link>
+                    <a onClick={() => {navigate("/profile/"); setNav(!nav)}} >Your Profile</a>
                   </a>
 
                   <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                    <Link to="/checkout/">Cart</Link>
+                    <a onClick={() => {navigate("/checkout/"); setNav(!nav)}}>Cart</a>
                   </a>
 
-                  <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  <a onClick={() => {navigate("/"); setNav(!nav)}}  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     Sign out
                   </a>
                 </div>
