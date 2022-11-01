@@ -17,7 +17,7 @@ const Profile = () => {
 
   const sendImage = async () => {
     if (file) {
-      const resp = await ApiRepository.postUserPicture(Helpers.getUserId(), file!)
+      const resp = await ApiRepository.putUserPicture(Helpers.getUserId(), file!)
       if (!resp.esit) console.log(resp, 'error sendImage')
     }
   }
