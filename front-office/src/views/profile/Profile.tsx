@@ -46,13 +46,25 @@ const Profile = () => {
       console.log(userInfo)
       setUser(userInfo)
       textValue.current!.value = userInfo?.description!
+      // --------------------
+      getAnimalInfo(userInfo!)
     }
   }
 
+  const getAnimalInfo = async (user: JsonUser.JsonUser) =>{
+    if(user){
+      console.log(user)
+    }
+  }
+  
+  
+  
   useEffect(() => {
     getImage()
     sendImage()
   }, [file])
+
+
 
   return (
     <>
@@ -134,8 +146,9 @@ const Profile = () => {
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8">
                       <div className="flex flex-row justify-center items-center">
                         <div className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
-                          <AnimalCard isOptionEnable={isOptionEnable} />
-                          <AnimalCard isOptionEnable={isOptionEnable} />
+                          {user?.animals.map((animal) => {
+                            return <AnimalCard isOptionEnable={isOptionEnable} animal={animal}/>
+                          })}
                         </div>
                       </div>
                     </div>
