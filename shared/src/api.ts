@@ -37,16 +37,18 @@ export abstract class Api {
       return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
   }
 
-  public static async put<T>(url: string, body: any, auth = false): Promise<ApiResponse<T>> {
+  public static async put<T>(url: string, body: any, auth = false, sendContentType=true): Promise<ApiResponse<T>> {
+    
+    let headers : Headers = new Headers({'Accept' : 'application/json'})
+    if (sendContentType) 
+        headers.append('Content-Type', 'application/json')
+
+    headers.append('Authorization', auth ? this.getToken() : "")
     let options: RequestInit = {
       method: 'PUT',
-      body: JSON.stringify(body),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': auth ? this.getToken() : ""
-      }
-    };
+      body: body instanceof FormData ? body : JSON.stringify(body),
+      headers: headers
+    };    
 
     let response = await fetch(url, options);
     if (response.status >= 200 && response.status < 300) {
