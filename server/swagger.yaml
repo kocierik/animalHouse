@@ -494,7 +494,31 @@ paths:
           schema:
             $ref: "#/definitions/Review"
 
-
+  /users/{id}/picture:
+    put:
+      tags:
+      - users
+      summary: Insert a profile image
+      consumes:
+         - multipart/form-data
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Id of user
+      - in: formData
+        name: profile
+        type: file
+        description: The picture to upload.
+      security:  
+        - JWT: []
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+          
 
     
 securityDefinitions:  
