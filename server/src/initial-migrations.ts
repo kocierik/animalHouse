@@ -7,6 +7,7 @@ import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
 import Admin from './entities/Admin'
+import Animal from './entities/Animal'
 
 export const test = async () => {
   await User.deleteMany()
@@ -32,7 +33,16 @@ export const test = async () => {
       description: "ciao",
       phone: "3333333333",
       profilePicture: null,
-      animals: []
+      animals: [
+      {
+          _id: new Types.ObjectId("635c088531e05da80c7faf6a"),
+          age: 20,
+          name: "Stefano Volpe",
+          type: "fox",
+          userId: "635c088531e05da80c7faf61"
+      }
+      ]
+      
     },
     {
       email: "lele@ah.com",
@@ -47,6 +57,7 @@ export const test = async () => {
     },
   ]
   )
+
   await Product.deleteMany()
   await Product.insertMany([
     {
