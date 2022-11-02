@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react'
 import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
-import { JsonAnimal } from 'shared';
+import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
+import useEffect from 'react';
 
 const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean}) => {
   const animalName = useRef<HTMLInputElement>(null)
@@ -16,11 +17,14 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
     },
     {
       name: 'delete',
-      setting: () => {
-        animalName.current!.value = ''
+      setting: async () => {
+        console.log(props.animal._id)
+         await ApiRepository.deleteAnimal(Helpers.getUserId(),props.animal._id)
+
       }
     }
   ]
+
 
   const [animals, setAnimals] = useState(settingAnimals)
 
