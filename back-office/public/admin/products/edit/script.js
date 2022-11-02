@@ -16,7 +16,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 function retrieveProducts(id) {
-    var url = "/v1/market/products/" + id;
+    var url = "/v1/products/" + id;
     fetch(url).then((response) => response.json()).then((data) => {
         data.forEach(function (el) {
             console.log(el);
@@ -58,7 +58,7 @@ $("#addProduct").click(function () {
             "image": "/public/products/" + getUrlParameter('id') + ".jpg"
         };
         console.log(data);
-        /*fetch("/v1/market/products", {
+        /*fetch("/v1/products", {
             method: "POST",
             headers: headers,
             body: JSON.stringify(data)

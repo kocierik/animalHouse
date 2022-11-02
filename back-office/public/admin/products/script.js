@@ -1,5 +1,5 @@
 function retrieveProducts(target) {
-    var url = "/v1/market/products/";
+    var url = "/v1/products/";
     fetch(url).then((response) => response.json()).then((data) => {
         $(target).text("");
 
@@ -11,7 +11,7 @@ function retrieveProducts(target) {
 function itemRemove(name, id) {
     if (confirm('Are you sure you want to remove the product ' + name + " | " + id + '?')) {
         $.ajax({
-            url: "/v1/market/products/" + id,
+            url: "/v1/products/" + id,
             type: 'DELETE',
             success: function (result) {
                 //alert(result);
