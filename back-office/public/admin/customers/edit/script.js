@@ -62,7 +62,7 @@ $("#addProduct").click(function () {
             "image": "/public/products/" + getUrlParameter('id') + ".jpg"
         };
         console.log(data);
-        /*fetch("/v1/market/products", {
+        /*fetch("/v1/products", {
             method: "POST",
             headers: headers,
             body: JSON.stringify(data)
