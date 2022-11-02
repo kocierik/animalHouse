@@ -22,7 +22,7 @@ async function doLogin() {
         window.location.href = localStorage.prevPage
         localStorage.removeItem("prevPage")
       } else {
-        window.location = "/index.html"
+        window.location = "/"
       }
     } else {
       $("#errorDiv").text(body.mex)
@@ -32,8 +32,9 @@ async function doLogin() {
 
 function loginCheck() {
   if (!localStorage.token) {
-    localStorage.prevPage = window.location.href
-    window.location.href = "/login.html"
+    if (!window.location.href.includes("login"))
+      localStorage.prevPage = window.location.href
+    window.location.href = "/login"
   }
 }
 function logout() {
