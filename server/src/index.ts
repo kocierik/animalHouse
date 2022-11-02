@@ -80,7 +80,9 @@ app.get(version + '/users/:id/score/', log, middlewares.verifyToken, middlewares
 app.get(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getCart)
 app.put(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putCart)
 app.delete(version + '/users/:id/cart', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteCart)
+
 app.put(version + '/users/:id/animals', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
+app.delete(version + '/users/:uid/animals/:aid', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteAnimal)
 
 // Admin
 app.post(version + '/admins/login', log, adminRoutes.postLogin)
