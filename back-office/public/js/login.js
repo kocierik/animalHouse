@@ -1,4 +1,13 @@
 async function doLogin() {
+  if (localStorage.token) {
+    if (localStorage.prevPage) {
+      window.location.href = localStorage.prevPage
+      localStorage.removeItem("prevPage")
+    } else {
+      window.location = "/"
+    }
+    return
+  }
   const username = $('#usernameInput').val()
   const password = $('#passwordInput').val()
 
