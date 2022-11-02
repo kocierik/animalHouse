@@ -13,11 +13,11 @@ export interface JsonUserCreation {
 }
 
 export interface JsonUser {
+  _id: string,
   username: string,
   email: string,
   firstName: string,
   lastName: string,
-  phone: string,
   animals: JsonAnimal.JsonAnimal[],
   address: JsonAddress
 }
@@ -26,7 +26,7 @@ export interface JsonAddress {
   country: string,
   city: string,
   street: string,
-  cap: number
+  zip: number
 }
 
 export interface JsonLogin {
