@@ -4,6 +4,7 @@ import { appRouter } from './routes/router'
 import swaggerJsdoc from 'swagger-jsdoc'
 import cors from 'cors'
 import { resolve } from 'path'
+import swaggerOptions from './swagger-config'
 import * as swagger from 'swagger-ui-express'
 import * as parser from 'body-parser'
 import * as migrations from './initial-migrations'
@@ -39,45 +40,7 @@ console.log("[INFO] Pub dir is at " + pubDir)
 app.use(express.static(pubDir));
 
 // Swagger
-const options = {
-  definition: {
-    swagger: '2.0',
-    info: {
-      title: 'Animal House',
-      version: '2.0.0',
-      description: 'Animal houz back& api'
-    },
-    servers: [
-      {
-        url: '/',
-        description: 'V1'
-      }
-    ],
-    components: {
-      tags: [
-        { name: "users" }
-      ],
-      schemas: {
-        schemas: {
-          User: {
-            type: 'object',
-            properties: {
-              id: {
-                type: 'integer',
-                format: 'int64',
-              },
-              username: {
-                type: 'string',
-              },
-            },
-          },
-        }
-      }
-    }
-  },
-  apis: ['src/routes/*.ts'],
-};
-app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(options)))
+app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
