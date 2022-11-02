@@ -39,7 +39,7 @@ import * as GameService from '../services/game-service'
 *       200:
 *         description: Success
 *         schema:
-*           $ref: "#/definitions/User"
+*           $ref: "#/components/schemas/User"
 * */
 export const registerPost = async (req: Request, res: Response) => {
   try {
@@ -136,7 +136,7 @@ export const getCurrentUser = (req: Request, res: Response) => {
 *        schema:
 *          type: array
 *          items:
-*            $ref: "#/definitions/User"
+*            $ref: "#/components/schemas/User"
 */
 export const getAllUsers = async (_: Request, res: Response) => {
   try {
@@ -164,7 +164,7 @@ export const getAllUsers = async (_: Request, res: Response) => {
 *       200:
 *         description: ok
 *         schema:
-*           $ref: "#/definitions/User"
+*           $ref: "#/components/schemas/User"
 * */
 export const getUser = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -289,7 +289,7 @@ export const getScore = async (req: Request, res: Response) => {
 *         schema:
 *           type: array
 *           items:
-*             $ref: "#/definitions/ProductInstance"  
+*             $ref: "#/components/schemas/ProductInstance"  
 *     security:
 *     - JWT: []
 *     responses:
@@ -298,7 +298,7 @@ export const getScore = async (req: Request, res: Response) => {
 *         schema:
 *           type: array
 *           items:
-*             $ref: "#/definitions/ProductInstance" 
+*             $ref: "#/components/schemas/ProductInstance" 
 * */
 export const putCart = async (req: Request, res: Response) => {
   try {
@@ -334,7 +334,7 @@ export const putCart = async (req: Request, res: Response) => {
 *         schema:
 *           type: array
 *           items:
-*             $ref: "#/definitions/ProductInstance"
+*             $ref: "#/components/schemas/ProductInstance"
 * */
 export const getCart = async (req: Request, res: Response) => {
   try {
@@ -377,7 +377,7 @@ export const getCart = async (req: Request, res: Response) => {
 *         schema:
 *           type: array
 *           items:
-*             $ref: "#/definitions/ProductInstance"
+*             $ref: "#/components/schemas/ProductInstance"
 *
 * */
 export const deleteCart = async (req: Request, res: Response) => {
@@ -393,6 +393,36 @@ export const deleteCart = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+*  /users/{id}/animals:
+*    put:
+*        tags:
+*        - users
+*        summary: Add an animal for the specified user
+*        parameters:
+*          - in: path
+*            name: id
+*            type: string
+*            required: true
+*            description: Id of the user
+*          - in: body
+*            name: body
+*            required: true
+*            schema:
+*              type: array
+*              items:
+*                $ref: "#/components/schemas/Animal"
+*        security:
+*          - JWT: []
+*        responses:
+*          200:
+*            description: ok
+*            schema:
+*              type: array
+*              items:
+*                $ref: "#/components/schemas/Animal" 
+* */
 export const putAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
