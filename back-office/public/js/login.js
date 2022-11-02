@@ -18,7 +18,12 @@ async function doLogin() {
     const body = await response.json()
     if (response.status >= 200 && response.status < 300) {
       localStorage.token = body.token
-      window.location = "/index.html"
+      if (localStorage.prevPage) {
+        window.location.href = localStorage.prevPage
+        localStorage.removeItem("prevPage")
+      } else {
+        window.location = "/index.html"
+      }
     } else {
       $("#errorDiv").text(body.mex)
     }
@@ -27,9 +32,11 @@ async function doLogin() {
 
 function loginCheck() {
   if (!localStorage.token) {
+    localStorage.prevPage = window.location.href
     window.location.href = "/login.html"
   }
 }
 function logout() {
   localStorage.removeItem("token")
+  window.location.href = "/"
 }
