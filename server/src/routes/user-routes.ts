@@ -125,7 +125,7 @@ export const putAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const animals = req.body as JsonAnimal[]
-    return res.status(Const.STATUS_OK).json(UserService.addAnimalsToUser(pathId, animals))
+    return res.status(Const.STATUS_OK).json(await UserService.addAnimalsToUser(pathId, animals))
   } catch (ex) {
     if (ex instanceof JsonError)
       return res.status(Const.STATUS_BAD_REQUEST).json(ex)
@@ -133,6 +133,17 @@ export const putAnimal = async (req: Request, res: Response) => {
       return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+export const deleteAnimal = async (req: Request, res : Response) =>{
+  try {
+    const animalId = req.params.aid
+    const userId = req.params.uid
+    return res.status(Const.STATUS_OK).json(await UserService.deleteFromAnimal(userId, animalId))
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error)
+  }
+}
+
 
 
 export const postPicture = (req: Request, res: Response) => {

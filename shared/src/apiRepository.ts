@@ -1,6 +1,6 @@
 import { Api } from './api'
 import type * as user from './json/user'
-import type * as animal from './json/animal'
+import * as animal from './json/animal'
 import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
@@ -15,6 +15,7 @@ const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
 const _USERS_SCORES = '/users/{0}/scores/'
 const _USERS_ANIMALS = '/users/{0}/animals'
+const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
 
 const _ANIMAL_CODES = '/animals/codes'
@@ -41,6 +42,10 @@ export const getAnimalCode = async () =>
 
 export const registerAnimal = async (registration: animal.JsonAnimal[], userId: string) =>
   Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
+
+export const deleteAnimal = async (userId: string, animalId: string) =>
+  Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, userId, animalId), true)
+
 
 export const putUserScore = async (gameScore: score.IGameResult, userId: string) =>
   Api.put<score.IGameScore>(stringFormat(_BASE_URL + _USERS_SCORES, userId), gameScore, true)

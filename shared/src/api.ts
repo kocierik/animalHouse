@@ -58,6 +58,21 @@ export abstract class Api {
       return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
   }
 
+    public static async delete<T>(url: string, auth = false): Promise<ApiResponse<T>> {
+    let options: RequestInit = {
+      method: 'DELETE'
+    };
+    if (auth) {
+      options.headers = { 'Authorization': this.getToken() }
+    }
+    let response = await fetch(url, options);
+    if (response.status >= 200 && response.status < 300) {
+      // Success
+      return new ApiResponse<T>(response.status, (await response.json() as T))
+    } else
+      return new ApiResponse<T>(response.status)
+  }
+
   protected static getToken(): string {
     const token = localStorage.getItem('token')
     return token ?? 'not logged'

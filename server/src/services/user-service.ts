@@ -10,6 +10,8 @@ import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'
 import { IPicture } from '../entities/User';
+import Animal from '../entities/Animal';
+import { IAnimal } from '../entities/Animal';
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -127,6 +129,23 @@ export const addAnimalsToUser = async (userId: string, animals: JsonAnimal[]) =>
   } else
     throw new JsonError(`Can\'t find user with id ${userId}`)
 }
+
+export const deleteFromAnimal = async (userId: string, animalId: string) : Promise<IAnimal[]> => {
+  const user = await User.findById(userId)
+  if(user){
+    const animal = await Animal.findById(animalId)
+    console.log(animal)
+    console.log("animalId -> ", animalId)
+    const newAnimals = user.animals.filter(x => x._id.toString() !== animalId)
+    user.animals = newAnimals
+    console.log(newAnimals)
+    await user.save()
+    return user.animals
+  } else{
+    throw new JsonError(`Can\'t find user with id ${userId}`)
+  }
+}
+
 
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
   const user = await User.findById(userId)
