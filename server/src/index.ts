@@ -39,8 +39,10 @@ const pubDir = resolve(__dirname + Const.BACKOFFICE_DIR)
 console.log("[INFO] Pub dir is at " + pubDir)
 app.use(express.static(pubDir));
 
+
 // Swagger
 app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))
+
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
