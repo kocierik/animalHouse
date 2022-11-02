@@ -1,11 +1,16 @@
 import * as JsonAnimal from "./JsonAnimal"
 
+
 export interface JsonUserCreation {
   username: string,
   password: string,
   email: string,
   firstName: string,
   lastName: string
+  country: string
+  city: string
+  street: string
+  zip: number
 }
 
 export interface JsonUser {
@@ -19,10 +24,10 @@ export interface JsonUser {
 }
 
 export interface JsonAddress {
-  country: string,
-  city: string,
-  street: string,
-  cap: number
+  country: string
+  city: string
+  street: string
+  zip: number
 }
 
 export interface JsonLogin {
