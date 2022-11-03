@@ -25,7 +25,8 @@ export interface JsonUser {
 
 export interface JsonAddress {
   country: string,
-  city: string,
+  city: string
+  street: string
   zip: number
 }
 
