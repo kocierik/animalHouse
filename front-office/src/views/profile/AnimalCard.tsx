@@ -19,10 +19,13 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
       name: 'delete',
       setting: async () => {
         console.log(props.animal._id)
-         await ApiRepository.deleteAnimal(Helpers.getUserId(),props.animal._id)
-         const newAnimals = props.allAnimals
-         .filter(item => item._id !== props.animal._id)
-         props.setUser({...props.user, animals : newAnimals})
+        try {
+          await ApiRepository.deleteAnimal(Helpers.getUserId(),props.animal._id)
+          const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
+          props.setUser({...props.user, animals : newAnimals})
+        } catch (error :any) {
+          throw new Error("errore salvataggio descrizione -> ", error)      
+          }
         }
       }
     ]
@@ -31,7 +34,7 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
     console.log(animals)
 
   const saveChangesAnimal = async () => {
-    await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id, animalName.current?.value)
+    await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id, animalName.current?.value!)
   }
 
   return (
