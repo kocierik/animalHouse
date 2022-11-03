@@ -1,14 +1,19 @@
 import React, { useRef, useState } from 'react'
 
-const DefaultCard = () => {
-    const animalName = useRef<HTMLInputElement>(null)
+const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAction<boolean>>, openNewAnimal: boolean}) => {
+  const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
 
   return (
-    <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+    <div data-aos="zoom-in" onClick={() => props.setOpenNewAnimal(!props.openNewAnimal)} className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+      
+      <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5  h-5 flex self-end m-3">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
 
       <div className="flex flex-col items-center">
+        
         <img
           className="mb-3 w-24 h-24 rounded-full shadow-lg"
           src="https://i.pinimg.com/originals/31/7e/b5/317eb50bea6c358da1f073f425ed50e4.jpg"
