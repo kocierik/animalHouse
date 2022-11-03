@@ -6,12 +6,15 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
   const [canWrite, setCanWrite] = useState(false)
 
   return (
-    <div data-aos="zoom-in" onClick={() => props.setOpenNewAnimal(!props.openNewAnimal)} className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
-      
-      <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5  h-5 flex self-end m-3">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-
+    <div data-aos="zoom-in"  className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+     <div className='flex self-end items-center '>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 border rounded p-1 bg-gray-100">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>  
+        <svg  xmlns="http://www.w3.org/2000/svg" onClick={() => props.setOpenNewAnimal(!props.openNewAnimal)} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5  h-5 flex self-end m-3 border rounded ">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
       <div className="flex flex-col items-center">
         
         <img
@@ -21,24 +24,21 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
         />
         <input
           style={{
-            borderWidth: canWrite ? '1px' : '0px',
+            borderWidth: '1px',
             borderColor: 'whitesmoke',
             borderRadius: '10px'
           }}
-          className=" bg-white mb-1 text-xl font-medium text-gray-90 text-center"
-          disabled={!canWrite}
-          onBlur={async () => {setCanWrite(false); }}
+          placeholder="Animal name"
+          className=" bg-white mb-1 text-lg m-5 font-medium text-gray-90 text-center"
           ref={animalName}
         />
         <input
           style={{
-            borderWidth: canWrite ? '1px' : '0px',
             borderColor: 'whitesmoke',
             borderRadius: '10px'
           }}
-          className="bg-white text-sm text-center text-gray-500"
-          disabled={!canWrite}
-          onBlur={() => setCanWrite(false)}
+          placeholder="Animal type"
+          className="bg-white text-sm border  text-center text-gray-500"
           ref={animalType}
         />
       </div>
