@@ -151,7 +151,7 @@ const Profile = () => {
                           {user?.animals.map((animal,i) => {
                             return <AnimalCard key={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
                           })}
-                          <div  className='flex justify-center p-4 lg:hover:-translate-y-5 md:hover:translate-x-5 hover:scale-110 duration-300 rounded-lg mx-5 cursor-pointer border'>
+                          <div  className='flex justify-center p-4 lg:hover:-translate-y-1 md:hover:translate-x-3 hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg mx-5 cursor-pointer border'>
                           {
                           openNewAnimal ?  <DefaultCard setOpenNewAnimal={setOpenNewAnimal} openNewAnimal={openNewAnimal}/> :
                            <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
