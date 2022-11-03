@@ -18,6 +18,8 @@ function initMap(target, coords) {
 }
 function addMarkers(map, coords) {
     var markers = new OpenLayers.Layer.Markers("Markers");
+    var icon = new OpenLayers.Icon('https://icons.iconarchive.com/icons/paomedia/small-n-flat/32/map-marker-icon.png', new OpenLayers.Size(25, 25), new OpenLayers.Pixel(-(25 / 2), -25));
+
     map.addLayer(markers);
     var locations = new Array()
     coords.forEach(c => {
@@ -27,7 +29,7 @@ function addMarkers(map, coords) {
     });
 
     locations.forEach(loc => {
-        markers.addMarker(new OpenLayers.Marker(loc));
+        markers.addMarker(new OpenLayers.Marker(loc, icon.clone()));
     });
 
 }
