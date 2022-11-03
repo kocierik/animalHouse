@@ -14,17 +14,17 @@ export interface JsonUserCreation {
 }
 
 export interface JsonUser {
+  _id: string,
   username: string,
   email: string,
   firstName: string,
   lastName: string,
-  phone: string,
   animals: JsonAnimal.JsonAnimal[],
   address: JsonAddress
 }
 
 export interface JsonAddress {
-  country: string
+  country: string,
   city: string
   street: string
   zip: number
