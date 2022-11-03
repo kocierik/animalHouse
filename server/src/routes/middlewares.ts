@@ -9,6 +9,12 @@ export interface AuthData {
   id: string
 }
 
+export const log = (req: Request, _: Response, next: Function) => {
+  console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
+  next()
+}
+
+
 export const verifyToken = async (req: Request, res: Response, next: Function) => {
   const authHeader = req.headers['authorization']
   if (authHeader !== undefined) {
