@@ -1,5 +1,5 @@
 import { Api } from './api'
-import type * as user from './json/user'
+import * as user from './json/user'
 import * as animal from './json/animal'
 import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
@@ -13,6 +13,7 @@ const _USERS_LOGIN = '/users/login'
 const _USER_INFO = '/users/{0}'
 const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
+const _USER_UPDATE_DESCRIPTION = '/users/{0}/description'
 const _USERS_SCORES = '/users/{0}/scores/'
 const _USERS_ANIMALS = '/users/{0}/animals'
 const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
@@ -72,5 +73,9 @@ export const putUserPicture = (userId: string, image: string|Blob) => {
   formdata.append("profile", image, 'image.jpg')
   return Api.put<user.JsonPicture>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
 } 
+
+export const updateUserDescription = async (userId: string, description: string) =>{
+  return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId),description, true)
+}
 
 // TODO insert here other calls!!!!

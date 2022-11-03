@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 're
 import { ApiRepository, type JsonUser, Helpers } from 'shared'
 import Setting from '../common/Setting'
 import AnimalCard from './AnimalCard'
+import DefaultCard from './DefaultCard'
 
 export interface IsettingInfo {
   name: string
@@ -47,21 +48,25 @@ const Profile = () => {
       setUser(userInfo)
       textValue.current!.value = userInfo?.description!
       // --------------------
-      getAnimalInfo(userInfo!)
     }
   }
 
-  const getAnimalInfo = async (user: JsonUser.JsonUser) =>{
-    if(user){
-      console.log(user)
-    }
-  }
+
   
   useEffect(() => {
     getImage()
     sendImage()
   }, [file])
 
+
+  const saveDescription = async () => {
+    try {
+      console.log(textValue.current?.value)
+      await ApiRepository.updateUserDescription(Helpers.getUserId(), textValue.current?.value! );
+    } catch (error : any) {
+      throw new Error("errore salvataggio descrizione -> ", error)      
+    }
+  }
 
   return (
     <>
@@ -140,12 +145,19 @@ const Profile = () => {
                 </div>
                 <div data-aos="zoom-in" className="flex flex-col items-center">
                   <div className="w-full   px-4 lg:order-1">
-                    <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8">
-                      <div className="flex flex-row justify-center items-center">
-                        <div data-aos="zoom-in" className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
+                    <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8 ">
+                      <div className="flex items-center flex-row justify-center">
+                        <div data-aos="zoom-in" className="mr-4 items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
                           {user?.animals.map((animal,i) => {
                             return <AnimalCard key={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
                           })}
+                          <div className='flex justify-center p-4 lg:hover:-translate-y-5 md:hover:translate-x-5 hover:scale-125 duration-300 rounded-lg mx-5 cursor-pointer border'>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                          </svg>
+
+                          </div>
+                          {/* <DefaultCard />  */}
                         </div>
                       </div>
                     </div>
@@ -168,7 +180,7 @@ const Profile = () => {
                         }}
                         className=" flex w-11/12	 mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center 	m-5"
                         disabled={!canWrite}
-                        onBlur={() => setCanWrite(false)}
+                        onBlur={async () => {setCanWrite(false); await saveDescription() }}
                         maxLength={300}
                         rows={5}
                       ></textarea>

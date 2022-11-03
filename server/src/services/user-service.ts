@@ -176,9 +176,23 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   else
     throw new JsonError(`Can\'t find user with id ${userId}`)
 }
+
 export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then(x => x.map(userToJsonUser))
 
 
+export const updateUserDescription = async (userId: string, description : string) => {
+  const user = await User.findById(userId)
+  if(user){
+    try {
+        await User.updateOne({_id: userId}, {description: description})
+    } catch (error) {
+      throw new JsonError(error.message)
+    }
+  } 
+  else
+    throw new JsonError(`Can\'t find user with id ${userId}`)
+
+}
 
 
 
