@@ -22,6 +22,8 @@
     "nodemon": "^2.0.16",
     "npm": "^8.10.0",
     "prettier": "^2.6.2",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.5.0",
     "typescript": "^4.8.4"
   }
 }

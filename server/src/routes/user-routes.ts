@@ -11,6 +11,38 @@ import * as GameService from '../services/game-service'
 import User from '@/entities/User'
 
 
+/**
+* @swagger
+*
+* /users/register:
+*   post:
+*     tags:
+*     - users
+*     summary: Create new user
+*     parameters:
+*     - in: body
+*       name: body
+*       description: UserCreation
+*       required: true
+*       schema:
+*         type: object
+*         properties:
+*             username:
+*               type: string
+*             password:
+*               type: string
+*             email:
+*               type: string
+*             firstName:
+*               type: string
+*             lastName:
+*               type: string
+*     responses:
+*       200:
+*         description: Success
+*         schema:
+*           $ref: "#/components/schemas/User"
+* */
 export const registerPost = async (req: Request, res: Response) => {
   try {
     return res.status(Const.STATUS_OK).json(await UserService.createUser(req.body as JsonUserCreation))
@@ -21,10 +53,34 @@ export const registerPost = async (req: Request, res: Response) => {
   }
 }
 
-export const getUsers = async (req: Request, res: Response) => {
-  return res.status(Const.STATUS_OK).json(await UserService.getAllUSers())
-}
-
+/**
+* @swagger
+* /users/login:
+*   post:
+*     tags:
+*     - users
+*     summary: Login as an user
+*     parameters:
+*     - in: body
+*       name: body
+*       description: login
+*       required: true
+*       schema:
+*         type: object
+*         properties:
+*             username:
+*               type: string
+*             password:
+*               type: string
+*     responses:
+*       200:
+*         description: Success  
+*         schema:
+*           type: object
+*           properties:
+*             token:
+*               type: string
+* */
 export const loginPost = async (req: Request, res: Response) => {
   try {
     const authData = await UserService.verifyLogin(req.body as JsonLogin)
@@ -39,14 +95,79 @@ export const loginPost = async (req: Request, res: Response) => {
   }
 }
 
-export const getCurrentUser =  (req: Request, res: Response) =>{
-    try {
-      return res.status(Const.STATUS_OK).json(req.authData)
-    } catch (error) {
-      return res.status(Const.STATUS_BAD_REQUEST).json(error.message)
-    }
+/**
+* @swagger
+*
+* /users/current:
+*   get:
+*     tags:
+*     - users
+*     summary: Retrieve information about the current user
+*     security:  
+*       - JWT: []
+*     responses:
+*       200:
+*         description: ok
+*         schema:
+*           type: object
+*           properties:
+*             username:
+*               type: string
+*             _id:
+*               type: string
+*               
+* */
+export const getCurrentUser = (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(req.authData)
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error.message)
   }
+}
 
+/**
+*@swagger
+* /users:
+*   get:
+*    tags:
+*      - users
+*    summary: Gets all users
+*    responses:
+*      200:
+*        description: Success
+*        schema:
+*          type: array
+*          items:
+*            $ref: "#/components/schemas/User"
+*/
+export const getAllUsers = async (_: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.getAllJsonUser())
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error.message)
+  }
+}
+
+/**
+* @swagger
+* /users/{id}:
+*   get:
+*     tags:
+*     - users
+*     summary: Get a user by ID
+*     parameters:
+*       - in: path
+*         name: id
+*         type: string
+*         required: true
+*         description: Numeric ID of the user to get
+* 
+*     responses:
+*       200:
+*         description: ok
+*         schema:
+*           $ref: "#/components/schemas/User"
+* */
 export const getUser = async (req: Request, res: Response) => {
   const pathId = req.params.id
   const user = await UserService.findUserById(pathId)
@@ -56,6 +177,42 @@ export const getUser = async (req: Request, res: Response) => {
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
 }
 
+/**
+* @swagger
+* /users/{id}/score:
+*   put:
+*     tags:
+*     - users
+*     summary: Add a game score to the specified user
+*     parameters:
+*       - in: path
+*         name: id
+*         type: string
+*         required: true
+*         description: Guid of the user
+*       - in: body
+*         name: body
+*         required: true
+*         schema:
+*           type: object
+*           properties:
+*               gameId:
+*                 type: string
+*               score:
+*                 type: number
+*     security:
+*     - JWT: []
+*     responses:
+*       200:
+*         description: ok
+*         schema:
+*           type: object
+*           properties:
+*               gameGuid:
+*                 type: string
+*               score:
+*                 type: number
+* */
 export const putScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
   const gameId = req.body.gameId
@@ -71,6 +228,39 @@ export const putScore = async (req: Request, res: Response) => {
   return res.status(Const.STATUS_OK).json(score)
 }
 
+/**
+* @swagger
+* /users/{id}/score:
+*   get:
+*     tags:
+*     - users
+*     summary: Get game scores of the specified user
+*     parameters:
+*       - in: path
+*         name: id
+*         type: string
+*         required: true
+*         description: Guid of the user
+*       - in: query
+*         name: gameId
+*         type: string
+*         required: false
+*         description: Optional id of the game you want the result
+*     security:
+*     - JWT: []
+*     responses:
+*       200:
+*         description: ok
+*         schema:
+*           type: array
+*           items:
+*             type: object
+*             properties:
+*                 gameGuid:
+*                   type: string
+*                 score:
+                    type: number
+* */
 export const getScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
   if (req.query.id) {
@@ -82,6 +272,36 @@ export const getScore = async (req: Request, res: Response) => {
   return res.status(Const.STATUS_OK).json(await GameService.findScore(pathId))
 }
 
+/**
+* @swagger
+* /users/{id}/cart:
+*   put:
+*     tags:
+*     - users
+*     summary: Add a product to the cart of the specified user
+*     parameters:
+*       - in: path
+*         name: id
+*         type: string
+*         required: true
+*         description: Id of the user
+*       - in: body
+*         name: body
+*         required: true
+*         schema:
+*           type: array
+*           items:
+*             $ref: "#/components/schemas/ProductInstance"  
+*     security:
+*     - JWT: []
+*     responses:
+*       200:
+*         description: ok
+*         schema:
+*           type: array
+*           items:
+*             $ref: "#/components/schemas/ProductInstance" 
+* */
 export const putCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
@@ -95,6 +315,29 @@ export const putCart = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+* /users/{id}/cart:
+*   get:
+*     tags:
+*     - users
+*     summary: Get the cart of the specified user
+*     parameters:
+*       - in: path
+*         name: id
+*         type: string
+*         required: true
+*         description: Id of the user
+*     security:
+*     - JWT: []
+*     responses:
+*       200:
+*         description: ok
+*         schema:
+*           type: array
+*           items:
+*             $ref: "#/components/schemas/ProductInstance"
+* */
 export const getCart = async (req: Request, res: Response) => {
   try {
     return res.status(Const.STATUS_OK).json(await UserService.getUserProducts(req.param.id))
@@ -106,6 +349,39 @@ export const getCart = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+* /users/{id}/cart:
+*   delete:
+*     tags:
+*     - users
+*     summary: Delete a product from the cart of the specified user
+*     description: Takes in the body a list of string representing the product instance ids you want to delete
+*     parameters:
+*       - in: path
+*         name: id
+*         type: string
+*         required: true
+*         description: Id of the user
+*       - in: body
+*         name: body
+*         required: true
+*         schema:
+*           type: array
+*           items:
+*             type:
+*               string 
+*     security:
+*     - JWT: []
+*     responses:
+*       200:
+*         description: ok
+*         schema:
+*           type: array
+*           items:
+*             $ref: "#/components/schemas/ProductInstance"
+*
+* */
 export const deleteCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
@@ -119,6 +395,36 @@ export const deleteCart = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+*  /users/{id}/animals:
+*    put:
+*        tags:
+*        - users
+*        summary: Add an animal for the specified user
+*        parameters:
+*          - in: path
+*            name: id
+*            type: string
+*            required: true
+*            description: Id of the user
+*          - in: body
+*            name: body
+*            required: true
+*            schema:
+*              type: array
+*              items:
+*                $ref: "#/components/schemas/Animal"
+*        security:
+*          - JWT: []
+*        responses:
+*          200:
+*            description: ok
+*            schema:
+*              type: array
+*              items:
+*                $ref: "#/components/schemas/Animal" 
+* */
 export const putAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
