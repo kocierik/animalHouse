@@ -83,6 +83,7 @@ app.delete(version + '/users/:id/cart', log, middlewares.verifyToken, middleware
 
 app.put(version + '/users/:id/animals', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
 app.delete(version + '/users/:uid/animals/:aid', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteAnimal)
+app.put(version + '/users/:uid/animals/:aid', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.updateAnimal)
 
 // Admin
 app.post(version + '/admins/login', log, adminRoutes.postLogin)

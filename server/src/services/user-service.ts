@@ -146,6 +146,23 @@ export const deleteFromAnimal = async (userId: string, animalId: string) : Promi
   }
 }
 
+export const updateFromAnimal = async (userId: string, animalId: string, animalName: string) : Promise<IAnimal[]> => {
+  const user = await User.findById(userId)
+  if(user){
+    const animal = await Animal.findById(animalId)
+    console.log(animal)
+    console.log("animalId -> ", animalId)
+    user.animals.map(x => {x._id.toString() === animalId ? x.name = animalName : x.name = x.name })
+    console.log("utente con animale cambiato ", user)
+    // user.animals = newAnimals
+    // console.log(newAnimals)
+    await user.save()
+    return user.animals
+  } else{
+    throw new JsonError(`Can\'t find user with id ${userId}`)
+  }
+}
+
 
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
   const user = await User.findById(userId)

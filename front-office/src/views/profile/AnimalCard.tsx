@@ -13,7 +13,7 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   const settingAnimals: IsettingInfo[] = [
     {
       name: 'modify',
-      setting: () => setCanWrite(true)
+      setting: () => {setCanWrite(true)}
     },
     {
       name: 'delete',
@@ -29,6 +29,10 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
     
     const [animals, setAnimals] = useState(settingAnimals)
     console.log(animals)
+
+  const saveChangesAnimal = async () => {
+    await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id, animalName.current?.value)
+  }
 
   return (
     <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
@@ -48,7 +52,7 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
           }}
           className=" bg-white mb-1 text-xl font-medium text-gray-90 text-center"
           disabled={!canWrite}
-          onBlur={() => setCanWrite(false)}
+          onBlur={async () => {setCanWrite(false); await saveChangesAnimal() }}
           defaultValue={props.animal.name}
           ref={animalName}
         />
