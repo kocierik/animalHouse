@@ -14,7 +14,7 @@ const Profile = () => {
   const [isOptionEnable, setIsOptionEnable] = useState(true)
   const [canWrite, setCanWrite] = useState(false)
   const textValue = useRef<HTMLTextAreaElement>(null)
-
+  
   const sendImage = async () => {
     if (file) {
       const resp = await ApiRepository.putUserPicture(Helpers.getUserId(), file!)
@@ -61,7 +61,6 @@ const Profile = () => {
     getImage()
     sendImage()
   }, [file])
-
 
 
   return (
@@ -143,9 +142,9 @@ const Profile = () => {
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8">
                       <div className="flex flex-row justify-center items-center">
-                        <div className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
+                        <div data-aos="zoom-in" className="mr-4 p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
                           {user?.animals.map((animal,i) => {
-                            return <AnimalCard key={i} isOptionEnable={isOptionEnable} animal={animal} />
+                            return <AnimalCard key={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
                           })}
                         </div>
                       </div>

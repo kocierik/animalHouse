@@ -4,12 +4,12 @@ import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
 import useEffect from 'react';
 
-const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean}) => {
+const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals : JsonAnimal.JsonAnimal[], user : JsonUser.JsonUser ,setUser : React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
   console.log(props)
-
+  
   const settingAnimals: IsettingInfo[] = [
     {
       name: 'modify',
@@ -20,16 +20,18 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
       setting: async () => {
         console.log(props.animal._id)
          await ApiRepository.deleteAnimal(Helpers.getUserId(),props.animal._id)
-
+         const newAnimals = props.allAnimals
+         .filter(item => item._id !== props.animal._id)
+         props.setUser({...props.user, animals : newAnimals})
+        }
       }
-    }
-  ]
-
-
-  const [animals, setAnimals] = useState(settingAnimals)
+    ]
+    
+    const [animals, setAnimals] = useState(settingAnimals)
+    console.log(animals)
 
   return (
-    <div className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+    <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
       {props.isOptionEnable && <Setting settingInfoDesk={animals} />}
 
       <div className="flex flex-col items-center">
