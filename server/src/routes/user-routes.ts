@@ -144,7 +144,18 @@ export const deleteAnimal = async (req: Request, res : Response) =>{
   }
 }
 
-
+export const updateAnimal = async (req: Request, res : Response) =>{
+  try {
+    const animalId = req.params.aid
+    const userId = req.params.uid
+    console.log(userId)
+    let animalName = req.body as string
+    console.log(animalName)
+    return res.status(Const.STATUS_OK).json(await UserService.updateFromAnimal(userId, animalId, animalName))
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error)
+  }
+}
 
 export const postPicture = (req: Request, res: Response) => {
   try{

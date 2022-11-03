@@ -16,6 +16,7 @@ const _USER_REGISTER = '/users/register'
 const _USERS_SCORES = '/users/{0}/scores/'
 const _USERS_ANIMALS = '/users/{0}/animals'
 const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
+const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
 
 const _ANIMAL_CODES = '/animals/codes'
@@ -45,6 +46,9 @@ export const registerAnimal = async (registration: animal.JsonAnimal[], userId: 
 
 export const deleteAnimal = async (userId: string, animalId: string) =>
   Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, userId, animalId), true)
+
+export const editAnimal = async (userId: string, animalId: string, animalName: string) =>
+  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, userId, animalId),animalName, true)
 
 
 export const putUserScore = async (gameScore: score.IGameResult, userId: string) =>

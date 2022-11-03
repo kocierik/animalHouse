@@ -27,7 +27,7 @@ const RegisterAnimal = () => {
     const input: JsonAnimal.JsonAnimal = {
       name: name,
       type: type,
-      age: age as number
+      age: age as number,
     }
 
     const userId = Helpers.getUserId()
