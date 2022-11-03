@@ -12,6 +12,7 @@ import * as marketRoutes from './routes/market-routes'
 import * as adminRoutes from './routes/admin-routes'
 import * as migrations from './initial-migrations'
 import * as Const from './const'
+
 // Constants
 const app = express()
 const port = Const.SERVER_PORT
@@ -73,6 +74,7 @@ app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
 app.put(version + "/users/:id/picture", log, middlewares.verifyToken, middlewares.verifyUser, upload.single('profile'), userRoutes.postPicture)
 app.get(version + '/users', log, userRoutes.getAllUsers)
+app.put(version + 'users/:id/description', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.updateUserDescription)
 app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)
 app.get(version + '/users/:id', log, userRoutes.getUser)
 app.put(version + '/users/:id/score', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putScore)

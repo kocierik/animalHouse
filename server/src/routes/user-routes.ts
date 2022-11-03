@@ -170,3 +170,17 @@ export const postPicture = (req: Request, res: Response) => {
       return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+export const updateUserDescription = (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    console.log(req.body)
+    let userDescription = req.body.description as string
+    return res.status(Const.STATUS_OK).json(UserService.updateUserDescription(pathId,userDescription))
+  } catch(ex){
+    if (ex instanceof JsonError)
+      return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
