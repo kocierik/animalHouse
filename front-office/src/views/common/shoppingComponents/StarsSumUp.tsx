@@ -34,37 +34,37 @@ const StarsSumUp = (props: SumUpProps) => {
       <div className="flex items-center mt-4">
         <span className="text-sm font-medium text-blue-600 dark:text-blue-500">5 star</span>
         <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
-          <div className="h-5 bg-yellow-400 rounded" style={{ width: data.percentage[5] }}></div>
-        </div>
-        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">{data.percentage[5]}</span>
-      </div>
-      <div className="flex items-center mt-4">
-        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">4 star</span>
-        <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
           <div className="h-5 bg-yellow-400 rounded" style={{ width: data.percentage[4] }}></div>
         </div>
         <span className="text-sm font-medium text-blue-600 dark:text-blue-500">{data.percentage[4]}</span>
       </div>
       <div className="flex items-center mt-4">
-        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">3 star</span>
+        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">4 star</span>
         <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
           <div className="h-5 bg-yellow-400 rounded" style={{ width: data.percentage[3] }}></div>
         </div>
         <span className="text-sm font-medium text-blue-600 dark:text-blue-500">{data.percentage[3]}</span>
       </div>
       <div className="flex items-center mt-4">
-        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">2 star</span>
+        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">3 star</span>
         <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
           <div className="h-5 bg-yellow-400 rounded" style={{ width: data.percentage[2] }}></div>
         </div>
         <span className="text-sm font-medium text-blue-600 dark:text-blue-500">{data.percentage[2]}</span>
       </div>
       <div className="flex items-center mt-4">
-        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">1 star</span>
+        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">2 star</span>
         <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
           <div className="h-5 bg-yellow-400 rounded" style={{ width: data.percentage[1] }}></div>
         </div>
-        <span className="text-sm font-medium text-blue-600 dark:text-blue-500"> {data.percentage[1]}</span>
+        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">{data.percentage[1]}</span>
+      </div>
+      <div className="flex items-center mt-4">
+        <span className="text-sm font-medium text-blue-600 dark:text-blue-500">1 star</span>
+        <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="h-5 bg-yellow-400 rounded" style={{ width: data.percentage[0] }}></div>
+        </div>
+        <span className="text-sm font-medium text-blue-600 dark:text-blue-500"> {data.percentage[0]}</span>
       </div></div>
     }
   </>

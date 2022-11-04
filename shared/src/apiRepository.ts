@@ -16,11 +16,11 @@ const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
 const _ANIMAL_REGISTER = '/users/{0}/animals'
 const _REGISTER_CODES = '/register/'
-const _SCORE_CODES = '/users/{0}/score/' 
-const _LEADERBOARD_CODES = '/community/game/scoreboard' 
-const _PRODUCT_CODES = '/products/' 
-const _PRODUCT_REVIEW = '/products/{0}/reviews/' 
-const _MARKET_PRODUCTS_REVIEWS_SUM_UP = '/market/products/{0}/reviews/sum-up'
+const _SCORE_CODES = '/users/{0}/score/'
+const _LEADERBOARD_CODES = '/community/game/scoreboard'
+const _PRODUCT_CODES = '/products/'
+const _PRODUCT_REVIEW = '/products/{0}/reviews/'
+const _MARKET_PRODUCTS_REVIEWS_SUM_UP = '/products/{0}/reviews/sum-up'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _AUTH, { username: username, password: password })
@@ -48,14 +48,14 @@ export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_U
 
 export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _PRODUCT_CODES)
 export const getMarketProduct = async (productId: string) =>
-   Api.get<product.IProductMarked>(_BASE_URL + _PRODUCT_CODES + productId)
-   
+  Api.get<product.IProductMarked>(_BASE_URL + _PRODUCT_CODES + productId)
+
 export const getProductReviews = async (productId: string) =>
-   Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCT_REVIEW, productId))
-   
+  Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCT_REVIEW, productId))
+
 export const postProductReview = async (productId: string, review: review.IReview) =>
-   Api.post<review.IReview>(stringFormat(_BASE_URL + _PRODUCT_REVIEW, productId), review)
-   
+  Api.post<review.IReview>(stringFormat(_BASE_URL + _PRODUCT_REVIEW, productId), review)
+
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
-   Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _MARKET_PRODUCTS_REVIEWS_SUM_UP, productId))
+  Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _MARKET_PRODUCTS_REVIEWS_SUM_UP, productId))
 // TODO insert here other calls!!!!
