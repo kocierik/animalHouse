@@ -20,6 +20,8 @@ const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
 const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
 
+const _PICTURES = '/pictures/{0}'
+
 const _ANIMAL_CODES = '/animals/codes'
 
 const _COMMUNITY_GAME_SCOREBOARD = '/community/game/scoreboard'
@@ -35,6 +37,9 @@ export const getCurrentUser = async () =>
 
 export const getUserInfoById = async (id: string) =>
   Api.get<user.JsonUser>(stringFormat(_BASE_URL + _USER_INFO, id))
+
+export const getPictureUser = async (id: string) => 
+  Api.get<Blob>(JSON.parse(fs.readFileSync(stringFormat("http://localhost:8080" + _PICTURES,id))))
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)
