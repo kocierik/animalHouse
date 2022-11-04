@@ -146,21 +146,20 @@ const Profile = () => {
                 <div data-aos="zoom-in" className="flex flex-col items-center">
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8 ">
-                      <div className="flex items-center flex-row justify-center">
-                        <div data-aos="zoom-in" className="mr-4 items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
+                      <div className="flex items-center flex-col  justify-center">
+                        <div data-aos="zoom-in" className="mr-4 flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
                           {user?.animals.map((animal,i) => {
                             return <AnimalCard key={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
                           })}
-                          <div  className='flex justify-center p-4 lg:hover:-translate-y-1 md:hover:translate-x-3 hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg mx-5 cursor-pointer border'>
+                        </div>
+                          <div  className='flex justify-center p-4  lg:hover:-translate-y-1 md:hover:translate-x-3 hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg w-fit cursor-pointer border'>
                           {
-                          openNewAnimal ?  <DefaultCard setOpenNewAnimal={setOpenNewAnimal} openNewAnimal={openNewAnimal}/> :
-                           <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          openNewAnimal ?  <DefaultCard setUser={setUser} user={user!} allAnimals={user?.animals!} setOpenNewAnimal={setOpenNewAnimal} openNewAnimal={openNewAnimal}/> :
+                           <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                           </svg> 
                           }
                           </div>
-                          {/* <DefaultCard />  */}
-                        </div>
                       </div>
                     </div>
                   </div>
