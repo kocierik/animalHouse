@@ -69,15 +69,16 @@ export const createProduct = async (productCreation: JsonProduct): Promise<IProd
 
 export const getProductReviewSumUp = async (prodId: string) => {
   const reviews = await Review.find({ productId: prodId })
-  if (reviews.length == 0)
+  if (reviews.length === 0) {
     return { average: 0, total: 0, percentage: [1, 2, 3, 4, 5].map(_ => "0%") }
+  }
   const avg = reviews.map(x => x.star).reduce((old, curr) => old + curr, 0) / reviews.length
   const percentages = [1, 2, 3, 4, 5].map(y => reviews.filter(x => x.star == y).length / reviews.length * 100)
 
   const result: JsonProductSumUp = {
     average: avg,
     total: reviews.length,
-    percentage: percentages.map(x => `${x}%`)
+    percentage: percentages.map(x => `${Math.round(x)}%`)
   }
   return result
 }
