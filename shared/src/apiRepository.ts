@@ -4,7 +4,7 @@ import type * as animal from './json/animal'
 import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
-import * as review from './json/Review'
+import type * as review from './json/Review'
 import { stringFormat } from './helpers'
 
 // Server api urls
