@@ -5,6 +5,35 @@ import * as jwt from 'jsonwebtoken'
 import * as AdminService from '../services/admin-service'
 import * as Const from '../const'
 
+/**
+* @swagger
+*
+* /admins/login:
+*   post:
+*     tags:
+*     - admins
+*     summary: Login as Admin
+*     parameters:
+*     - in: body
+*       name: body
+*       description: login
+*       required: true
+*       schema:
+*         type: object
+*         properties:
+*           username:
+*             type: string
+*           password:
+*             type: string
+*     responses:
+*       200:
+*         description: Success
+*         schema:
+*           type: object
+*           properties:
+*             token:
+*               type: string
+* */
 export const postLogin = async (req: Request, res: Response) => {
   try {
     const authData = await AdminService.verifyLogin(req.body as JsonLogin)

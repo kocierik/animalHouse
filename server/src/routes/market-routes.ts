@@ -5,12 +5,54 @@ import * as Const from '../const'
 import * as ProductService from '../services/product-service'
 import { JsonReview } from '../json/JsonReview'
 
+/**
+* @swagger
+* TODO
+* */
 export const getProducts = async (_: Request, res: Response) =>
   res.json(await ProductService.findAllProduct())
 
+/**
+* @swagger
+*  /products/{id}:
+*    get:
+*        tags:
+*        - products
+*        summary: Searches the specified product
+*        parameters:
+*          - in: path
+*            name: id
+*            type: string
+*            required: true
+*            description: Id of the product to be searched
+*        responses:
+*          200:
+*            description: successful operation
+*            schema: 
+*              type: array
+*              items:
+*                $ref: "#/components/schemas/Product"
+* */
 export const getProduct = async (req: Request, res: Response) =>
   res.status(Const.STATUS_OK).json(await ProductService.findProductByid(req.params.id))
 
+/**
+* @swagger
+*   /products/{id}:
+*    delete:
+*      tags:
+*      - products
+*      summary: Deletes a product based on the received id
+*      parameters: 
+*        - in: path
+*          name: id
+*          type: string
+*          required: true
+*          description: Id of the product to be deleted
+*      responses:
+*        200:
+*          description: successful operation
+* */
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     /* check if it exists */
@@ -25,12 +67,63 @@ export const deleteProduct = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+*  /products:
+*    post:
+*        tags:
+*        - products
+*        summary: Creates a new product
+*        parameters:
+*          - in: body
+*            name: body
+*            description: UserCreation
+*            required: true
+*            schema:
+*              type: object
+*              properties:
+*                  username:
+*                    type: string
+*                  password:
+*                    type: string
+*                  email:
+*                    type: string
+*                  firstName:
+*                    type: string
+*                  lastName:
+*                    type: string
+*        responses:
+*          200:
+*            description: Success
+*
+* */
 export const postProduct = async (req: Request, res: Response) => {
   //TODO: check admin token + check input
   let productCreation = req.body as JsonProduct;
   return res.status(Const.STATUS_OK).json(await ProductService.createProduct(productCreation))
 }
 
+/**
+* @swagger
+*  /products/{id}/reviews:
+*    get:
+*        tags:
+*        - products
+*        summary: Retrive reviews about a product
+*        parameters:
+*          - in: path
+*            name: id
+*            type: string
+*            required: true
+*            description: Id of the product to be searched
+*        responses:
+*          200:
+*            description: successful operation
+*            schema: 
+*              type: array
+*              items:
+*                $ref: "#/components/schemas/Review"
+* */
 export const getReviews = async (req: Request, res: Response) => {
   const pathId = req.params.id
   if (pathId) {
@@ -41,6 +134,42 @@ export const getReviews = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+*  /products/{id}/reviews:
+*    post:
+*      tags:
+*      - products
+*      summary: Create a review
+*      parameters:
+*      - in: path
+*        name: id
+*        type: string
+*        required: true
+*        description: Id of the product to be searched
+*      - in: body
+*        name: body
+*        description: ReviewCreation
+*        required: true
+*        schema:
+*          type: object
+*          properties:
+*              username:
+*                type: string
+*              productId:
+*                type: string
+*              comment:
+*                type: string
+*              star:
+*                type: number
+*              date:
+*                type: string
+*      responses:
+*        200:
+*          description: Success
+*          schema:
+*            $ref: "#/components/schemas/Review"
+* */
 export const postReview = async (req: Request, res: Response) => {
   try {
 
@@ -62,6 +191,25 @@ export const postReview = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+*  /products/{id}/reviews/sum-up:
+*    post:
+*      tags:
+*      - products
+*      summary: Get the sum up of the product reviews
+*      parameters:
+*      - in: path
+*        name: id
+*        type: string
+*        required: true
+*        description: Id of the product
+*      responses:
+*        200:
+*          description: Success
+*          schema:
+*            $ref: "#/components/schemas/ReviewSumUp"
+* */
 export const getProductSumUp = async (req: Request, res: Response) => {
   try {
     return res.status(Const.STATUS_OK).json(await ProductService.getProductReviewSumUp(req.path.id))
