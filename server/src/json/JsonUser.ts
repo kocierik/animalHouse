@@ -43,7 +43,7 @@ export interface JsonUser {
   description: string
   animals: JsonAnimal.JsonAnimal[]
   address: JsonAddress
-  profilePicture?: string
+  profilePicture?: JsonPicture
 }
 
 export interface JsonPicture{

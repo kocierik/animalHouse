@@ -40,9 +40,9 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   return (
     <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
       {props.isOptionEnable && <Setting settingInfoDesk={animals} />}
-
+      
       <div className="flex flex-col items-center">
-        <img
+        <img 
           className="mb-3 w-24 h-24 rounded-full shadow-lg"
           src="https://i.pinimg.com/originals/31/7e/b5/317eb50bea6c358da1f073f425ed50e4.jpg"
           alt="your animal"
