@@ -175,7 +175,7 @@ export const updateUserDescription = (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     console.log(req.body)
-    let userDescription = req.body.description as string
+    let userDescription = req.body.description as string // as Jsonuser// mappa descrizione 
     return res.status(Const.STATUS_OK).json(UserService.updateUserDescription(pathId,userDescription))
   } catch(ex){
     if (ex instanceof JsonError)
