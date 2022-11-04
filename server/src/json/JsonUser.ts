@@ -1,25 +1,25 @@
-import { JsonPet } from './JsonPet'
+import * as JsonAnimal from "./JsonAnimal"
+
 
 export interface JsonUserCreation {
-  username: string
-  password: string
-  email: string
-  firstName: string
+  username: string,
+  password: string,
+  email: string,
+  firstName: string,
   lastName: string
-}
-
-export interface JsonLogin {
-  username: string
-  password: string
+  country: string
+  city: string
+  street: string
+  zip: number
 }
 
 export interface JsonUser {
-  username: string
-  email: string
-  firstName: string
-  lastName: string
-  phone: string
-  pet: JsonPet[]
+  username: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  animals: JsonAnimal.JsonAnimal[],
   address: JsonAddress
 }
 
@@ -27,5 +27,10 @@ export interface JsonAddress {
   country: string
   city: string
   street: string
-  cap: number
+  zip: number
+}
+
+export interface JsonLogin {
+  username: string
+  password: string
 }

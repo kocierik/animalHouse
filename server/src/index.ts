@@ -54,6 +54,7 @@ app.get('/', (_: Request, res: Response) => {
 })
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
+app.get(version + '/users', log, userRoutes.getAllUsers)
 app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)
 app.get(version + '/users/:id', log, userRoutes.getUser)
 app.put(version + '/users/:id/score', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putScore)
