@@ -24,7 +24,7 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
   }
 
   return (
-    <div data-aos="zoom-in"  className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+    <div data-aos="zoom-in"  className="w-full flex  flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
      <div className='flex self-end items-center '>
         <svg onClick={ async () => await saveAnimal()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 border rounded p-1 bg-gray-100">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -33,7 +33,7 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center w-max-sm w-100">
         
         <img
           className="mb-3 w-24 h-24 rounded-full shadow-lg"

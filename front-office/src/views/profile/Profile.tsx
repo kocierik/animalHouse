@@ -147,15 +147,15 @@ const Profile = () => {
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex flex-col justify-center py-4 lg:pt-4 pt-8 ">
                       <div className="flex items-center flex-col  justify-center">
-                        <div data-aos="zoom-in" className="mr-4 flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
+                        <div data-aos="zoom-in" className=" flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
                           {user?.animals.map((animal,i) => {
                             return <AnimalCard key={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
                           })}
                         </div>
-                          <div  className='flex justify-center p-4  lg:hover:-translate-y-1 md:hover:translate-x-3 hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg w-fit cursor-pointer border'>
+                          <div   className='flex justify-center p-4 min-w-24	 mt-5   hover:translate-y-1  hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg  cursor-pointer border'>
                           {
                           openNewAnimal ?  <DefaultCard setUser={setUser} user={user!} allAnimals={user?.animals!} setOpenNewAnimal={setOpenNewAnimal} openNewAnimal={openNewAnimal}/> :
-                           <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
+                           <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 min-w-sm  ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                           </svg> 
                           }
