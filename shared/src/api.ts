@@ -1,18 +1,31 @@
 export abstract class Api {
 
-  public static async get<T>(url: string, auth = false): Promise<ApiResponse<T>> {
+  public static async get<T>(url: string, auth = false, getContentType=false): Promise<ApiResponse<T>> {
     let options: RequestInit = {
       method: 'GET'
     };
     if (auth) {
       options.headers = { 'Authorization': this.getToken() }
     }
+
+
     let response = await fetch(url, options);
     if (response.status >= 200 && response.status < 300) {
       // Success
+      if(getContentType){
+        try {
+          const blob = await (await response.blob())
+          const stringBlob = URL.createObjectURL(blob)
+          return new ApiResponse<T>(response.status, (stringBlob as T))
+        } catch (error) {
+          console.log(error)
+          throw new Error(`error --> ${error}`);
+        }
+      }
       return new ApiResponse<T>(response.status, (await response.json() as T))
-    } else
+    } else {
       return new ApiResponse<T>(response.status)
+    }
   }
 
   public static async post<T>(url: string, body: any, auth = false, sendContentType=true): Promise<ApiResponse<T>> {

@@ -61,7 +61,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 console.log("[INFO] Pictures dir is at " + picDir)
-app.use('/pictures/', log, express.static(picDir));
+app.use(`${version}/pictures/`, log, express.static(picDir));
 
 
 
@@ -73,7 +73,7 @@ app.get('/', (_: Request, res: Response) => {
 app.post(version + '/users/register', log, userRoutes.registerPost)
 app.post(version + '/users/login', log, userRoutes.loginPost)
 app.put(version + "/users/:id/picture", log, middlewares.verifyToken, middlewares.verifyUser, upload.single('profile'), userRoutes.postPicture)
-app.get("pictures/:id",log, userRoutes.getPicture)
+app.get(version + "pictures/:id",log)
 app.get(version + '/users', log, userRoutes.getAllUsers)
 app.put(version + 'users/:id/description', log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.updateUserDescription)
 app.get(version + '/users/current', log, middlewares.verifyToken, userRoutes.getCurrentUser)

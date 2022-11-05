@@ -39,7 +39,7 @@ export const getUserInfoById = async (id: string) =>
   Api.get<user.JsonUser>(stringFormat(_BASE_URL + _USER_INFO, id))
 
 export const getPictureUser = async (id: string) => 
-  Api.get<Blob>(JSON.parse(fs.readFileSync(stringFormat("http://localhost:8080" + _PICTURES,id))))
+  Api.get<string>(stringFormat(_BASE_URL + _PICTURES,id),false,true)
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)

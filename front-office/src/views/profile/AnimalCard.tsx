@@ -8,7 +8,6 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
-  console.log(props)
   
   const settingAnimals: IsettingInfo[] = [
     {
@@ -18,7 +17,6 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
     {
       name: 'delete',
       setting: async () => {
-        console.log(props.animal._id)
         try {
           await ApiRepository.deleteAnimal(Helpers.getUserId(),props.animal._id!)
           const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
@@ -31,7 +29,6 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
     ]
     
     const [animals, setAnimals] = useState(settingAnimals)
-    console.log(animals)
 
   const saveChangesAnimal = async () => {
     await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id!, animalName.current?.value!)

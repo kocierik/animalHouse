@@ -38,19 +38,18 @@ const Profile = () => {
   ]
 
   const [info, setInfo] = useState(settingInfoDescription)
+  const [imageProfile, setImageProfile] = useState<string>()
+
 
   const getImage = async () => {
     const user = (await ApiRepository.getCurrentUser()).data
     if (user) {
-      console.log(user)
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
-      console.log(userInfo)
       setUser(userInfo)
       textValue.current!.value = userInfo?.description!
       // --------------------
-      
-      await (ApiRepository.getPictureUser("635c088531e05da80c7faf61"))
-
+      const image =  (await (ApiRepository.getPictureUser(user.id))).data
+      setImageProfile(image)
     }
   }
 
@@ -64,23 +63,11 @@ const Profile = () => {
 
   const saveDescription = async () => {
     try {
-      console.log(textValue.current?.value)
       await ApiRepository.updateUserDescription(Helpers.getUserId(), textValue.current?.value! );
     } catch (error : any) {
       throw new Error("errore salvataggio descrizione -> ", error)      
     }
   }
-
-
-      const [data, setData] = useState<FormData>();
-
-    const getTest = async ()   =>{
-
-    }
-
-  useEffect(() => {
-    getTest()
-  }, []);
 
   return (
     <>
@@ -121,7 +108,7 @@ const Profile = () => {
                     <div className="relative -mt-20 w-30 h-24 flex  justify-center">
                       <img
                         className=" rounded-full -mt-5 border border-gray-100 shadow-sm"
-                        src={`localhost/8080/pictures/${user?.profilePicture?.filename}`}
+                        src={imageProfile}
                         alt="user image"
                       />
                       <div className="absolute top-0 right-0 h-6 w-6 my-1  border-2 border-white rounded-full bg-gray-300 z-2">
