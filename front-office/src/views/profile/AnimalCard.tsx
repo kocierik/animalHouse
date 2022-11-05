@@ -7,6 +7,7 @@ import useEffect from 'react';
 const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals : JsonAnimal.JsonAnimal[], user : JsonUser.JsonUser ,setUser : React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
+  const animalAge = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
   
   const settingAnimals: IsettingInfo[] = [
@@ -62,11 +63,23 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
             borderColor: 'whitesmoke',
             borderRadius: '10px'
           }}
-          className="bg-white text-sm text-center text-gray-500"
+          className="bg-white text-md text-center text-gray-500"
           disabled={!canWrite}
           onBlur={() => setCanWrite(false)}
           defaultValue={props.animal.type}
           ref={animalType}
+        />
+        <input
+          style={{
+            borderWidth: canWrite ? '1px' : '0px',
+            borderColor: 'whitesmoke',
+            borderRadius: '10px'
+          }}
+          className="bg-white text-xs	 text-center text-gray-500"
+          disabled={!canWrite}
+          onBlur={() => setCanWrite(false)}
+          defaultValue={props.animal.age}
+          ref={animalAge}
         />
       </div>
     </div>
