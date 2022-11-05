@@ -170,18 +170,18 @@ export const postPicture = (req: Request, res: Response) => {
       return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
-export const getPicture = (req: Request, res: Response) => {
-  try {
-    const pathId = req.params.id
-    res.contentType('image/png')
-    return res.status(Const.STATUS_OK).json(UserService.getPictureUser(pathId))
-  } catch (ex) {
-    if (ex instanceof JsonError)
-      return res.status(Const.STATUS_BAD_REQUEST).json(ex)
-    else
-      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
-  }
-}
+
+// export const getPicture = (req: Request, res: Response) => {
+//   try {
+//     const pathId = req.params.id
+//     return res.status(Const.STATUS_OK).json(UserService.getPictureUser(pathId))
+//   } catch (ex) {
+//     if (ex instanceof JsonError)
+//       return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+//     else
+//       return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+//   }
+// }
 
 export const updateUserDescription = (req: Request, res: Response) => {
   try {
