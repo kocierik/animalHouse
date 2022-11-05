@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { IProductInstance } from '../entities/Cart'
-import { JsonUserCreation, JsonLogin, JsonPicture } from '../json/JsonUser';
+import { JsonUserCreation, JsonLogin, JsonPicture, JsonUser } from '../json/JsonUser';
 import { JsonAnimal } from '../json/JsonAnimal'
 import Score from '../entities/Score'
 import JsonError, { JsonVisibilityError } from '../json/JsonError'
@@ -149,9 +149,9 @@ export const updateAnimal = async (req: Request, res : Response) =>{
     const animalId = req.params.aid
     const userId = req.params.uid
     console.log(userId)
-    let animalName = req.body as string
-    console.log(animalName)
-    return res.status(Const.STATUS_OK).json(await UserService.updateFromAnimal(userId, animalId, animalName))
+    let animal = req.body as JsonAnimal
+    console.log(animal)
+    return res.status(Const.STATUS_OK).json(await UserService.updateFromAnimal(userId, animalId, animal))
   } catch (error) {
     return res.status(Const.STATUS_BAD_REQUEST).json(error)
   }
@@ -183,12 +183,12 @@ export const postPicture = (req: Request, res: Response) => {
 //   }
 // }
 
-export const updateUserDescription = (req: Request, res: Response) => {
+export const updateUserDescription = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
-    console.log(req.body)
-    let userDescription = req.body.description as string // as Jsonuser// mappa descrizione 
-    return res.status(Const.STATUS_OK).json(UserService.updateUserDescription(pathId,userDescription))
+    let updateUser = req.body as JsonUser
+    console.log(updateUser)
+    return res.status(Const.STATUS_OK).json(await UserService.updateUserDescription(pathId,updateUser))
   } catch(ex){
     if (ex instanceof JsonError)
       return res.status(Const.STATUS_BAD_REQUEST).json(ex)

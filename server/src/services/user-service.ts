@@ -147,15 +147,15 @@ export const deleteFromAnimal = async (userId: string, animalId: string) : Promi
   }
 }
 
-export const updateFromAnimal = async (userId: string, animalId: string, animalName: string) : Promise<IAnimal[]> => {
+export const updateFromAnimal = async (userId: string, animalId: string, updateAnimal: JsonAnimal) : Promise<IAnimal[]> => {
   const user = await User.findById(userId)
   if(user){
     const animal = await Animal.findById(animalId)
     console.log(animal)
     console.log("animalId -> ", animalId)
-    user.animals.map(x => {x._id.toString() === animalId ? x.name = animalName : x.name = x.name })
+    user.animals.map(x => {x._id.toString() === animalId ? x = updateAnimal : x.name = x.name })
     console.log("utente con animale cambiato ", user)
-    // user.animals = newAnimals
+    user.animals[0] = updateAnimal
     // console.log(newAnimals)
     await user.save()
     return user.animals
@@ -194,11 +194,11 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
 export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then(x => x.map(userToJsonUser))
 
 
-export const updateUserDescription = async (userId: string, description : string) => {
+export const updateUserDescription = async (userId: string, updateUser : JsonUser) => {
   const user = await User.findById(userId)
   if(user){
     try {
-        await User.updateOne({_id: userId}, {description: description})
+      await User.findOneAndReplace({_id: userId},updateUser)
     } catch (error) {
       throw new JsonError(error.message)
     }
