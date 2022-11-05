@@ -63,7 +63,9 @@ const Profile = () => {
 
   const saveDescription = async () => {
     try {
-      await ApiRepository.updateUserDescription(Helpers.getUserId(), textValue.current?.value! );
+      let newUser = user
+      newUser!.description = textValue.current?.value!
+      await ApiRepository.updateUserDescription(Helpers.getUserId(),newUser!);
     } catch (error : any) {
       throw new Error("errore salvataggio descrizione -> ", error)      
     }

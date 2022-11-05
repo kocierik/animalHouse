@@ -53,8 +53,8 @@ export const registerAnimal = async (registration: animal.JsonAnimal[], userId: 
 export const deleteAnimal = async (userId: string, animalId: string) =>
   Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, userId, animalId), true)
 
-export const editAnimal = async (userId: string, animalId: string, animalName: string) =>
-  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, userId, animalId),animalName, true)
+export const editAnimal = async (userId: string, animalId: string, animal: animal.JsonAnimal) =>
+  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, userId, animalId),animal, true)
 
 
 export const putUserScore = async (gameScore: score.IGameResult, userId: string) =>
@@ -79,8 +79,8 @@ export const putUserPicture = (userId: string, image: string|Blob) => {
   return Api.put<user.JsonPicture>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
 } 
 
-export const updateUserDescription = async (userId: string, description: string) =>{
-  return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId),description, true)
+export const updateUserDescription = async (userId: string, updateUser: user.JsonUser) =>{
+  return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId),updateUser, true)
 }
 
 // TODO insert here other calls!!!!
