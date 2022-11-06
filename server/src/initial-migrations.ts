@@ -39,7 +39,8 @@ export const test = async () => {
           age: 20,
           name: "Stefano Volpe",
           type: "fox",
-          userId: "635c088531e05da80c7faf61"
+          userId: "635c088531e05da80c7faf61",
+          picture: null
       }
       ]
       

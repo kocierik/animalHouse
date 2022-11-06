@@ -56,8 +56,8 @@ const Profile = () => {
 
   
   useEffect(() => {
-    getImage()
     sendImage()
+    getImage()
   }, [file])
 
 
