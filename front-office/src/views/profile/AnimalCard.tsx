@@ -45,12 +45,12 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
 
 
   const updateAnimalPhoto = async () => {
-    animalImage.current?.click()
-    setFile(animalImage.current?.files![0])
+
     if(file){
       const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(),props.animal._id!,file)).data
       setImageProfileAnimal(resp?.filename)
     }
+    await getImage()
   }
 
   const getImage = async () => {
@@ -65,8 +65,8 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   }
     
   useEffect(() =>{
-    updateAnimalPhoto()
     getImage()
+    updateAnimalPhoto()
   },[file])
 
   return (
@@ -83,7 +83,14 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
               opacity: canWrite ? '0.7' : '1',
                cursor: canWrite ? 'pointer' : "default", 
             }}
-            onClick={() => canWrite && updateAnimalPhoto()}
+            onClick={async () => {
+              if(canWrite){ 
+                animalImage.current?.click()
+                setFile(animalImage.current?.files![0])
+                await updateAnimalPhoto()
+              }
+            }
+          }
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
             src={imageProfileAnimal}
             alt="your animal"
@@ -92,7 +99,12 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
             style={{display: 'none'}}
             type="file"
             ref={animalImage}
-            onChange={() => updateAnimalPhoto()}
+            onChange={() => {
+              animalImage.current?.click()
+              setFile(animalImage.current?.files![0])
+              updateAnimalPhoto()
+            }
+          }
           />
         </div>
         <input
