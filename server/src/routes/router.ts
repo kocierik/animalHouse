@@ -11,10 +11,6 @@ export const appRouter = Router()
 const version = Const.CURR_API_VERSION
 
 // User
-appRouter.get('/', (_: Request, res: Response) => {
-  res.send('anemal houz')
-})
-
 appRouter.post(version + '/users/register', middlewares.log, userRoutes.registerPost)
 appRouter.post(version + '/users/login', middlewares.log, userRoutes.loginPost)
 appRouter.get(version + '/users', middlewares.log, userRoutes.getAllUsers)
