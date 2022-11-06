@@ -169,7 +169,32 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   const user = await User.findById(userId)
   if (user) {
     try {
-      await User.updateOne( {_id: userId}, {profilePicture: picture})
+      await User.findByIdAndUpdate( {_id: userId}, {profilePicture: picture})
+    } catch (err) {
+      throw new JsonError(err.message)
+    }
+  }
+  else
+    throw new JsonError(`Can\'t find user with id ${userId}`)
+}
+
+
+export const addPictureToAnimal = async (userId: string, animalId: string, picture: JsonPicture) => {
+  console.log("picture --> ", picture)
+  const user = await User.findById(userId)
+  if (user) {
+    try {
+      let index = 0
+      user.animals.map((x,i) => {
+        index = i
+        if(x._id.toString() === animalId){
+           x.picture = picture
+           x._id = animalId
+        }
+      })
+      console.log("utente con animale cambiato ", user)
+      await user.save()
+      return user.animals[index].picture
     } catch (err) {
       throw new JsonError(err.message)
     }

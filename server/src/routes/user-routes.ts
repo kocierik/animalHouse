@@ -171,6 +171,21 @@ export const postPicture = (req: Request, res: Response) => {
   }
 }
 
+export const putAnimalPicture = async (req: Request, res: Response) => {
+  try{
+    const pathId = req.params.uid
+    const animalId = req.params.id
+    const file = req.file as JsonPicture
+    const newData = UserService.pictureToJsonPicture(file)
+    return res.status(Const.STATUS_OK).json(await UserService.addPictureToAnimal(pathId,animalId,newData))
+  } catch(ex){
+    if (ex instanceof JsonError)
+      return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
 // export const getPicture = (req: Request, res: Response) => {
 //   try {
 //     const pathId = req.params.id
