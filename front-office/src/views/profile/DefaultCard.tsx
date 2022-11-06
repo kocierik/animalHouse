@@ -5,13 +5,15 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
+  const animalImage = useRef<HTMLInputElement>(null)
 
   const saveAnimal = async () =>{
     const animal : JsonAnimal.JsonAnimal = {
       userId: Helpers.getUserId().toString(),
       name: animalName.current?.value!,
       type: animalType.current?.value!,
-      age: parseInt(animalAge.current?.value!)
+      age: parseInt(animalAge.current?.value!),
+      // picture: 
     }
     console.log(Helpers.getUserId())
     await ApiRepository.registerAnimal([animal],Helpers.getUserId())
