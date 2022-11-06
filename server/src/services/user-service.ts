@@ -153,10 +153,15 @@ export const updateFromAnimal = async (userId: string, animalId: string, updateA
     const animal = await Animal.findById(animalId)
     console.log(animal)
     console.log("animalId -> ", animalId)
-    user.animals.map(x => {x._id.toString() === animalId ? x = updateAnimal : x.name = x.name })
+    user.animals.map(x => { 
+      if(x._id.toString() === animalId){
+        x.age = updateAnimal.age
+        x.name = updateAnimal.name
+        x.type = updateAnimal.type
+      }
+      })
     console.log("utente con animale cambiato ", user)
-    user.animals[0] = updateAnimal
-    // console.log(newAnimals)
+    // user.animals[0] = updateAnimal
     await user.save()
     return user.animals
   } else{
