@@ -124,7 +124,6 @@ export const deleteFromUserCart = async (userId: string, piids: string[]) => {
 export const addAnimalsToUser = async (userId: string, animals: JsonAnimal[]) => {
   const user = await User.findById(userId)
   if (user) {
-    const inserted = await AnimalService.createAnimals(animals)
     user.animals.push(...animals)
     await user.save()
     return user.animals
