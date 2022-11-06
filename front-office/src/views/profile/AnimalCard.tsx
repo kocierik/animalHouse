@@ -1,8 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
-import useEffect from 'react';
 
 const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals : JsonAnimal.JsonAnimal[], user : JsonUser.JsonUser ,setUser : React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>}) => {
   const animalName = useRef<HTMLInputElement>(null)
@@ -11,13 +10,7 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   const animalImage = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
   const [file, setFile] = useState<File>()
-  
-    const sendImage = async () => {
-    if (file) {
-      const resp = await ApiRepository.putUserPicture(Helpers.getUserId(), file!)
-      if (!resp.esit) console.log(resp, 'error sendImage')
-    }
-  }
+  const [imageProfileAnimal, setImageProfileAnimal] = useState<string>()
 
   const settingAnimals: IsettingInfo[] = [
     {
@@ -38,15 +31,16 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
       }
     ]
     
-    const [animals, setAnimals] = useState(settingAnimals)
+  const [animals, setAnimals] = useState(settingAnimals)
 
   const saveChangesAnimal = async () => {
+    // const image =  (await (ApiRepository.getUserInfoById(Helpers.getUserId()))).data
     const changesAnimal : JsonAnimal.JsonAnimal = {
       name: animalName.current?.value!,
       type: animalType.current?.value!,
       userId: Helpers.getUserId(),
       age: parseInt(animalAge.current?.value!),
-      // picture: 
+      // picture: image?.profilePicture
     }
     console.log(changesAnimal)
     await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id!, changesAnimal)
@@ -55,12 +49,34 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
 
   const updateAnimalPhoto = async () => {
     animalImage.current?.click()
-    const fileObj = animalImage.current?.files![0]
-    if(fileObj){
-      console.log("Ok")
+    setFile(animalImage.current?.files![0])
+    if(file){
+      const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(),props.animal._id!,file)).data
+      console.log(resp)
+      setImageProfileAnimal(resp?.filename)
+      console.log(imageProfileAnimal)
+      console.log("test ->  " , animalImage)
     }
-    
   }
+
+  const getImage = async () => {
+    const user = (await ApiRepository.getCurrentUser()).data
+    if (user) {
+      const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
+      if(userInfo?.animals.length){
+        const image =  (await (ApiRepository.getPictureUser(userInfo?.animals[0]._id!))).data
+        console.log("immagine -> ", image)
+        setImageProfileAnimal(image)
+      }
+    }
+  }
+    
+  useEffect(() =>{
+    updateAnimalPhoto()
+    getImage()
+    console.log("primo -> " ,imageProfileAnimal)
+    console.log("vero -> " ,animalImage)
+  },[file])
 
   return (
     <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
@@ -78,7 +94,7 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
             }}
             onClick={() => canWrite && updateAnimalPhoto()}
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
-            src="https://i.pinimg.com/originals/31/7e/b5/317eb50bea6c358da1f073f425ed50e4.jpg"
+            src={imageProfileAnimal}
             alt="your animal"
           />
           <input
