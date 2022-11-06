@@ -40,7 +40,6 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
       userId: Helpers.getUserId(),
       age: parseInt(animalAge.current?.value!),
     }
-    console.log(changesAnimal)
     await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id!, changesAnimal)
   }
 
@@ -50,10 +49,7 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
     setFile(animalImage.current?.files![0])
     if(file){
       const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(),props.animal._id!,file)).data
-      console.log(resp)
       setImageProfileAnimal(resp?.filename)
-      console.log(imageProfileAnimal)
-      console.log("test ->  " , animalImage)
     }
   }
 
@@ -63,7 +59,6 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
       if(userInfo?.animals.length){
         const image =  (await (ApiRepository.getPictureUser(userInfo?.animals[0]._id!))).data
-        console.log("immagine -> ", image)
         setImageProfileAnimal(image)
       }
     }
@@ -72,8 +67,6 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   useEffect(() =>{
     updateAnimalPhoto()
     getImage()
-    console.log("primo -> " ,imageProfileAnimal)
-    console.log("vero -> " ,animalImage)
   },[file])
 
   return (
