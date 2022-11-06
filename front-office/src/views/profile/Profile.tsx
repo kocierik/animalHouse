@@ -109,8 +109,9 @@ const Profile = () => {
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative -mt-20 w-30 h-24 flex  justify-center">
                       <img
-                        className=" rounded-full -mt-5 border border-gray-100 shadow-sm"
+                        // className=" rounded-full -mt-5 border border-gray-100 shadow-sm"
                         src={imageProfile}
+                        className="lg:-mt-10 lg:w-40 lg:h-40 h-32 w-32 rounded-full shadow-lg bg-white shadow-sm border border-gray-100"
                         alt="user image"
                       />
                       <div className="absolute top-0 right-0 h-6 w-6 my-1  border-2 border-white rounded-full bg-gray-300 z-2">
