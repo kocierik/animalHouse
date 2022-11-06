@@ -6,8 +6,6 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
 
-  
-
   const saveAnimal = async () =>{
     const animal : JsonAnimal.JsonAnimal = {
       userId: Helpers.getUserId().toString(),

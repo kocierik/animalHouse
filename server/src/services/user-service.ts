@@ -125,8 +125,9 @@ export const addAnimalsToUser = async (userId: string, animals: JsonAnimal[]) =>
   const user = await User.findById(userId)
   if (user) {
     const inserted = await AnimalService.createAnimals(animals)
-    user.animals.push(...inserted)
+    user.animals.push(...animals)
     await user.save()
+    return user.animals
   } else
     throw new JsonError(`Can\'t find user with id ${userId}`)
 }
