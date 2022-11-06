@@ -34,13 +34,11 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   const [animals, setAnimals] = useState(settingAnimals)
 
   const saveChangesAnimal = async () => {
-    // const image =  (await (ApiRepository.getUserInfoById(Helpers.getUserId()))).data
     const changesAnimal : JsonAnimal.JsonAnimal = {
       name: animalName.current?.value!,
       type: animalType.current?.value!,
       userId: Helpers.getUserId(),
       age: parseInt(animalAge.current?.value!),
-      // picture: image?.profilePicture
     }
     console.log(changesAnimal)
     await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id!, changesAnimal)
