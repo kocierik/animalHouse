@@ -19,6 +19,7 @@ const _USERS_ANIMALS = '/users/{0}/animals'
 const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
 const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
+const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 
 const _PICTURES = '/pictures/{0}'
 
@@ -40,6 +41,7 @@ export const getUserInfoById = async (id: string) =>
 
 export const getPictureUser = async (id: string) => 
   Api.get<string>(stringFormat(_BASE_URL + _PICTURES,id),false,true)
+
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)
@@ -76,7 +78,14 @@ export const postProductReview = async (productId: string, review: review.IRevie
 export const putUserPicture = (userId: string, image: string|Blob) => {
   const formdata = new FormData()
   formdata.append("profile", image, 'image.jpg')
+  console.log(formdata)
   return Api.put<user.JsonPicture>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
+} 
+
+export const putAnimalPicture = (userId: string, animalId: string, image: string|Blob) => {
+  const formdata = new FormData()
+  formdata.append("profileAnimal", image, 'profileAnimal.jpg')
+  return Api.put<animal.JsonPicture>(stringFormat(_BASE_URL + _USER_ANIMAL_PICTURE, userId, animalId), formdata, true, false)
 } 
 
 export const updateUserDescription = async (userId: string, updateUser: user.JsonUser) =>{
