@@ -172,6 +172,7 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   if (user) {
     try {
       await User.findByIdAndUpdate( {_id: userId}, {profilePicture: picture})
+      return user
     } catch (err) {
       throw new JsonError(err.message)
     }
@@ -225,7 +226,9 @@ export const updateUserDescription = async (userId: string, updateUser : JsonUse
   const user = await User.findById(userId)
   if(user){
     try {
-      await User.findOneAndReplace({_id: userId},updateUser)
+      console.log("prova --> ", updateUser)
+      await User.findByIdAndUpdate({_id: userId},updateUser).catch(e => console.log("test -> ", e))
+      return user
     } catch (error) {
       throw new JsonError(error.message)
     }
