@@ -1,27 +1,38 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ApiRepository, Helpers, JsonAnimal, JsonUser } from 'shared';
-
+import defaultImage from "./defaultImage.jpg"
 const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAction<boolean>>, openNewAnimal: boolean, allAnimals : JsonAnimal.JsonAnimal[], user : JsonUser.JsonUser ,setUser : React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
   const animalImage = useRef<HTMLInputElement>(null)
-
   const saveAnimal = async () =>{
-    const animal : JsonAnimal.JsonAnimal = {
-      userId: Helpers.getUserId().toString(),
-      name: animalName.current?.value!,
-      type: animalType.current?.value!,
-      age: parseInt(animalAge.current?.value!),
-      // picture: 
+    if(props.openNewAnimal && animalName.current?.value!){
+      const defaultPicture : JsonAnimal.JsonPicture = {
+        filename: "635c088531e05da80c7faf61",
+        mimetype: "image/jpeg",
+        size: 2766
+      }
+      const animal : JsonAnimal.JsonAnimal = {
+        userId: Helpers.getUserId().toString(),
+        name: animalName.current?.value!,
+        type: animalType.current?.value!,
+        age: parseInt(animalAge.current?.value!),
+        picture: null!
+      }
+      await ApiRepository.registerAnimal(animal,Helpers.getUserId())
+      .catch(e => console.log("Errore aggiunta animale --> ", e))
+      const newAnimals = [...props.allAnimals, animal]
+      props.setUser({...props.user, animals: newAnimals} )
+      props.setOpenNewAnimal(!props.openNewAnimal)
+      window.location.reload()
     }
-    console.log(Helpers.getUserId())
-    await ApiRepository.registerAnimal([animal],Helpers.getUserId())
-    .catch(e => console.log("Errore aggiunta animale --> ", e))
-    const newAnimals = [...props.allAnimals, animal]
-    props.setUser({...props.user, animals: newAnimals} )
-    props.setOpenNewAnimal(!props.openNewAnimal)
   }
+
+  useEffect(() =>{
+    // saveAnimal()
+  },[props.user.animals.length])
+
 
   return (
     <div data-aos="zoom-in"  className="w-full flex  flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
@@ -37,7 +48,7 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
         
         <img
           className="mb-3 w-24 h-24 rounded-full shadow-lg"
-          src="https://i.pinimg.com/originals/31/7e/b5/317eb50bea6c358da1f073f425ed50e4.jpg"
+          src={defaultImage}
           alt="your animal"
         />
         <input

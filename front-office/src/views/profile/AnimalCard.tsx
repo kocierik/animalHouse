@@ -2,14 +2,15 @@ import React, { useRef, useState, useEffect } from 'react'
 import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
-
-const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals : JsonAnimal.JsonAnimal[], user : JsonUser.JsonUser ,setUser : React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>}) => {
+import defaultImage from "./defaultImage.jpg"
+const AnimalCard = (props: {index: number ,animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals : JsonAnimal.JsonAnimal[], user : JsonUser.JsonUser ,setUser : React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
   const animalImage = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
   const [file, setFile] = useState<File>()
+  console.log(props.index)
   const [imageProfileAnimal, setImageProfileAnimal] = useState<string>()
 
   const settingAnimals: IsettingInfo[] = [
@@ -34,21 +35,32 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
   const [animals, setAnimals] = useState(settingAnimals)
 
   const saveChangesAnimal = async () => {
+      const defaultPicture : JsonAnimal.JsonPicture = {
+        filename: "635c088531e05da80c7faf61",
+        mimetype: "image/jpeg",
+        size: 2766
+      }
     const changesAnimal : JsonAnimal.JsonAnimal = {
       name: animalName.current?.value!,
       type: animalType.current?.value!,
       userId: Helpers.getUserId(),
       age: parseInt(animalAge.current?.value!),
+      picture: defaultPicture
     }
     await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id!, changesAnimal)
+    .catch(e => console.log("Errore modifica animale --> ", e))
   }
 
 
   const updateAnimalPhoto = async () => {
-
     if(file){
-      const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(),props.animal._id!,file)).data
-      setImageProfileAnimal(resp?.filename)
+      console.log(file)
+      const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(),props.animal._id!,file))
+      console.log(resp)
+      if(resp){
+        setImageProfileAnimal(resp?.data?.filename)
+      }
+      setFile(undefined)
     }
     await getImage()
   }
@@ -57,17 +69,18 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
     const user = (await ApiRepository.getCurrentUser()).data
     if (user) {
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
-      if(userInfo?.animals.length){
-        const image =  (await (ApiRepository.getPictureUser(userInfo?.animals[0]._id!))).data
-        setImageProfileAnimal(image)
+      if(userInfo?.animals[props.index].picture){
+        console.log("picture --> ", userInfo?.animals[props.index].picture)
+         const image =  (await (ApiRepository.getPictureUser(userInfo?.animals[props.index].picture?.filename!))).data
+         setImageProfileAnimal(image)
       }
     }
   }
     
   useEffect(() =>{
-    getImage()
     updateAnimalPhoto()
-  },[file])
+    // getImage()
+  },[file,props.animal._id])
 
   return (
     <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
@@ -92,17 +105,17 @@ const AnimalCard = (props: {animal: JsonAnimal.JsonAnimal, isOptionEnable: boole
             }
           }
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
-            src={imageProfileAnimal}
+            src={imageProfileAnimal ? imageProfileAnimal : defaultImage}
             alt="your animal"
           />
           <input
             style={{display: 'none'}}
             type="file"
             ref={animalImage}
-            onChange={() => {
+            onChange={async () => {
               animalImage.current?.click()
               setFile(animalImage.current?.files![0])
-              updateAnimalPhoto()
+              await updateAnimalPhoto()
             }
           }
           />
