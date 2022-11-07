@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { ApiRepository } from 'shared'
-import { JsonProductSumUp } from 'shared/src/json/Review'
+import { JsonReview, ApiRepository } from 'shared'
 
 interface SumUpProps {
   productId: string
 }
 
 const StarsSumUp = (props: SumUpProps) => {
-  const [data, setData] = useState<JsonProductSumUp | null>()
+  const [data, setData] = useState<JsonReview.JsonProductSumUp | null>()
 
   const loadData = async () => {
     const resp = await ApiRepository.getMarketProductsReviewsSumUp(props.productId)
