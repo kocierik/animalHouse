@@ -4,7 +4,7 @@ import { IProductInstance } from '../entities/Cart'
 import { JsonProduct } from '../json/JsonProduct'
 import Review from '../entities/Review'
 import { JsonReview } from '../json/JsonReview';
-import JsonProductSumUp from '@/json/JsonProductSumUp'
+import JsonProductSumUp from '../json/JsonProductSumUp'
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 

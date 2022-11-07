@@ -83,7 +83,7 @@ export const SwaggerUser = {
         street: {
           type: "string"
         },
-        cap: {
+        zip: {
           type: "integer"
         }
       }
