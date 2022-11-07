@@ -49,7 +49,7 @@ export const register = async (registration: user.JsonRegistration) =>
 export const getAnimalCode = async () =>
   Api.get<{ code: number; value: String }[]>(_BASE_URL + _ANIMAL_CODES)
 
-export const registerAnimal = async (registration: animal.JsonAnimal[], userId: string) =>
+export const registerAnimal = async (registration: animal.JsonAnimal, userId: string) =>
   Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
 
 export const deleteAnimal = async (userId: string, animalId: string) =>

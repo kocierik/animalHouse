@@ -121,10 +121,10 @@ export const deleteFromUserCart = async (userId: string, piids: string[]) => {
   return getUserProducts(userId)
 }
 
-export const addAnimalsToUser = async (userId: string, animals: JsonAnimal[]) => {
+export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
   const user = await User.findById(userId)
   if (user) {
-    user.animals.push(...animals)
+    user.animals.push(animal)
     await user.save()
     return user.animals
   } else
@@ -192,12 +192,11 @@ export const addPictureToAnimal = async (userId: string, animalId: string, pictu
         index = i
         if(x._id.toString() === animalId){
            x.picture = picture
-           x._id = animalId
         }
       })
       console.log("utente con animale cambiato ", user)
       await user.save()
-      return user.animals[index].picture
+      return user.animals[index]
     } catch (err) {
       throw new JsonError(err.message)
     }

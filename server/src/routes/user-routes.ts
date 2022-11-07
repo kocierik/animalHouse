@@ -124,8 +124,8 @@ export const deleteCart = async (req: Request, res: Response) => {
 export const putAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
-    const animals = req.body as JsonAnimal[]
-    return res.status(Const.STATUS_OK).json(await UserService.addAnimalsToUser(pathId, animals))
+    const animal = req.body as JsonAnimal
+    return res.status(Const.STATUS_OK).json(await UserService.addAnimalsToUser(pathId, animal))
   } catch (ex) {
     if (ex instanceof JsonError)
       return res.status(Const.STATUS_BAD_REQUEST).json(ex)
