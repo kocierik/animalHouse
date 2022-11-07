@@ -45,10 +45,8 @@ const PostReview = (props: IProps) => {
       star: star,
       date: new Date()
     }
-    setTextComment('')
-    await (
-      await ApiRepository.postProductReview(productId, data)
-    ).data
+    setTextComment("")
+    await ApiRepository.postProductReview(productId, data)
   }
 
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
@@ -76,7 +74,7 @@ const PostReview = (props: IProps) => {
               </span>
               <div className="flex flex-1 px-5 items-center">
                 <span className="font-black	text-lg	p-4">{username}</span>
-                <div className=" flex ">
+                <div className=' flex '>
                   {valueProduct.map((rating) => (
                     <StarIcon
                       key={rating.star}

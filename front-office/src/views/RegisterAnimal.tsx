@@ -26,8 +26,9 @@ const RegisterAnimal = () => {
 
     const input: JsonAnimal.JsonAnimal = {
       name: name,
-      type: type,
+      type: "type", // TODO
       age: age as number,
+      userId: Helpers.getUserId()
     }
 
     const userId = Helpers.getUserId()
@@ -37,7 +38,7 @@ const RegisterAnimal = () => {
       return
     }
 
-    const response = await ApiRepository.registerAnimal([input], userId)
+    const response = await ApiRepository.registerAnimal(input, userId)
     if (response.esit) {
       window.location.href = '/'
     } else {

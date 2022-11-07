@@ -3,7 +3,7 @@ import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
 import defaultImage from "./defaultImage.jpg"
-const AnimalCard = (props: {index: number ,animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals : JsonAnimal.JsonAnimal[], user : JsonUser.JsonUser ,setUser : React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>}) => {
+const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>> }) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
@@ -16,31 +16,31 @@ const AnimalCard = (props: {index: number ,animal: JsonAnimal.JsonAnimal, isOpti
   const settingAnimals: IsettingInfo[] = [
     {
       name: 'modify',
-      setting: () => {setCanWrite(true)}
+      setting: () => { setCanWrite(true) }
     },
     {
       name: 'delete',
       setting: async () => {
         try {
-          await ApiRepository.deleteAnimal(Helpers.getUserId(),props.animal._id!)
+          await ApiRepository.deleteAnimal(Helpers.getUserId(), props.animal._id!)
           const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
-          props.setUser({...props.user, animals : newAnimals})
-        } catch (error :any) {
-          throw new Error("errore salvataggio descrizione -> ", error)      
-          }
+          props.setUser({ ...props.user, animals: newAnimals })
+        } catch (error: any) {
+          throw new Error("errore salvataggio descrizione -> ", error)
         }
       }
-    ]
-    
+    }
+  ]
+
   const [animals, setAnimals] = useState(settingAnimals)
 
   const saveChangesAnimal = async () => {
-      const defaultPicture : JsonAnimal.JsonPicture = {
-        filename: "635c088531e05da80c7faf61",
-        mimetype: "image/jpeg",
-        size: 2766
-      }
-    const changesAnimal : JsonAnimal.JsonAnimal = {
+    const defaultPicture: JsonAnimal.JsonPicture = {
+      filename: "635c088531e05da80c7faf61",
+      mimetype: "image/jpeg",
+      size: 2766
+    }
+    const changesAnimal: JsonAnimal.JsonAnimal = {
       name: animalName.current?.value!,
       type: animalType.current?.value!,
       userId: Helpers.getUserId(),
@@ -48,16 +48,16 @@ const AnimalCard = (props: {index: number ,animal: JsonAnimal.JsonAnimal, isOpti
       picture: defaultPicture
     }
     await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id!, changesAnimal)
-    .catch(e => console.log("Errore modifica animale --> ", e))
+      .catch(e => console.log("Errore modifica animale --> ", e))
   }
 
 
   const updateAnimalPhoto = async () => {
-    if(file){
+    if (file) {
       console.log(file)
-      const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(),props.animal._id!,file))
+      const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(), props.animal._id!, file))
       console.log(resp)
-      if(resp){
+      if (resp) {
         setImageProfileAnimal(resp?.data?.filename)
       }
       setFile(undefined)
@@ -69,47 +69,47 @@ const AnimalCard = (props: {index: number ,animal: JsonAnimal.JsonAnimal, isOpti
     const user = (await ApiRepository.getCurrentUser()).data
     if (user) {
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
-      if(userInfo?.animals[props.index].picture){
+      if (userInfo?.animals[props.index].picture) {
         console.log("picture --> ", userInfo?.animals[props.index].picture)
-         const image =  (await (ApiRepository.getPictureUser(userInfo?.animals[props.index].picture?.filename!))).data
-         setImageProfileAnimal(image)
+        const image = (await (ApiRepository.getPicture(userInfo?.animals[props.index].picture?.filename!))).data
+        setImageProfileAnimal(image)
       }
     }
   }
-    
-  useEffect(() =>{
+
+  useEffect(() => {
     updateAnimalPhoto()
     // getImage()
-  },[file,props.animal._id])
+  }, [file, props.animal._id])
 
   return (
     <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
       {props.isOptionEnable && <Setting settingInfoDesk={animals} />}
-      
+
       <div className="flex flex-col items-center">
         <div>
 
-          <img 
+          <img
             style={{
               borderWidth: canWrite ? '1px' : '0px',
               borderColor: 'whitesmoke',
               opacity: canWrite ? '0.7' : '1',
-               cursor: canWrite ? 'pointer' : "default", 
+              cursor: canWrite ? 'pointer' : "default",
             }}
             onClick={async () => {
-              if(canWrite){ 
+              if (canWrite) {
                 animalImage.current?.click()
                 setFile(animalImage.current?.files![0])
                 await updateAnimalPhoto()
               }
             }
-          }
+            }
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
             src={imageProfileAnimal ? imageProfileAnimal : defaultImage}
             alt="your animal"
           />
           <input
-            style={{display: 'none'}}
+            style={{ display: 'none' }}
             type="file"
             ref={animalImage}
             onChange={async () => {
@@ -117,7 +117,7 @@ const AnimalCard = (props: {index: number ,animal: JsonAnimal.JsonAnimal, isOpti
               setFile(animalImage.current?.files![0])
               await updateAnimalPhoto()
             }
-          }
+            }
           />
         </div>
         <input
@@ -154,7 +154,7 @@ const AnimalCard = (props: {index: number ,animal: JsonAnimal.JsonAnimal, isOpti
           ref={animalAge}
         />
         <div className='p-2'>
-        {canWrite &&  <input type="button" style={{"borderWidth": "1px", "borderColor": "whitesmoke", "borderRadius": "2px", "padding" : "4px", "cursor": "pointer"}} value="save" onClick={async () => {setCanWrite(false); await saveChangesAnimal()}} /> }
+          {canWrite && <input type="button" style={{ "borderWidth": "1px", "borderColor": "whitesmoke", "borderRadius": "2px", "padding": "4px", "cursor": "pointer" }} value="save" onClick={async () => { setCanWrite(false); await saveChangesAnimal() }} />}
         </div>
       </div>
     </div>
