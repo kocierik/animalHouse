@@ -22,6 +22,7 @@ const _COMMUNITY_GAME_SCOREBOARD = '/community/game/scoreboard'
 
 const _PRODUCTS = '/products/'
 const _PRODUCTS_REVIEW = '/products/{0}/reviews/'
+const _PRODUCTS_REVIEWS_SUM_UP = '/products/{0}/reviews/sum-up'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, { username: username, password: password })
@@ -57,5 +58,6 @@ export const getProductReviews = async (productId: string) =>
 export const postProductReview = async (productId: string, review: review.IReview) =>
   Api.post<review.IReview>(stringFormat(_BASE_URL + _PRODUCTS_REVIEW, productId), review)
 
-
+export const getMarketProductsReviewsSumUp = async (productId: string) =>
+  Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
 // TODO insert here other calls!!!!

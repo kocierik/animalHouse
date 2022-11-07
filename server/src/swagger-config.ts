@@ -1,3 +1,9 @@
+import { SwaggerAnimal } from "./json/JsonAnimal";
+import { SwaggerProduct } from "./json/JsonProduct";
+import { SwaggerReviewSumUp } from "./json/JsonProductSumUp";
+import { SwaggerReview } from "./json/JsonReview";
+import { SwaggerUser } from "./json/JsonUser";
+
 const swaggerOptions = {
   definition: {
     swagger: '2.0',
@@ -23,125 +29,11 @@ const swaggerOptions = {
         { name: "animals" },
       ],
       schemas: {
-        "User": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "username": {
-              "type": "string"
-            },
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "phone": {
-              "type": "string"
-            },
-            "pets": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "address": {
-              "type": "object",
-              "properties": {
-                "country": {
-                  "type": "string"
-                },
-                "city": {
-                  "type": "string"
-                },
-                "street": {
-                  "type": "string"
-                },
-                "cap": {
-                  "type": "integer"
-                }
-              }
-            }
-          }
-        },
-        "Animal": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
-            },
-            "userId": {
-              "type": "string"
-            },
-            "age": {
-              "type": "number"
-            }
-          }
-        },
-        "Product": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "price": {
-              "type": "number"
-            },
-            "categoryId": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string"
-            },
-            "animalTargets": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "colors": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "sizes": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "details": {
-              "type": "string"
-            }
-          }
-        },
+        User: SwaggerUser,
+        Animal: SwaggerAnimal,
+        Product: SwaggerProduct,
+        ReviewSumUp: SwaggerReviewSumUp,
+        Review: SwaggerReview,
         "ProductInstance": {
           "type": "object",
           "required": [
@@ -162,29 +54,6 @@ const swaggerOptions = {
             }
           }
         },
-        "Review": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string"
-            },
-            "username": {
-              "type": "string"
-            },
-            "productId": {
-              "type": "string"
-            },
-            "comment": {
-              "type": "string"
-            },
-            "star": {
-              "type": "number"
-            },
-            "date": {
-              "type": "string"
-            }
-          }
-        }
       }
     }
   },
