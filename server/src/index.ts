@@ -52,6 +52,10 @@ const log = (req: Request, _: Response, next: Function) => {
 console.log("[INFO] Pictures dir is at " + Const.picDir)
 app.use(`${version}/pictures/`, log, express.static(Const.picDir));
 
+// Swagger
+app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))
+
+
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
 })

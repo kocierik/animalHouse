@@ -15,7 +15,6 @@ interface IProps {
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
-
 const PostReview = (props: IProps) => {
   const { post, setPost, productId } = props
   const [textComment, setTextComment] = React.useState('')
@@ -103,8 +102,8 @@ const PostReview = (props: IProps) => {
 
           {/* Lower Half - Photo/Video & Post Buttons */}
           <div className="flex p-2 justify-end sm:p-4 mr-5">
-            <button
-              onClick={postComment}
+
+            <button onClick={postComment}
               className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-green-500 hover:bg-green-600 duration-150"
             >
               Post It
