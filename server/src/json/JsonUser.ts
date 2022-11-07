@@ -35,7 +35,6 @@ export interface JsonLogin {
   username: string
   password: string
 }
-
 export interface JsonPicture{
   size: number,
   filename: string
