@@ -62,6 +62,32 @@ export const postReview = async (req: Request, res: Response) => {
   }
 }
 
+/**
+* @swagger
+*  /products/{id}/reviews/sum-up:
+*    post:
+*      tags:
+*      - products
+*      summary: Get the sum up of the product reviews
+*      parameters:
+*      - in: path
+*        name: id
+*        type: string
+*        required: true
+*        description: Id of the product
+*      responses:
+*        200:
+*          description: Success
+*          schema:
+*            $ref: "#/components/schemas/ReviewSumUp"
+* */
+export const getProductSumUp = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await ProductService.getProductReviewSumUp(req.path.id))
+  } catch (err) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
 
 
 

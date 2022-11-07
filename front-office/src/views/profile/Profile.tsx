@@ -49,13 +49,13 @@ const Profile = () => {
       setUser(userInfo)
       textValue.current!.value = userInfo?.description!
       // --------------------
-      const image =  (await (ApiRepository.getPictureUser(user.id))).data
+      const image = (await (ApiRepository.getPicture(user.id))).data
       setImageProfile(image)
     }
   }
 
 
-  
+
   useEffect(() => {
     sendImage()
     getImage()
@@ -66,10 +66,10 @@ const Profile = () => {
     try {
       let newUser = user
       newUser!.description = textValue.current?.value!
-      const result = await ApiRepository.updateUserDescription(Helpers.getUserId(),newUser!)
+      const result = await ApiRepository.updateUserDescription(Helpers.getUserId(), newUser!)
       console.log(result)
-    } catch (error : any) {
-      throw new Error("errore salvataggio descrizione -> ", error)      
+    } catch (error: any) {
+      throw new Error("errore salvataggio descrizione -> ", error)
     }
   }
 
@@ -154,18 +154,18 @@ const Profile = () => {
                     <div className="flex  justify-center py-4 lg:pt-4 pt-8 ">
                       <div className="flex items-center flex-col  justify-center">
                         <div data-aos="zoom-in" className=" flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
-                          {user?.animals.map((animal,i) => {
+                          {user?.animals.map((animal, i) => {
                             return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
                           })}
                         </div>
-                          <div   className='flex justify-center p-4 min-w-24	 mt-5   hover:translate-y-1  hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg  cursor-pointer border'>
+                        <div className='flex justify-center p-4 min-w-24	 mt-5   hover:translate-y-1  hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg  cursor-pointer border'>
                           {
-                          openNewAnimal ?  <DefaultCard setUser={setUser} user={user!} allAnimals={user?.animals!} setOpenNewAnimal={setOpenNewAnimal} openNewAnimal={openNewAnimal}/> :
-                           <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 min-w-sm  ">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                          </svg> 
+                            openNewAnimal ? <DefaultCard setUser={setUser} user={user!} allAnimals={user?.animals!} setOpenNewAnimal={setOpenNewAnimal} openNewAnimal={openNewAnimal} /> :
+                              <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 min-w-sm  ">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                              </svg>
                           }
-                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -187,7 +187,7 @@ const Profile = () => {
                         }}
                         className=" flex w-11/12	 mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center 	m-5"
                         disabled={!canWrite}
-                        onBlur={async () => {setCanWrite(false); await saveDescription() }}
+                        onBlur={async () => { setCanWrite(false); await saveDescription() }}
                         maxLength={300}
                         rows={5}
                       ></textarea>

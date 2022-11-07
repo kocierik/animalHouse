@@ -1,6 +1,28 @@
 export abstract class Api {
 
-  public static async get<T>(url: string, auth = false, getContentType=false): Promise<ApiResponse<T>> {
+  public static async getImage(url: string) {
+    let options: RequestInit = {
+      method: 'GET'
+    };
+
+
+    let response = await fetch(url, options);
+    if (response.status >= 200 && response.status < 300) {
+      // Success
+      try {
+        const blob = await response.blob()
+        const stringBlob = URL.createObjectURL(blob)
+        return new ApiResponse<string>(response.status, stringBlob)
+      } catch (error) {
+        throw new Error(`error --> ${error}`);
+      }
+    } else {
+      return new ApiResponse<string>(response.status)
+    }
+
+  }
+
+  public static async get<T>(url: string, auth = false): Promise<ApiResponse<T>> {
     let options: RequestInit = {
       method: 'GET'
     };
@@ -12,33 +34,23 @@ export abstract class Api {
     let response = await fetch(url, options);
     if (response.status >= 200 && response.status < 300) {
       // Success
-      if(getContentType){
-        try {
-          const blob = await (await response.blob())
-          const stringBlob = URL.createObjectURL(blob)
-          return new ApiResponse<T>(response.status, (stringBlob as T))
-        } catch (error) {
-          console.log(error)
-          throw new Error(`error --> ${error}`);
-        }
-      }
       return new ApiResponse<T>(response.status, (await response.json() as T))
     } else {
       return new ApiResponse<T>(response.status)
     }
   }
 
-  public static async post<T>(url: string, body: any, auth = false, sendContentType=true): Promise<ApiResponse<T>> {
-    let headers : Headers = new Headers({'Accept' : 'application/json'})
+  public static async post<T>(url: string, body: any, auth = false, sendContentType = true): Promise<ApiResponse<T>> {
+    let headers: Headers = new Headers({ 'Accept': 'application/json' })
 
     if (auth)
       headers.append("Authorization", this.getToken())
-    if (sendContentType) 
-        headers.append('Content-Type', 'application/json')
+    if (sendContentType)
+      headers.append('Content-Type', 'application/json')
 
     let options: RequestInit = {
       method: 'POST',
-      body : body instanceof FormData ? body : JSON.stringify(body),
+      body: body instanceof FormData ? body : JSON.stringify(body),
       headers: headers
     }
 
@@ -50,18 +62,18 @@ export abstract class Api {
       return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
   }
 
-  public static async put<T>(url: string, body: any, auth = false, sendContentType=true): Promise<ApiResponse<T>> {
-    
-    let headers : Headers = new Headers({'Accept' : 'application/json'})
-    if (sendContentType) 
-        headers.append('Content-Type', 'application/json')
+  public static async put<T>(url: string, body: any, auth = false, sendContentType = true): Promise<ApiResponse<T>> {
+
+    let headers: Headers = new Headers({ 'Accept': 'application/json' })
+    if (sendContentType)
+      headers.append('Content-Type', 'application/json')
 
     headers.append('Authorization', auth ? this.getToken() : "")
     let options: RequestInit = {
       method: 'PUT',
       body: body instanceof FormData ? body : JSON.stringify(body),
       headers: headers
-    };    
+    };
 
     let response = await fetch(url, options);
     if (response.status >= 200 && response.status < 300) {
@@ -71,7 +83,7 @@ export abstract class Api {
       return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
   }
 
-    public static async delete<T>(url: string, auth = false): Promise<ApiResponse<T>> {
+  public static async delete<T>(url: string, auth = false): Promise<ApiResponse<T>> {
     let options: RequestInit = {
       method: 'DELETE'
     };

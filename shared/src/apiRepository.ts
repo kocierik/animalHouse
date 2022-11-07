@@ -29,6 +29,7 @@ const _COMMUNITY_GAME_SCOREBOARD = '/community/game/scoreboard'
 
 const _PRODUCTS = '/products/'
 const _PRODUCTS_REVIEW = '/products/{0}/reviews/'
+const _PRODUCTS_REVIEWS_SUM_UP = '/products/{0}/reviews/sum-up'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, { username: username, password: password })
@@ -39,9 +40,8 @@ export const getCurrentUser = async () =>
 export const getUserInfoById = async (id: string) =>
   Api.get<user.JsonUser>(stringFormat(_BASE_URL + _USER_INFO, id))
 
-export const getPictureUser = async (id: string) => 
-  Api.get<string>(stringFormat(_BASE_URL + _PICTURES,id),false,true)
-
+export const getPicture = async (id: string) =>
+  Api.getImage(stringFormat(_BASE_URL + _PICTURES, id))
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)
@@ -56,7 +56,7 @@ export const deleteAnimal = async (userId: string, animalId: string) =>
   Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, userId, animalId), true)
 
 export const editAnimal = async (userId: string, animalId: string, animal: animal.JsonAnimal) =>
-  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, userId, animalId),animal, true)
+  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, userId, animalId), animal, true)
 
 
 export const putUserScore = async (gameScore: score.IGameResult, userId: string) =>
@@ -75,20 +75,23 @@ export const getProductReviews = async (productId: string) =>
 export const postProductReview = async (productId: string, review: review.IReview) =>
   Api.post<review.IReview>(stringFormat(_BASE_URL + _PRODUCTS_REVIEW, productId), review)
 
-export const putUserPicture = (userId: string, image: string|Blob) => {
+export const putUserPicture = (userId: string, image: string | Blob) => {
   const formdata = new FormData()
   formdata.append("profile", image, 'image.jpg')
   return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
-} 
+}
 
-export const putAnimalPicture = (userId: string, animalId: string, image: string|Blob) => {
+export const putAnimalPicture = (userId: string, animalId: string, image: string | Blob) => {
   const formdata = new FormData()
   formdata.append("profileAnimal", image, 'profileAnimal.jpg')
   return Api.put<animal.JsonPicture>(stringFormat(_BASE_URL + _USER_ANIMAL_PICTURE, userId, animalId), formdata, true, false)
-} 
-
-export const updateUserDescription = async (userId: string, updateUser: user.JsonUser) =>{
-  return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId),updateUser, true)
 }
+
+export const updateUserDescription = async (userId: string, updateUser: user.JsonUser) => {
+  return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId), updateUser, true)
+}
+
+export const getMarketProductsReviewsSumUp = async (productId: string) =>
+  Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
 
 // TODO insert here other calls!!!!

@@ -4,6 +4,7 @@ import { IProductInstance } from '../entities/Cart'
 import { JsonProduct } from '../json/JsonProduct'
 import Review from '../entities/Review'
 import { JsonReview } from '../json/JsonReview';
+import JsonProductSumUp from '../json/JsonProductSumUp'
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 
@@ -34,11 +35,11 @@ export const evalProductInstances = (productInstances: IProductInstance[]): Prom
 
 export const deleteProduct = (id: string) => Product.deleteOne({ _id: id })
 
-export const reviewById = (productId : string) =>{
-  return Review.find({productId: productId})
+export const reviewById = (productId: string) => {
+  return Review.find({ productId: productId })
 }
 
-export const createReview = async (reviewCreation : JsonReview) =>{
+export const createReview = async (reviewCreation: JsonReview) => {
   const review = new Review()
   review.username = reviewCreation.username
   review.productId = reviewCreation.productId
@@ -66,3 +67,18 @@ export const createProduct = async (productCreation: JsonProduct): Promise<IProd
   return product as IProduct
 }
 
+export const getProductReviewSumUp = async (prodId: string) => {
+  const reviews = await Review.find({ productId: prodId })
+  if (reviews.length === 0) {
+    return { average: 0, total: 0, percentage: [1, 2, 3, 4, 5].map(_ => "0%") }
+  }
+  const avg = reviews.map(x => x.star).reduce((old, curr) => old + curr, 0) / reviews.length
+  const percentages = [1, 2, 3, 4, 5].map(y => reviews.filter(x => x.star == y).length / reviews.length * 100)
+
+  const result: JsonProductSumUp = {
+    average: avg,
+    total: reviews.length,
+    percentage: percentages.map(x => `${Math.round(x)}%`)
+  }
+  return result
+}

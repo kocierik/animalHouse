@@ -3,6 +3,8 @@ import * as jwt from 'jsonwebtoken'
 import { STATUS_UNAUTHORIZED, SECRET } from '../const'
 import JsonError, { JsonVisibilityError } from '../json/JsonError'
 import * as AdminService from '../services/admin-service'
+import multer from 'multer'
+import * as Const from '../const'
 
 export interface AuthData {
   username: string
@@ -29,3 +31,20 @@ export const verifyUser = (req: Request, res: Response, next: Function) => {
   if (pathId === authId || AdminService.isAdmin(authId)) next()
   else return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
 }
+
+export const log = (req: Request, _: Response, next: Function) => {
+  console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
+  next()
+}
+
+// Multer
+const storage = multer.diskStorage({
+  destination: Const.picDir,
+  filename: (req: Request, _: any, cb: Function) => {
+    cb(null, req.params.id)
+  }
+})
+
+const upload = multer({ storage: storage })
+
+export const multerMiddleware = (s: string) => upload.single(s)

@@ -86,7 +86,6 @@ export const userToJsonUser = (user: IUser): JsonUser => ({
   username: user.username,
   firstName: user.firstName,
   lastName: user.lastName,
-  phone: user.phone,
   email: user.email,
   description: user.description,
   animals: user.animals.map(AnimalService.animalToJsonAnimal),
@@ -131,9 +130,9 @@ export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
     throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-export const deleteFromAnimal = async (userId: string, animalId: string) : Promise<IAnimal[]> => {
+export const deleteFromAnimal = async (userId: string, animalId: string): Promise<IAnimal[]> => {
   const user = await User.findById(userId)
-  if(user){
+  if (user) {
     const animal = await Animal.findById(animalId)
     console.log(animal)
     console.log("animalId -> ", animalId)
@@ -142,26 +141,26 @@ export const deleteFromAnimal = async (userId: string, animalId: string) : Promi
     console.log(newAnimals)
     await user.save()
     return user.animals
-  } else{
+  } else {
     throw new JsonError(`Can\'t find user with id ${userId}`)
   }
 }
 
-export const updateFromAnimal = async (userId: string, animalId: string, updateAnimal: JsonAnimal) : Promise<IAnimal[]> => {
+export const updateFromAnimal = async (userId: string, animalId: string, updateAnimal: JsonAnimal): Promise<IAnimal[]> => {
   const user = await User.findById(userId)
-  if(user){
+  if (user) {
     const animal = await Animal.findById(animalId)
     console.log(animal)
-    user.animals.map(x => { 
-      if(x._id.toString() === animalId){
+    user.animals.map(x => {
+      if (x._id.toString() === animalId) {
         x.age = updateAnimal.age
         x.name = updateAnimal.name
         x.type = updateAnimal.type
       }
-      })
+    })
     await user.save()
     return user.animals
-  } else{
+  } else {
     throw new JsonError(`Can\'t find user with id ${userId}`)
   }
 }
@@ -171,7 +170,7 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   const user = await User.findById(userId)
   if (user) {
     try {
-      await User.findByIdAndUpdate( {_id: userId}, {profilePicture: picture})
+      await User.findByIdAndUpdate({ _id: userId }, { profilePicture: picture })
       return user
     } catch (err) {
       throw new JsonError(err.message)
@@ -188,10 +187,10 @@ export const addPictureToAnimal = async (userId: string, animalId: string, pictu
   if (user) {
     try {
       let index = 0
-      user.animals.map((x,i) => {
+      user.animals.map((x, i) => {
         index = i
-        if(x._id.toString() === animalId){
-           x.picture = picture
+        if (x._id.toString() === animalId) {
+          x.picture = picture
         }
       })
       console.log("utente con animale cambiato ", user)
@@ -221,17 +220,17 @@ export const addPictureToAnimal = async (userId: string, animalId: string, pictu
 export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then(x => x.map(userToJsonUser))
 
 
-export const updateUserDescription = async (userId: string, updateUser : JsonUser) => {
+export const updateUserDescription = async (userId: string, updateUser: JsonUser) => {
   const user = await User.findById(userId)
-  if(user){
+  if (user) {
     try {
       console.log("prova --> ", updateUser)
-      await User.findByIdAndUpdate({_id: userId},updateUser).catch(e => console.log("test -> ", e))
+      await User.findByIdAndUpdate({ _id: userId }, updateUser).catch(e => console.log("test -> ", e))
       return user
     } catch (error) {
       throw new JsonError(error.message)
     }
-  } 
+  }
   else
     throw new JsonError(`Can\'t find user with id ${userId}`)
 
