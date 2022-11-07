@@ -35,7 +35,6 @@ export const getScoreboardForGame = async (id: string) => {
       userScoresMap.get(score.userId).push(score.value)
     }
 
-    console.log(userScoresMap)
     for (let [uId, scr] of userScoresMap) {
       let jss: JsonScoreboardScore = {
         userId: uId,
@@ -46,7 +45,6 @@ export const getScoreboardForGame = async (id: string) => {
       result.scores.push(jss)
     }
 
-    console.log(result)
     return result
   } else {
     throw `${id} is not a valid game id`

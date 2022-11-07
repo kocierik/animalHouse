@@ -34,3 +34,59 @@ export interface JsonLogin {
   username: string
   password: string
 }
+
+export const SwaggerUser = {
+  type: "object",
+  properties: {
+    id: {
+      type: "integer",
+      format: "int64"
+    },
+    username: {
+      type: "string"
+    },
+    firstName: {
+      type: "string"
+    },
+    lastName: {
+      type: "string"
+    },
+    email: {
+      type: "string"
+    },
+    phone: {
+      type: "string"
+    },
+    pets: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: {
+            type: "integer"
+          },
+          name: {
+            type: "string"
+          }
+        }
+      }
+    },
+    address: {
+      type: "object",
+      properties: {
+        country: {
+          type: "string"
+        },
+        city: {
+          type: "string"
+        },
+        street: {
+          type: "string"
+        },
+        zip: {
+          type: "integer"
+        }
+      }
+    }
+  }
+}

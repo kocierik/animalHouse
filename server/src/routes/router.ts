@@ -27,10 +27,10 @@ appRouter.put(version + '/users/:id/cart', middlewares.log, middlewares.verifyTo
 appRouter.delete(version + '/users/:id/cart', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteCart)
 appRouter.put(version + '/users/:id/animals', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
 
-// Admin
+// Admins
 appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin)
 
-// Animal
+// Animals
 appRouter.get(version + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
 appRouter.get(version + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
 
@@ -38,12 +38,13 @@ appRouter.get(version + '/animals/:id', middlewares.log, middlewares.verifyToken
 appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)
 appRouter.get(version + '/community/game/scoreboard', middlewares.log, communityRoutes.getScoreboard)
 
-// Market
+// Products
 appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
 appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert
-
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
+appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
+
 
