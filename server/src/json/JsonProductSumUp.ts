@@ -5,19 +5,19 @@ export default interface JsonProductSumUp {
 }
 
 export const SwaggerReviewSumUp = {
-  type: "object",
+  type: 'object',
   properties: {
     average: {
-      type: "number"
+      type: 'number',
     },
     total: {
-      type: "number"
+      type: 'number',
     },
     percentage: {
-      type: "array",
+      type: 'array',
       items: {
-        type: "string"
-      }
-    }
-  }
+        type: 'string',
+      },
+    },
+  },
 }

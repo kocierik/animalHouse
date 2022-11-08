@@ -16,18 +16,92 @@ appRouter.post(version + '/users/login', middlewares.log, userRoutes.loginPost)
 appRouter.get(version + '/users', middlewares.log, userRoutes.getAllUsers)
 appRouter.get(version + '/users/current', middlewares.log, middlewares.verifyToken, userRoutes.getCurrentUser)
 appRouter.get(version + '/users/:id', middlewares.log, userRoutes.getUser)
-appRouter.put(version + '/users/:id/score', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putScore)
-appRouter.get(version + '/users/:id/score/', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getScore)
-appRouter.get(version + '/users/:id/cart', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.getCart)
-appRouter.put(version + '/users/:id/cart', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putCart)
-appRouter.delete(version + '/users/:id/cart', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteCart)
-appRouter.put(version + '/users/:id/animals', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
-appRouter.put(version + '/users/:id/description', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.updateUserDescription)
-appRouter.put(version + "/users/:id/picture", middlewares.log, middlewares.verifyToken, middlewares.verifyUser, middlewares.multerMiddleware('profile'), userRoutes.postPicture)
-appRouter.put(version + '/users/:id/animals', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
-appRouter.delete(version + '/users/:uid/animals/:aid', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteAnimal)
-appRouter.put(version + '/users/:uid/animals/:aid', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.updateAnimal)
-appRouter.put(version + '/users/:uid/animals/:id/picture', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, middlewares.multerMiddleware('profileAnimal'), userRoutes.putAnimalPicture)
+appRouter.put(
+  version + '/users/:id/score',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.putScore
+)
+appRouter.get(
+  version + '/users/:id/score/',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.getScore
+)
+appRouter.get(
+  version + '/users/:id/cart',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.getCart
+)
+appRouter.put(
+  version + '/users/:id/cart',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.putCart
+)
+appRouter.delete(
+  version + '/users/:id/cart',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.deleteCart
+)
+appRouter.put(
+  version + '/users/:id/animals',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.putAnimal
+)
+appRouter.put(
+  version + '/users/:id/description',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.updateUserDescription
+)
+appRouter.put(
+  version + '/users/:id/picture',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  middlewares.multerMiddleware('profile'),
+  userRoutes.postPicture
+)
+appRouter.put(
+  version + '/users/:id/animals',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.putAnimal
+)
+appRouter.delete(
+  version + '/users/:uid/animals/:aid',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.deleteAnimal
+)
+appRouter.put(
+  version + '/users/:uid/animals/:aid',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.updateAnimal
+)
+appRouter.put(
+  version + '/users/:uid/animals/:id/picture',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  middlewares.multerMiddleware('profileAnimal'),
+  userRoutes.putAnimalPicture
+)
 
 // Admins
 appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin)
@@ -48,5 +122,3 @@ appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct)
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
-
-

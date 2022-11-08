@@ -10,7 +10,6 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const animalImage = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
   const [file, setFile] = useState<File>()
-  console.log(props.index)
   const [imageProfileAnimal, setImageProfileAnimal] = useState<string>()
 
   const settingAnimals: IsettingInfo[] = [
@@ -51,7 +50,6 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
         picture: defaultPicture
       }
       await ApiRepository.editAnimal(Helpers.getUserId()!, props.animal._id!, changesAnimal)
-        .catch(e => console.log("Errore modifica animale --> ", e))
     }
   }
 
@@ -59,9 +57,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const updateAnimalPhoto = async () => {
     if(Helpers.getUserId()){
       if (file) {
-        console.log(file)
         const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId()!, props.animal._id!, file))
-        console.log(resp)
         if (resp) {
           setImageProfileAnimal(resp?.data?.filename)
         }
@@ -76,7 +72,6 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
     if (user) {
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
       if (userInfo?.animals[props.index].picture) {
-        console.log("picture --> ", userInfo?.animals[props.index].picture)
         const image = (await (ApiRepository.getPicture(userInfo?.animals[props.index].picture?.filename!))).data
         setImageProfileAnimal(image)
       }

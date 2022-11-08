@@ -6,5 +6,4 @@ export default class JsonError {
   }
 }
 
-export class JsonVisibilityError extends JsonError {
-}
+export class JsonVisibilityError extends JsonError {}

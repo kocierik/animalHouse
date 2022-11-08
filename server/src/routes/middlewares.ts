@@ -21,7 +21,7 @@ export const verifyToken = async (req: Request, res: Response, next: Function) =
         next()
       }
     })
-  } else res.sendStatus(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Authentication header not found"))
+  } else res.sendStatus(STATUS_UNAUTHORIZED).json(new JsonVisibilityError('Authentication header not found'))
 }
 
 export const verifyUser = (req: Request, res: Response, next: Function) => {
@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
   destination: Const.picDir,
   filename: (req: Request, _: any, cb: Function) => {
     cb(null, req.params.id)
-  }
+  },
 })
 
 const upload = multer({ storage: storage })
