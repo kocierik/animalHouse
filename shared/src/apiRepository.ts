@@ -1,6 +1,6 @@
 import { Api } from './api'
-import * as user from './json/user'
-import * as animal from './json/animal'
+import type * as user from './json/user'
+import type * as animal from './json/animal'
 import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
