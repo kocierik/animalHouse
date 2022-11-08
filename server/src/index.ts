@@ -10,8 +10,11 @@ import * as userRoutes from './routes/user-routes'
 import * as communityRoutes from './routes/community-routes'
 import * as marketRoutes from './routes/market-routes'
 import * as adminRoutes from './routes/admin-routes'
+import swaggerOptions from './swagger-config'
+import * as swagger from 'swagger-ui-express'
 import * as migrations from './initial-migrations'
 import * as Const from './const'
+import swaggerJsdoc from 'swagger-jsdoc'
 
 // Constants
 const app = express()
