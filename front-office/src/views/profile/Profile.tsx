@@ -17,8 +17,8 @@ const Profile = () => {
   const textValue = useRef<HTMLTextAreaElement>(null)
   const [openNewAnimal, setOpenNewAnimal] = useState(false)
   const sendImage = async () => {
-    if (file) {
-      const resp = await ApiRepository.putUserPicture(Helpers.getUserId(), file!)
+    if (file && Helpers.getUserId()) {
+      const resp = await ApiRepository.putUserPicture(Helpers.getUserId()!, file!)
       if (!resp.esit) console.log(resp, 'error sendImage')
       console.log(resp)
     }
@@ -64,10 +64,12 @@ const Profile = () => {
 
   const saveDescription = async () => {
     try {
-      let newUser = user
-      newUser!.description = textValue.current?.value!
-      const result = await ApiRepository.updateUserDescription(Helpers.getUserId(), newUser!)
-      console.log(result)
+      if(Helpers.getUserId()){
+        let newUser = user
+        newUser!.description = textValue.current?.value!
+        const result = await ApiRepository.updateUserDescription(Helpers.getUserId()!, newUser!)
+        console.log(result)
+      }
     } catch (error: any) {
       throw new Error("errore salvataggio descrizione -> ", error)
     }
