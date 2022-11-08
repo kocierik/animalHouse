@@ -7,20 +7,20 @@ const DefaultCard = (props: {setOpenNewAnimal : React.Dispatch<React.SetStateAct
   const animalAge = useRef<HTMLInputElement>(null)
   const animalImage = useRef<HTMLInputElement>(null)
   const saveAnimal = async () =>{
-    if(props.openNewAnimal && animalName.current?.value!){
+    if(props.openNewAnimal && animalName.current?.value! && Helpers.getUserId()){
       const defaultPicture : JsonAnimal.JsonPicture = {
         filename: "635c088531e05da80c7faf61",
         mimetype: "image/jpeg",
         size: 2766
       }
       const animal : JsonAnimal.JsonAnimal = {
-        userId: Helpers.getUserId().toString(),
+        userId: Helpers.getUserId()!.toString(),
         name: animalName.current?.value!,
         type: animalType.current?.value!,
         age: parseInt(animalAge.current?.value!),
         picture: null!
       }
-      await ApiRepository.registerAnimal(animal,Helpers.getUserId())
+      await ApiRepository.registerAnimal(animal,Helpers.getUserId()!)
       .catch(e => console.log("Errore aggiunta animale --> ", e))
       const newAnimals = [...props.allAnimals, animal]
       props.setUser({...props.user, animals: newAnimals} )

@@ -21,12 +21,14 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
     {
       name: 'delete',
       setting: async () => {
-        try {
-          await ApiRepository.deleteAnimal(Helpers.getUserId(), props.animal._id!)
-          const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
-          props.setUser({ ...props.user, animals: newAnimals })
-        } catch (error: any) {
-          throw new Error("errore salvataggio descrizione -> ", error)
+        if(Helpers.getUserId()){
+          try {
+            await ApiRepository.deleteAnimal(Helpers.getUserId()!, props.animal._id!)
+            const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
+            props.setUser({ ...props.user, animals: newAnimals })
+          } catch (error: any) {
+            throw new Error("errore salvataggio descrizione -> ", error)
+          }
         }
       }
     }
@@ -35,32 +37,36 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const [animals, setAnimals] = useState(settingAnimals)
 
   const saveChangesAnimal = async () => {
-    const defaultPicture: JsonAnimal.JsonPicture = {
-      filename: "635c088531e05da80c7faf61",
-      mimetype: "image/jpeg",
-      size: 2766
+    if(Helpers.getUserId()){
+      const defaultPicture: JsonAnimal.JsonPicture = {
+        filename: "635c088531e05da80c7faf61",
+        mimetype: "image/jpeg",
+        size: 2766
+      }
+      const changesAnimal: JsonAnimal.JsonAnimal = {
+        name: animalName.current?.value!,
+        type: animalType.current?.value!,
+        userId: Helpers.getUserId()!,
+        age: parseInt(animalAge.current?.value!),
+        picture: defaultPicture
+      }
+      await ApiRepository.editAnimal(Helpers.getUserId()!, props.animal._id!, changesAnimal)
+        .catch(e => console.log("Errore modifica animale --> ", e))
     }
-    const changesAnimal: JsonAnimal.JsonAnimal = {
-      name: animalName.current?.value!,
-      type: animalType.current?.value!,
-      userId: Helpers.getUserId(),
-      age: parseInt(animalAge.current?.value!),
-      picture: defaultPicture
-    }
-    await ApiRepository.editAnimal(Helpers.getUserId(), props.animal._id!, changesAnimal)
-      .catch(e => console.log("Errore modifica animale --> ", e))
   }
 
 
   const updateAnimalPhoto = async () => {
-    if (file) {
-      console.log(file)
-      const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId(), props.animal._id!, file))
-      console.log(resp)
-      if (resp) {
-        setImageProfileAnimal(resp?.data?.filename)
+    if(Helpers.getUserId()){
+      if (file) {
+        console.log(file)
+        const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId()!, props.animal._id!, file))
+        console.log(resp)
+        if (resp) {
+          setImageProfileAnimal(resp?.data?.filename)
+        }
+        setFile(undefined)
       }
-      setFile(undefined)
     }
     await getImage()
   }
