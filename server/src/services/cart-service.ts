@@ -35,10 +35,9 @@ export const deleteFromCart = async (cartId: string, productInstancesIds: string
   try {
     const cart = await Cart.findOne({ _id: cartId })
 
-    if (!cart)
-      throw new JsonError('Cart is empty')
+    if (!cart) throw new JsonError('Cart is empty')
 
-    const piids = productInstancesIds.map(x => new Types.ObjectId(x))
+    const piids = productInstancesIds.map((x) => new Types.ObjectId(x))
 
     // Get all product instance ids that are passed into the body of the call
     // but are not present into the cart
@@ -50,15 +49,13 @@ export const deleteFromCart = async (cartId: string, productInstancesIds: string
         )
     )
 
-    if (invalids.length !== 0)
-      throw new JsonError(`${invalids} are not product instances of this cart`)
+    if (invalids.length !== 0) throw new JsonError(`${invalids} are not product instances of this cart`)
 
     cart.productInstances = cart.productInstances.filter((pi) => !includesId(pi._id, piids))
     await cart.save()
     return cart as ICart
   } catch (err) {
-    if (err instanceof JsonError)
-      throw err
+    if (err instanceof JsonError) throw err
     throw new JsonError(err.message)
   }
 }

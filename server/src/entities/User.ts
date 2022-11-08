@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 import { IAnimal, animalSchema } from './Animal'
 
 export interface IUser {
-  _id: string,
+  _id: string
   username: string
   email: string
   password: string
@@ -12,19 +12,19 @@ export interface IUser {
   description: string
   phone: string
   address: IAddress
-  profilePicture?: IPicture 
+  profilePicture?: IPicture
 }
-export interface IPicture{
+export interface IPicture {
   filename: string
   mimetype: string
   size: number
 }
 
 export interface IAddress {
-    country: string
-    city: string
-    street: string
-    zip: number
+  country: string
+  city: string
+  street: string
+  zip: number
 }
 
 const picturesSchema = new Schema<IPicture>({
@@ -50,7 +50,7 @@ const userSchema = new Schema<IUser>({
   description: { type: String, required: false },
   animals: { type: [animalSchema], required: true, default: [] },
   address: { type: addressSchema },
-  profilePicture: {type: picturesSchema, required: false}
+  profilePicture: { type: picturesSchema, required: false },
 })
 
 const User = model<IUser>('User', userSchema)

@@ -43,8 +43,8 @@ db().catch((err) => console.log(err))
 
 // Backoffice
 const pubDir = resolve(__dirname + Const.BACKOFFICE_DIR)
-console.log("[INFO] Pub dir is at " + pubDir)
-app.use(express.static(pubDir));
+console.log('[INFO] Pub dir is at ' + pubDir)
+app.use(express.static(pubDir))
 
 // Log
 const log = (req: Request, _: Response, next: Function) => {
@@ -52,12 +52,11 @@ const log = (req: Request, _: Response, next: Function) => {
   next()
 }
 
-console.log("[INFO] Pictures dir is at " + Const.picDir)
-app.use(`${version}/pictures/`, log, express.static(Const.picDir));
+console.log('[INFO] Pictures dir is at ' + Const.picDir)
+app.use(`${version}/pictures/`, log, express.static(Const.picDir))
 
 // Swagger
 app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))
-
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)

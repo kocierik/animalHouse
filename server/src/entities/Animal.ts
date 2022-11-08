@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
-import { JsonPicture } from '../json/JsonUser';
-import { IPicture } from './User';
+import { JsonPicture } from '../json/JsonUser'
+import { IPicture } from './User'
 
 export interface IAnimal {
   _id: string

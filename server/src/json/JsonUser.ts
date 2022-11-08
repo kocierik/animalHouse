@@ -1,9 +1,9 @@
-import * as JsonAnimal from "./JsonAnimal"
+import * as JsonAnimal from './JsonAnimal'
 
 export interface JsonUserCreation {
   username: string
   password: string
-  email: string,
+  email: string
   firstName: string
   lastName: string
   country: string
@@ -14,20 +14,20 @@ export interface JsonUserCreation {
 
 export interface JsonUser {
   _id: string
-  username: string,
-  email: string,
-  firstName: string,
-  lastName: string,
+  username: string
+  email: string
+  firstName: string
+  lastName: string
   description: string
-  animals: JsonAnimal.JsonAnimal[],
+  animals: JsonAnimal.JsonAnimal[]
   address: JsonAddress
   profilePicture?: JsonPicture
 }
 
 export interface JsonAddress {
-  country: string,
-  city: string,
-  street: string,
+  country: string
+  city: string
+  street: string
   zip: number
 }
 
@@ -35,64 +35,64 @@ export interface JsonLogin {
   username: string
   password: string
 }
-export interface JsonPicture{
-  size: number,
+export interface JsonPicture {
+  size: number
   filename: string
   mimetype: string
 }
 
 export const SwaggerUser = {
-  type: "object",
+  type: 'object',
   properties: {
     id: {
-      type: "integer",
-      format: "int64"
+      type: 'integer',
+      format: 'int64',
     },
     username: {
-      type: "string"
+      type: 'string',
     },
     firstName: {
-      type: "string"
+      type: 'string',
     },
     lastName: {
-      type: "string"
+      type: 'string',
     },
     email: {
-      type: "string"
+      type: 'string',
     },
     phone: {
-      type: "string"
+      type: 'string',
     },
     pets: {
-      type: "array",
+      type: 'array',
       items: {
-        type: "object",
+        type: 'object',
         properties: {
           id: {
-            type: "integer"
+            type: 'integer',
           },
           name: {
-            type: "string"
-          }
-        }
-      }
+            type: 'string',
+          },
+        },
+      },
     },
     address: {
-      type: "object",
+      type: 'object',
       properties: {
         country: {
-          type: "string"
+          type: 'string',
         },
         city: {
-          type: "string"
+          type: 'string',
         },
         street: {
-          type: "string"
+          type: 'string',
         },
         zip: {
-          type: "integer"
-        }
-      }
-    }
-  }
+          type: 'integer',
+        },
+      },
+    },
+  },
 }
