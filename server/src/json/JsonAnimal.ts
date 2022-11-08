@@ -35,23 +35,3 @@ export const SwaggerAnimal = {
   }
 }
 
-export const SwaggerAnimal = {
-  type: "object",
-  properties: {
-    _id: {
-      type: "string"
-    },
-    name: {
-      type: "string"
-    },
-    type: {
-      type: "string"
-    },
-    userId: {
-      type: "string"
-    },
-    age: {
-      type: "number"
-    }
-  }
-}
