@@ -26,7 +26,7 @@ appRouter.put(version + '/users/:id/description', middlewares.log, middlewares.v
 appRouter.put(version + "/users/:id/picture", middlewares.log, middlewares.verifyToken, middlewares.verifyUser, middlewares.multerMiddleware('profile'), userRoutes.postPicture)
 appRouter.put(version + '/users/:id/animals', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.putAnimal)
 appRouter.delete(version + '/users/:uid/animals/:aid', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.deleteAnimal)
-//appRouter.put(version + '/users/:uid/animals/:aid', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.updateAnimal)
+appRouter.put(version + '/users/:uid/animals/:aid', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, userRoutes.updateAnimal)
 appRouter.put(version + '/users/:uid/animals/:id/picture', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, middlewares.multerMiddleware('profileAnimal'), userRoutes.putAnimalPicture)
 
 // Admins
