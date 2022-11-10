@@ -1,7 +1,9 @@
 //TODO FIX SOME ERRS ON ASYNC RESPONSE
+//TODO SEND IMAGE TO API
 
 $("#addProduct").click(function () {
-    var img = $('#grid-image').prop('files')[0];
+    //var img = $('#grid-image').prop('files')[0];
+    let img = document.getElementById("grid-image").files[0];
     if (img) {
         var headers = {
             "Content-Type": "application/json",
@@ -28,3 +30,18 @@ $("#addProduct").click(function () {
         });
     }
 });
+
+
+function showImage() {
+    var file = $('#grid-image').prop('files')[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        //console.log(reader.result);
+        document.getElementById("imageHere").innerHTML = "<img src='" + String(reader.result) + "'>";
+
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
