@@ -2,22 +2,17 @@ function retrieveProducts(target) {
     var url = "/v1/products/";
     fetch(url).then((response) => response.json()).then((data) => {
         $(target).text("");
-
         data.forEach(function (el) {
+            console.log(el)
             $(target).append([{ img: el.images[0], name: el.name, price: el.price, id: el._id, description: el.description }].map(Item));
         });
     });
 }
 function itemRemove(name, id) {
     if (confirm('Are you sure you want to remove the product ' + name + " | " + id + '?')) {
-        $.ajax({
-            url: "/v1/products/" + id,
-            type: 'DELETE',
-            success: function (result) {
-                //alert(result);
-                retrieveProducts('#itemList');
-            }
-        });
+        fetch("/v1/products/" + id, {
+            method: 'DELETE',
+        }).then(retrieveProducts("#itemList"))
     }
 }
 

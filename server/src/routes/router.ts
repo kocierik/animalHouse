@@ -118,6 +118,7 @@ appRouter.get(version + '/community/game/scoreboard', middlewares.log, community
 appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
+appRouter.put(version + '/products/:id/picture', middlewares.log, middlewares.multerMiddleware('product'), marketRoutes.putProductPicture) //put picture
 appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
