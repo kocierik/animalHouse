@@ -8,10 +8,8 @@ export const isValidGame = async (id: string): Promise<boolean> => {
 }
 
 export const findScore = async (userId: string, gameId?: string) => {
-  if (gameId)
-    return Score.find({ userId: userId, gameId: gameId })
-  else
-    return Score.find({ userId: userId })
+  if (gameId) return Score.find({ userId: userId, gameId: gameId })
+  else return Score.find({ userId: userId })
 }
 
 export const getScoreboardForGame = async (id: string) => {
@@ -35,7 +33,6 @@ export const getScoreboardForGame = async (id: string) => {
       userScoresMap.get(score.userId).push(score.value)
     }
 
-    console.log(userScoresMap)
     for (let [uId, scr] of userScoresMap) {
       let jss: JsonScoreboardScore = {
         userId: uId,
@@ -46,7 +43,6 @@ export const getScoreboardForGame = async (id: string) => {
       result.scores.push(jss)
     }
 
-    console.log(result)
     return result
   } else {
     throw `${id} is not a valid game id`
