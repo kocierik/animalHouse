@@ -55,4 +55,3 @@ npm start
 ```
 
 **NOTE:** The server will run on [localhost:8080](http://localhost:8080)
-**NOTE:** API documentation will be available at http://localhost:8080/api/docs/

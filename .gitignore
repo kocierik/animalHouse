@@ -41,7 +41,7 @@ server/.DS_Store
 server/node_modules
 server/mongo-volume/*
 server/out/*
-
+server/pictures
 # SHARED
 shared/node_modules
 shared/.DS_Store

@@ -1,18 +1,25 @@
 import { connect } from 'mongoose'
-import express from 'express'
-import { appRouter } from './routes/router'
-import swaggerJsdoc from 'swagger-jsdoc'
+import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { resolve } from 'path'
+import { appRouter } from './routes/router'
+import * as parser from 'body-parser'
+import * as animalRoutes from './routes/animal-routes'
+import * as middlewares from './routes/middlewares'
+import * as userRoutes from './routes/user-routes'
+import * as communityRoutes from './routes/community-routes'
+import * as marketRoutes from './routes/market-routes'
+import * as adminRoutes from './routes/admin-routes'
 import swaggerOptions from './swagger-config'
 import * as swagger from 'swagger-ui-express'
-import * as parser from 'body-parser'
 import * as migrations from './initial-migrations'
 import * as Const from './const'
+import swaggerJsdoc from 'swagger-jsdoc'
 
 // Constants
-export const app = express()
+const app = express()
 const port = Const.SERVER_PORT
+const version = Const.CURR_API_VERSION
 
 // App initialization
 app.use(parser.json())
@@ -36,13 +43,20 @@ db().catch((err) => console.log(err))
 
 // Backoffice
 const pubDir = resolve(__dirname + Const.BACKOFFICE_DIR)
-console.log("[INFO] Pub dir is at " + pubDir)
-app.use(express.static(pubDir));
+console.log('[INFO] Pub dir is at ' + pubDir)
+app.use(express.static(pubDir))
 
+// Log
+const log = (req: Request, _: Response, next: Function) => {
+  console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
+  next()
+}
+
+console.log('[INFO] Pictures dir is at ' + Const.picDir)
+app.use(`${version}/pictures/`, log, express.static(Const.picDir))
 
 // Swagger
 app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))
-
 
 app.listen(port, () => {
   console.log('[INFO] Server started at port ' + port)
