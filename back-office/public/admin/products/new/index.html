@@ -77,8 +77,9 @@
                                                             Select a photo</p>
                                                     </div>
                                                     <input id="grid-image" type="file" class="opacity-0"
-                                                        accept=".jpg, .png, .jpeg|image/*" />
+                                                        onchange="showImage()" accept=".jpg, .png, .jpeg|image/*" />
                                                 </label>
+                                                <div id="imageHere"></div>
                                             </div>
                                             <div class="flex flex-wrap -mx-3 m-6">
                                                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
