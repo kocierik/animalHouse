@@ -8,7 +8,6 @@ interface IReview {
   date: Date
 }
 
-
 const reviewSchema = new Schema<IReview>({
   username: { type: String, required: true },
   productId: { type: String, required: true },

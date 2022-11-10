@@ -1,0 +1,667 @@
+swagger: "2.0"
+info:
+  description: Animal houz back&.
+  version: 1.0.0
+  title: Swagger Petstore
+host: localhost:8080
+basePath: /v1
+tags:
+- name: store
+- name: users
+- name: animals 
+- name: community
+- name: products
+
+    
+schemes:
+- http
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: Gets all users
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+
+  /users/register:
+    post:
+      tags:
+      - users
+      summary: Create new user
+      parameters:
+      - in: body
+        name: body
+        description: UserCreation
+        required: true
+        schema:
+          type: object
+          properties:
+              username:
+                type: string
+              password:
+                type: string
+              email:
+                type: string
+              firstName:
+                type: string
+              lastName:
+                type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+  /users/login:
+    post:
+      tags:
+      - users
+      summary: Login as an user
+      parameters:
+      - in: body
+        name: body
+        description: login
+        required: true
+        schema:
+          type: object
+          properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Success  
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+  /users/current:
+    get:
+      tags:
+      - users
+      summary: Retrieve information about the current user
+      security:  
+        - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              _id:
+                type: string
+                
+  /users/{id}:
+    get:
+      tags:
+      - users
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Numeric ID of the user to get
+  
+      responses:
+        200:
+          description: ok
+          schema:
+            $ref: "#/definitions/User"
+  
+  /users/{id}/score:
+    get:
+      tags:
+      - users
+      summary: Get game scores of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Guid of the user
+        - in: query
+          name: gameId
+          type: string
+          required: false
+          description: Optional id of the game you want the result
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                  gameGuid:
+                    type: string
+                  score:
+                    type: number
+    put:
+      tags:
+      - users
+      summary: Add a game score to the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Guid of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+                gameId:
+                  type: string
+                score:
+                  type: number
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: object
+            properties:
+                gameGuid:
+                  type: string
+                score:
+                  type: number
+  /users/{id}/cart:
+    get:
+      tags:
+      - users
+      summary: Get the cart of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"
+    put:
+      tags:
+      - users
+      summary: Add a product to the cart of the specified user
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"  
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance" 
+    delete:
+      tags:
+      - users
+      summary: Delete a product from the cart of the specified user
+      description: Takes in the body a list of string representing the product instance ids you want to delete
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the user
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: array
+            items:
+              type:
+                string 
+      security:
+      - JWT: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ProductInstance"
+  /users/{id}/animals:
+    put:
+        tags:
+        - users
+        summary: Add an animal for the specified user
+        parameters:
+          - in: path
+            name: id
+            type: string
+            required: true
+            description: Id of the user
+          - in: body
+            name: body
+            required: true
+            schema:
+              type: array
+              items:
+                $ref: "#/definitions/Animal"
+        security:
+          - JWT: []
+        responses:
+          200:
+            description: ok
+            schema:
+              type: array
+              items:
+                $ref: "#/definitions/Animal" 
+  /animals/codes:
+    get:
+      tags:
+      - animals
+      summary: Finds all animal tags
+      responses:
+        200:
+          description: Ok
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+              value:
+                type: string
+  /animals/{id}:
+    get:
+      tags:
+      - animals
+      summary: Finds detail of an animal
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the animal
+      responses:
+          200:
+            description: successful operation
+            schema:
+              $ref: "#/definitions/Animal"
+          
+  /community/game/:
+    get:
+        tags:
+        - community
+        summary: Finds all games
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  _id:
+                    type: string
+  /community/game/scoreboard:
+    get:
+        tags:
+        - community
+        summary: Fids the results for the scoreboard
+        parameters:
+          - in: query
+            name: gameId
+            type: string
+            required: false
+            description: Optional id of the game you want the results
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                type: object
+                properties:
+                  gameId:
+                    type: string
+                  gameName:
+                    type: string
+                  scores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        userId:
+                          type: string
+                        score:
+                          type: array
+                          items:
+                            type: number
+  
+  /products/{id}:
+    get:
+        tags:
+        - products
+        summary: Searches the specified product
+        parameters:
+          - in: path
+            name: id
+            type: string
+            required: true
+            description: Id of the product to be searched
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                $ref: "#/definitions/Product"
+    delete:
+      tags:
+      - products
+      summary: Deletes a product based on the received id
+      parameters: 
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the product to be deleted
+      responses:
+        200:
+          description: successful operation
+
+  /products:
+    post:
+        tags:
+        - products
+        summary: Creates a new product
+        parameters:
+          - in: body
+            name: body
+            description: UserCreation
+            required: true
+            schema:
+              type: object
+              properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+                  email:
+                    type: string
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+        responses:
+          200:
+            description: Success
+
+
+
+
+
+  /products/{id}/reviews:
+    get:
+        tags:
+        - products
+        summary: Retrive reviews about a product
+        parameters:
+          - in: path
+            name: id
+            type: string
+            required: true
+            description: Id of the product to be searched
+        responses:
+          200:
+            description: successful operation
+            schema: 
+              type: array
+              items:
+                $ref: "#/definitions/Review"
+    delete:
+      tags:
+      - products
+      summary: Deletes a product based on the received id
+      parameters: 
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id of the product to be deleted
+      responses:
+        200:
+          description: successful operation
+    post:
+      tags:
+      - products
+      summary: Create a review
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Id of the product to be searched
+      - in: body
+        name: body
+        description: ReviewCreation
+        required: true
+        schema:
+          type: object
+          properties:
+              username:
+                type: string
+              productId:
+                type: string
+              comment:
+                type: string
+              star:
+                type: number
+              date:
+                type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Review"
+
+  /users/{id}/picture:
+    put:
+      tags:
+      - users
+      summary: Insert a profile image
+      consumes:
+         - multipart/form-data
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Id of user
+      - in: formData
+        name: profile
+        type: file
+        description: The picture to upload.
+      security:  
+        - JWT: []
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+          
+
+    
+securityDefinitions:  
+  JWT:  
+    type: apiKey  
+    in: header  
+    name: authorization 
+    
+    
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      username:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      pets:
+        type: array # todo
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+            name: 
+              type: string
+      address: 
+        type: object
+        properties:
+          country:
+            type: string
+          city:
+            type: string
+          street:
+            type: string
+          cap:
+            type: integer
+  Animal:
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      userId:
+        type: string
+      age:
+        type: number
+  
+  Product:
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      price:
+        type: number
+      categoryId:
+        type: string
+      image:
+        type: string
+      animalTargets:
+        type: array
+        items:
+          type: string
+      colors:
+        type: array
+        items:
+          type: string
+      sizes:
+        type: array
+        items:
+          type: string
+      details:
+        type: string
+
+  ProductInstance:
+    type: object
+    required:
+      - productId
+    properties:
+      productId:
+        type: string
+      color:
+        type: string
+      size:
+        type: string
+      type:
+        type: string
+  
+  Review:
+    type: object
+    properties:
+      _id:
+        type: string
+      username:
+        type: string
+      productId:
+        type: string
+      comment:
+        type: string
+      star:
+        type: number
+      date:
+        type: string
+  
+  Shop:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      address: 
+        type: object
+        properties:
+          country:
+            type: string
+          city:
+            type: string
+          street:
+            type: string
+          cap:
+            type: integer
+      products:
+        type: array
+        items:
+          type: object
+          properties:
+            productId:
+              type: integer
+            quantity:
+              type: integer

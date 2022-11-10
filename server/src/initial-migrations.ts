@@ -7,36 +7,56 @@ import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
 import Admin from './entities/Admin'
+import Animal from './entities/Animal'
 
 export const test = async () => {
   await User.deleteMany()
   await User.insertMany([
     {
-      email: "mattia@ah.com",
-      username: "mattia",
-      password: "mattia",
-      firstName: "mattia",
-      lastName: "girolimetto",
-      phone: "3333333333"
+      email: 'mattia@ah.com',
+      username: 'mattia',
+      password: 'mattia',
+      firstName: 'mattia',
+      lastName: 'girolimetto',
+      phone: '3333333333',
+      description: 'ciao',
+      profilePicture: null,
+      animals: [],
     },
     {
-      email: "man@ah.com",
-      username: "erikMan",
-      password: "erik",
-      firstName: "erik",
-      lastName: "koci",
-      phone: "3333333333"
+      _id: new Types.ObjectId('635c088531e05da80c7faf61'),
+      email: 'man@ah.com',
+      username: 'erikMan',
+      password: 'erik',
+      firstName: 'erik',
+      lastName: 'koci',
+      description: 'ciao',
+      phone: '3333333333',
+      profilePicture: null,
+      animals: [
+        {
+          _id: new Types.ObjectId('635c088531e05da80c7faf6a'),
+          age: 20,
+          name: 'Stefano Volpe',
+          type: 'fox',
+          userId: '635c088531e05da80c7faf61',
+          picture: null,
+        },
+      ],
     },
     {
-      email: "lele@ah.com",
-      username: "lele",
-      password: "gabriele",
-      firstName: "gabriele",
-      lastName: "crestanello",
-      phone: "3333333333"
+      email: 'lele@ah.com',
+      username: 'lele',
+      password: 'gabriele',
+      firstName: 'gabriele',
+      lastName: 'crestanello',
+      phone: '3333333333',
+      description: 'ciao',
+      profilePicture: null,
+      animals: [],
     },
-  ]
-  )
+  ])
+
   await Product.deleteMany()
   await Product.insertMany([
     {
@@ -77,9 +97,9 @@ export const initAdmin = async () => {
   await Admin.deleteMany()
   await Admin.insertMany([
     {
-      username: "admin",
-      password: "secret"
-    }
+      username: 'admin',
+      password: 'secret',
+    },
   ])
 }
 
