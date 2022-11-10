@@ -23,4 +23,3 @@ const constructAuthDataForAdmin = async (username: string, password: string): Pr
     id: result[0]._id.toString(),
   } as AuthData
 }
-

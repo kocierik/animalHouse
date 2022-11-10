@@ -14,9 +14,18 @@ export interface JsonUser {
   firstName: string,
   lastName: string,
   phone: string,
+  description: string
   animals: JsonAnimal.JsonAnimal[],
-  address: JsonAddress
+  address: JsonAddress,
+  profilePicture?: JsonPicture
 }
+
+export interface JsonPicture {
+  size: number,
+  filename: string
+  mimetype: string
+}
+
 
 export interface JsonAddress {
   country: string,

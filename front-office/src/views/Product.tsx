@@ -11,8 +11,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function Product() {
-  const [selectedColor, setSelectedColor] = useState("")
-  const [selectedSize, setSelectedSize] = useState("")
+  const [selectedColor, setSelectedColor] = useState('')
+  const [selectedSize, setSelectedSize] = useState('')
   const [prod, setProd] = useState<ProductMarked.IProductMarked>()
   const [productColor, setProductColor] = React.useState<string[]>([])
   const [post, setPost] = useState<boolean>(null!)
@@ -54,11 +54,10 @@ export default function Product() {
 
   return (
     <>
-      <div className="bg-white"  >
+      <div className="bg-white">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
-
               <li key={prod?._id}>
                 <div className="flex items-center">
                   <a className="mr-2 text-sm font-medium text-gray-900">
@@ -89,17 +88,16 @@ export default function Product() {
           {/* Image gallery */}
           <div className="mt-6 max-w-xl mx-auto sm:px-6 lg:max-w-4xl lg:px-4 lg:grid lg:grid-cols-2 p-5 lg:gap-x-8">
             <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
-              <img
-                src={prod?.images[0]}
-                alt={prod?.name}
-                className="w-full h-full object-center object-cover"
-              />
+              <img src={prod?.images[0]} alt={prod?.name} className="w-full h-full object-center object-cover" />
             </div>
 
             {/* Options */}
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <h2 className="sr-only">Product information</h2>
-              <span className="text-3xl text-gray-900"> <p className='pb-5'>{prod?.name}</p> <p className='text-2xl'>Price: {prod?.price}$</p></span>
+              <span className="text-3xl text-gray-900">
+                {' '}
+                <p className="pb-5">{prod?.name}</p> <p className="text-2xl">Price: {prod?.price}$</p>
+              </span>
 
               {/* Reviews */}
               <div className="mt-6">
@@ -202,7 +200,11 @@ export default function Product() {
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">Description</h1>
             </div>
-            <div data-aos="fade-up" data-aos-duration="500" className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+            <div
+              data-aos="fade-up"
+              data-aos-duration="500"
+              className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8"
+            >
               {/* Description and details */}
               <div>
                 <h3 className="sr-only">Description</h3>
@@ -216,11 +218,12 @@ export default function Product() {
                 <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Highlights</h3>
                 <div className="mt-4">
                   <ul role="list" className="pl-10 list-disc text-sm space-y-3">
-                    {prod && prod.highlights?.map((highlight) => (
-                      <li key={highlight} className="text-gray-400">
-                        <span className="text-gray-600">{highlight}</span>
-                      </li>
-                    ))}
+                    {prod &&
+                      prod.highlights?.map((highlight) => (
+                        <li key={highlight} className="text-gray-400">
+                          <span className="text-gray-600">{highlight}</span>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>
