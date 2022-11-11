@@ -5,6 +5,7 @@ import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
 import type * as review from './json/Review'
+import type * as cart from "./json/Cart"
 import { stringFormat } from './helpers'
 
 // Server api urls
@@ -20,7 +21,7 @@ const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
 const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
 const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
-
+const _USER_CART = '/users/{0}/cart'
 const _PICTURES = '/pictures/{0}'
 
 const _ANIMAL_CODES = '/animals/codes'
@@ -93,5 +94,9 @@ export const updateUserDescription = async (userId: string, updateUser: user.Jso
 
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
   Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
+
+export const putCart = async (userId: string, product : cart.IProductInstance) =>
+  Api.put<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product],true)
+
 
 // TODO insert here other calls!!!!
