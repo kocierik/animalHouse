@@ -22,8 +22,11 @@ export const createCartIfNotExists = async (userId: string): Promise<ICart> => {
 
 export const addToCart = async (cart: ICart, products: IProductInstance[]) => {
   try {
-    const pis = cart.productInstances.concat(products)
-    await Cart.updateOne({ _id: cart.userId }, { productInstances: pis })
+    cart.productInstances.push(products[0])
+    const cartUser = await Cart.find({userId: cart.userId.toString()})
+    cartUser[0].productInstances.push(products[0])
+    await Cart.updateMany({ userId: cart.userId.toString() }, { productInstances: cartUser[0].productInstances })
+    return cartUser[0].productInstances
   } catch (err) {
     throw new JsonError(err.message)
   }
