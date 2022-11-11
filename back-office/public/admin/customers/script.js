@@ -8,7 +8,7 @@ function retrieveUsers(target) {
         $(target).text("");
 
         data.forEach(function (el) {
-            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el.id, email: el.email, phone: el.phone, address: el.address }].map(Item));
+            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, phone: el.phone, address: el.address }].map(Item));
         });
     });
 }

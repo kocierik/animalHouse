@@ -21,17 +21,15 @@ function retrieveUser(id) {
         headers: {
             'authorization': localStorage.token
         }
-    }).then((response) => response.json()).then((data) => {
-        data.forEach(function (el) {
-            console.log(el);
-            $("#grid-prod-name").val(el.firstName);
-            $("#grid-price").val(el.price);
-            $("#grid-category").val(el.categoryId);
-            $("#grid-description").val(el.username);
-            //$("#grid-quantity").val(el.stock); TODO
-            $("#imgPlaceholder").attr("src", el.image);
-
-        });
+    }).then((response) => response.json()).then((el) => {
+        console.log(el);
+        $("#grid-firstName").val(el.firstName);
+        $("#grid-lastName").val(el.lastName);
+        $("#grid-category").val(el.categoryId);
+        $("#grid-description").val(el.description);
+        $("#grid-email").val(el.email);
+        $("#grid-username").val(el.username);
+        $("#imgplaceholder").attr("src", "/favicon.ico");
     });
 }
 
@@ -42,6 +40,17 @@ $(document).ready(function () {
     }
 });
 
+function showImage() {
+    var file = $('#grid-image').prop('files')[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        $("#imgplaceholder").attr("src", String(reader.result))
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
 //TODO FIX SOME ERRS ON ASYNC RESPONSE
 
 $("#addProduct").click(function () {
@@ -54,12 +63,9 @@ $("#addProduct").click(function () {
             "Access-Control-Origin": "*"
         }
         var data = {
-            "name": $("#grid-prod-name").val(),
-            "price": $("#grid-price").val(),
-            "categoryId": $("#grid-category").val(),
+            "firstName": $("#grid-firstName").val(),
+            "secondName": $("#grid-secondName").val(),
             "description": $("#grid-description").val(),
-            "animalTargets": [],
-            "image": "/public/products/" + getUrlParameter('id') + ".jpg"
         };
         console.log(data);
         /*fetch("/v1/products", {
