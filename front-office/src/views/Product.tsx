@@ -55,6 +55,11 @@ export default function Product() {
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
 
   const addToCart = async () => {
+    if(!selectedSize || !selectedColor){
+      toast.warn('You should select a size and a color!', {position: toast.POSITION.TOP_CENTER})
+      return
+    }
+
     if(Helpers.getUserId()){
       const product : ProductMarked.JsonProductInstance = {
         productId: prod?._id!,
@@ -66,7 +71,7 @@ export default function Product() {
       const resp = await ApiRepository.putCart(Helpers.getUserId()!,product)
       console.log(resp)
       toast.success("Product addded to cart", {position: toast.POSITION.TOP_CENTER})
-    } else toast.warn('You should leave a star!', {position: toast.POSITION.TOP_CENTER})
+    } else toast.warn('You should login first!', {position: toast.POSITION.TOP_CENTER})
 
   }
 
