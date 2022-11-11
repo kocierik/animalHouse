@@ -4,7 +4,8 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
+import { ApiRepository, ProductMarked, ProductConstant, JsonReview, Helpers,  } from 'shared';
+import { toast } from 'react-toastify';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -46,11 +47,28 @@ export default function Product() {
   useEffect(() => {
     setSelectedColor(prod?.colors![0]!)
     fetchProduct(id)
+    console.log(selectedColor)
     fetchReview(id)
   }, [])
 
 
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
+
+  const addToCart = async () => {
+    if(Helpers.getUserId()){
+      const product : ProductMarked.JsonProductInstance = {
+        productId: prod?._id!,
+        color: selectedColor,
+        type: ProductConstant.PRODUCT_TYPE[prod?.categoryId as string],
+        size: selectedSize,
+        price: prod?.price!
+      }
+      const resp = await ApiRepository.putCart(Helpers.getUserId()!,product)
+      console.log(resp)
+      toast.success("Product addded to cart", {position: toast.POSITION.TOP_CENTER})
+    } else toast.warn('You should leave a star!', {position: toast.POSITION.TOP_CENTER})
+
+  }
 
   return (
     <>
@@ -137,7 +155,7 @@ export default function Product() {
                                 key={color}
                                 value={color}
                                 style={{ backgroundColor: color }}
-                                onClick={(() => { setSelectedColor(color); console.log(selectedColor) })}
+                                onClick={(() => { setSelectedColor(color); })}
                                 className={({ active, checked }) =>
                                   classNames(
                                     active || checked ? 'ring-2 bg-white' : '',
@@ -170,7 +188,7 @@ export default function Product() {
                             <RadioGroup.Option
                               key={size}
                               value={size}
-                              onClick={(() => setSelectedSize(size))}
+                              onClick={(() => {setSelectedSize(size) })}
                               className={({ active }) =>
                                 classNames(
                                   active ? "ring-1 bg-green-400 " : "",
@@ -187,6 +205,7 @@ export default function Product() {
 
                 <button
                   type="button"
+                  onClick={async () => addToCart() }
                   className="mt-10 ring-1 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Add to bag
