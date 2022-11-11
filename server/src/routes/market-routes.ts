@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { JsonProduct, JsonPicture } from '../json/JsonProduct'
+import { JsonProduct } from '../json/JsonProduct'
 import JsonError from '../json/JsonError'
 import * as Const from '../const'
 import * as ProductService from '../services/product-service'

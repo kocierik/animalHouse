@@ -38,7 +38,7 @@ function showImage() {
     reader.readAsDataURL(file);
     reader.onload = function () {
         //console.log(reader.result);
-        document.getElementById("imageHere").innerHTML = "<img src='" + String(reader.result) + "'>";
+        document.getElementById("imgplaceholder").innerHTML = "<img src='" + String(reader.result) + "'>";
 
     };
     reader.onerror = function (error) {
