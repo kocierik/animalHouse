@@ -14,3 +14,10 @@ export interface IProductMarked{
   details?: string
 }
 
+export interface JsonProductInstance{
+  productId: string
+  color?: string
+  type?: string
+  size?: string
+  price: number
+}
