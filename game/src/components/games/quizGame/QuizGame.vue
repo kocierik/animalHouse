@@ -130,7 +130,7 @@ onBeforeMount(async () => {await fetchQuestions()})
           <!-- Questions -->
           <div v-if="progress < _COUNT && questions && questions[progress]">
             <p class="text-center font-bold mb-4">{{progress + 1}} of {{_COUNT}}</p>
-            <p class="text-2xl font-bold"> {{questions[progress].question}}</p>
+            <p class="text-2xl font-bold" v-html="questions[progress].question" />
             <div v-for="(answer, index) of questions[progress].answers" class="mt-4">
               <label
                 :key="index"
@@ -146,7 +146,7 @@ onBeforeMount(async () => {await fetchQuestions()})
                   class="mr-3"
                 />
 
-                <span>{{ answer }}</span>
+                <span v-html="answer"/>
               </label>
             </div>
             <div class="mt-6 flow-root">
