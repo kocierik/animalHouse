@@ -32,12 +32,14 @@ export const addToCart = async (cart: ICart, products: IProductInstance[]) => {
   }
 }
 
-export const findCartOfUser = (id: string) => Cart.findOne({ userId: id })
+export const findCartOfUser = async (id: string) => {
+  return await Cart.findOne({ userId: id })
+}
 
 export const deleteFromCart = async (cartId: string, productInstancesIds: string[]): Promise<ICart> => {
   try {
     const cart = await Cart.findOne({ _id: cartId })
-
+    
     if (!cart) throw new JsonError('Cart is empty')
 
     const piids = productInstancesIds.map((x) => new Types.ObjectId(x))
