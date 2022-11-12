@@ -98,5 +98,8 @@ export const getMarketProductsReviewsSumUp = async (productId: string) =>
 export const putCart = async (userId: string, product : cart.IProductInstance) =>
   Api.put<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product],true)
 
+export const getCart = async (userId: string) =>
+  Api.get<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART, userId),true)
+
 
 // TODO insert here other calls!!!!
