@@ -28,6 +28,7 @@ const generateCards = async ()=> {
     cards.value.push({id: id+1, image: pic, selected: false, guessed: false}) 
     id += 2
   }
+  //cards.value.sort(() => Math.random() - 0.5)
 }
 
 const getOtherSelected = (current: number) => {
@@ -82,7 +83,8 @@ const showWinMessage = async () => {
             title: 'Good job!',
             text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
             icon: 'success',
-            buttons: [true],
+            // @ts-ignore
+            buttons: true,
             dangerMode: false,
             })
     if (willSave) {

@@ -10,6 +10,8 @@ module.exports = {
         text: '#34393e',
         dyellow: '#f6ef31',
         dgreen: '#364545',
+        wrong: '#f8afa6',
+        right: '#a3ebb1',
       },
     },
   },

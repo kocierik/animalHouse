@@ -25,12 +25,18 @@ interface QuizQuestion {
   reveled: boolean
 }
 
-const _COUNT = 5
-const _URL = "https://opentdb.com/api.php?amount=5&category=27&type=multiple&difficulty=medium"
+const _COUNT = 4
+const _URL = `https://opentdb.com/api.php?amount=${_COUNT}&category=27&type=multiple&difficulty=medium`
 
 const questions = ref<QuizQuestion[]>()
 const progress = ref<number>(0)
 const correct = ref<number>(0)
+
+const playAgain = () => {
+  progress.value = 0
+  correct.value = 0
+  fetchQuestions()
+}
 
 const fetchQuestions = async () => {
     questions.value = []
@@ -43,12 +49,12 @@ const fetchQuestions = async () => {
   }
 
 const mapQuestion = (q : ApiQuestion, id: number) : QuizQuestion => {
-  const x = Math.random() % 4 
-  const answers = q.incorrect_answers.splice(x, 0, q.correct_answer)
+  const x = Math.floor(Math.random() * 4);
+  q.incorrect_answers.splice(x, 0, q.correct_answer)
   return {
     id: id,
     question: q.question,
-    answers: answers,
+    answers: q.incorrect_answers, 
     correct: x,
     reveled: false
   }
@@ -60,7 +66,8 @@ const showResults = () => {
       title: 'Good job!',
       text: `You have response correctly to ${correct.value} answers! Do you want save your record?`,
       icon: 'warning',
-      buttons: [true],
+      // @ts-ignore
+      buttons: true,
       dangerMode: false,
     }).then(async (willSave) => {
       if (willSave) {
@@ -100,8 +107,13 @@ const answered = (id: number, guess: number) => {
 
 const goToNextQuestion = () => {
   progress.value++
-  if (progress.value >= _COUNT) {
-    showResults()
+}
+
+const getAnswerColor = (q: QuizQuestion, index: number) => {
+  if (q.reveled) {
+    return q.correct === index? "bg-right" : "bg-wrong"
+  } else {
+    return "bg-white"
   }
 }
 
@@ -117,39 +129,38 @@ onBeforeMount(async () => {await fetchQuestions()})
 
           <!-- Questions -->
           <div v-if="progress < _COUNT && questions && questions[progress]">
+            <p class="text-center font-bold mb-4">{{progress + 1}} of {{_COUNT}}</p>
             <p class="text-2xl font-bold"> {{questions[progress].question}}</p>
-            <label
-              v-for="[answer, index] in questions[progress].answers"
-              :key="index"
-              :for="index"
-              ref="items"
-              :class="'block cursor-pointer mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg ' +
-                questions[progress].reveled 
-                ? (questions[progress].correct === Number(index)? 'bg-green' : 'bg-red')
-                : 'bg-white'">
+            <div v-for="(answer, index) of questions[progress].answers" class="mt-4">
+              <label
+                :key="index"
+                :for="index.toString()"
+                :class="'cursor-pointer block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg ' + getAnswerColor(questions[progress], index) " >
 
-              <input
-                :id="index"
-                type="radio"
-                class="hidden"
-                :value="index"
-                @change="answered(questions[progress].id, Number(index))"
-              />
+                <input
+                  :id="index.toString()"
+                  type="radio"
+                  :value="index"
+                  hidden="true"
+                  @click="answered(questions[progress].id, Number(index))"
+                  class="mr-3"
+                />
 
-              <span>{{ answer }}</span>
-            </label>
+                <span>{{ answer }}</span>
+              </label>
+            </div>
             <div class="mt-6 flow-root">
               <button
                 @click="goToNextQuestion"
-                v-show="progress < _COUNT - 1"
-                class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2"
+                v-show="progress < _COUNT - 1 && questions[progress].reveled"
+                class="float-right bg-dyellow text-black text-sm font-bold tracking-wide rounded-full px-5 py-2"
               >
                 Next &gt;
               </button>
               <button
-                @click="showResults"
-                v-show="progress < _COUNT - 1"
-                class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2"
+                @click="goToNextQuestion();showResults()"
+                v-show="progress === _COUNT - 1"
+                class="float-right bg-dyellow text-black text-sm font-bold tracking-wide rounded-full px-5 py-2"
               >
                 Finish
               </button>
@@ -157,21 +168,22 @@ onBeforeMount(async () => {await fetchQuestions()})
           </div>
 
           <!-- END -->
-          <div v-else>
-            <h2 class="text-bold text-3xl">Results</h2>
+          <div v-if="progress === _COUNT">
+            <h2 class="text-bold text-black text-3xl">Results</h2>
             <div class="flex justify-start space-x-4 mt-6">
               <p>
                 Correct Answers:
-                <span class="text-2xl text-green-700 font-bold">{{ correct }}</span>
+                <span class="text-2xl text-lime-500 font-bold">{{ correct }}</span>
               </p>
               <p>
                 Wrong Answers:
-                <span class="text-2xl text-red-700 font-bold">{{ _COUNT - correct }}</span>
+                <span class="text-2xl text-red-500 font-bold">{{ _COUNT - correct }}</span>
               </p>
             </div>
             <div class="mt-6 flow-root">
               <button
-                class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2"
+                @click="playAgain"
+                class="float-right bg-dyellow text-black text-sm font-bold tracking-wide rounded-full px-5 py-2"
               >
                 Play again
               </button>
