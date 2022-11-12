@@ -16,6 +16,8 @@ export interface IProductMarked{
 
 export interface JsonProductInstance{
   productId: string
+  name: string
+  images: string[]
   color?: string
   type?: string
   size?: string

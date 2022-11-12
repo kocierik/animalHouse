@@ -63,6 +63,8 @@ export default function Product() {
     if(Helpers.getUserId()){
       const product : ProductMarked.JsonProductInstance = {
         productId: prod?._id!,
+        name: prod?.name!,
+        images: prod?.images!,
         color: selectedColor,
         type: ProductConstant.PRODUCT_TYPE[prod?.categoryId as string],
         size: selectedSize,
