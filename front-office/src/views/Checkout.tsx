@@ -39,17 +39,17 @@ const Checkout = () => {
   return (
     <>
       <main
-        data-aos="fade-up"
+        data-aos="zoom-in"
         data-aos-duration="500"
         className="lg:overflow-hidden lg:flex lg:flex-row-reverse"
       >
         <h1 className="sr-only">Checkout</h1>
 
         {/* Mobile order summary */}
-        <section aria-labelledby="order-heading" className="bg-gray-50 px-4 py-3 sm:px-6 lg:hidden">
+        <section aria-labelledby="order-heading" className="bg-gray-50 px-4 pt-10 sm:px-6 lg:hidden" data-aos="zoom-in"
+        data-aos-duration="500">
           <Disclosure as="div" className="max-w-lg mx-auto">
-            {({ open }) => (
-              <>
+            <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div>
                 <Disclosure.Panel>
                   <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
                     {cart?.map((product,i) => (
@@ -82,16 +82,16 @@ const Checkout = () => {
                     ))}
                   </ul>
                 </Disclosure.Panel>
-              </>
-            )}
           </Disclosure>
         </section>
 
         {/* Order summary */}
-        <section aria-labelledby="summary-heading" className=" bg-gray-50 pt-5 w-full max-w-md flex-col lg:flex">
+        <section aria-labelledby="summary-heading" className=" bg-gray-50 w-full max-w-md flex-col lg:flex" data-aos="zoom-in"
+        data-aos-duration="500">
           {/* <h2 id="summary-heading" className="flex text-xl justify-center mt-5">
             Order summary
           </h2> */}
+            {/* <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div> */}
 
           <ul role="list" className="flex-auto overflow-y-auto divide-y divide-gray-200 px-6">
             {cart?.map((product,i) => (
@@ -140,13 +140,14 @@ const Checkout = () => {
 
         {/* Checkout form */}
         <section
-          aria-labelledby="payment-heading"
+          aria-labelledby="payment-heading" data-aos="zoom-in"
           className="flex-auto overflow-y-auto px-4 pt-12 pb-16 sm:px-6 sm:pt-16 lg:px-8 lg:pt-0 lg:pb-24"
         >
           <div className="max-w-lg mx-auto">
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mt-5">Checkout </h1>
 
-            <form className="mt-5 p-5">
+            <form className="mt-5 p-5" data-aos="zoom-in"
+        data-aos-duration="500">
               <div className="grid grid-cols-12 gap-y-6 gap-x-4">
                 <div className="col-span-full">
                   <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
