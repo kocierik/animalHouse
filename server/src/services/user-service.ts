@@ -115,7 +115,7 @@ export const getUserProducts = async (userId: string) => {
   return promises ? await Promise.all(promises) : [] // The empty cart
 }
 
-export const deleteFromUserCart = async (userId: string, piids: string[]) => {
+export const deleteFromUserCart = async (userId: string, piids: string) => {
   const cart = await CartService.findCartOfUser(userId)
   await CartService.deleteFromCart(cart.id, piids)
   return getUserProducts(userId)
