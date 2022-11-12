@@ -4,6 +4,8 @@ import { Types } from 'mongoose'
 export interface IProductInstance {
   _id: Types.ObjectId
   productId: string
+  name: string
+  images: string[]
   price: number
   color?: string
   type?: string
@@ -17,6 +19,8 @@ export interface ICart {
 
 const productCountSchema = new Schema<IProductInstance>({
   productId: { type: String, required: true },
+  name: { type: String, required: true },
+  images: { type: [String], required: false },
   price: { type: Number, required: true },
   color: { type: String, required: false },
   type: { type: String, required: false },
