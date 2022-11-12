@@ -29,10 +29,10 @@ const Checkout = () => {
     }
   }
 
-  const getTotalPrice = () => {
+  const getTotalPrice = (shipping : number = 0) => {
     return cart?.reduce((accumulator, value) => {
                       return accumulator + value.price;
-                    }, 0)
+                    }, shipping)
   }
 
 
@@ -41,24 +41,15 @@ const Checkout = () => {
       <main
         data-aos="fade-up"
         data-aos-duration="500"
-        className="lg:min-h-full lg:overflow-hidden lg:flex lg:flex-row-reverse"
+        className="lg:overflow-hidden lg:flex lg:flex-row-reverse"
       >
         <h1 className="sr-only">Checkout</h1>
 
         {/* Mobile order summary */}
-        <section aria-labelledby="order-heading" className="bg-gray-50 px-4 py-6 sm:px-6 lg:hidden">
+        <section aria-labelledby="order-heading" className="bg-gray-50 px-4 py-3 sm:px-6 lg:hidden">
           <Disclosure as="div" className="max-w-lg mx-auto">
             {({ open }) => (
               <>
-                <div className="flex items-center justify-between">
-                  <h2 id="order-heading" className="text-lg font-medium text-gray-900">
-                    Your Order
-                  </h2>
-                  <Disclosure.Button className="font-medium text-gray-700 hover:text-gray-500">
-                    {open ? <span>Hide full summary</span> : <span>Show full summary</span>}
-                  </Disclosure.Button>
-                </div>
-
                 <Disclosure.Panel>
                   <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
                     {cart?.map((product,i) => (
@@ -91,21 +82,16 @@ const Checkout = () => {
                     ))}
                   </ul>
                 </Disclosure.Panel>
-
-                <p className="flex items-center justify-between text-sm font-medium text-gray-900 border-t border-gray-200 pt-6 mt-6">
-                  <span className="text-base">Total:</span>
-                  <span className="text-base">{getTotalPrice()}$</span>
-                </p>
               </>
             )}
           </Disclosure>
         </section>
 
         {/* Order summary */}
-        <section aria-labelledby="summary-heading" className="hidden bg-gray-50 w-full max-w-md flex-col lg:flex">
-          <h2 id="summary-heading" className="sr-only">
+        <section aria-labelledby="summary-heading" className=" bg-gray-50 pt-5 w-full max-w-md flex-col lg:flex">
+          {/* <h2 id="summary-heading" className="flex text-xl justify-center mt-5">
             Order summary
-          </h2>
+          </h2> */}
 
           <ul role="list" className="flex-auto overflow-y-auto divide-y divide-gray-200 px-6">
             {cart?.map((product,i) => (
@@ -132,8 +118,6 @@ const Checkout = () => {
                 </div>
               </li>
             ))}
-          </ul>
-
           <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
             <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
               <div className="flex justify-between">
@@ -141,15 +125,17 @@ const Checkout = () => {
                 <dd className="text-gray-900">{getTotalPrice()}$</dd>
               </div>
               <div className="flex justify-between">
-                {/* <dt>Shipping</dt>
-                <dd className="text-gray-900">{shipping}</dd> */}
+                <dt>Shipping</dt>
+                <dd className="text-gray-900">10$</dd>
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
                 <dt className="text-base">Total:</dt>
-                <dd className="text-base">{getTotalPrice()}$</dd>
+                <dd className="text-base">{getTotalPrice(10)}$</dd>
               </div>
             </dl>
           </div>
+          </ul>
+
         </section>
 
         {/* Checkout form */}
@@ -302,7 +288,7 @@ const Checkout = () => {
                 type="submit"
                 className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Pay {getTotalPrice()}$
+                Pay {getTotalPrice(10)}$
               </button>
             </form>
           </div>
