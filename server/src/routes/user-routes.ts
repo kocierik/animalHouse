@@ -331,7 +331,8 @@ export const putCart = async (req: Request, res: Response) => {
  * */
 export const getCart = async (req: Request, res: Response) => {
   try {
-    return res.status(Const.STATUS_OK).json(await UserService.getUserProducts(req.param.id))
+    const id = req.params.id
+    return res.status(Const.STATUS_OK).json(await UserService.getUserProducts(id))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
@@ -375,6 +376,7 @@ export const deleteCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const piIds = req.body as string[]
+    console.log("piIds --> ", piIds)
     return res.status(Const.STATUS_OK).json(await UserService.deleteFromUserCart(pathId, piIds))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
