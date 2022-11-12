@@ -18,6 +18,8 @@ const moves = ref<number>(0)
 
 const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
+const findIndex = (id: number): number => cards.value.findIndex(c => c.id === id)
+
 const generateCards = async ()=> {
   moves.value = 0
   cards.value = []
@@ -28,7 +30,7 @@ const generateCards = async ()=> {
     cards.value.push({id: id+1, image: pic, selected: false, guessed: false}) 
     id += 2
   }
-  //cards.value.sort(() => Math.random() - 0.5)
+  cards.value.sort(() => Math.random() - 0.5)
 }
 
 const getOtherSelected = (current: number) => {
@@ -41,12 +43,12 @@ const areTweens = (id1: number, id2: number) => Math.trunc(id1 / 2) === Math.tru
 
 const onCardSelected = async (id: number) => {
   // Check if the card could be clicked
-  if (cards.value[id].selected || cards.value[id].guessed) 
+  if (cards.value[findIndex(id)].selected || cards.value[findIndex(id)].guessed) 
     return
 
   moves.value++
   // Make it visible
-  cards.value[id].selected = true
+  cards.value[findIndex(id)].selected = true
 
   const other = getOtherSelected(id)
 
@@ -57,21 +59,21 @@ const onCardSelected = async (id: number) => {
 
   if (areTweens(id, other)) {
     // Mark as guessed
-    cards.value[id].guessed = true 
-    cards.value[other].guessed = true 
+    cards.value[findIndex(id)].guessed = true 
+    cards.value[findIndex(other)].guessed = true 
 
     if (hasWon()) {
       await showWinMessage()
     } else {
       // Continue the game
-      cards.value[id].selected = false
-      cards.value[other].selected = false
+      cards.value[findIndex(id)].selected = false
+      cards.value[findIndex(other)].selected = false
     }
   } else {
     // Hide them both
     await sleep(1000)
-    cards.value[id].selected = false
-    cards.value[other].selected = false
+    cards.value[findIndex(id)].selected = false
+    cards.value[findIndex(other)].selected = false
   }
 }
 
