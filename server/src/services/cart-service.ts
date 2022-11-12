@@ -36,27 +36,11 @@ export const findCartOfUser = async (id: string) => {
   return await Cart.findOne({ userId: id })
 }
 
-export const deleteFromCart = async (cartId: string, productInstancesIds: string[]): Promise<ICart> => {
+export const deleteFromCart = async (cartId: string, productInstancesIds: string): Promise<ICart> => {
   try {
-    const cart = await Cart.findOne({ _id: cartId })
-    
-    if (!cart) throw new JsonError('Cart is empty')
-
-    const piids = productInstancesIds.map((x) => new Types.ObjectId(x))
-
-    // Get all product instance ids that are passed into the body of the call
-    // but are not present into the cart
-    const invalids = piids.filter(
-      (piId: Types.ObjectId) =>
-        !includesId(
-          piId,
-          cart.productInstances.map((pii) => pii._id)
-        )
-    )
-
-    if (invalids.length !== 0) throw new JsonError(`${invalids} are not product instances of this cart`)
-
-    cart.productInstances = cart.productInstances.filter((pi) => !includesId(pi._id, piids))
+    const cart = await Cart.findOne({ _id: cartId }),
+    result = cart.productInstances.filter((i => v => v.productId !== productInstancesIds || --i)(1));
+    cart.productInstances = result
     await cart.save()
     return cart as ICart
   } catch (err) {

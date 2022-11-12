@@ -63,10 +63,11 @@ const Checkout = () => {
 
   const removeFromCart = async (productId: string) => {
     if(Helpers.getUserId()){
-      const resp = await ApiRepository.removeCart(Helpers.getUserId()!)
-      console.log(resp)
+      const resp = (await ApiRepository.removeCart(Helpers.getUserId()!,productId)).data
+      setCart(resp)
     }
   }
+
 
   return (
     <>
