@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import { ApiRepository, Helpers, ProductMarked } from 'shared';
 
 const subtotal = '$210.00'
 const discount = { code: 'CHEAPSKATE', amount: '$24.00' }
@@ -44,8 +45,29 @@ const products = [
 ]
 
 const Checkout = () => {
+  const [cart,setCart] = useState<ProductMarked.JsonProductInstance[]>()
   let productsss = JSON.parse(localStorage.getItem('cart') || '{}')
   console.log(productsss)
+
+  const getCart = async () => {
+    if(Helpers.getUserId()){
+      const resp = (await ApiRepository.getCart(Helpers.getUserId()!)).data
+      console.log(resp)
+      setCart(resp)
+    }
+  }
+
+  useEffect(() => {
+    getCart()
+  },[])
+
+  const removeFromCart = async (productId: string) => {
+    if(Helpers.getUserId()){
+      const resp = await ApiRepository.removeCart(Helpers.getUserId()!)
+      console.log(resp)
+    }
+  }
+
   return (
     <>
       <main
@@ -71,28 +93,26 @@ const Checkout = () => {
 
                 <Disclosure.Panel>
                   <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
-                    {products.map((product) => (
-                      <li key={product.id} className="flex py-6 space-x-6">
+                    {cart?.map((product,i) => (
+                      <li key={i} className="flex py-6 space-x-6">
                         <img
-                          src={product.imageSrc}
-                          alt={product.imageAlt}
-                          className="flex-none w-40 h-40 object-center object-cover bg-gray-200 rounded-md"
+                          src={product.images[0]}
+                          alt={product.name}
+                          className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                         />
-                        <div className="flex flex-col justify-between space-y-4">
+                        <div className="flex flex-col  space-y-4">
                           <div className="text-sm font-medium space-y-1">
-                            <h3 className="text-gray-900">{product.name}</h3>
-                            <p className="text-gray-900">{product.price}</p>
-                            <p className="text-gray-500">{product.color}</p>
-                            <p className="text-gray-500">{product.size}</p>
+                            <h3 className="text-gray-900">Name: {product.name}</h3>
+                            <p className="text-gray-900">Price: {product.price}$</p>
+                            <p className="text-gray-500">Color: {product.color}</p>
+                            <p className="text-gray-500">Size: {product.size}</p>
                           </div>
-                          <div className="flex space-x-4">
-                            <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                              Edit
-                            </button>
-                            <div className="flex border-l border-gray-300 pl-4">
+                          <div className="flex 	 space-x-4">
+                            <div className="flex  border-gray-300 ">
                               <button
                                 type="button"
-                                className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                onClick={async () => await removeFromCart(product.productId)}
+                                className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
                               >
                                 Remove
                               </button>
@@ -120,26 +140,23 @@ const Checkout = () => {
           </h2>
 
           <ul role="list" className="flex-auto overflow-y-auto divide-y divide-gray-200 px-6">
-            {products.map((product) => (
-              <li key={product.id} className="flex py-6 space-x-6">
+            {cart?.map((product,i) => (
+              <li key={i} className="flex py-6 space-x-6">
                 <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
-                  className="flex-none w-40 h-40 object-center object-cover bg-gray-200 rounded-md"
+                  src={product.images[0]}
+                  alt={product.name}
+                  className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                 />
-                <div className="flex flex-col justify-between space-y-4">
+                <div className="flex flex-col  space-y-4">
                   <div className="text-sm font-medium space-y-1">
-                    <h3 className="text-gray-900">{product.name}</h3>
-                    <p className="text-gray-900">{product.price}</p>
-                    <p className="text-gray-500">{product.color}</p>
-                    <p className="text-gray-500">{product.size}</p>
+                    <h3 className="text-gray-900">Name: {product.name}</h3>
+                    <p className="text-gray-900">Price: {product.price}$</p>
+                    <p className="text-gray-500">Color: {product.color}</p>
+                    <p className="text-gray-500">Size: {product.size}</p>
                   </div>
-                  <div className="flex space-x-4">
-                    <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      Edit
-                    </button>
-                    <div className="flex border-l border-gray-300 pl-4">
-                      <button type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                  <div className="flex list-item  space-x-4">
+                    <div className="flex 	  border-gray-300">
+                      <button onClick={async () => await removeFromCart(product.productId)} type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                         Remove
                       </button>
                     </div>
