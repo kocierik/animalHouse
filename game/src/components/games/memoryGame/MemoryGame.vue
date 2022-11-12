@@ -128,11 +128,11 @@ onBeforeMount(async ()=> {
       <div id="memory">
         <div class="rouned shadow m-3 overflow-hidden" :style="{width: 100, height: 100}" v-for="card in cards" :key="card.id">
           <!-- Hidden -->
-          <div v-if="!card.guessed && !card.selected" @click="onCardSelected(card.id)" class="flex justify-center items-center">
+          <div v-show="!card.guessed && !card.selected" @click="onCardSelected(card.id)" class="flex justify-center items-center">
             <img src="/memory.webp" class="max-w-xs max-h-xs object-scale-down" />
           </div>
           <!-- Revealed -->
-          <div v-else class="h-full flex justify-center items-center">
+          <div v-show="card.guessed || card.selected" class="h-full flex justify-center items-center">
             <img :src="card.image" class="max-w-xs max-h-xs object-scale-down"  />
           </div>
         </div>
