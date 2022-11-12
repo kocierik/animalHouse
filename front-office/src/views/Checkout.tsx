@@ -1,48 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
-import { LockClosedIcon } from '@heroicons/react/solid'
 import { ApiRepository, Helpers, ProductMarked } from 'shared';
 
-const subtotal = '$210.00'
-const discount = { code: 'CHEAPSKATE', amount: '$24.00' }
-const taxes = '$23.68'
-const shipping = '$22.00'
-const total = '$341.68'
-const products = [
-  {
-    id: 1,
-    name: 'Micro Backpack',
-    href: '#',
-    price: '$70.00',
-    color: 'Moss',
-    size: '5L',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-04-product-01.jpg',
-    imageAlt:
-      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
-  },
-  {
-    id: 2,
-    name: 'Micro Backpack',
-    href: '#',
-    price: '$70.00',
-    color: 'Moss',
-    size: '5L',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-04-product-01.jpg',
-    imageAlt:
-      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
-  },
-  {
-    id: 3,
-    name: 'Micro Backpack',
-    href: '#',
-    price: '$70.00',
-    color: 'Moss',
-    size: '5L',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-04-product-01.jpg',
-    imageAlt:
-      'Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps.'
-  }
-]
+
+
 
 const Checkout = () => {
   const [cart,setCart] = useState<ProductMarked.JsonProductInstance[]>()
@@ -66,6 +27,12 @@ const Checkout = () => {
       const resp = (await ApiRepository.removeCart(Helpers.getUserId()!,productId)).data
       setCart(resp)
     }
+  }
+
+  const getTotalPrice = () => {
+    return cart?.reduce((accumulator, value) => {
+                      return accumulator + value.price;
+                    }, 0)
   }
 
 
@@ -126,8 +93,8 @@ const Checkout = () => {
                 </Disclosure.Panel>
 
                 <p className="flex items-center justify-between text-sm font-medium text-gray-900 border-t border-gray-200 pt-6 mt-6">
-                  <span className="text-base">Total</span>
-                  <span className="text-base">{total}</span>
+                  <span className="text-base">Total:</span>
+                  <span className="text-base">{getTotalPrice()}$</span>
                 </p>
               </>
             )}
@@ -170,16 +137,16 @@ const Checkout = () => {
           <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
             <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
               <div className="flex justify-between">
-                <dt>Subtotal</dt>
-                <dd className="text-gray-900">{subtotal}</dd>
+                <dt>Subtotal:</dt>
+                <dd className="text-gray-900">{getTotalPrice()}$</dd>
               </div>
               <div className="flex justify-between">
-                <dt>Shipping</dt>
-                <dd className="text-gray-900">{shipping}</dd>
+                {/* <dt>Shipping</dt>
+                <dd className="text-gray-900">{shipping}</dd> */}
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
-                <dt className="text-base">Total</dt>
-                <dd className="text-base">{total}</dd>
+                <dt className="text-base">Total:</dt>
+                <dd className="text-base">{getTotalPrice()}$</dd>
               </div>
             </dl>
           </div>
@@ -335,7 +302,7 @@ const Checkout = () => {
                 type="submit"
                 className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Pay {total}
+                Pay {getTotalPrice()}$
               </button>
             </form>
           </div>
