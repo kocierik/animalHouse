@@ -26,7 +26,6 @@ const Reviewer = (props: IProps) => {
     }
   }, [productId, post])
 
-
   return (
     <div className="max-w-2xl mx-auto  px-4 sm:px-6 lg:max-w-7xl  lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
       <div className="">

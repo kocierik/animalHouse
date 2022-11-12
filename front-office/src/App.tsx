@@ -7,7 +7,7 @@ import Home from './views/Home'
 import Shopping from './views/Shopping'
 import Community from './views/Community'
 import Service from './views/Service'
-import Profile from './views/Profile'
+import Profile from './views/profile/Profile'
 import Checkout from './views/Checkout'
 import Product from './views/Product'
 import Login from './views/Login'
@@ -15,7 +15,6 @@ import Register from './views/Register'
 import RegisterAnimal from './views/RegisterAnimal'
 
 const App = () => {
-
   return (
     <div>
       <Navbar />
