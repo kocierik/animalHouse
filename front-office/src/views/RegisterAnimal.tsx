@@ -24,25 +24,28 @@ const RegisterAnimal = () => {
     if (!doneClickable) return
     setIsError(false)
 
-    const input: JsonAnimal.JsonAnimal = {
-      name: name,
-      type: type,
-      age: age as number
-    }
-
     const userId = Helpers.getUserId()
+    if(userId){
+      const input: JsonAnimal.JsonAnimal = {
+        name: name,
+        type: "type", // TODO
+        age: age as number,
+        userId: userId
+      }
+      
+      const response = await ApiRepository.registerAnimal(input, userId)
+      if (response.esit) {
+        window.location.href = '/'
+      } else {
+        setError(response.error!.mex)
+        setIsError(true)
+      }
+    }
+    
     if (!userId) {
       setIsError(true)
       setError('Must be logged to do this operation')
       return
-    }
-
-    const response = await ApiRepository.registerAnimal([input], userId)
-    if (response.esit) {
-      window.location.href = '/'
-    } else {
-      setError(response.error!.mex)
-      setIsError(true)
     }
   }
 
