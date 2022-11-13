@@ -14,7 +14,7 @@ const ApproceCard = () => {
                     <img src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/burger.png" className="w-10" width="512" height="512" alt="burger illustration" />
                     
                     <div className="space-y-2">
-                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">First feature</h5>
+                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">Analize the problem</h5>
                         <p className="text-sm text-gray-600">Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.</p>
                     </div>
                 </div>
@@ -24,7 +24,7 @@ const ApproceCard = () => {
                     <img src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/trowel.png" className="w-10" width="512" height="512" alt="burger illustration" />
                     
                     <div className="space-y-2">
-                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">Second feature</h5>
+                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">Ask to our expert</h5>
                         <p className="text-sm text-gray-600">Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.</p>
                     </div>
                 </div>
@@ -34,7 +34,7 @@ const ApproceCard = () => {
                     <img src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/package-delivery.png" className="w-10" width="512" height="512" alt="burger illustration" />
                     
                     <div className="space-y-2">
-                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">Third feature</h5>
+                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">Diagnostics the cause</h5>
                         <p className="text-sm text-gray-600">Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.</p>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ const ApproceCard = () => {
                     <img src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/metal.png" className="w-10" width="512" height="512" alt="burger illustration" />
                     
                     <div className="space-y-2">
-                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">More features</h5>
+                        <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">Left the animal</h5>
                         <p className="text-sm text-gray-600">Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.</p>
                     </div>
                 </div>
