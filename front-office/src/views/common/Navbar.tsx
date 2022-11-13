@@ -90,6 +90,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+            { user ?
             <div className="hidden md:block z-20	">
               <div className=" ml-4 flex items-center md:ml-6">
                 <Link to="/checkout/">
@@ -162,7 +163,7 @@ const Navbar = () => {
                       </span>
 
                       <a
-                      className='cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/"); setInfoProfile(!infoProfile)}}
+                      className='cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {localStorage.clear(); navigate("/login"); setInfoProfile(!infoProfile)}}
                         role="menuitem"
                         tabIndex={-1}
                         id="user-menu-item-2"
@@ -173,7 +174,11 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </div> :                 
+                  <a onClick={() => navigate("/login")} className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 bg-indigo-800 hover:bg-indigo-900 cursor-pointer hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    Login
+                </a>
+            }
             <div   className="-mr-2 flex md:hidden ">
               <button
                 onClick={showNav}
@@ -266,7 +271,7 @@ const Navbar = () => {
                     <a onClick={() => {navigate("/checkout/"); setNav(!nav)}}>Cart</a>
                   </span>
 
-                  <a onClick={() => {navigate("/"); setNav(!nav)}}  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  <a onClick={() => {localStorage.clear(); navigate("/login"); setNav(!nav)}}  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     Sign out
                   </a>
                 </div>
