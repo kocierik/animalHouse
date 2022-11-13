@@ -155,7 +155,7 @@ const Profile = () => {
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex  justify-center py-4 lg:pt-4 pt-8 ">
                       <div className="flex items-center flex-col  justify-center">
-                        <div data-aos="zoom-in" className=" flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
+                        <div data-aos="zoom-in" className="lg:flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
                           {user?.animals.map((animal, i) => {
                             return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
                           })}

@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Helpers } from 'shared'
+import { Helpers, ApiRepository, JsonUser } from 'shared';
 
 const Navbar = () => {
   const history = useLocation()
   const navigate = useNavigate()
   const [infoProfile, setInfoProfile] = useState(false)
-
+  const [picture,setPicture] = useState<string>("")
+  const [user,setUser] = useState<JsonUser.JsonUser>()
   const [isLogged, setLogged] = useState(Helpers.isLogged)
 
   const showInfo = () => {
@@ -21,6 +22,27 @@ const Navbar = () => {
   const showNav = () => {
     setNav(!nav)
   }
+
+  const getUserPicture = async () =>{
+    if(Helpers.getUserId()){
+     const data =  (await (ApiRepository.getPicture(Helpers.getUserId()!))).data
+     setPicture(data!)
+    }
+  }
+
+    const getUserInfo = async () => {
+    const user = (await ApiRepository.getCurrentUser()).data
+    if (user) {
+      const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
+      setUser(userInfo)
+    }
+  }
+
+  useEffect(() => {
+    getUserPicture()
+    getUserInfo()
+  },[])
+
   return (
     <div data-aos="fade-up" data-aos-duration="500" className="">
       <nav className="bg-gray-800">
@@ -29,8 +51,10 @@ const Navbar = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <img
-                  className="h-8 w-8"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                onClick={() => {navigate("/")}}
+                style={{"filter": "invert(1)"}}
+                  className="h-10 w-10 cursor-pointer"
+                  src="/logoTransparent.png"
                   alt="Workflow"
                 />
               </div>
@@ -66,6 +90,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+            { user ?
             <div className="hidden md:block z-20	">
               <div className=" ml-4 flex items-center md:ml-6">
                 <Link to="/checkout/">
@@ -104,7 +129,7 @@ const Navbar = () => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={picture}
                         alt=""
                       />
                     </button>
@@ -119,26 +144,26 @@ const Navbar = () => {
                       tabIndex={-1}
                       z-10
                     >
-                      <a
+                      <span
                         className="block px-4 py-2 text-sm text-gray-700"
                         role="menuitem"
                         tabIndex={-1}
                         id="user-menu-item-0"
                       >
                         <a className='cursor-pointer' onClick={() => {navigate("/profile/"); setInfoProfile(!infoProfile)}}>Your Profile</a>
-                      </a>
+                      </span>
 
-                      <a
+                      <span
                         className="block px-4 py-2 text-sm text-gray-700"
                         role="menuitem"
                         tabIndex={-1}
                         id="user-menu-item-1"
                       >
                         <a className='cursor-pointer' onClick={() => {navigate("/checkout/"); setInfoProfile(!infoProfile)}}>Cart</a>
-                      </a>
+                      </span>
 
                       <a
-                      className='cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/"); setInfoProfile(!infoProfile)}}
+                      className='cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {localStorage.clear(); navigate("/login"); setUser(null!); setInfoProfile(!infoProfile)}}
                         role="menuitem"
                         tabIndex={-1}
                         id="user-menu-item-2"
@@ -149,7 +174,11 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </div> :                 
+                  <a onClick={() => navigate("/login")} className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 bg-indigo-800 hover:bg-indigo-900 cursor-pointer hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    Login
+                </a>
+            }
             <div   className="-mr-2 flex md:hidden ">
               <button
                 onClick={showNav}
@@ -221,27 +250,28 @@ const Navbar = () => {
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
                   <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    className="h-10 w-10 rounded-full cursor-pointer"
+                    onClick={() => {navigate("/")}}
+                    src={picture}
                     alt=""
                   />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                  <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                  <div className="text-base font-medium leading-none text-white">{user?.firstName} {user?.lastName}</div>
+                  <div className="text-sm font-medium leading-none text-gray-400">{user?.email}</div>
                 </div>
                               </div>
               {infoProfileMobile && (
                 <div  data-aos="zoom-in" className="mt-3 px-2 space-y-1">
-                  <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  <span className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     <a onClick={() => {navigate("/profile/"); setNav(!nav)}} >Your Profile</a>
-                  </a>
+                  </span>
 
-                  <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  <span className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     <a onClick={() => {navigate("/checkout/"); setNav(!nav)}}>Cart</a>
-                  </a>
+                  </span>
 
-                  <a onClick={() => {navigate("/"); setNav(!nav)}}  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  <a onClick={() => {localStorage.clear(); navigate("/login"); setUser(null!); setNav(!nav)}}  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     Sign out
                   </a>
                 </div>
