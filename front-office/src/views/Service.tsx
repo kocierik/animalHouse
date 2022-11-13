@@ -1,6 +1,7 @@
 import React from 'react'
-import CardService from './common/serviceComponents/CardService'
+import ApproceCard from './common/serviceComponents/ApproceCard'
 import FeatureCard from './common/serviceComponents/FeatureCard'
+import ServiceCard from './common/serviceComponents/ServiceCard'
 
 const Service = () => {
   return (
@@ -9,7 +10,10 @@ const Service = () => {
         <FeatureCard/>
       </div>
       <div>
-        <CardService /> 
+        <ServiceCard /> 
+      </div>
+      <div>
+        <ApproceCard />
       </div>
     </div>
   )
