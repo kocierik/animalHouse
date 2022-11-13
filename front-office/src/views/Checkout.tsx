@@ -5,8 +5,14 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
   const [cart,setCart] = useState<ProductMarked.JsonProductInstance[]>([])
-  let productsss = JSON.parse(localStorage.getItem('cart') || '{}')
-  console.log(productsss)
+  const [name,setName] = useState("")
+  const [exp,setExp] = useState("")
+  const [addr,setAddr] = useState("")
+  const [cvc,setCvc] = useState("")
+  const [card,setCard] = useState("")
+  const [stat,setStat] = useState("")
+  const [city,setCity] = useState("")
+  const [postal,setPostal] = useState("")
 
   const getCart = async () => {
     if(Helpers.getUserId()){
@@ -35,12 +41,18 @@ const Checkout = () => {
 
 
   const clearCart = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault()  
     if(Helpers.getUserId()){
       if(cart.length === 0){
         toast.warning('You should select a product first!', {position: toast.POSITION.TOP_CENTER})
         return
       }
+
+      if(!name || !exp || !addr || !cvc || !card || !stat || !city || !postal){
+        toast.warning('You should compile all the form!', {position: toast.POSITION.TOP_CENTER})
+        return
+      }
+    
       const resp = (await ApiRepository.resetCart(Helpers.getUserId()!)).data
       setCart(resp!)
       toast.success("Bought!", {position: toast.POSITION.TOP_CENTER})
@@ -159,21 +171,6 @@ const Checkout = () => {
 
             <form className="mt-5 p-5" data-aos="zoom-in" data-aos-duration="500">
               <div className="grid grid-cols-12 gap-y-6 gap-x-4">
-                <div className="col-span-full">
-                  <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                    Email address
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="email"
-                      id="email-address"
-                      name="email-address"
-                      autoComplete="email"
-                      required
-                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
 
                 <div className="col-span-full">
                   <label htmlFor="name-on-card" className="block text-sm font-medium text-gray-700">
@@ -183,6 +180,7 @@ const Checkout = () => {
                     <input
                       type="text"
                       id="name-on-card"
+                      onChange={(e) => setName(e.target.value)}
                       name="name-on-card"
                       autoComplete="cc-name"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -199,8 +197,9 @@ const Checkout = () => {
                     <input
                       type="text"
                       id="card-number"
-                      min={16}
-                      max={16}
+                      onChange={(e) => setCard(e.target.value)}
+                      minLength={16}
+                      maxLength={16}
                       name="card-number"
                       autoComplete="cc-number"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -217,6 +216,7 @@ const Checkout = () => {
                     <input
                       type="date"
                       name="expiration-date"
+                      onChange={(e) => setExp(e.target.value)}
                       id="expiration-date"
                       autoComplete="cc-exp"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -232,8 +232,9 @@ const Checkout = () => {
                   <div className="mt-1">
                     <input
                       type="number"
-                      max={3}
-                      min={3}
+                      maxLength={3}
+                      minLength={3}
+                      onChange={(e) => setCvc(e.target.value)}
                       name="cvc"
                       id="cvc"
                       autoComplete="csc"
@@ -252,6 +253,7 @@ const Checkout = () => {
                       type="text"
                       id="address"
                       name="address"
+                      onChange={(e) => setAddr(e.target.value)}
                       autoComplete="street-address"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
@@ -268,6 +270,7 @@ const Checkout = () => {
                       type="text"
                       id="city"
                       name="city"
+                      onChange={(e) => setCity(e.target.value)}
                       autoComplete="address-level2"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
@@ -284,6 +287,7 @@ const Checkout = () => {
                       type="text"
                       id="region"
                       name="region"
+                      onChange={(e) => setStat(e.target.value)}
                       autoComplete="address-level1"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
@@ -300,6 +304,7 @@ const Checkout = () => {
                       type="text"
                       id="postal-code"
                       name="postal-code"
+                      onChange={(e) => setPostal(e.target.value)}
                       autoComplete="postal-code"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
