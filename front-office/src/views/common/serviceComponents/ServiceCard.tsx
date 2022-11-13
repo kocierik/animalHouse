@@ -71,7 +71,7 @@ const ServiceCard = () => {
   return (
     <div data-aos="zoom-in" className="px-3 md:lg:xl:px-40  rounded border-t border-b py-20 bg-opacity-10" >
   <h2 className="mb-4 text-3xl font-bold">Services</h2>
-  <div className="grid mb-10 grid-cols-1 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
+  <div className="grid mb-10 lg:grid-cols-2 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
     {
         serviceProps.map((service,i) => {
         return (
