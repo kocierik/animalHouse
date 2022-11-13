@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { ApiRepository, Helpers, ProductMarked } from 'shared';
-
-
-
+import { toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
-  const [cart,setCart] = useState<ProductMarked.JsonProductInstance[]>()
+  const [cart,setCart] = useState<ProductMarked.JsonProductInstance[]>([])
   let productsss = JSON.parse(localStorage.getItem('cart') || '{}')
   console.log(productsss)
 
@@ -14,7 +12,7 @@ const Checkout = () => {
     if(Helpers.getUserId()){
       const resp = (await ApiRepository.getCart(Helpers.getUserId()!)).data
       console.log(resp)
-      setCart(resp)
+      setCart(resp!)
     }
   }
 
@@ -25,16 +23,29 @@ const Checkout = () => {
   const removeFromCart = async (productId: string) => {
     if(Helpers.getUserId()){
       const resp = (await ApiRepository.removeCart(Helpers.getUserId()!,productId)).data
-      setCart(resp)
+      setCart(resp!)
     }
   }
 
   const getTotalPrice = (shipping : number = 0) => {
     return cart?.reduce((accumulator, value) => {
-                      return accumulator + value.price;
-                    }, shipping)
+      return accumulator + value.price;
+    }, shipping)
   }
 
+
+  const clearCart = async (e: any) => {
+    e.preventDefault()
+    if(Helpers.getUserId()){
+      if(cart.length === 0){
+        toast.warning('You should select a product first!', {position: toast.POSITION.TOP_CENTER})
+        return
+      }
+      const resp = (await ApiRepository.resetCart(Helpers.getUserId()!)).data
+      setCart(resp!)
+      toast.success("Bought!", {position: toast.POSITION.TOP_CENTER})
+    }
+  }
 
   return (
     <>
@@ -146,8 +157,7 @@ const Checkout = () => {
           <div className="max-w-lg mx-auto">
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mt-5">Checkout </h1>
 
-            <form className="mt-5 p-5" data-aos="zoom-in"
-        data-aos-duration="500">
+            <form className="mt-5 p-5" data-aos="zoom-in" data-aos-duration="500">
               <div className="grid grid-cols-12 gap-y-6 gap-x-4">
                 <div className="col-span-full">
                   <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
@@ -159,6 +169,7 @@ const Checkout = () => {
                       id="email-address"
                       name="email-address"
                       autoComplete="email"
+                      required
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -175,6 +186,7 @@ const Checkout = () => {
                       name="name-on-card"
                       autoComplete="cc-name"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -187,9 +199,12 @@ const Checkout = () => {
                     <input
                       type="text"
                       id="card-number"
+                      min={16}
+                      max={16}
                       name="card-number"
                       autoComplete="cc-number"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -200,11 +215,12 @@ const Checkout = () => {
                   </label>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="date"
                       name="expiration-date"
                       id="expiration-date"
                       autoComplete="cc-exp"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -215,11 +231,14 @@ const Checkout = () => {
                   </label>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
+                      max={3}
+                      min={3}
                       name="cvc"
                       id="cvc"
                       autoComplete="csc"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -235,6 +254,7 @@ const Checkout = () => {
                       name="address"
                       autoComplete="street-address"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -250,6 +270,7 @@ const Checkout = () => {
                       name="city"
                       autoComplete="address-level2"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -265,6 +286,7 @@ const Checkout = () => {
                       name="region"
                       autoComplete="address-level1"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -280,6 +302,7 @@ const Checkout = () => {
                       name="postal-code"
                       autoComplete="postal-code"
                       className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
                 </div>
@@ -287,6 +310,7 @@ const Checkout = () => {
 
               <button
                 type="submit"
+                onClick={async (e) => { await clearCart(e); }}
                 className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Pay {getTotalPrice(10)}$
@@ -294,6 +318,7 @@ const Checkout = () => {
             </form>
           </div>
         </section>
+              <ToastContainer />
       </main>
     </>
   )
