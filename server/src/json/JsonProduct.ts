@@ -13,47 +13,47 @@ export interface JsonProduct {
 
 export const SwaggerProduct = {
   Product: {
-    type: "object",
+    type: 'object',
     properties: {
       _id: {
-        type: "string"
+        type: 'string',
       },
       name: {
-        type: "string"
+        type: 'string',
       },
       description: {
-        type: "string"
+        type: 'string',
       },
       price: {
-        type: "number"
+        type: 'number',
       },
       categoryId: {
-        type: "string"
+        type: 'string',
       },
       image: {
-        type: "string"
+        type: 'string',
       },
       animalTargets: {
-        type: "array",
+        type: 'array',
         items: {
-          type: "string"
-        }
+          type: 'string',
+        },
       },
       colors: {
-        type: "array",
+        type: 'array',
         items: {
-          type: "string"
-        }
+          type: 'string',
+        },
       },
       sizes: {
-        type: "array",
+        type: 'array',
         items: {
-          type: "string"
-        }
+          type: 'string',
+        },
       },
       details: {
-        type: "string"
-      }
-    }
-  }
+        type: 'string',
+      },
+    },
+  },
 }
