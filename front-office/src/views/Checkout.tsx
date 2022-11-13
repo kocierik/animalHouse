@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
-import { ApiRepository, Helpers, ProductMarked } from 'shared';
+import { ApiRepository, Helpers, ProductConstant, ProductMarked } from 'shared';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
@@ -55,7 +55,7 @@ const Checkout = () => {
     
       const resp = (await ApiRepository.resetCart(Helpers.getUserId()!)).data
       setCart(resp!)
-      toast.success("Bought!", {position: toast.POSITION.TOP_CENTER})
+      toast.success("Congratulation, Bought!", {position: toast.POSITION.TOP_CENTER})
     }
   }
 
@@ -86,7 +86,7 @@ const Checkout = () => {
                           <div className="text-sm font-medium space-y-1">
                             <h3 className="text-gray-900">Name: {product.name}</h3>
                             <p className="text-gray-900">Price: {product.price}$</p>
-                            <p className="text-gray-500">Color: {product.color}</p>
+                           { product.color && <p className="text-gray-500">Color: {product.color}</p>}
                             <p className="text-gray-500">Size: {product.size}</p>
                           </div>
                           <div className="flex 	 space-x-4">
@@ -128,7 +128,7 @@ const Checkout = () => {
                   <div className="text-sm font-medium space-y-1">
                     <h3 className="text-gray-900">Name: {product.name}</h3>
                     <p className="text-gray-900">Price: {product.price}$</p>
-                    <p className="text-gray-500">Color: {product.color}</p>
+                    { product.color && <p className="text-gray-500">Color: {product.color}</p>}
                     <p className="text-gray-500">Size: {product.size}</p>
                   </div>
                   <div className="flex list-item  space-x-4">
