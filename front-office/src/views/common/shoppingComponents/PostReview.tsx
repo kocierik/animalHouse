@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
-import { ApiRepository, JsonReview } from 'shared';
-import useState from 'react';
-import { StarIcon } from '@heroicons/react/solid';
-import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
-import { Helpers } from 'shared';
-
+import { ApiRepository, JsonReview } from 'shared'
+import useState from 'react'
+import { StarIcon } from '@heroicons/react/solid'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Helpers } from 'shared'
 
 interface IProps {
   post: boolean
@@ -16,12 +15,10 @@ interface IProps {
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
-
-
 const PostReview = (props: IProps) => {
   const { post, setPost, productId } = props
   const [textComment, setTextComment] = React.useState('')
-  const [username, setUsername] = React.useState("")
+  const [username, setUsername] = React.useState('')
 
   const getUserInfo = async () => {
     if (Helpers.isLogged()) {
@@ -31,11 +28,10 @@ const PostReview = (props: IProps) => {
   }
 
   const postComment = async () => {
-
     if (star === 0) {
-      toast.warn("You should leave a star!", {
+      toast.warn('You should leave a star!', {
         position: toast.POSITION.TOP_CENTER
-      });
+      })
       return
     }
     await getUserInfo()
@@ -63,7 +59,7 @@ const PostReview = (props: IProps) => {
     <>
       <ToastContainer />
       {/* Card Base */}
-      {Helpers.isLogged() &&
+      {Helpers.isLogged() && (
         <div className="max-w-2xl mx-auto pb-16  px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           {/* Top Half - Avatar & Text Box */}
           <div className="flex flex-col 	 content-start p-4">
@@ -94,7 +90,8 @@ const PostReview = (props: IProps) => {
             </div>
             <div className="flex ">
               <textarea
-                value={textComment} onChange={(e) => setTextComment(e.target.value)}
+                value={textComment}
+                onChange={(e) => setTextComment(e.target.value)}
                 id="post-input"
                 rows={3}
                 placeholder="What do you think about this article?"
@@ -105,6 +102,7 @@ const PostReview = (props: IProps) => {
 
           {/* Lower Half - Photo/Video & Post Buttons */}
           <div className="flex p-2 justify-end sm:p-4 mr-5">
+
             <button onClick={postComment}
               className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-green-500 hover:bg-green-600 duration-150"
             >
@@ -112,7 +110,7 @@ const PostReview = (props: IProps) => {
             </button>
           </div>
         </div>
-      }
+      )}
     </>
   )
 }

@@ -8,10 +8,8 @@ export const isValidGame = async (id: string): Promise<boolean> => {
 }
 
 export const findScore = async (userId: string, gameId?: string) => {
-  if (gameId)
-    return Score.find({ userId: userId, gameId: gameId })
-  else
-    return Score.find({ userId: userId })
+  if (gameId) return Score.find({ userId: userId, gameId: gameId })
+  else return Score.find({ userId: userId })
 }
 
 export const getScoreboardForGame = async (id: string) => {
