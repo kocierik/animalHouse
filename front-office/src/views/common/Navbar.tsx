@@ -141,23 +141,23 @@ const Navbar = () => {
                       tabIndex={-1}
                       z-10
                     >
-                      <a
+                      <span
                         className="block px-4 py-2 text-sm text-gray-700"
                         role="menuitem"
                         tabIndex={-1}
                         id="user-menu-item-0"
                       >
                         <a className='cursor-pointer' onClick={() => {navigate("/profile/"); setInfoProfile(!infoProfile)}}>Your Profile</a>
-                      </a>
+                      </span>
 
-                      <a
+                      <span
                         className="block px-4 py-2 text-sm text-gray-700"
                         role="menuitem"
                         tabIndex={-1}
                         id="user-menu-item-1"
                       >
                         <a className='cursor-pointer' onClick={() => {navigate("/checkout/"); setInfoProfile(!infoProfile)}}>Cart</a>
-                      </a>
+                      </span>
 
                       <a
                       className='cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/"); setInfoProfile(!infoProfile)}}
@@ -255,13 +255,13 @@ const Navbar = () => {
                               </div>
               {infoProfileMobile && (
                 <div  data-aos="zoom-in" className="mt-3 px-2 space-y-1">
-                  <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  <span className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     <a onClick={() => {navigate("/profile/"); setNav(!nav)}} >Your Profile</a>
-                  </a>
+                  </span>
 
-                  <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  <span className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     <a onClick={() => {navigate("/checkout/"); setNav(!nav)}}>Cart</a>
-                  </a>
+                  </span>
 
                   <a onClick={() => {navigate("/"); setNav(!nav)}}  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                     Sign out
