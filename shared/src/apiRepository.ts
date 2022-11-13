@@ -106,4 +106,8 @@ export const getCart = async (userId: string) =>
 export const removeCart = async (userId: string, productId: string) =>
   Api.delete<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART_DELETE, userId, productId),true)
 
+export const resetCart = async (userId: string) =>
+  Api.delete<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART, userId),true)
+
+
 // TODO insert here other calls!!!!

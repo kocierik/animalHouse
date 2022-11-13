@@ -49,5 +49,18 @@ export const deleteFromCart = async (cartId: string, productInstancesIds: string
   }
 }
 
+export const resetCart = async (cartId: string): Promise<ICart> => {
+  try {
+    const cart = await Cart.findOne({ _id: cartId })
+    cart.productInstances = []
+    await cart.save()
+    return cart as ICart
+  } catch (err) {
+    if (err instanceof JsonError) throw err
+    throw new JsonError(err.message)
+  }
+}
+
+
 const includesId = (id: Types.ObjectId, collection: any[]): boolean =>
   collection.reduce((old: boolean, x: any) => x._id.toString() === id.toString() || old, false)

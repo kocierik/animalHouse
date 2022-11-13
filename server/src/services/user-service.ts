@@ -120,6 +120,12 @@ export const deleteFromUserCart = async (userId: string, piids: string) => {
   await CartService.deleteFromCart(cart.id, piids)
   return getUserProducts(userId)
 }
+export const resetCart = async (userId: string) => {
+  const cart = await CartService.findCartOfUser(userId)
+  await CartService.resetCart(cart.id)
+  return getUserProducts(userId)
+}
+
 
 export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
   const user = await User.findById(userId)
