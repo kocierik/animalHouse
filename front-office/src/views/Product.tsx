@@ -55,8 +55,14 @@ export default function Product() {
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
 
   const addToCart = async () => {
-    if(!selectedSize || !selectedColor){
-      toast.warn('You should select a size and a color!', {position: toast.POSITION.TOP_CENTER})
+    if((ProductConstant.PRODUCT_TYPE[prod?.categoryId as string] !== "FOOD")){
+      if(!selectedColor){
+        toast.warn('You should select a color and a size!', {position: toast.POSITION.TOP_CENTER})
+        return
+      }
+    }
+    if(!selectedSize){
+      toast.warn('You should select a size!', {position: toast.POSITION.TOP_CENTER})
       return
     }
 
@@ -148,7 +154,8 @@ export default function Product() {
 
               <form className="mt-10">
                 {/* Colors */}
-                <div>
+                {(ProductConstant.PRODUCT_TYPE[prod?.categoryId as string] !== "FOOD") &&
+                  <div>
                   <h3 className="text-md text-gray-900 font-medium">Color</h3>
 
                   <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
@@ -179,7 +186,7 @@ export default function Product() {
                     </div>
                   </RadioGroup>
                 </div>
-
+                }
                 {/* Sizes */}
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
