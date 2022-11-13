@@ -31,6 +31,7 @@ const _URL = `https://opentdb.com/api.php?amount=${_COUNT}&category=27&type=mult
 const questions = ref<QuizQuestion[]>()
 const progress = ref<number>(0)
 const correct = ref<number>(0)
+const error = ref<boolean>(false)
 
 const playAgain = () => {
   progress.value = 0
@@ -43,8 +44,9 @@ const fetchQuestions = async () => {
     const resp = await Api.get<ApiResponse>(_URL)
     if (resp.esit && resp.data)  {
       questions.value = resp.data.results.map(mapQuestion) 
+      error.value = true
     } else {
-      // TODO
+      error.value = true
     }
   }
 
@@ -125,7 +127,7 @@ onBeforeMount(async () => {await fetchQuestions()})
     <div class="w-full max-w-xl p-3 justify-center items-center">
       <div>
         <h1 class="font-bold text-5xl text-center text-black">Quiz</h1>
-        <div class="bg-white p-10 rounded-lg shadow-lg w-full mt-1" >
+        <div v-show="!error" class="bg-white p-10 rounded-lg shadow-lg w-full mt-1" >
 
           <!-- Questions -->
           <div v-if="progress < _COUNT && questions && questions[progress]">
