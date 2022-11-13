@@ -10,7 +10,7 @@ const ApproceCard = () => {
         </div>
         <div className="mt-16 grid border divide-x divide-y rounded-xl overflow-hidden sm:grid-cols-2 lg:divide-y-0 lg:grid-cols-3 xl:grid-cols-4">
             <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
-                <div className="relative p-8 space-y-8">
+                <div className="relative p-8 space-y-8 border-dashed rounded-lg transition duration-300 group-hover:bg-white group-hover:border group-hover:scale-90">
                     <img src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/burger.png" className="w-10" width="512" height="512" alt="burger illustration" />
                     
                     <div className="space-y-2">
@@ -20,7 +20,7 @@ const ApproceCard = () => {
                 </div>
             </div>
             <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
-                <div className="relative p-8 space-y-8">
+                <div className="relative p-8 space-y-8 border-dashed rounded-lg transition duration-300 group-hover:bg-white group-hover:border group-hover:scale-90">
                     <img src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/trowel.png" className="w-10" width="512" height="512" alt="burger illustration" />
                     
                     <div className="space-y-2">
@@ -30,7 +30,7 @@ const ApproceCard = () => {
                 </div>
             </div>
             <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
-                <div className="relative p-8 space-y-8">
+                <div className="relative p-8 space-y-8 border-dashed rounded-lg transition duration-300 group-hover:bg-white group-hover:border group-hover:scale-90">
                     <img src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/package-delivery.png" className="w-10" width="512" height="512" alt="burger illustration" />
                     
                     <div className="space-y-2">
