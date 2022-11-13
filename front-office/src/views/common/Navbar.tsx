@@ -51,7 +51,8 @@ const Navbar = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <img
-                  className="h-8 w-8"
+                style={{"filter": "invert(1)"}}
+                  className="h-10 w-10"
                   src="/logoTransparent.png"
                   alt="Workflow"
                 />
