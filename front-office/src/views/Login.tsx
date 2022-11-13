@@ -99,12 +99,6 @@ export default function Login() {
                     <label htmlFor="password" className="text-sm text-gray-600">
                       Password
                     </label>
-                    <a
-                      href="#"
-                      className="text-sm text-gray-400 focus:text-green-500 hover:text-green-500 hover:underline"
-                    >
-                      Forgot password?
-                    </a>
                   </div>
                   <input
                     onChange={(event) => setPassword(event.target.value)}
@@ -138,7 +132,7 @@ export default function Login() {
                   }
                 "*/
                     className="text-green-500 focus:outline-none focus:underline hover:underline"
-                  >
+                  >{' '}
                     Sign up
                   </a>
                   .
