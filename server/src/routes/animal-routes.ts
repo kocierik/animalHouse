@@ -2,6 +2,7 @@ import * as Const from '../const'
 import { Request, Response } from 'express'
 import JsonError from '../json/JsonError'
 import * as AnimalService from '../services/animal-service'
+import { AnimalPatch } from '@/json/patch/AnimalPatch'
 
 /**
  * @swagger
@@ -57,5 +58,42 @@ export const getAnimal = async (req: Request, res: Response) => {
       .json(new JsonError("Can't access animal with id " + animal._id + ' with this user'))
   else {
     return res.status(Const.STATUS_OK).json(animal)
+  }
+}
+
+
+/**
+ * @swagger
+ *
+ *  /animals/{id}:
+ *    patch: JsonPatches
+ *      tags:
+ *      - animals
+ *      summary: patch
+ *      parameters:
+ *        - in: patha
+ *          name: id
+ *          type: string
+ *          required: true
+ *          description: Id of the animal
+*         - in: body
+*           schema:
+ *            $ref: "#/components/schemas/AnimalPatch"
+ *      responses:
+ *          200:
+ *            description: successful operation
+ *            schema:
+ *              $ref: "#/components/schemas/Animal"
+ * */
+export const patchAnimal = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const body = req.body as AnimalPatch
+    return res.status(Const.STATUS_OK).json(AnimalService.patchAnimal(id, body))
+  } catch (err) {
+    if (err instanceof JsonError)
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
