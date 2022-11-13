@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Helpers } from 'shared'
+import { Helpers, ApiRepository, JsonUser } from 'shared';
 
 const Navbar = () => {
   const history = useLocation()
   const navigate = useNavigate()
   const [infoProfile, setInfoProfile] = useState(false)
-
+  const [picture,setPicture] = useState<string>("")
+  const [user,setUser] = useState<JsonUser.JsonUser>()
   const [isLogged, setLogged] = useState(Helpers.isLogged)
 
   const showInfo = () => {
@@ -21,6 +22,27 @@ const Navbar = () => {
   const showNav = () => {
     setNav(!nav)
   }
+
+  const getUserPicture = async () =>{
+    if(Helpers.getUserId()){
+     const data =  (await (ApiRepository.getPicture(Helpers.getUserId()!))).data
+     setPicture(data!)
+    }
+  }
+
+    const getUserInfo = async () => {
+    const user = (await ApiRepository.getCurrentUser()).data
+    if (user) {
+      const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
+      setUser(userInfo)
+    }
+  }
+
+  useEffect(() => {
+    getUserPicture()
+    getUserInfo()
+  },[])
+
   return (
     <div data-aos="fade-up" data-aos-duration="500" className="">
       <nav className="bg-gray-800">
@@ -104,7 +126,7 @@ const Navbar = () => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={picture}
                         alt=""
                       />
                     </button>
@@ -222,13 +244,13 @@ const Navbar = () => {
                 <div className="flex-shrink-0">
                   <img
                     className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src={picture}
                     alt=""
                   />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                  <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                  <div className="text-base font-medium leading-none text-white">{user?.firstName} {user?.lastName}</div>
+                  <div className="text-sm font-medium leading-none text-gray-400">{user?.email}</div>
                 </div>
                               </div>
               {infoProfileMobile && (
