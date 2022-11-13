@@ -51,8 +51,9 @@ const Navbar = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <img
+                onClick={() => {navigate("/")}}
                 style={{"filter": "invert(1)"}}
-                  className="h-10 w-10"
+                  className="h-10 w-10 cursor-pointer"
                   src="/logoTransparent.png"
                   alt="Workflow"
                 />
@@ -244,7 +245,8 @@ const Navbar = () => {
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
                   <img
-                    className="h-10 w-10 rounded-full"
+                    className="h-10 w-10 rounded-full cursor-pointer"
+                    onClick={() => {navigate("/")}}
                     src={picture}
                     alt=""
                   />
