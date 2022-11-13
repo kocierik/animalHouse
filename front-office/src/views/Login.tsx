@@ -78,7 +78,7 @@ export default function Login() {
                 <p className="mt-3 text-gray-500">Sign in to access your account</p>
               </div>
 
-              <div className="mt-8">
+              <form className="mt-8"  onSubmit={async (e) => {e.preventDefault(); await doLogin()}}>
                 <div className="my-10">{error != -1 ? <ErrorBox text={errors[error]} /> : <div />}</div>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm text-gray-600">
@@ -118,7 +118,7 @@ export default function Login() {
 
                 <div className="mt-6">
                   <button
-                    onClick={doLogin}
+                    type="submit"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-green-500 rounded-md hover:bg-green-400 focus:outline-none focus:bg-green-400 focus:ring focus:ring-green-300 focus:ring-opacity-50"
@@ -143,7 +143,7 @@ export default function Login() {
                   </a>
                   .
                 </p>
-              </div>
+              </form>
             </div>
           </div>
         </div>
