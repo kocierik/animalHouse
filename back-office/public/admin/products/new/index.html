@@ -58,73 +58,72 @@
                                     <div class="rounded-lg shadow-xl bg-gray-50 lg:w-3/4">
                                         <div class="m-4">
                                             <label class="inline-block mb-2 text-gray-500">Upload
-                                                Image (jpg,png,jpeg)</label>
-                                            <div class="flex items-center justify-center w-full">
+                                                Image (jpg,png,jpeg)*</label>
+                                            <div class="flex  w-full mb-6">
                                                 <label
-                                                    class="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                                                    <div class="flex flex-col items-center justify-center pt-7">
-                                                        <div class="w-12 h-12 text-gray-400 group-hover:text-gray-600">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                                fill="currentColor">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                    class="flex flex-col w-48 h-32 hover:bg-gray-100 hover:border-gray-300">
+                                                    <div class="flex flex-col items-center justify-center">
+                                                        <div class="w-32 h-32 text-gray-400 group-hover:text-gray-600">
+                                                            <div class="h-32 w-32 block flex flex-row items-center">
+                                                                <img class="rounded-lg" id="imgplaceholder"
+                                                                    style="max-height: 100%; max-width: 100%;"
+                                                                    src="https://www.svgrepo.com/show/5500/upload-file.svg">
+                                                            </div>
                                                         </div>
-
-                                                        <p
-                                                            class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                                            Select a photo</p>
                                                     </div>
-                                                    <input id="grid-image" type="file" class="opacity-0"
-                                                        onchange="showImage()" accept=".jpg, .png, .jpeg|image/*" />
+                                                    <input id="grid-image" type="file" class="opacity-0" required
+                                                        accept=".jpg, .png, .jpeg|image/*" onchange="showImage()" />
                                                 </label>
-                                                <div id="imgplaceholder"></div>
-                                            </div>
-                                            <div class="flex flex-wrap -mx-3 m-6">
-                                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                                    <label
-                                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                        Product name
-                                                    </label>
-                                                    <input
-                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                                        id="grid-prod-name" type="text" placeholder="Puppy food">
+                                                <div class="flex flex-wrap -mx-3 m-6 w-full">
+                                                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                                        <label
+                                                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                                            Product name*
+                                                        </label>
+                                                        <input
+                                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                                            id="grid-prod-name" required type="text"
+                                                            placeholder="Puppy food">
+                                                    </div>
+                                                    <div class="w-full md:w-1/2 px-3">
+                                                        <label
+                                                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                                            Price*
+                                                        </label>
+                                                        <input
+                                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                            id="grid-price" required type="number" placeholder="1.50">
+                                                    </div>
                                                 </div>
-                                                <div class="w-full md:w-1/2 px-3">
-                                                    <label
-                                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                        Price
-                                                    </label>
-                                                    <input
-                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                        id="grid-price" type="number" placeholder="1.50">
-                                                </div>
                                             </div>
+
                                             <div class="flex flex-wrap -mx-3 mb-6">
                                                 <div class="w-full px-3">
                                                     <label
                                                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                        Description
+                                                        Description*
                                                     </label>
-                                                    <input
-                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                        id="grid-description" type="text"
-                                                        placeholder="Freshly handmade food for all your puppies">
                                                     <p class="text-gray-600 text-xs italic">Describe what your customers
                                                         will see</p>
+                                                    <textarea
+                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        id="grid-description" type="text" rows="20"
+                                                        placeholder="Freshly handmade food for all your puppies"></textarea>
+
                                                 </div>
                                             </div>
-                                            <div class="flex flex-wrap -mx-3 mb-2">
+                                            <div class="flex flex-wrap -mx-3 mb-4">
                                                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                                     <label
                                                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                        Category
+                                                        Category*
                                                     </label>
+                                                    <p class="text-gray-600 text-xs italic">Select one category</p>
+
                                                     <div class="relative">
                                                         <select
                                                             class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                            id="grid-category">
+                                                            id="grid-category" required>
                                                             <option value="62f3c0540ac73a2bc4764da7">Clothes</option>
                                                             <option value="62f3c0540ac73a2bc4764da8">Food</option>
                                                             <option value="62f3c0540ac73a2bc4764da9">Health</option>
@@ -149,19 +148,75 @@
                                                     <label
                                                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                                         for="grid-zip">
-                                                        Quantity
+                                                        Animal targets
                                                     </label>
+                                                    <p class="text-gray-600 text-xs italic">Comma-separated value list
+                                                    </p>
                                                     <input
                                                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                        id="grid-quantity" type="number" placeholder="100">
+                                                        id="grid-targets" type="text" placeholder="dog, monkey, cat">
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-wrap -mx-3 mb-4">
+                                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                                    <label
+                                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                                        for="grid-zip">
+                                                        Sizes
+                                                    </label>
+                                                    <p class="text-gray-600 text-xs italic">Comma-separated value list
+                                                    </p>
+                                                    <input
+                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        id="grid-sizes" type="text" placeholder="S, M, L">
+                                                </div>
+                                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                                    <label
+                                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                                        for="grid-zip">
+                                                        Colors
+                                                    </label>
+                                                    <p class="text-gray-600 text-xs italic">Comma-separated value list
+                                                    </p>
+                                                    <input
+                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        id="grid-colors" type="text" placeholder="red, blue, cyan">
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-wrap -mx-3 mb-4">
+                                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                                    <label
+                                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                                        for="grid-zip">
+                                                        Highlights
+                                                    </label>
+                                                    <p class="text-gray-600 text-xs italic">Comma-separated value list
+                                                    </p>
+                                                    <input
+                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        id="grid-highlights" type="text"
+                                                        placeholder="hot, eco-friendly">
+                                                </div>
+                                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                                    <label
+                                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                                        for="grid-zip">
+                                                        Details
+                                                    </label>
+                                                    <p class="text-gray-600 text-xs italic">Explain something extra to
+                                                        your customers
+                                                    </p>
+                                                    <input
+                                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        id="grid-details" type="text" placeholder="Some extra details">
                                                 </div>
                                             </div>
                                             <div class="flex flex-wrap -mx-3 mb-2 flow-root">
                                                 <div class="m-2 mr-16 float-right">
-                                                    <button id="addProduct"
+                                                    <div id="send"
                                                         class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                                                         Submit
-                                                    </button>
+                                                    </div>
                                                 </div>
 
                                             </div>
