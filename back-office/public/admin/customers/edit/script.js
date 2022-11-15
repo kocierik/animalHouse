@@ -51,36 +51,39 @@ function showImage() {
         console.log('Error: ', error);
     };
 }
-//TODO FIX SOME ERRS ON ASYNC RESPONSE
 
-$("#addProduct").click(function () {
-    var img = $('#grid-image').prop('files')[0];
+$("#send").click(function () {
+    let img = $('#grid-image').prop('files')[0];
     if (img) {
-
-
-        var headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Origin": "*"
-        }
-        var data = {
-            "firstName": $("#grid-firstName").val(),
-            "secondName": $("#grid-secondName").val(),
-            "description": $("#grid-description").val(),
-        };
-        console.log(data);
-        /*fetch("/v1/products", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(data)
+        fetch("/v1/users/" + getUrlParameter('id') + "/picture", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Origin": "*",
+                "authorization": localStorage.token,
+            },
+            body: JSON.stringify({ "profilePicture": img }) //TODO: capire come inviare l'immagine
         }).then((response) => response.json()).then(data => {
-            //console.log(data);
-            window.location.assign("../");
-            //$("#productPostResult").html("<h3>Here is the product you added</h3>");
-            //$("#productPostResult").append([{ displaySize: '-md-12', img: data.image, name: data.name, price: data.price, id: data._id }].map(Item));
-            //retrieveProduct('#productDeleteItems', "");
+            alert(response);
         }).catch(function () {
-            alert("ERRORE");
+            alert("ERR")
         });
-        */
+    }
+
+    let desc = $("#grid-description").val();
+    if (desc) {
+        fetch("/v1/users/" + getUrlParameter('id') + "/description", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Origin": "*",
+                "authorization": localStorage.token,
+            },
+            body: JSON.stringify({ 'description': desc })
+        }).then((response) => response.json()).then(data => {
+            console.log(data);
+        }).catch(function (error) {
+            alert(error)
+        });
     }
 });
