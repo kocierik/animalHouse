@@ -10,6 +10,7 @@ const FeatureCard = () => {
     }
 
     useEffect(() => {
+      if(showModal)
         executeScroll()
     },[showModal])
 
