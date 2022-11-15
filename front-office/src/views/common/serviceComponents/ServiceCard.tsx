@@ -100,26 +100,23 @@ const serviceProps = [{
 
 
 const ServiceCard = () => {
-    const [showModal,setShowModal] = useState(false)
+    const [showModal,setShowModal] = useState(true)
     const scrollRef = useRef<HTMLDivElement>(null)
 
-    const executeScroll = () => scrollRef.current?.scrollIntoView()  
-
-    const scrollTohowItWorks = () =>  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: 'smooth'
-  });
+    const executeScroll = () => {
+        scrollRef.current?.scrollIntoView({block: "start", inline: "nearest", behavior: "smooth"})  
+    }
+    
     useEffect(() => {
-         scrollTohowItWorks()
+        executeScroll()
     },[showModal])
 
   return (<>
     <div data-aos="zoom-in" className="px-3 md:lg:xl:px-40  rounded border-t border-b py-20 bg-opacity-10" >
+  <h2 className="mb-4 text-3xl font-bold">Services</h2>
     <div ref={scrollRef}>
         {showModal && <ModalCard  showModal={showModal} setShowModal={setShowModal} />}
     </div>
-  <h2 className="mb-4 text-3xl font-bold">Services</h2>
   <div className="grid mb-10 lg:grid-cols-2 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
     {
         
