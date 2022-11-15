@@ -45,3 +45,9 @@ server/pictures
 # SHARED
 shared/node_modules
 shared/.DS_Store
+
+# BACK-OFFICE
+back-office/.DS_Store
+back-office/public/js/tsc.js
+back-office/public/js/tsc.js.map
+
