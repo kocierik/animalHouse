@@ -29,7 +29,12 @@ function retrieveUser(id) {
         $("#grid-description").val(el.description);
         $("#grid-email").val(el.email);
         $("#grid-username").val(el.username);
-        $("#imgplaceholder").attr("src", "/favicon.ico");
+        let img = el.profilePicture;
+        if (img) {
+            $("#imgplaceholder").attr("src", "/v1/pictures/" + img.filename);
+        } else {
+            $("#imgplaceholder").attr("src", "/favicon.ico");
+        }
     });
 }
 
@@ -55,16 +60,17 @@ function showImage() {
 $("#send").click(function () {
     let img = $('#grid-image').prop('files')[0];
     if (img) {
+        var send = new FormData()
+        send.append("profile", img)
         fetch("/v1/users/" + getUrlParameter('id') + "/picture", {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json",
                 "Access-Control-Origin": "*",
                 "authorization": localStorage.token,
             },
-            body: JSON.stringify({ "profilePicture": img }) //TODO: capire come inviare l'immagine
+            body: send
         }).then((response) => response.json()).then(data => {
-            alert(response);
+            console.log(response);
         }).catch(function () {
             alert("ERR")
         });
