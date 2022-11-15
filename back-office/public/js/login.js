@@ -4,7 +4,7 @@ async function doLogin() {
       window.location.href = localStorage.prevPage
       localStorage.removeItem("prevPage")
     } else {
-      window.location = "/"
+      window.location.href = "/"
     }
     return
   }
@@ -14,6 +14,7 @@ async function doLogin() {
   const url = "/v1/admins/login"
 
   if (username && username !== "" && password && password !== "") {
+    localStorage.user = username
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -31,9 +32,10 @@ async function doLogin() {
         window.location.href = localStorage.prevPage
         localStorage.removeItem("prevPage")
       } else {
-        window.location = "/"
+        window.location.href = "/"
       }
     } else {
+      localStorage.removeItem("user")
       $("#errorDiv").text(body.mex)
     }
   }
@@ -48,5 +50,6 @@ function loginCheck() {
 }
 function logout() {
   localStorage.removeItem("token")
+  localStorage.removeItem("user")
   window.location.href = "/"
 }
