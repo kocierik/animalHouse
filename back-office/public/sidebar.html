@@ -3,7 +3,7 @@
         <a href="/">
             <h1 class="py-4 px-4 text-gray-100 text-base font-medium">Animal House</h1>
         </a>
-        <span class="text-xs text-gray-500 block py-3 px-4">TODO_USER</span>
+        <span class="text-xs text-gray-500 block py-3 px-4" id="side_user"></span>
 
     </header>
     <nav class="overflow-y-auto h-full flex-grow">
@@ -42,4 +42,7 @@
     //set footer year
     var d = new Date();
     document.getElementById("thisYear").innerHTML = "" + d.getFullYear();
+
+    document.getElementById("side_user").innerHTML = localStorage.user;
+
 </script>
