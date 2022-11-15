@@ -15,22 +15,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
     return false;
 };
 
-function retrieveProducts(id) {
-    var url = "/v1/products/" + id;
-    fetch(url).then((response) => response.json()).then((data) => {
-        data.forEach(function (el) {
-            console.log(el);
-            $("#grid-prod-name").val(el.name);
-            $("#grid-price").val(el.price);
-            $("#grid-category").val(el.categoryId);
-            $("#grid-description").val(el.description);
-            //$("#grid-quantity").val(el.stock); TODO
-            $("#imgPlaceholder").attr("src", el.image);
-
-        });
-    });
-}
-
 $(document).ready(function () {
     var id = getUrlParameter('id');
     if (id) {
@@ -38,26 +22,61 @@ $(document).ready(function () {
     }
 });
 
-//TODO FIX SOME ERRS ON ASYNC RESPONSE
+function retrieveProducts(id) {
+    var url = "/v1/products/" + id;
+    fetch(url).then((response) => response.json()).then((el) => {
+        console.log(el);
+        $("#grid-prod-name").val(el.name);
+        $("#grid-price").val(el.price);
+        $("#grid-category").val(el.categoryId);
+        $("#grid-description").val(el.description);
+        $("#grid-targets").val(ArrToCsv(el.animalTargets));
+        $("#grid-colors").val(ArrToCsv(el.colors))
+        $("#grid-sizes").val(ArrToCsv(el.sizes))
+        $("#grid-highlights").val(ArrToCsv(el.highlights))
+        $("#grid-details").val(el.details)
 
-$("#addProduct").click(function () {
+        $("#imgplaceholder").attr("src", el.images[0]);
+    });
+}
+
+function showImage() {
+    var file = $('#grid-image').prop('files')[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        $("#imgplaceholder").attr("src", String(reader.result))
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
+
+function ArrToCsv(arr) {
+    return arr.join(", ")
+}
+function CsvToArr(csv) {
+    return csv.replace(/\s/g, '').split(",")
+}
+
+$("#send").click(function () {
     var img = $('#grid-image').prop('files')[0];
     if (img) {
 
-
-        var headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Origin": "*"
-        }
-        var data = {
-            "name": $("#grid-prod-name").val(),
-            "price": $("#grid-price").val(),
-            "categoryId": $("#grid-category").val(),
-            "description": $("#grid-description").val(),
-            "animalTargets": [],
-            "image": "/public/products/" + getUrlParameter('id') + ".jpg"
-        };
-        console.log(data);
+        fetch("v1/products/" + getUrlParameter('id') + "/picture", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Origin": "*"
+            },
+            body: {
+                "file": img
+            }
+        }).then((response) => response.json()).then(data => {
+            console.log(data);
+        }).catch(function () {
+            alert("ERRORE");
+        });
         /*fetch("/v1/products", {
             method: "POST",
             headers: headers,
