@@ -1,8 +1,23 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import ModalCard from './ModalCard'
 
 const FeatureCard = () => {
+    const [showModal,setShowModal] = useState(false)
+    const scrollRef = useRef<HTMLDivElement>(null)
+
+    const executeScroll = () => {
+        scrollRef.current?.scrollIntoView({block: "start", inline: "nearest", behavior: "smooth"})  
+    }
+
+    useEffect(() => {
+        executeScroll()
+    },[showModal])
+
   return (
     <div className="flex flex-col">
+      <div ref={scrollRef}>
+        {showModal && <ModalCard  showModal={showModal} setShowModal={setShowModal} />}
+    </div>
   <h2 className="mb-4 text-2xl font-bold">Most Used Services</h2>
 
   <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -13,9 +28,9 @@ const FeatureCard = () => {
         </svg>
       </div>
 
-      <div className="ml-4">
-        <h2 className="font-semibold">574 Messages</h2>
-        <p className="mt-2 text-sm text-gray-500">Last opened 4 days ago</p>
+      <div className="ml-4 cursor-pointer" onClick={() => setShowModal(true)}>
+        <h2 className="font-semibold">Find Partner</h2>
+        <p className="mt-2 text-sm text-gray-500">Last used 1 days ago</p>
       </div>
     </div>
 
@@ -26,9 +41,9 @@ const FeatureCard = () => {
         </svg>
       </div>
 
-      <div className="ml-4">
-        <h2 className="font-semibold">1823 Users</h2>
-        <p className="mt-2 text-sm text-gray-500">Last checked 3 days ago</p>
+      <div className="ml-4 cursor-pointer" onClick={() => setShowModal(true)}>
+        <h2 className="font-semibold">Veterinary</h2>
+        <p className="mt-2 text-sm text-gray-500">Last used 2 days ago</p>
       </div>
     </div>
     <div className="flex items-start hover:-translate-y-3 hover:scale-105 duration-300 rounded-xl bg-white p-4 shadow-lg">
@@ -38,9 +53,9 @@ const FeatureCard = () => {
         </svg>
       </div>
 
-      <div className="ml-4">
-        <h2 className="font-semibold">548 Posts</h2>
-        <p className="mt-2 text-sm text-gray-500">Last authored 1 day ago</p>
+      <div className="ml-4 cursor-pointer" onClick={() => setShowModal(true)}>
+        <h2 className="font-semibold">Dog Sitter</h2>
+        <p className="mt-2 text-sm text-gray-500">Last used 1 days ago</p>
       </div>
     </div>
     <div className="flex items-start hover:-translate-y-3 hover:scale-105 duration-300 rounded-xl bg-white p-4 shadow-lg">
@@ -50,9 +65,9 @@ const FeatureCard = () => {
         </svg>
       </div>
 
-      <div className="ml-4">
-        <h2 className="font-semibold">129 Comments</h2>
-        <p className="mt-2 text-sm text-gray-500">Last commented 8 days ago</p>
+      <div className="ml-4 cursor-pointer" onClick={() => setShowModal(true)}>
+        <h2 className="font-semibold">Pension</h2>
+        <p className="mt-2 text-sm text-gray-500">Last used 8 hour ago</p>
       </div>
     </div>
   </div>

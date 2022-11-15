@@ -100,13 +100,13 @@ const serviceProps = [{
 
 
 const ServiceCard = () => {
-    const [showModal,setShowModal] = useState(true)
+    const [showModal,setShowModal] = useState(false)
     const scrollRef = useRef<HTMLDivElement>(null)
 
     const executeScroll = () => {
         scrollRef.current?.scrollIntoView({block: "start", inline: "nearest", behavior: "smooth"})  
     }
-    
+
     useEffect(() => {
         executeScroll()
     },[showModal])
@@ -140,7 +140,7 @@ const ServiceCard = () => {
     
         <div data-aos="zoom-in" className="w-full flex flex-col rounded bg-indigo-900 shadow-xl shadow-indigo-200 py-10 px-20 flex justify-between items-center">
             <p className="text-white p-5"> <span className="text-xl font-medium">Still Confused?</span> </p>
-            <button className="px-5 py-3 hover:-translate-y-2 hover:scale-100 duration-300 font-medium text-white shadow-xl  hover:bg-indigo-900 duration-150  bg-indigo-800">BOOK AN APPOINTMENT </button>
+            <button onClick={() => setShowModal(true)} className="px-5 py-3 hover:-translate-y-2 hover:scale-100 duration-300 font-medium text-white shadow-xl  hover:bg-indigo-900 duration-150  bg-indigo-800">BOOK AN APPOINTMENT </button>
         </div>
     </div>
     </>
