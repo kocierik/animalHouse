@@ -63,15 +63,15 @@ $("#send").click(function () {
     var img = $('#grid-image').prop('files')[0];
     if (img) {
 
-        fetch("v1/products/" + getUrlParameter('id') + "/picture", {
+        fetch("/v1/products/" + getUrlParameter('id') + "/picture", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Origin": "*"
             },
-            body: {
+            body: JSON.stringify({
                 "file": img
-            }
+            })
         }).then((response) => response.json()).then(data => {
             console.log(data);
         }).catch(function () {
