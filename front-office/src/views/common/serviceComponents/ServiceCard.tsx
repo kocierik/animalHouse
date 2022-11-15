@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ModalCard from './ModalCard'
 
 const serviceProps = [{
@@ -98,13 +98,28 @@ const serviceProps = [{
 },
 ]
 
+
 const ServiceCard = () => {
     const [showModal,setShowModal] = useState(false)
-  return (
+    const scrollRef = useRef<HTMLDivElement>(null)
+
+    const executeScroll = () => scrollRef.current?.scrollIntoView()  
+
+    const scrollTohowItWorks = () =>  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
+    useEffect(() => {
+         scrollTohowItWorks()
+    },[showModal])
+
+  return (<>
     <div data-aos="zoom-in" className="px-3 md:lg:xl:px-40  rounded border-t border-b py-20 bg-opacity-10" >
+    <div ref={scrollRef}>
+        {showModal && <ModalCard  showModal={showModal} setShowModal={setShowModal} />}
+    </div>
   <h2 className="mb-4 text-3xl font-bold">Services</h2>
-  
-    {showModal && <ModalCard showModal={showModal} setShowModal={setShowModal} />}
   <div className="grid mb-10 lg:grid-cols-2 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
     {
         
@@ -131,6 +146,7 @@ const ServiceCard = () => {
             <button className="px-5 py-3 hover:-translate-y-2 hover:scale-100 duration-300 font-medium text-white shadow-xl  hover:bg-indigo-900 duration-150  bg-indigo-800">BOOK AN APPOINTMENT </button>
         </div>
     </div>
+    </>
   )
 }
 export default ServiceCard
