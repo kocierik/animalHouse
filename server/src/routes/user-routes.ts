@@ -8,6 +8,8 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import * as ReservationService from '../services/reservation-service'
+import { IReservation } from '../entities/Reservation';
 
 /**
  * @swagger
@@ -582,6 +584,28 @@ export const updateUserDescription = async (req: Request, res: Response) => {
     let updateUser = req.body as JsonUser
     console.log(updateUser)
     return res.status(Const.STATUS_OK).json(await UserService.updateUserDescription(pathId, updateUser))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
+
+export const findReservationsByUserId = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    return res.status(Const.STATUS_OK).json(await UserService.findReservationsByUserId(pathId))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
+export const putReservation = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    const reservation = req.body as IReservation
+    return res.status(Const.STATUS_OK).json(await UserService.putReservation(pathId, reservation))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
