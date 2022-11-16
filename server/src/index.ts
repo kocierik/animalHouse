@@ -35,6 +35,7 @@ async function db() {
   await migrations.initAnimalCodes()
   await migrations.initAnimalCodes()
   await migrations.initAdmin()
+  await migrations.initReservationCodes()
   // TODO remove
   await migrations.test()
 }
