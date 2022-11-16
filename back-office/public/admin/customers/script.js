@@ -8,7 +8,10 @@ function retrieveUsers(target) {
         $(target).text("");
 
         data.forEach(function (el) {
-            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, phone: el.phone, address: el.address }].map(Item));
+            pic = "/favicon.ico"
+            if (el.profilePicture)
+                pic = "/v1/pictures/" + el.profilePicture.filename
+            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, phone: el.phone, address: el.address, picture: pic }].map(Item));
         });
     });
 }
@@ -26,12 +29,12 @@ function userRemove(username, id) {
 }
 
 //item template
-const Item = ({ username, firstName, lastName, id, email, phone, address }) => `
+const Item = ({ username, firstName, lastName, id, email, phone, address, picture }) => `
 <tr>
     <td class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
             <div class="mr-4 h-16 w-16 block flex flex-row items-center">
-                <img class="rounded-lg" src="/favicon.ico"></div>
+                <img class="rounded-lg" src="${picture}"></div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${username}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${firstName}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${lastName}</div>
