@@ -5,6 +5,7 @@ import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
 import { SwaggerReview } from './json/JsonReview'
 import { SwaggerUser } from './json/JsonUser'
 import { SwaggerAnimalPatch } from './json/patch/AnimalPatch'
+import { SwaggerProductPatch } from './json/patch/ProductPatch'
 
 const swaggerOptions = {
   definition: {
@@ -33,6 +34,7 @@ const swaggerOptions = {
         Review: SwaggerReview,
         UserPatch: SwaggerUserPatch,
         AnimalPatch: SwaggerAnimalPatch,
+        ProductPatch: SwaggerProductPatch,
         ProductInstance: {
           type: 'object',
           required: ['productId'],
