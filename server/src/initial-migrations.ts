@@ -8,6 +8,7 @@ import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
 import Admin from './entities/Admin'
 import Animal from './entities/Animal'
+import ReservationCode from './entities/ReservationCode';
 
 export const test = async () => {
   await User.deleteMany()
@@ -33,6 +34,7 @@ export const test = async () => {
       description: 'ciao',
       phone: '3333333333',
       profilePicture: null,
+      reservations: [],
       animals: [
         {
           _id: new Types.ObjectId('635c088531e05da80c7faf6a'),
@@ -154,5 +156,19 @@ export const initAnimalCodes = async () => {
     { code: 6, value: 'Panda' },
     { code: 7, value: 'Shiba' },
     { code: 8, value: 'Lizard' },
+  ])
+}
+export const initReservationCodes = async () => {
+  await ReservationCode.deleteMany()
+  await ReservationCode.insertMany([
+    {code: 0, value: 'Find Partner'},
+    {code: 1, value: 'Help Animals'},
+    {code: 2, value: 'Psychologist'},
+    {code: 3, value: 'Dog Sitter'},
+    {code: 4, value: 'Veterinary'},
+    {code: 5, value: 'Pension'},
+    {code: 6, value: 'Wash Animal'},
+    {code: 7, value: 'Home Visit'},
+    {code: 8, value: 'Grooming'},
   ])
 }
