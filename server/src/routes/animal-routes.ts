@@ -66,12 +66,12 @@ export const getAnimal = async (req: Request, res: Response) => {
  * @swagger
  *
  *  /animals/{id}:
- *    patch: JsonPatches
+ *    patch:
  *      tags:
  *      - animals
  *      summary: patch
  *      parameters:
- *        - in: patha
+ *        - in: path
  *          name: id
  *          type: string
  *          required: true

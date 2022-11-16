@@ -2,6 +2,7 @@ export interface JsonUserPatch {
   username?: string
   password?: string
   email?: string
+  description?: string
   firstName?: string
   lastName?: string
   country?: string
@@ -22,6 +23,10 @@ export const SwaggerUserPatch = {
       nullable: true
     },
     email: {
+      type: 'string',
+      nullable: true
+    },
+    description: {
       type: 'string',
       nullable: true
     },

@@ -225,6 +225,7 @@ export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonU
   if (patch.firstName) user.firstName = patch.firstName
   if (patch.username) user.username = patch.username
   if (patch.email) user.email = patch.email
+  if (patch.description) user.description = patch.description
 
   await user.save()
   return userToJsonUser(user)
