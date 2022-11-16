@@ -1,4 +1,5 @@
 import type * as  JsonAnimal from './animal'
+import { IReservation } from './Reservation';
 
 export interface JsonRegistration {
   username: string,
@@ -18,6 +19,7 @@ export interface JsonUser {
   animals: JsonAnimal.JsonAnimal[],
   address: JsonAddress,
   profilePicture?: JsonPicture
+  reservations?: IReservation[]
 }
 
 export interface JsonPicture {
@@ -31,7 +33,7 @@ export interface JsonAddress {
   country: string,
   city: string,
   street: string,
-  cap: number
+  zip: number
 }
 
 export interface JsonAuthInfo {
