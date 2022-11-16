@@ -1,10 +1,11 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { ApiRepository, Helpers, JsonUser } from 'shared';
+import { ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared';
 
 const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
     const openRef = useRef<HTMLDivElement>(null)
     const [user,setUser] = useState<JsonUser.JsonUser>()
     const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
+    const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
     const modalHandler = () => {
         props.setShowModal(!props.showModal)
         console.log(animalSelect?.target?.value)
@@ -17,6 +18,40 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
         setUser(data)
     }
   }
+
+  const getReservation = async () => {
+    if(Helpers.getUserId()){
+        const id = Helpers.getUserId()
+        const data = (await ApiRepository.getUserReservations(id!))
+        console.log(data)
+    }
+  } 
+
+    const putReservation = async () => {
+        console.log(date)
+        const reservation : JsonReservation.IReservation = {
+            animalName: animalSelect.target.value,
+            serviceName: 'Pension',
+            userId: Helpers.getUserId()!,
+            date: date?.target.value!,
+            information: '',
+            location: {
+                name: "italia",
+                address: {
+                    country: "italy",
+                    city: "rimini",
+                    street: "via casa",
+                    zip: 48934
+                }
+            }
+        }
+        if(Helpers.getUserId()){
+            const id = Helpers.getUserId()
+            const data = (await ApiRepository.putReservation(id!,reservation))
+            console.log(data)
+        }
+  } 
+
   useEffect(() => {
     getUserAnimal()
   },[])
@@ -64,9 +99,9 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
                         <div className="relative mb-5 mt-2">
                             <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                             </div>
-                            <input id="expiry" type="datetime-local" min={new Date().toISOString()}  max="2024-06-14T00:00" className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="MM/YY" />
+                            <input id="expiry" onChange={(value) => setDate(value)}  type="datetime-local" min={new Date().toISOString()}  max="2024-06-14T00:00" className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="MM/YY" />
                         </div>
-                        <label htmlFor="structure" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Structure</label>
+                        <label htmlFor="location" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Location</label>
                         <div className="relative mb-5 mt-2">
                             <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                             </div>
@@ -75,7 +110,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
                         </select>
                         </div>
                         <div className="flex items-center justify-start w-full">
-                            <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
+                            <button onClick={async() => await putReservation()} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
                             <button className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onClick={() => modalHandler()}>Cancel</button>
                         </div>
                         <button className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onClick={() => props.setShowModal(!props.showModal)} aria-label="close modal" role="button">
