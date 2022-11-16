@@ -14,7 +14,7 @@ export interface JsonReservation {
   animalName: string
   serviceName: string
   userId: string
-  date: Date
+  date: string
   information: string
   location: ILocation
 }

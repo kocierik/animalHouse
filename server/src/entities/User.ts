@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { IAnimal, animalSchema } from './Animal'
+import { IReservation, reservationSchema } from './Reservation';
 
 export interface IUser {
   _id: string
@@ -13,6 +14,7 @@ export interface IUser {
   phone: string
   address: IAddress
   profilePicture?: IPicture
+  reservations?: IReservation[]
 }
 export interface IPicture {
   filename: string
@@ -51,6 +53,7 @@ const userSchema = new Schema<IUser>({
   animals: { type: [animalSchema], required: true, default: [] },
   address: { type: addressSchema },
   profilePicture: { type: picturesSchema, required: false },
+  reservations: {type: [reservationSchema], required: false, default: [] }
 })
 
 const User = model<IUser>('User', userSchema)
