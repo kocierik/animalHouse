@@ -1,5 +1,4 @@
 import * as JsonAnimal from './JsonAnimal'
-import { JsonReservation } from './JsonReservation';
 
 export interface JsonUserCreation {
   username: string
@@ -23,7 +22,6 @@ export interface JsonUser {
   animals: JsonAnimal.JsonAnimal[]
   address: JsonAddress
   profilePicture?: JsonPicture
-  reservation: JsonReservation[]
 }
 
 export interface JsonAddress {

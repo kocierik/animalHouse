@@ -11,7 +11,6 @@ import { AuthData } from '../routes/middlewares'
 import { IPicture } from '../entities/User'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
-import { IReservation } from '../entities/Reservation';
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -92,7 +91,6 @@ export const userToJsonUser = (user: IUser): JsonUser => ({
   animals: user.animals.map(AnimalService.animalToJsonAnimal),
   profilePicture: user.profilePicture,
   address: user.address as IAddress,
-  reservation: user.reservations
 })
 
 export const pictureToJsonPicture = (pic: IPicture) => ({
@@ -216,26 +214,4 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
       throw new JsonError(error.message)
     }
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
-}
-
-
-export const findReservationsByUserId = async (id: string): Promise<IReservation[]> => {
-  try {
-    const user = (await User.findById(id)) 
-    console.log(user.reservations)
-    return user.reservations
-  } catch (err) {
-    throw new JsonError(`Cannot find reservation with id ${id} (${err.message})`)
-  }
-}
-
-export const putReservation = async (id: string, reservation : IReservation): Promise<IReservation> => {
-  try {
-    const user = (await User.findById(id)) 
-    await user.updateOne({$push : {reservations: reservation}})
-    console.log(user.reservations)
-    return reservation
-  } catch (err) {
-    throw new JsonError(`Cannot push reservation with id ${id} (${err.message})`)
-  }
 }

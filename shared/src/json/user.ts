@@ -19,7 +19,6 @@ export interface JsonUser {
   animals: JsonAnimal.JsonAnimal[],
   address: JsonAddress,
   profilePicture?: JsonPicture
-  reservations?: IReservation[]
 }
 
 export interface JsonPicture {

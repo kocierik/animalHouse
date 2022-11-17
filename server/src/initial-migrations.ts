@@ -34,7 +34,6 @@ export const test = async () => {
       description: 'ciao',
       phone: '3333333333',
       profilePicture: null,
-      reservations: [],
       animals: [
         {
           _id: new Types.ObjectId('635c088531e05da80c7faf6a'),
