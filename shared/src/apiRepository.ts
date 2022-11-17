@@ -5,7 +5,7 @@ import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
 import type * as review from './json/Review'
-import type * as reservation from "./json/reservation"
+import type * as reservation from "./json/Reservation"
 import { stringFormat } from './helpers'
 
 // Server api urls
