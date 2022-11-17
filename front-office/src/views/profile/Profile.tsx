@@ -48,7 +48,7 @@ const Profile = () => {
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
       setUser(userInfo)
       textValue.current!.value = userInfo?.description!
-      // --------------------
+
       const image = (await (ApiRepository.getPicture(user.id))).data
       setImageProfile(image)
     }
@@ -64,7 +64,7 @@ const Profile = () => {
 
   const saveDescription = async () => {
     try {
-      if(Helpers.getUserId()){
+      if (Helpers.getUserId()) {
         let newUser = user
         newUser!.description = textValue.current?.value!
         const result = await ApiRepository.updateUserDescription(Helpers.getUserId()!, newUser!)

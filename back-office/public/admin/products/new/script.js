@@ -28,7 +28,7 @@ $("#send").click(function () {
         }).then((response) => response.json()).then(data => {
             var send = new FormData()
             send.append("product", img)
-            //window.location.assign("../");
+
             console.log(data)
         });
     }

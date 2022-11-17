@@ -6,7 +6,7 @@ export interface IReview {
   date: Date
 }
 
-export interface JsonProductSumUp {
+export interface IProductSumUp {
   average: number
   total: number
   percentage: string[]

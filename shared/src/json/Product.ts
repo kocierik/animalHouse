@@ -1,10 +1,12 @@
-export interface IProductMarked{
+import { IPicture } from "./Picture"
+
+export interface IProduct {
   _id: string,
   name: string,
   description: string,
   price: number,
   categoryId: string,
-  images: string[],
+  image: IPicture,
   alt: string[],
   animalTargets: string[]
   colors?: string[],

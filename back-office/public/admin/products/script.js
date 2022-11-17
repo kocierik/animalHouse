@@ -4,7 +4,7 @@ function retrieveProducts(target) {
         $(target).text("");
         data.forEach(function (el) {
             console.log(el)
-            $(target).append([{ img: el.image, name: el.name, price: el.price, id: el._id, description: el.description }].map(Item));
+            $(target).append([{ img: el.image.filename, name: el.name, price: el.price, id: el._id, description: el.description }].map(Item));
         });
     });
 }
@@ -22,7 +22,7 @@ const Item = ({ img, name, price, id, description }) => `
     <td class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
             <div class="mr-4 h-16 w-16 block flex flex-row items-center">
-                <img class="rounded-lg" src="${img}"></div>
+                <img class="rounded-lg" src="/pictures/${img}"></div>
             <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${name}</div>
             <div class="mr-4 h-16 w-16 block flex flex-row items-center text-gray-700">${price} $</div>
             <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${description}</div>

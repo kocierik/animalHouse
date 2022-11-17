@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react'
 import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
-import defaultImage from "./defaultImage.jpg"
 const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>> }) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
@@ -20,7 +19,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
     {
       name: 'delete',
       setting: async () => {
-        if(Helpers.getUserId()){
+        if (Helpers.getUserId()) {
           try {
             await ApiRepository.deleteAnimal(Helpers.getUserId()!, props.animal._id!)
             const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
@@ -36,18 +35,13 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const [animals, setAnimals] = useState(settingAnimals)
 
   const saveChangesAnimal = async () => {
-    if(Helpers.getUserId()){
-      const defaultPicture: JsonAnimal.JsonPicture = {
-        filename: "635c088531e05da80c7faf61",
-        mimetype: "image/jpeg",
-        size: 2766
-      }
+    if (Helpers.getUserId()) {
       const changesAnimal: JsonAnimal.JsonAnimal = {
         name: animalName.current?.value!,
         type: animalType.current?.value!,
         userId: Helpers.getUserId()!,
         age: parseInt(animalAge.current?.value!),
-        picture: defaultPicture
+        picture: undefined    //TODO
       }
       await ApiRepository.editAnimal(Helpers.getUserId()!, props.animal._id!, changesAnimal)
     }
@@ -55,7 +49,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
 
 
   const updateAnimalPhoto = async () => {
-    if(Helpers.getUserId()){
+    if (Helpers.getUserId()) {
       if (file) {
         const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId()!, props.animal._id!, file))
         if (resp) {
@@ -106,7 +100,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
             }
             }
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
-            src={imageProfileAnimal ? imageProfileAnimal : defaultImage}
+            src={imageProfileAnimal ? imageProfileAnimal : "/defaultImage.jpg"}
             alt="your animal"
           />
           <input

@@ -2,13 +2,14 @@ import { Api } from './api'
 import type * as user from './json/user'
 import type * as animal from './json/animal'
 import type * as score from './json/Games'
-import type * as product from './json/ProductMarked'
+import type * as product from './json/Product'
 import type * as community from './json/Community'
 import type * as review from './json/Review'
 import { stringFormat } from './helpers'
+import { SERVER_URL } from './const'
 
 // Server api urls
-const _BASE_URL = 'http://localhost:8080/v1'
+const _BASE_URL = SERVER_URL + '/v1'
 const _USERS_LOGIN = '/users/login'
 const _USER_INFO = '/users/{0}'
 const _USER_CURRENT = '/users/current'
@@ -41,7 +42,7 @@ export const getUserInfoById = async (id: string) =>
   Api.get<user.JsonUser>(stringFormat(_BASE_URL + _USER_INFO, id))
 
 export const getPicture = async (id: string) =>
-  Api.getImage(stringFormat(_BASE_URL + _PICTURES, id))
+  Api.getImage(stringFormat(SERVER_URL + _PICTURES, id))
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration)
@@ -64,10 +65,10 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _COMMUNITY_GAME_SCOREBOARD)
 
-export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _PRODUCTS)
+export const getMarketProducts = async () => Api.get<product.IProduct[]>(_BASE_URL + _PRODUCTS)
 
 export const getMarketProduct = async (productId: string) =>
-  Api.get<product.IProductMarked>(_BASE_URL + _PRODUCTS + productId)
+  Api.get<product.IProduct>(_BASE_URL + _PRODUCTS + productId)
 
 export const getProductReviews = async (productId: string) =>
   Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCTS_REVIEW, productId))
@@ -92,6 +93,6 @@ export const updateUserDescription = async (userId: string, updateUser: user.Jso
 }
 
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
-  Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
+  Api.get<review.IProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
 
 // TODO insert here other calls!!!!
