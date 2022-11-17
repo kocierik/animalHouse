@@ -34,7 +34,7 @@ export const SwaggerReservation = {
       type: 'string',
     },
     date: {
-      type: 'number',
+      type: 'string',
     },
     information: {
       type: 'string',
