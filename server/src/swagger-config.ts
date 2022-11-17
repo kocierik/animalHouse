@@ -1,6 +1,7 @@
 import { SwaggerAnimal } from './json/JsonAnimal'
 import { SwaggerProduct } from './json/JsonProduct'
 import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
+import { SwaggerReservation } from './json/JsonReservation'
 import { SwaggerReview } from './json/JsonReview'
 import { SwaggerUser } from './json/JsonUser'
 
@@ -22,13 +23,14 @@ const swaggerOptions = {
       },
     },
     components: {
-      tags: [{ name: 'users' }, { name: 'products' }, { name: 'community' }, { name: 'animals' }],
+      tags: [{ name: 'users' }, { name: 'products' }, { name: 'community' }, { name: 'animals' }, { name: 'reservations'}],
       schemas: {
         User: SwaggerUser,
         Animal: SwaggerAnimal,
         Product: SwaggerProduct,
         ReviewSumUp: SwaggerReviewSumUp,
         Review: SwaggerReview,
+        Reservation: SwaggerReservation,
         ProductInstance: {
           type: 'object',
           required: ['productId'],
