@@ -53,7 +53,7 @@ const log = (req: Request, _: Response, next: Function) => {
 }
 
 console.log('[INFO] Pictures dir is at ' + Const.picDir)
-app.use(`${version}/pictures/`, log, express.static(Const.picDir))
+app.use(`/pictures/`, log, express.static(Const.picDir))
 
 // Swagger
 app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))

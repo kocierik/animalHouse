@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
+import { ApiRepository, JsonProduct, ProductConstant, JsonReview, Helpers } from 'shared';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -13,7 +13,7 @@ function classNames(...classes: string[]) {
 export default function Product() {
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
-  const [prod, setProd] = useState<ProductMarked.IProductMarked>()
+  const [prod, setProd] = useState<JsonProduct.IProduct>()
   const [productColor, setProductColor] = React.useState<string[]>([])
   const [post, setPost] = useState<boolean>(null!)
 
@@ -25,7 +25,7 @@ export default function Product() {
 
   const fetchProduct = async (id: string) => {
     if ((await ApiRepository.getMarketProduct(id)).esit) {
-      const val = (await ApiRepository.getMarketProduct(id)).data! as ProductMarked.IProductMarked
+      const val = (await ApiRepository.getMarketProduct(id)).data! as JsonProduct.IProduct
       setProd(val!)
       setProductColor(val.colors!)
     }
@@ -88,7 +88,8 @@ export default function Product() {
           {/* Image gallery */}
           <div className="mt-6 max-w-xl mx-auto sm:px-6 lg:max-w-4xl lg:px-4 lg:grid lg:grid-cols-2 p-5 lg:gap-x-8">
             <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
-              <img src={prod?.images[0]} alt={prod?.name} className="w-full h-full object-center object-cover" />
+              {/*TODO*/}
+              <img src={prod?.image?.filename ? Helpers.getImagePath(prod?.image?.filename) : "/favicon.ico"} alt={prod?.name} className="w-full h-full object-center object-cover" />
             </div>
 
             {/* Options */}

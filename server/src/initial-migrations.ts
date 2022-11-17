@@ -65,7 +65,11 @@ export const test = async () => {
       description: 'dog for every food',
       price: 69,
       categoryId: '62f3c0540ac73a2bc4764da8',
-
+      image: {
+        filename: "pappa.png",
+        mimetype: "image/png",
+        size: 1033
+      },
       alt: 'dog',
       animalTargets: ['dog'],
       colors: ['black', 'white'],
@@ -81,6 +85,11 @@ export const test = async () => {
       categoryId: '62f3c0540ac73a2bc4764da7',
       colors: ['white', 'red'],
       types: ['man', 'child', 'woman'],
+      image: {
+        filename: "62f425273418f02b236b58b1",
+        mimetype: "image/png",
+        size: 1033
+      },
       alt: 'shirt',
       animalTargets: ['human'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
