@@ -40,7 +40,9 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
         if(Helpers.getUserId()){
             const id = Helpers.getUserId()
             const data = (await ApiRepository.postReservation(id!,reservation))
-            const prova = (await ApiRepository.getUserReservations(id!))
+            console.log("data ", data)
+            const prova = (await ApiRepository.getReservations(id!))
+            console.log("prova ", prova)
         }
   } 
 

@@ -1,15 +1,15 @@
 import { Schema, model } from 'mongoose'
 
-interface IReservationCode {
+interface IServiceCode {
   code: number
   value: string
 }
 
-const ReservationCodeSchema = new Schema<IReservationCode>({
+const ServiceCodeSchema = new Schema<IServiceCode>({
   code: { type: Number, required: true },
   value: { type: String, required: true },
 })
 
-const ReservationCode = model<IReservationCode>('ReservationCode', ReservationCodeSchema)
+const ServiceCode = model<IServiceCode>('ServiceCode', ServiceCodeSchema)
 
-export default ReservationCode
+export default ServiceCode
