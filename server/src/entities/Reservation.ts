@@ -1,5 +1,5 @@
 import { Schema, model, Types } from 'mongoose';
-import { JsonAddress } from '../json/JsonUser';
+import type { JsonAddress } from '../json/JsonAddress';
 import { IAddress } from './User';
 
 
@@ -10,6 +10,7 @@ export interface ILocation {
 }
 
 export interface IReservation {
+  _id: Types.ObjectId
   animalId: string
   serviceName: string
   userId: string

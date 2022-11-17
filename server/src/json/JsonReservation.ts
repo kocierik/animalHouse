@@ -1,9 +1,5 @@
-export interface JsonAddress {
-  country: string
-  city: string
-  street: string
-  zip: number
-}
+import { JsonAddress } from "./JsonAddress"
+
 
 export interface ILocation {
   name: string
