@@ -10,7 +10,7 @@ export interface ILocation {
 }
 
 export interface IReservation {
-  animalName: string
+  animalId: string
   serviceName: string
   userId: string
   date: string
@@ -31,7 +31,7 @@ const locationSchema = new Schema<ILocation>({
 })
 
 export const reservationSchema = new Schema<IReservation>({
-  animalName: { type: String, required: true },
+  animalId: {type: String, required: true},
   serviceName: { type: String, required: true },
   userId: { type: String, required: true },
   date: { type: String, required: true },

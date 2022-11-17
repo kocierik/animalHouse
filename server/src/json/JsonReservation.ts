@@ -11,7 +11,6 @@ export interface ILocation {
 }
 
 export interface JsonReservation {
-  animalName: string
   serviceName: string
   userId: string
   date: string
@@ -25,7 +24,7 @@ export const SwaggerReservation = {
     _id: {
       type: 'string',
     },
-    animalName: {
+    animalId: {
       type: 'string',
     },
     serviceName: {

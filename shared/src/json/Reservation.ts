@@ -6,7 +6,7 @@ export interface ILocation {
 }
 
 export interface IReservation {
-  animalName: string
+  animalId: string
   serviceName: string
   userId: string
   date: string
