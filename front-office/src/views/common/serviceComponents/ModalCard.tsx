@@ -21,7 +21,6 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
   }
 
     const postReservation = async () => {
-        console.log(date)
         const reservation : JsonReservation.IReservation = {
             animalId: animalSelect.target.value,
             serviceName: 'Pension',
@@ -41,9 +40,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
         if(Helpers.getUserId()){
             const id = Helpers.getUserId()
             const data = (await ApiRepository.postReservation(id!,reservation))
-            console.log(data)
             const prova = (await ApiRepository.getUserReservations(id!))
-            console.log("corretto?, ", prova)
         }
   } 
 
