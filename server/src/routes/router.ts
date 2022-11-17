@@ -128,3 +128,4 @@ appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketR
 // Reservations
 appRouter.get(version + '/users/:id/reservations', middlewares.log, reservationRoutes.getUserReservations) 
 appRouter.post(version + '/users/:id/reservations', middlewares.log, reservationRoutes.postReservation) 
+appRouter.delete(version + '/reservations/:id', middlewares.log, reservationRoutes.deleteReservation) 

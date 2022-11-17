@@ -105,3 +105,13 @@ export const postReservation = async (req: Request, res: Response) => {
   }
 }
 
+
+export const deleteReservation = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    return res.status(Const.STATUS_OK).json(await ReservationService.deleteReservation(pathId))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}

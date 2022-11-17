@@ -27,6 +27,12 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
         console.log(data)
     }
   } 
+  const deleteReservation = async () => {
+    if(Helpers.getUserId()){
+        const data = (await ApiRepository.deleteReservation("63760e812893379e85f2c31c"))
+        console.log(data)
+    }
+  }
 
     const postReservation = async () => {
         console.log(date)
@@ -57,6 +63,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
 
   useEffect(() => {
     getUserAnimal()
+    deleteReservation()
   },[])
 
   return (
