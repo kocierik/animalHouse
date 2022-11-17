@@ -4,11 +4,12 @@ import { ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared';
 const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
     const openRef = useRef<HTMLDivElement>(null)
     const [user,setUser] = useState<JsonUser.JsonUser>()
+    const [information,setInformation] = useState<ChangeEvent<HTMLTextAreaElement>>(null!)
     const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
+
     const modalHandler = () => {
         props.setShowModal(!props.showModal)
-        console.log(animalSelect?.target?.value)
     }
 
   const getUserAnimal = async () => {
@@ -27,14 +28,14 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
     }
   } 
 
-    const putReservation = async () => {
+    const postReservation = async () => {
         console.log(date)
         const reservation : JsonReservation.IReservation = {
             animalId: animalSelect.target.value,
             serviceName: 'Pension',
             userId: Helpers.getUserId()!,
             date: date?.target.value!,
-            information: '',
+            information: information?.target.value,
             location: {
                 name: "italia",
                 address: {
@@ -47,8 +48,10 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
         }
         if(Helpers.getUserId()){
             const id = Helpers.getUserId()
-            const data = (await ApiRepository.putReservation(id!,reservation))
+            const data = (await ApiRepository.postReservation(id!,reservation))
             console.log(data)
+            const prova = (await ApiRepository.getUserReservations(id!))
+            console.log("corretto?, ", prova)
         }
   } 
 
@@ -93,7 +96,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
                                     <polyline points="11 12 12 12 12 16 13 16"></polyline>
                                 </svg>
                             </div>
-                            <textarea rows={2} maxLength={100}  className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center pl-16 text-sm border-gray-300 rounded border resize-none" /> 
+                            <textarea rows={2} maxLength={100} onChange={(text) => setInformation(text)} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center pl-16 text-sm border-gray-300 rounded border resize-none" /> 
                         </div>
                         <label htmlFor="expiry" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label>
                         <div className="relative mb-5 mt-2">
@@ -110,7 +113,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
                         </select>
                         </div>
                         <div className="flex items-center justify-start w-full">
-                            <button onClick={async() => await putReservation()} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
+                            <button onClick={async() => await postReservation()} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
                             <button className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onClick={() => modalHandler()}>Cancel</button>
                         </div>
                         <button className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onClick={() => props.setShowModal(!props.showModal)} aria-label="close modal" role="button">
