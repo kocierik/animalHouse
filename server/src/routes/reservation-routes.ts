@@ -22,7 +22,7 @@ import JsonError from '../json/JsonError'
  *       - JWT: []
  *     responses:
  *       200:
- *         description: ok
+ *         description: got reservations
  *         schema:
  *           type: array
  *           items:
@@ -88,7 +88,7 @@ export const getUserReservations = async (req: Request, res: Response) => {
  *       - JWT: []
  *     responses:
  *       200:
- *         description: ok
+ *         description: sent reservation
  *         schema:
  *           type: object
  *           items:
@@ -106,6 +106,29 @@ export const postReservation = async (req: Request, res: Response) => {
 }
 
 
+/**
+ * @swagger
+ * /reservations/{id}:
+ *   delete:
+ *     tags:
+ *     - reservations
+ *     summary: delete a reservation
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the reservation
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: deleted
+ *         schema:
+ *           type: object
+ *           items:
+ *             $ref: "#/components/schemas/Reservation"
+ * */
 export const deleteReservation = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
