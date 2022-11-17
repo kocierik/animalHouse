@@ -383,7 +383,25 @@ export const deleteCart = async (req: Request, res: Response) => {
   }
 }
 
-
+/**
+ * @swagger
+ * /users/{id}/allCart:
+ *   delete:
+ *     tags:
+ *     - users
+ *     summary: delete a cart given the user
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       type: string
+ *       required: true
+ *       description: Id of user
+ *     security:  
+ *     - JWT: []
+ *     responses:
+ *       200:
+ *         description: Success
+ */
 export const resetCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
@@ -438,11 +456,11 @@ export const putAnimal = async (req: Request, res: Response) => {
 /**
  * @swagger
  * /users/{uid}/animals/{aid}:
- *  delete:
- *      tags:
- *      - users
- *       summary: Retrive reviews about a product
- *       parameters:
+ *   delete:
+ *     tags:
+ *     - users
+ *     summary: Retrive reviews about a product
+ *     parameters:
  *       - in: path
  *         name: uid
  *         type: string
@@ -453,11 +471,11 @@ export const putAnimal = async (req: Request, res: Response) => {
  *         type: string
  *         required: true
  *         description: Id of the animal to be deleted
- *       security:
- *         - JWT: []
- *       responses:
- *         200:
- *           description: successful operation
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: successful operation
  * */
 export const deleteAnimal = async (req: Request, res: Response) => {
   try {
@@ -472,11 +490,11 @@ export const deleteAnimal = async (req: Request, res: Response) => {
 /**
  * @swagger
  * /users/{uid}/animals/{aid}:
- *  put:
- *      tags:
- *      - users
- *      summary: edit a animal
- *       parameters:
+ *   put:
+ *     tags:
+ *     - users
+ *     summary: edit a animal
+ *     parameters:
  *       - in: path
  *         name: uid
  *         type: string
@@ -512,13 +530,13 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *                   type: string
  *                 size:
  *                   type: number
- *       security:
- *         - JWT: []
- *       responses:
- *         200:
- *           description: Success
- *           schema:
- *             $ref: "#/definitions/Animal"
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *           $ref: "#/definitions/Animal"
  *     
 * */
 export const updateAnimal = async (req: Request, res: Response) => {
@@ -534,7 +552,39 @@ export const updateAnimal = async (req: Request, res: Response) => {
   }
 }
 
-export const postPicture = (req: Request, res: Response) => {
+/**
+ * @swagger
+ * /users/{uid}/animals/{id}/picture:    
+ *   put:
+ *     tags:
+ *     - users
+ *     summary: Put a profile image
+ *     consumes:
+ *       - multipart/form-data
+ *     parameters:
+ *     - in: path
+ *       name: uid
+ *       type: string
+ *       required: true
+ *       description: Id of user
+ *     - in: path
+ *       name: id
+ *       type: string
+ *       required: true
+ *       description: Id of the animal
+ *     - in: formData
+ *       name: profile
+ *       type: file
+ *       description: The picture to upload.
+ *     security:  
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *           $ref: "#/definitions/User"
+*/
+export const putPicture = (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const file = req.file as JsonPicture
@@ -548,6 +598,57 @@ export const postPicture = (req: Request, res: Response) => {
 
 
 
+/**
+ * @swagger
+ * /users/{uid}/animals/{aid}:
+ *   put:
+ *     tags:
+ *     - users
+ *     summary: edit a animal 
+ *     parameters:
+ *     - in: path
+ *       name: uid
+ *       type: string
+ *       required: true
+ *       description: user id
+ *     - in: path
+ *       name: aid
+ *       type: string
+ *       required: true
+ *       description: animal id
+ *     - in: body
+ *       name: Animal
+ *       description: Animal info
+ *       schema:
+ *         type: object
+ *         properties:
+ *           _id:
+ *             type: string
+ *           type:
+ *             type: string
+ *           name:
+ *             type: string
+ *           userId:
+ *             type: string
+ *           age:
+ *             type: number
+ *           picture:
+ *             type: object
+ *             properties:
+ *               filename:
+ *                 type: string
+ *               mimetype:
+ *                 type: string
+ *               size:
+ *                 type: number
+ *     security:  
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *           $ref: "#/definitions/Animal"
+*/
 export const putAnimalPicture = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.uid
@@ -563,25 +664,20 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- *  /users/{id}/description:
- *    put:
- *      tags:
- *      - users
- *      summary: Put a profile description
- *      parameters:
- *      - in: path
- *        name: id
- *        type: string
- *        required: true
- *        description: Id of user
- *      - in: body
- *       name: body
- *       description: user description
- *       schema:
- *           $ref: "#/definitions/User"
- *
- *     security:
- *       - JWT: []
+ * /users/{id}/description:
+ *   put:
+ *     tags:
+ *     - users
+ *     summary: Put a profile description
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of user
+ *       - in: body
+ *         name: body
+ *         description: user description
  *     responses:
  *       200:
  *         description: Success
