@@ -425,30 +425,30 @@ export const putAnimal = async (req: Request, res: Response) => {
   }
 }
 
-/**
- * @swagger
- * /users/{uid}/animals/{aid}:
- *  delete:
- *      tags:
- *      - users
- *       summary: Retrive reviews about a product
- *       parameters:
- *       - in: path
- *         name: uid
- *         type: string
- *         required: true
- *         description: Id of the user to be searched
- *       - in: path
- *         name: aid
- *         type: string
- *         required: true
- *         description: Id of the animal to be deleted
- *       security:
- *         - JWT: []
- *       responses:
- *         200:
- *           description: successful operation
- * */
+// /**
+//  * @swagger
+//  * /users/{uid}/animals/{aid}:
+//  *  delete:
+//  *      tags:
+//  *      - users
+//  *       summary: Retrive reviews about a product
+//  *       parameters:
+//  *       - in: path
+//  *         name: uid
+//  *         type: string
+//  *         required: true
+//  *         description: Id of the user to be searched
+//  *       - in: path
+//  *         name: aid
+//  *         type: string
+//  *         required: true
+//  *         description: Id of the animal to be deleted
+//  *       security:
+//  *         - JWT: []
+//  *       responses:
+//  *         200:
+//  *           description: successful operation
+//  * */
 export const deleteAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
@@ -459,58 +459,58 @@ export const deleteAnimal = async (req: Request, res: Response) => {
   }
 }
 
-/**
- * @swagger
- * /users/{uid}/animals/{aid}:
- *  put:
- *      tags:
- *      - users
- *      summary: edit a animal
- *       parameters:
- *       - in: path
- *         name: uid
- *         type: string
- *         required: true
- *         description: user id
- *       - in: path
- *         name: aid
- *         type: string
- *         required: true
- *         description: animal id
- *       - in: body
- *         name: Animal
- *         description: Animal info
- *         schema:
- *           type: object
- *           properties:
- *             _id:
- *               type: string
- *             type:
- *               type: string
- *             name:
- *               type: string
- *             userId:
- *               type: string
- *             age:
- *               type: number
- *             picture:
- *               type: object
- *               properties:
- *                 filename:
- *                   type: string
- *                 mimetype:
- *                   type: string
- *                 size:
- *                   type: number
- *       security:
- *         - JWT: []
- *       responses:
- *         200:
- *           description: Success
- *           schema:
- *             $ref: "#/definitions/Animal"
- *     
-* */
+// /**
+//  * @swagger
+//  * /users/{uid}/animals/{aid}:
+//  *  put:
+//  *      tags:
+//  *      - users
+//  *      summary: edit a animal
+//  *       parameters:
+//  *       - in: path
+//  *         name: uid
+//  *         type: string
+//  *         required: true
+//  *         description: user id
+//  *       - in: path
+//  *         name: aid
+//  *         type: string
+//  *         required: true
+//  *         description: animal id
+//  *       - in: body
+//  *         name: Animal
+//  *         description: Animal info
+//  *         schema:
+//  *           type: object
+//  *           properties:
+//  *             _id:
+//  *               type: string
+//  *             type:
+//  *               type: string
+//  *             name:
+//  *               type: string
+//  *             userId:
+//  *               type: string
+//  *             age:
+//  *               type: number
+//  *             picture:
+//  *               type: object
+//  *               properties:
+//  *                 filename:
+//  *                   type: string
+//  *                 mimetype:
+//  *                   type: string
+//  *                 size:
+//  *                   type: number
+//  *       security:
+//  *         - JWT: []
+//  *       responses:
+//  *         200:
+//  *           description: Success
+//  *           schema:
+//  *             $ref: "#/definitions/Animal"
+//  *     
+// * */
 export const updateAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
@@ -551,33 +551,33 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
   }
 }
 
-/**
- * @swagger
- *  /users/{id}/description:
- *    put:
- *      tags:
- *      - users
- *      summary: Put a profile description
- *      parameters:
- *      - in: path
- *        name: id
- *        type: string
- *        required: true
- *        description: Id of user
- *      - in: body
- *       name: body
- *       description: user description
- *       schema:
- *           $ref: "#/definitions/User"
- *
- *     security:
- *       - JWT: []
- *     responses:
- *       200:
- *         description: Success
- *         schema:
- *           $ref: "#/definitions/User"
- * */
+// /**
+//  * @swagger
+//  *  /users/{id}/description:
+//  *    put:
+//  *      tags:
+//  *      - users
+//  *      summary: Put a profile description
+//  *      parameters:
+//  *      - in: path
+//  *        name: id
+//  *        type: string
+//  *        required: true
+//  *        description: Id of user
+//  *      - in: body
+//  *       name: body
+//  *       description: user description
+//  *       schema:
+//  *           $ref: "#/definitions/User"
+//  *
+//  *     security:
+//  *       - JWT: []
+//  *     responses:
+//  *       200:
+//  *         description: Success
+//  *         schema:
+//  *           $ref: "#/definitions/User"
+//  * */
 export const updateUserDescription = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
@@ -591,6 +591,29 @@ export const updateUserDescription = async (req: Request, res: Response) => {
 }
 
 
+/**
+ * @swagger
+ * /users/{id}/reservations:
+ *   get:
+ *     tags:
+ *     - users
+ *     summary: Add an reservations for the specified user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the user
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: ok
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: "#/components/schemas/User"
+ * */
 export const findReservationsByUserId = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
