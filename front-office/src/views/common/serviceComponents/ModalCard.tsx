@@ -30,7 +30,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
     const putReservation = async () => {
         console.log(date)
         const reservation : JsonReservation.IReservation = {
-            animalName: animalSelect.target.value,
+            animalId: animalSelect.target.value,
             serviceName: 'Pension',
             userId: Helpers.getUserId()!,
             date: date?.target.value!,
@@ -74,7 +74,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
                             <option>Select...</option>
                             { user?.animals.map((animal,i) => {
                                 return (
-                                    <option key={i} value={animal.name}>
+                                    <option key={i} value={animal._id}>
                                         {animal.name}
                                     </option>
                                 )
