@@ -99,8 +99,8 @@ export const getMarketProductsReviewsSumUp = async (productId: string) =>
 export const getUserReservations = async (userId: string) =>
   Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _USERS_RESERVATIONS, userId))
 
-export const putReservation = async (userId: string, reservation: reservation.IReservation) =>
-  Api.put<reservation.IReservation>(stringFormat(_BASE_URL + _USERS_RESERVATIONS, userId),reservation)
+export const postReservation = async (userId: string, reservation: reservation.IReservation) =>
+  Api.post<reservation.IReservation>(stringFormat(_BASE_URL + _USERS_RESERVATIONS, userId),reservation)
 
 
   
