@@ -6,36 +6,30 @@ function CsvToArr(csv) {
 }
 
 $("#send").click(function () {
-    //var img = $('#grid-image').prop('files')[0];
-    let img = document.getElementById("grid-image").files[0];
+    let img = $('#grid-image').prop('files')[0];
     if (img) {
-        var headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Origin": "*"
-        }
-        var data = {
-            "name": $("#grid-prod-name").val(),
-            "price": $("#grid-price").val(),
-            "categoryId": $("#grid-category").val(),
-            "description": $("#grid-description").val(),
-            "animalTargets": CsvToArr($("#grid-targets").val()),
-            "colors": CsvToArr($("#grid-colors").val()),
-            "sizes": CsvToArr($("#grid-sizes").val()),
-            "types": [],
-            "details": $("#grid-details").val(),
-            "image": "/favicon.ico"
-            //TODO: implement highlights
-            //TODO: implement image upload
-        };
-        console.log(data);
         fetch("/v1/products", {
             method: "POST",
-            headers: headers,
-            body: JSON.stringify(data)
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Origin": "*"
+            },
+            body: JSON.stringify({
+                "name": $("#grid-prod-name").val(),
+                "price": $("#grid-price").val(),
+                "categoryId": $("#grid-category").val(),
+                "description": $("#grid-description").val(),
+                "animalTargets": CsvToArr($("#grid-targets").val()),
+                "colors": CsvToArr($("#grid-colors").val()),
+                "sizes": CsvToArr($("#grid-sizes").val()),
+                "types": [],
+                "details": $("#grid-details").val(),
+            })
         }).then((response) => response.json()).then(data => {
-            window.location.assign("../");
-        }).catch(function () {
-            alert("ERRORE");
+            var send = new FormData()
+            send.append("product", img)
+            //window.location.assign("../");
+            console.log(data)
         });
     }
 });

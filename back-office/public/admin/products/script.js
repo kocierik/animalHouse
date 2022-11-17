@@ -4,7 +4,7 @@ function retrieveProducts(target) {
         $(target).text("");
         data.forEach(function (el) {
             console.log(el)
-            $(target).append([{ img: el.images[0], name: el.name, price: el.price, id: el._id, description: el.description }].map(Item));
+            $(target).append([{ img: el.image, name: el.name, price: el.price, id: el._id, description: el.description }].map(Item));
         });
     });
 }
