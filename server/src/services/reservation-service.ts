@@ -30,3 +30,13 @@ export const postReservation = async (id: string, reservation : IReservation): P
     throw new JsonError(`Cannot push reservation with id ${id} (${err.message})`)
   }
 }
+
+export const deleteReservation = async (id: string): Promise<IReservation> => {
+  try {
+    const userReservation = (await Reservation.findById(id)) 
+    userReservation.deleteOne({_id: id})
+    return userReservation
+  } catch (err) {
+    throw new JsonError(`Cannot find reservations with id ${id} (${err.message})`)
+  }
+}
