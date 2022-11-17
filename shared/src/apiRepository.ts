@@ -23,6 +23,7 @@ const _USER_PICTURE = '/users/{0}/picture'
 const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 const _USER_CART = '/users/{0}/cart'
 const _USER_CART_DELETE = '/users/{0}/products/{1}/cart'
+const _USER_CART_ALL_DELETE = '/users/{0}/allCart'
 
 const _PICTURES = '/pictures/{0}'
 
@@ -107,7 +108,7 @@ export const removeCart = async (userId: string, productId: string) =>
   Api.delete<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART_DELETE, userId, productId),true)
 
 export const resetCart = async (userId: string) =>
-  Api.delete<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART, userId),true)
+  Api.delete<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART_ALL_DELETE, userId),true)
 
 
 // TODO insert here other calls!!!!

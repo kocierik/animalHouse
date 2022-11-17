@@ -45,7 +45,7 @@ appRouter.put(
   userRoutes.putCart
 )
 appRouter.delete(
-  version + '/users/:id/cart',
+  version + '/users/:id/allCart',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
@@ -78,7 +78,7 @@ appRouter.put(
   middlewares.verifyToken,
   middlewares.verifyUser,
   middlewares.multerMiddleware('profile'),
-  userRoutes.postPicture
+  userRoutes.putPicture
 )
 appRouter.put(
   version + '/users/:id/animals',
