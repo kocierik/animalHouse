@@ -1,4 +1,4 @@
-import { JsonAddress } from "./user"
+import type { JsonAddress } from "./user"
 
 export interface ILocation {
   name: string

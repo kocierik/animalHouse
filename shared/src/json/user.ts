@@ -1,5 +1,4 @@
 import type * as  JsonAnimal from './animal'
-import { IReservation } from './Reservation';
 
 export interface JsonRegistration {
   username: string,
