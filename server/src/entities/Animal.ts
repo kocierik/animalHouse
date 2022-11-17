@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { JsonPicture } from '../json/JsonUser'
-import { IPicture } from './User'
+import { IPicture, picturesSchema } from './Picture'
 
 export interface IAnimal {
   _id: string
@@ -8,14 +7,8 @@ export interface IAnimal {
   type: string
   userId: string
   age: number
-  picture?: JsonPicture
+  picture?: IPicture
 }
-
-const picturesSchema = new Schema<IPicture>({
-  size: { type: Number, required: true },
-  filename: { type: String, required: true },
-  mimetype: { type: String, required: true },
-})
 
 export const animalSchema = new Schema<IAnimal>({
   name: { type: String, required: true },

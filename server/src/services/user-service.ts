@@ -9,7 +9,7 @@ import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'
-import { IPicture } from '../entities/User'
+import { IPicture } from '../entities/Picture'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
 
@@ -192,18 +192,16 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
 }
 
 export const addPictureToAnimal = async (userId: string, animalId: string, picture: JsonPicture) => {
-  console.log('picture --> ', picture)
   const user = await User.findById(userId)
   if (user) {
     try {
       let index = 0
       user.animals.map((x, i) => {
-        index = i
+        index = i //TODO: capire se spostarlo dentro l'if / che logica c'è dietro?
         if (x._id.toString() === animalId) {
           x.picture = picture
         }
       })
-      console.log('utente con animale cambiato ', user)
       await user.save()
       return user.animals[index]
     } catch (err) {

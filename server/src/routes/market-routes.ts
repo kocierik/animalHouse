@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { JsonProduct } from '../json/JsonProduct'
+import { JsonProduct, JsonPicture } from '../json/JsonProduct'
 import JsonError from '../json/JsonError'
 import * as Const from '../const'
 import * as ProductService from '../services/product-service'
@@ -96,6 +96,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
  * */
 export const postProduct = async (req: Request, res: Response) => {
   //TODO: check admin token + check input
+  console.log(req.body)
   let productCreation = req.body as JsonProduct
   return res.status(Const.STATUS_OK).json(await ProductService.createProduct(productCreation))
 }
@@ -188,19 +189,17 @@ export const postReview = async (req: Request, res: Response) => {
 }
 
 export const putProductPicture = async (req: Request, res: Response) => {
-  // todo : fare il duplicato di tutte queste funzioni/strutture dati da users a products
   // todo : swagger
-  /*
   try {
     const pathId = req.params.id
     const file = req.file as JsonPicture
     const newData = ProductService.pictureToJsonPicture(file)
-    return res.status(Const.STATUS_OK).json(ProductService.addPictureToProduct(pathId, newData))
+    return res.status(Const.STATUS_OK).json(await ProductService.addPictureToProduct(pathId, newData))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
-  */
+
 
 }
 

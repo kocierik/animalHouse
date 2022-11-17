@@ -36,7 +36,7 @@ function retrieveProducts(id) {
         $("#grid-highlights").val(ArrToCsv(el.highlights))
         $("#grid-details").val(el.details)
 
-        $("#imgplaceholder").attr("src", el.images[0]);
+        $("#imgplaceholder").attr("src", el.image);
     });
 }
 

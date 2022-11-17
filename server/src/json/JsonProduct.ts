@@ -4,11 +4,17 @@ export interface JsonProduct {
   categoryId: string
   description: string
   animalTargets: string[]
-  image: string
+  image?: JsonPicture
   colors?: string[]
   sizes?: string[]
   types?: string[]
   details?: string
+}
+
+export interface JsonPicture {
+  size: number
+  filename: string
+  mimetype: string
 }
 
 export const SwaggerProduct = {
@@ -31,7 +37,18 @@ export const SwaggerProduct = {
         type: 'string',
       },
       image: {
-        type: 'string',
+        type: 'object',
+        properties: {
+          size: {
+            type: 'integer',
+          },
+          filename: {
+            type: 'string',
+          },
+          mimetype: {
+            type: 'string',
+          },
+        },
       },
       animalTargets: {
         type: 'array',
