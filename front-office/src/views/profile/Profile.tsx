@@ -172,7 +172,8 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-                <div data-aos="zoom-in" className="mt-10 w-full py-10 border-t border-gray-300 text-center">
+                <div data-aos="zoom-in" className="mt-10 w-full py-10 border-t border-gray-300">
+                   <h3 className="text-3xl font-semibold leading-normal mb-2 text-gray-800 p-3">Description</h3>
                   <div className="flex w-full flex-wrap justify-center ">
                     <div className="flex flex-1  justify-center flex-col items-center bg-white rounded-lg border border-gray-200 shadow-md ">
                       {isOptionEnable && (
