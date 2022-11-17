@@ -126,5 +126,5 @@ appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
 
 // Reservations
-appRouter.get(version + '/users/:id/reservations', middlewares.log,  userRoutes.findReservationsByUserId) 
-appRouter.put(version + '/users/:id/reservations', middlewares.log, userRoutes.putReservation) 
+appRouter.get(version + '/users/:id/reservations', middlewares.log, reservationRoutes.getUserReservations) 
+appRouter.post(version + '/users/:id/reservations', middlewares.log, reservationRoutes.postReservation) 
