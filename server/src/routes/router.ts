@@ -6,6 +6,7 @@ import * as communityRoutes from '../routes/community-routes'
 import * as marketRoutes from '../routes/market-routes'
 import * as adminRoutes from '../routes/admin-routes'
 import * as reservationRoutes from "../routes/reservation-routes"
+import * as locationRoutes from "../routes/location-routes"
 
 import * as Const from '../const'
 
@@ -129,3 +130,6 @@ appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketR
 appRouter.get(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations) 
 appRouter.post(version + '/users/:id/reservations', middlewares.log,  reservationRoutes.postReservation) 
 appRouter.delete(version + '/reservations/:id', middlewares.log,middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation) 
+
+// Location
+appRouter.get(version + '/location', middlewares.log, locationRoutes.getLocation) 
