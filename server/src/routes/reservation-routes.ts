@@ -72,22 +72,8 @@ export const getReservations = async (req: Request, res: Response) => {
  *               type: string
  *             information:
  *               type: string
- *             location:
- *                type: object
- *                properties:
- *                  name:
- *                    type: string
- *                  address:
- *                    type: object
- *                    properties:
- *                      country:
- *                        type: string
- *                      city:
- *                        type: string
- *                      street:
- *                        type: string 
- *                      zip:
- *                        type: number
+ *             locationId:
+ *               type: string
  *     security:
  *       - JWT: []
  *     responses:
@@ -98,6 +84,25 @@ export const getReservations = async (req: Request, res: Response) => {
  *           items:
  *             $ref: "#/components/schemas/Reservation"
  * */
+
+
+/*  ILOCATION
+//  *                type: object
+//  *                properties:
+//  *                  name:
+//  *                    type: string
+//  *                  address:
+//  *                    type: object
+//  *                    properties:
+//  *                      country:
+//  *                        type: string
+//  *                      city:
+//  *                        type: string
+//  *                      street:
+//  *                        type: string 
+//  *                      zip:
+//  *                        type: number
+*/
 export const postReservation = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id

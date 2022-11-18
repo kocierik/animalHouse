@@ -22,7 +22,7 @@ export const postReservation = async (id: string, reservation : IReservation): P
     userReservation.animalId = reservation.animalId
     userReservation.date = reservation.date
     userReservation.information = reservation.information
-    userReservation.location = reservation.location
+    userReservation.locationId = reservation.locationId
     userReservation.serviceName = reservation.serviceName
     await userReservation.save()
     return reservation
