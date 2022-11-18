@@ -6,6 +6,7 @@ import Review from '../entities/Review'
 import { JsonReview } from '../json/JsonReview'
 import JsonProductSumUp from '../json/JsonProductSumUp'
 import { IPicture } from '../entities/Picture'
+import { ProductPatch } from '../json/patch/ProductPatch'
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 
@@ -98,4 +99,22 @@ export const getProductReviewSumUp = async (prodId: string) => {
     percentage: percentages.map((x) => `${Math.round(x)}%`),
   }
   return result
+}
+
+export const patchProduct = async (id: string, patch: ProductPatch): Promise<IProduct> => {
+  const prod = await Product.findById(id)
+
+  if (patch.description) prod.description = patch.description
+  if (patch.name) prod.name = patch.name
+  if (patch.price) prod.price = patch.price
+  if (patch.sizes) prod.sizes = patch.sizes
+  if (patch.colors) prod.colors = patch.colors
+  if (patch.types) prod.types = patch.types
+  if (patch.categoryId) prod.categoryId = patch.categoryId
+  if (patch.details) prod.details = patch.details
+  if (patch.highlights) prod.highlights = patch.highlights
+
+
+  await prod.save()
+  return prod as IProduct
 }

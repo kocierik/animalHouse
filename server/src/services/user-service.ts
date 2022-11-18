@@ -12,6 +12,7 @@ import Admin from '../entities/Admin'
 import { IPicture } from '../entities/Picture'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
+import { JsonUserPatch } from '../json/patch/UserPatch'
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -216,11 +217,26 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
   const user = await User.findById(userId)
   if (user) {
     try {
-      console.log('prova --> ', updateUser)
       await User.findByIdAndUpdate({ _id: userId }, updateUser).catch((e) => console.log('test -> ', e))
       return user
     } catch (error) {
       throw new JsonError(error.message)
     }
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
+}
+
+export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
+  const user = await User.findById(id)
+  if (patch.zip) user.address.zip = patch.zip
+  if (patch.city) user.address.city = patch.city
+  if (patch.street) user.address.street = patch.street
+  if (patch.country) user.address.country = patch.country
+  if (patch.lastName) user.lastName = patch.lastName
+  if (patch.firstName) user.firstName = patch.firstName
+  if (patch.username) user.username = patch.username
+  if (patch.email) user.email = patch.email
+  if (patch.description) user.description = patch.description
+
+  await user.save()
+  return userToJsonUser(user)
 }
