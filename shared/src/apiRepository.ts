@@ -6,6 +6,7 @@ import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
 import type * as review from './json/Review'
 import type * as reservation from "./json/Reservation"
+import type * as location from "./json/Location"
 import { stringFormat } from './helpers'
 
 // Server api urls
@@ -23,6 +24,7 @@ const _USER_PICTURE = '/users/{0}/picture'
 const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 const _RESERVATIONS = '/users/{0}/reservations'
 const _RESERVATIONS_DELETE = '/reservations/{0}'
+const _LOCATION = '/location'
 const _PICTURES = '/pictures/{0}'
 
 const _ANIMAL_CODES = '/animals/codes'
@@ -106,7 +108,7 @@ export const postReservation = async (userId: string, reservation: reservation.I
 export const deleteReservation = async (reservationId: string) =>
   Api.delete<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_DELETE, reservationId))
 
-
-  
+export const getLocation = async () =>
+  Api.get<location.ILocation[]>(stringFormat(_BASE_URL + _LOCATION))
 
 // TODO insert here other calls!!!!
