@@ -9,9 +9,13 @@ function retrieveUsers(target) {
 
         data.forEach(function (el) {
             pic = "/favicon.ico"
+            let addr = ""
             if (el.profilePicture)
                 pic = "/pictures/" + el.profilePicture.filename
-            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, address: el.address, picture: pic }].map(Item));
+            if (el.address != undefined) {
+                addr = el.address.street + ", " + el.address.city + ", " + el.address.zip + " (" + el.address.country + ")"
+            }
+            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, address: addr, picture: pic }].map(Item));
         });
     });
 }

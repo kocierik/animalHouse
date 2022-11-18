@@ -29,6 +29,14 @@ function retrieveUser(id) {
         $("#grid-description").val(el.description);
         $("#grid-email").val(el.email);
         $("#grid-username").val(el.username);
+        if (el.address) {
+            $("#grid-street").val(el.address.street);
+            $("#grid-city").val(el.address.city);
+            $("#grid-zip").val(el.address.zip);
+            $("#grid-country").val(el.address.country);
+        }
+
+
         let img = el.profilePicture;
         if (img) {
             $("#imgplaceholder").attr("src", "/pictures/" + img.filename);
@@ -60,6 +68,25 @@ function showImage() {
 }
 
 $("#send").click(function () {
+    fetch("/v1/users/" + getUrlParameter('id'), {
+        method: "PATCH",
+        headers: {
+            "authorization": localStorage.token,
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        },
+        body: JSON.stringify({
+            "firstName": $("#grid-firstName").val(),
+            "lastName": $("#grid-lastName").val(),
+            "username": $("#grid-username").val(),
+            "description": $("#grid-description").val(),
+            "email": $("#grid-email").val(),
+            "street": $("#grid-street").val(),
+            "city": $("#grid-city").val(),
+            "zip": $("#grid-zip").val(),
+            "country": $("#grid-country").val(),
+        })
+    })
     let img = $('#grid-image').prop('files')[0];
     if (img) {
         var send = new FormData()
@@ -71,23 +98,6 @@ $("#send").click(function () {
                 "authorization": localStorage.token,
             },
             body: send
-        }).then((response) => response.json()).then(data => {
-            console.log(response);
-        })
-    }
-
-    let desc = $("#grid-description").val();
-    if (desc) {
-        fetch("/v1/users/" + getUrlParameter('id') + "/description", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Origin": "*",
-                "authorization": localStorage.token,
-            },
-            body: JSON.stringify({ 'description': desc })
-        }).then((response) => response.json()).then(data => {
-            console.log(data);
         })
     }
 });
