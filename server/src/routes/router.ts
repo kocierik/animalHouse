@@ -130,10 +130,10 @@ appRouter.get(version + '/community/game/scoreboard', middlewares.log, community
 // Products
 appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
-appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
-appRouter.put(version + '/products/:id/picture', middlewares.log, middlewares.multerMiddleware('product'), marketRoutes.putProductPicture) //put picture
+appRouter.delete(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.deleteProduct) //remove
+appRouter.put(version + '/products/:id/picture', middlewares.log, middlewares.verifyToken, middlewares.multerMiddleware('product'), marketRoutes.putProductPicture) //put picture
 appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct) //edit product
-appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert
+appRouter.post(version + '/products', middlewares.log, middlewares.verifyToken, marketRoutes.postProduct) //insert
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)

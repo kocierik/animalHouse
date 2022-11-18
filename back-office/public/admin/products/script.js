@@ -15,6 +15,9 @@ function itemRemove(name, id) {
     if (confirm('Are you sure you want to remove the product ' + name + " | " + id + '?')) {
         fetch("/v1/products/" + id, {
             method: 'DELETE',
+            headers: {
+                "authorization": localStorage.token,
+            }
         }).then(retrieveProducts("#itemList"))
     }
 }
