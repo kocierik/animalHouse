@@ -1,6 +1,6 @@
 import { JsonUser, JsonUserCreation, JsonPicture } from '../json/JsonUser'
 import JsonError, { JsonVisibilityError } from '../json/JsonError'
-import User, { Address, IAddress, IUser } from '../entities/User'
+import User, { IUser } from '../entities/User'
 import * as ProductService from './product-service'
 import * as CartService from './cart-service'
 import * as AnimalService from './animal-service'
@@ -11,6 +11,7 @@ import { AuthData } from '../routes/middlewares'
 import { IPicture } from '../entities/User'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
+import { Address, IAddress } from '../entities/Address'
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -207,8 +208,7 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
   const user = await User.findById(userId)
   if (user) {
     try {
-      console.log('prova --> ', updateUser)
-      await User.findByIdAndUpdate({ _id: userId }, updateUser).catch((e) => console.log('test -> ', e))
+      await User.findByIdAndUpdate({ _id: userId }, updateUser)
       return user
     } catch (error) {
       throw new JsonError(error.message)
