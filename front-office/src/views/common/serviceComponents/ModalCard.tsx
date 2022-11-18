@@ -1,16 +1,14 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared';
-
-const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
+import { toast } from 'react-toastify';
+import { ApiRepository, Helpers, JsonUser, JsonReservation, Jsonlocation } from 'shared';
+const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: string}) => {
     const openRef = useRef<HTMLDivElement>(null)
     const [user,setUser] = useState<JsonUser.JsonUser>()
+    const [locationSelect,setLocationSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
+    const [locations,setLocations] = useState<Jsonlocation.ILocation[]>()
     const [information,setInformation] = useState<ChangeEvent<HTMLTextAreaElement>>(null!)
     const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
-
-    const modalHandler = () => {
-        props.setShowModal(!props.showModal)
-    }
 
   const getUserAnimal = async () => {
     if(Helpers.getUserId()){
@@ -20,34 +18,38 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
     }
   }
 
+  const getLocation = async () => {
+        const data = (await ApiRepository.getLocation()).data
+        setLocations(data)
+  }
+
     const postReservation = async () => {
         const reservation : JsonReservation.IReservation = {
             animalId: animalSelect.target.value,
-            serviceName: 'Pension',
+            serviceName: props.openService,
             userId: Helpers.getUserId()!,
             date: date?.target.value!,
             information: information?.target.value,
-            location: {
-                name: "italia",
-                address: {
-                    country: "italy",
-                    city: "rimini",
-                    street: "via casa",
-                    zip: 48934
-                }
-            }
+            locationId: locationSelect.target.value
         }
         if(Helpers.getUserId()){
             const id = Helpers.getUserId()
             const data = (await ApiRepository.postReservation(id!,reservation))
+            toast.success('Prenotation confirmed!', {
+                    position: toast.POSITION.TOP_CENTER
+                })
             console.log("data ", data)
-            const prova = (await ApiRepository.getReservations(id!))
-            console.log("prova ", prova)
+            props.setShowModal(!props.showModal)
+        } else {
+            toast.warn('You should login first!', {
+                position: toast.POSITION.TOP_CENTER
+            })
         }
   } 
 
   useEffect(() => {
     getUserAnimal()
+    getLocation()
   },[])
 
   return (
@@ -99,13 +101,22 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any}) => {
                         <div className="relative mb-5 mt-2">
                             <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                             </div>
-                        <select  onChange={(value) => setAnimalSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                        <select onChange={(value) => setLocationSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                             <option>Select...</option>
+                            { locations?.map((location,i) => {
+                                return (
+                                    <option key={i} value={location._id}>
+                                        {location.name}
+                                    </option>
+                                )
+                            })
+                             
+                            }
                         </select>
                         </div>
                         <div className="flex items-center justify-start w-full">
                             <button onClick={async() => await postReservation()} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
-                            <button className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onClick={() => modalHandler()}>Cancel</button>
+                            <button className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onClick={() => props.setShowModal(!props.showModal)}>Cancel</button>
                         </div>
                         <button className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onClick={() => props.setShowModal(!props.showModal)} aria-label="close modal" role="button">
                             <svg  xmlns="http://www.w3.org/2000/svg"  className="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
