@@ -227,15 +227,16 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
 
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
   const user = await User.findById(id)
-  if (patch.zip) user.address.zip = patch.zip
-  if (patch.city) user.address.city = patch.city
-  if (patch.street) user.address.street = patch.street
-  if (patch.country) user.address.country = patch.country
-  if (patch.lastName) user.lastName = patch.lastName
-  if (patch.firstName) user.firstName = patch.firstName
-  if (patch.username) user.username = patch.username
-  if (patch.email) user.email = patch.email
-  if (patch.description) user.description = patch.description
+  if (user.address == undefined) { user.address = { country: " ", city: " ", street: " ", zip: -1 } }
+  if (patch.zip) { user.address.zip = patch.zip }
+  if (patch.city) { user.address.city = patch.city }
+  if (patch.street) { user.address.street = patch.street }
+  if (patch.country) { user.address.country = patch.country }
+  if (patch.lastName) { user.lastName = patch.lastName }
+  if (patch.firstName) { user.firstName = patch.firstName }
+  if (patch.username) { user.username = patch.username }
+  if (patch.email) { user.email = patch.email }
+  if (patch.description) { user.description = patch.description }
 
   await user.save()
   return userToJsonUser(user)
