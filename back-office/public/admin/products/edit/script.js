@@ -61,35 +61,41 @@ function CsvToArr(csv) {
 
 $("#send").click(function () {
     var img = $('#grid-image').prop('files')[0];
-    if (img) {
-
-        fetch("/v1/products/" + getUrlParameter('id') + "/picture", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Origin": "*"
-            },
-            body: JSON.stringify({
-                "file": img
+    //patch product fields
+    fetch("/v1/products/" + getUrlParameter('id'), {
+        method: "PATCH",
+        headers: {
+            "authorization": localStorage.token,
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        },
+        body: JSON.stringify({
+            "name": $("#grid-prod-name").val(),
+            "price": $("#grid-price").val(),
+            "categoryId": $("#grid-category").val(),
+            "description": $("#grid-description").val(),
+            "animalTargets": CsvToArr($("#grid-targets").val()),
+            "colors": CsvToArr($("#grid-colors").val()),
+            "sizes": CsvToArr($("#grid-sizes").val()),
+            "types": [],
+            "details": $("#grid-details").val(),
+        })
+    }).then((response) => response.json()).then(data => {
+        console.log(data)
+        if (img) {
+            //edit image
+            var send = new FormData()
+            send.append('product', img)
+            fetch("/v1/products/" + getUrlParameter('id') + "/picture", {
+                method: "PUT",
+                headers: {
+                    "Access-Control-Origin": "*"
+                },
+                body: send
+            }).then((response) => response.json()).then(data => {
+                console.log(data)
             })
-        }).then((response) => response.json()).then(data => {
-            console.log(data);
-        }).catch(function () {
-            alert("ERRORE");
-        });
-        /*fetch("/v1/products", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(data)
-        }).then((response) => response.json()).then(data => {
-            //console.log(data);
-            window.location.assign("../");
-            //$("#productPostResult").html("<h3>Here is the product you added</h3>");
-            //$("#productPostResult").append([{ displaySize: '-md-12', img: data.image, name: data.name, price: data.price, id: data._id }].map(Item));
-            //retrieveProduct('#productDeleteItems', "");
-        }).catch(function () {
-            alert("ERRORE");
-        });
-        */
-    }
+        }
+    })
+    window.location.href = "../"
 });
