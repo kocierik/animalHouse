@@ -16,8 +16,15 @@ appRouter.post(version + '/users/login', middlewares.log, userRoutes.loginPost)
 appRouter.get(version + '/users', middlewares.log, userRoutes.getAllUsers)
 appRouter.get(version + '/users/current', middlewares.log, middlewares.verifyToken, userRoutes.getCurrentUser)
 appRouter.get(version + '/users/:id', middlewares.log, userRoutes.getUser)
+appRouter.patch(
+  version + '/users/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.patchUser
+)
 appRouter.put(
-  version + '/users/:id/score',
+  version + '/users/:id/scores',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
@@ -109,6 +116,12 @@ appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin
 // Animals
 appRouter.get(version + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
 appRouter.get(version + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
+appRouter.patch(
+  version + '/animal/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  animalRoutes.patchAnimal
+)
 
 // Community
 appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)
@@ -119,6 +132,7 @@ appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts)
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
 appRouter.put(version + '/products/:id/picture', middlewares.log, middlewares.multerMiddleware('product'), marketRoutes.putProductPicture) //put picture
+appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct) //edit product
 appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
