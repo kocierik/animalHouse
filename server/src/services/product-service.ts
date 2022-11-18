@@ -48,7 +48,7 @@ export const addPictureToProduct = async (productId: string, picture: JsonPictur
   if (user) {
     try {
       var a
-      await Product.findByIdAndUpdate({ _id: productId }, { $push: { images: picture } })
+      await Product.findByIdAndUpdate({ _id: productId }, { image: picture })
       return user
     } catch (err) {
       throw new JsonError(err.message)

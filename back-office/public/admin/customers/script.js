@@ -10,8 +10,8 @@ function retrieveUsers(target) {
         data.forEach(function (el) {
             pic = "/favicon.ico"
             if (el.profilePicture)
-                pic = "/v1/pictures/" + el.profilePicture.filename
-            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, phone: el.phone, address: el.address, picture: pic }].map(Item));
+                pic = "/pictures/" + el.profilePicture.filename
+            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, address: el.address, picture: pic }].map(Item));
         });
     });
 }
@@ -29,17 +29,16 @@ function userRemove(username, id) {
 }
 
 //item template
-const Item = ({ username, firstName, lastName, id, email, phone, address, picture }) => `
+const Item = ({ username, firstName, lastName, id, email, address, picture }) => `
 <tr>
     <td class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
             <div class="mr-4 h-16 w-16 block flex flex-row items-center">
-                <img class="rounded-lg" src="${picture}"></div>
+                <img class="rounded-lg" src="${picture}" onerror="this.onerror=null; this.src='/favicon.ico' alt="${username}\'s picture"></div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${username}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${firstName}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${lastName}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${email}</div>
-            <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${phone}</div>
             <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${address}</div>
 
         </div>

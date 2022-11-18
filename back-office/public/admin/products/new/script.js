@@ -26,10 +26,18 @@ $("#send").click(function () {
                 "details": $("#grid-details").val(),
             })
         }).then((response) => response.json()).then(data => {
+            console.log(data)
             var send = new FormData()
             send.append("product", img)
-
-            console.log(data)
+            fetch("/v1/products/" + data._id + "/picture", {
+                method: "PUT",
+                headers: {
+                    "Access-Control-Origin": "*"
+                },
+                body: send
+            }).then((response) => response.json()).then(data => {
+                console.log(data)
+            })
         });
     }
 });
