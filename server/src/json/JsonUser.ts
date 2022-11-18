@@ -9,7 +9,7 @@ export interface JsonUserCreation {
   country: string
   city: string
   street: string
-  zip: number
+  zip: string
 }
 
 export interface JsonUser {
@@ -28,7 +28,7 @@ export interface JsonAddress {
   country: string
   city: string
   street: string
-  zip: number
+  zip: string
 }
 
 export interface JsonLogin {
@@ -90,7 +90,7 @@ export const SwaggerUser = {
           type: 'string',
         },
         zip: {
-          type: 'integer',
+          type: 'string',
         },
       },
     },
