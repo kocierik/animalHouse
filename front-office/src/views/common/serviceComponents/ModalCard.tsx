@@ -24,22 +24,29 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
   }
 
     const postReservation = async () => {
-        const reservation : JsonReservation.IReservation = {
-            animalId: animalSelect.target.value,
-            serviceName: props.openService,
-            userId: Helpers.getUserId()!,
-            date: date?.target.value!,
-            information: information?.target.value,
-            locationId: locationSelect.target.value
-        }
         if(Helpers.getUserId()){
-            const id = Helpers.getUserId()
-            const data = (await ApiRepository.postReservation(id!,reservation))
-            toast.success('Prenotation confirmed!', {
-                    position: toast.POSITION.TOP_CENTER
+            if(locationSelect && locationSelect.target.value != "Select..." && animalSelect && animalSelect.target.value != "Select..." && date){
+                const reservation : JsonReservation.IReservation = {
+                    animalId: animalSelect.target.value,
+                    serviceName: props.openService,
+                    userId: Helpers.getUserId()!,
+                    date: date?.target.value!,
+                    information: information?.target.value,
+                    locationId: locationSelect.target.value
+                }
+                const id = Helpers.getUserId()
+                const data = (await ApiRepository.postReservation(id!,reservation))
+                toast.success('Prenotation confirmed!', {
+                        position: toast.POSITION.TOP_CENTER
+                    })
+                console.log("data ", data)
+                props.setShowModal(!props.showModal)
+            } else {
+                toast.warn('You should compile all the form!', {
+                position: toast.POSITION.TOP_CENTER
                 })
-            console.log("data ", data)
-            props.setShowModal(!props.showModal)
+                console.log("compila il form")
+            }
         } else {
             toast.warn('You should login first!', {
                 position: toast.POSITION.TOP_CENTER
@@ -54,7 +61,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
 
   return (
     <>
-                <div data-aos="fade-in" className="py-12 flex   transition duration-150 ease-in-out z-10 absolute top-20 right-0 bottom-0 left-0" ref={openRef!}>
+            <div data-aos="fade-in" className="py-12 flex   transition duration-150 ease-in-out z-10 absolute top-20 right-0 bottom-0 left-0" ref={openRef!}>
                 <div role="alert" className="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                     <div className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                         <div className="w-full flex justify-start text-gray-600 mb-3">
@@ -64,7 +71,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                                 <path d="M20 12v4h-4a2 2 0 0 1 0 -4h4" />
                             </svg>
                         </div>
-                        <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Enter Animal Details</h1>
+                        <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">{props.openService.charAt(0).toUpperCase() +props.openService.slice(1)}</h1>
                         <label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select Animal</label>
                         <select  onChange={(value) => setAnimalSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                             <option>Select...</option>
@@ -79,7 +86,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                             }
                         </select>
                         {/* <input id="name" type="s" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="James" /> */}
-                        <label htmlFor="email2" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">More Information</label>
+                        <label htmlFor="information" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">More Information</label>
                         <div className="relative mb-5 mt-2">
                             <div className="absolute text-gray-600 flex items-center px-4 border-r h-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-info-circle" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -91,11 +98,11 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                             </div>
                             <textarea rows={2} maxLength={100} onChange={(text) => setInformation(text)} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center pl-16 text-sm border-gray-300 rounded border resize-none" /> 
                         </div>
-                        <label htmlFor="expiry" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label>
+                        <label htmlFor="data" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label>
                         <div className="relative mb-5 mt-2">
                             <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                             </div>
-                            <input id="expiry" onChange={(value) => setDate(value)}  type="datetime-local" min={new Date().toISOString()}  max="2024-06-14T00:00" className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="MM/YY" />
+                            <input id="data" onChange={(value) => setDate(value)}  type="datetime-local" min="2022-11-20T00:00"  max="2024-06-14T00:00" className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="MM/YY" />
                         </div>
                         <label htmlFor="location" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Location</label>
                         <div className="relative mb-5 mt-2">
@@ -110,7 +117,6 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                                     </option>
                                 )
                             })
-                             
                             }
                         </select>
                         </div>
