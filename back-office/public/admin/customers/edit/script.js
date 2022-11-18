@@ -31,7 +31,7 @@ function retrieveUser(id) {
         $("#grid-username").val(el.username);
         let img = el.profilePicture;
         if (img) {
-            $("#imgplaceholder").attr("src", "/v1/pictures/" + img.filename);
+            $("#imgplaceholder").attr("src", "/pictures/" + img.filename);
         } else {
             $("#imgplaceholder").attr("src", "/favicon.ico");
         }
@@ -42,6 +42,8 @@ $(document).ready(function () {
     var id = getUrlParameter('id');
     if (id) {
         retrieveUser(id);
+    } else {
+        window.location.href = "../"
     }
 });
 
@@ -71,9 +73,7 @@ $("#send").click(function () {
             body: send
         }).then((response) => response.json()).then(data => {
             console.log(response);
-        }).catch(function () {
-            alert("ERR")
-        });
+        })
     }
 
     let desc = $("#grid-description").val();
@@ -88,8 +88,6 @@ $("#send").click(function () {
             body: JSON.stringify({ 'description': desc })
         }).then((response) => response.json()).then(data => {
             console.log(data);
-        }).catch(function (error) {
-            alert(error)
-        });
+        })
     }
 });

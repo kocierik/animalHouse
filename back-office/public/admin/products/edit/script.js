@@ -19,6 +19,8 @@ $(document).ready(function () {
     var id = getUrlParameter('id');
     if (id) {
         retrieveProducts(id);
+    } else {
+        window.location.href = "../"
     }
 });
 
@@ -89,6 +91,7 @@ $("#send").click(function () {
             fetch("/v1/products/" + getUrlParameter('id') + "/picture", {
                 method: "PUT",
                 headers: {
+                    "authorization": localStorage.token,
                     "Access-Control-Origin": "*"
                 },
                 body: send
@@ -97,5 +100,4 @@ $("#send").click(function () {
             })
         }
     })
-    window.location.href = "../"
 });

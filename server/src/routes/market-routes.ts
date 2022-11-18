@@ -128,7 +128,7 @@ export const patchProduct = async (req: Request, res: Response) => {
  *
  * */
 export const postProduct = async (req: Request, res: Response) => {
-  //TODO: check admin token + check input
+  //TODO: check input
   let productCreation = req.body as JsonProduct
   return res.status(Const.STATUS_OK).json(await ProductService.createProduct(productCreation))
 }

@@ -8,10 +8,12 @@ function CsvToArr(csv) {
 $("#send").click(function () {
     let img = $('#grid-image').prop('files')[0];
     if (img) {
+        //create product
         fetch("/v1/products", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "authorization": localStorage.token,
                 "Access-Control-Origin": "*"
             },
             body: JSON.stringify({
@@ -26,12 +28,14 @@ $("#send").click(function () {
                 "details": $("#grid-details").val(),
             })
         }).then((response) => response.json()).then(data => {
+            //add product picture
             console.log(data)
             var send = new FormData()
             send.append("product", img)
             fetch("/v1/products/" + data._id + "/picture", {
                 method: "PUT",
                 headers: {
+                    "authorization": localStorage.token,
                     "Access-Control-Origin": "*"
                 },
                 body: send
