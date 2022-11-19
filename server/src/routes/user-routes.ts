@@ -8,6 +8,7 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import { JsonUserPatch } from '../json/patch/UserPatch'
 
 /**
  * @swagger
@@ -169,6 +170,43 @@ export const getUser = async (req: Request, res: Response) => {
   if (user) return res.status(Const.STATUS_OK).json(UserService.userToJsonUser(user))
   else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
 }
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   patch:
+ *     tags:
+ *     - users
+ *     summary: Patch the specified user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Numeric ID of the user to patch
+*        - in: body
+*          schema:
+ *           $ref: "#/components/schemas/UserPatch"
+ *
+ *     responses:
+ *       200:
+ *         description: ok
+ *         schema:
+ *           $ref: "#/components/schemas/User"
+ * */
+export const patchUser = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    const patch = req.body as JsonUserPatch
+    return res.status(Const.STATUS_OK).json(await UserService.patchUser(pathId, patch))
+  } catch (err) {
+    if (err instanceof JsonError)
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
 
 /**
  * @swagger
