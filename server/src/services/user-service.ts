@@ -123,8 +123,15 @@ export const deleteFromUserCart = async (userId: string, piids: string[]) => {
 
 export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
   const user = await User.findById(userId)
-  if (user) {
+  if (user) { // TMP
+    const newAnimal = new Animal()
+    newAnimal.name = animal.name
+    newAnimal.age = animal.age
+    newAnimal.picture = animal.picture
+    newAnimal.type = animal.type
+    newAnimal.userId = animal.userId
     user.animals.push(animal)
+    await newAnimal.save()
     await user.save()
     return user.animals
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
