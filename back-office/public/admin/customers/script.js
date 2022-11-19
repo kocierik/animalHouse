@@ -8,6 +8,7 @@ function retrieveUsers(target) {
         $(target).text("");
 
         data.forEach(function (el) {
+            console.log(el)
             pic = "/favicon.ico"
             let addr = ""
             if (el.profilePicture)
@@ -21,14 +22,13 @@ function retrieveUsers(target) {
 }
 function userRemove(username, id) {
     if (confirm('Are you sure you want to remove the user ' + username + " | " + id + '?')) {
-        $.ajax({
-            url: "/v1/users/" + id,
-            type: 'DELETE',
-            success: function (result) {
-                //alert(result);
-                retrieveUsers('#itemList');
+        fetch("/v1/users/" + id, {
+            method: "DELETE",
+            headers: {
+                "authorization": localStorage.token
             }
-        });
+        })
+        retrieveUsers('#itemList');
     }
 }
 
