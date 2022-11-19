@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { ApiRepository, type JsonUser, Helpers } from 'shared'
+import ModalCard from '../common/serviceComponents/ModalCard'
 import Setting from '../common/Setting'
 import AnimalCard from './AnimalCard'
 import DefaultCard from './DefaultCard'
@@ -16,6 +17,8 @@ const Profile = () => {
   const [canWrite, setCanWrite] = useState(false)
   const textValue = useRef<HTMLTextAreaElement>(null)
   const [openNewAnimal, setOpenNewAnimal] = useState(false)
+  const [viewModalReservation, setViewModalReservation] = useState(false)
+
   const sendImage = async () => {
     if (file && Helpers.getUserId()) {
       const resp = await ApiRepository.putUserPicture(Helpers.getUserId()!, file!)
@@ -60,7 +63,6 @@ const Profile = () => {
     sendImage()
     getImage()
   }, [file])
-
 
   const saveDescription = async () => {
     try {
@@ -113,7 +115,6 @@ const Profile = () => {
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative -mt-20 w-30 h-24 flex  justify-center">
                       <img
-                        // className=" rounded-full -mt-5 border border-gray-100 shadow-sm"
                         src={imageProfile}
                         className="lg:-mt-10 lg:w-40 lg:h-40 h-32 w-32 rounded-full shadow-lg bg-white shadow-sm border border-gray-100"
                         alt="user image"
@@ -151,13 +152,14 @@ const Profile = () => {
                     <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {user?.firstName} {user?.lastName}
                   </div>
                 </div>
+                          {viewModalReservation && <ModalCard showModal={viewModalReservation} setShowModal={setViewModalReservation} openService={"Edit service"} isEditable={true} /> }
                 <div data-aos="zoom-in" className="flex flex-col items-center">
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex  justify-center py-4 lg:pt-4 pt-8 ">
                       <div className="flex items-center flex-col  justify-center">
                         <div data-aos="zoom-in" className="lg:flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
                           {user?.animals.map((animal, i) => {
-                            return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} />
+                            return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} setViewModalReservation={setViewModalReservation} viewModalReservation={viewModalReservation} />
                           })}
                         </div>
                         <div className='flex justify-center p-4 min-w-24	 mt-5   hover:translate-y-1  hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg  cursor-pointer border'>

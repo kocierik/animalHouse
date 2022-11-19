@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 import { ApiRepository, Helpers, JsonUser, JsonReservation, Jsonlocation } from 'shared';
-const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: string}) => {
+const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: string, isEditable: boolean}) => {
     const openRef = useRef<HTMLDivElement>(null)
     const [user,setUser] = useState<JsonUser.JsonUser>()
     const [locationSelect,setLocationSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
@@ -9,7 +9,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
     const [information,setInformation] = useState<ChangeEvent<HTMLTextAreaElement>>(null!)
     const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
-
+    const [selectedService, setSelectedService] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
   const getUserInfo = async () => {
@@ -78,20 +78,31 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                         </div>
                         <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">{props.openService.charAt(0).toUpperCase() +props.openService.slice(1)}</h1>
                                  <ToastContainer/>
-                        <label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select Animal</label>
-                        <select  onChange={(value) => setAnimalSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
-                            <option>Select...</option>
-                            { user?.animals.map((animal,i) => {
-                                return (
-                                    <option key={i} value={animal._id}>
-                                        {animal.name}
-                                    </option>
-                                )
-                            })
-                            
-                        }
-                        </select>
-                        {/* <input id="name" type="s" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="James" /> */}
+                        {
+                            props.isEditable ? (
+                                                        <><label htmlFor="selectService" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Service</label><select onChange={(value) => setSelectedService(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                  <option>Select...</option>
+                                  {user?.animals.map((animal, i) => {
+                                      return (
+                                          <option key={i} value={animal._id}>
+                                              {animal.name}
+                                          </option>
+                                      );
+                                  })}
+                              </select></>
+                            )
+                         : 
+                        <><label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select Animal</label><select onChange={(value) => setAnimalSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                  <option>Select...</option>
+                                  {user?.animals.map((animal, i) => {
+                                      return (
+                                          <option key={i} value={animal._id}>
+                                              {animal.name}
+                                          </option>
+                                      );
+                                  })}
+                              </select></>
+                        /* <input id="name" type="s" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="James" /> */}
                         <label htmlFor="information" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">More Information</label>
                         <div className="relative mb-5 mt-2">
                             <div className="absolute text-gray-600 flex items-center px-4 border-r h-full">
