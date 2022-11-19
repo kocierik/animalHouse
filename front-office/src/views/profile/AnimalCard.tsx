@@ -3,7 +3,7 @@ import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
 import defaultImage from "./defaultImage.jpg"
-const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>> }) => {
+const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>, setViewModalReservation:  React.Dispatch<React.SetStateAction<boolean>>, viewModalReservation: boolean}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
@@ -30,6 +30,10 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
           }
         }
       }
+    },
+    {
+      name: 'reservation',
+      setting: () => { props.setViewModalReservation(true) }
     }
   ]
 
