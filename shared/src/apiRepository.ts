@@ -100,15 +100,15 @@ export const getMarketProductsReviewsSumUp = async (productId: string) =>
 
 
 export const getReservations = async (userId: string) =>
-  Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _RESERVATIONS, userId))
+  Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _RESERVATIONS, userId),true)
 
 export const postReservation = async (userId: string, reservation: reservation.IReservation) =>
-  Api.post<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS, userId),reservation)
+  Api.post<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS, userId),reservation,true)
 
 export const deleteReservation = async (reservationId: string) =>
-  Api.delete<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_DELETE, reservationId))
+  Api.delete<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_DELETE, reservationId),true)
 
 export const getLocation = async () =>
-  Api.get<location.ILocation[]>(stringFormat(_BASE_URL + _LOCATION))
+  Api.get<location.ILocation[]>(stringFormat(_BASE_URL + _LOCATION),false)
 
 // TODO insert here other calls!!!!
