@@ -132,4 +132,4 @@ appRouter.post(version + '/users/:id/reservations', middlewares.log,  reservatio
 appRouter.delete(version + '/reservations/:id', middlewares.log,middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation) 
 
 // Location
-appRouter.get(version + '/location', middlewares.log, locationRoutes.getLocation) 
+appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocation) 

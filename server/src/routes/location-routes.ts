@@ -5,7 +5,7 @@ import * as LocationService from '../services/location-service'
 
 /**
  * @swagger
- * /location:
+ * /locations:
  *   get:
  *     tags:
  *     - locations
@@ -14,7 +14,7 @@ import * as LocationService from '../services/location-service'
  *       200:
  *         description: get location
  *         schema:
- *           type: object
+ *           type: array
  *           items:
  *             $ref: "#/components/schemas/Location"
  * */
