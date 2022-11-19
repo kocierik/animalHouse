@@ -1,21 +1,9 @@
-export interface JsonAddress {
-  country: string
-  city: string
-  street: string
-  zip: number
-}
-
-export interface ILocation {
-  name: string
-  address: JsonAddress
-}
-
 export interface JsonReservation {
   serviceName: string
   userId: string
   date: string
   information: string
-  location: ILocation
+  locationId: string
 }
 
 export const SwaggerReservation = {
@@ -39,30 +27,8 @@ export const SwaggerReservation = {
     information: {
       type: 'string',
     },
-    location: {
-      type: 'object',
-      properties: {
-        name: {
-          type: 'string'
-        },
-        address: {
-          type: 'object',
-          properties: {
-            country: {
-              type: 'string'
-            },
-            city: {
-              type: 'string'
-            },
-            street: {
-              type: 'string'
-            },
-            zip: {
-              type: 'number'
-            }
-          }
-        }
-      }
+    locationId: {
+      type: 'string'
     },
   },
 }

@@ -2,7 +2,7 @@ import * as Const from '../const'
 import { Request, Response } from 'express'
 import User from '../entities/User'
 import * as ReservationService from '../services/reservation-service'
-import Reservation, { IReservation } from '../entities/Reservation'
+import { IReservation } from '../entities/Reservation'
 import JsonError from '../json/JsonError'
 
 /**
@@ -28,13 +28,17 @@ import JsonError from '../json/JsonError'
  *           items:
  *             $ref: "#/components/schemas/Reservation"
  * */
-export const getUserReservations = async (req: Request, res: Response) => {
-  const user = await User.findById(req.params.id)
-  if (user){
-    return res.status(Const.STATUS_OK).json(await ReservationService.findReservationsByUserId(req.params.id))
-  } else {
-    return res.status(Const.STATUS_OK).json(user)
+export const getReservations = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id)
+    if (user){
+      return res.status(Const.STATUS_OK).json(await ReservationService.findReservationsByUserId(req.params.id))
+    }
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
+
 }
 
 
@@ -68,22 +72,8 @@ export const getUserReservations = async (req: Request, res: Response) => {
  *               type: string
  *             information:
  *               type: string
- *             location:
- *                type: object
- *                properties:
- *                  name:
- *                    type: string
- *                  address:
- *                    type: object
- *                    properties:
- *                      country:
- *                        type: string
- *                      city:
- *                        type: string
- *                      street:
- *                        type: string 
- *                      zip:
- *                        type: number
+ *             locationId:
+ *               type: string
  *     security:
  *       - JWT: []
  *     responses:
