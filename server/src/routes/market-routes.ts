@@ -4,6 +4,7 @@ import JsonError from '../json/JsonError'
 import * as Const from '../const'
 import * as ProductService from '../services/product-service'
 import { JsonReview } from '../json/JsonReview'
+import { ProductPatch } from '@/json/patch/ProductPatch'
 
 /**
  * @swagger
@@ -61,6 +62,38 @@ export const deleteProduct = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof JsonError) return res.status(Const.STATUS_NOT_FOUND).json(err)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`${req.params.it} is not a valid product id`))
+  }
+}
+/**
+ * @swagger
+ *   /products/{id}:
+ *    patch:
+ *      tags:
+ *      - products
+ *      summary: Modify a product based on the received id
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          type: string
+ *          required: true
+ *          description: Id of the product to be deleted
+*         - in: body
+*           schema:
+*             $ref: "#/components/schemas/ProductPatch"
+ *      responses:
+ *        200:
+ *          description: successful operation
+ * */
+export const patchProduct = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const body = req.body as ProductPatch
+    return res.status(Const.STATUS_OK).json(ProductService.patchProduct(id, body))
+  } catch (err) {
+    if (err instanceof JsonError)
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
 

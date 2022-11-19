@@ -12,6 +12,8 @@ import { IPicture } from '../entities/User'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
 import { Address, IAddress } from '../entities/Address'
+import { JsonUserPatch } from '../json/patch/UserPatch'
+
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -182,7 +184,6 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
 }
 
 export const addPictureToAnimal = async (userId: string, animalId: string, picture: JsonPicture) => {
-  console.log('picture --> ', picture)
   const user = await User.findById(userId)
   if (user) {
     try {
@@ -193,7 +194,6 @@ export const addPictureToAnimal = async (userId: string, animalId: string, pictu
           x.picture = picture
         }
       })
-      console.log('utente con animale cambiato ', user)
       await user.save()
       return user.animals[index]
     } catch (err) {
@@ -214,4 +214,20 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
       throw new JsonError(error.message)
     }
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
+}
+
+export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
+  const user = await User.findById(id)
+  if (patch.zip) user.address.zip = patch.zip
+  if (patch.city) user.address.city = patch.city
+  if (patch.street) user.address.street = patch.street
+  if (patch.country) user.address.country = patch.country
+  if (patch.lastName) user.lastName = patch.lastName
+  if (patch.firstName) user.firstName = patch.firstName
+  if (patch.username) user.username = patch.username
+  if (patch.email) user.email = patch.email
+  if (patch.description) user.description = patch.description
+
+  await user.save()
+  return userToJsonUser(user)
 }

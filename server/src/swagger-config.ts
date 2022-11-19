@@ -1,10 +1,13 @@
 import { SwaggerAnimal } from './json/JsonAnimal'
 import { SwaggerLocation } from './json/JsonLocation'
+import { SwaggerUserPatch } from './json/patch/UserPatch'
 import { SwaggerProduct } from './json/JsonProduct'
 import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
 import { SwaggerReservation } from './json/JsonReservation'
 import { SwaggerReview } from './json/JsonReview'
 import { SwaggerUser } from './json/JsonUser'
+import { SwaggerAnimalPatch } from './json/patch/AnimalPatch'
+import { SwaggerProductPatch } from './json/patch/ProductPatch'
 
 const swaggerOptions = {
   definition: {
@@ -33,6 +36,9 @@ const swaggerOptions = {
         Review: SwaggerReview,
         Reservation: SwaggerReservation,
         Location: SwaggerLocation,
+        UserPatch: SwaggerUserPatch,
+        AnimalPatch: SwaggerAnimalPatch,
+        ProductPatch: SwaggerProductPatch,
         ProductInstance: {
           type: 'object',
           required: ['productId'],
@@ -54,7 +60,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ['src/routes/*.ts'],
+  apis: ['src/doc/*.yml', 'src/routes/*.ts'],
 }
 
 export default swaggerOptions
