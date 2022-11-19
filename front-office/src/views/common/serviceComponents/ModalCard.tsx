@@ -27,7 +27,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
 
     const postReservation = async () => {
         if(Helpers.getUserId()){
-            if(locationSelect && locationSelect.target.value != "Select..." && animalSelect && animalSelect.target.value != "Select..." && date){
+            if(date?.target.checkValidity() && locationSelect && locationSelect.target.value != "Select..." && animalSelect && animalSelect.target.value != "Select..." && date){
                 const reservation : JsonReservation.IReservation = {
                     animalId: animalSelect.target.value,
                     serviceName: props.openService,
@@ -47,7 +47,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                 await sleep(2000)
                 props.setShowModal(!props.showModal)
             } else {
-                toast.warn('You should compile all the form!', {
+                toast.warn('You should compile all the form correctly!', {
                     position: toast.POSITION.TOP_CENTER,
                 })
                 console.log("compila il form")
@@ -108,7 +108,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                         <div className="relative mb-5 mt-2">
                             <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                             </div>
-                            <input id="data" onChange={(value) => setDate(value)}  type="datetime-local" min="2022-11-20T00:00"  max="2024-06-14T00:00" className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="MM/YY" />
+                            <input id="data" onChange={(value) => setDate(value)}   type="datetime-local" min={new Date().toISOString().slice(0,16)} max={"2024-01-00T10:00"} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" required/>
                         </div>
                         <label htmlFor="location" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Location</label>
                         <div className="relative mb-5 mt-2">
