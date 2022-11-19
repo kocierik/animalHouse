@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { ApiRepository, Helpers, JsonUser, JsonReservation, Jsonlocation } from 'shared';
 const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: string}) => {
     const openRef = useRef<HTMLDivElement>(null)
@@ -9,6 +9,8 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
     const [information,setInformation] = useState<ChangeEvent<HTMLTextAreaElement>>(null!)
     const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
+
+    const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
   const getUserInfo = async () => {
     if(Helpers.getUserId()){
@@ -36,14 +38,17 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                 }
                 const id = Helpers.getUserId()
                 const data = (await ApiRepository.postReservation(id!,reservation))
-                toast.success('Prenotation confirmed!', {
-                        position: toast.POSITION.TOP_CENTER
-                    })
+
                 console.log("data ", data)
+                await toast.success('Prenotation confirmed!', {
+                    position: toast.POSITION.TOP_CENTER,
+                    hideProgressBar: true,
+                })
+                await sleep(2000)
                 props.setShowModal(!props.showModal)
             } else {
                 toast.warn('You should compile all the form!', {
-                position: toast.POSITION.TOP_CENTER
+                    position: toast.POSITION.TOP_CENTER,
                 })
                 console.log("compila il form")
             }
@@ -72,6 +77,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                             </svg>
                         </div>
                         <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">{props.openService.charAt(0).toUpperCase() +props.openService.slice(1)}</h1>
+                                 <ToastContainer/>
                         <label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select Animal</label>
                         <select  onChange={(value) => setAnimalSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                             <option>Select...</option>
@@ -82,8 +88,8 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
                                     </option>
                                 )
                             })
-                             
-                            }
+                            
+                        }
                         </select>
                         {/* <input id="name" type="s" className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="James" /> */}
                         <label htmlFor="information" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">More Information</label>
