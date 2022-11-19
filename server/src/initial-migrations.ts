@@ -42,6 +42,18 @@ export const test = async () => {
           userId: '635c088531e05da80c7faf61',
           picture: null,
         },
+        {
+          _id: new Types.ObjectId('635c088531e05da80c7faf6b'),
+          age: 2,
+          name: 'lalalal',
+          type: 'dog',
+          userId: '635c088531e05da80c7faf61',
+          picture: {
+            filename: "pappa.png",
+            mimetype: "image/png",
+            size: 1033
+          },
+        },
       ],
     },
     {
