@@ -22,9 +22,9 @@ export const postReservation = async (id: string, reservation : IReservation): P
     userReservation.animalId = reservation.animalId
     userReservation.date = reservation.date
     userReservation.information = reservation.information
-    userReservation.location = reservation.location
+    userReservation.locationId = reservation.locationId
     userReservation.serviceName = reservation.serviceName
-    userReservation.save()
+    await userReservation.save()
     return reservation
   } catch (err) {
     throw new JsonError(`Cannot push reservation with id ${id} (${err.message})`)
@@ -34,7 +34,7 @@ export const postReservation = async (id: string, reservation : IReservation): P
 export const deleteReservation = async (id: string): Promise<IReservation> => {
   try {
     const userReservation = (await Reservation.findById(id)) 
-    userReservation.deleteOne({_id: id})
+    await userReservation.deleteOne({_id: id})
     return userReservation
   } catch (err) {
     throw new JsonError(`Cannot find reservations with id ${id} (${err.message})`)

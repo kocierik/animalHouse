@@ -102,7 +102,7 @@ const serviceProps = [{
 const ServiceCard = () => {
     const [showModal,setShowModal] = useState(false)
     const scrollRef = useRef<HTMLDivElement>(null)
-
+    const [openService,setOpenService] = useState("")
     const executeScroll = () => {
         scrollRef.current?.scrollIntoView({block: "start", inline: "nearest", behavior: "smooth"})  
     }
@@ -116,14 +116,13 @@ const ServiceCard = () => {
     <div data-aos="zoom-in" className="px-3 md:lg:xl:px-40  rounded border-t border-b py-20 bg-opacity-10" >
   <h2 className="mb-4 text-3xl font-bold">Services</h2>
     <div ref={scrollRef}>
-        {showModal && <ModalCard  showModal={showModal} setShowModal={setShowModal} />}
+        {showModal && <ModalCard  showModal={showModal} setShowModal={setShowModal} openService={openService}  />}
     </div>
   <div className="grid mb-10 lg:grid-cols-2 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
     {
-        
         serviceProps.map((service,i) => {
         return (
-            <div onClick={() => setShowModal(true)}  key={i} className='hover:-translate-y-2 hover:scale-100 duration-300'>
+            <div onClick={() => {setShowModal(true); setOpenService(service.title)}}  key={i} className='hover:-translate-y-2 hover:scale-100 duration-300'>
             <div 
             data-aos="zoom-in"
                 className="p-10   rounded flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
