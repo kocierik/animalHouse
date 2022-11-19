@@ -6,7 +6,7 @@ import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
 import Admin from './entities/Admin'
-import ReservationCode from './entities/ReservationCode';
+import ReservationCode from './entities/ServiceCode';
 import Location from './entities/Location';
 
 export const test = async () => {

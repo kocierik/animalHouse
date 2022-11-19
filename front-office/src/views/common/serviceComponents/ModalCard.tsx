@@ -10,7 +10,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
     const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
 
-  const getUserAnimal = async () => {
+  const getUserInfo = async () => {
     if(Helpers.getUserId()){
         const id = Helpers.getUserId()
         const data = (await ApiRepository.getUserInfoById(id!)).data
@@ -55,7 +55,7 @@ const ModalCard = (props :{showModal: boolean, setShowModal: any, openService: s
   } 
 
   useEffect(() => {
-    getUserAnimal()
+    getUserInfo()
     getLocation()
   },[])
 

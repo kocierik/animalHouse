@@ -24,7 +24,7 @@ const _USER_PICTURE = '/users/{0}/picture'
 const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 const _RESERVATIONS = '/users/{0}/reservations'
 const _RESERVATIONS_DELETE = '/reservations/{0}'
-const _LOCATION = '/location'
+const _LOCATION = '/locations'
 const _PICTURES = '/pictures/{0}'
 
 const _ANIMAL_CODES = '/animals/codes'
