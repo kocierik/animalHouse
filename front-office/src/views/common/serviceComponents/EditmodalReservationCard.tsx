@@ -48,7 +48,6 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
         if(Helpers.getUserId()){
             if(date?.target.checkValidity() && locationSelect.target.value != "Select..."){
                 const reservation : JsonReservation.IReservation = {
-                    serviceName: props.openService,
                     userId: Helpers.getUserId()!,
                     date: date?.target.value!,
                     information: information?.target.value,
