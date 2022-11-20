@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
-import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
+import { JsonAnimal, ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared';
 import defaultImage from "./defaultImage.jpg"
 const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>, setViewModalReservation:  React.Dispatch<React.SetStateAction<boolean>>, viewModalReservation: boolean}) => {
   const animalName = useRef<HTMLInputElement>(null)
@@ -11,6 +11,8 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const [canWrite, setCanWrite] = useState(false)
   const [file, setFile] = useState<File>()
   const [imageProfileAnimal, setImageProfileAnimal] = useState<string>()
+
+  const [animalReservation,setAnimalReservation] = useState<JsonReservation.IReservation[]>([])
 
   const settingAnimals: IsettingInfo[] = [
     {
@@ -33,7 +35,12 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
     },
     {
       name: 'reservation',
-      setting: () => { props.setViewModalReservation(true) }
+      setting: async () => {
+         const resp = await ApiRepository.getAnimalReservation(props.animal._id!) 
+         if(resp.esit)
+          setAnimalReservation(resp.data!)
+          console.log(resp.data)
+        }
     }
   ]
 
