@@ -7,8 +7,7 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
     const [locationSelect,setLocationSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const [locations,setLocations] = useState<Jsonlocation.ILocation[]>()
     const [information,setInformation] = useState<ChangeEvent<HTMLTextAreaElement>>(null!)
-    const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
-    const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
+    const [date,setDate] = useState<string>()
     const [selectedService, setSelectedService] = useState<string>(null!)
     const [infoReservation, setInfoReservation] = useState<JsonReservation.IReservation>(null!)
     const [locationReservation, setLocationReservation] = useState<Jsonlocation.ILocation>(null!)
@@ -27,10 +26,11 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
         const resp = await ApiRepository.getSingleReservation(id)
         if(resp){
             setInfoReservation(resp.data!)
+            setDate(resp.data?.date)
             await getLocationBySelect(resp.data?.locationId!)
         }
         else {
-            console.log("error selectedService")
+            toast.warning("error in a selected Service")
         }
     }
 
@@ -45,11 +45,12 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
   }
 
     const editReservation = async () => {
+        console.log(date)
         if(Helpers.getUserId()){
-            if(date?.target.checkValidity() && locationSelect.target.value != "Select..."){
+            if(locationSelect.target.value != "Select..."){
                 const reservation : JsonReservation.IReservation = {
                     userId: Helpers.getUserId()!,
-                    date: date?.target.value!,
+                    date: date!,
                     information: information?.target.value,
                     locationId: locationSelect.target.value
                 }
@@ -118,7 +119,7 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
                           </div><label htmlFor="data" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label><div className="relative mb-5 mt-2">
                                   <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                                   </div>
-                                  <input id="data" onChange={(value) => setDate(value)} defaultValue={infoReservation.date} type="datetime-local" min={new Date().toISOString().slice(0, 16)} max={"2024-01-00T10:00"} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" required />
+                                  <input id="data" onChange={(value) => setDate(value.target.value)} defaultValue={infoReservation.date} type="datetime-local" min={new Date().toISOString().slice(0, 16)} max={"2024-01-00T10:00"} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" required />
                               </div><label htmlFor="location" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Location</label><div className="relative mb-5 mt-2">
                                   <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                                   </div>
