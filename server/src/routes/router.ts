@@ -55,11 +55,11 @@ appRouter.delete(
   userRoutes.deleteCart
 )
 appRouter.put(
-  version + '/users/:id/animals',
+  version + '/animals/:id',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
-  userRoutes.putAnimal
+  animalRoutes.putAnimal
 )
 appRouter.put(
   version + '/users/:id/description',
@@ -75,13 +75,6 @@ appRouter.put(
   middlewares.verifyUser,
   middlewares.multerMiddleware('profile'),
   userRoutes.postPicture
-)
-appRouter.put(
-  version + '/users/:id/animals',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  userRoutes.putAnimal
 )
 appRouter.delete(
   version + '/users/:uid/animals/:aid',
