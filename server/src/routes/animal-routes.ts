@@ -102,3 +102,65 @@ export const putAnimal = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+// /**
+//  * @swagger
+//  * /users/{uid}/animals/{aid}:
+//  *  put:
+//  *      tags:
+//  *      - users
+//  *      summary: edit a animal
+//  *       parameters:
+//  *       - in: path
+//  *         name: uid
+//  *         type: string
+//  *         required: true
+//  *         description: user id
+//  *       - in: path
+//  *         name: aid
+//  *         type: string
+//  *         required: true
+//  *         description: animal id
+//  *       - in: body
+//  *         name: Animal
+//  *         description: Animal info
+//  *         schema:
+//  *           type: object
+//  *           properties:
+//  *             _id:
+//  *               type: string
+//  *             type:
+//  *               type: string
+//  *             name:
+//  *               type: string
+//  *             userId:
+//  *               type: string
+//  *             age:
+//  *               type: number
+//  *             picture:
+//  *               type: object
+//  *               properties:
+//  *                 filename:
+//  *                   type: string
+//  *                 mimetype:
+//  *                   type: string
+//  *                 size:
+//  *                   type: number
+//  *       security:
+//  *         - JWT: []
+//  *       responses:
+//  *         200:
+//  *           description: Success
+//  *           schema:
+//  *             $ref: "#/definitions/Animal"
+//  *     
+// * */
+export const updateAnimal = async (req: Request, res: Response) => {
+  try {
+    const animalId = req.params.aid
+    let animal = req.body as JsonAnimal
+    return res.status(Const.STATUS_OK).json(await AnimalService.updateFromAnimal(animalId, animal))
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error)
+  }
+}

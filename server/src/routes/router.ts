@@ -84,11 +84,11 @@ appRouter.delete(
   userRoutes.deleteAnimal
 )
 appRouter.put(
-  version + '/users/:uid/animals/:aid',
+  version + '/animals/:aid',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
-  userRoutes.updateAnimal
+  animalRoutes.updateAnimal
 )
 appRouter.put(
   version + '/users/:uid/animals/:id/picture',
