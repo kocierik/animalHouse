@@ -31,6 +31,18 @@ export const postReservation = async (id: string, reservation : IReservation): P
   }
 }
 
+
+
+export const findReservationsByAnimalId = async (animalId: string): Promise<IReservation[]> => {
+  try {
+    const userReservation = (await Reservation.find({animalId: animalId})) 
+    return userReservation
+  } catch (err) {
+    throw new JsonError(`Cannot find reservations with animal id ${animalId} (${err.message})`)
+  }
+}
+
+
 export const deleteReservation = async (id: string): Promise<IReservation> => {
   try {
     const userReservation = (await Reservation.findById(id)) 

@@ -130,6 +130,8 @@ appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketR
 appRouter.get(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations) 
 appRouter.post(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.postReservation) 
 appRouter.delete(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation) 
+appRouter.get(version + '/animals/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.getAnimalReservation) 
+
 
 // Location
 appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocation) 
