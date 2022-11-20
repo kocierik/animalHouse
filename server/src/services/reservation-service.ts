@@ -70,7 +70,6 @@ export const putReservation = async (id: string, reservation : IReservation): Pr
     userReservation.date = reservation.date
     userReservation.information = reservation.information
     userReservation.locationId = reservation.locationId
-    userReservation.serviceName = reservation.serviceName
     await userReservation.save()
     return reservation
   } catch (err) {
