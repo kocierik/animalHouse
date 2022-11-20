@@ -95,6 +95,16 @@ export const postReservation = async (req: Request, res: Response) => {
   }
 }
 
+export const getAnimalReservation = async (req: Request, res: Response) => {
+  try {
+    const animalId = req.params.id
+    return res.status(Const.STATUS_OK).json(await ReservationService.findReservationsByAnimalId(animalId))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
 
 /**
  * @swagger
