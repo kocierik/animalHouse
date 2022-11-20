@@ -95,7 +95,7 @@ export const postReservation = async (req: Request, res: Response) => {
   }
 }
 
-export const getAnimalReservation = async (req: Request, res: Response) => {
+export const getAnimalReservations = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.id
     return res.status(Const.STATUS_OK).json(await ReservationService.findReservationsByAnimalId(animalId))
@@ -133,6 +133,16 @@ export const deleteReservation = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     return res.status(Const.STATUS_OK).json(await ReservationService.deleteReservation(pathId))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
+export const getSingleReservation = async (req: Request, res: Response) => {
+  try {
+    const reservationId = req.params.id
+    return res.status(Const.STATUS_OK).json(await ReservationService.getSingleReservation(reservationId))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))

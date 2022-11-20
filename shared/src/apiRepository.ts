@@ -25,7 +25,9 @@ const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 const _RESERVATIONS = '/users/{0}/reservations'
 const _RESERVATIONS_ANIMALS = '/animals/{0}/reservations'
 const _RESERVATIONS_DELETE = '/reservations/{0}'
+const _RESERVATIONS_GET = '/reservations/{0}'
 const _LOCATION = '/locations'
+const _LOCATION_GET = '/locations/{0}'
 const _PICTURES = '/pictures/{0}'
 
 const _ANIMAL_CODES = '/animals/codes'
@@ -106,13 +108,20 @@ export const getReservations = async (userId: string) =>
 export const postReservation = async (userId: string, reservation: reservation.IReservation) =>
   Api.post<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS, userId),reservation,true)
 
-export const getAnimalReservation = async (animalId: string) =>
+export const getAnimalReservations = async (animalId: string) =>
   Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _RESERVATIONS_ANIMALS, animalId),true)
+
+export const getSingleReservation = async (animalId: string) =>
+  Api.get<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_GET, animalId),true)
 
 export const deleteReservation = async (reservationId: string) =>
   Api.delete<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_DELETE, reservationId),true)
 
-export const getLocation = async () =>
+
+export const getLocations = async () =>
   Api.get<location.ILocation[]>(stringFormat(_BASE_URL + _LOCATION),false)
+
+export const getLocationById = async (locationId: string) =>
+  Api.get<location.ILocation>(stringFormat(_BASE_URL + _LOCATION_GET, locationId),false)
 
 // TODO insert here other calls!!!!

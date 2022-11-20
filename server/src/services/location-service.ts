@@ -10,3 +10,13 @@ export const getAllLocation = async (): Promise<ILocation[]> => {
     throw new JsonError(`Cannot find location (${err.message})`)
   }
 }
+
+export const getLocationById = async (id: string): Promise<ILocation> => {
+  try {
+    const location = (await Location.findById(id))
+    console.log(location)
+    return location
+  } catch (err) {
+    throw new JsonError(`Cannot find location (${err.message})`)
+  }
+}
