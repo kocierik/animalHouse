@@ -94,7 +94,6 @@ export const patchProduct = async (id: string, patch: ProductPatch): Promise<IPr
   if (patch.details) prod.details = patch.details
   if (patch.highlights) prod.highlights = patch.highlights
 
-
   await prod.save()
   return prod as IProduct
 }

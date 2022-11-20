@@ -119,12 +119,7 @@ appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin
 // Animals
 appRouter.get(version + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
 appRouter.get(version + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
-appRouter.patch(
-  version + '/animal/:id',
-  middlewares.log,
-  middlewares.verifyToken,
-  animalRoutes.patchAnimal
-)
+appRouter.patch(version + '/animal/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
 
 // Community
 appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)
@@ -134,12 +129,7 @@ appRouter.get(version + '/community/game/scoreboard', middlewares.log, community
 appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
-appRouter.patch(
-  version + '/products/:id',
-  middlewares.log,
-  middlewares.verifyToken,
-  marketRoutes.patchProduct
-)
+appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct)
 appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
