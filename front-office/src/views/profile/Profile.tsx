@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { ApiRepository, type JsonUser, Helpers, JsonReservation } from 'shared'
-import ModalReservationCard from '../common/serviceComponents/ModalReservationCard'
+import EditmodalReservationCard from '../common/serviceComponents/EditmodalReservationCard'
 import Setting from '../common/Setting'
 import AnimalCard from './AnimalCard'
 import DefaultCard from './DefaultCard'
@@ -154,7 +154,7 @@ const Profile = () => {
                     <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {user?.firstName} {user?.lastName}
                   </div>
                 </div>
-                          {viewModalReservation && <ModalReservationCard showModal={viewModalReservation} setShowModal={setViewModalReservation} openService={"Edit service"} /> }
+                          {viewModalReservation && <EditmodalReservationCard showModal={viewModalReservation} setShowModal={setViewModalReservation} openService={"Edit service"} animalReservation={animalReservation}/> }
                 <div data-aos="zoom-in" className="flex flex-col items-center">
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex  justify-center py-4 lg:pt-4 pt-8 ">
