@@ -3,16 +3,15 @@ import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared';
 import defaultImage from "./defaultImage.jpg"
-const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>, setViewModalReservation:  React.Dispatch<React.SetStateAction<boolean>>, viewModalReservation: boolean}) => {
+const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>, setViewModalReservation:  React.Dispatch<React.SetStateAction<boolean>>, viewModalReservation: boolean,  setAnimalReservation: React.Dispatch<React.SetStateAction<JsonReservation.IReservation[]>>}) => {
   const animalName = useRef<HTMLInputElement>(null)
-  const animalType = useRef<HTMLInputElement>(null)
+  const animalType = useRef<HTMLInputElement>(null) 
   const animalAge = useRef<HTMLInputElement>(null)
   const animalImage = useRef<HTMLInputElement>(null)
   const [canWrite, setCanWrite] = useState(false)
   const [file, setFile] = useState<File>()
   const [imageProfileAnimal, setImageProfileAnimal] = useState<string>()
 
-  const [animalReservation,setAnimalReservation] = useState<JsonReservation.IReservation[]>([])
 
   const settingAnimals: IsettingInfo[] = [
     {
@@ -36,9 +35,10 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
     {
       name: 'reservation',
       setting: async () => {
+        props.setViewModalReservation(true)
          const resp = await ApiRepository.getAnimalReservation(props.animal._id!) 
          if(resp.esit)
-          setAnimalReservation(resp.data!)
+            props.setAnimalReservation(resp.data!)
           console.log(resp.data)
         }
     }

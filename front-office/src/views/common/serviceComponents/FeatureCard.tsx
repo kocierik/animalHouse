@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ModalCard from './ModalCard'
+import ModalReservationCard from './ModalReservationCard'
 
 
 const cards = [
@@ -58,7 +58,7 @@ const FeatureCard = () => {
   return (
     <div className="flex flex-col">
       <div ref={scrollRef}>
-        {showModal && <ModalCard  showModal={showModal} setShowModal={setShowModal} openService={openService} />}
+        {showModal && <ModalReservationCard  showModal={showModal} setShowModal={setShowModal} openService={openService}/>}
     </div>
   <h2 className="mb-4 text-2xl font-bold">Most Used Services</h2>
 
