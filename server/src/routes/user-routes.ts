@@ -146,23 +146,29 @@ export const getAllUsers = async (_: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}:
- *   get:
- *     tags:
- *     - users
- *     summary: Get a user by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Numeric ID of the user to get
- *
- *     responses:
- *       200:
- *         description: ok
- *         schema:
+ * /users/{id}: {
+ *   get: {
+ *     tags: [ users ],
+ *     summary: Get a user by ID,
+ *     parameters: [
+ *      {
+ *         in: path,
+ *       name: id,
+ *       type: string,
+ *       required: true,
+ *       description: Numeric ID of the user to get
+ *       }
+ *      ],
+ *     responses: {
+ *       200: {
+ *         description: ok,
+ *         schema: {
  *           $ref: "#/components/schemas/User"
+ *         }
+ *        }
+ *       }
+ *      }
+ *     }
  * */
 export const getUser = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -173,26 +179,35 @@ export const getUser = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}:
- *   patch:
- *     tags:
- *     - users
- *     summary: Patch the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Numeric ID of the user to patch
-*        - in: body
-*          schema:
- *           $ref: "#/components/schemas/UserPatch"
- *
- *     responses:
- *       200:
- *         description: ok
- *         schema:
+ * /users/{id}: {
+ *   patch: {
+ *     tags: [users],
+ *     summary: Patch the specified user,
+ *     parameters: [
+ *     {
+ *      in: path,
+ *       name: id,
+ *       type: string,
+ *       required: true,
+ *       description: Numeric ID of the user to patch
+ *     },
+ *     {
+ *       in: body,
+ *        schema: {
+ *          $ref: "#/components/schemas/UserPatch"
+ *        }
+ *      }
+ *    ],
+ *     responses: {
+ *       200: {
+ *         description: ok,
+ *         schema: {
  *           $ref: "#/components/schemas/User"
+ *         }
+ *        }
+ *      }
+ *     }
+ *   }
  * */
 export const patchUser = async (req: Request, res: Response) => {
   try {
@@ -200,49 +215,67 @@ export const patchUser = async (req: Request, res: Response) => {
     const patch = req.body as JsonUserPatch
     return res.status(Const.STATUS_OK).json(await UserService.patchUser(pathId, patch))
   } catch (err) {
-    if (err instanceof JsonError)
-      return res.status(Const.STATUS_BAD_REQUEST).json(err)
-    else
-      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
 
-
 /**
  * @swagger
- * /users/{id}/score:
- *   put:
- *     tags:
- *     - users
- *     summary: Add a game score to the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Guid of the user
- *       - in: body
- *         name: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *               gameId:
- *                 type: string
- *               score:
- *                 type: number
- *     security:
- *     - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: object
- *           properties:
- *               gameGuid:
- *                 type: string
- *               score:
- *                 type: number
+ * /users/{id}/score : {
+ *            "put": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Add a game score to the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Guid of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "object",
+ *                          "properties": {
+ *                              "gameId": {
+ *                                  "type": "string"
+ *                              },
+ *                              "score": {
+ *                                  "type": "number"
+ *                              }
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "object",
+ *                          "properties": {
+ *                              "gameGuid": {
+ *                                  "type": "string"
+ *                              },
+ *                              "score": {
+ *                                  "type": "number"
+ *                              }
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *        }
  * */
 export const putScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -261,36 +294,54 @@ export const putScore = async (req: Request, res: Response) => {
 
 /**
 * @swagger
-* /users/{id}/score:
-*   get:
-*     tags:
-*     - users
-*     summary: Get game scores of the specified user
-*     parameters:
-*       - in: path
-*         name: id
-*         type: string
-*         required: true
-*         description: Guid of the user
-*       - in: query
-*         name: gameId
-*         type: string
-*         required: false
-*         description: Optional id of the game you want the result
-*     security:
-*     - JWT: []
-*     responses:
-*       200:
-*         description: ok
-*         schema:
-*           type: array
-*           items:
-*             type: object
-*             properties:
-*                 gameGuid:
-*                   type: string
-*                 score:
-                    type: number
+* /users/{id}/score: {
+*              "get": {
+*               "tags": [
+*                   "users"
+*               ],
+*               "summary": "Get game scores of the specified user",
+*               "parameters": [
+*                   {
+*                       "in": "path",
+*                       "name": "id",
+*                       "type": "string",
+*                       "required": true,
+*                       "description": "Guid of the user"
+*                   },
+*                   {
+*                       "in": "query",
+*                       "name": "gameId",
+*                       "type": "string",
+*                       "required": false,
+*                       "description": "Optional id of the game you want the result"
+*                   }
+*               ],
+*               "security": [
+*                   {
+*                       "JWT": []
+*                   }
+*               ],
+*               "responses": {
+*                   "200": {
+*                       "description": "ok",
+*                       "schema": {
+*                           "type": "array",
+*                           "items": {
+*                               "type": "object",
+*                               "properties": {
+*                                   "gameGuid": {
+*                                       "type": "string"
+*                                   },
+*                                   "score": {
+*                                       "type": "number"
+*                                   }
+*                               }
+*                           }
+*                       }
+*                   }
+*               }
+*           }
+*       }
 * */
 export const getScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -305,33 +356,50 @@ export const getScore = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/cart:
- *   put:
- *     tags:
- *     - users
- *     summary: Add a product to the cart of the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of the user
- *       - in: body
- *         name: body
- *         required: true
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/ProductInstance"
- *     security:
- *     - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ * /users/{id}/cart: {
+ *         "put": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Add a product to the cart of the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Id of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/ProductInstance"
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/ProductInstance"
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *      }
  * */
 export const putCart = async (req: Request, res: Response) => {
   try {
@@ -346,26 +414,39 @@ export const putCart = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/cart:
- *   get:
- *     tags:
- *     - users
- *     summary: Get the cart of the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of the user
- *     security:
- *     - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ * /users/{id}/cart: {
+ *  "get": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Get the cart of the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Id of the user"
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/ProductInstance"
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *        }
  * */
 export const getCart = async (req: Request, res: Response) => {
   try {
@@ -378,36 +459,51 @@ export const getCart = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/cart:
- *   delete:
- *     tags:
- *     - users
- *     summary: Delete a product from the cart of the specified user
- *     description: Takes in the body a list of string representing the product instance ids you want to delete
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of the user
- *       - in: body
- *         name: body
- *         required: true
- *         schema:
- *           type: array
- *           items:
- *             type:
- *               string
- *     security:
- *     - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/ProductInstance"
- *
+ * /users/{id}/cart: {
+ *          "delete": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Delete a product from the cart of the specified user",
+ *              "description": "Takes in the body a list of string representing the product instance ids you want to delete",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Id of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "type": "string"
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/ProductInstance"
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *      }
  * */
 export const deleteCart = async (req: Request, res: Response) => {
   try {
@@ -422,33 +518,50 @@ export const deleteCart = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/animals:
- *   put:
- *     tags:
- *     - users
- *     summary: Add an animal for the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of the user
- *       - in: body
- *         name: body
- *         required: true
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/Animal"
- *     security:
- *       - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/Animal"
+ * /users/{id}/animals : {
+ *         "put": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Add an animal for the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Id of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/Animal"
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/Animal"
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *      }
  * */
 export const putAnimal = async (req: Request, res: Response) => {
   try {
@@ -461,30 +574,37 @@ export const putAnimal = async (req: Request, res: Response) => {
   }
 }
 
-// /**
-//  * @swagger
-//  * /users/{uid}/animals/{aid}:
-//  *  delete:
-//  *      tags:
-//  *      - users
-//  *       summary: Retrive reviews about a product
-//  *       parameters:
-//  *       - in: path
-//  *         name: uid
-//  *         type: string
-//  *         required: true
-//  *         description: Id of the user to be searched
-//  *       - in: path
-//  *         name: aid
-//  *         type: string
-//  *         required: true
-//  *         description: Id of the animal to be deleted
-//  *       security:
-//  *         - JWT: []
-//  *       responses:
-//  *         200:
-//  *           description: successful operation
-//  * */
+/**
+ * @swagger
+ * /users/{uid}/animals/{aid}: {
+ *  delete: {
+ *      tags: [users ],
+ *      summary: Retrive reviews about a product,
+ *      parameters: [
+ *       {
+ *         in: path,
+ *         name: uid,
+ *         type: string,
+ *         required: true,
+ *         description: Id of the user to be searched
+ *      },
+ *       {
+ *          in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
+ *         description: Id of the animal to be deleted
+ *      }
+ *      ],
+ *       security: [  {JWT: []} ],
+ *       responses: {
+ *         200: {
+ *           description: successful operation
+ *      }
+ *    }
+ *    }
+ *    }
+ * */
 export const deleteAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
@@ -495,58 +615,54 @@ export const deleteAnimal = async (req: Request, res: Response) => {
   }
 }
 
-// /**
-//  * @swagger
-//  * /users/{uid}/animals/{aid}:
-//  *  put:
-//  *      tags:
-//  *      - users
-//  *      summary: edit a animal
-//  *       parameters:
-//  *       - in: path
-//  *         name: uid
-//  *         type: string
-//  *         required: true
-//  *         description: user id
-//  *       - in: path
-//  *         name: aid
-//  *         type: string
-//  *         required: true
-//  *         description: animal id
-//  *       - in: body
-//  *         name: Animal
-//  *         description: Animal info
-//  *         schema:
-//  *           type: object
-//  *           properties:
-//  *             _id:
-//  *               type: string
-//  *             type:
-//  *               type: string
-//  *             name:
-//  *               type: string
-//  *             userId:
-//  *               type: string
-//  *             age:
-//  *               type: number
-//  *             picture:
-//  *               type: object
-//  *               properties:
-//  *                 filename:
-//  *                   type: string
-//  *                 mimetype:
-//  *                   type: string
-//  *                 size:
-//  *                   type: number
-//  *       security:
-//  *         - JWT: []
-//  *       responses:
-//  *         200:
-//  *           description: Success
-//  *           schema:
-//  *             $ref: "#/definitions/Animal"
-//  *     
-// * */
+/**
+ * @swagger
+ * /users/{uid}/animals/{aid}: {
+ *  put: {
+ *    tags: [ users ],
+ *    summary: edit a animal,
+ *    parameters: [
+ *      {
+ *        in: path,
+ *         name: uid,
+ *         type: string,
+ *         required: true,
+ *         description: user id
+ *      },
+ *       { 
+ *         in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
+ *         description: animal id
+ *      },
+ *      {
+ *         in: body,
+ *         name: Animal,
+ *         description: Animal info,
+ *         schema: {
+ *           type: object,
+ *           schema: {
+ *            $ref: "#/definitions/Animal"
+ *          }
+ *         }
+ *        }
+ *      ], 
+ *       security: [
+ *          {JWT: []}
+ *       ],
+ *       responses: {
+ *         200: {
+ *           description: Success,
+ *           schema: {
+ *             $ref: "#/definitions/Animal"
+ *    }
+ *  }
+ * }
+ * }
+ * }
+ *
+ * */
 export const updateAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
@@ -572,8 +688,6 @@ export const postPicture = (req: Request, res: Response) => {
   }
 }
 
-
-
 export const putAnimalPicture = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.uid
@@ -587,33 +701,43 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
   }
 }
 
-// /**
-//  * @swagger
-//  *  /users/{id}/description:
-//  *    put:
-//  *      tags:
-//  *      - users
-//  *      summary: Put a profile description
-//  *      parameters:
-//  *      - in: path
-//  *        name: id
-//  *        type: string
-//  *        required: true
-//  *        description: Id of user
-//  *      - in: body
-//  *       name: body
-//  *       description: user description
-//  *       schema:
-//  *           $ref: "#/definitions/User"
-//  *
-//  *     security:
-//  *       - JWT: []
-//  *     responses:
-//  *       200:
-//  *         description: Success
-//  *         schema:
-//  *           $ref: "#/definitions/User"
-//  * */
+/**
+ * @swagger
+ *  /users/{id}/description: {
+ *    put: {
+ *      tags: [ users ],
+ *      summary: Put a profile description,
+ *      parameters: [
+ *       {
+ *        in: path,
+ *        name: id,
+ *        type: string,
+ *        required: true,
+ *        description: Id of user
+ *      },
+ *      {
+ *       in: body,
+ *       name: body,
+ *       description: user description,
+ *       schema : {
+ *           $ref: "#/definitions/User"
+ *       }
+ *     }
+ *      ],
+ *     security: [
+ *       {JWT: []}
+ *     ],
+ *     responses: {
+ *       200: {
+ *         description: Success,
+ *         schema: {
+ *           $ref: "#/definitions/User"
+ *          }
+ *      }
+ *    }
+ *   }
+ * }
+ * */
 export const updateUserDescription = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id

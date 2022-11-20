@@ -16,43 +16,43 @@ export const SwaggerUserPatch = {
   properties: {
     username: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     password: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     email: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     description: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     firstName: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     lastName: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     country: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     city: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     street: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     zip: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
-  }
+  },
 }
