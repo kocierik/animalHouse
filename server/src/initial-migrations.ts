@@ -2,12 +2,12 @@ import { Game } from './entities/Community'
 import { Types } from 'mongoose'
 import ProductCategory from './entities/ProductCategory'
 import Product from './entities/Product'
-import Review from './entities/Review'
 import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
 import Admin from './entities/Admin'
-import Animal from './entities/Animal'
+import ReservationCode from './entities/ServiceCode';
+import Location from './entities/Location';
 
 export const test = async () => {
   await User.deleteMany()
@@ -154,5 +154,31 @@ export const initAnimalCodes = async () => {
     { code: 6, value: 'Panda' },
     { code: 7, value: 'Shiba' },
     { code: 8, value: 'Lizard' },
+  ])
+}
+export const initReservationCodes = async () => {
+  await ReservationCode.deleteMany()
+  await ReservationCode.insertMany([
+    {code: 0, value: 'Find Partner'},
+    {code: 1, value: 'Help Animals'},
+    {code: 2, value: 'Psychologist'},
+    {code: 3, value: 'Dog Sitter'},
+    {code: 4, value: 'Veterinary'},
+    {code: 5, value: 'Pension'},
+    {code: 6, value: 'Wash Animal'},
+    {code: 7, value: 'Home Visit'},
+    {code: 8, value: 'Grooming'},
+  ])
+}
+
+export const initLocationCodes = async () => {
+  await Location.deleteMany()
+  await Location.insertMany([
+    {address:{country: "Rimini", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Rimini'},
+    {address:{country: "Mestre", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Mestre'},
+    {address:{country: "Bologna", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Bologna'},
+    {address:{country: "Riccione", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Riccione'},
+    {address:{country: "Palermo", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Palermo'},
+    {address:{country: "Roma", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Roma'},
   ])
 }

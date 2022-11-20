@@ -4,12 +4,6 @@ import cors from 'cors'
 import { resolve } from 'path'
 import { appRouter } from './routes/router'
 import * as parser from 'body-parser'
-import * as animalRoutes from './routes/animal-routes'
-import * as middlewares from './routes/middlewares'
-import * as userRoutes from './routes/user-routes'
-import * as communityRoutes from './routes/community-routes'
-import * as marketRoutes from './routes/market-routes'
-import * as adminRoutes from './routes/admin-routes'
 import swaggerOptions from './swagger-config'
 import * as swagger from 'swagger-ui-express'
 import * as migrations from './initial-migrations'
@@ -35,6 +29,8 @@ async function db() {
   await migrations.initAnimalCodes()
   await migrations.initAnimalCodes()
   await migrations.initAdmin()
+  await migrations.initReservationCodes()
+  await migrations.initLocationCodes()
   // TODO remove
   await migrations.test()
 }
