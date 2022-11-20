@@ -28,7 +28,6 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
         const resp = await ApiRepository.getSingleReservation(id)
         if(resp){
             setInfoReservation(resp.data!)
-            console.log(resp.data)
             await getLocationBySelect(resp.data?.locationId!)
         }
         else {
@@ -41,10 +40,8 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
 
 
   const getLocationBySelect = async (locationId: string) => {
-        console.log(locationId)
         const data = (await ApiRepository.getLocationById(locationId)).data
         setLocationReservation(data!)
-        console.log("funziona= --> ", data)
   }
 
     const getAllLocation = async () => {
