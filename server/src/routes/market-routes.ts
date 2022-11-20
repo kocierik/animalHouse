@@ -14,44 +14,59 @@ export const getProducts = async (_: Request, res: Response) => res.json(await P
 
 /**
  * @swagger
- *  /products/{id}:
- *    get:
- *        tags:
- *        - products
- *        summary: Searches the specified product
- *        parameters:
- *          - in: path
- *            name: id
- *            type: string
- *            required: true
+ *
+ *  {
+ *     "/products/{id}": {
+ *      get : {
+ *        tags: [ products ],
+ *        summary : Searches the specified product,
+ *        parameters : [{
+ *            in: path,
+ *            name: id,
+ *            type: string,
+ *            required: true,
  *            description: Id of the product to be searched
- *        responses:
- *          200:
- *            description: successful operation
- *            schema:
- *              type: array
- *              items:
+ *          }],
+ *        responses: {
+ *          200: {
+ *            description: successful operation,
+ *            schema: {
+ *              type: array,
+ *              items: {
  *                $ref: "#/components/schemas/Product"
+ *               }
+ *             }
+ *           }
+ *         }
+ *      }
+ *     }
+ *  }
  * */
 export const getProduct = async (req: Request, res: Response) =>
   res.status(Const.STATUS_OK).json(await ProductService.findProductByid(req.params.id))
 
 /**
  * @swagger
- *   /products/{id}:
- *    delete:
- *      tags:
- *      - products
- *      summary: Deletes a product based on the received id
- *      parameters:
- *        - in: path
- *          name: id
- *          type: string
- *          required: true
- *          description: Id of the product to be deleted
- *      responses:
- *        200:
+ *   /products/{id}: {
+ *    delete: {
+ *      tags: [products],
+ *      summary: Deletes a product based on the received id,
+ *      parameters: [
+ *       {
+ *        in: path,
+ *        name: id,
+ *        type: string,
+ *        required: true,
+ *        description: Id of the product to be deleted
+ *        }
+ *       ],
+ *      responses: {
+ *        200: {
  *          description: successful operation
+ *          }
+ *        }
+ *     }
+ *   }
  * */
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
@@ -66,23 +81,32 @@ export const deleteProduct = async (req: Request, res: Response) => {
 }
 /**
  * @swagger
- *   /products/{id}:
- *    patch:
- *      tags:
- *      - products
- *      summary: Modify a product based on the received id
- *      parameters:
- *        - in: path
- *          name: id
- *          type: string
- *          required: true
- *          description: Id of the product to be deleted
-*         - in: body
-*           schema:
-*             $ref: "#/components/schemas/ProductPatch"
- *      responses:
- *        200:
+ *   /products/{id}: {
+ *    patch: {
+ *     tags: [ products ],
+ *     summary: Modify a product based on the received id,
+ *     parameters: [
+ *       {
+ *         in : path,
+ *        name: id,
+ *        type: string,
+ *        required: true,
+ *        description: Id of the product to be deleted
+ *       },
+ *       {
+ *         in: body,
+ *        schema: {
+ *          $ref: "#/components/schemas/ProductPatch"
+ *         }
+ *       }
+ *     ],
+ *      responses: {
+ *        200: {
  *          description: successful operation
+ *       }
+ *      }
+ *     }
+ *   }
  * */
 export const patchProduct = async (req: Request, res: Response) => {
   try {
@@ -90,10 +114,8 @@ export const patchProduct = async (req: Request, res: Response) => {
     const body = req.body as ProductPatch
     return res.status(Const.STATUS_OK).json(ProductService.patchProduct(id, body))
   } catch (err) {
-    if (err instanceof JsonError)
-      return res.status(Const.STATUS_BAD_REQUEST).json(err)
-    else
-      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
 

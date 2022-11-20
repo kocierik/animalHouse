@@ -61,7 +61,6 @@ export const getAnimal = async (req: Request, res: Response) => {
   }
 }
 
-
 /**
  * @swagger
  *
@@ -76,8 +75,8 @@ export const getAnimal = async (req: Request, res: Response) => {
  *          type: string
  *          required: true
  *          description: Id of the animal
-*         - in: body
-*           schema:
+ *        - in: body
+ *          schema:
  *            $ref: "#/components/schemas/AnimalPatch"
  *      responses:
  *          200:
@@ -91,9 +90,7 @@ export const patchAnimal = async (req: Request, res: Response) => {
     const body = req.body as AnimalPatch
     return res.status(Const.STATUS_OK).json(AnimalService.patchAnimal(id, body))
   } catch (err) {
-    if (err instanceof JsonError)
-      return res.status(Const.STATUS_BAD_REQUEST).json(err)
-    else
-      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
