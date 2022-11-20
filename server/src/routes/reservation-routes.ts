@@ -48,7 +48,7 @@ export const getReservations = async (req: Request, res: Response) => {
  *   post:
  *     tags:
  *     - reservations
- *     summary: Add an reservations for the specified user
+ *     summary: Add a reservations for the specified user
  *     parameters:
  *       - in: path
  *         name: id
@@ -95,6 +95,29 @@ export const postReservation = async (req: Request, res: Response) => {
   }
 }
 
+/**
+ * @swagger
+ * /animals/{id}/reservations: 
+ *   get:
+ *     tags:
+ *     - reservations
+ *     summary: get all reservations from an animal
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the animal
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: got reservations
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: "#/components/schemas/Reservation"
+ * */
 export const getAnimalReservations = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.id
@@ -139,6 +162,32 @@ export const deleteReservation = async (req: Request, res: Response) => {
   }
 }
 
+
+
+
+/**
+ * @swagger
+ * /reservations/{id}:
+ *   get:
+ *     tags:
+ *     - reservations
+ *     summary: get a single reservation
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the reservation
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: got reservations
+ *         schema:
+ *           type: object
+ *           items:
+ *             $ref: "#/components/schemas/Reservation"
+ * */
 export const getSingleReservation = async (req: Request, res: Response) => {
   try {
     const reservationId = req.params.id
@@ -149,6 +198,46 @@ export const getSingleReservation = async (req: Request, res: Response) => {
   }
 }
 
+
+// header error
+/**
+ * @swagger
+ * /reservations/{id}:
+ *   put:
+ *     tags:
+ *     - reservations
+ *     summary: edit a reservations 
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the reservation
+ *       - in: body
+ *         name: body
+ *         description: Reservation
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             userId:
+ *               type: string
+ *             date:
+ *               type: string
+ *             information:
+ *               type: string
+ *             locationId:
+ *               type: string
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: modify reservation
+ *         schema:
+ *           type: object
+ *           items:
+ *             $ref: "#/components/schemas/Reservation"
+ * */
 export const putReservation = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
