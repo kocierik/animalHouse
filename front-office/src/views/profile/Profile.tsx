@@ -7,7 +7,7 @@ import DefaultCard from './DefaultCard'
 
 export interface IsettingInfo {
   name: string
-  setting: () => void
+  setting: (...args: string[]) => void
 }
 
 const Profile = () => {
