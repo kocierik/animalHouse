@@ -1,6 +1,6 @@
 import { JsonUser, JsonUserCreation, JsonPicture } from '../json/JsonUser'
 import JsonError, { JsonVisibilityError } from '../json/JsonError'
-import User, { Address, IAddress, IUser } from '../entities/User'
+import User, { IUser } from '../entities/User'
 import * as ProductService from './product-service'
 import * as CartService from './cart-service'
 import * as AnimalService from './animal-service'
@@ -8,11 +8,12 @@ import { IProductInstance } from '../entities/Cart'
 import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
-import Admin from '../entities/Admin'
 import { IPicture } from '../entities/User'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
+import { Address, IAddress } from '../entities/Address'
 import { JsonUserPatch } from '../json/patch/UserPatch'
+
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -207,7 +208,7 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
   const user = await User.findById(userId)
   if (user) {
     try {
-      await User.findByIdAndUpdate({ _id: userId }, updateUser).catch((e) => console.log('test -> ', e))
+      await User.findByIdAndUpdate({ _id: userId }, updateUser)
       return user
     } catch (error) {
       throw new JsonError(error.message)

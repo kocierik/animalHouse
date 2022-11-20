@@ -1,7 +1,9 @@
 import { SwaggerAnimal } from './json/JsonAnimal'
+import { SwaggerLocation } from './json/JsonLocation'
 import { SwaggerUserPatch } from './json/patch/UserPatch'
 import { SwaggerProduct } from './json/JsonProduct'
 import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
+import { SwaggerReservation } from './json/JsonReservation'
 import { SwaggerReview } from './json/JsonReview'
 import { SwaggerUser } from './json/JsonUser'
 import { SwaggerAnimalPatch } from './json/patch/AnimalPatch'
@@ -25,13 +27,15 @@ const swaggerOptions = {
       },
     },
     components: {
-      tags: [{ name: 'users' }, { name: 'products' }, { name: 'community' }, { name: 'animals' }],
+      tags: [{ name: 'users' }, { name: 'products' }, { name: 'community' }, { name: 'animals' }, { name: 'reservations'}, {name: 'locations'}],
       schemas: {
         User: SwaggerUser,
         Animal: SwaggerAnimal,
         Product: SwaggerProduct,
         ReviewSumUp: SwaggerReviewSumUp,
         Review: SwaggerReview,
+        Reservation: SwaggerReservation,
+        Location: SwaggerLocation,
         UserPatch: SwaggerUserPatch,
         AnimalPatch: SwaggerAnimalPatch,
         ProductPatch: SwaggerProductPatch,
