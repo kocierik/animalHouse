@@ -36,7 +36,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
       name: 'reservation',
       setting: async () => {
         props.setViewModalReservation(true)
-         const resp = await ApiRepository.getAnimalReservation(props.animal._id!) 
+         const resp = await ApiRepository.getAnimalReservations(props.animal._id!) 
          if(resp.esit)
             props.setAnimalReservation(resp.data!)
           console.log(resp.data)

@@ -20,8 +20,8 @@ const ModalReservationCard = (props :{showModal: boolean, setShowModal: any, ope
     }
   }
 
-  const getLocation = async () => {
-        const data = (await ApiRepository.getLocation()).data
+  const getLocations = async () => {
+        const data = (await ApiRepository.getLocations()).data
         setLocations(data)
   }
 
@@ -61,7 +61,7 @@ const ModalReservationCard = (props :{showModal: boolean, setShowModal: any, ope
 
   useEffect(() => {
     getUserInfo()
-    getLocation()
+    getLocations()
   },[])
 
   return (

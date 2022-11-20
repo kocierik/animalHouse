@@ -174,11 +174,11 @@ export const initReservationCodes = async () => {
 export const initLocationCodes = async () => {
   await Location.deleteMany()
   await Location.insertMany([
-    {address:{country: "Rimini", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Rimini'},
-    {address:{country: "Mestre", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Mestre'},
-    {address:{country: "Bologna", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Bologna'},
-    {address:{country: "Riccione", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Riccione'},
-    {address:{country: "Palermo", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Palermo'},
-    {address:{country: "Roma", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Roma'},
+    {_id: new Types.ObjectId('637a10397c883b752202e442'), address:{country: "Rimini", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Rimini'},
+    {_id: new Types.ObjectId('637a10397c883b752202e443'), address:{country: "Mestre", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Mestre'},
+    {_id: new Types.ObjectId('637a10397c883b752202e444'), address:{country: "Bologna", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Bologna'},
+    {_id: new Types.ObjectId('637a10397c883b752202e445'), address:{country: "Riccione", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Riccione'},
+    {_id: new Types.ObjectId('637a10397c883b752202e446'), address:{country: "Palermo", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Palermo'},
+    {_id: new Types.ObjectId('637a10397c883b752202e447'), address:{country: "Roma", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Roma'},
   ])
 }
