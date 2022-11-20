@@ -561,6 +561,7 @@ export const updateAnimal = async (req: Request, res: Response) => {
 }
 
 export const postPicture = (req: Request, res: Response) => {
+  // TODO swagger
   try {
     const pathId = req.params.id
     const file = req.file as JsonPicture
@@ -575,6 +576,7 @@ export const postPicture = (req: Request, res: Response) => {
 
 
 export const putAnimalPicture = async (req: Request, res: Response) => {
+  // TODO swagger
   try {
     const pathId = req.params.uid
     const animalId = req.params.id

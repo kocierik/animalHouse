@@ -10,6 +10,7 @@ import { ProductPatch } from '@/json/patch/ProductPatch'
  * @swagger
  * TODO
  * */
+// TODO swagger 
 export const getProducts = async (_: Request, res: Response) => res.json(await ProductService.findAllProduct())
 
 /**
@@ -221,7 +222,7 @@ export const postReview = async (req: Request, res: Response) => {
 }
 
 export const putProductPicture = async (req: Request, res: Response) => {
-  // todo : swagger
+  // TODO swagger
   try {
     const pathId = req.params.id
     const file = req.file as JsonPicture
