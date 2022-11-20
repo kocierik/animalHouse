@@ -138,29 +138,6 @@ export const deleteFromAnimal = async (userId: string, animalId: string): Promis
   }
 }
 
-export const updateFromAnimal = async (
-  userId: string,
-  animalId: string,
-  updateAnimal: JsonAnimal
-): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    user.animals.map((x) => {
-      if (x._id.toString() === animalId) {
-        x.age = updateAnimal.age
-        x.name = updateAnimal.name
-        x.type = updateAnimal.type
-      }
-    })
-    await user.save()
-    return user.animals
-  } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
-  }
-}
-
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
   const user = await User.findById(userId)
   if (user) {
