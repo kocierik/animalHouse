@@ -5,6 +5,9 @@ import * as userRoutes from '../routes/user-routes'
 import * as communityRoutes from '../routes/community-routes'
 import * as marketRoutes from '../routes/market-routes'
 import * as adminRoutes from '../routes/admin-routes'
+import * as reservationRoutes from "../routes/reservation-routes"
+import * as locationRoutes from "../routes/location-routes"
+
 import * as Const from '../const'
 
 export const appRouter = Router()
@@ -131,3 +134,11 @@ appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct)
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
+
+// Reservations
+appRouter.get(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations) 
+appRouter.post(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.postReservation) 
+appRouter.delete(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation) 
+
+// Location
+appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocation) 
