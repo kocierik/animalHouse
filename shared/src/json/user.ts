@@ -31,7 +31,7 @@ export interface JsonAddress {
   country: string,
   city: string,
   street: string,
-  cap: number
+  zip: number
 }
 
 export interface JsonAuthInfo {
