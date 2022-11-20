@@ -2,6 +2,7 @@ import * as Const from '../const'
 import { Request, Response } from 'express'
 import JsonError from '../json/JsonError'
 import * as AnimalService from '../services/animal-service'
+import { JsonAnimal } from '@/json/JsonAnimal'
 
 /**
  * @swagger
@@ -57,5 +58,47 @@ export const getAnimal = async (req: Request, res: Response) => {
       .json(new JsonError("Can't access animal with id " + animal._id + ' with this user'))
   else {
     return res.status(Const.STATUS_OK).json(animal)
+  }
+}
+
+
+/**
+ * @swagger
+ * /users/{id}/animals:
+ *   put:
+ *     tags:
+ *     - animals
+ *     summary: Add an animal for the specified user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the user
+ *       - in: body
+ *         name: body
+ *         required: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: "#/components/schemas/Animal"
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: ok
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: "#/components/schemas/Animal"
+ * */
+export const putAnimal = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    const animal = req.body as JsonAnimal
+    return res.status(Const.STATUS_OK).json(await AnimalService.addAnimalsToUser(pathId, animal))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
