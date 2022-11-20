@@ -148,3 +148,15 @@ export const getSingleReservation = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+export const putReservation = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    const reservation = req.body as IReservation
+    return res.status(Const.STATUS_OK).json(await ReservationService.putReservation(pathId, reservation))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+

@@ -61,3 +61,19 @@ export const getSingleReservation = async (id: string): Promise<IReservation> =>
     throw new JsonError(`Cannot find reservations with id ${id} (${err.message})`)
   }
 }
+
+
+export const putReservation = async (id: string, reservation : IReservation): Promise<IReservation> => {
+  try {
+    let userReservation = await Reservation.findById(id)
+    userReservation.userId = reservation.userId
+    userReservation.date = reservation.date
+    userReservation.information = reservation.information
+    userReservation.locationId = reservation.locationId
+    userReservation.serviceName = reservation.serviceName
+    await userReservation.save()
+    return reservation
+  } catch (err) {
+    throw new JsonError(`Cannot edit reservation with id ${id} (${err.message})`)
+  }
+}

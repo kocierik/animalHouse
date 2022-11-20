@@ -24,7 +24,6 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
   }
 
   const getSelectedService = async (id: string) => {
-    if(id !== "Select..."){
         const resp = await ApiRepository.getSingleReservation(id)
         if(resp){
             setInfoReservation(resp.data!)
@@ -33,11 +32,7 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
         else {
             console.log("error selectedService")
         }
-    } else {
-        setInfoReservation(null!)
     }
-  }
-
 
   const getLocationBySelect = async (locationId: string) => {
         const data = (await ApiRepository.getLocationById(locationId)).data
@@ -49,39 +44,36 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
         setLocations(data!)
   }
 
-//     const postReservation = async () => {
-//         if(Helpers.getUserId()){
-//             if(date?.target.checkValidity() && locationSelect && locationSelect.target.value != "Select..." && animalSelect && animalSelect.target.value != "Select..." && date){
-//                 const reservation : JsonReservation.IReservation = {
-//                     animalId: animalSelect.target.value,
-//                     serviceName: props.openService,
-//                     userId: Helpers.getUserId()!,
-//                     date: date?.target.value!,
-//                     information: information?.target.value,
-//                     locationId: locationSelect.target.value
-//                 }
-//                 const id = Helpers.getUserId()
-//                 const data = (await ApiRepository.postReservation(id!,reservation))
+    const editReservation = async () => {
+        if(Helpers.getUserId()){
+            if(date?.target.checkValidity() && locationSelect.target.value != "Select..."){
+                const reservation : JsonReservation.IReservation = {
+                    serviceName: props.openService,
+                    userId: Helpers.getUserId()!,
+                    date: date?.target.value!,
+                    information: information?.target.value,
+                    locationId: locationSelect.target.value
+                }
+                const data = (await ApiRepository.putReservation(infoReservation._id!,reservation))
 
-//                 console.log("data ", data)
-//                 await toast.success('Prenotation confirmed!', {
-//                     position: toast.POSITION.TOP_CENTER,
-//                     hideProgressBar: true,
-//                 })
-//                 await sleep(2000)
-//                 props.setShowModal(!props.showModal)
-//             } else {
-//                 toast.warn('You should compile all the form correctly!', {
-//                     position: toast.POSITION.TOP_CENTER,
-//                 })
-//                 console.log("compila il form")
-//             }
-//         } else {
-//             toast.warn('You should login first!', {
-//                 position: toast.POSITION.TOP_CENTER
-//             })
-//         }
-//   } 
+                console.log("data ", data)
+                await toast.success('Prenotation changed!', {
+                    position: toast.POSITION.TOP_CENTER,
+                    hideProgressBar: true,
+                })
+                await sleep(2000)
+                props.setShowModal(!props.showModal)
+            } else {
+                toast.warn('You should compile all the form correctly!', {
+                    position: toast.POSITION.TOP_CENTER,
+                })
+            }
+        } else {
+            toast.warn('You should login first!', {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }
+  } 
 
   useEffect(() => {
     getUserInfo()
@@ -97,7 +89,6 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
                                  <ToastContainer/>
                             <label htmlFor="selectService" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Service</label>
                             <select onChange={(value) => { setSelectedService(value.target.value); getSelectedService(value.target.value); }} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
-                                  <option>Select...</option>
                                   {props.animalReservation.map((service, i) => {
                                       return (
                                           <option key={i} value={service._id}>
@@ -107,7 +98,7 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
                                   })}
                             </select>
                         {infoReservation  && (
-                        <div><label htmlFor="information" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">More Information</label><div className="relative mb-5 mt-2">
+                        <div data-aos="zoom-in"><label htmlFor="information" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">More Information</label><div className="relative mb-5 mt-2">
                               <div className="absolute text-gray-600 flex items-center px-4 border-r h-full">
                                   <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-info-circle" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                       <path stroke="none" d="M0 0h24v24H0z"></path>
@@ -116,16 +107,15 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
                                       <polyline points="11 12 12 12 12 16 13 16"></polyline>
                                   </svg>
                               </div>
-                              <textarea rows={2} maxLength={100} onChange={(text) => setInformation(text)} value={infoReservation.information} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center pl-16 text-sm border-gray-300 rounded border resize-none" />
+                              <textarea rows={2} maxLength={100} onChange={(text) => setInformation(text)} defaultValue={infoReservation.information} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center pl-16 text-sm border-gray-300 rounded border resize-none" />
                           </div><label htmlFor="data" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label><div className="relative mb-5 mt-2">
                                   <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                                   </div>
-                                  <input id="data" onChange={(value) => setDate(value)} value={infoReservation.date} type="datetime-local" min={new Date().toISOString().slice(0, 16)} max={"2024-01-00T10:00"} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" required />
+                                  <input id="data" onChange={(value) => setDate(value)} defaultValue={infoReservation.date} type="datetime-local" min={new Date().toISOString().slice(0, 16)} max={"2024-01-00T10:00"} className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" required />
                               </div><label htmlFor="location" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Location</label><div className="relative mb-5 mt-2">
                                   <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                                   </div>
-                                  <select onChange={(value) => setLocationSelect(value)} value={infoReservation.locationId}   className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
-                                      <option>Select...</option>
+                                  <select onChange={(value) => setLocationSelect(value)} defaultValue={infoReservation.locationId}   className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                                       {locations?.map((location, i) => {
                                           return (
                                               <option key={i} value={location._id}>
@@ -135,7 +125,7 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
                                       })}
                                   </select>
                               </div><div className="flex items-center justify-start w-full">
-                                  <button onClick={async () => await postReservation()} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
+                                  <button onClick={async () => await editReservation()} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
                                   <button className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onClick={() => props.setShowModal(!props.showModal)}>Cancel</button>
                               </div><button className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onClick={() => props.setShowModal(!props.showModal)} aria-label="close modal" role="button">
                                   <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">

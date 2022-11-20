@@ -26,6 +26,7 @@ const _RESERVATIONS = '/users/{0}/reservations'
 const _RESERVATIONS_ANIMALS = '/animals/{0}/reservations'
 const _RESERVATIONS_DELETE = '/reservations/{0}'
 const _RESERVATIONS_GET = '/reservations/{0}'
+const _RESERVATIONS_PUT = '/reservations/{0}'
 const _LOCATION = '/locations'
 const _LOCATION_GET = '/locations/{0}'
 const _PICTURES = '/pictures/{0}'
@@ -116,6 +117,10 @@ export const getSingleReservation = async (animalId: string) =>
 
 export const deleteReservation = async (reservationId: string) =>
   Api.delete<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_DELETE, reservationId),true)
+
+export const putReservation = async (reservationId: string, reservation: reservation.IReservation) =>
+  Api.put<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_PUT, reservationId),reservation,true)
+
 
 
 export const getLocations = async () =>

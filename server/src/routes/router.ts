@@ -132,6 +132,7 @@ appRouter.post(version + '/users/:id/reservations', middlewares.log, middlewares
 appRouter.delete(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation) 
 appRouter.get(version + '/animals/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.getAnimalReservations) 
 appRouter.get(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getSingleReservation) 
+appRouter.put(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.putReservation) 
 
 
 // Location
