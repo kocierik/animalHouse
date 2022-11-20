@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ModalCard from './ModalCard'
+import ModalReservationCard from './ModalReservationCard'
 
 const serviceProps = [{
     title: "Find Partner",
@@ -116,7 +116,7 @@ const ServiceCard = () => {
     <div data-aos="zoom-in" className="px-3 md:lg:xl:px-40  rounded border-t border-b py-20 bg-opacity-10" >
   <h2 className="mb-4 text-3xl font-bold">Services</h2>
     <div ref={scrollRef}>
-        {showModal && <ModalCard  showModal={showModal} setShowModal={setShowModal} openService={openService} isEditable={false} />}
+        {showModal && <ModalReservationCard  showModal={showModal} setShowModal={setShowModal} openService={openService} />}
     </div>
   <div className="grid mb-10 lg:grid-cols-2 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
     {
