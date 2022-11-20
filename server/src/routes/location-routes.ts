@@ -28,6 +28,28 @@ export const getLocations = async (_: Request, res: Response) => {
 
 }
 
+
+/**
+ * @swagger
+ * /locations/{id}:
+ *   get:
+ *     tags:
+ *     - locations
+ *     summary: get a location
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the location
+ *     responses:
+ *       200:
+ *         description: get location
+ *         schema:
+ *           type: object
+ *           items:
+ *             $ref: "#/components/schemas/Location"
+ * */
 export const getLocationById = async (req: Request, res: Response) => {
   try {
     const locationId = req.params.id
