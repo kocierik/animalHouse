@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { ApiRepository, JsonReview } from 'shared'
-import useState from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { Helpers } from 'shared'
 
 interface IProps {
