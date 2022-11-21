@@ -39,7 +39,6 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
          const resp = await ApiRepository.getAnimalReservations(props.animal._id!) 
          if(resp.esit)
             props.setAnimalReservation(resp.data!)
-          console.log(resp.data)
         }
     }
   ]

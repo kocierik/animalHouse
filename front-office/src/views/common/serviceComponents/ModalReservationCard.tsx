@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
-import { ApiRepository, Helpers, JsonUser, JsonReservation, Jsonlocation } from 'shared';
+import { ApiRepository, Helpers, JsonUser, JsonReservation, Jsonlocation, JsonAnimal } from 'shared';
 const ModalReservationCard = (props :{showModal: boolean, setShowModal: any, openService: string}) => {
     const openRef = useRef<HTMLDivElement>(null)
     const [user,setUser] = useState<JsonUser.JsonUser>()
@@ -10,6 +10,8 @@ const ModalReservationCard = (props :{showModal: boolean, setShowModal: any, ope
     const [animalSelect,setAnimalSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
     const [date,setDate] = useState<ChangeEvent<HTMLInputElement>>()
     const [selectedService, setSelectedService] = useState<ChangeEvent<HTMLSelectElement>>(null!)
+    const [animals,setAnimals] = useState<JsonAnimal.JsonAnimal[]>(null!)
+
     const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
   const getUserInfo = async () => {
@@ -59,7 +61,17 @@ const ModalReservationCard = (props :{showModal: boolean, setShowModal: any, ope
         }
   } 
 
+  const getAnimalsUser = async () => {
+    if(Helpers.getUserId()){
+        const resp = await ApiRepository.findAnimalsUser(Helpers.getUserId()!)
+        if(resp.esit){
+            setAnimals(resp.data!)
+        }
+    }
+  }
+
   useEffect(() => {
+    getAnimalsUser()
     getUserInfo()
     getLocations()
   },[])
@@ -79,22 +91,10 @@ const ModalReservationCard = (props :{showModal: boolean, setShowModal: any, ope
                         <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">{props.openService.charAt(0).toUpperCase() +props.openService.slice(1)}</h1>
                                  <ToastContainer/>
                         {
-                        //     props.isEditable ? (
-                        //                                 <><label htmlFor="selectService" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Service</label><select onChange={(value) => setSelectedService(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
-                        //           <option>Select...</option>
-                        //           {user?.animals.map((animal, i) => {
-                        //               return (
-                        //                   <option key={i} value={animal._id}>
-                        //                       {animal.name}
-                        //                   </option>
-                        //               );
-                        //           })}
-                        //       </select></>
-                        //     )
-                        //  : 
-                        <><label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select Animal</label><select onChange={(value) => setAnimalSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                        <><label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select Animal</label>
+                        <select onChange={(value) => setAnimalSelect(value)} className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                                   <option>Select...</option>
-                                  {user?.animals.map((animal, i) => {
+                                  {animals?.map((animal, i) => {
                                       return (
                                           <option key={i} value={animal._id}>
                                               {animal.name}

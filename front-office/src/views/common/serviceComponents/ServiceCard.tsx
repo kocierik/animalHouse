@@ -109,7 +109,7 @@ const ServiceCard = () => {
 
     useEffect(() => {
         if(showModal)
-        executeScroll()
+            executeScroll()
     },[showModal])
 
   return (<>

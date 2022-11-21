@@ -4,7 +4,7 @@ import { ApiRepository, Helpers, JsonUser, JsonReservation, Jsonlocation } from 
 const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any, openService: string, animalReservation : JsonReservation.IReservation[]}) => {
     const openRef = useRef<HTMLDivElement>(null)
     const [user,setUser] = useState<JsonUser.JsonUser>()
-    const [locationSelect,setLocationSelect] = useState<ChangeEvent<HTMLSelectElement>>(null!)
+    const [locationSelect,setLocationSelect] = useState<string>("Select...")
     const [locations,setLocations] = useState<Jsonlocation.ILocation[]>()
     const [information,setInformation] = useState<ChangeEvent<HTMLTextAreaElement>>(null!)
     const [date,setDate] = useState<string>()
@@ -22,11 +22,13 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
     }
   }
 
+
   const getSelectedService = async (id: string) => {
         const resp = await ApiRepository.getSingleReservation(id)
         if(resp){
             setInfoReservation(resp.data!)
             setDate(resp.data?.date)
+            setLocationSelect(resp.data?.locationId!)
             await getLocationBySelect(resp.data?.locationId!)
         }
         else {
@@ -45,18 +47,16 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
   }
 
     const editReservation = async () => {
-        console.log(date)
         if(Helpers.getUserId()){
-            if(locationSelect.target.value != "Select..."){
+            if(locationSelect != "Select..."){
                 const reservation : JsonReservation.IReservation = {
                     userId: Helpers.getUserId()!,
                     date: date!,
-                    information: information?.target.value,
-                    locationId: locationSelect.target.value
+                    information: information?.target?.value,
+                    locationId: locationSelect
                 }
-                const data = (await ApiRepository.putReservation(infoReservation._id!,reservation))
+                await ApiRepository.putReservation(infoReservation._id!,reservation)
 
-                console.log("data ", data)
                 await toast.success('Prenotation changed!', {
                     position: toast.POSITION.TOP_CENTER,
                     hideProgressBar: true,
@@ -123,7 +123,7 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
                               </div><label htmlFor="location" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Select a Location</label><div className="relative mb-5 mt-2">
                                   <div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
                                   </div>
-                                  <select onChange={(value) => setLocationSelect(value)} defaultValue={infoReservation.locationId}   className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                  <select onChange={(value) => setLocationSelect(value.target.value)} defaultValue={infoReservation.locationId}   className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                                       {locations?.map((location, i) => {
                                           return (
                                               <option key={i} value={location._id}>
