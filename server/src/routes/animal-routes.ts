@@ -184,6 +184,27 @@ export const deleteAnimal = async (req: Request, res: Response) => {
   }
 }
 
+
+
+/**
+ * @swagger
+ *  /users/{id}/animals:
+ *    get:
+ *      tags:
+ *      - animals
+ *      summary: Finds all animals of an user
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          type: string
+ *          required: true
+ *          description: Id of the user
+ *      responses:
+ *          200:
+ *            description: successful operation
+ *            schema:
+ *              $ref: "#/components/schemas/Animal"
+ * */
 export const findAnimalsUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id
