@@ -165,8 +165,8 @@ const Profile = () => {
                 <div data-aos="zoom-in" className="flex flex-col items-center">
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex  justify-center py-4 lg:pt-4 pt-8 ">
-                      <div className="flex items-center flex-col  justify-center">
-                        <div data-aos="zoom-in" className="lg:flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
+                      <div className="flex items-center flex-col flex-nowrap	  justify-center">
+                        <div style={{flexFlow: "wrap"}} data-aos="zoom-in" className="flex-col items-center flex-row p-3 text-center  flex justify-center flex-1 gap-5 flex-col lg:flex-row">
                           {userAnimals?.map((animal, i) => {
                             return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} setUserAnimals={setUserAnimals} animal={animal} allAnimals={userAnimals} setUser={setUser} user={user!} setViewModalReservation={setViewModalReservation} viewModalReservation={viewModalReservation} setAnimalReservation={setAnimalReservation} />
                           })}

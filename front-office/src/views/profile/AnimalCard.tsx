@@ -93,7 +93,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   }, [file, props.animal._id])
 
   return (
-    <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+    <div data-aos="zoom-in"  className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
       {props.isOptionEnable && <Setting settingInfoDesk={animals} />}
 
       <div className="flex flex-col items-center">
