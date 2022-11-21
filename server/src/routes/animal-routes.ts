@@ -13,7 +13,7 @@ import { JsonAnimal } from '@/json/JsonAnimal'
  *      summary: Finds all animal tags
  *      responses:
  *        200:
- *          description: Ok
+ *          description: animal code
  *          schema:
  *            type: object
  *            properties:

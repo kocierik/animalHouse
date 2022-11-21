@@ -5,6 +5,17 @@ import * as ServiceService from '../services/service-service'
 import JsonError from '../json/JsonError'
 
 
+/**
+ * @swagger
+ *  /services:
+ *    get:
+ *      tags:
+ *      - services
+ *      summary: get all services
+ *      responses:
+ *        200:
+ *          description: services
+ * */
 export const getAllServices = async (req: Request, res: Response) => {
   try {
     return res.status(Const.STATUS_OK).json(await ServiceService.findAllService())
