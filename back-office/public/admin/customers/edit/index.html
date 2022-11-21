@@ -78,20 +78,20 @@
                                                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                                         <label
                                                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                            First Name
+                                                            First Name*
                                                         </label>
                                                         <input
                                                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                                            id="grid-firstName" type="text" placeholder="Bill">
+                                                            id="grid-firstName" type="text" placeholder="Bill" required>
                                                     </div>
                                                     <div class="w-full md:w-1/2 px-3">
                                                         <label
                                                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                            Last Name
+                                                            Last Name*
                                                         </label>
                                                         <input
                                                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                            id="grid-lastName" type="text" placeholder="Gates">
+                                                            id="grid-lastName" type="text" placeholder="Gates" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,20 +113,20 @@
                                                 <div class="w-full md:w-1/2 px-3">
                                                     <label
                                                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                        Email
+                                                        Email*
                                                     </label>
                                                     <input
                                                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                        id="grid-email" type="text" placeholder="hello@animalhouse.it">
+                                                        id="grid-email" type="text" placeholder="hello@animalhouse.it" required>
                                                 </div>
                                                 <div class="w-full md:w-1/2 px-3">
                                                     <label
                                                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                                        Username
+                                                        Username*
                                                     </label>
                                                     <input
                                                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                        id="grid-username" type="text" placeholder="@billie">
+                                                        id="grid-username" type="text" placeholder="@billie" required>
                                                 </div>
                                             </div>
                                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -166,7 +166,8 @@
                  
                                                     <select
                                                         class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                        id="grid-country" required>
+                                                        id="grid-country">
+                                                        <option value="" label="-">-</option>
                                                         <option value="IT" label="Italy">Italy</option>
                                                         <option value="AL" label="Albania">Albania</option>
                                                         <option value="AD" label="Andorra">Andorra</option>

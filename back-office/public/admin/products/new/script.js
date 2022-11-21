@@ -5,7 +5,7 @@ function CsvToArr(csv) {
     return csv.replace(/\s/g, '').split(",")
 }
 
-$("#send").click(function () {
+$("#send").click( function () {
     let img = $('#grid-image').prop('files')[0];
     if (img) {
         //create product
@@ -27,9 +27,11 @@ $("#send").click(function () {
                 "types": [],
                 "details": $("#grid-details").val(),
             })
-        }).then((response) => response.json()).then(data => {
+        }).then((response) => response.json()).then(data => function(){
+            //TODO: fixare, spesso non entra qui e non carica la foto del prodotto
             //add product picture
             console.log(data)
+
             var send = new FormData()
             send.append("product", img)
             fetch("/v1/products/" + data._id + "/picture", {
@@ -42,7 +44,7 @@ $("#send").click(function () {
             }).then((response) => response.json()).then(data => {
                 console.log(data)
             })
-        });
+        })
     }
 });
 
