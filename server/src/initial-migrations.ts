@@ -6,7 +6,7 @@ import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
 import Admin from './entities/Admin'
-import ReservationCode from './entities/ServiceCode';
+import ReservationCode from './entities/Service';
 import Location from './entities/Location';
 
 export const test = async () => {
@@ -159,15 +159,39 @@ export const initAnimalCodes = async () => {
 export const initReservationCodes = async () => {
   await ReservationCode.deleteMany()
   await ReservationCode.insertMany([
-    {code: 0, value: 'Find Partner'},
-    {code: 1, value: 'Help Animals'},
-    {code: 2, value: 'Psychologist'},
-    {code: 3, value: 'Dog Sitter'},
-    {code: 4, value: 'Veterinary'},
-    {code: 5, value: 'Pension'},
-    {code: 6, value: 'Wash Animal'},
-    {code: 7, value: 'Home Visit'},
-    {code: 8, value: 'Grooming'},
+    {     title: "Find Partner",
+          description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+          color: "p-5 rounded-full bg-red-500 text-white shadow-lg shadow-red-200"},
+    { title: "Help animals",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: "p-5 rounded-full bg-green-500 text-white shadow-lg shadow-green-200"},
+    { title: "psychologist",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: "p-5 rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-200"},
+
+    { title: "Dog Sitter",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled  it to make a type specimen book.",
+      color: "p-5 rounded-full bg-yellow-500 text-white shadow-lg shadow-yellow-200"},
+    {     
+      title: "veterinary",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: "p-5 rounded-full bg-blue-500 text-white shadow-lg shadow-blue-200"},
+    {
+      title: "Pension",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: "p-5 rounded-full bg-orange-500 text-white shadow-lg shadow-orange-200"},
+    {
+      title: "Wash Animal",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: "p-5 rounded-full bg-yellow-500 text-white shadow-lg shadow-yellow-200"},
+    {     
+      title: "Home visit",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: "p-5 rounded-full bg-pink-500 text-white shadow-lg shadow-pink-200"},
+    {     
+      title: "Grooming",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: "p-5 rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-200"},
   ])
 }
 

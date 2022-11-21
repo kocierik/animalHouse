@@ -7,6 +7,7 @@ import type * as community from './json/Community'
 import type * as review from './json/Review'
 import type * as reservation from "./json/Reservation"
 import type * as location from "./json/Location"
+import type * as service from "./json/Service"
 import { stringFormat } from './helpers'
 
 // Server api urls
@@ -29,6 +30,7 @@ const _RESERVATIONS_GET = '/reservations/{0}'
 const _RESERVATIONS_PUT = '/reservations/{0}'
 const _LOCATION = '/locations'
 const _LOCATION_GET = '/locations/{0}'
+const _SERVICES_GET = '/services'
 const _PICTURES = '/pictures/{0}'
 const _ANIMAL_GET = '/animals/{0}/info'
 const _ANIMAL_GETALL = '/users/{0}/animals'
@@ -134,5 +136,9 @@ export const getLocations = async () =>
 
 export const getLocationById = async (locationId: string) =>
   Api.get<location.ILocation>(stringFormat(_BASE_URL + _LOCATION_GET, locationId),false)
+
+export const getServices = async () =>
+  Api.get<service.IService[]>(stringFormat(_BASE_URL + _SERVICES_GET),false)
+
 
 // TODO insert here other calls!!!!

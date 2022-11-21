@@ -13,3 +13,4 @@ export * as JsonGames from "./src/json/Games"
 export * as JsonReview from './src/json/Review';
 export * as JsonReservation from './src/json/Reservation';
 export * as Jsonlocation from './src/json/Location'
+export * as JsonService from './src/json/Service'

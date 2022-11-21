@@ -7,6 +7,7 @@ import * as marketRoutes from '../routes/market-routes'
 import * as adminRoutes from '../routes/admin-routes'
 import * as reservationRoutes from "../routes/reservation-routes"
 import * as locationRoutes from "../routes/location-routes"
+import * as serviceRoutes from "../routes/service.routes"
 
 import * as Const from '../const'
 
@@ -135,4 +136,8 @@ appRouter.put(version + '/reservations/:id', middlewares.log, middlewares.verify
 // Location
 appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocations) 
 appRouter.get(version + '/locations/:id', middlewares.log, locationRoutes.getLocationById) 
+
+
+// Service
+appRouter.get(version + '/services', middlewares.log, serviceRoutes.getAllServices) 
 
