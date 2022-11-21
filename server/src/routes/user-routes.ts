@@ -382,44 +382,6 @@ export const deleteCart = async (req: Request, res: Response) => {
   }
 }
 
-
-
-// /**
-//  * @swagger
-//  * /users/{uid}/animals/{aid}:
-//  *  delete:
-//  *      tags:
-//  *      - users
-//  *       summary: Retrive reviews about a product
-//  *       parameters:
-//  *       - in: path
-//  *         name: uid
-//  *         type: string
-//  *         required: true
-//  *         description: Id of the user to be searched
-//  *       - in: path
-//  *         name: aid
-//  *         type: string
-//  *         required: true
-//  *         description: Id of the animal to be deleted
-//  *       security:
-//  *         - JWT: []
-//  *       responses:
-//  *         200:
-//  *           description: successful operation
-//  * */
-export const deleteAnimal = async (req: Request, res: Response) => {
-  try {
-    const animalId = req.params.aid
-    const userId = req.params.uid
-    return res.status(Const.STATUS_OK).json(await UserService.deleteFromAnimal(userId, animalId))
-  } catch (error) {
-    return res.status(Const.STATUS_BAD_REQUEST).json(error)
-  }
-}
-
-
-
 export const postPicture = (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
@@ -436,11 +398,10 @@ export const postPicture = (req: Request, res: Response) => {
 
 export const putAnimalPicture = async (req: Request, res: Response) => {
   try {
-    const pathId = req.params.uid
     const animalId = req.params.id
     const file = req.file as JsonPicture
     const newData = UserService.pictureToJsonPicture(file)
-    return res.status(Const.STATUS_OK).json(await UserService.addPictureToAnimal(pathId, animalId, newData))
+    return res.status(Const.STATUS_OK).json(await UserService.addPictureToAnimal(animalId, newData))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))

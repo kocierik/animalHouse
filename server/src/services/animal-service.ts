@@ -53,6 +53,27 @@ export const updateFromAnimal = async (
     await animal.save()
     return animal
   } else {
-    throw new JsonError(`Can\'t find user with id ${animalId}`)
+    throw new JsonError(`Can\'t find animal with id ${animalId}`)
+  }
+}
+
+
+export const deleteFromAnimal = async (animalId: string): Promise<IAnimal> => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
+    animal.remove()
+    return animal
+  } else {
+    throw new JsonError(`Can\'t find animal with id ${animalId}`)
+  }
+}
+
+
+export const findAnimalsUser = async (id: string) => {
+  try {
+    const result = await Animal.find({userId: id})
+    return result
+  } catch (err) {
+    return null
   }
 }

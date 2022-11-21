@@ -64,17 +64,12 @@ export const getAnimal = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/animals:
- *   put:
+ * /animals/{id}:
+ *   post:
  *     tags:
  *     - animals
- *     summary: Add an animal for the specified user
+ *     summary: Add an animal
  *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of the user
  *       - in: body
  *         name: body
  *         required: true
@@ -92,7 +87,7 @@ export const getAnimal = async (req: Request, res: Response) => {
  *           items:
  *             $ref: "#/components/schemas/Animal"
  * */
-export const putAnimal = async (req: Request, res: Response) => {
+export const postAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const animal = req.body as JsonAnimal
@@ -105,17 +100,12 @@ export const putAnimal = async (req: Request, res: Response) => {
 
 // /**
 //  * @swagger
-//  * /users/{uid}/animals/{aid}:
+//  * /animals/{aid}/edit:
 //  *  put:
 //  *      tags:
-//  *      - users
+//  *      - animals
 //  *      summary: edit a animal
 //  *       parameters:
-//  *       - in: path
-//  *         name: uid
-//  *         type: string
-//  *         required: true
-//  *         description: user id
 //  *       - in: path
 //  *         name: aid
 //  *         type: string
@@ -164,3 +154,43 @@ export const updateAnimal = async (req: Request, res: Response) => {
     return res.status(Const.STATUS_BAD_REQUEST).json(error)
   }
 }
+
+
+// /**
+//  * @swagger
+//  * /animals/{aid}/delete:
+//  *  delete:
+//  *      tags:
+//  *      - users
+//  *       summary: Retrive reviews about a product
+//  *       parameters:
+//  *       - in: path
+//  *         name: aid
+//  *         type: string
+//  *         required: true
+//  *         description: Id of the animal to be deleted
+//  *       security:
+//  *         - JWT: []
+//  *       responses:
+//  *         200:
+//  *           description: successful operation
+//  * */
+export const deleteAnimal = async (req: Request, res: Response) => {
+  try {
+    const animalId = req.params.aid
+    return res.status(Const.STATUS_OK).json(await AnimalService.deleteFromAnimal(animalId))
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error)
+  }
+}
+
+export const findAnimalsUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id
+    return res.status(Const.STATUS_OK).json(await AnimalService.findAnimalsUser(userId))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
