@@ -3,7 +3,7 @@ import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared';
 import defaultImage from "./defaultImage.jpg"
-const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>, setViewModalReservation:  React.Dispatch<React.SetStateAction<boolean>>, viewModalReservation: boolean,  setAnimalReservation: React.Dispatch<React.SetStateAction<JsonReservation.IReservation[]>>}) => {
+const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], setUserAnimals : React.Dispatch<React.SetStateAction<JsonAnimal.JsonAnimal[]>> , user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>, setViewModalReservation:  React.Dispatch<React.SetStateAction<boolean>>, viewModalReservation: boolean,  setAnimalReservation: React.Dispatch<React.SetStateAction<JsonReservation.IReservation[]>>}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null) 
   const animalAge = useRef<HTMLInputElement>(null)
@@ -23,9 +23,9 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
       setting: async () => {
         if(Helpers.getUserId()){
           try {
-            await ApiRepository.deleteAnimal(Helpers.getUserId()!, props.animal._id!)
-            const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
-            props.setUser({ ...props.user, animals: newAnimals })
+            const animal = (await ApiRepository.deleteAnimal(props.animal._id!)).data
+            const newAnimals = props.allAnimals.filter(item => item._id !== animal?._id)
+            props.setUserAnimals(newAnimals)
           } catch (error: any) {
             throw new Error("errore salvataggio descrizione -> ", error)
           }
@@ -60,7 +60,8 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
         age: parseInt(animalAge.current?.value!),
         picture: defaultPicture
       }
-      await ApiRepository.editAnimal(Helpers.getUserId()!, props.animal._id!, changesAnimal)
+      console.log(props.animal._id)
+      await ApiRepository.editAnimal(props.animal._id!, changesAnimal)
     }
   }
 
@@ -68,9 +69,9 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const updateAnimalPhoto = async () => {
     if(Helpers.getUserId()){
       if (file) {
-        const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId()!, props.animal._id!, file))
+        const resp = (await ApiRepository.putAnimalPicture(props.animal._id!, file))
         if (resp) {
-          setImageProfileAnimal(resp?.data?.filename)
+          setImageProfileAnimal(resp?.data?.picture?.filename)
         }
         setFile(undefined)
       }
@@ -81,9 +82,8 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const getImage = async () => {
     const user = (await ApiRepository.getCurrentUser()).data
     if (user) {
-      const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
-      if (userInfo?.animals[props.index].picture) {
-        const image = (await (ApiRepository.getPicture(userInfo?.animals[props.index].picture?.filename!))).data
+      if (props.animal.picture?.filename) {
+         const image = (await (ApiRepository.getPicture(props.animal.picture?.filename!))).data
         setImageProfileAnimal(image)
       }
     }
@@ -91,7 +91,6 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
 
   useEffect(() => {
     updateAnimalPhoto()
-    // getImage()
   }, [file, props.animal._id])
 
   return (

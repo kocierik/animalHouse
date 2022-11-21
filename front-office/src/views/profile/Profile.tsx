@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import { ApiRepository, type JsonUser, Helpers, JsonReservation } from 'shared'
+import { ApiRepository, type JsonUser, Helpers, JsonReservation, JsonAnimal } from 'shared'
 import EditmodalReservationCard from '../common/serviceComponents/EditmodalReservationCard'
 import Setting from '../common/Setting'
 import AnimalCard from './AnimalCard'
@@ -19,7 +19,7 @@ const Profile = () => {
   const [openNewAnimal, setOpenNewAnimal] = useState(false)
   const [viewModalReservation, setViewModalReservation] = useState(false)
   const [animalReservation,setAnimalReservation] = useState<JsonReservation.IReservation[]>([])
-
+  const [userAnimals,setUserAnimals] = useState<JsonAnimal.JsonAnimal[]>([])
 
   const sendImage = async () => {
     if (file && Helpers.getUserId()) {
@@ -60,8 +60,15 @@ const Profile = () => {
   }
 
 
+  const getUserAnimals = async () => {
+    const resp = await ApiRepository.findAnimalsUser(Helpers.getUserId()!)
+    if(resp.esit)
+      setUserAnimals(resp.data!)
+  }
+
 
   useEffect(() => {
+    getUserAnimals()
     sendImage()
     getImage()
   }, [file])
@@ -160,8 +167,8 @@ const Profile = () => {
                     <div className="flex  justify-center py-4 lg:pt-4 pt-8 ">
                       <div className="flex items-center flex-col  justify-center">
                         <div data-aos="zoom-in" className="lg:flex-wrap items-center flex-row p-3 text-center flex justify-center flex-1 gap-5 flex-col md:flex-row">
-                          {user?.animals.map((animal, i) => {
-                            return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} animal={animal} allAnimals={user.animals} setUser={setUser} user={user} setViewModalReservation={setViewModalReservation} viewModalReservation={viewModalReservation} setAnimalReservation={setAnimalReservation} />
+                          {userAnimals?.map((animal, i) => {
+                            return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} setUserAnimals={setUserAnimals} animal={animal} allAnimals={userAnimals} setUser={setUser} user={user!} setViewModalReservation={setViewModalReservation} viewModalReservation={viewModalReservation} setAnimalReservation={setAnimalReservation} />
                           })}
                         </div>
                         <div className='flex justify-center p-4 min-w-24	 mt-5   hover:translate-y-1  hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg  cursor-pointer border'>

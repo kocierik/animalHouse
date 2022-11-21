@@ -19,6 +19,8 @@ appRouter.post(version + '/users/login', middlewares.log, userRoutes.loginPost)
 appRouter.get(version + '/users', middlewares.log, userRoutes.getAllUsers)
 appRouter.get(version + '/users/current', middlewares.log, middlewares.verifyToken, userRoutes.getCurrentUser)
 appRouter.get(version + '/users/:id', middlewares.log, userRoutes.getUser)
+appRouter.get(version + '/users/:id/animals', middlewares.log, animalRoutes.findAnimalsUser)
+
 appRouter.put(
   version + '/users/:id/score',
   middlewares.log,
@@ -54,12 +56,12 @@ appRouter.delete(
   middlewares.verifyUser,
   userRoutes.deleteCart
 )
-appRouter.put(
+appRouter.post(
   version + '/animals/:id',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
-  animalRoutes.putAnimal
+  animalRoutes.postAnimal
 )
 appRouter.put(
   version + '/users/:id/description',
@@ -77,21 +79,21 @@ appRouter.put(
   userRoutes.postPicture
 )
 appRouter.delete(
-  version + '/users/:uid/animals/:aid',
+  version + '/animals/:aid/delete',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
-  userRoutes.deleteAnimal
+  animalRoutes.deleteAnimal
 )
 appRouter.put(
-  version + '/animals/:aid',
+  version + '/animals/:aid/edit',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   animalRoutes.updateAnimal
 )
 appRouter.put(
-  version + '/users/:uid/animals/:id/picture',
+  version + 'animals/:id/picture',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
@@ -105,6 +107,8 @@ appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin
 // Animals
 appRouter.get(version + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
 appRouter.get(version + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
+appRouter.get(version + '/animals/:id/info', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimal)
+
 
 // Community
 appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)

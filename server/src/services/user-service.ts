@@ -122,22 +122,6 @@ export const deleteFromUserCart = async (userId: string, piids: string[]) => {
 }
 
 
-export const deleteFromAnimal = async (userId: string, animalId: string): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    console.log('animalId -> ', animalId)
-    const newAnimals = user.animals.filter((x) => x._id.toString() !== animalId)
-    user.animals = newAnimals
-    console.log(newAnimals)
-    await user.save()
-    return user.animals
-  } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
-  }
-}
-
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
   const user = await User.findById(userId)
   if (user) {
@@ -150,25 +134,13 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-export const addPictureToAnimal = async (userId: string, animalId: string, picture: JsonPicture) => {
-  console.log('picture --> ', picture)
-  const user = await User.findById(userId)
-  if (user) {
-    try {
-      let index = 0
-      user.animals.map((x, i) => {
-        index = i
-        if (x._id.toString() === animalId) {
-          x.picture = picture
-        }
-      })
-      console.log('utente con animale cambiato ', user)
-      await user.save()
-      return user.animals[index]
-    } catch (err) {
-      throw new JsonError(err.message)
-    }
-  } else throw new JsonError(`Can\'t find user with id ${userId}`)
+export const addPictureToAnimal = async (animalId: string, picture: JsonPicture) => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
+    await animal.updateOne({picture: picture})
+    await animal.save()
+    return animal
+  } else throw new JsonError(`Can\'t find animal with id ${animalId}`)
 }
 
 export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then((x) => x.map(userToJsonUser))
@@ -184,3 +156,4 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
     }
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
+

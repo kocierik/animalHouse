@@ -18,10 +18,10 @@ const _USER_REGISTER = '/users/register'
 const _USER_UPDATE_DESCRIPTION = '/users/{0}/description'
 const _USERS_SCORES = '/users/{0}/scores/'
 const _USERS_ANIMALS = '/animals/{0}'
-const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
-const _USERS_ANIMALS_EDIT = '/animals/{0}'
+const _USERS_ANIMALS_DELETE = '/animals/{0}/delete'
+const _USERS_ANIMALS_EDIT = '/animals/{0}/edit'
 const _USER_PICTURE = '/users/{0}/picture'
-const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
+const _USER_ANIMAL_PICTURE = 'animals/{0}/picture'
 const _RESERVATIONS = '/users/{0}/reservations'
 const _RESERVATIONS_ANIMALS = '/animals/{0}/reservations'
 const _RESERVATIONS_DELETE = '/reservations/{0}'
@@ -30,7 +30,8 @@ const _RESERVATIONS_PUT = '/reservations/{0}'
 const _LOCATION = '/locations'
 const _LOCATION_GET = '/locations/{0}'
 const _PICTURES = '/pictures/{0}'
-
+const _ANIMAL_GET = '/animals/{0}/info'
+const _ANIMAL_GETALL = '/users/{0}/animals'
 const _ANIMAL_CODES = '/animals/codes'
 
 const _COMMUNITY_GAME_SCOREBOARD = '/community/game/scoreboard'
@@ -57,15 +58,20 @@ export const register = async (registration: user.JsonRegistration) =>
 export const getAnimalCode = async () =>
   Api.get<{ code: number; value: String }[]>(_BASE_URL + _ANIMAL_CODES)
 
+export const getAnimalInfo = async (animalId: string) =>
+  Api.get<animal.JsonAnimal>( stringFormat(_BASE_URL + _ANIMAL_GET, animalId))
+
+export const findAnimalsUser = async (userId: string) =>
+  Api.get<animal.JsonAnimal[]>( stringFormat(_BASE_URL + _ANIMAL_GETALL, userId))
+
 export const registerAnimal = async (registration: animal.JsonAnimal, userId: string) =>
-  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
+  Api.post<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
 
-export const deleteAnimal = async (userId: string, animalId: string) =>
-  Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, userId, animalId), true)
+export const deleteAnimal = async (animalId: string) =>
+  Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, animalId), true)
 
-export const editAnimal = async (userId: string, animalId: string, animal: animal.JsonAnimal) =>
-  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, userId, animalId), animal, true)
-
+export const editAnimal = async (animalId: string, animal: animal.JsonAnimal) =>
+  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, animalId), animal, true)
 
 export const putUserScore = async (gameScore: score.IGameResult, userId: string) =>
   Api.put<score.IGameScore>(stringFormat(_BASE_URL + _USERS_SCORES, userId), gameScore, true)
@@ -89,10 +95,10 @@ export const putUserPicture = (userId: string, image: string | Blob) => {
   return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_PICTURE, userId), formdata, true, false)
 }
 
-export const putAnimalPicture = (userId: string, animalId: string, image: string | Blob) => {
+export const putAnimalPicture = (animalId: string, image: string | Blob) => {
   const formdata = new FormData()
   formdata.append("profileAnimal", image, 'profileAnimal.jpg')
-  return Api.put<animal.JsonPicture>(stringFormat(_BASE_URL + _USER_ANIMAL_PICTURE, userId, animalId), formdata, true, false)
+  return Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USER_ANIMAL_PICTURE, animalId), formdata, true, false)
 }
 
 export const updateUserDescription = async (userId: string, updateUser: user.JsonUser) => {
