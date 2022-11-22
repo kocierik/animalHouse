@@ -5,11 +5,11 @@ function CsvToArr(csv) {
     return csv.replace(/\s/g, '').split(",")
 }
 
-$("#send").click( function () {
+$("#send").click( async function () {
     let img = $('#grid-image').prop('files')[0];
     if (img) {
         //create product
-        fetch("/v1/products", {
+        const dataRes = await fetch("/v1/products", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -27,24 +27,25 @@ $("#send").click( function () {
                 "types": [],
                 "details": $("#grid-details").val(),
             })
-        }).then((response) => response.json()).then(data => function(){
-            //TODO: fixare, spesso non entra qui e non carica la foto del prodotto
-            //add product picture
-            console.log(data)
-
-            var send = new FormData()
-            send.append("product", img)
-            fetch("/v1/products/" + data._id + "/picture", {
-                method: "PUT",
-                headers: {
-                    "authorization": localStorage.token,
-                    "Access-Control-Origin": "*"
-                },
-                body: send
-            }).then((response) => response.json()).then(data => {
-                console.log(data)
-            })
         })
+        const data = await dataRes.json()
+        //TODO: fixare, spesso non entra qui e non carica la foto del prodotto
+        //add product picture
+        console.log(data)
+
+        var send = new FormData()
+        send.append("product", img)
+        dataRes = await fetch("/v1/products/" + data._id + "/picture", {
+            method: "PUT",
+            headers: {
+                "authorization": localStorage.token,
+                "Access-Control-Origin": "*"
+            },
+            body: send
+        })
+        data = await dataRes.json()
+
+        console.log(data)
     }
 });
 

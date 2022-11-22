@@ -14,7 +14,10 @@ function retrieveUsers(target) {
             if (el.profilePicture)
                 pic = "/pictures/" + el.profilePicture.filename
             if (el.address != undefined) {
-                addr = el.address.street + ", " + el.address.city + ", " + el.address.zip + " (" + el.address.country + ")"
+                el.address.street != " " ? addr+=el.address.street + ", " : ""
+                el.address.city != " " ? addr+=el.address.city + ", " : ""
+                el.address.zip != " " ? addr+=el.address.zip + ", " : ""
+                el.address.country != " " ? addr+= el.address.country : ""
             }
             $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, address: addr, picture: pic }].map(Item));
         });

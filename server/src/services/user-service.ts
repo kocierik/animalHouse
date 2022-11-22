@@ -227,7 +227,7 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
 
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
   const user = await User.findById(id)
-  if (user.address == undefined) { user.address = { country: " ", city: " ", street: " ", zip: "" } }
+  if (user.address == undefined) { user.address = { country: " ", city: " ", street: " ", zip: " " } }
   if (patch.zip) { user.address.zip = patch.zip }
   if (patch.city) { user.address.city = patch.city }
   if (patch.street) { user.address.street = patch.street }
