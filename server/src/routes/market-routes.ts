@@ -7,7 +7,18 @@ import { JsonReview } from '../json/JsonReview'
 
 /**
  * @swagger
- * TODO
+ *  /products:
+ *    get:
+ *        tags:
+ *        - products
+ *        summary: Retrieve all products
+ *        responses:
+ *          200:
+ *            description: successful operation
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: "#/components/schemas/Product"
  * */
 export const getProducts = async (_: Request, res: Response) => res.json(await ProductService.findAllProduct())
 
@@ -28,8 +39,8 @@ export const getProducts = async (_: Request, res: Response) => res.json(await P
  *          200:
  *            description: successful operation
  *            schema:
- *              type: array
- *              items:
+ *              type: object
+ *              schema:
  *                $ref: "#/components/schemas/Product"
  * */
 export const getProduct = async (req: Request, res: Response) =>
@@ -94,6 +105,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
  *            description: Success
  *
  * */
+ /* TODO levare user creation*/
 export const postProduct = async (req: Request, res: Response) => {
   //TODO: check admin token + check input
   let productCreation = req.body as JsonProduct

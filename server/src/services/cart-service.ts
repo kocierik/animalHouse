@@ -1,32 +1,36 @@
 import JsonError from '../json/JsonError'
-import { Types } from 'mongoose'
-import Cart, { ICart, IProductInstance } from '../entities/Cart'
+import Cart, { ICart } from '../entities/Cart'
+import { CartItem, ICartItem } from '../entities/CartItem'
+import { JsonCart } from '../json/JsonCart'
+import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
+import * as ProductService from './product-service'
+
+export const cartToJsonCart = (cart: ICart) => cart as JsonCart
 
 export const createCartIfNotExists = async (userId: string): Promise<ICart> => {
   try {
     const response = await Cart.exists({ userId: userId })
     if (!response) {
       // We have to create an empty cart
-      let cart = new Cart()
+      const cart = new Cart()
       cart.userId = userId
-      cart.productInstances = []
+      cart.cartItems = []
       await cart.save()
       return cart
     } else {
-      return (await findCartOfUser(userId)) as ICart
+      return (await findCartOfUser(userId)) 
     }
   } catch (err) {
     throw new JsonError(err.message)
   }
 }
 
-export const addToCart = async (cart: ICart, products: IProductInstance[]) => {
+export const addToCart = async (cartId: string, products: JsonCartItemCreation[]): Promise<ICart> => {
   try {
-    cart.productInstances.push(products[0])
-    const cartUser = await Cart.find({userId: cart.userId.toString()})
-    cartUser[0].productInstances.push(products[0])
-    await Cart.updateMany({ userId: cart.userId.toString() }, { productInstances: cartUser[0].productInstances })
-    return cartUser[0].productInstances
+    const cart = await Cart.findById(cartId)
+    const cartItems = await Promise.all(products.map(constructCartItem))
+    cart.cartItems.push(...cartItems)
+    return await cart.save()
   } catch (err) {
     throw new JsonError(err.message)
   }
@@ -36,31 +40,37 @@ export const findCartOfUser = async (id: string) => {
   return await Cart.findOne({ userId: id })
 }
 
-export const deleteFromCart = async (cartId: string, productInstancesIds: string): Promise<ICart> => {
-  try {
-    const cart = await Cart.findOne({ _id: cartId }),
-    result = cart.productInstances.filter((i => v => v.productId !== productInstancesIds || --i)(1));
-    cart.productInstances = result
-    await cart.save()
-    return cart as ICart
-  } catch (err) {
-    if (err instanceof JsonError) throw err
-    throw new JsonError(err.message)
-  }
-}
-
-export const resetCart = async (cartId: string): Promise<ICart> => {
+export const deleteFromCart = async (cartId: string, cartItemsIdToRemove: string[]): Promise<ICart> => {
   try {
     const cart = await Cart.findOne({ _id: cartId })
-    cart.productInstances = []
+    cart.cartItems = cart.cartItems.filter(x => !cartItemsIdToRemove.includes(x._id.toString()))
     await cart.save()
-    return cart as ICart
+    return cart 
   } catch (err) {
     if (err instanceof JsonError) throw err
     throw new JsonError(err.message)
   }
 }
 
+export const deleteAllFromCart = async (cartId: string): Promise<ICart> => {
+  try {
+    const cart = await Cart.findOne({ _id: cartId })
+    cart.cartItems = []
+    await cart.save()
+    return cart
+  } catch (err) {
+    if (err instanceof JsonError) throw err
+    throw new JsonError(err.message)
+  }
+}
 
-const includesId = (id: Types.ObjectId, collection: any[]): boolean =>
-  collection.reduce((old: boolean, x: any) => x._id.toString() === id.toString() || old, false)
+const constructCartItem = async (creation: JsonCartItemCreation): Promise<ICartItem> => {
+  const cartItem = new CartItem()
+  cartItem.color = creation.color
+  cartItem.size = creation.size
+  cartItem.type = creation.type
+  cartItem.productId = creation.productId
+  const product = await ProductService.findProductByid(creation.productId)
+  cartItem.price = product.price
+  return cartItem
+}

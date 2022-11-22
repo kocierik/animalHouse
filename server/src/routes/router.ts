@@ -42,17 +42,10 @@ appRouter.put(
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
-  userRoutes.putCart
+  userRoutes.putInCart
 )
 appRouter.delete(
-  version + '/users/:id/allCart',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  userRoutes.resetCart
-)
-appRouter.delete(
-  version + '/users/:id/products/:pid/cart',
+  version + '/users/:id/cart',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
