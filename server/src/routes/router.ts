@@ -20,7 +20,6 @@ appRouter.post(version + '/users/login', middlewares.log, userRoutes.loginPost)
 appRouter.get(version + '/users', middlewares.log, userRoutes.getAllUsers)
 appRouter.get(version + '/users/current', middlewares.log, middlewares.verifyToken, userRoutes.getCurrentUser)
 appRouter.get(version + '/users/:id', middlewares.log, userRoutes.getUser)
-appRouter.get(version + '/users/:id/animals', middlewares.log, animalRoutes.findAnimalsUser)
 
 appRouter.put(
   version + '/users/:id/score',
@@ -57,13 +56,7 @@ appRouter.delete(
   middlewares.verifyUser,
   userRoutes.deleteCart
 )
-appRouter.post(
-  version + '/animals/:id',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  animalRoutes.postAnimal
-)
+
 appRouter.put(
   version + '/users/:id/description',
   middlewares.log,
@@ -79,20 +72,7 @@ appRouter.put(
   middlewares.multerMiddleware('profile'),
   userRoutes.postPicture
 )
-appRouter.delete(
-  version + '/animals/:aid/delete',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  animalRoutes.deleteAnimal
-)
-appRouter.put(
-  version + '/animals/:aid/edit',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  animalRoutes.updateAnimal
-)
+
 appRouter.put(
   version + 'animals/:id/picture',
   middlewares.log,
@@ -109,7 +89,29 @@ appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin
 appRouter.get(version + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
 appRouter.get(version + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
 appRouter.get(version + '/animals/:id/info', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimal)
+appRouter.get(version + '/users/:id/animals', middlewares.log, animalRoutes.findAnimalsUser)
 
+appRouter.put(
+  version + '/animals/:aid/edit',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  animalRoutes.updateAnimal
+)
+appRouter.delete(
+  version + '/animals/:aid/delete',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  animalRoutes.deleteAnimal
+)
+appRouter.post(
+  version + '/animals/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  animalRoutes.postAnimal
+)
 
 // Community
 appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)
