@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ModalReservationCard from './ModalReservationCard'
 import { ApiRepository, JsonService} from 'shared';
-import { FaBriefcase } from 'react-icons/fa';
 import { BanIcon, CakeIcon, FilmIcon, FireIcon, FlagIcon, GiftIcon, HomeIcon, MapIcon, SunIcon } from '@heroicons/react/solid';
 
 const serviceIcon = [{
@@ -38,7 +37,7 @@ const ServiceCard = () => {
     const getServices = async () =>{
         const resp = await ApiRepository.getServices()
         console.log(resp)
-        setServices(resp.data!)
+        await setServices(resp.data!)
     }
 
     useEffect(() => {
@@ -58,10 +57,8 @@ const ServiceCard = () => {
         services?.map((service,i) => {
         return (
             <div onClick={() => {setShowModal(true); setOpenService(service.title)}}  key={i} className='hover:-translate-y-2 hover:scale-100 duration-300'>
-            <div 
-            data-aos="zoom-in"
-                className="p-10   rounded flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
-                <span className={service.color}>
+            <div data-aos="zoom-in"className="p-10   rounded flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
+                <span className={`p-5 rounded-full text-white shadow-lg   ${service.color} `} >
                     {serviceIcon[i].icon}
                 </span>
                 <p className="text-xl font-medium text-slate-700 mt-3">{service.title}</p>
