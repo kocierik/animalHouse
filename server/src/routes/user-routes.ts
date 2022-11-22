@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IProductInstance } from '../entities/Cart'
+import { ICartItem } from '../entities/CartItem'
 import { JsonUserCreation, JsonLogin, JsonPicture, JsonUser } from '../json/JsonUser'
 import { JsonAnimal } from '../json/JsonAnimal'
 import Score from '../entities/Score'
@@ -8,6 +8,7 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
 
 /**
  * @swagger
@@ -252,7 +253,7 @@ export const putScore = async (req: Request, res: Response) => {
 *                 gameGuid:
 *                   type: string
 *                 score:
-                    type: number
+*                   type: number
 * */
 export const getScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -284,7 +285,7 @@ export const getScore = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/components/schemas/CartItemCreation"
  *     security:
  *     - JWT: []
  *     responses:
@@ -293,13 +294,13 @@ export const getScore = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/components/schemas/CartItem"
  * */
-export const putCart = async (req: Request, res: Response) => {
+export const putInCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
-    const pqs = req.body as IProductInstance[]
-    return res.status(Const.STATUS_OK).json(await UserService.addProductToUserCart(pathId, pqs))
+    const creations = req.body as JsonCartItemCreation[]
+    return res.status(Const.STATUS_OK).json(await UserService.addProductToUserCart(pathId, creations))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
@@ -327,12 +328,12 @@ export const putCart = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/components/schemas/CartItem"
  * */
 export const getCart = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
-    return res.status(Const.STATUS_OK).json(await UserService.getUserProducts(id))
+    return res.status(Const.STATUS_OK).json(await UserService.getUserCartItems(id))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
@@ -346,7 +347,7 @@ export const getCart = async (req: Request, res: Response) => {
  *     tags:
  *     - users
  *     summary: Delete a product from the cart of the specified user
- *     description: Takes in the body a list of string representing the product instance ids you want to delete
+ *     description: Takes in the body a list of string representing the cart item ids you want to delete
  *     parameters:
  *       - in: path
  *         name: id
@@ -355,7 +356,8 @@ export const getCart = async (req: Request, res: Response) => {
  *         description: Id of the user
  *       - in: body
  *         name: body
- *         required: true
+ *         required: false 
+ *         description: If empty it will delete all cart items from the cart
  *         schema:
  *           type: array
  *           items:
@@ -369,43 +371,15 @@ export const getCart = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/components/schemas/CartItem"
  *
  * */
 export const deleteCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
-    const piIds = req.params.pid
-    return res.status(Const.STATUS_OK).json(await UserService.deleteFromUserCart(pathId, piIds))
-  } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
-    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
-  }
-}
-
-/**
- * @swagger
- * /users/{id}/allCart:
- *   delete:
- *     tags:
- *     - users
- *     summary: delete a cart given the user
- *     parameters:
- *     - in: path
- *       name: id
- *       type: string
- *       required: true
- *       description: Id of user
- *     security:  
- *     - JWT: []
- *     responses:
- *       200:
- *         description: Success
- */
-export const resetCart = async (req: Request, res: Response) => {
-  try {
-    const pathId = req.params.id
-    return res.status(Const.STATUS_OK).json(await UserService.resetCart(pathId))
+    const piIds = req.body as string[]
+    const result = (piIds.length === 0)? UserService.deleteAllFromCart(pathId) : UserService.deleteFromUserCart(pathId, piIds)
+    return res.status(Const.STATUS_OK).json(await result)
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))

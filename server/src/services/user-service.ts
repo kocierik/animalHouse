@@ -4,7 +4,7 @@ import User, { Address, IAddress, IUser } from '../entities/User'
 import * as ProductService from './product-service'
 import * as CartService from './cart-service'
 import * as AnimalService from './animal-service'
-import { IProductInstance } from '../entities/Cart'
+import { ICartItem } from '../entities/CartItem'
 import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
@@ -12,6 +12,7 @@ import Admin from '../entities/Admin'
 import { IPicture } from '../entities/User'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
+import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -100,32 +101,31 @@ export const pictureToJsonPicture = (pic: IPicture) => ({
   mimetype: pic.mimetype,
 })
 
-export const addProductToUserCart = async (userId: string, pqs: IProductInstance[]): Promise<IProductInstance[]> => {
+export const addProductToUserCart = async (userId: string, pqs: JsonCartItemCreation[]): Promise<ICartItem[]> => {
   /* TODO backend should also check wheter all fields of a product are correct.
     e.g. if you buy a tshirt you can't only specify the color, you need also the
     size. */
-  ProductService.evalProductInstances(pqs)
+  if (!await ProductService.evalCartItemCreations(pqs)) {
+    throw new JsonError("Invalid cart item creation")   
+  }
   const cart = await CartService.createCartIfNotExists(userId)
-  await CartService.addToCart(cart, pqs)
-  return cart.productInstances
+  return (await CartService.addToCart(cart._id, pqs)).cartItems
 }
 
-export const getUserProducts = async (userId: string) => {
-  const promises = (await CartService.findCartOfUser(userId))?.productInstances
-  return promises ? await Promise.all(promises) : [] // The empty cart
+export const getUserCartItems = async (userId: string) => {
+  const cartItems = (await CartService.findCartOfUser(userId))?.cartItems
+  return cartItems || [] // The empty cart
 }
 
-export const deleteFromUserCart = async (userId: string, piids: string) => {
+export const deleteFromUserCart = async (userId: string, cartItemsIds: string[]): Promise<ICartItem[]> => {
   const cart = await CartService.findCartOfUser(userId)
-  await CartService.deleteFromCart(cart.id, piids)
-  return getUserProducts(userId)
-}
-export const resetCart = async (userId: string) => {
-  const cart = await CartService.findCartOfUser(userId)
-  await CartService.resetCart(cart.id)
-  return getUserProducts(userId)
+  return (await CartService.deleteFromCart(cart.id, cartItemsIds)).cartItems
 }
 
+export const deleteAllFromCart = async (userId: string): Promise<ICartItem[]> => {
+  const cart = await CartService.findCartOfUser(userId)
+  return (await CartService.deleteAllFromCart(cart.id)).cartItems
+}
 
 export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
   const user = await User.findById(userId)
