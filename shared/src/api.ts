@@ -83,9 +83,10 @@ export abstract class Api {
       return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
   }
 
-  public static async delete<T>(url: string, auth = false): Promise<ApiResponse<T>> {
+  public static async delete<T>(url: string, body: any, auth = false): Promise<ApiResponse<T>> {
     let options: RequestInit = {
-      method: 'DELETE'
+      method: 'DELETE',
+      body: body instanceof FormData ? body : JSON.stringify(body),
     };
     if (auth) {
       options.headers = { 'Authorization': this.getToken() }

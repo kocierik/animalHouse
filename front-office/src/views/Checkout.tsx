@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
-import { ApiRepository, Helpers, ProductConstant, ProductMarked } from 'shared';
+import { ApiRepository, Helpers, JsonCart, ProductMarked } from 'shared';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
-  const [cart,setCart] = useState<ProductMarked.JsonProductInstance[]>([])
+  interface BuyingProduct {
+    cartItem: JsonCart.ICartItem
+    product: ProductMarked.IProductMarked
+  }
+
+  const [buyingProduct, setBuyingProduct] = useState<BuyingProduct[]>([])
   const [name,setName] = useState("")
   const [exp,setExp] = useState("")
   const [addr,setAddr] = useState("")
@@ -14,49 +19,62 @@ const Checkout = () => {
   const [city,setCity] = useState("")
   const [postal,setPostal] = useState("")
 
-  const getCart = async () => {
-    if(Helpers.getUserId()){
-      const resp = (await ApiRepository.getCart(Helpers.getUserId()!)).data
-      console.log(resp)
-      setCart(resp!)
-    }
+  const userId = Helpers.getUserId()
+
+  if (!userId) {
+    window.location.href = "/login"
+    return
+  }
+
+  const mapCartToBuyingProducts = (cartItems: JsonCart.ICartItem[]): Promise<BuyingProduct[]> =>
+   Promise.all(cartItems.map(async cartItem => ({
+          cartItem: cartItem,
+          product: await fetchProduct(cartItem.productId)
+        } as BuyingProduct)))
+
+  const fetchProduct = async (id: string): Promise<ProductMarked.IProductMarked | undefined> => 
+    (await ApiRepository.getMarketProduct(id)).data 
+
+  const fetchBuyingProducts= async () => {
+      const resp =  await ApiRepository.getCart(userId)
+      if (resp.esit) {
+        setBuyingProduct(await mapCartToBuyingProducts(resp.data!))
+      } 
   }
 
   useEffect(() => {
-    getCart()
+    fetchBuyingProducts()
   },[])
 
-  const removeFromCart = async (productId: string) => {
-    if(Helpers.getUserId()){
-      const resp = (await ApiRepository.removeCart(Helpers.getUserId()!,productId)).data
-      setCart(resp!)
-    }
+  const removeFromCart = async (cartItemId: string) => {
+    const resp = await ApiRepository.deleteCart(userId, [cartItemId])
+    if (resp.esit) {
+      setBuyingProduct(await mapCartToBuyingProducts(resp.data!))
+    } 
   }
 
-  const getTotalPrice = (shipping : number = 0) => {
-    return cart?.reduce((accumulator, value) => {
-      return accumulator + value.price;
-    }, shipping)
-  }
-
+  const getTotalPrice = (shipping : number = 0): number => 
+    buyingProduct?.map(bp => bp.cartItem).reduce((accumulator, value) =>
+      accumulator + value.price, shipping) || 0
 
   const clearCart = async (e: any) => {
     e.preventDefault()  
-    if(Helpers.getUserId()){
-      if(cart.length === 0){
-        toast.warning('You should select a product first!', {position: toast.POSITION.TOP_CENTER})
-        return
-      }
 
-      if(!name || !exp || !addr || !cvc || !card || !stat || !city || !postal){
-        toast.warning('You should compile all the form!', {position: toast.POSITION.TOP_CENTER})
-        return
-      }
-    
-      const resp = (await ApiRepository.resetCart(Helpers.getUserId()!)).data
-      setCart(resp!)
-      toast.success("Congratulation, Bought!", {position: toast.POSITION.TOP_CENTER})
+    if(buyingProduct.length === 0){
+      toast.warning('You should select a product first!', {position: toast.POSITION.TOP_CENTER})
+      return
     }
+
+    if(!name || !exp || !addr || !cvc || !card || !stat || !city || !postal){
+      toast.warning('You should compile all the form!', {position: toast.POSITION.TOP_CENTER})
+      return
+    }
+  
+    const resp = await ApiRepository.deleteCart(userId, [])
+    if (resp.esit) {
+      setBuyingProduct(await mapCartToBuyingProducts(resp.data!))
+      toast.success("Congratulation, Bought!", {position: toast.POSITION.TOP_CENTER})
+    } 
   }
 
   return (
@@ -75,25 +93,25 @@ const Checkout = () => {
             <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div>
                 <Disclosure.Panel>
                   <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
-                    {cart?.map((product,i) => (
+                    {buyingProduct?.map((product, i) => (
                       <li key={i} className="flex py-6 space-x-6">
                         <img
-                          src={product.images[0]}
-                          alt={product.name}
+                          src={product.product.images[0]}
+                          alt={product.product.name}
                           className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                         />
                         <div className="flex flex-col  space-y-4">
                           <div className="text-sm font-medium space-y-1">
-                            <h3 className="text-gray-900">Name: {product.name}</h3>
-                            <p className="text-gray-900">Price: {product.price}$</p>
-                           { product.color && <p className="text-gray-500">Color: {product.color}</p>}
-                            <p className="text-gray-500">Size: {product.size}</p>
+                            <h3 className="text-gray-900">Name: {product.product.name}</h3>
+                            <p className="text-gray-900">Price: {product.cartItem.price}$</p>
+                           { product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
+                            <p className="text-gray-500">Size: {product.cartItem.size}</p>
                           </div>
                           <div className="flex 	 space-x-4">
                             <div className="flex  border-gray-300 ">
                               <button
                                 type="button"
-                                onClick={async () => await removeFromCart(product.productId)}
+                                onClick={async () => await removeFromCart(product.cartItem._id)}
                                 className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
                               >
                                 Remove
@@ -117,23 +135,23 @@ const Checkout = () => {
             {/* <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div> */}
 
           <ul role="list" className="flex-auto overflow-y-auto divide-y divide-gray-200 px-6">
-            {cart?.map((product,i) => (
+            {buyingProduct?.map((product,i) => (
               <li key={i} className="flex py-6 space-x-6">
                 <img
-                  src={product.images[0]}
-                  alt={product.name}
+                  src={product.product.images[0]}
+                  alt={product.product.name}
                   className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                 />
                 <div className="flex flex-col  space-y-4">
                   <div className="text-sm font-medium space-y-1">
-                    <h3 className="text-gray-900">Name: {product.name}</h3>
-                    <p className="text-gray-900">Price: {product.price}$</p>
-                    { product.color && <p className="text-gray-500">Color: {product.color}</p>}
-                    <p className="text-gray-500">Size: {product.size}</p>
+                    <h3 className="text-gray-900">Name: {product.product.name}</h3>
+                    <p className="text-gray-900">Price: {product.cartItem.price}$</p>
+                    { product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
+                    <p className="text-gray-500">Size: {product.cartItem.size}</p>
                   </div>
                   <div className="flex list-item  space-x-4">
                     <div className="flex 	  border-gray-300">
-                      <button onClick={async () => await removeFromCart(product.productId)} type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                      <button onClick={async () => await removeFromCart(product.cartItem._id)} type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                         Remove
                       </button>
                     </div>

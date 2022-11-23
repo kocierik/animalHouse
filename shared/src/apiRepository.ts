@@ -22,8 +22,6 @@ const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
 const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 const _USER_CART = '/users/{0}/cart'
-const _USER_CART_DELETE = '/users/{0}/products/{1}/cart'
-const _USER_CART_ALL_DELETE = '/users/{0}/allCart'
 
 const _PICTURES = '/pictures/{0}'
 
@@ -98,17 +96,13 @@ export const updateUserDescription = async (userId: string, updateUser: user.Jso
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
   Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
 
-export const putCart = async (userId: string, product : cart.IProductInstance) =>
-  Api.put<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product],true)
+export const putCart = async (userId: string, product : cart.ICartItemCreation) =>
+  Api.put<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product],true)
 
 export const getCart = async (userId: string) =>
-  Api.get<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART, userId),true)
+  Api.get<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),true)
 
-export const removeCart = async (userId: string, productId: string) =>
-  Api.delete<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART_DELETE, userId, productId),true)
-
-export const resetCart = async (userId: string) =>
-  Api.delete<cart.IProductInstance[]>(stringFormat(_BASE_URL + _USER_CART_ALL_DELETE, userId),true)
-
+export const deleteCart = async (userId: string, cartItems: string[]) =>
+  Api.delete<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), cartItems, true)
 
 // TODO insert here other calls!!!!

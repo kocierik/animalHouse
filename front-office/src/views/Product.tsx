@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ProductMarked, ProductConstant, JsonReview, Helpers,  } from 'shared';
+import { ApiRepository, ProductMarked, ProductConstant, JsonReview, Helpers, JsonCart} from 'shared';
 import { toast } from 'react-toastify';
 
 function classNames(...classes: string[]) {
@@ -66,21 +66,24 @@ export default function Product() {
       return
     }
 
-    if(Helpers.getUserId()){
-      const product : ProductMarked.JsonProductInstance = {
-        productId: prod?._id!,
-        name: prod?.name!,
-        images: prod?.images!,
-        color: selectedColor,
-        type: ProductConstant.PRODUCT_TYPE[prod?.categoryId as string],
-        size: selectedSize,
-        price: prod?.price!
-      }
-      const resp = await ApiRepository.putCart(Helpers.getUserId()!,product)
-      console.log(resp)
-      toast.success("Product addded to cart", {position: toast.POSITION.TOP_CENTER})
-    } else toast.warn('You should login first!', {position: toast.POSITION.TOP_CENTER})
+    const userId = Helpers.getUserId()
 
+    if (!userId) {
+      toast.warn('You should login first!', {position: toast.POSITION.TOP_CENTER})
+      return
+    }
+
+    const cartItemCreation: JsonCart.ICartItemCreation= {
+      productId: prod?._id!,
+      color: selectedColor,
+      type: ProductConstant.PRODUCT_TYPE[prod?.categoryId as string],
+      size: selectedSize,
+    }
+    const resp = await ApiRepository.putCart(userId, cartItemCreation)
+    if(resp.esit)
+       toast.success("Product addded to cart", {position: toast.POSITION.TOP_CENTER})
+    else
+       toast.error(`Something wrong appened :/ (${resp.error?.mex})`, {position: toast.POSITION.TOP_CENTER})
   }
 
   return (
