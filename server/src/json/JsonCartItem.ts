@@ -1,4 +1,5 @@
 export interface JsonCartItem {
+    _id: string
     price: number
     productId: string
     color?: string 
@@ -10,6 +11,9 @@ export const SwaggerCartItem = {
     type: 'object',
     required: ['productId'],
     properties: {
+        _id: {
+            type: 'string'
+        },
         productId: {
             type: 'string',
         },
