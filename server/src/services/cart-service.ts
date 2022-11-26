@@ -1,4 +1,4 @@
-import JsonError from '../json/JsonError'
+import JsonError, { JsonNotFoundError, JsonServerError, JsonVisibilityError } from '../json/JsonError'
 import Cart, { ICart } from '../entities/Cart'
 import { CartItem, ICartItem } from '../entities/CartItem'
 import { JsonCart } from '../json/JsonCart'
@@ -7,9 +7,9 @@ import * as ProductService from './product-service'
 
 export const cartToJsonCart = (cart: ICart) => cart as JsonCart
 
-export const createCartIfNotExists = async (userId: string): Promise<ICart> => {
+export const createActiveCartIfNotExists = async (userId: string): Promise<ICart> => {
   try {
-    const response = await Cart.exists({ userId: userId })
+    const response = await Cart.exists({ userId: userId, active: true })
     if (!response) {
       // We have to create an empty cart
       const cart = new Cart()
@@ -18,7 +18,7 @@ export const createCartIfNotExists = async (userId: string): Promise<ICart> => {
       await cart.save()
       return cart
     } else {
-      return (await findCartOfUser(userId)) 
+      return (await findActiveCartOfUser(userId)) 
     }
   } catch (err) {
     throw new JsonError(err.message)
@@ -28,6 +28,8 @@ export const createCartIfNotExists = async (userId: string): Promise<ICart> => {
 export const addToCart = async (cartId: string, products: JsonCartItemCreation[]): Promise<ICart> => {
   try {
     const cart = await Cart.findById(cartId)
+    if (!cart.active)
+      throw new JsonVisibilityError("Cannot add products to a inactive cart!")
     const cartItems = await Promise.all(products.map(constructCartItem))
     cart.cartItems.push(...cartItems)
     return await cart.save()
@@ -36,8 +38,8 @@ export const addToCart = async (cartId: string, products: JsonCartItemCreation[]
   }
 }
 
-export const findCartOfUser = async (id: string) => {
-  return await Cart.findOne({ userId: id })
+export const findActiveCartOfUser = async (id: string) => {
+  return await Cart.findOne({ userId: id, active: true })
 }
 
 export const deleteFromCart = async (cartId: string, cartItemsIdToRemove: string[]): Promise<ICart> => {
@@ -76,3 +78,27 @@ const constructCartItem = async (creation: JsonCartItemCreation): Promise<ICartI
   cartItem.price = product.price
   return cartItem
 }
+
+const deactivateCart = async (cartId: string): Promise<ICart> => {
+  const cart = await Cart.findById(cartId)
+  if (cart) {
+    cart.active = false
+    await cart.save()
+    return cart
+  } else throw new JsonServerError("Cannot deactivate a cart if it does not exist")
+
+}
+
+export const generateNewCartForUser = async (userId: string): Promise<ICart> => {
+  const oldCart = await findActiveCartOfUser(userId)
+  
+  // mark as not active
+  await deactivateCart(oldCart._id)
+
+  // create new one
+  const newCart = await createActiveCartIfNotExists(userId)
+
+  return newCart as ICart
+}
+
+export const isCartDeactivated = async (cartId: string): Promise<boolean> => (await (Cart.findById(cartId))).active === false

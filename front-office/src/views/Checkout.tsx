@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { ApiRepository, Helpers, JsonCart, ProductMarked } from 'shared';
 import { toast, ToastContainer } from 'react-toastify';
+import { JsonPaymentDetails } from 'shared/src/json/Orders';
+import { JsonAddress } from 'shared/src/json/user';
 
 const Checkout = () => {
   interface BuyingProduct {
@@ -57,7 +59,20 @@ const Checkout = () => {
     buyingProduct?.map(bp => bp.cartItem).reduce((accumulator, value) =>
       accumulator + value.price, shipping) || 0
 
-  const clearCart = async (e: any) => {
+
+  const constructPaymentDetails = () : JsonPaymentDetails => 
+    ({
+      address: {
+        cap: Number(postal),
+        city: city,
+        country: stat,
+        street: addr
+      } as JsonAddress,
+      cardName: name,
+      cardNumber: card
+    })
+
+  const order = async (e: any) => {
     e.preventDefault()  
 
     if(buyingProduct.length === 0){
@@ -70,9 +85,9 @@ const Checkout = () => {
       return
     }
   
-    const resp = await ApiRepository.deleteCart(userId, [])
+    const resp = await ApiRepository.postUserOrder(userId, constructPaymentDetails())
     if (resp.esit) {
-      setBuyingProduct(await mapCartToBuyingProducts(resp.data!))
+      setBuyingProduct(await mapCartToBuyingProducts([]))
       toast.success("Congratulation, Bought!", {position: toast.POSITION.TOP_CENTER})
     } 
   }
@@ -333,7 +348,7 @@ const Checkout = () => {
 
               <button
                 type="submit"
-                onClick={async (e) => { await clearCart(e); }}
+                onClick={async (e) => { await order(e); }}
                 className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Pay {getTotalPrice(10)}$

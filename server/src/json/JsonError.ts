@@ -1,4 +1,4 @@
-import { STATUS_BAD_REQUEST, STATUS_NOT_FOUND, STATUS_UNAUTHORIZED } from "../const"
+import { STATUS_BAD_REQUEST, STATUS_INTERNAL_ERROR, STATUS_NOT_FOUND, STATUS_UNAUTHORIZED } from "../const"
 
 export default class JsonError {
   mex: string
@@ -25,5 +25,11 @@ export class JsonBadReqError extends JsonError {
 export class JsonNotFoundError extends JsonError {
   constructor(mex: string) {
     super(mex, STATUS_NOT_FOUND)
+  }
+}
+
+export class JsonServerError extends JsonError {
+  constructor(mex: string) {
+    super(mex, STATUS_INTERNAL_ERROR)
   }
 }
