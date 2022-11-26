@@ -42,6 +42,8 @@ export const findCartOfUser = async (id: string) => {
 
 export const deleteFromCart = async (cartId: string, cartItemsIdToRemove: string[]): Promise<ICart> => {
   try {
+    if (cartItemsIdToRemove.length === 0)
+      throw new Error("You can't remove no cart items!")
     const cart = await Cart.findOne({ _id: cartId })
     cart.cartItems = cart.cartItems.filter(x => !cartItemsIdToRemove.includes(x._id.toString()))
     await cart.save()

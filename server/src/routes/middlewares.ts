@@ -15,26 +15,33 @@ export const verifyToken = async (req: Request, res: Response, next: Function) =
   const authHeader = req.headers['authorization']
   if (authHeader !== undefined) {
     jwt.verify(authHeader, SECRET, (err, authData) => {
-      if (err) res.sendStatus(STATUS_UNAUTHORIZED).json(new JsonVisibilityError(`error validating token: ${err}`))
-      else {
+      if (err) {
+         return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError(`error validating token: ${err}`))
+      } else {
         req.authData = authData.authData
-        next()
+        return next()
       }
     })
-  } else res.sendStatus(STATUS_UNAUTHORIZED).json(new JsonVisibilityError('Authentication header not found'))
+  } else {
+    return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError('Authentication header not found'))
+  }
 }
 
-export const verifyUser = (req: Request, res: Response, next: Function) => {
+export const verifyUser = async (req: Request, res: Response, next: Function) => {
   const authId = req.authData.id
   const pathId = req.params.id
 
-  if (pathId === authId || AdminService.isAdmin(authId)) next()
-  else return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
+  if (pathId === authId || await AdminService.isAdmin(authId)) {
+    return next()
+  } 
+  else {
+    return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
+  }
 }
 
 export const log = (req: Request, _: Response, next: Function) => {
   console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
-  next()
+  return next()
 }
 
 // Multer
