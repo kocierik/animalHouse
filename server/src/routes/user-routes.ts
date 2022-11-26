@@ -9,6 +9,7 @@ import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
 import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
+import { JsonPaymentDetails } from '@/json/JsonPaymentDetails'
 
 /**
  * @swagger
@@ -510,7 +511,7 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *       200:
  *         description: Success
  *         schema:
- *           $ref: "#/definitions/Animal"
+ *           $ref: "#/components/schemas/Animal"
  *     
 * */
 export const updateAnimal = async (req: Request, res: Response) => {
@@ -556,7 +557,7 @@ export const updateAnimal = async (req: Request, res: Response) => {
  *       200:
  *         description: Success
  *         schema:
- *           $ref: "#/definitions/User"
+ *           $ref: "#/components/schemas/User"
 */
 export const putPicture = (req: Request, res: Response) => {
   try {
@@ -621,7 +622,7 @@ export const putPicture = (req: Request, res: Response) => {
  *       200:
  *         description: Success
  *         schema:
- *           $ref: "#/definitions/Animal"
+ *           $ref: "#/components/schemas/Animal"
 */
 export const putAnimalPicture = async (req: Request, res: Response) => {
   try {
@@ -656,7 +657,7 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
  *       200:
  *         description: Success
  *         schema:
- *           $ref: "#/definitions/User"
+ *           $ref: "#/components/schemas/User"
  * */
 export const updateUserDescription = async (req: Request, res: Response) => {
   try {
@@ -669,3 +670,72 @@ export const updateUserDescription = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+/**
+ * @swagger
+ * /users/{id}/orders:
+ *   get:
+ *     tags:
+ *     - users
+ *     summary: get orders of an user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of user
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/components/schemas/Order"
+ * */
+export const getUserOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.getUserOrders(req.params.id))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{id}/orders:
+ *   post:
+ *     tags:
+ *     - users
+ *     summary: create an order for a user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of user
+ *       - in: body
+ *         type: object
+ *         schema:
+ *          $ref: "#/components/schemas/PaymentDetails"
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/components/schemas/Order"
+ * */
+export const postUserOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.createUserOrder(req.params.id, req.body as JsonPaymentDetails))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+

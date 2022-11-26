@@ -12,3 +12,4 @@ export * as ProductMarked from "./src/json/ProductMarked"
 export * as JsonGames from "./src/json/Games"
 export * as JsonReview from './src/json/Review';
 export * as JsonCart from './src/json/Cart';
+export * as JsonOrder from './src/json/Orders';

@@ -4,6 +4,7 @@ import User, { Address, IAddress, IUser } from '../entities/User'
 import * as ProductService from './product-service'
 import * as CartService from './cart-service'
 import * as AnimalService from './animal-service'
+import * as OrderService from './order-service'
 import { ICartItem } from '../entities/CartItem'
 import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
@@ -13,6 +14,9 @@ import { IPicture } from '../entities/User'
 import Animal from '../entities/Animal'
 import { IAnimal } from '../entities/Animal'
 import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
+import { Order } from '../entities/Order'
+import { JsonOrder } from '../json/JsonOrder'
+import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -113,22 +117,22 @@ export const addProductToUserCart = async (userId: string, cic: JsonCartItemCrea
   if (!await ProductService.evalCartItemCreations(cic)) {
     throw new JsonBadReqError("Invalid cart item creation")   
   }
-  const cart = await CartService.createCartIfNotExists(userId)
+  const cart = await CartService.createActiveCartIfNotExists(userId)
   return (await CartService.addToCart(cart._id, cic)).cartItems
 }
 
 export const getUserCartItems = async (userId: string) => {
-  const cartItems = (await CartService.findCartOfUser(userId))?.cartItems
+  const cartItems = (await CartService.findActiveCartOfUser(userId))?.cartItems
   return cartItems || [] // The empty cart
 }
 
 export const deleteFromUserCart = async (userId: string, cartItemsIds: string[]): Promise<ICartItem[]> => {
-  const cart = await CartService.findCartOfUser(userId)
+  const cart = await CartService.findActiveCartOfUser(userId)
   return (await CartService.deleteFromCart(cart.id, cartItemsIds)).cartItems
 }
 
 export const deleteAllFromCart = async (userId: string): Promise<ICartItem[]> => {
-  const cart = await CartService.findCartOfUser(userId)
+  const cart = await CartService.findActiveCartOfUser(userId)
   return (await CartService.deleteAllFromCart(cart.id)).cartItems
 }
 
@@ -227,3 +231,16 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
     }
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
+
+
+export const getUserOrders = async (userId: string): Promise<JsonOrder[]> =>
+  (await Order.find({userId: userId})).map(OrderService.orderToJsonOrder)
+
+export const createUserOrder = async (userId: string, paymentDetails: JsonPaymentDetails) => {
+  const oldCart = await CartService.findActiveCartOfUser(userId)
+  
+  await CartService.generateNewCartForUser(userId)
+
+  return await OrderService.createOrderForUser(oldCart._id, paymentDetails)
+}
+  

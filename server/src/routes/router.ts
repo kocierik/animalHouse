@@ -102,6 +102,21 @@ appRouter.put(
   middlewares.multerMiddleware('profileAnimal'),
   userRoutes.putAnimalPicture
 )
+appRouter.get(
+  version + '/users/:id/orders',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.getUserOrders
+)
+
+appRouter.post(
+  version + '/users/:id/orders',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.postUserOrders
+)
 
 // Admins
 appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin)

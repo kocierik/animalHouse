@@ -79,20 +79,19 @@ export const SwaggerUser = {
     },
     address: {
       type: 'object',
-      properties: {
-        country: {
-          type: 'string',
-        },
-        city: {
-          type: 'string',
-        },
-        street: {
-          type: 'string',
-        },
-        zip: {
-          type: 'integer',
-        },
-      },
-    },
+      schema: {
+          "$ref": "#/components/schemas/Address"
+      }
+    }
   },
+}
+
+export const SwaggerAddress = {
+  type: "object",
+  properties: {
+    country:{ type: "string"},
+    city: { type: "string" },
+    street: { type: "string" },
+    zip: { type: "string" }
+  }
 }

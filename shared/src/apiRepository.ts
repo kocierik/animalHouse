@@ -6,6 +6,7 @@ import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
 import type * as review from './json/Review'
 import type * as cart from "./json/Cart"
+import type * as order from './json/Orders'
 import { stringFormat } from './helpers'
 
 // Server api urls
@@ -22,6 +23,7 @@ const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
 const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 const _USER_CART = '/users/{0}/cart'
+const _USER_ORDERS = '/users/{0}/orders'
 
 const _PICTURES = '/pictures/{0}'
 
@@ -104,5 +106,8 @@ export const getCart = async (userId: string) =>
 
 export const deleteCart = async (userId: string, cartItems: string[]) =>
   Api.delete<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), cartItems, true)
+
+export const postUserOrder = async (userId: string, paymentDetails: order.JsonPaymentDetails) => 
+  Api.post<order.JsonOrder>(stringFormat(_BASE_URL + _USER_ORDERS, userId), paymentDetails, true)
 
 // TODO insert here other calls!!!!

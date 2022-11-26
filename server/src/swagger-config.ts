@@ -4,8 +4,10 @@ import { SwaggerProduct } from './json/JsonProduct'
 import { SwaggerCartItem} from './json/JsonCartItem'
 import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
 import { SwaggerReview } from './json/JsonReview'
-import { SwaggerUser } from './json/JsonUser'
+import { SwaggerAddress, SwaggerUser } from './json/JsonUser'
 import { SwaggerCartItemCreation } from './json/JsonCartItemCreation'
+import { SwaggerOrder } from './json/JsonOrder'
+import { SwaggerPaymentDetails } from './json/JsonPaymentDetails'
 
 const swaggerOptions = {
   definition: {
@@ -29,12 +31,15 @@ const swaggerOptions = {
       schemas: {
         User: SwaggerUser,
         Animal: SwaggerAnimal,
+        Address: SwaggerAddress,
         Product: SwaggerProduct,
         ReviewSumUp: SwaggerReviewSumUp,
         Review: SwaggerReview,
         Cart: SwaggerCart,
         CartItem: SwaggerCartItem,
         CartItemCreation: SwaggerCartItemCreation,
+        Order: SwaggerOrder,
+        PaymentDetails: SwaggerPaymentDetails,
       },
     },
   },
