@@ -302,7 +302,7 @@ export const putInCart = async (req: Request, res: Response) => {
     const creations = req.body as JsonCartItemCreation[]
     return res.status(Const.STATUS_OK).json(await UserService.addProductToUserCart(pathId, creations))
   } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    if (ex instanceof JsonError) return res.status(ex.code).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }

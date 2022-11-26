@@ -97,10 +97,10 @@ export const getMarketProductsReviewsSumUp = async (productId: string) =>
   Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
 
 export const putCart = async (userId: string, product : cart.ICartItemCreation) =>
-  Api.put<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product],true)
+  Api.put<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product], true)
 
 export const getCart = async (userId: string) =>
-  Api.get<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),true)
+  Api.get<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), true)
 
 export const deleteCart = async (userId: string, cartItems: string[]) =>
   Api.delete<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), cartItems, true)

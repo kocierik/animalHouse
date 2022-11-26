@@ -1,5 +1,5 @@
 import { JsonUser, JsonUserCreation, JsonPicture } from '../json/JsonUser'
-import JsonError, { JsonVisibilityError } from '../json/JsonError'
+import JsonError, { JsonBadReqError, JsonVisibilityError } from '../json/JsonError'
 import User, { Address, IAddress, IUser } from '../entities/User'
 import * as ProductService from './product-service'
 import * as CartService from './cart-service'
@@ -101,15 +101,20 @@ export const pictureToJsonPicture = (pic: IPicture) => ({
   mimetype: pic.mimetype,
 })
 
-export const addProductToUserCart = async (userId: string, pqs: JsonCartItemCreation[]): Promise<ICartItem[]> => {
+export const addProductToUserCart = async (userId: string, cic: JsonCartItemCreation[]): Promise<ICartItem[]> => {
   /* TODO backend should also check wheter all fields of a product are correct.
     e.g. if you buy a tshirt you can't only specify the color, you need also the
     size. */
-  if (!await ProductService.evalCartItemCreations(pqs)) {
-    throw new JsonError("Invalid cart item creation")   
+
+  if (cic.length === 0){
+    throw new JsonBadReqError("You must add at least one cart item!")
+  }
+
+  if (!await ProductService.evalCartItemCreations(cic)) {
+    throw new JsonBadReqError("Invalid cart item creation")   
   }
   const cart = await CartService.createCartIfNotExists(userId)
-  return (await CartService.addToCart(cart._id, pqs)).cartItems
+  return (await CartService.addToCart(cart._id, cic)).cartItems
 }
 
 export const getUserCartItems = async (userId: string) => {
