@@ -11,29 +11,26 @@ const Articles = (props: { filterApplied: string[]}) => {
     const values = (await ApiRepository.getMarketProducts()).data
     setArticle(values!)
     setFilterArticle(values!)
-    // console.log(values)
   }
   
-  const [tempState, setTempState] = useState<ProductMarked.IProductMarked[]>([])
   const filterMarketProducts = () => {
-    const prova: ProductMarked.IProductMarked[] = []  
+    const productArray: ProductMarked.IProductMarked[] = []  
     article.map(async (singleArticle) => {
       setFilterArticle([])
+
       const singleArticleCategoryName = (await ApiRepository.getProductCategory(singleArticle.categoryId)).data
       props.filterApplied.map(singleFilter => {
         if(singleArticleCategoryName == singleFilter){
-          setTempState([...tempState,singleArticle])
-          prova.push(singleArticle)
-        } else {
-          const remove = tempState.filter(item => item._id != singleArticle._id)
-          setTempState(remove)
+          productArray.push(singleArticle)
         }
-        const uniqueArray = prova.filter(function(item, pos) {
-          return prova.indexOf(item) == pos;
+
+        const uniqueArray = productArray.filter(function(item, pos) {
+          return productArray.indexOf(item) == pos;
         })
         setFilterArticle(uniqueArray)
       })
     })
+
     if(props.filterApplied.length == 0){
       setFilterArticle(article)
     }
