@@ -21,14 +21,14 @@ const CommunityPage = () => {
   }, [])
 
   const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
-
+  const [filter,setFilter] = useState<string[]>([])
   return (
     <div className="h-full" data-aos="fade-up" data-aos-duration="500">
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-            <DropDown list={games} />
+            <DropDown list={games} filter={filter} setFilter={setFilter}/>
           </div>
           <div className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
