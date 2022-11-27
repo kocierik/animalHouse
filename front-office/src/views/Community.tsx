@@ -1,27 +1,35 @@
 import React, { useCallback, useState } from 'react'
 import DropDown from './common/DropDown'
 import Rawtable from './common/communityComponents/Rawtable'
-import { ApiRepository } from 'shared'
+import { ApiRepository, JsonGames } from 'shared'
 import useEffect from 'react'
 import { Community } from 'shared'
 
 const CommunityPage = () => {
   const [usersData, setUsersData] = useState<Community.IGameValues[]>([])
+  const [games,setGames] = useState<string[]>([])
+  const [filter,setFilter] = useState<string[]>([])
 
   const handlePromise = async () => {
     if ((await ApiRepository.getUserScore()).esit) {
-      const val = (await ApiRepository.getUserScore()).data! as Community.IGameValues[] // CONTROLLA
+      const val = (await ApiRepository.getUserScore()).data! as Community.IGameValues[]
       setUsersData(val!)
       console.log(val!)
     }
   }
 
+  const getGames = async () => {
+    const resp = (await ApiRepository.getGames()).data
+    if(resp){
+      resp.map(item => setGames([...games,item.name]))
+    }
+  }
+
   React.useEffect(() => {
+    getGames()
     handlePromise()
   }, [])
 
-  const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
-  const [filter,setFilter] = useState<string[]>([])
   return (
     <div className="h-full" data-aos="fade-up" data-aos-duration="500">
       <div className="container mx-auto px-4 sm:px-8">
