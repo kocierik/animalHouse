@@ -14,3 +14,8 @@ export interface IProductMarked{
   details?: string
 }
 
+export interface IProductCategory{
+  _id: string,
+  name: string
+}
+
