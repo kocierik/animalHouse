@@ -32,6 +32,7 @@ const _ANIMAL_CODES = '/animals/codes'
 const _COMMUNITY_GAME_SCOREBOARD = '/community/game/scoreboard'
 
 const _PRODUCTS = '/products/'
+const _PRODUCTS_CATEGORY = '/products/category/{0}'
 const _PRODUCTS_REVIEW = '/products/{0}/reviews/'
 const _PRODUCTS_REVIEWS_SUM_UP = '/products/{0}/reviews/sum-up'
 
@@ -72,6 +73,10 @@ export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_
 
 export const getMarketProduct = async (productId: string) =>
   Api.get<product.IProductMarked>(_BASE_URL + _PRODUCTS + productId)
+
+export const getProductCategory = async (categoryId: string) =>
+  Api.get<string>(stringFormat(_BASE_URL + _PRODUCTS_CATEGORY, categoryId))
+
 
 export const getProductReviews = async (productId: string) =>
   Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCTS_REVIEW, productId))

@@ -5,7 +5,8 @@ import { JsonProduct } from '../json/JsonProduct'
 import Review from '../entities/Review'
 import { JsonReview } from '../json/JsonReview'
 import JsonProductSumUp from '../json/JsonProductSumUp'
-import { ProductPatch } from '@/json/patch/ProductPatch'
+import { ProductPatch } from '../json/patch/ProductPatch'
+import ProductCategory from '../entities/ProductCategory'
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 
@@ -17,6 +18,16 @@ export const findProductByid = async (id: string): Promise<IProduct> => {
     throw new JsonError(`Cannot find product with id ${id} (${err.message})`)
   }
 }
+
+export const getProductCategory = async (id: string): Promise<string> => {
+  try {
+    const category = (await ProductCategory.findById(id))
+    return category.name
+  } catch (err) {
+    throw new JsonError(`Cannot find category with id ${id} (${err.message})`)
+  }
+}
+
 
 const isValidOption = (x: any, y: any[]): boolean => x || y.includes(x)
 

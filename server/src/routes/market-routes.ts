@@ -268,3 +268,30 @@ export const getProductSumUp = async (req: Request, res: Response) => {
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
+
+
+
+/**
+ * @swagger
+ *  /products/category/{id}:
+ *    get:
+ *      tags:
+ *      - products
+ *      summary: Get the product category
+ *      parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *        description: Id of the category product
+ *      responses:
+ *        200:
+ *          description: Success
+ * */
+export const getProductCategory = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await ProductService.getProductCategory(req.params.id))
+  } catch (err) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
