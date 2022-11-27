@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import ItemDropdown from './ItemDropdown'
 
-const DropDown = (props: { list: string[] }) => {
+const DropDown = (props: { list: string[], filter: string[], setFilter: React.Dispatch<React.SetStateAction<string[]>> }) => {
   const [isList, setIsList] = useState(false)
   return (
     <div  className="hover:-translate-y-1 hover:scale-105 duration-300 z-10">
@@ -30,7 +30,7 @@ const DropDown = (props: { list: string[] }) => {
       {isList && (
         <div data-aos="zoom-in" className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
           {props.list.map((item, i) => {
-            return <ItemDropdown game={item} key={i} />
+            return <ItemDropdown game={item} key={i} filter={props.filter} setFilter={props.setFilter}/>
           })}
           <button
             onClick={() => setIsList(!isList)}
