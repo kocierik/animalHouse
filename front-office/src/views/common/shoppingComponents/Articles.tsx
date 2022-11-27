@@ -23,7 +23,7 @@ const Articles = (props: { filterApplied: string[]}) => {
         if(singleArticleCategoryName == singleFilter){
           productArray.push(singleArticle)
         }
-
+        
         const uniqueArray = productArray.filter(function(item, pos) {
           return productArray.indexOf(item) == pos;
         })
