@@ -18,6 +18,14 @@ var getUrlParameter = function getUrlParameter(sParam) {
 $(document).ready(function () {
     var id = getUrlParameter('id');
     if (id) {
+        fetch("/v1/users/"+id+"/score/",{
+            method: "GET",
+            headers:{
+                "authorization": localStorage.token
+            }
+        }).then((response)=>response.json()).then((el)=>{
+            console.log(el)
+        })
         retrieveUser(id);
     } else {
         window.location.href = "../"
@@ -51,6 +59,7 @@ function retrieveUser(id) {
         $("#grid-email").val(el.email);
         $("#grid-username").val(el.username);
         $("#animals-place-username").html(el.username);
+        $("#games-place-username").html(el.username);
         if (el.address) {
             $("#grid-street").val(el.address.street);
             $("#grid-city").val(el.address.city);
@@ -60,8 +69,12 @@ function retrieveUser(id) {
         if (el.animals.length == 0)
             $("#animals-place-section").hide()
         el.animals.forEach(a => {
-            $("#animals-place-list").append([{ picture: a.picture ? "/pictures/" + a.picture.filename : "/favicon.ico", name: a.name, age: a.age, uid: el._id, aid: a._id, type: a.type }].map(Item));
+            $("#animals-place-list").append([{ picture: a.picture ? "/pictures/" + a.picture.filename : "/favicon.ico", name: a.name, age: a.age, uid: el._id, aid: a._id, type: a.type }].map(AnimalItem));
         });
+        //TODO IMPLEMENT GAMES SCORES
+        $("#games-place-list").append([{ gameName: "MineSweeperHARDCODED", score: 21334 }].map(GameItem));
+        $("#games-place-list").append([{ gameName: "HangManHARDCODED", score: 23423 }].map(GameItem));
+
 
         let img = el.profilePicture;
         $("#imgplaceholder").attr("src", img ? "/pictures/" + img.filename : "/favicon.ico");
@@ -119,8 +132,21 @@ function animalRemove(name, uid, aid) {
     }
 }
 
-//item template
-const Item = ({ name, age, picture, aid, uid, type }) => `
+//GameItem template
+const GameItem = ({ gameName, score }) => `
+<div>
+    <div class="p-2 py-8 border-b border-solid border-gray-300">
+        <div class="pl-4 flex flex-wrap flex-row items-center">
+            <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${gameName}</div>
+            <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">with ${score} points</div>
+        </div>
+    </div>
+   
+</div>
+`;
+
+//Animalitem template
+const AnimalItem = ({ name, age, picture, aid, uid, type }) => `
 <div>
     <div class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
