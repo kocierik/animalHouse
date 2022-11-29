@@ -35,7 +35,6 @@ function retrieveProducts(id) {
         $("#grid-targets").val(ArrToCsv(el.animalTargets));
         $("#grid-colors").val(ArrToCsv(el.colors))
         $("#grid-sizes").val(ArrToCsv(el.sizes))
-        $("#grid-highlights").val(ArrToCsv(el.highlights))
         $("#grid-details").val(el.details)
 
         $("#imgplaceholder").attr("src", "/pictures/" + el.image.filename);
