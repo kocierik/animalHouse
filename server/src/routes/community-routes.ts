@@ -7,7 +7,7 @@ import JsonError from '../json/JsonError'
 /**
  * @swagger
  *
- *  /community/game/:
+ *  /community/games/:
  *    get:
  *        tags:
  *        - community
@@ -31,7 +31,7 @@ export const getGames = async (_: Request, res: Response) => res.json(await Game
  * @swagger
  *
  *
- *  /community/game/scoreboard:
+ *  /community/games/scoreboard:
  *    get:
  *        tags:
  *        - community

@@ -26,7 +26,7 @@ const _PICTURES = '/pictures/{0}'
 
 const _ANIMAL_CODES = '/animals/codes'
 
-const _COMMUNITY_GAME_SCOREBOARD = '/community/game/scoreboard'
+const _COMMUNITY_GAME_SCOREBOARD = '/community/games/scoreboard'
 
 const _PRODUCTS = '/products/'
 const _PRODUCTS_REVIEW = '/products/{0}/reviews/'

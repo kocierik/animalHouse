@@ -124,8 +124,8 @@ appRouter.patch(
 )
 
 // Community
-appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)
-appRouter.get(version + '/community/game/scoreboard', middlewares.log, communityRoutes.getScoreboard)
+appRouter.get(version + '/community/games/', middlewares.log, communityRoutes.getGames)
+appRouter.get(version + '/community/games/scoreboard', middlewares.log, communityRoutes.getScoreboard)
 
 // Products
 appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
