@@ -103,6 +103,7 @@ export const getProductReviewSumUp = async (prodId: string) => {
 
 export const patchProduct = async (id: string, patch: ProductPatch): Promise<IProduct> => {
   const prod = await Product.findById(id)
+  console.log(patch)
 
   if (patch.description) prod.description = patch.description
   if (patch.name) prod.name = patch.name
@@ -112,8 +113,7 @@ export const patchProduct = async (id: string, patch: ProductPatch): Promise<IPr
   if (patch.types) prod.types = patch.types
   if (patch.categoryId) prod.categoryId = patch.categoryId
   if (patch.details) prod.details = patch.details
-  if (patch.highlights) prod.highlights = patch.highlights
-
+  if (patch.animalTargets) prod.animalTargets = patch.animalTargets
 
   await prod.save()
   return prod as IProduct

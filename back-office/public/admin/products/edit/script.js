@@ -15,9 +15,42 @@ var getUrlParameter = function getUrlParameter(sParam) {
     return false;
 };
 
+function getAnimalCodes(){
+    fetch("/v1/animals/codes").then((response) => response.json()).then((el) => {
+        el.forEach(e => {
+            $("#targets-list").append(`
+            <span class="m-2">
+                <input type="checkbox" class="grid-targets" value="${e.code}"> ${e.value} 
+            </span>
+            `)
+        });
+    })
+}
+
+function getSelectedTargets(){
+    arr = document.getElementsByClassName("grid-targets")
+    var ret = new Array()
+    for (let i = 0; i < arr.length; i++) {
+        const a = arr[i];
+        if(a.checked)
+            ret.push(a.value)
+    }
+    return ret
+}
+function setSelectedTargets(t){
+    arr = document.getElementsByClassName("grid-targets")
+    for (let i = 0; i < arr.length; i++) {
+        t.forEach(a => {
+            if(a == arr[i].value) 
+                arr[i].checked = true
+        });
+    }
+}
+
 $(document).ready(function () {
     var id = getUrlParameter('id');
     if (id) {
+        getAnimalCodes();
         retrieveProducts(id);
     } else {
         window.location.href = "../"
@@ -28,15 +61,14 @@ function retrieveProducts(id) {
     var url = "/v1/products/" + id;
     fetch(url).then((response) => response.json()).then((el) => {
         console.log(el);
-        $("#grid-prod-name").val(el.name);
-        $("#grid-price").val(el.price);
-        $("#grid-category").val(el.categoryId);
-        $("#grid-description").val(el.description);
-        $("#grid-targets").val(ArrToCsv(el.animalTargets));
+        $("#grid-prod-name").val(el.name)
+        $("#grid-price").val(el.price)
+        $("#grid-category").val(el.categoryId)
+        $("#grid-description").val(el.description)
         $("#grid-colors").val(ArrToCsv(el.colors))
         $("#grid-sizes").val(ArrToCsv(el.sizes))
         $("#grid-details").val(el.details)
-
+        setSelectedTargets(el.animalTargets)
         $("#imgplaceholder").attr("src", "/pictures/" + el.image.filename);
     });
 }
@@ -61,6 +93,7 @@ function CsvToArr(csv) {
 }
 
 $("#send").click(function () {
+    getSelectedTargets()
     var img = $('#grid-image').prop('files')[0];
     //patch product fields
     fetch("/v1/products/" + getUrlParameter('id'), {
@@ -75,7 +108,7 @@ $("#send").click(function () {
             "price": $("#grid-price").val(),
             "categoryId": $("#grid-category").val(),
             "description": $("#grid-description").val(),
-            "animalTargets": CsvToArr($("#grid-targets").val()),
+            "animalTargets": getSelectedTargets(),
             "colors": CsvToArr($("#grid-colors").val()),
             "sizes": CsvToArr($("#grid-sizes").val()),
             "types": [],

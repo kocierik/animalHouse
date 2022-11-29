@@ -83,7 +83,7 @@ export const test = async () => {
         size: 1033
       },
       alt: 'dog',
-      animalTargets: ['dog'],
+      animalTargets: ['0'],
       colors: ['black', 'white'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
       highlights: ['great', 'confort', 'animal', 'hot', 'cold'],

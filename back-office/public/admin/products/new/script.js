@@ -5,6 +5,32 @@ function CsvToArr(csv) {
     return csv.replace(/\s/g, '').split(",")
 }
 
+function getAnimalCodes(){
+    fetch("/v1/animals/codes").then((response) => response.json()).then((el) => {
+        el.forEach(e => {
+            $("#targets-list").append(`
+                <span class="m-2">
+                    <input type="checkbox" class="grid-targets" value="${e.code}"> ${e.value} 
+                </span>
+            `)
+        });
+    })
+}
+function getSelectedTargets(){
+    arr = document.getElementsByClassName("grid-targets")
+    var ret = new Array()
+    for (let i = 0; i < arr.length; i++) {
+        const a = arr[i];
+        if(a.checked)
+            ret.push(a.value)
+    }
+    return ret
+}
+
+$(document).ready(function () {
+    getAnimalCodes();
+})
+
 $("#send").click( async function () {
     let img = $('#grid-image').prop('files')[0];
     if (img) {
@@ -21,7 +47,7 @@ $("#send").click( async function () {
                 "price": $("#grid-price").val(),
                 "categoryId": $("#grid-category").val(),
                 "description": $("#grid-description").val(),
-                "animalTargets": CsvToArr($("#grid-targets").val()),
+                "animalTargets": getSelectedTargets(),
                 "colors": CsvToArr($("#grid-colors").val()),
                 "sizes": CsvToArr($("#grid-sizes").val()),
                 "types": [],
