@@ -1,4 +1,5 @@
 export interface JsonReservation {
+  _id: string
   serviceName: string
   userId: string
   date: string

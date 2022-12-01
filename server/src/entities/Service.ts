@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose'
 
 interface IService {
+  _id: string
   title: string
   description: string
   color: string
