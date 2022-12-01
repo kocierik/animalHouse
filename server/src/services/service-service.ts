@@ -1,7 +1,6 @@
 
 import Service from '../entities/Service';
 import JsonError from '../json/JsonError'
-import { JsonReservation } from '../json/JsonReservation';
 import {JsonService} from '../json/JsonService';
 
 

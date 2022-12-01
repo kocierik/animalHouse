@@ -132,10 +132,10 @@ export const putReservation = async (reservationId: string, reservation: reserva
 
 
 export const getLocations = async () =>
-  Api.get<location.ILocation[]>(stringFormat(_BASE_URL + _LOCATION),false)
+  Api.get<location.JsonLocation[]>(stringFormat(_BASE_URL + _LOCATION),false)
 
 export const getLocationById = async (locationId: string) =>
-  Api.get<location.ILocation>(stringFormat(_BASE_URL + _LOCATION_GET, locationId),false)
+  Api.get<location.JsonLocation>(stringFormat(_BASE_URL + _LOCATION_GET, locationId),false)
 
 export const getServices = async () =>
   Api.get<service.IService[]>(stringFormat(_BASE_URL + _SERVICES_GET),false)

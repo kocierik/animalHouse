@@ -5,12 +5,12 @@ const EditmodalReservationCard = (props :{showModal: boolean, setShowModal: any,
     const openRef = useRef<HTMLDivElement>(null)
     const [user,setUser] = useState<JsonUser.JsonUser>()
     const [locationSelect,setLocationSelect] = useState<string>("Select...")
-    const [locations,setLocations] = useState<Jsonlocation.ILocation[]>()
+    const [locations,setLocations] = useState<Jsonlocation.JsonLocation[]>()
     const [information,setInformation] = useState<ChangeEvent<HTMLTextAreaElement>>(null!)
     const [date,setDate] = useState<string>()
     const [selectedService, setSelectedService] = useState<string>(null!)
     const [infoReservation, setInfoReservation] = useState<JsonReservation.IReservation>(null!)
-    const [locationReservation, setLocationReservation] = useState<Jsonlocation.ILocation>(null!)
+    const [locationReservation, setLocationReservation] = useState<Jsonlocation.JsonLocation>(null!)
 
     const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
     
