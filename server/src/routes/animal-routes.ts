@@ -98,53 +98,54 @@ export const postAnimal = async (req: Request, res: Response) => {
   }
 }
 
-// /**
-//  * @swagger
-//  * /animals/{aid}/edit:
-//  *  put:
-//  *      tags:
-//  *      - animals
-//  *      summary: edit a animal
-//  *       parameters:
-//  *       - in: path
-//  *         name: aid
-//  *         type: string
-//  *         required: true
-//  *         description: animal id
-//  *       - in: body
-//  *         name: Animal
-//  *         description: Animal info
-//  *         schema:
-//  *           type: object
-//  *           properties:
-//  *             _id:
-//  *               type: string
-//  *             type:
-//  *               type: string
-//  *             name:
-//  *               type: string
-//  *             userId:
-//  *               type: string
-//  *             age:
-//  *               type: number
-//  *             picture:
-//  *               type: object
-//  *               properties:
-//  *                 filename:
-//  *                   type: string
-//  *                 mimetype:
-//  *                   type: string
-//  *                 size:
-//  *                   type: number
-//  *       security:
-//  *         - JWT: []
-//  *       responses:
-//  *         200:
-//  *           description: Success
-//  *           schema:
-//  *             $ref: "#/definitions/Animal"
-//  *     
-// * */
+/**
+ * @swagger
+ * /users/{uid}/animals/{aid}: {
+ *  put: {
+ *    tags: [ users ],
+ *    summary: edit a animal,
+ *    parameters: [
+ *      {
+ *        in: path,
+ *         name: uid,
+ *         type: string,
+ *         required: true,
+ *         description: user id
+ *      },
+ *       { 
+ *         in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
+ *         description: animal id
+ *      },
+ *      {
+ *         in: body,
+ *         name: Animal,
+ *         description: Animal info,
+ *         schema: {
+ *           type: object,
+ *           schema: {
+ *            $ref: "#/definitions/Animal"
+ *          }
+ *         }
+ *        }
+ *      ], 
+ *       security: [
+ *          {JWT: []}
+ *       ],
+ *       responses: {
+ *         200: {
+ *           description: Success,
+ *           schema: {
+ *             $ref: "#/definitions/Animal"
+ *    }
+ *  }
+ * }
+ * }
+ * }
+ *
+ * */
 export const updateAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
@@ -156,25 +157,37 @@ export const updateAnimal = async (req: Request, res: Response) => {
 }
 
 
-// /**
-//  * @swagger
-//  * /animals/{aid}/delete:
-//  *  delete:
-//  *      tags:
-//  *      - users
-//  *       summary: Retrive reviews about a product
-//  *       parameters:
-//  *       - in: path
-//  *         name: aid
-//  *         type: string
-//  *         required: true
-//  *         description: Id of the animal to be deleted
-//  *       security:
-//  *         - JWT: []
-//  *       responses:
-//  *         200:
-//  *           description: successful operation
-//  * */
+/**
+ * @swagger
+ * /users/{uid}/animals/{aid}: {
+ *  delete: {
+ *      tags: [users ],
+ *      summary: Retrive reviews about a product,
+ *      parameters: [
+ *       {
+ *         in: path,
+ *         name: uid,
+ *         type: string,
+ *         required: true,
+ *         description: Id of the user to be searched
+ *      },
+ *       {
+ *          in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
+ *         description: Id of the animal to be deleted
+ *      }
+ *      ],
+ *       security: [  {JWT: []} ],
+ *       responses: {
+ *         200: {
+ *           description: successful operation
+ *      }
+ *     }
+ *   }
+ * }
+ * */
 export const deleteAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid

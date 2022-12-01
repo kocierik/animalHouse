@@ -12,11 +12,6 @@ export const createAnimals = async (animals: JsonAnimal[]): Promise<IAnimal[]> =
  */
 export const jsonAnimalToAnimal = (ja: JsonAnimal): IAnimal => ja as IAnimal
 
-/**
- * I know this can seems useless but it isn't (maybe)
- */
-export const animalToJsonAnimal = (animal: IAnimal) => animal._id as string
-
 export const getAnimalCodes = async () => (await AnimalCode.find({})).map((x) => ({ code: x.code, value: x.value }))
 
 export const findById = async (id: string): Promise<IAnimal> => {
