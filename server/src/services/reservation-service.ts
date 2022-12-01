@@ -1,10 +1,7 @@
 import JsonError from '../json/JsonError'
 import type { IReservation } from '../entities/Reservation';
-import { JsonReservation } from '../json/JsonReservation';
 import Reservation from '../entities/Reservation';
 
-
-export const reservationToJsonReservation = (reservation: IReservation) => reservation as JsonReservation
 
 export const findReservationsByUserId = async (id: string): Promise<IReservation[]> => {
   try {
