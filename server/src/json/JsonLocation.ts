@@ -1,7 +1,8 @@
 import { JsonAddress } from "./JsonAddress"
 
 
-export interface ILocation {
+export interface JsonLocation {
+  _id: string
   name: string
   address: JsonAddress
 }
