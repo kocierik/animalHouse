@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as router from '@/router/index'
 import { ref } from 'vue'
-import type { Article } from './articles'
+import type { Article } from '../common/articles'
 const props = defineProps<{ articleInfo: Article }>()
 const article = ref(props.articleInfo)
 </script>

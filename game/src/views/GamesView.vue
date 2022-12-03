@@ -6,7 +6,7 @@ import * as router from '@/router/index'
 //@ts-ignore
 import { createToaster } from '@meforma/vue-toaster'
 import { Helpers } from 'shared'
-import Card from './gamesComponents/Card.vue'
+import Card from '../components/games/Card.vue'
 const toaster = createToaster({
   /* options */
 })

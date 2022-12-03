@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from '@/components/common/Header.vue'
-import SixCard from '@/components/common/SixCard.vue'
-import Shop from '@/components/common/Shop.vue'
+import SixCard from '@/components/home/SixCard.vue'
+import Shop from '@/components/home/Shop.vue'
 </script>
 <template>
   <Header />

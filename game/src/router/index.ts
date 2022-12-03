@@ -10,7 +10,7 @@ import HangManGame from '@/components/games/hangManGame/hangManGame.vue'
 import DueGame from '@/components/games/dueGame/dueGame.vue'
 import MinesweeperGame from '@/components/games/minesweeper/MinesweeperGame.vue'
 import ticTacToeGame from '@/components/games/ticTacToeGame/ticTacToeGame.vue'
-import CardProductHome from '@/components/common/CardProduct.vue'
+import CardProductHome from '@/components/home/CardProduct.vue'
 
 export const HomeRoute = '/'
 export const LoginRoute = '/login'
