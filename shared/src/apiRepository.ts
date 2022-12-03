@@ -7,6 +7,8 @@ import type * as community from './json/Community'
 import type * as review from './json/Review'
 import type * as cart from "./json/Cart"
 import type * as order from './json/Orders'
+import type * as reservation from "./json/Reservation"
+import type * as location from "./json/Location"
 import { stringFormat } from './helpers'
 
 // Server api urls
@@ -25,6 +27,9 @@ const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
 const _USER_CART = '/users/{0}/cart'
 const _USER_ORDERS = '/users/{0}/orders'
 
+const _RESERVATIONS = '/users/{0}/reservations'
+const _RESERVATIONS_DELETE = '/reservations/{0}'
+const _LOCATION = '/locations'
 const _PICTURES = '/pictures/{0}'
 
 const _ANIMAL_CODES = '/animals/codes'
@@ -109,5 +114,17 @@ export const deleteCart = async (userId: string, cartItems: string[]) =>
 
 export const postUserOrder = async (userId: string, paymentDetails: order.JsonPaymentDetails) => 
   Api.post<order.JsonOrder>(stringFormat(_BASE_URL + _USER_ORDERS, userId), paymentDetails, true)
+
+export const getReservations = async (userId: string) =>
+  Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _RESERVATIONS, userId),true)
+
+export const postReservation = async (userId: string, reservation: reservation.IReservation) =>
+  Api.post<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS, userId),reservation,true)
+
+export const deleteReservation = async (reservationId: string) =>
+  Api.delete<reservation.IReservation>(stringFormat(_BASE_URL + _RESERVATIONS_DELETE, reservationId),true)
+
+export const getLocation = async () =>
+  Api.get<location.ILocation[]>(stringFormat(_BASE_URL + _LOCATION),false)
 
 // TODO insert here other calls!!!!

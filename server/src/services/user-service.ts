@@ -1,22 +1,20 @@
-import { JsonUser, JsonUserCreation, JsonPicture } from '../json/JsonUser'
-import JsonError, { JsonBadReqError, JsonVisibilityError } from '../json/JsonError'
-import User, { Address, IAddress, IUser } from '../entities/User'
-import * as ProductService from './product-service'
-import * as CartService from './cart-service'
-import * as AnimalService from './animal-service'
-import * as OrderService from './order-service'
-import { ICartItem } from '../entities/CartItem'
-import { JsonAnimal } from '../json/JsonAnimal'
-import { JsonLogin } from '../json/JsonUser'
-import { AuthData } from '../routes/middlewares'
-import Admin from '../entities/Admin'
-import { IPicture } from '../entities/User'
-import Animal from '../entities/Animal'
-import { IAnimal } from '../entities/Animal'
 import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
+import Animal, { IAnimal } from '../entities/Animal'
+import { ICartItem } from '../entities/CartItem'
 import { Order } from '../entities/Order'
+import User, { Address, IAddress, IPicture, IUser } from '../entities/User'
+import { JsonAnimal } from '../json/JsonAnimal'
+import JsonError, { JsonBadReqError, JsonVisibilityError } from '../json/JsonError'
 import { JsonOrder } from '../json/JsonOrder'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
+import { JsonLogin, JsonPicture, JsonUser, JsonUserCreation } from '../json/JsonUser'
+import { JsonUserPatch } from '../json/patch/UserPatch'
+import { AuthData } from '../routes/middlewares'
+import * as AnimalService from './animal-service'
+import * as CartService from './cart-service'
+import * as OrderService from './order-service'
+import * as ProductService from './product-service'
+
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -197,7 +195,6 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
 }
 
 export const addPictureToAnimal = async (userId: string, animalId: string, picture: JsonPicture) => {
-  console.log('picture --> ', picture)
   const user = await User.findById(userId)
   if (user) {
     try {
@@ -208,7 +205,6 @@ export const addPictureToAnimal = async (userId: string, animalId: string, pictu
           x.picture = picture
         }
       })
-      console.log('utente con animale cambiato ', user)
       await user.save()
       return user.animals[index]
     } catch (err) {
@@ -223,8 +219,7 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
   const user = await User.findById(userId)
   if (user) {
     try {
-      console.log('prova --> ', updateUser)
-      await User.findByIdAndUpdate({ _id: userId }, updateUser).catch((e) => console.log('test -> ', e))
+      await User.findByIdAndUpdate({ _id: userId }, updateUser)
       return user
     } catch (error) {
       throw new JsonError(error.message)
@@ -244,3 +239,18 @@ export const createUserOrder = async (userId: string, paymentDetails: JsonPaymen
   return await OrderService.createOrderForUser(oldCart._id, paymentDetails)
 }
   
+export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
+  const user = await User.findById(id)
+  if (patch.zip) user.address.zip = patch.zip
+  if (patch.city) user.address.city = patch.city
+  if (patch.street) user.address.street = patch.street
+  if (patch.country) user.address.country = patch.country
+  if (patch.lastName) user.lastName = patch.lastName
+  if (patch.firstName) user.firstName = patch.firstName
+  if (patch.username) user.username = patch.username
+  if (patch.email) user.email = patch.email
+  if (patch.description) user.description = patch.description
+
+  await user.save()
+  return userToJsonUser(user)
+}

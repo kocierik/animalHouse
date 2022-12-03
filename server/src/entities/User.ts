@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import { addressSchema, IAddress } from './Address'
 import { IAnimal, animalSchema } from './Animal'
 
 export interface IUser {
@@ -20,25 +21,12 @@ export interface IPicture {
   size: number
 }
 
-export interface IAddress {
-  country: string
-  city: string
-  street: string
-  zip: number
-}
-
 const picturesSchema = new Schema<IPicture>({
   size: { type: Number, required: true },
   filename: { type: String, required: true },
   mimetype: { type: String, required: true },
 })
 
-const addressSchema = new Schema<IAddress>({
-  country: { type: String, required: true },
-  city: { type: String, required: true },
-  street: { type: String, required: true },
-  zip: { type: Number, required: true },
-})
 
 const userSchema = new Schema<IUser>({
   username: { type: String, required: true },
@@ -54,6 +42,5 @@ const userSchema = new Schema<IUser>({
 })
 
 const User = model<IUser>('User', userSchema)
-export const Address = model<IAddress>('Address', addressSchema)
 
 export default User
