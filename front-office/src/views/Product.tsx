@@ -47,7 +47,6 @@ export default function Product() {
   useEffect(() => {
     setSelectedColor(prod?.colors![0]!)
     fetchProduct(id)
-    console.log(selectedColor)
     fetchReview(id)
   }, [])
 
