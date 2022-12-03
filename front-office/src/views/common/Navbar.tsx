@@ -66,14 +66,6 @@ const Navbar = () => {
                   >
                     <Link to="/">Dashboard</Link>
                   </span>
-
-                  <span
-                    style={{ backgroundColor: history.pathname === '/service/' ? 'indigo' : '' }}
-                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    <Link to="/service/">Service</Link>
-                  </span>
-
                   <span
                     style={{ backgroundColor: history.pathname === '/shopping/' ? 'indigo' : '' }}
                     className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -224,14 +216,6 @@ const Navbar = () => {
               >
                 <a className=' text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/"); setNav(!nav)}}>Dashboard</a>
               </span>
-
-              <span
-                style={{ backgroundColor: history.pathname === '/service/' ? 'indigo' : '' }}
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                <a className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium cursor-pointer block px-4 py-2 text-sm text-gray-700' onClick={() => {navigate("/service/"); setNav(!nav)}}>Service</a>
-              </span>
-
               <span
                 style={{ backgroundColor: history.pathname === '/shopping/' ? 'indigo' : '' }}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"

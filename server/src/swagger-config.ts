@@ -1,13 +1,13 @@
 import { SwaggerAnimal } from './json/JsonAnimal'
 import { SwaggerCart } from './json/JsonCart'
-import { SwaggerProduct } from './json/JsonProduct'
-import { SwaggerCartItem} from './json/JsonCartItem'
-import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
-import { SwaggerReview } from './json/JsonReview'
-import { SwaggerAddress, SwaggerUser } from './json/JsonUser'
+import { SwaggerCartItem } from './json/JsonCartItem'
 import { SwaggerCartItemCreation } from './json/JsonCartItemCreation'
 import { SwaggerOrder } from './json/JsonOrder'
 import { SwaggerPaymentDetails } from './json/JsonPaymentDetails'
+import { SwaggerProduct } from './json/JsonProduct'
+import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
+import { SwaggerReview } from './json/JsonReview'
+import { SwaggerAddress, SwaggerUser } from './json/JsonUser'
 
 const swaggerOptions = {
   definition: {
@@ -27,7 +27,7 @@ const swaggerOptions = {
       },
     },
     components: {
-      tags: [{ name: 'users' }, { name: 'products' }, { name: 'community' }, { name: 'animals' }],
+      tags: [{ name: 'users' }, { name: 'products' }, { name: 'community' }, { name: 'animals' }, { name: 'reservations'}, {name: 'locations'}],
       schemas: {
         User: SwaggerUser,
         Animal: SwaggerAnimal,
@@ -40,10 +40,15 @@ const swaggerOptions = {
         CartItemCreation: SwaggerCartItemCreation,
         Order: SwaggerOrder,
         PaymentDetails: SwaggerPaymentDetails,
+        Reservation: SwaggerReservation,
+        Location: SwaggerLocation,
+        UserPatch: SwaggerUserPatch,
+        AnimalPatch: SwaggerAnimalPatch,
+        ProductPatch: SwaggerProductPatch,
       },
     },
   },
-  apis: ['src/routes/*.ts'],
+  apis: ['src/doc/*.yml', 'src/routes/*.ts'],
 }
 
 export default swaggerOptions

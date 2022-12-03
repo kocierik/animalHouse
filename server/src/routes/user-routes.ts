@@ -8,8 +8,6 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
-import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
-import { JsonPaymentDetails } from '@/json/JsonPaymentDetails'
 
 /**
  * @swagger
@@ -147,23 +145,29 @@ export const getAllUsers = async (_: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}:
- *   get:
- *     tags:
- *     - users
- *     summary: Get a user by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Numeric ID of the user to get
- *
- *     responses:
- *       200:
- *         description: ok
- *         schema:
+ * /users/{id}: {
+ *   get: {
+ *     tags: [ users ],
+ *     summary: Get a user by ID,
+ *     parameters: [
+ *      {
+ *         in: path,
+ *       name: id,
+ *       type: string,
+ *       required: true,
+ *       description: Numeric ID of the user to get
+ *       }
+ *      ],
+ *     responses: {
+ *       200: {
+ *         description: ok,
+ *         schema: {
  *           $ref: "#/components/schemas/User"
+ *         }
+ *        }
+ *       }
+ *      }
+ *     }
  * */
 export const getUser = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -174,39 +178,103 @@ export const getUser = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/score:
- *   put:
- *     tags:
- *     - users
- *     summary: Add a game score to the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Guid of the user
- *       - in: body
- *         name: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *               gameId:
- *                 type: string
- *               score:
- *                 type: number
- *     security:
- *     - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: object
- *           properties:
- *               gameGuid:
- *                 type: string
- *               score:
- *                 type: number
+ * /users/{id}: {
+ *   patch: {
+ *     tags: [users],
+ *     summary: Patch the specified user,
+ *     parameters: [
+ *     {
+ *      in: path,
+ *       name: id,
+ *       type: string,
+ *       required: true,
+ *       description: Numeric ID of the user to patch
+ *     },
+ *     {
+ *       in: body,
+ *        schema: {
+ *          $ref: "#/components/schemas/UserPatch"
+ *        }
+ *      }
+ *    ],
+ *     responses: {
+ *       200: {
+ *         description: ok,
+ *         schema: {
+ *           $ref: "#/components/schemas/User"
+ *         }
+ *        }
+ *      }
+ *     }
+ *   }
+ * */
+export const patchUser = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    const patch = req.body as JsonUserPatch
+    return res.status(Const.STATUS_OK).json(await UserService.patchUser(pathId, patch))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{id}/score : {
+ *            "put": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Add a game score to the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Guid of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "object",
+ *                          "properties": {
+ *                              "gameId": {
+ *                                  "type": "string"
+ *                              },
+ *                              "score": {
+ *                                  "type": "number"
+ *                              }
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "object",
+ *                          "properties": {
+ *                              "gameGuid": {
+ *                                  "type": "string"
+ *                              },
+ *                              "score": {
+ *                                  "type": "number"
+ *                              }
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *        }
  * */
 export const putScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -254,7 +322,7 @@ export const putScore = async (req: Request, res: Response) => {
 *                 gameGuid:
 *                   type: string
 *                 score:
-*                   type: number
+                    type: number
 * */
 export const getScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -286,7 +354,7 @@ export const getScore = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/CartItemCreation"
+ *             $ref: "#/components/schemas/ProductInstance"
  *     security:
  *     - JWT: []
  *     responses:
@@ -295,7 +363,7 @@ export const getScore = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/CartItem"
+ *             $ref: "#/components/schemas/ProductInstance"
  * */
 export const putInCart = async (req: Request, res: Response) => {
   try {
@@ -329,7 +397,7 @@ export const putInCart = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/CartItem"
+ *             $ref: "#/components/schemas/ProductInstance"
  * */
 export const getCart = async (req: Request, res: Response) => {
   try {
@@ -348,7 +416,7 @@ export const getCart = async (req: Request, res: Response) => {
  *     tags:
  *     - users
  *     summary: Delete a product from the cart of the specified user
- *     description: Takes in the body a list of string representing the cart item ids you want to delete
+ *     description: Takes in the body a list of string representing the product instance ids you want to delete
  *     parameters:
  *       - in: path
  *         name: id
@@ -357,8 +425,7 @@ export const getCart = async (req: Request, res: Response) => {
  *         description: Id of the user
  *       - in: body
  *         name: body
- *         required: false 
- *         description: If empty it will delete all cart items from the cart
+ *         required: true
  *         schema:
  *           type: array
  *           items:
@@ -372,7 +439,7 @@ export const getCart = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/CartItem"
+ *             $ref: "#/components/schemas/ProductInstance"
  *
  * */
 export const deleteCart = async (req: Request, res: Response) => {
@@ -389,33 +456,50 @@ export const deleteCart = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/animals:
- *   put:
- *     tags:
- *     - users
- *     summary: Add an animal for the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of the user
- *       - in: body
- *         name: body
- *         required: true
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/Animal"
- *     security:
- *       - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: array
- *           items:
- *             $ref: "#/components/schemas/Animal"
+ * /users/{id}/animals : {
+ *         "put": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Add an animal for the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Id of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/Animal"
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/Animal"
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *      }
  * */
 export const putAnimal = async (req: Request, res: Response) => {
   try {
@@ -431,26 +515,28 @@ export const putAnimal = async (req: Request, res: Response) => {
 /**
  * @swagger
  * /users/{uid}/animals/{aid}:
- *   delete:
- *     tags:
- *     - users
- *     summary: Retrive reviews about a product
- *     parameters:
+ *  delete:
+ *      tags:
+ *      - users
+ *       summary: Retrive reviews about a product
+ *       parameters:
  *       - in: path
  *         name: uid
  *         type: string
  *         required: true
  *         description: Id of the user to be searched
- *       - in: path
- *         name: aid
- *         type: string
- *         required: true
+ *      },
+ *       {
+ *          in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
  *         description: Id of the animal to be deleted
- *     security:
- *       - JWT: []
- *     responses:
- *       200:
- *         description: successful operation
+ *       security:
+ *         - JWT: []
+ *       responses:
+ *         200:
+ *           description: successful operation
  * */
 export const deleteAnimal = async (req: Request, res: Response) => {
   try {
@@ -465,20 +551,22 @@ export const deleteAnimal = async (req: Request, res: Response) => {
 /**
  * @swagger
  * /users/{uid}/animals/{aid}:
- *   put:
- *     tags:
- *     - users
- *     summary: edit a animal
- *     parameters:
+ *  put:
+ *      tags:
+ *      - users
+ *      summary: edit a animal
+ *       parameters:
  *       - in: path
  *         name: uid
  *         type: string
  *         required: true
  *         description: user id
- *       - in: path
- *         name: aid
- *         type: string
- *         required: true
+ *      },
+ *       { 
+ *         in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
  *         description: animal id
  *       - in: body
  *         name: Animal
@@ -505,13 +593,13 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *                   type: string
  *                 size:
  *                   type: number
- *     security:
- *       - JWT: []
- *     responses:
- *       200:
- *         description: Success
- *         schema:
- *           $ref: "#/components/schemas/Animal"
+ *       security:
+ *         - JWT: []
+ *       responses:
+ *         200:
+ *           description: Success
+ *           schema:
+ *             $ref: "#/definitions/Animal"
  *     
 * */
 export const updateAnimal = async (req: Request, res: Response) => {
@@ -573,57 +661,6 @@ export const putPicture = (req: Request, res: Response) => {
 
 
 
-/**
- * @swagger
- * /users/{uid}/animals/{aid}:
- *   put:
- *     tags:
- *     - users
- *     summary: edit a animal 
- *     parameters:
- *     - in: path
- *       name: uid
- *       type: string
- *       required: true
- *       description: user id
- *     - in: path
- *       name: aid
- *       type: string
- *       required: true
- *       description: animal id
- *     - in: body
- *       name: Animal
- *       description: Animal info
- *       schema:
- *         type: object
- *         properties:
- *           _id:
- *             type: string
- *           type:
- *             type: string
- *           name:
- *             type: string
- *           userId:
- *             type: string
- *           age:
- *             type: number
- *           picture:
- *             type: object
- *             properties:
- *               filename:
- *                 type: string
- *               mimetype:
- *                 type: string
- *               size:
- *                 type: number
- *     security:  
- *       - JWT: []
- *     responses:
- *       200:
- *         description: Success
- *         schema:
- *           $ref: "#/components/schemas/Animal"
-*/
 export const putAnimalPicture = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.uid
@@ -639,25 +676,30 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/description:
- *   put:
- *     tags:
- *     - users
- *     summary: Put a profile description
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of user
- *       - in: body
- *         name: body
- *         description: user description
+ *  /users/{id}/description:
+ *    put:
+ *      tags:
+ *      - users
+ *      summary: Put a profile description
+ *      parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *        description: Id of user
+ *      - in: body
+ *       name: body
+ *       description: user description
+ *       schema:
+ *           $ref: "#/definitions/User"
+ *
+ *     security:
+ *       - JWT: []
  *     responses:
  *       200:
  *         description: Success
  *         schema:
- *           $ref: "#/components/schemas/User"
+ *           $ref: "#/definitions/User"
  * */
 export const updateUserDescription = async (req: Request, res: Response) => {
   try {
@@ -670,72 +712,3 @@ export const updateUserDescription = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
-
-/**
- * @swagger
- * /users/{id}/orders:
- *   get:
- *     tags:
- *     - users
- *     summary: get orders of an user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of user
- *     responses:
- *       200:
- *         description: Success
- *         schema:
- *            type: array
- *            items:
- *              type: object
- *              schema:
- *                $ref: "#/components/schemas/Order"
- * */
-export const getUserOrders = async (req: Request, res: Response) => {
-  try {
-    return res.status(Const.STATUS_OK).json(await UserService.getUserOrders(req.params.id))
-  } catch (err) {
-    if (err instanceof JsonError) return res.status(err.code).json(err)
-    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
-  }
-}
-
-/**
- * @swagger
- * /users/{id}/orders:
- *   post:
- *     tags:
- *     - users
- *     summary: create an order for a user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Id of user
- *       - in: body
- *         type: object
- *         schema:
- *          $ref: "#/components/schemas/PaymentDetails"
- *     responses:
- *       200:
- *         description: Success
- *         schema:
- *            type: array
- *            items:
- *              type: object
- *              schema:
- *                $ref: "#/components/schemas/Order"
- * */
-export const postUserOrders = async (req: Request, res: Response) => {
-  try {
-    return res.status(Const.STATUS_OK).json(await UserService.createUserOrder(req.params.id, req.body as JsonPaymentDetails))
-  } catch (err) {
-    if (err instanceof JsonError) return res.status(err.code).json(err)
-    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
-  }
-}
-

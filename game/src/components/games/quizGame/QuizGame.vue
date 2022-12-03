@@ -44,7 +44,7 @@ const fetchQuestions = async () => {
     const resp = await Api.get<ApiResponse>(_URL)
     if (resp.esit && resp.data)  {
       questions.value = resp.data.results.map(mapQuestion) 
-      error.value = true
+      error.value = false
     } else {
       error.value = true
     }
