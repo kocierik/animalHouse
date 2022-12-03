@@ -6,7 +6,7 @@ import { Helpers } from 'shared'
 const defaultMenuClasses = 'w-full md:block md:w-auto'
 
 const changeColorNav = (id: string) => {
-  const dict = [{ name: 'isHome' }, { name: 'isPersonal' }, { name: 'isGames' }]
+  const dict = [{ name: 'isHome' }, { name: 'isPersonal' }, {name: 'isShop'}, { name: 'isGames' }]
 
   document.addEventListener('click', function () {
     dict.forEach((element) => {
@@ -81,6 +81,20 @@ const logout = () => {
                   class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                 >
                   Home
+                </a>
+              </router-link>
+            </li>
+            <li
+              id="isShop"
+              v-on:click="changeColorNav('isShop')"
+              class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+            >
+              <router-link :to="router.ShopRoute">
+                <a
+                  href="#"
+                  class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+                >
+                  Shop 
                 </a>
               </router-link>
             </li>
