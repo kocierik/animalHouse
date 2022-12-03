@@ -1,4 +1,4 @@
-import { JsonAddress } from "./JsonUser"
+import { JsonAddress } from "./JsonAddress"
 
 export interface JsonPaymentDetails {
     cardName: string

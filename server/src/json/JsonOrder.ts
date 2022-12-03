@@ -1,5 +1,4 @@
-import { JsonCartItem } from "./JsonCartItem"
-import { JsonAddress } from "./JsonUser"
+import { JsonAddress } from "./JsonAddress"
 
 export interface JsonOrder {
     _id: string
