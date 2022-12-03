@@ -4,7 +4,8 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
+import { ApiRepository, ProductMarked, ProductConstant, JsonReview, Helpers, JsonCart} from 'shared';
+import { toast } from 'react-toastify';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -51,6 +52,38 @@ export default function Product() {
 
 
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
+
+  const addToCart = async () => {
+    if((ProductConstant.PRODUCT_TYPE[prod?.categoryId as string] !== "FOOD")){
+      if(!selectedColor){
+        toast.warn('You should select a color and a size!', {position: toast.POSITION.TOP_CENTER})
+        return
+      }
+    }
+    if(!selectedSize){
+      toast.warn('You should select a size!', {position: toast.POSITION.TOP_CENTER})
+      return
+    }
+
+    const userId = Helpers.getUserId()
+
+    if (!userId) {
+      toast.warn('You should login first!', {position: toast.POSITION.TOP_CENTER})
+      return
+    }
+
+    const cartItemCreation: JsonCart.ICartItemCreation= {
+      productId: prod?._id!,
+      color: selectedColor,
+      type: ProductConstant.PRODUCT_TYPE[prod?.categoryId as string],
+      size: selectedSize,
+    }
+    const resp = await ApiRepository.putCart(userId, cartItemCreation)
+    if(resp.esit)
+       toast.success("Product addded to cart", {position: toast.POSITION.TOP_CENTER})
+    else
+       toast.error(`Something wrong appened :/ (${resp.error?.mex})`, {position: toast.POSITION.TOP_CENTER})
+  }
 
   return (
     <>
@@ -123,7 +156,8 @@ export default function Product() {
 
               <form className="mt-10">
                 {/* Colors */}
-                <div>
+                {(ProductConstant.PRODUCT_TYPE[prod?.categoryId as string] !== "FOOD") &&
+                  <div>
                   <h3 className="text-md text-gray-900 font-medium">Color</h3>
 
                   <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
@@ -137,7 +171,7 @@ export default function Product() {
                                 key={color}
                                 value={color}
                                 style={{ backgroundColor: color }}
-                                onClick={(() => { setSelectedColor(color); console.log(selectedColor) })}
+                                onClick={(() => { setSelectedColor(color); })}
                                 className={({ active, checked }) =>
                                   classNames(
                                     active || checked ? 'ring-2 bg-white' : '',
@@ -154,7 +188,7 @@ export default function Product() {
                     </div>
                   </RadioGroup>
                 </div>
-
+                }
                 {/* Sizes */}
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
@@ -170,7 +204,7 @@ export default function Product() {
                             <RadioGroup.Option
                               key={size}
                               value={size}
-                              onClick={(() => setSelectedSize(size))}
+                              onClick={(() => {setSelectedSize(size) })}
                               className={({ active }) =>
                                 classNames(
                                   active ? "ring-1 bg-green-400 " : "",
@@ -187,6 +221,7 @@ export default function Product() {
 
                 <button
                   type="button"
+                  onClick={async () => await addToCart() }
                   className="mt-10 ring-1 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Add to bag
@@ -196,14 +231,14 @@ export default function Product() {
           </div>
 
           {/* Product info */}
-          <div className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+          <div className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-16 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">Description</h1>
             </div>
             <div
               data-aos="fade-up"
               data-aos-duration="500"
-              className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8"
+              className="py-10 lg:pt-6 lg:pb-1 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8"
             >
               {/* Description and details */}
               <div>

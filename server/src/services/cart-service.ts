@@ -1,64 +1,104 @@
-import JsonError from '../json/JsonError'
-import { Types } from 'mongoose'
-import Cart, { ICart, IProductInstance } from '../entities/Cart'
+import JsonError, { JsonNotFoundError, JsonServerError, JsonVisibilityError } from '../json/JsonError'
+import Cart, { ICart } from '../entities/Cart'
+import { CartItem, ICartItem } from '../entities/CartItem'
+import { JsonCart } from '../json/JsonCart'
+import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
+import * as ProductService from './product-service'
 
-export const createCartIfNotExists = async (userId: string): Promise<ICart> => {
+export const cartToJsonCart = (cart: ICart) => cart as JsonCart
+
+export const createActiveCartIfNotExists = async (userId: string): Promise<ICart> => {
   try {
-    const response = await Cart.exists({ userId: userId })
+    const response = await Cart.exists({ userId: userId, active: true })
     if (!response) {
       // We have to create an empty cart
-      let cart = new Cart()
+      const cart = new Cart()
       cart.userId = userId
-      cart.productInstances = []
+      cart.cartItems = []
       await cart.save()
       return cart
     } else {
-      return (await findCartOfUser(userId)) as ICart
+      return (await findActiveCartOfUser(userId)) 
     }
   } catch (err) {
     throw new JsonError(err.message)
   }
 }
 
-export const addToCart = async (cart: ICart, products: IProductInstance[]) => {
+export const addToCart = async (cartId: string, products: JsonCartItemCreation[]): Promise<ICart> => {
   try {
-    const pis = cart.productInstances.concat(products)
-    await Cart.updateOne({ _id: cart.userId }, { productInstances: pis })
+    const cart = await Cart.findById(cartId)
+    if (!cart.active)
+      throw new JsonVisibilityError("Cannot add products to a inactive cart!")
+    const cartItems = await Promise.all(products.map(constructCartItem))
+    cart.cartItems.push(...cartItems)
+    return await cart.save()
   } catch (err) {
     throw new JsonError(err.message)
   }
 }
 
-export const findCartOfUser = (id: string) => Cart.findOne({ userId: id })
+export const findActiveCartOfUser = async (id: string) => {
+  return await Cart.findOne({ userId: id, active: true })
+}
 
-export const deleteFromCart = async (cartId: string, productInstancesIds: string[]): Promise<ICart> => {
+export const deleteFromCart = async (cartId: string, cartItemsIdToRemove: string[]): Promise<ICart> => {
   try {
+    if (cartItemsIdToRemove.length === 0)
+      throw new Error("You can't remove no cart items!")
     const cart = await Cart.findOne({ _id: cartId })
-
-    if (!cart) throw new JsonError('Cart is empty')
-
-    const piids = productInstancesIds.map((x) => new Types.ObjectId(x))
-
-    // Get all product instance ids that are passed into the body of the call
-    // but are not present into the cart
-    const invalids = piids.filter(
-      (piId: Types.ObjectId) =>
-        !includesId(
-          piId,
-          cart.productInstances.map((pii) => pii._id)
-        )
-    )
-
-    if (invalids.length !== 0) throw new JsonError(`${invalids} are not product instances of this cart`)
-
-    cart.productInstances = cart.productInstances.filter((pi) => !includesId(pi._id, piids))
+    cart.cartItems = cart.cartItems.filter(x => !cartItemsIdToRemove.includes(x._id.toString()))
     await cart.save()
-    return cart as ICart
+    return cart 
   } catch (err) {
     if (err instanceof JsonError) throw err
     throw new JsonError(err.message)
   }
 }
 
-const includesId = (id: Types.ObjectId, collection: any[]): boolean =>
-  collection.reduce((old: boolean, x: any) => x._id.toString() === id.toString() || old, false)
+export const deleteAllFromCart = async (cartId: string): Promise<ICart> => {
+  try {
+    const cart = await Cart.findOne({ _id: cartId })
+    cart.cartItems = []
+    await cart.save()
+    return cart
+  } catch (err) {
+    if (err instanceof JsonError) throw err
+    throw new JsonError(err.message)
+  }
+}
+
+const constructCartItem = async (creation: JsonCartItemCreation): Promise<ICartItem> => {
+  const cartItem = new CartItem()
+  cartItem.color = creation.color
+  cartItem.size = creation.size
+  cartItem.type = creation.type
+  cartItem.productId = creation.productId
+  const product = await ProductService.findProductByid(creation.productId)
+  cartItem.price = product.price
+  return cartItem
+}
+
+const deactivateCart = async (cartId: string): Promise<ICart> => {
+  const cart = await Cart.findById(cartId)
+  if (cart) {
+    cart.active = false
+    await cart.save()
+    return cart
+  } else throw new JsonServerError("Cannot deactivate a cart if it does not exist")
+
+}
+
+export const generateNewCartForUser = async (userId: string): Promise<ICart> => {
+  const oldCart = await findActiveCartOfUser(userId)
+  
+  // mark as not active
+  await deactivateCart(oldCart._id)
+
+  // create new one
+  const newCart = await createActiveCartIfNotExists(userId)
+
+  return newCart as ICart
+}
+
+export const isCartDeactivated = async (cartId: string): Promise<boolean> => (await (Cart.findById(cartId))).active === false

@@ -1,5 +1,22 @@
 export abstract class Api {
 
+  private static async request<T>(url: string, options: RequestInit, auth: boolean): Promise<ApiResponse<T>> {
+    if (auth) {
+      const headers = new Headers(options.headers)
+      headers.append("Authorization", this.getToken())
+      options.headers = headers
+    }
+
+    const response = await fetch(url, options);
+
+    if (response.status >= 200 && response.status < 300) {
+      // Success
+      return new ApiResponse<T>(response.status, (await response.json() as T))
+    } else {
+      return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
+    }
+  }
+
   public static async getImage(url: string) {
     let options: RequestInit = {
       method: 'GET'
@@ -22,80 +39,54 @@ export abstract class Api {
 
   }
 
-  public static async get<T>(url: string, auth = false): Promise<ApiResponse<T>> {
+  public static get<T>(url: string, auth = false): Promise<ApiResponse<T>> {
     let options: RequestInit = {
-      method: 'GET'
+      method: 'GET',
     };
-    if (auth) {
-      options.headers = { 'Authorization': this.getToken() }
-    }
 
-
-    let response = await fetch(url, options);
-    if (response.status >= 200 && response.status < 300) {
-      // Success
-      return new ApiResponse<T>(response.status, (await response.json() as T))
-    } else {
-      return new ApiResponse<T>(response.status)
-    }
+    return this.request(url, options, auth)
   }
 
-  public static async post<T>(url: string, body: any, auth = false, sendContentType = true): Promise<ApiResponse<T>> {
-    let headers: Headers = new Headers({ 'Accept': 'application/json' })
+  public static post<T>(url: string, body: any, auth = false, sendingJson = true): Promise<ApiResponse<T>> {
+    const headers: Headers = new Headers({ 'Accept': 'application/json' })
 
-    if (auth)
-      headers.append("Authorization", this.getToken())
-    if (sendContentType)
+    if (sendingJson)
       headers.append('Content-Type', 'application/json')
 
-    let options: RequestInit = {
+    const options: RequestInit = {
       method: 'POST',
       body: body instanceof FormData ? body : JSON.stringify(body),
       headers: headers
     }
 
-    let response = await fetch(url, options);
-    if (response.status >= 200 && response.status < 300) {
-      // Success
-      return new ApiResponse<T>(response.status, (await response.json() as T))
-    } else
-      return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
+    return this.request(url, options, auth)
   }
 
-  public static async put<T>(url: string, body: any, auth = false, sendContentType = true): Promise<ApiResponse<T>> {
+  public static put<T>(url: string, body: any, auth = false, sendingJson = true): Promise<ApiResponse<T>> {
+    const headers: Headers = new Headers({ 'Accept': 'application/json' })
 
-    let headers: Headers = new Headers({ 'Accept': 'application/json' })
-    if (sendContentType)
+    if (sendingJson)
       headers.append('Content-Type', 'application/json')
 
-    headers.append('Authorization', auth ? this.getToken() : "")
-    let options: RequestInit = {
+    const options: RequestInit = {
       method: 'PUT',
       body: body instanceof FormData ? body : JSON.stringify(body),
       headers: headers
-    };
+    }
 
-    let response = await fetch(url, options);
-    if (response.status >= 200 && response.status < 300) {
-      // Success
-      return new ApiResponse<T>(response.status, (await response.json() as T))
-    } else
-      return new ApiResponse<T>(response.status, undefined, (await response.json() as JsonError))
+    return this.request(url, options, auth)
   }
 
-  public static async delete<T>(url: string, auth = false): Promise<ApiResponse<T>> {
-    let options: RequestInit = {
-      method: 'DELETE'
+  public static delete<T>(url: string, body: any, auth = false): Promise<ApiResponse<T>> {
+    const options: RequestInit = {
+      method: 'DELETE',
+      body: body instanceof FormData ? body : JSON.stringify(body),
+      headers: {
+        "Content-Type" : "application/json"
+      }
     };
-    if (auth) {
-      options.headers = { 'Authorization': this.getToken() }
-    }
-    let response = await fetch(url, options);
-    if (response.status >= 200 && response.status < 300) {
-      // Success
-      return new ApiResponse<T>(response.status, (await response.json() as T))
-    } else
-      return new ApiResponse<T>(response.status)
+
+    return this.request(url, options, auth)
   }
 
   protected static getToken(): string {
