@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Product from './Product.vue'
-import { productArticles } from './articles'
+import { productArticles } from '../common/articles'
 import { FRONTOFFICE } from '@/const'
 </script>
 <template>

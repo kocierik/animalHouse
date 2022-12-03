@@ -4,7 +4,7 @@
 
 che non esiste.
 */
-import type { Article } from './articles'
+import type { Article } from '../common/articles'
 import { ref } from 'vue'
 
 const props = defineProps<{ params: Article }>()
