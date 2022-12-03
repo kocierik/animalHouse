@@ -52,7 +52,7 @@ appRouter.put(
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
-  userRoutes.putCart
+  userRoutes.putInCart
 )
 appRouter.delete(
   version + '/users/:id/cart',
@@ -81,7 +81,7 @@ appRouter.put(
   middlewares.verifyToken,
   middlewares.verifyUser,
   middlewares.multerMiddleware('profile'),
-  userRoutes.postPicture
+  userRoutes.putPicture
 )
 appRouter.put(
   version + '/users/:id/animals',
@@ -111,6 +111,21 @@ appRouter.put(
   middlewares.verifyUser,
   middlewares.multerMiddleware('profileAnimal'),
   userRoutes.putAnimalPicture
+)
+appRouter.get(
+  version + '/users/:id/orders',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.getUserOrders
+)
+
+appRouter.post(
+  version + '/users/:id/orders',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.postUserOrders
 )
 
 // Admins
