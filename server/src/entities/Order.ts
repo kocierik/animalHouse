@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose"
-import { cartItemSchema, ICartItem } from "./CartItem"
-import { IAddress } from "./User"
+import { IAddress } from "./Address"
 
 export interface IOrder {
     _id: string

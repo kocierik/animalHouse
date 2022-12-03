@@ -1,11 +1,11 @@
+import { JsonAddress } from "../json/JsonAddress";
 import { IOrder, Order } from "../entities/Order";
-import { IAddress } from "../entities/User";
 import { JsonCartItem } from "../json/JsonCartItem";
 import { JsonServerError } from "../json/JsonError";
 import { JsonOrder } from "../json/JsonOrder";
 import { JsonPaymentDetails } from "../json/JsonPaymentDetails";
-import { JsonAddress } from "../json/JsonUser";
 import * as CartService from "./cart-service"
+import { IAddress } from "../entities/Address";
 
 export const orderToJsonOrder = (order: IOrder) : JsonOrder => 
 ({

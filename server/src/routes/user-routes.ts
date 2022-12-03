@@ -8,6 +8,9 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
+import { JsonUserPatch } from '../json/patch/UserPatch'
+import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 
 /**
  * @swagger
@@ -710,5 +713,73 @@ export const updateUserDescription = async (req: Request, res: Response) => {
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{id}/orders:
+ *   get:
+ *     tags:
+ *     - users
+ *     summary: get orders of an user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of user
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/components/schemas/Order"
+ * */
+ export const getUserOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.getUserOrders(req.params.id))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{id}/orders:
+ *   post:
+ *     tags:
+ *     - users
+ *     summary: create an order for a user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of user
+ *       - in: body
+ *         type: object
+ *         schema:
+ *          $ref: "#/components/schemas/PaymentDetails"
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/components/schemas/Order"
+ * */
+export const postUserOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.createUserOrder(req.params.id, req.body as JsonPaymentDetails))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
