@@ -1,4 +1,4 @@
-import { Api, ApiResponse } from 'shared'
+import { AnimalType, Api, ApiResponse } from 'shared'
 import type { CatFact, CatImg } from './models/CatFact'
 import type { IHoroscope } from './models/Horoscope'
 import { Helpers } from 'shared'
@@ -13,3 +13,11 @@ export const fetchCatImg = async (): Promise<ApiResponse<CatImg>> => Api.get<Cat
 
 export const fetchHoroscope = async (sign: string): Promise<ApiResponse<IHoroscope>> =>
   Api.get<IHoroscope>(Helpers.stringFormat(HOROSCOPE_URL, sign))
+
+export const fetchFakeFact = async (animal: AnimalType) => {
+  const response = await fetchCatFacts()
+  if (response.data){
+    response.data.data[0] = response.data!.data[0].replace(/cat/gi, animal)
+  }
+  return response
+}
