@@ -117,7 +117,7 @@ const logout = () => {
               v-on:click="changeColorNav('isGames')"
               class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
             >
-              <router-link :to="router.GamesRoute">
+              <router-link :to="router.FunnyRoute">
                 <a
                   href="#"
                   class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
