@@ -12,84 +12,84 @@ const Checkout = () => {
   }
 
   const [buyingProduct, setBuyingProduct] = useState<BuyingProduct[]>([])
-  const [name,setName] = useState("")
-  const [exp,setExp] = useState("")
-  const [addr,setAddr] = useState("")
-  const [cvc,setCvc] = useState("")
-  const [card,setCard] = useState("")
-  const [stat,setStat] = useState("")
-  const [city,setCity] = useState("")
-  const [postal,setPostal] = useState("")
+  const [name, setName] = useState("")
+  const [exp, setExp] = useState("")
+  const [addr, setAddr] = useState("")
+  const [cvc, setCvc] = useState("")
+  const [card, setCard] = useState("")
+  const [stat, setStat] = useState("")
+  const [city, setCity] = useState("")
+  const [postal, setPostal] = useState("")
 
   const userId = Helpers.getUserId()
 
   if (!userId) {
     window.location.href = "/login"
-    return
+    return <div />
   }
 
   const mapCartToBuyingProducts = (cartItems: JsonCart.ICartItem[]): Promise<BuyingProduct[]> =>
-   Promise.all(cartItems.map(async cartItem => ({
-          cartItem: cartItem,
-          product: await fetchProduct(cartItem.productId)
-        } as BuyingProduct)))
+    Promise.all(cartItems.map(async cartItem => ({
+      cartItem: cartItem,
+      product: await fetchProduct(cartItem.productId)
+    } as BuyingProduct)))
 
-  const fetchProduct = async (id: string): Promise<ProductMarked.IProductMarked | undefined> => 
-    (await ApiRepository.getMarketProduct(id)).data 
+  const fetchProduct = async (id: string): Promise<ProductMarked.IProductMarked | undefined> =>
+    (await ApiRepository.getMarketProduct(id)).data
 
-  const fetchBuyingProducts= async () => {
-      const resp =  await ApiRepository.getCart(userId)
-      if (resp.esit) {
-        setBuyingProduct(await mapCartToBuyingProducts(resp.data!))
-      } 
+  const fetchBuyingProducts = async () => {
+    const resp = await ApiRepository.getCart(userId)
+    if (resp.esit) {
+      setBuyingProduct(await mapCartToBuyingProducts(resp.data!))
+    }
   }
 
   useEffect(() => {
     fetchBuyingProducts()
-  },[])
+  }, [])
 
   const removeFromCart = async (cartItemId: string) => {
     const resp = await ApiRepository.deleteCart(userId, [cartItemId])
     if (resp.esit) {
       setBuyingProduct(await mapCartToBuyingProducts(resp.data!))
-    } 
+    }
   }
 
-  const getTotalPrice = (shipping : number = 0): number => 
+  const getTotalPrice = (shipping: number = 0): number =>
     buyingProduct?.map(bp => bp.cartItem).reduce((accumulator, value) =>
       accumulator + value.price, shipping) || 0
 
 
-  const constructPaymentDetails = () : JsonPaymentDetails => 
-    ({
-      address: {
-        cap: Number(postal),
-        city: city,
-        country: stat,
-        street: addr
-      } as JsonAddress,
-      cardName: name,
-      cardNumber: card
-    })
+  const constructPaymentDetails = (): JsonPaymentDetails =>
+  ({
+    address: {
+      zip: Number(postal),
+      city: city,
+      country: stat,
+      street: addr
+    } as JsonAddress,
+    cardName: name,
+    cardNumber: card
+  })
 
   const order = async (e: any) => {
-    e.preventDefault()  
+    e.preventDefault()
 
-    if(buyingProduct.length === 0){
-      toast.warning('You should select a product first!', {position: toast.POSITION.TOP_CENTER})
+    if (buyingProduct.length === 0) {
+      toast.warning('You should select a product first!', { position: toast.POSITION.TOP_CENTER })
       return
     }
 
-    if(!name || !exp || !addr || !cvc || !card || !stat || !city || !postal){
-      toast.warning('You should compile all the form!', {position: toast.POSITION.TOP_CENTER})
+    if (!name || !exp || !addr || !cvc || !card || !stat || !city || !postal) {
+      toast.warning('You should compile all the form!', { position: toast.POSITION.TOP_CENTER })
       return
     }
-  
+
     const resp = await ApiRepository.postUserOrder(userId, constructPaymentDetails())
     if (resp.esit) {
       setBuyingProduct(await mapCartToBuyingProducts([]))
-      toast.success("Congratulation, Bought!", {position: toast.POSITION.TOP_CENTER})
-    } 
+      toast.success("Congratulation, Bought!", { position: toast.POSITION.TOP_CENTER })
+    }
   }
 
   return (
@@ -103,54 +103,54 @@ const Checkout = () => {
 
         {/* Mobile order summary */}
         <section aria-labelledby="order-heading" className="bg-gray-50 px-4 pt-10 sm:px-6 lg:hidden" data-aos="zoom-in"
-        data-aos-duration="500">
+          data-aos-duration="500">
           <Disclosure as="div" className="max-w-lg mx-auto">
             <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div>
-                <Disclosure.Panel>
-                  <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
-                    {buyingProduct?.map((product, i) => (
-                      <li key={i} className="flex py-6 space-x-6">
-                        <img
-                          src={product.product.images[0]}
-                          alt={product.product.name}
-                          className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
-                        />
-                        <div className="flex flex-col  space-y-4">
-                          <div className="text-sm font-medium space-y-1">
-                            <h3 className="text-gray-900">Name: {product.product.name}</h3>
-                            <p className="text-gray-900">Price: {product.cartItem.price}$</p>
-                           { product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
-                            <p className="text-gray-500">Size: {product.cartItem.size}</p>
-                          </div>
-                          <div className="flex 	 space-x-4">
-                            <div className="flex  border-gray-300 ">
-                              <button
-                                type="button"
-                                onClick={async () => await removeFromCart(product.cartItem._id)}
-                                className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          </div>
+            <Disclosure.Panel>
+              <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
+                {buyingProduct?.map((product, i) => (
+                  <li key={i} className="flex py-6 space-x-6">
+                    <img
+                      src={product.product.images[0]}
+                      alt={product.product.name}
+                      className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
+                    />
+                    <div className="flex flex-col  space-y-4">
+                      <div className="text-sm font-medium space-y-1">
+                        <h3 className="text-gray-900">Name: {product.product.name}</h3>
+                        <p className="text-gray-900">Price: {product.cartItem.price}$</p>
+                        {product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
+                        <p className="text-gray-500">Size: {product.cartItem.size}</p>
+                      </div>
+                      <div className="flex 	 space-x-4">
+                        <div className="flex  border-gray-300 ">
+                          <button
+                            type="button"
+                            onClick={async () => await removeFromCart(product.cartItem._id)}
+                            className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
+                          >
+                            Remove
+                          </button>
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                </Disclosure.Panel>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </Disclosure.Panel>
           </Disclosure>
         </section>
 
         {/* Order summary */}
         <section aria-labelledby="summary-heading" className=" bg-gray-50 w-full max-w-md flex-col lg:flex" data-aos="zoom-in"
-        data-aos-duration="500">
+          data-aos-duration="500">
           {/* <h2 id="summary-heading" className="flex text-xl justify-center mt-5">
             Order summary
           </h2> */}
-            {/* <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div> */}
+          {/* <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div> */}
 
           <ul role="list" className="flex-auto overflow-y-auto divide-y divide-gray-200 px-6">
-            {buyingProduct?.map((product,i) => (
+            {buyingProduct?.map((product, i) => (
               <li key={i} className="flex py-6 space-x-6">
                 <img
                   src={product.product.images[0]}
@@ -161,7 +161,7 @@ const Checkout = () => {
                   <div className="text-sm font-medium space-y-1">
                     <h3 className="text-gray-900">Name: {product.product.name}</h3>
                     <p className="text-gray-900">Price: {product.cartItem.price}$</p>
-                    { product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
+                    {product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
                     <p className="text-gray-500">Size: {product.cartItem.size}</p>
                   </div>
                   <div className="flex list-item  space-x-4">
@@ -174,22 +174,22 @@ const Checkout = () => {
                 </div>
               </li>
             ))}
-          <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
-            <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
-              <div className="flex justify-between">
-                <dt>Subtotal:</dt>
-                <dd className="text-gray-900">{getTotalPrice()}$</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Shipping</dt>
-                <dd className="text-gray-900">10$</dd>
-              </div>
-              <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
-                <dt className="text-base">Total:</dt>
-                <dd className="text-base">{getTotalPrice(10)}$</dd>
-              </div>
-            </dl>
-          </div>
+            <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
+              <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
+                <div className="flex justify-between">
+                  <dt>Subtotal:</dt>
+                  <dd className="text-gray-900">{getTotalPrice()}$</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt>Shipping</dt>
+                  <dd className="text-gray-900">10$</dd>
+                </div>
+                <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
+                  <dt className="text-base">Total:</dt>
+                  <dd className="text-base">{getTotalPrice(10)}$</dd>
+                </div>
+              </dl>
+            </div>
           </ul>
 
         </section>
@@ -356,7 +356,7 @@ const Checkout = () => {
             </form>
           </div>
         </section>
-              <ToastContainer />
+        <ToastContainer />
       </main>
     </>
   )
