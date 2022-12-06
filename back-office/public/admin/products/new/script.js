@@ -55,7 +55,7 @@ $("#send").click( async function () {
             })
         })
         const data = await dataRes.json()
-        //TODO: fixare, spesso non entra qui e non carica la foto del prodotto
+        
         //add product picture
         console.log(data)
 
