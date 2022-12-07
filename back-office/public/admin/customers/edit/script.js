@@ -44,6 +44,25 @@ function showImage() {
     };
 }
 
+function resetPassword(){
+    var newPwd = Math.random().toString(36).slice(2, 12)
+    
+    fetch("/v1/users/" + getUrlParameter('id'), {
+        method: "PATCH",
+        headers: {
+            "authorization": localStorage.token,
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        },
+        body: JSON.stringify({
+            "password": newPwd,
+        })
+    })
+    alert(getUrlParameter("id")+"\'s new password is: "+newPwd)
+
+
+}
+
 function retrieveUser(id) {
     var url = "/v1/users/" + id;
     fetch(url, {
