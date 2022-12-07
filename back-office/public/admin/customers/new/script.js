@@ -16,7 +16,7 @@ function showImage() {
 
 $("#send").click(async function () {
     //SEND USER
-    const dataRes = await fetch("/v1/users/register", {
+    var dataRes = await fetch("/v1/users/register", {
         method: "POST",
         headers: {
             "authorization": localStorage.token,
@@ -29,19 +29,23 @@ $("#send").click(async function () {
             "username": $("#grid-username").val(),
             "description": $("#grid-description").val(),
             "email": $("#grid-email").val(),
-            "password": "default123undefinedundefined",
+            "password": $("#grid-password").val(),
             "street": $("#grid-street").val(),
             "city": $("#grid-city").val(),
             "zip": $("#grid-zip").val(),
             "country": $("#grid-country").val(),
         })
     })
-    const data = await dataRes.json()
+    var data = await dataRes.json()
     console.log(data)
+
+    if(data.mex != undefined){
+        alert(data.mex)
+    }
 
     //SEND IMAGE
     let img = $('#grid-image').prop('files')[0];
-    if (img) {
+    if (img && data._id != undefined) {
         var send = new FormData()
         send.append("profile", img)
         dataRes = await fetch("/v1/users/" + data._id + "/picture", {
@@ -55,5 +59,10 @@ $("#send").click(async function () {
         data = await dataRes.json()
 
         console.log(data)
+        
+    }else if(data._id != undefined){
+        window.location.href = "../"
     }
+
+   
 });
