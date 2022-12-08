@@ -66,13 +66,6 @@ appRouter.put(
   userRoutes.putAnimal
 )
 appRouter.put(
-  version + '/users/:id/description',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  userRoutes.updateUserDescription
-)
-appRouter.put(
   version + '/users/:id/picture',
   middlewares.log,
   middlewares.verifyToken,
