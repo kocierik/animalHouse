@@ -145,15 +145,15 @@ appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts)
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
 appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct)
-appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert
+appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert TODO add ADMIN middleware
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
 
 // Reservations
-appRouter.get(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations) 
-appRouter.post(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.postReservation) 
-appRouter.delete(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation) 
+appRouter.get(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations)
+appRouter.post(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.postReservation)
+appRouter.delete(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation)
 
 // Location
 appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocation) 
