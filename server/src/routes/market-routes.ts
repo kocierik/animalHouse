@@ -8,9 +8,19 @@ import { ProductPatch } from '@/json/patch/ProductPatch'
 
 /**
  * @swagger
- * TODO
+ *  /products:
+ *    get:
+ *        tags:
+ *        - products
+ *        summary: Returns all products
+ *        responses:
+ *          200:
+ *            description: successful operation
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: "#/components/schemas/Product"
  * */
-// TODO swagger 
 export const getProducts = async (_: Request, res: Response) => res.json(await ProductService.findAllProduct())
 
 /**
