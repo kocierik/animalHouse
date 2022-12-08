@@ -54,6 +54,8 @@ export const getProduct = async (req: Request, res: Response) =>
  *      tags:
  *      - products
  *      summary: Deletes a product based on the received id
+ *      security:
+ *        - JWT: []
  *      parameters:
  *        - in: path
  *          name: id
@@ -82,6 +84,8 @@ export const deleteProduct = async (req: Request, res: Response) => {
  *      tags:
  *      - products
  *      summary: Modify a product based on the received id
+ *      security:
+ *        - JWT: []
  *      parameters:
  *        - in: path
  *          name: id
@@ -115,6 +119,8 @@ export const patchProduct = async (req: Request, res: Response) => {
  *        tags:
  *        - products
  *        summary: Creates a new product
+ *        security:
+ *          - JWT: []
  *        parameters:
  *          - in: body
  *            name: body

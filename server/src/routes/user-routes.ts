@@ -178,6 +178,8 @@ export const getUser = async (req: Request, res: Response) => {
  *     tags:
  *     - users
  *     summary: Patch the specified user
+*      security:
+*        - JWT: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -583,45 +585,6 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
     const file = req.file as JsonPicture
     const newData = UserService.pictureToJsonPicture(file)
     return res.status(Const.STATUS_OK).json(await UserService.addPictureToAnimal(pathId, animalId, newData))
-  } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
-    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
-  }
-}
-
-/**
- * @swagger
- *  /users/{id}/description:
- *    put:
- *      tags:
- *      - users
- *      summary: Put a profile description
- *      parameters:
- *      - in: path
- *        name: id
- *        type: string
- *        required: true
- *        description: Id of user
- *      - in: body
- *       name: body
- *       description: user description
- *       schema:
- *           $ref: "#/definitions/User"
- *
- *     security:
- *       - JWT: []
- *     responses:
- *       200:
- *         description: Success
- *         schema:
- *           $ref: "#/definitions/User"
- * */
-export const updateUserDescription = async (req: Request, res: Response) => {
-  try {
-    const pathId = req.params.id
-    let updateUser = req.body as JsonUser
-    console.log(updateUser)
-    return res.status(Const.STATUS_OK).json(await UserService.updateUserDescription(pathId, updateUser))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
