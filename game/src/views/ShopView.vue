@@ -30,7 +30,6 @@ onBeforeMount(async () => {
     <div class="h-full p-20">
         <!-- Loading -->
         <div v-if="loading">
-            <h1>Loading...</h1>
         </div>
         <!-- Content -->
         <div v-else>
