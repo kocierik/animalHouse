@@ -310,7 +310,6 @@ export const getProductCategory = async (req: Request, res: Response) => {
  * */
 export const getProductCategoriesName = async (_: Request, res: Response) => {
   try {
-    console.log("okOKOKOKOK")
     return res.status(Const.STATUS_OK).json(await ProductService.getProductCategoriesName())
   } catch (err) {
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))

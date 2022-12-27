@@ -15,9 +15,6 @@ const Shopping = () => {
     }
   }
   
-  useEffect(() =>{
-    //getCategoryProduct()
-  },[])
 
   return (
     <>
