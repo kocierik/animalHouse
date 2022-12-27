@@ -120,7 +120,6 @@ export const deleteFromUserCart = async (userId: string, piids: string[]) => {
   return getUserProducts(userId)
 }
 
-
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
   const user = await User.findById(userId)
   if (user) {
@@ -136,7 +135,7 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
 export const addPictureToAnimal = async (animalId: string, picture: JsonPicture) => {
   const animal = await Animal.findById(animalId)
   if (animal) {
-    await animal.updateOne({picture: picture})
+    await animal.updateOne({ picture: picture })
     await animal.save()
     return animal
   } else throw new JsonError(`Can\'t find animal with id ${animalId}`)
@@ -155,4 +154,3 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
     }
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
-

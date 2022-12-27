@@ -394,8 +394,6 @@ export const postPicture = (req: Request, res: Response) => {
   }
 }
 
-
-
 export const putAnimalPicture = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.id

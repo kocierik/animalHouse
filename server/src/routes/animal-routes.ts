@@ -61,7 +61,6 @@ export const getAnimal = async (req: Request, res: Response) => {
   }
 }
 
-
 /**
  * @swagger
  * /animals/{id}:
@@ -112,7 +111,7 @@ export const postAnimal = async (req: Request, res: Response) => {
  *         required: true,
  *         description: user id
  *      },
- *       { 
+ *       {
  *         in: path,
  *         name: aid,
  *         type: string,
@@ -130,7 +129,7 @@ export const postAnimal = async (req: Request, res: Response) => {
  *          }
  *         }
  *        }
- *      ], 
+ *      ],
  *       security: [
  *          {JWT: []}
  *       ],
@@ -155,7 +154,6 @@ export const updateAnimal = async (req: Request, res: Response) => {
     return res.status(Const.STATUS_BAD_REQUEST).json(error)
   }
 }
-
 
 /**
  * @swagger
@@ -197,8 +195,6 @@ export const deleteAnimal = async (req: Request, res: Response) => {
   }
 }
 
-
-
 /**
  * @swagger
  *  /users/{id}/animals:
@@ -227,4 +223,3 @@ export const findAnimalsUser = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
-

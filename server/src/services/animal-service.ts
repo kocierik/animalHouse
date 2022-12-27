@@ -21,7 +21,7 @@ export const findById = async (id: string): Promise<IAnimal> => {
 
 export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
   const user = await User.findById(userId)
-  if (user) { 
+  if (user) {
     const newAnimal = new Animal()
     newAnimal.name = animal.name
     newAnimal.age = animal.age
@@ -29,18 +29,14 @@ export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
     newAnimal.type = animal.type
     newAnimal.userId = animal.userId
     await newAnimal.save()
-    const newAnim =  user.animals.push(newAnimal._id)
+    const newAnim = user.animals.push(newAnimal._id)
     console.log(newAnim)
     await user.save()
     return user.animals
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-
-export const updateFromAnimal = async (
-  animalId: string,
-  updateAnimal: JsonAnimal
-): Promise<IAnimal> => {
+export const updateFromAnimal = async (animalId: string, updateAnimal: JsonAnimal): Promise<IAnimal> => {
   const animal = await Animal.findById(animalId)
   if (animal) {
     animal.age = updateAnimal.age
@@ -53,12 +49,11 @@ export const updateFromAnimal = async (
   }
 }
 
-
 export const deleteFromAnimal = async (animalId: string): Promise<IAnimal> => {
   const animal = await Animal.findById(animalId)
   if (animal) {
     const retAnimal = animal
-    await User.updateMany({_id: animal.userId},{ $pull: { animals: { $in: [animal._id] } } })
+    await User.updateMany({ _id: animal.userId }, { $pull: { animals: { $in: [animal._id] } } })
     await animal.remove()
     return retAnimal
   } else {
@@ -66,10 +61,9 @@ export const deleteFromAnimal = async (animalId: string): Promise<IAnimal> => {
   }
 }
 
-
 export const findAnimalsUser = async (id: string) => {
   try {
-    const result = await Animal.find({userId: id})
+    const result = await Animal.find({ userId: id })
     return result
   } catch (err) {
     return null

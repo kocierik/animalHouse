@@ -27,7 +27,6 @@ const picturesSchema = new Schema<IPicture>({
   mimetype: { type: String, required: true },
 })
 
-
 const userSchema = new Schema<IUser>({
   username: { type: String, required: true },
   email: { type: String, required: true },

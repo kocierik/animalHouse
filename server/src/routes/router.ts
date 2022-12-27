@@ -5,9 +5,9 @@ import * as userRoutes from '../routes/user-routes'
 import * as communityRoutes from '../routes/community-routes'
 import * as marketRoutes from '../routes/market-routes'
 import * as adminRoutes from '../routes/admin-routes'
-import * as reservationRoutes from "../routes/reservation-routes"
-import * as locationRoutes from "../routes/location-routes"
-import * as serviceRoutes from "../routes/service.routes"
+import * as reservationRoutes from '../routes/reservation-routes'
+import * as locationRoutes from '../routes/location-routes'
+import * as serviceRoutes from '../routes/service.routes'
 
 import * as Const from '../const'
 
@@ -127,19 +127,53 @@ appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
 
 // Reservations
-appRouter.get(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations) 
-appRouter.post(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.postReservation) 
-appRouter.delete(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation) 
-appRouter.get(version + '/animals/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.getAnimalReservations) 
-appRouter.get(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getSingleReservation) 
-appRouter.put(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser,  reservationRoutes.putReservation) 
-
+appRouter.get(
+  version + '/users/:id/reservations',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.getReservations
+)
+appRouter.post(
+  version + '/users/:id/reservations',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.postReservation
+)
+appRouter.delete(
+  version + '/reservations/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.deleteReservation
+)
+appRouter.get(
+  version + '/animals/:id/reservations',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.getAnimalReservations
+)
+appRouter.get(
+  version + '/reservations/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.getSingleReservation
+)
+appRouter.put(
+  version + '/reservations/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.putReservation
+)
 
 // Location
-appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocations) 
-appRouter.get(version + '/locations/:id', middlewares.log, locationRoutes.getLocationById) 
-
+appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocations)
+appRouter.get(version + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
 
 // Service
-appRouter.get(version + '/services', middlewares.log, serviceRoutes.getAllServices) 
-
+appRouter.get(version + '/services', middlewares.log, serviceRoutes.getAllServices)
+appRouter.get(version + '/services/names/:id', middlewares.log, serviceRoutes.getSingleServicesName)
