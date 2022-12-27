@@ -78,7 +78,13 @@ export default function Login() {
                 <p className="mt-3 text-gray-500">Sign in to access your account</p>
               </div>
 
-              <form className="mt-8"  onSubmit={async (e) => {e.preventDefault(); await doLogin()}}>
+              <form
+                className="mt-8"
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  await doLogin()
+                }}
+              >
                 <div className="my-10">{error != -1 ? <ErrorBox text={errors[error]} /> : <div />}</div>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm text-gray-600">
@@ -132,7 +138,8 @@ export default function Login() {
                   }
                 "*/
                     className="text-green-500 focus:outline-none focus:underline hover:underline"
-                  >{' '}
+                  >
+                    {' '}
                     Sign up
                   </a>
                   .

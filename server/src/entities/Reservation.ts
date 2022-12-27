@@ -1,9 +1,9 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model, Types } from 'mongoose'
 
 export interface IReservation {
   _id: string
   animalId: string
-  serviceName: string
+  serviceId: string
   userId: string
   date: string
   information: string
@@ -11,8 +11,8 @@ export interface IReservation {
 }
 
 export const reservationSchema = new Schema<IReservation>({
-  animalId: {type: String, required: true},
-  serviceName: { type: String, required: true },
+  animalId: { type: String, required: true },
+  serviceId: { type: String, required: true },
   userId: { type: String, required: true },
   date: { type: String, required: true },
   information: { type: String, required: false },

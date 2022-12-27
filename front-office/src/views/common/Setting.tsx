@@ -7,8 +7,6 @@ import { useEffect } from 'react'
 const Setting = (props: { settingInfoDesk: IsettingInfo[] }) => {
   const [isOpen, setIsOpen] = useState(false)
 
-
-
   return (
     <div className="flex p-5 self-end">
       <div className="ml-3 relative">

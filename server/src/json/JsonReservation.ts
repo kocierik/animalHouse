@@ -29,7 +29,7 @@ export const SwaggerReservation = {
       type: 'string',
     },
     locationId: {
-      type: 'string'
+      type: 'string',
     },
   },
 }

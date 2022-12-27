@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared';
+import { ApiRepository, ProductMarked, ProductConstant, JsonReview } from 'shared'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -35,10 +35,10 @@ export default function Product() {
   const [avarage, setAvarage] = useState(0)
 
   const fetchReview = async (productId: string) => {
-    const val = (await (ApiRepository.getProductReviews(productId))).data
+    const val = (await ApiRepository.getProductReviews(productId)).data
     setReviewsStar(val!)
     if (val) {
-      const sum = val.reduce((b, a) => b + a.star, 1);
+      const sum = val.reduce((b, a) => b + a.star, 1)
       setAvarage(sum / val?.length!)
     }
   }
@@ -48,7 +48,6 @@ export default function Product() {
     fetchProduct(id)
     fetchReview(id)
   }, [])
-
 
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
 
@@ -129,28 +128,30 @@ export default function Product() {
                   <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                     <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                     <div className="flex items-center space-x-3">
-                      {
-                        productColor && productColor.map(
-                          (color) => {
-                            return (
-                              <RadioGroup.Option
-                                key={color}
-                                value={color}
-                                style={{ backgroundColor: color }}
-                                onClick={(() => { setSelectedColor(color); console.log(selectedColor) })}
-                                className={({ active, checked }) =>
-                                  classNames(
-                                    active || checked ? 'ring-2 bg-white' : '',
-                                    'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                                  )
-                                }
-                              >
-                                <RadioGroup.Label as="span" className="sr-only">
-                                  {color}
-                                </RadioGroup.Label>
-                              </RadioGroup.Option>
-                            )
-                          })}
+                      {productColor &&
+                        productColor.map((color) => {
+                          return (
+                            <RadioGroup.Option
+                              key={color}
+                              value={color}
+                              style={{ backgroundColor: color }}
+                              onClick={() => {
+                                setSelectedColor(color)
+                                console.log(selectedColor)
+                              }}
+                              className={({ active, checked }) =>
+                                classNames(
+                                  active || checked ? 'ring-2 bg-white' : '',
+                                  'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                                )
+                              }
+                            >
+                              <RadioGroup.Label as="span" className="sr-only">
+                                {color}
+                              </RadioGroup.Label>
+                            </RadioGroup.Option>
+                          )
+                        })}
                     </div>
                   </RadioGroup>
                 </div>
@@ -165,19 +166,21 @@ export default function Product() {
                     <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                       <label className="sr-only">Choose a size</label>
                       <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                        {prod?.sizes?.map(size => {
+                        {prod?.sizes?.map((size) => {
                           return (
                             <RadioGroup.Option
                               key={size}
                               value={size}
-                              onClick={(() => setSelectedSize(size))}
+                              onClick={() => setSelectedSize(size)}
                               className={({ active }) =>
                                 classNames(
-                                  active ? "ring-1 bg-green-400 " : "",
+                                  active ? 'ring-1 bg-green-400 ' : '',
                                   'border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'
                                 )
                               }
-                            >{size}</RadioGroup.Option>
+                            >
+                              {size}
+                            </RadioGroup.Option>
                           )
                         })}
                       </div>

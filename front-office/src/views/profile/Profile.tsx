@@ -18,8 +18,8 @@ const Profile = () => {
   const textValue = useRef<HTMLTextAreaElement>(null)
   const [openNewAnimal, setOpenNewAnimal] = useState(false)
   const [viewModalReservation, setViewModalReservation] = useState(false)
-  const [animalReservation,setAnimalReservation] = useState<JsonReservation.IReservation[]>([])
-  const [userAnimals,setUserAnimals] = useState<JsonAnimal.JsonAnimal[]>([])
+  const [animalReservation, setAnimalReservation] = useState<JsonReservation.IReservation[]>([])
+  const [userAnimals, setUserAnimals] = useState<JsonAnimal.JsonAnimal[]>([])
 
   const sendImage = async () => {
     if (file && Helpers.getUserId()) {
@@ -46,7 +46,6 @@ const Profile = () => {
   const [info, setInfo] = useState(settingInfoDescription)
   const [imageProfile, setImageProfile] = useState<string>()
 
-
   const getImage = async () => {
     const user = (await ApiRepository.getCurrentUser()).data
     if (user) {
@@ -54,18 +53,15 @@ const Profile = () => {
       setUser(userInfo)
       textValue.current!.value = userInfo?.description!
       // --------------------
-      const image = (await (ApiRepository.getPicture(user.id))).data
+      const image = (await ApiRepository.getPicture(user.id)).data
       setImageProfile(image)
     }
   }
 
-
   const getUserAnimals = async () => {
     const resp = await ApiRepository.findAnimalsUser(Helpers.getUserId()!)
-    if(resp.esit)
-      setUserAnimals(resp.data!)
+    if (resp.esit) setUserAnimals(resp.data!)
   }
-
 
   useEffect(() => {
     getUserAnimals()
@@ -75,14 +71,14 @@ const Profile = () => {
 
   const saveDescription = async () => {
     try {
-      if(Helpers.getUserId()){
+      if (Helpers.getUserId()) {
         let newUser = user
         newUser!.description = textValue.current?.value!
         const result = await ApiRepository.updateUserDescription(Helpers.getUserId()!, newUser!)
         console.log(result)
       }
     } catch (error: any) {
-      throw new Error("errore salvataggio descrizione -> ", error)
+      throw new Error('errore salvataggio descrizione -> ', error)
     }
   }
 
@@ -161,30 +157,70 @@ const Profile = () => {
                     <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {user?.firstName} {user?.lastName}
                   </div>
                 </div>
-                          {viewModalReservation && <EditmodalReservationCard showModal={viewModalReservation} setShowModal={setViewModalReservation} openService={"Edit service"} animalReservation={animalReservation}/> }
+                {viewModalReservation && (
+                  <EditmodalReservationCard
+                    showModal={viewModalReservation}
+                    setShowModal={setViewModalReservation}
+                    openService={'Edit service'}
+                    animalReservation={animalReservation}
+                  />
+                )}
                 <div data-aos="zoom-in" className="flex flex-col items-center">
                   <div className="w-full   px-4 lg:order-1">
                     <div className="flex  justify-center py-4 lg:pt-4 pt-8 ">
                       <div className="flex items-center flex-col flex-nowrap	  justify-center">
-                        <div style={{flexFlow: "wrap"}} data-aos="zoom-in" className="flex-col items-center flex-row p-3 text-center  flex justify-center flex-1 gap-5 flex-col lg:flex-row">
+                        <div
+                          style={{ flexFlow: 'wrap' }}
+                          data-aos="zoom-in"
+                          className="flex-col items-center flex-row p-3 text-center  flex justify-center flex-1 gap-5 flex-col lg:flex-row"
+                        >
                           {userAnimals?.map((animal, i) => {
-                            return <AnimalCard key={i} index={i} isOptionEnable={isOptionEnable} setUserAnimals={setUserAnimals} animal={animal} allAnimals={userAnimals} setUser={setUser} user={user!} setViewModalReservation={setViewModalReservation} viewModalReservation={viewModalReservation} setAnimalReservation={setAnimalReservation} />
+                            return (
+                              <AnimalCard
+                                key={i}
+                                index={i}
+                                isOptionEnable={isOptionEnable}
+                                setUserAnimals={setUserAnimals}
+                                animal={animal}
+                                allAnimals={userAnimals}
+                                setUser={setUser}
+                                user={user!}
+                                setViewModalReservation={setViewModalReservation}
+                                viewModalReservation={viewModalReservation}
+                                setAnimalReservation={setAnimalReservation}
+                              />
+                            )
                           })}
                         </div>
-                        <div className='flex justify-center p-4 min-w-24	 mt-5   hover:translate-y-1  hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg  cursor-pointer border'>
-                          {
-                            openNewAnimal ? <DefaultCard setUser={setUser} user={user!} allAnimals={user?.animals!} setOpenNewAnimal={setOpenNewAnimal} openNewAnimal={openNewAnimal} /> :
-                              <svg onClick={() => setOpenNewAnimal(!openNewAnimal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 min-w-sm  ">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                              </svg>
-                          }
+                        <div className="flex justify-center p-4 min-w-24	 mt-5   hover:translate-y-1  hover:bg-gray-100 hover:scale-105 duration-300 rounded-lg  cursor-pointer border">
+                          {openNewAnimal ? (
+                            <DefaultCard
+                              setUser={setUser}
+                              user={user!}
+                              allAnimals={user?.animals!}
+                              setOpenNewAnimal={setOpenNewAnimal}
+                              openNewAnimal={openNewAnimal}
+                            />
+                          ) : (
+                            <svg
+                              onClick={() => setOpenNewAnimal(!openNewAnimal)}
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-8 h-8 min-w-sm  "
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div data-aos="zoom-in" className="mt-10 w-full py-10 border-t border-gray-300">
-                   <h3 className="text-3xl font-semibold leading-normal mb-2 text-gray-800 p-3">Description</h3>
+                  <h3 className="text-3xl font-semibold leading-normal mb-2 text-gray-800 p-3">Description</h3>
                   <div className="flex w-full flex-wrap justify-center ">
                     <div className="flex flex-1  justify-center flex-col items-center bg-white rounded-lg border border-gray-200 shadow-md ">
                       {isOptionEnable && (
@@ -201,7 +237,10 @@ const Profile = () => {
                         }}
                         className=" flex w-11/12	 mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center 	m-5"
                         disabled={!canWrite}
-                        onBlur={async () => { setCanWrite(false); await saveDescription() }}
+                        onBlur={async () => {
+                          setCanWrite(false)
+                          await saveDescription()
+                        }}
                         maxLength={300}
                         rows={5}
                       ></textarea>

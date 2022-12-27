@@ -31,16 +31,14 @@ import JsonError from '../json/JsonError'
 export const getReservations = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id)
-    if (user){
+    if (user) {
       return res.status(Const.STATUS_OK).json(await ReservationService.findReservationsByUserId(req.params.id))
     }
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
-
 }
-
 
 /**
  * @swagger
@@ -97,7 +95,7 @@ export const postReservation = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /animals/{id}/reservations: 
+ * /animals/{id}/reservations:
  *   get:
  *     tags:
  *     - reservations
@@ -127,7 +125,6 @@ export const getAnimalReservations = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
-
 
 /**
  * @swagger
@@ -162,9 +159,6 @@ export const deleteReservation = async (req: Request, res: Response) => {
   }
 }
 
-
-
-
 /**
  * @swagger
  * /reservations/{id}:
@@ -198,7 +192,6 @@ export const getSingleReservation = async (req: Request, res: Response) => {
   }
 }
 
-
 // header error
 /**
  * @swagger
@@ -206,7 +199,7 @@ export const getSingleReservation = async (req: Request, res: Response) => {
  *   put:
  *     tags:
  *     - reservations
- *     summary: edit a reservations 
+ *     summary: edit a reservations
  *     parameters:
  *       - in: path
  *         name: id
@@ -248,4 +241,3 @@ export const putReservation = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
-

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { JsonReview, ApiRepository } from 'shared';
-import PostReview from './PostReview';
+import { JsonReview, ApiRepository } from 'shared'
+import PostReview from './PostReview'
 import StarsSumUp from './StarsSumUp'
-
 
 interface IProps {
   productId: string
@@ -31,14 +30,19 @@ const Reviewer = (props: IProps) => {
       <div className="">
         <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
         <StarsSumUp productId={productId} />
-        <div className=''>
+        <div className="">
           <PostReview productId={productId} post={post} setPost={setPost} />
         </div>
       </div>
       <div className="mb-2 mt-5  rounded-t-8xl rounded-b-5xl overflow-hidden">
         {reviews.reverse()?.map((review, i) => (
-          <div key={i} data-aos="fade-up" data-aos-duration="500" className="container mb-5 rounded-lg shadow-md divide-y divide-solid bg-gray-50 h-auto p-2">
-            <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40" >
+          <div
+            key={i}
+            data-aos="fade-up"
+            data-aos-duration="500"
+            className="container mb-5 rounded-lg shadow-md divide-y divide-solid bg-gray-50 h-auto p-2"
+          >
+            <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40">
               <div className="flex flex-wrap items-center">
                 <img className="mr-6" src="" alt="" />
                 <h4 className="w-full md:w-auto text-xl font-heading font-medium">{review.username}</h4>

@@ -25,9 +25,7 @@ export const getLocations = async (_: Request, res: Response) => {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
-
 }
-
 
 /**
  * @swagger
@@ -58,5 +56,4 @@ export const getLocationById = async (req: Request, res: Response) => {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
-
 }
