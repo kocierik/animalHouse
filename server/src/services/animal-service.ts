@@ -3,6 +3,7 @@ import Animal, { IAnimal } from '../entities/Animal'
 import AnimalCode from '../entities/AnimalCode'
 import User from '../entities/User'
 import JsonError from '../json/JsonError'
+import { AnimalPatch } from '@/json/patch/AnimalPatch'
 
 export const createAnimals = async (animals: JsonAnimal[]): Promise<IAnimal[]> =>
   (await Animal.insertMany(animals.map(jsonAnimalToAnimal))) as IAnimal[]
@@ -68,4 +69,14 @@ export const findAnimalsUser = async (id: string) => {
   } catch (err) {
     return null
   }
+}
+
+export const patchAnimal = async (id: string, patch: AnimalPatch): Promise<JsonAnimal> => {
+  const animal = await Animal.findById(id)
+  if (patch.age) animal.age = patch.age
+  if (patch.name) animal.name = patch.name
+  if (patch.type) animal.type = patch.type
+
+  await animal.save()
+  return animal as JsonAnimal
 }

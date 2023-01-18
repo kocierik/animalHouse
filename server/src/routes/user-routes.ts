@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IProductInstance } from '../entities/Cart'
+import { ICartItem } from '../entities/CartItem'
 import { JsonUserCreation, JsonLogin, JsonPicture, JsonUser } from '../json/JsonUser'
 import { JsonAnimal } from '../json/JsonAnimal'
 import Score from '../entities/Score'
@@ -8,6 +8,9 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
+import { JsonUserPatch } from '../json/patch/UserPatch'
+import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 
 /**
  * @swagger
@@ -145,23 +148,29 @@ export const getAllUsers = async (_: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}:
- *   get:
- *     tags:
- *     - users
- *     summary: Get a user by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Numeric ID of the user to get
- *
- *     responses:
- *       200:
- *         description: ok
- *         schema:
+ * /users/{id}: {
+ *   get: {
+ *     tags: [ users ],
+ *     summary: Get a user by ID,
+ *     parameters: [
+ *      {
+ *         in: path,
+ *       name: id,
+ *       type: string,
+ *       required: true,
+ *       description: Numeric ID of the user to get
+ *       }
+ *      ],
+ *     responses: {
+ *       200: {
+ *         description: ok,
+ *         schema: {
  *           $ref: "#/components/schemas/User"
+ *         }
+ *        }
+ *       }
+ *      }
+ *     }
  * */
 export const getUser = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -172,39 +181,103 @@ export const getUser = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/score:
- *   put:
- *     tags:
- *     - users
- *     summary: Add a game score to the specified user
- *     parameters:
- *       - in: path
- *         name: id
- *         type: string
- *         required: true
- *         description: Guid of the user
- *       - in: body
- *         name: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *               gameId:
- *                 type: string
- *               score:
- *                 type: number
- *     security:
- *     - JWT: []
- *     responses:
- *       200:
- *         description: ok
- *         schema:
- *           type: object
- *           properties:
- *               gameGuid:
- *                 type: string
- *               score:
- *                 type: number
+ * /users/{id}: {
+ *   patch: {
+ *     tags: [users],
+ *     summary: Patch the specified user,
+ *     parameters: [
+ *     {
+ *      in: path,
+ *       name: id,
+ *       type: string,
+ *       required: true,
+ *       description: Numeric ID of the user to patch
+ *     },
+ *     {
+ *       in: body,
+ *        schema: {
+ *          $ref: "#/components/schemas/UserPatch"
+ *        }
+ *      }
+ *    ],
+ *     responses: {
+ *       200: {
+ *         description: ok,
+ *         schema: {
+ *           $ref: "#/components/schemas/User"
+ *         }
+ *        }
+ *      }
+ *     }
+ *   }
+ * */
+export const patchUser = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    const patch = req.body as JsonUserPatch
+    return res.status(Const.STATUS_OK).json(await UserService.patchUser(pathId, patch))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{id}/score : {
+ *            "put": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Add a game score to the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Guid of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "object",
+ *                          "properties": {
+ *                              "gameId": {
+ *                                  "type": "string"
+ *                              },
+ *                              "score": {
+ *                                  "type": "number"
+ *                              }
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "object",
+ *                          "properties": {
+ *                              "gameGuid": {
+ *                                  "type": "string"
+ *                              },
+ *                              "score": {
+ *                                  "type": "number"
+ *                              }
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *        }
  * */
 export const putScore = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -295,13 +368,13 @@ export const getScore = async (req: Request, res: Response) => {
  *           items:
  *             $ref: "#/components/schemas/ProductInstance"
  * */
-export const putCart = async (req: Request, res: Response) => {
+export const putInCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
-    const pqs = req.body as IProductInstance[]
-    return res.status(Const.STATUS_OK).json(await UserService.addProductToUserCart(pathId, pqs))
+    const creations = req.body as JsonCartItemCreation[]
+    return res.status(Const.STATUS_OK).json(await UserService.addProductToUserCart(pathId, creations))
   } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    if (ex instanceof JsonError) return res.status(ex.code).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
@@ -331,7 +404,8 @@ export const putCart = async (req: Request, res: Response) => {
  * */
 export const getCart = async (req: Request, res: Response) => {
   try {
-    return res.status(Const.STATUS_OK).json(await UserService.getUserProducts(req.param.id))
+    const id = req.params.id
+    return res.status(Const.STATUS_OK).json(await UserService.getUserCartItems(id))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
@@ -375,7 +449,8 @@ export const deleteCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const piIds = req.body as string[]
-    return res.status(Const.STATUS_OK).json(await UserService.deleteFromUserCart(pathId, piIds))
+    const result = (piIds.length === 0)? UserService.deleteAllFromCart(pathId) : UserService.deleteFromUserCart(pathId, piIds)
+    return res.status(Const.STATUS_OK).json(await result)
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
@@ -406,33 +481,33 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
   }
 }
 
-// /**
-//  * @swagger
-//  *  /users/{id}/description:
-//  *    put:
-//  *      tags:
-//  *      - users
-//  *      summary: Put a profile description
-//  *      parameters:
-//  *      - in: path
-//  *        name: id
-//  *        type: string
-//  *        required: true
-//  *        description: Id of user
-//  *      - in: body
-//  *       name: body
-//  *       description: user description
-//  *       schema:
-//  *           $ref: "#/definitions/User"
-//  *
-//  *     security:
-//  *       - JWT: []
-//  *     responses:
-//  *       200:
-//  *         description: Success
-//  *         schema:
-//  *           $ref: "#/definitions/User"
-//  * */
+/**
+ * @swagger
+ *  /users/{id}/description:
+ *    put:
+ *      tags:
+ *      - users
+ *      summary: Put a profile description
+ *      parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *        description: Id of user
+ *      - in: body
+ *       name: body
+ *       description: user description
+ *       schema:
+ *           $ref: "#/definitions/User"
+ *
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *           $ref: "#/definitions/User"
+ * */
 export const updateUserDescription = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
@@ -442,5 +517,73 @@ export const updateUserDescription = async (req: Request, res: Response) => {
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{id}/orders:
+ *   get:
+ *     tags:
+ *     - users
+ *     summary: get orders of an user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of user
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/components/schemas/Order"
+ * */
+ export const getUserOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.getUserOrders(req.params.id))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{id}/orders:
+ *   post:
+ *     tags:
+ *     - users
+ *     summary: create an order for a user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of user
+ *       - in: body
+ *         type: object
+ *         schema:
+ *          $ref: "#/components/schemas/PaymentDetails"
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/components/schemas/Order"
+ * */
+export const postUserOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.createUserOrder(req.params.id, req.body as JsonPaymentDetails))
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }

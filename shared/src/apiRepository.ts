@@ -7,41 +7,50 @@ import type * as community from "./json/Community";
 import type * as review from "./json/Review";
 import type * as reservation from "./json/Reservation";
 import type * as location from "./json/Location";
+import type * as cart from "./json/Cart";
+import type * as order from "./json/Orders";
 import type * as service from "./json/Service";
 import { stringFormat } from "./helpers";
 
 // Server api urls
-const _BASE_URL = "http://localhost:8080/v1";
-const _USERS_LOGIN = "/users/login";
-const _USER_INFO = "/users/{0}";
-const _USER_CURRENT = "/users/current";
-const _USER_REGISTER = "/users/register";
-const _USER_UPDATE_DESCRIPTION = "/users/{0}/description";
-const _USERS_SCORES = "/users/{0}/scores/";
-const _USERS_ANIMALS = "/animals/{0}";
-const _USERS_ANIMALS_DELETE = "/animals/{0}/delete";
-const _USERS_ANIMALS_EDIT = "/animals/{0}/edit";
-const _USER_PICTURE = "/users/{0}/picture";
-const _USER_ANIMAL_PICTURE = "animals/{0}/picture";
-const _RESERVATIONS = "/users/{0}/reservations";
-const _RESERVATIONS_ANIMALS = "/animals/{0}/reservations";
-const _RESERVATIONS_DELETE = "/reservations/{0}";
-const _RESERVATIONS_GET = "/reservations/{0}";
-const _RESERVATIONS_PUT = "/reservations/{0}";
-const _LOCATION = "/locations";
-const _LOCATION_GET = "/locations/{0}";
-const _SERVICES_GET = "/services";
-const _SERVICES_SINGLE_GET = "/services/names/{0}";
-const _PICTURES = "/pictures/{0}";
+const _BASE_URL = 'http://localhost:8080/v1'
+
 const _ANIMAL_GET = "/animals/{0}/info";
 const _ANIMAL_GETALL = "/users/{0}/animals";
 const _ANIMAL_CODES = "/animals/codes";
+
+const _USERS_LOGIN = '/users/login'
+const _USER_INFO = '/users/{0}'
+const _USER_CURRENT = '/users/current'
+const _USER_REGISTER = '/users/register'
+const _USER_UPDATE_DESCRIPTION = '/users/{0}/description'
+const _USERS_SCORES = '/users/{0}/scores/'
+const _USERS_ANIMALS = '/users/{0}/animals'
+const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
+const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
+const _USER_PICTURE = '/users/{0}/picture'
+const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
+const _USER_CART = '/users/{0}/cart'
+const _USER_ORDERS = '/users/{0}/orders'
+
+const _RESERVATIONS = '/users/{0}/reservations'
+const _RESERVATIONS_DELETE = '/reservations/{0}'
+const _RESERVATIONS_ANIMALS = "/animals/{0}/reservations";
+const _RESERVATIONS_GET = "/reservations/{0}";
+const _RESERVATIONS_PUT = "/reservations/{0}";
+const _LOCATION = '/locations'
+const _PICTURES = '/pictures/{0}'
 
 const _COMMUNITY_GAME_SCOREBOARD = "/community/game/scoreboard";
 
 const _PRODUCTS = "/products/";
 const _PRODUCTS_REVIEW = "/products/{0}/reviews/";
 const _PRODUCTS_REVIEWS_SUM_UP = "/products/{0}/reviews/sum-up";
+
+const _SERVICES_GET = "/services";
+const _SERVICES_SINGLE_GET = "/services/names/{0}";
+
+const _LOCATION_GET = "/locations/{0}";
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, {
@@ -164,9 +173,19 @@ export const updateUserDescription = async (
 };
 
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
-  Api.get<review.JsonProductSumUp>(
-    stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId)
-  );
+  Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
+
+export const putCart = async (userId: string, product : cart.ICartItemCreation) =>
+  Api.put<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product], true)
+
+export const getCart = async (userId: string) =>
+  Api.get<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), true)
+
+export const deleteCart = async (userId: string, cartItems: string[]) =>
+  Api.delete<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), cartItems, true)
+
+export const postUserOrder = async (userId: string, paymentDetails: order.JsonPaymentDetails) => 
+  Api.post<order.JsonOrder>(stringFormat(_BASE_URL + _USER_ORDERS, userId), paymentDetails, true)
 
 export const getReservations = async (userId: string) =>
   Api.get<reservation.IReservation[]>(

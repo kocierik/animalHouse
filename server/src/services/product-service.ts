@@ -1,10 +1,12 @@
 import JsonError from '../json/JsonError'
 import Product, { IProduct } from '../entities/Product'
-import { IProductInstance } from '../entities/Cart'
+import { ICartItem } from '../entities/CartItem'
 import { JsonProduct } from '../json/JsonProduct'
 import Review from '../entities/Review'
 import { JsonReview } from '../json/JsonReview'
 import JsonProductSumUp from '../json/JsonProductSumUp'
+import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
+import { ProductPatch } from '@/json/patch/ProductPatch'
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 
@@ -17,9 +19,9 @@ export const findProductByid = async (id: string): Promise<IProduct> => {
   }
 }
 
-const isValidOption = (x: any, y: any[]): boolean => x || y.includes(x)
+const isValidOption = (x: any, y: any[]): boolean => !x || y.includes(x)
 
-export const evalProductInstance = async (pq: IProductInstance): Promise<boolean> => {
+export const evalCartItemCreation = async (pq: JsonCartItemCreation): Promise<boolean> => {
   const doc = await findProductByid(pq.productId)
   if (!isValidOption(pq.color, doc.colors)) throw new JsonError(`Color ${pq.color} isn't available for this product`)
   if (!isValidOption(pq.size, doc.sizes)) throw new JsonError(`Size ${pq.size} isn't available for this product`)
@@ -27,8 +29,8 @@ export const evalProductInstance = async (pq: IProductInstance): Promise<boolean
   return true
 }
 
-export const evalProductInstances = (productInstances: IProductInstance[]): Promise<boolean> =>
-  Promise.all(productInstances.map((x) => evalProductInstance(x))).then((x) => x.reduce((old, cur) => old && cur))
+export const evalCartItemCreations = (cartItems: JsonCartItemCreation[]): Promise<boolean> =>
+  Promise.all(cartItems.map((x) => evalCartItemCreation(x))).then((x) => x.reduce((old, cur) => old && cur))
 
 export const deleteProduct = (id: string) => Product.deleteOne({ _id: id })
 
@@ -78,4 +80,21 @@ export const getProductReviewSumUp = async (prodId: string) => {
     percentage: percentages.map((x) => `${Math.round(x)}%`),
   }
   return result
+}
+
+export const patchProduct = async (id: string, patch: ProductPatch): Promise<IProduct> => {
+  const prod = await Product.findById(id)
+
+  if (patch.description) prod.description = patch.description
+  if (patch.name) prod.name = patch.name
+  if (patch.price) prod.price = patch.price
+  if (patch.sizes) prod.sizes = patch.sizes
+  if (patch.colors) prod.colors = patch.colors
+  if (patch.types) prod.types = patch.types
+  if (patch.categoryId) prod.categoryId = patch.categoryId
+  if (patch.details) prod.details = patch.details
+  if (patch.highlights) prod.highlights = patch.highlights
+
+  await prod.save()
+  return prod as IProduct
 }

@@ -12,7 +12,6 @@ export interface JsonProduct {
 }
 
 export const SwaggerProduct = {
-  Product: {
     type: 'object',
     properties: {
       _id: {
@@ -55,5 +54,4 @@ export const SwaggerProduct = {
         type: 'string',
       },
     },
-  },
 }

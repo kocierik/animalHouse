@@ -8,7 +8,9 @@ AOS.init()
 
 <template>
   <Navbar />
-  <router-view />
+  <div class="h-100">
+    <router-view />
+  </div>
   <Footer />
 </template>
 
