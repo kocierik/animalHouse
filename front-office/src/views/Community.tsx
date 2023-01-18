@@ -1,26 +1,34 @@
 import React, { useCallback, useState } from 'react'
 import DropDown from './common/DropDown'
 import Rawtable from './common/communityComponents/Rawtable'
-import { ApiRepository } from 'shared'
+import { ApiRepository, JsonGames } from 'shared'
 import useEffect from 'react'
 import { Community } from 'shared'
 
 const CommunityPage = () => {
   const [usersData, setUsersData] = useState<Community.IGameValues[]>([])
+  const [games,setGames] = useState<string[]>([])
+  const [filter,setFilter] = useState<string[]>([])
 
   const handlePromise = async () => {
     if ((await ApiRepository.getUserScore()).esit) {
-      const val = (await ApiRepository.getUserScore()).data! as Community.IGameValues[] // CONTROLLA
+      const val = (await ApiRepository.getUserScore()).data! as Community.IGameValues[]
       setUsersData(val!)
       console.log(val!)
     }
   }
 
+  const getGames = async () => {
+    const resp = (await ApiRepository.getGames()).data
+    if(resp){
+      resp.map(item => setGames([...games,item.name]))
+    }
+  }
+
   React.useEffect(() => {
+    getGames()
     handlePromise()
   }, [])
-
-  const games = ['minesweeper', '2048', 'hangMan', 'memoryGame', 'quizGame', 'ticTacToe']
 
   return (
     <div className="h-full" data-aos="fade-up" data-aos-duration="500">
@@ -28,7 +36,7 @@ const CommunityPage = () => {
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-            <DropDown list={games} />
+            <DropDown list={games} filter={filter} setFilter={setFilter}/>
           </div>
           <div className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
