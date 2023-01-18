@@ -1,5 +1,17 @@
 # Animal House
 
+## Installing
+
+To install all the needed packages do
+
+```sh
+npm i
+cd front-office
+npm i
+cd ../game
+npm i
+```
+
 ## Starting
 
 ### Database
