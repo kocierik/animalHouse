@@ -16,7 +16,7 @@ const EditmodalReservationCard = (props: {
   const [selectedService, setSelectedService] = useState<string>(null!)
   const [infoReservation, setInfoReservation] = useState<JsonReservation.IReservation>(null!)
   const [locationReservation, setLocationReservation] = useState<Jsonlocation.JsonLocation>(null!)
-  const [serviceName, setServiceName] = useState([])
+  const [serviceName, setServiceName] = useState<string[]>([])
   const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 
   const getUserInfo = async () => {
@@ -28,19 +28,18 @@ const EditmodalReservationCard = (props: {
   }
 
   const getUserReservationName = async () => {
-    console.log(props.animalReservation)
     props.animalReservation.map(async (singleRes) => {
-      const resp = await ApiRepository.getServicesName(singleRes?.serviceId)
-      if (resp) {
-        console.log(resp)
-        setServiceName((last) => [...last, resp.data])
+      if (!singleRes.serviceId)
+        return
+      const resp = await ApiRepository.getServicesName(singleRes.serviceId)
+      if (resp.esit) {
+        setServiceName([...serviceName, resp.data!])
       }
     })
   }
 
   useEffect(() => {
     getUserReservationName()
-    console.log(serviceName)
   }, [props.animalReservation])
 
   const getSelectedService = async (id: string) => {

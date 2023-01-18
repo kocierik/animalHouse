@@ -29,8 +29,8 @@ const ModalReservationCard = (props: { showModal: boolean; setShowModal: any; op
 
   const getUserReservationName = async () => {
     const resp = await ApiRepository.getServicesName(props.openService)
-    if (resp) {
-      setServiceName(resp.data)
+    if (resp.esit) {
+      setServiceName(resp.data!)
     }
   }
 
