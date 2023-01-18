@@ -262,7 +262,7 @@ export const getServices = async () =>
   );
 
 export const getServicesName = async (serviceId: string) =>
-  Api.get<String>(
+  Api.get<string>(
     stringFormat(_BASE_URL + _SERVICES_SINGLE_GET, serviceId),
     false
   );
