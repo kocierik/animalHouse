@@ -5,6 +5,8 @@ import { JsonProduct } from '../json/JsonProduct'
 import Review from '../entities/Review'
 import { JsonReview } from '../json/JsonReview'
 import JsonProductSumUp from '../json/JsonProductSumUp'
+import { ProductPatch } from '../json/patch/ProductPatch'
+import ProductCategory, { IProductCategory } from '../entities/ProductCategory'
 import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
 import { ProductPatch } from '@/json/patch/ProductPatch'
 
@@ -19,7 +21,26 @@ export const findProductByid = async (id: string): Promise<IProduct> => {
   }
 }
 
-const isValidOption = (x: any, y: any[]): boolean => !x || y.includes(x)
+export const getProductCategory = async (id: string): Promise<string> => {
+  try {
+    const category = (await ProductCategory.findById(id))
+    return category.name
+  } catch (err) {
+    throw new JsonError(`Cannot find category with id ${id} (${err.message})`)
+  }
+}
+
+export const getProductCategoriesName = async (): Promise<IProductCategory[]> => {
+  try {
+    const categories = (await ProductCategory.find({}))
+    return categories
+  } catch (err) {
+    throw new JsonError(`Cannot find categories (${err.message})`)
+  }
+}
+
+// TODO verify not
+const isValidOption = (x: any, y: any[]): boolean => x || y.includes(x)
 
 export const evalCartItemCreation = async (pq: JsonCartItemCreation): Promise<boolean> => {
   const doc = await findProductByid(pq.productId)

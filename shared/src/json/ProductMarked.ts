@@ -14,6 +14,11 @@ export interface IProductMarked{
   details?: string
 }
 
+export interface IProductCategory{
+  _id: string,
+  name: string
+}
+
 export interface JsonProductInstance{
   productId: string
   name: string
@@ -23,3 +28,4 @@ export interface JsonProductInstance{
   size?: string
   price: number
 }
+

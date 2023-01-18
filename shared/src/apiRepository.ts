@@ -18,7 +18,7 @@ const _USER_INFO = '/users/{0}'
 const _USER_CURRENT = '/users/current'
 const _USER_REGISTER = '/users/register'
 const _USER_UPDATE_DESCRIPTION = '/users/{0}/description'
-const _USERS_SCORES = '/users/{0}/scores/'
+const _USERS_SCORES = '/users/{0}/scores/' 
 const _USERS_ANIMALS = '/users/{0}/animals'
 const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
 const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
@@ -34,9 +34,12 @@ const _PICTURES = '/pictures/{0}'
 
 const _ANIMAL_CODES = '/animals/codes'
 
+const _COMMUNITY_GAME = '/community/game'
 const _COMMUNITY_GAME_SCOREBOARD = '/community/game/scoreboard'
 
 const _PRODUCTS = '/products/'
+const _PRODUCTS_CATEGORY = '/products/category/{0}'
+const _PRODUCTS_CATEGORIES_NAME = '/products/categories'
 const _PRODUCTS_REVIEW = '/products/{0}/reviews/'
 const _PRODUCTS_REVIEWS_SUM_UP = '/products/{0}/reviews/sum-up'
 
@@ -72,11 +75,19 @@ export const putUserScore = async (gameScore: score.IGameResult, userId: string)
   Api.put<score.IGameScore>(stringFormat(_BASE_URL + _USERS_SCORES, userId), gameScore, true)
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _COMMUNITY_GAME_SCOREBOARD)
+export const getGames = async () => Api.get<community.IGame[]>(_BASE_URL + _COMMUNITY_GAME)
 
 export const getMarketProducts = async () => Api.get<product.IProductMarked[]>(_BASE_URL + _PRODUCTS)
 
 export const getMarketProduct = async (productId: string) =>
   Api.get<product.IProductMarked>(_BASE_URL + _PRODUCTS + productId)
+
+export const getProductCategory = async (categoryId: string) =>
+  Api.get<string>(stringFormat(_BASE_URL + _PRODUCTS_CATEGORY, categoryId))
+
+export const getProductCategoriesName = async () =>
+  Api.get<product.IProductCategory[]>(_BASE_URL + _PRODUCTS_CATEGORIES_NAME)
+
 
 export const getProductReviews = async (productId: string) =>
   Api.get<review.IReview[]>(stringFormat(_BASE_URL + _PRODUCTS_REVIEW, productId))

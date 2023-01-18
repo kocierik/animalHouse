@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DropDown from './common/DropDown'
 import Articles from './common/shoppingComponents/Articles'
+import { ApiRepository } from 'shared';
 const Shopping = () => {
-  const producs = ['food', 'health product', 'accessories', 'animal']
+  const producs = ['wearing','food', 'health', 'accessories', 'puppies', 'entertainment', 'beauty']
+  const [filter,setFilter] = useState<string[]>([])
+
+  const getCategoryProduct = async () =>{
+    try {
+      const resp = await ApiRepository.getProductCategoriesName()
+      console.log(resp)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+
   return (
     <>
       <div
@@ -17,9 +30,9 @@ const Shopping = () => {
                 <span className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
                   Store
                 </span>
-                <DropDown list={producs} />
+                <DropDown list={producs} filter={filter} setFilter={setFilter}/>
               </div>
-              <Articles />
+              <Articles filterApplied={filter}/>
             </nav>
           </div>
         </section>
