@@ -8,7 +8,6 @@ import JsonProductSumUp from '../json/JsonProductSumUp'
 import { ProductPatch } from '../json/patch/ProductPatch'
 import ProductCategory, { IProductCategory } from '../entities/ProductCategory'
 import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
-import { ProductPatch } from '@/json/patch/ProductPatch'
 
 export const findAllProduct = async (): Promise<IProduct[]> => Product.find({})
 

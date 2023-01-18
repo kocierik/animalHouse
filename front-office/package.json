@@ -35,10 +35,7 @@
   "scripts": {
     "start": "vite --host",
     "build": "tsc && vite build",
-    "serve": "vite preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix",
-    "format": "eslint --fix & prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "serve": "vite preview"
   },
   "eslintConfig": {
     "extends": [

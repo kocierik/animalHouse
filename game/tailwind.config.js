@@ -11,9 +11,9 @@ module.exports = {
         dyellow: '#f6ef31',
         dgreen: '#364545',
         wrong: '#f8afa6',
-        right: '#a3ebb1',
-      },
-    },
+        right: '#a3ebb1'
+      }
+    }
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate')]
 }
