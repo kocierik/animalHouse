@@ -11,6 +11,8 @@ export * as Community from "./src/json/Community"
 export * as ProductMarked from "./src/json/ProductMarked"
 export * as JsonGames from "./src/json/Games"
 export * as JsonReview from './src/json/Review';
+export * as JsonCart from './src/json/Cart';
+export * as JsonOrder from './src/json/Orders';
 export * as JsonReservation from './src/json/Reservation';
 export * as Jsonlocation from './src/json/Location'
 export * as JsonService from './src/json/Service'
