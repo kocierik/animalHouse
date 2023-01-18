@@ -62,16 +62,16 @@ const PostReview = (props: IProps) => {
       {Helpers.isLogged() && (
         <div className="max-w-2xl mx-auto pb-16  px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           {/* Top Half - Avatar & Text Box */}
-          <div className="flex flex-col 	 content-start p-4">
-            <div className="flex mb-8">
-              <span className="">
+          <div className="flex flex-col mt-10 content-start p-4">
+            <div className="flex mb-5">
+              <span className="flex" style={{"flex": "0 0 auto"}}>
                 <img
                   src="/imageprofile.jpg"
                   className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14  duration-150"
                   alt="User profile"
                 />
               </span>
-              <div className="flex flex-1 px-5 items-center">
+              <div className="flex items-center" style={{"flex": "1 1 90%"}}>
                 <span className="font-black	text-lg	p-4">{username}</span>
                 <div className=' flex '>
                   {valueProduct.map((rating) => (

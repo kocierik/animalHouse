@@ -5,6 +5,8 @@ import type * as score from './json/Games'
 import type * as product from './json/ProductMarked'
 import type * as community from './json/Community'
 import type * as review from './json/Review'
+import type * as cart from "./json/Cart"
+import type * as order from './json/Orders'
 import type * as reservation from "./json/Reservation"
 import type * as location from "./json/Location"
 import { stringFormat } from './helpers'
@@ -22,6 +24,9 @@ const _USERS_ANIMALS_DELETE = '/users/{0}/animals/{1}'
 const _USERS_ANIMALS_EDIT = '/users/{0}/animals/{1}'
 const _USER_PICTURE = '/users/{0}/picture'
 const _USER_ANIMAL_PICTURE = '/users/{0}/animals/{1}/picture'
+const _USER_CART = '/users/{0}/cart'
+const _USER_ORDERS = '/users/{0}/orders'
+
 const _RESERVATIONS = '/users/{0}/reservations'
 const _RESERVATIONS_DELETE = '/reservations/{0}'
 const _LOCATION = '/locations'
@@ -109,6 +114,17 @@ export const updateUserDescription = async (userId: string, updateUser: user.Jso
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
   Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
 
+export const putCart = async (userId: string, product : cart.ICartItemCreation) =>
+  Api.put<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product], true)
+
+export const getCart = async (userId: string) =>
+  Api.get<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), true)
+
+export const deleteCart = async (userId: string, cartItems: string[]) =>
+  Api.delete<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId), cartItems, true)
+
+export const postUserOrder = async (userId: string, paymentDetails: order.JsonPaymentDetails) => 
+  Api.post<order.JsonOrder>(stringFormat(_BASE_URL + _USER_ORDERS, userId), paymentDetails, true)
 
 export const getReservations = async (userId: string) =>
   Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _RESERVATIONS, userId),true)

@@ -90,6 +90,50 @@ export const test = async () => {
       highlights: ['beauty', 'confort', 'human', 'cold'],
       details: 'perfect for burn human',
     },
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b4'),
+      name: 'Grattaculo',
+      description: 'so fresh',
+      price: 1550,
+      categoryId: '62f3c0540ac73a2bc4764da7',
+      types: ['man', 'child', 'woman'],
+      images: ['https://a-z-animals.com/media/2022/10/71ki1ydVToL._SL500_.webp'],
+      alt: 'shirt',
+      animalTargets: ['human'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['beauty', 'confort', 'human', 'cold'],
+      details: 'perfect for burn human',
+    },
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b5'),
+      name: 'Pupazzo papero strano',
+      description: 'so fresh',
+      price: 10000000,
+      categoryId: '62f3c0540ac73a2bc4764da7',
+      colors: ['white', 'red'],
+      types: ['man', 'child', 'woman'],
+      images: ['data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE5NCI+PGRlZnM+PGZpbHRlciBpZD0iZGFya3JlYWRlci1pbWFnZS1maWx0ZXIiPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwLjMzMyAtMC42NjcgLTAuNjY3IDAuMDAwIDEuMDAwIC0wLjY2NyAwLjMzMyAtMC42NjcgMC4wMDAgMS4wMDAgLTAuNjY3IC0wLjY2NyAwLjMzMyAwLjAwMCAxLjAwMCAwLjAwMCAwLjAwMCAwLjAwMCAxLjAwMCAwLjAwMCIgLz48L2ZpbHRlcj48L2RlZnM+PGltYWdlIHdpZHRoPSIxNTAiIGhlaWdodD0iMTk0IiBmaWx0ZXI9InVybCgjZGFya3JlYWRlci1pbWFnZS1maWx0ZXIpIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3dlYnA7YmFzZTY0LC85ai8yd0JEQUFZRUJRWUZCQVlHQlFZSEJ3WUlDaEFLQ2drSkNoUU9Ed3dRRnhRWUdCY1VGaFlhSFNVZkdoc2pIQllXSUN3Z0l5WW5LU29wR1I4dE1DMG9NQ1VvS1NqLzJ3QkRBUWNIQndvSUNoTUtDaE1vR2hZYUtDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2ovd0FBUkNBRENBSllEQVNJQUFoRUJBeEVCLzhRQUhBQUJBQUlEQVFFQkFBQUFBQUFBQUFBQUFBVUdBUU1IQkFnQy84UUFLaEFCQUFJQ0FnRUNCUVFEQVFBQUFBQUFBQUVDQXdRRkVRWVNJU0l4TXBHaEUwRkNVUlpoY1lIL3hBQVlBUUVCQVFFQkFBQUFBQUFBQUFBQUFBQUFBUUlEQlAvRUFCd1JBUUVCQVFFQkFBTUFBQUFBQUFBQUFBQUJBaEVERWdRaE1mL2FBQXdEQVFBQ0VRTVJBRDhBK2tRQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFQOEEwQU80L3VBQUFBQUFBQUFBQUFBQUFBR1FhZG5OR0drek05S3h5ZmtlUEJhWTlVSkh5YTk2YXRwcDgrbkIvS2VUMk1XMWJ1WjY3V0pYWU5MeVdtVzhSNjRXWFMzcVo2eDFNUG12anVmdlMwZDJsMFB4anlLYittSnN0aVN1dnhNVEFyMnR6RmJZNG4xTmtjdFdaK3BscE9zb3ZEeU5MZnUvT3p5ZE1jZDlnbGhYS2M1U2JkVFpJNjNJNDh2WFZvRHFSR0tXaTBkd3lBQUFBQUFBQUR5OGhyUnNZclZtUG01VjVqNGxPYjEzcFIxOXAyTmJIbXJNV2lKQjhwY2p3bWZTenozV1lpSlMzQmJFNEpqMVQwNjk1WDQzank0N1dwU08vd0Rqa1hOYU9UUXpXNmlZaUpMVmtpMjRlYW10SWoxTnRlY252Nm5PSTVDOWZhWlpuazdSL0puclhIVXRmbit2NU51WGxweng3V2Nwcnk4MW4zc2tkSG00bThSNmw2WEs4WmRuSlQ0b21YcjRmbHN2Njlhek1vempMeHVVajM3N1QvSGNYVEhlTHkxMXo0di9BQStXY3VHc3ovU1JWL1Izc1d2aml2cWhKYSs5VEw4cGhGZTBJbnVQWUFBQUFBQUJsNTlqYXBock0ybUliN2ZUS21lVjU4MWFXakgyRGZ6SE82MFV0VzFvY3U4cTI5ZlltM282bVd2ZXB1N0dhWWoxZE1hL2oyMXNXajF4YWUxUlNNK3ZlMlNmUkV0VnVOMkx4M0ZiT3Q4ZDRiTnVwdlQ4TEZxK0c0dlRIZEkreFZscjUwMmVPMnFmeHM4K3ZpMnNlV080cytrOWp3akJlUG9qN0l6TjREaTk1akhIMlJldWUrTjhyZldyWDlUdFpjL2xsS1krb3QxTDA3L2hkOFZKL1Rxb2ZQOEFCN1d2TnVvdDFDRVdEL0xMWHllMS93QXJWNDc1RE9TMVl0Yjh1SFJPYkJrK0tKV1RndVduRmtyM1BUTnZQM1hTWityeVBwWGk5eU0rT3M5cEp6VHhibmFUU3NUZVB1dmVweU9QTFdPclFaOUpvOVBIV1A2a0JpdG90SGNNdHVRQUFBQlB2Q08zZU5wczkrcU8waUFnY2ZqdUNMZHpTSHV3OFZneGZLc0pBQnJwZ3gwK21zTmtSRWZJQUNZaWYyZ0Fhc21ESGtpWXRXRmU1cnh6QnQwdDhFZS8rbG1BY1Y1endYdTFwcFQ4S2p0ZUtiR3RlWnJTZlo5S1pNR1BKSHhWaEg3UERhK2FKN3BDWFBXczd1YjJPRDhiaDI5VzBSMWFGLzhBR3MreGExWXYyczJUeGpETnU0cEQzYVBEWTllWTZyRGxueStiMk8rL3lMdWNxUjBabWNNZC9ONkdNZFlwWHFHWFo1Z0FBQUFBQUFBQUFBQUFBQUdXQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUIvLzJRPT0iIC8+PC9zdmc+'],
+      alt: 'shirt',
+      animalTargets: ['dog', 'cat'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['beauty', 'confort', 'human', 'cold'],
+      details: 'perfect for burn human',
+    },
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b6'),
+      name: 'sapone per cani',
+      description: 'so fresh',
+      price: 10,
+      categoryId: '62f3c0540ac73a2bc4764da7',
+      colors: ['white', 'red'],
+      types: ['man', 'child', 'woman'],
+      images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHvbEjb4FMUsELWrEpGUdCWbHgedCZLkABKw&usqp=CAU'],
+      alt: 'shirt',
+      animalTargets: ['dog'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['beauty', 'confort', 'human', 'cold'],
+      details: 'perfect for burn human',
+    },
   ])
 }
 
@@ -159,26 +203,26 @@ export const initAnimalCodes = async () => {
 export const initReservationCodes = async () => {
   await ReservationCode.deleteMany()
   await ReservationCode.insertMany([
-    {code: 0, value: 'Find Partner'},
-    {code: 1, value: 'Help Animals'},
-    {code: 2, value: 'Psychologist'},
-    {code: 3, value: 'Dog Sitter'},
-    {code: 4, value: 'Veterinary'},
-    {code: 5, value: 'Pension'},
-    {code: 6, value: 'Wash Animal'},
-    {code: 7, value: 'Home Visit'},
-    {code: 8, value: 'Grooming'},
+    { code: 0, value: 'Find Partner' },
+    { code: 1, value: 'Help Animals' },
+    { code: 2, value: 'Psychologist' },
+    { code: 3, value: 'Dog Sitter' },
+    { code: 4, value: 'Veterinary' },
+    { code: 5, value: 'Pension' },
+    { code: 6, value: 'Wash Animal' },
+    { code: 7, value: 'Home Visit' },
+    { code: 8, value: 'Grooming' },
   ])
 }
 
 export const initLocationCodes = async () => {
   await Location.deleteMany()
   await Location.insertMany([
-    {address:{country: "Rimini", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Rimini'},
-    {address:{country: "Mestre", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Mestre'},
-    {address:{country: "Bologna", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Bologna'},
-    {address:{country: "Riccione", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Riccione'},
-    {address:{country: "Palermo", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Palermo'},
-    {address:{country: "Roma", city:"mirabilandia", street: "via casa", zip: 47832}, name: 'Roma'},
+    { address: { country: "Rimini", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Rimini' },
+    { address: { country: "Mestre", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Mestre' },
+    { address: { country: "Bologna", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Bologna' },
+    { address: { country: "Riccione", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Riccione' },
+    { address: { country: "Palermo", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Palermo' },
+    { address: { country: "Roma", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Roma' },
   ])
 }
