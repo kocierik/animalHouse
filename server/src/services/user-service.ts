@@ -198,7 +198,7 @@ export const addPictureToAnimal = async (userId: string, animalId: string, pictu
     try {
       let index = 0
       user.animals.map((x, i) => {
-        index = i //TODO: capire se spostarlo dentro l'if / che logica c'è dietro?
+        index = i
         if (x._id.toString() === animalId) {
           x.picture = picture
         }
