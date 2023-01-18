@@ -41,9 +41,8 @@ else {
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
             <div v-for="a in animals" :animal="a" v-bind:key="a" class="lg:flex">
                 <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/video.jpg" alt="">
-
                 <div class="flex flex-col justify-between py-6 lg:mx-6">
-                  <!-- <Video :animal="a" class="m-1" /> -->
+                  <Video :animal="a" class="m-1" />
                 </div>
             </div>
       </div>
