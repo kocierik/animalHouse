@@ -143,12 +143,15 @@ appRouter.get(version + '/community/game/scoreboard', middlewares.log, community
 // Products
 appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
+appRouter.get(version + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
 appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
 appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct)
 appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert TODO add ADMIN middleware
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
+appRouter.get(version + '/products/categories', middlewares.log, marketRoutes.getProductCategoriesName)
+
 
 // Reservations
 appRouter.get(
