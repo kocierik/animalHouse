@@ -45,12 +45,11 @@ export const pictureToJsonPicture = (pic: IPicture) => ({
 })
 
 export const addPictureToProduct = async (productId: string, picture: JsonPicture) => {
-  const user = await Product.findById(productId)
-  if (user) {
+  const product = await Product.findById(productId)
+  if (product) {
     try {
-      var a
       await Product.findByIdAndUpdate({ _id: productId }, { image: picture })
-      return user
+      return product
     } catch (err) {
       throw new JsonError(err.message)
     }
