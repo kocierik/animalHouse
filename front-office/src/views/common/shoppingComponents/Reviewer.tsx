@@ -28,9 +28,11 @@ const Reviewer = (props: IProps) => {
 
   return (
     <div className="max-w-2xl mx-auto  px-4 sm:px-6 lg:max-w-7xl  lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
-      <div className="">
-        <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
-        <StarsSumUp productId={productId} />
+      <div className="flex flex-1 flex-col justify-center">
+        <div className='flex flex-1 flex-col '>
+          <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
+          <StarsSumUp productId={productId} />
+        </div>
         <div className=''>
           <PostReview productId={productId} post={post} setPost={setPost} />
         </div>

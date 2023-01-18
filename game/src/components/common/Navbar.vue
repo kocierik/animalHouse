@@ -3,10 +3,34 @@ import { ref } from 'vue'
 import * as router from '@/router/index'
 import { Helpers } from 'shared'
 
+interface NavbarItem {
+  title: string
+  destination: string 
+}
+
+const navbarItems: NavbarItem[] = [
+  {
+    title: "Home",
+    destination: router.HomeRoute
+  },
+  {
+    title: "Shop",
+    destination: router.ShopRoute
+  },
+  {
+    title: "Fun",
+    destination: router.FunnyRoute
+  },
+  {
+    title: "Personal",
+    destination: router.PersonalRoute
+  }
+]
+
 const defaultMenuClasses = 'w-full md:block md:w-auto'
 
 const changeColorNav = (id: string) => {
-  const dict = [{ name: 'isHome' }, { name: 'isPersonal' }, { name: 'isGames' }]
+  const dict = navbarItems.map(item => ({name: item.destination}))
 
   document.addEventListener('click', function () {
     dict.forEach((element) => {
@@ -70,45 +94,20 @@ const logout = () => {
 
         <div id="mobile-menu flex w-full" style="flex: auto" :class="menuClasses">
           <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+
             <li
-              id="isHome"
-              v-on:click="changeColorNav('isHome')"
+              v-for="item in navbarItems"
+              :key="item.destination"
+              :id="item.destination"
+              v-on:click="changeColorNav(item.destination)"
               class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
             >
-              <router-link :to="router.HomeRoute">
+              <router-link :to="item.destination">
                 <a
                   href="#"
                   class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                 >
-                  Home
-                </a>
-              </router-link>
-            </li>
-            <li
-              id="isPersonal"
-              v-on:click="changeColorNav('isPersonal')"
-              class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-            >
-              <router-link :to="router.PersonalRoute">
-                <a
-                  href="#"
-                  class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
-                >
-                  Personal
-                </a>
-              </router-link>
-            </li>
-            <li
-              id="isGames"
-              v-on:click="changeColorNav('isGames')"
-              class="text-black hover:bg-green-100 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-            >
-              <router-link :to="router.GamesRoute">
-                <a
-                  href="#"
-                  class="hover:-translate-y-1 duration-300 block py-2 pr-4 pl-3 text-black border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
-                >
-                  Games
+                  {{item.title}}
                 </a>
               </router-link>
             </li>

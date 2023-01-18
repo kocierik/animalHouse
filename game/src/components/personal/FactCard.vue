@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue'
-import { fetchCatFacts } from '@/network/api'
+import { fetchCatFacts, fetchFakeFact } from '@/network/api'
 import LoadingSpinner from '@/components/common/LoadingSpinner.vue'
 import AnimalIcon from '@/components/common/AnimalIcon.vue'
 import type { AnimalType } from 'shared'
@@ -12,7 +12,7 @@ let isLoading = ref<boolean>(false)
 
 const loadFact = async () => {
   isLoading.value = true
-  let resp = await fetchCatFacts()
+  let resp = await fetchFakeFact(props.animal)
   if (resp.esit && resp.data !== undefined) {
     fact.value = resp.data.data[0]
   } else {

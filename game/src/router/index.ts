@@ -3,27 +3,30 @@ import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import PersonalView from '@/views/PersonalView.vue'
 import PersonalizeView from '@/views/PersonalizeView.vue'
+import ShopView from '@/views/ShopView.vue'
+import FunnyView from '@/views/FunnyView.vue'
 import GamesView from '@/views/GamesView.vue'
+import VideosView from '@/views/VideosView.vue'
 import MemoryGame from '@/components/games/memoryGame/MemoryGame.vue'
 import QuizGame from '@/components/games/quizGame/QuizGame.vue'
 import HangManGame from '@/components/games/hangManGame/hangManGame.vue'
 import DueGame from '@/components/games/dueGame/dueGame.vue'
 import MinesweeperGame from '@/components/games/minesweeper/MinesweeperGame.vue'
 import ticTacToeGame from '@/components/games/ticTacToeGame/ticTacToeGame.vue'
-import CardProductHome from '@/components/common/CardProduct.vue'
+import { GameDueRoute, GameHangManRoute, GameMemoryRoute, GameMinesweeperRoute, GameQuizRoute, GameTicTacToeRoute } from '@/oth/games'
 
 export const HomeRoute = '/'
+
 export const LoginRoute = '/login'
-export const GamesRoute = '/games'
+
+export const ShopRoute = "/shop"
+
 export const PersonalRoute = '/personal'
 export const PersonalizeRoute = '/personal/personalize'
-export const GameMemory = '/games/memory'
-export const GameQuiz = '/games/quiz'
-export const GameHangMan = '/games/hangMan'
-export const GameDue = '/games/due48'
-export const GameMinesweeper = '/games/Minesweeper'
-export const GameTicTacToe = '/games/ticTacToeGame'
-export const HomeCardProduct = '/home/product/'
+
+export const FunnyRoute = '/funny'
+export const FunnyVideosRoute = '/funny/videos'
+export const FunnyGamesRoute = '/funny/games'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,10 +42,9 @@ const router = createRouter({
       component: LoginView,
     },
     {
-      path: HomeCardProduct + ':id',
-      name: 'product',
-      component: CardProductHome,
-      props: true,
+      path: ShopRoute,
+      name: 'shop',
+      component: ShopView
     },
     {
       path: PersonalRoute,
@@ -55,39 +57,49 @@ const router = createRouter({
       component: PersonalizeView,
     },
     {
-      path: GamesRoute,
-      name: 'games',
-      component: GamesView,
+      path: FunnyRoute,
+      name: 'funny',
+      component: FunnyView,
     },
     {
-      path: GameMemory,
+      path: GameMemoryRoute,
       name: 'memory',
       component: MemoryGame,
     },
     {
-      path: GameQuiz,
+      path: GameQuizRoute,
       name: 'quiz',
       component: QuizGame,
     },
     {
-      path: GameHangMan,
+      path: GameHangManRoute,
       name: 'HangMan',
       component: HangManGame,
     },
     {
-      path: GameDue,
+      path: GameDueRoute,
       name: 'due48',
       component: DueGame,
     },
     {
-      path: GameMinesweeper,
+      path: GameMinesweeperRoute,
       name: 'MinesweeperGame',
       component: MinesweeperGame,
     },
     {
-      path: GameTicTacToe,
+      path: GameTicTacToeRoute,
       name: 'ticTacToeGame',
       component: ticTacToeGame,
+    },
+    {
+      path: FunnyVideosRoute,
+      name: 'video',
+      component: VideosView,
+    },
+    {
+      path: FunnyGamesRoute,
+      name: 'video',
+      component: GamesView,
     },
   ],
 })
