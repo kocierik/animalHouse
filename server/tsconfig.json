@@ -6,7 +6,7 @@
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "out",
+    "outDir": "../out",
     "allowJs": false,
     "paths": {
       "@/*": ["./src/*"]

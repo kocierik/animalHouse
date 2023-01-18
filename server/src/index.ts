@@ -23,6 +23,7 @@ app.use(appRouter)
 // Db initialization
 async function db() {
   const uri = `mongodb://${Const.DB_USER}:${Const.DB_SECRET}@${Const.DB_ADDR}:${Const.DB_PORT}/${Const.DB_NAME}`
+  console.log(uri)
   await connect(uri)
   await migrations.initGames()
   await migrations.initProductCategories()

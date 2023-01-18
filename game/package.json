@@ -2,12 +2,10 @@
   "name": "game",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --host",
+    "start": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
-    "typecheck": "vue-tsc --noEmit",
-    "format": "eslint --fix & prettier --write './**/*.{js,jsx,ts,tsx,css,md,json,vue}' --config ./.prettierrc",
-    "lint": "eslint --ext  src/**/*.vue,src/**/*.js,src/**/*.jsx,src/**/*.cjs,src/**/*.mjs,src/**/*.ts,src/**/*.tsx,src/**/*.cts,src/**/*.mts --fix --ignore-path .gitignore"
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@meforma/vue-toaster": "^1.3.0",

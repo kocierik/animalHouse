@@ -1,4 +1,9 @@
 *.ignore
+node_modules/
+database-data/
+pictures/
+out/
+
 # REACT
 front-office/node_modules
 front-office/build

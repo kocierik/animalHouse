@@ -9,11 +9,15 @@ services:
           - MONGO_INITDB_ROOT_PASSWORD=secret
       volumes:
           - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-          - ./mongo-volume:/data/db
+          - ./database-data:/data/db
       ports:
           - '27017-27019:27017-27019'
-  swagger:
-    image: 'swaggerapi/swagger-editor'
+  mongo-express:
+    image: mongo-express
+    restart: always
     ports:
-          - '8081:8080'
-
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: secret
+      ME_CONFIG_MONGODB_URL: mongodb://root:secret@database:27017/
