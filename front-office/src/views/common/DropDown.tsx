@@ -5,13 +5,13 @@ import ItemDropdown from './ItemDropdown'
 const DropDown = (props: { list: string[], filter: string[], setFilter: React.Dispatch<React.SetStateAction<string[]>> }) => {
   const [isList, setIsList] = useState(false)
   return (
-    <div  className="hover:-translate-y-1 hover:scale-105 duration-300 z-10">
-      <div 
+    <div className="hover:-translate-y-1 hover:scale-105 duration-300 z-10">
+      <div
         onClick={() => setIsList(!isList)}
         className="w-64 p-4 shadow rounded bg-white text-sm font-medium leading-none text-gray-800 flex items-center justify-between cursor-pointer"
       >
         Filter
-        <div >
+        <div>
           {isList ? (
             <div>
               <svg width={10} height={6} viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">

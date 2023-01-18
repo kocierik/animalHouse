@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { ApiRepository, JsonReview } from 'shared'
-import useState from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { Helpers } from 'shared'
 
 interface IProps {
@@ -44,7 +42,7 @@ const PostReview = (props: IProps) => {
       star: star,
       date: new Date()
     }
-    setTextComment("")
+    setTextComment('')
     await ApiRepository.postProductReview(productId, data)
   }
 
@@ -73,7 +71,7 @@ const PostReview = (props: IProps) => {
               </span>
               <div className="flex items-center" style={{"flex": "1 1 90%"}}>
                 <span className="font-black	text-lg	p-4">{username}</span>
-                <div className=' flex '>
+                <div className=" flex ">
                   {valueProduct.map((rating) => (
                     <StarIcon
                       key={rating.star}
@@ -102,8 +100,8 @@ const PostReview = (props: IProps) => {
 
           {/* Lower Half - Photo/Video & Post Buttons */}
           <div className="flex p-2 justify-end sm:p-4 mr-5">
-
-            <button onClick={postComment}
+            <button
+              onClick={postComment}
               className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-green-500 hover:bg-green-600 duration-150"
             >
               Post It

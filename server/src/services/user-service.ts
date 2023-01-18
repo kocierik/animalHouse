@@ -93,7 +93,7 @@ export const userToJsonUser = (user: IUser): JsonUser => ({
   lastName: user.lastName,
   email: user.email,
   description: user.description,
-  animals: user.animals.map(AnimalService.animalToJsonAnimal),
+  animals: user.animals,
   profilePicture: user.profilePicture,
   address: user.address as IAddress,
 })
@@ -135,54 +135,6 @@ export const deleteAllFromCart = async (userId: string): Promise<ICartItem[]> =>
   return (await CartService.deleteAllFromCart(cart.id)).cartItems
 }
 
-export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
-  const user = await User.findById(userId)
-  if (user) {
-    user.animals.push(animal)
-    await user.save()
-    return user.animals
-  } else throw new JsonError(`Can\'t find user with id ${userId}`)
-}
-
-export const deleteFromAnimal = async (userId: string, animalId: string): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    console.log('animalId -> ', animalId)
-    const newAnimals = user.animals.filter((x) => x._id.toString() !== animalId)
-    user.animals = newAnimals
-    console.log(newAnimals)
-    await user.save()
-    return user.animals
-  } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
-  }
-}
-
-export const updateFromAnimal = async (
-  userId: string,
-  animalId: string,
-  updateAnimal: JsonAnimal
-): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    user.animals.map((x) => {
-      if (x._id.toString() === animalId) {
-        x.age = updateAnimal.age
-        x.name = updateAnimal.name
-        x.type = updateAnimal.type
-      }
-    })
-    await user.save()
-    return user.animals
-  } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
-  }
-}
-
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
   const user = await User.findById(userId)
   if (user) {
@@ -195,23 +147,13 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-export const addPictureToAnimal = async (userId: string, animalId: string, picture: JsonPicture) => {
-  const user = await User.findById(userId)
-  if (user) {
-    try {
-      let index = 0
-      user.animals.map((x, i) => {
-        index = i
-        if (x._id.toString() === animalId) {
-          x.picture = picture
-        }
-      })
-      await user.save()
-      return user.animals[index]
-    } catch (err) {
-      throw new JsonError(err.message)
-    }
-  } else throw new JsonError(`Can\'t find user with id ${userId}`)
+export const addPictureToAnimal = async (animalId: string, picture: JsonPicture) => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
+    await animal.updateOne({ picture: picture })
+    await animal.save()
+    return animal
+  } else throw new JsonError(`Can\'t find animal with id ${animalId}`)
 }
 
 export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then((x) => x.map(userToJsonUser))

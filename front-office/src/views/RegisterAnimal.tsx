@@ -25,14 +25,14 @@ const RegisterAnimal = () => {
     setIsError(false)
 
     const userId = Helpers.getUserId()
-    if(userId){
+    if (userId) {
       const input: JsonAnimal.JsonAnimal = {
         name: name,
-        type: "type", // TODO
+        type: 'type', // TODO
         age: age as number,
         userId: userId
       }
-      
+
       const response = await ApiRepository.registerAnimal(input, userId)
       if (response.esit) {
         window.location.href = '/'
@@ -41,7 +41,7 @@ const RegisterAnimal = () => {
         setIsError(true)
       }
     }
-    
+
     if (!userId) {
       setIsError(true)
       setError('Must be logged to do this operation')

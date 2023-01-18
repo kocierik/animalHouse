@@ -6,11 +6,11 @@ import ServiceCard from './common/serviceComponents/ServiceCard'
 const Service = () => {
   return (
     <div data-aos="zoom-in" data-aos-duration="500">
-      <div className='p-10'>
-        <FeatureCard/>
+      <div className="p-10">
+        <FeatureCard />
       </div>
       <div>
-        <ServiceCard /> 
+        <ServiceCard />
       </div>
       <div>
         <ApproceCard />

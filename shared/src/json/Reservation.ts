@@ -1,6 +1,7 @@
 export interface IReservation {
-  animalId: string
-  serviceName: string
+  _id?: string
+  animalId?: string
+  serviceId?: string
   userId: string
   date: string
   information: string

@@ -1,5 +1,5 @@
 import * as JsonAnimal from './JsonAnimal'
-import type { JsonAddress } from './JsonAddress';
+import type { JsonAddress } from './JsonAddress'
 
 export interface JsonUserCreation {
   username: string
@@ -20,12 +20,10 @@ export interface JsonUser {
   firstName: string
   lastName: string
   description: string
-  animals: JsonAnimal.JsonAnimal[]
+  animals: string[]
   address: JsonAddress
   profilePicture?: JsonPicture
 }
-
-
 
 export interface JsonLogin {
   username: string
