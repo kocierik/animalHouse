@@ -6,8 +6,8 @@ import { GAMES } from './const'
 import AnimalCode from './entities/AnimalCode'
 import User from './entities/User'
 import Admin from './entities/Admin'
-import ReservationCode from './entities/ServiceCode';
-import Location from './entities/Location';
+import ReservationCode from './entities/Service'
+import Location from './entities/Location'
 
 export const test = async () => {
   await User.deleteMany()
@@ -33,16 +33,7 @@ export const test = async () => {
       description: 'ciao',
       phone: '3333333333',
       profilePicture: null,
-      animals: [
-        {
-          _id: new Types.ObjectId('635c088531e05da80c7faf6a'),
-          age: 20,
-          name: 'Stefano Volpe',
-          type: 'fox',
-          userId: '635c088531e05da80c7faf61',
-          picture: null,
-        },
-      ],
+      animals: [],
     },
     {
       email: 'lele@ah.com',
@@ -203,26 +194,104 @@ export const initAnimalCodes = async () => {
 export const initReservationCodes = async () => {
   await ReservationCode.deleteMany()
   await ReservationCode.insertMany([
-    { code: 0, value: 'Find Partner' },
-    { code: 1, value: 'Help Animals' },
-    { code: 2, value: 'Psychologist' },
-    { code: 3, value: 'Dog Sitter' },
-    { code: 4, value: 'Veterinary' },
-    { code: 5, value: 'Pension' },
-    { code: 6, value: 'Wash Animal' },
-    { code: 7, value: 'Home Visit' },
-    { code: 8, value: 'Grooming' },
+    {
+      _id: new Types.ObjectId('137a10397c883b752202e441'),
+      title: 'Find Partner',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-red-500 shadow-red-200',
+    },
+    {
+      _id: new Types.ObjectId('237a10397c883b752202e442'),
+      title: 'Help animals',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-green-500 shadow-green-200',
+    },
+    {
+      _id: new Types.ObjectId('337a10397c883b752202e443'),
+      title: 'psychologist',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-indigo-500 shadow-indigo-200',
+    },
+    {
+      _id: new Types.ObjectId('437a10397c883b752202e444'),
+      title: 'Dog Sitter',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled  it to make a type specimen book.",
+      color: ' bg-yellow-500 shadow-yellow-200',
+    },
+    {
+      _id: new Types.ObjectId('537a10397c883b752202e445'),
+      title: 'veterinary',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-blue-500 shadow-blue-200',
+    },
+    {
+      _id: new Types.ObjectId('637a10397c883b752202e446'),
+      title: 'Pension',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-orange-500 shadow-orange-200',
+    },
+    {
+      _id: new Types.ObjectId('737a10397c883b752202e447'),
+      title: 'Wash Animal',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-yellow-500 shadow-yellow-200',
+    },
+    {
+      _id: new Types.ObjectId('837a10397c883b752202e448'),
+      title: 'Home visit',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-pink-500 shadow-pink-200',
+    },
+    {
+      _id: new Types.ObjectId('937a10397c883b752202e449'),
+      title: 'Grooming',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      color: ' bg-emerald-500 shadow-emerald-200',
+    },
   ])
 }
 
 export const initLocationCodes = async () => {
   await Location.deleteMany()
   await Location.insertMany([
-    { address: { country: "Rimini", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Rimini' },
-    { address: { country: "Mestre", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Mestre' },
-    { address: { country: "Bologna", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Bologna' },
-    { address: { country: "Riccione", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Riccione' },
-    { address: { country: "Palermo", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Palermo' },
-    { address: { country: "Roma", city: "mirabilandia", street: "via casa", zip: 47832 }, name: 'Roma' },
+    {
+      _id: new Types.ObjectId('637a10397c883b752202e442'),
+      address: { country: 'Rimini', city: 'mirabilandia', street: 'via casa', zip: 47832 },
+      name: 'Rimini',
+    },
+    {
+      _id: new Types.ObjectId('637a10397c883b752202e443'),
+      address: { country: 'Mestre', city: 'mirabilandia', street: 'via casa', zip: 47832 },
+      name: 'Mestre',
+    },
+    {
+      _id: new Types.ObjectId('637a10397c883b752202e444'),
+      address: { country: 'Bologna', city: 'mirabilandia', street: 'via casa', zip: 47832 },
+      name: 'Bologna',
+    },
+    {
+      _id: new Types.ObjectId('637a10397c883b752202e445'),
+      address: { country: 'Riccione', city: 'mirabilandia', street: 'via casa', zip: 47832 },
+      name: 'Riccione',
+    },
+    {
+      _id: new Types.ObjectId('637a10397c883b752202e446'),
+      address: { country: 'Palermo', city: 'mirabilandia', street: 'via casa', zip: 47832 },
+      name: 'Palermo',
+    },
+    {
+      _id: new Types.ObjectId('637a10397c883b752202e447'),
+      address: { country: 'Roma', city: 'mirabilandia', street: 'via casa', zip: 47832 },
+      name: 'Roma',
+    },
   ])
 }

@@ -32,7 +32,14 @@ const swaggerOptions = {
       },
     },
     components: {
-      tags: [{ name: 'users' }, { name: 'products' }, { name: 'community' }, { name: 'animals' }, { name: 'reservations'}, {name: 'locations'}],
+      tags: [
+        { name: 'users' },
+        { name: 'products' },
+        { name: 'community' },
+        { name: 'animals' },
+        { name: 'reservations' },
+        { name: 'locations' },
+      ],
       schemas: {
         User: SwaggerUser,
         Animal: SwaggerAnimal,

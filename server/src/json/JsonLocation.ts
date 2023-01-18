@@ -1,7 +1,7 @@
-import { JsonAddress } from "./JsonAddress"
+import { JsonAddress } from './JsonAddress'
 
-
-export interface ILocation {
+export interface JsonLocation {
+  _id: string
   name: string
   address: JsonAddress
 }
@@ -19,18 +19,18 @@ export const SwaggerLocation = {
       type: 'object',
       properties: {
         country: {
-          type: 'string'
+          type: 'string',
         },
         city: {
-          type: 'string'
+          type: 'string',
         },
         street: {
-          type: 'string'
+          type: 'string',
         },
         zip: {
-          type: 'number'
-        }
-      }
-    }
+          type: 'number',
+        },
+      },
+    },
   },
 }

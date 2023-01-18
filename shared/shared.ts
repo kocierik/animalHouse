@@ -15,3 +15,4 @@ export * as JsonCart from './src/json/Cart';
 export * as JsonOrder from './src/json/Orders';
 export * as JsonReservation from './src/json/Reservation';
 export * as Jsonlocation from './src/json/Location'
+export * as JsonService from './src/json/Service'
