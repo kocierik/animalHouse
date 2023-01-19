@@ -13,7 +13,7 @@ import Product from './views/Product'
 import Login from './views/Login'
 import Register from './views/Register'
 import RegisterAnimal from './views/RegisterAnimal'
-
+import 'react-toastify/dist/ReactToastify.css'
 const App = () => {
   return (
     <div>

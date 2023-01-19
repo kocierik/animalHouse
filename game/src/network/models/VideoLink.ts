@@ -11,3 +11,10 @@ export const video = new Map<AnimalType, string[]>([
   [AnimalType.Koala, ['oI3ADcDH0Uc', 'PzU-DjUMzsg', 'SHn3cSMYUFE']],
   [AnimalType.Panda, ['D7xWXk5T3-g', 'Z9E1GM5GoP8', ',oipC38mYiNM']],
 ])
+
+export const allVideos = (): string[] => {
+  const result = []
+  for (const val of video.values())
+    result.push(...val)
+  return result
+}

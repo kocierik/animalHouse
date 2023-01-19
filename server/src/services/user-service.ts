@@ -1,18 +1,24 @@
-import { JsonUser, JsonUserCreation, JsonPicture } from '../json/JsonUser'
-import JsonError, { JsonVisibilityError } from '../json/JsonError'
-import User, { Address, IAddress, IUser } from '../entities/User'
-import * as ProductService from './product-service'
-import * as CartService from './cart-service'
-import * as AnimalService from './animal-service'
-import { IProductInstance } from '../entities/Cart'
+import { Address, IAddress } from '../entities/Address'
+import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
+import Animal, { IAnimal } from '../entities/Animal'
+import { ICartItem } from '../entities/CartItem'
+import { Order } from '../entities/Order'
+import User, { IUser } from '../entities/User'
 import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'
-import { IPicture } from '../entities/Picture'
-import Animal from '../entities/Animal'
-import { IAnimal } from '../entities/Animal'
+import JsonError, { JsonBadReqError, JsonVisibilityError } from '../json/JsonError'
+import { JsonOrder } from '../json/JsonOrder'
+import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
+import { JsonPicture, JsonUser, JsonUserCreation } from '../json/JsonUser'
 import { JsonUserPatch } from '../json/patch/UserPatch'
+import * as AnimalService from './animal-service'
+import * as CartService from './cart-service'
+import * as OrderService from './order-service'
+import * as ProductService from './product-service'
+import { IPicture } from '../entities/Picture'
+
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
@@ -100,7 +106,7 @@ export const userToJsonUser = (user: IUser): JsonUser => ({
   lastName: user.lastName,
   email: user.email,
   description: user.description,
-  animals: user.animals.map(AnimalService.animalToJsonAnimal),
+  animals: user.animals,
   profilePicture: user.profilePicture,
   address: user.address as IAddress,
 })
@@ -111,73 +117,35 @@ export const pictureToJsonPicture = (pic: IPicture) => ({
   mimetype: pic.mimetype,
 })
 
-export const addProductToUserCart = async (userId: string, pqs: IProductInstance[]): Promise<IProductInstance[]> => {
+export const addProductToUserCart = async (userId: string, cic: JsonCartItemCreation[]): Promise<ICartItem[]> => {
   /* TODO backend should also check wheter all fields of a product are correct.
     e.g. if you buy a tshirt you can't only specify the color, you need also the
     size. */
-  ProductService.evalProductInstances(pqs)
-  const cart = await CartService.createCartIfNotExists(userId)
-  await CartService.addToCart(cart, pqs)
-  return cart.productInstances
-}
 
-export const getUserProducts = async (userId: string) => {
-  const promises = (await CartService.findCartOfUser(userId))?.productInstances
-  return promises ? await Promise.all(promises) : [] // The empty cart
-}
-
-export const deleteFromUserCart = async (userId: string, piids: string[]) => {
-  const cart = await CartService.findCartOfUser(userId)
-  await CartService.deleteFromCart(cart.id, piids)
-  return getUserProducts(userId)
-}
-
-export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
-  const user = await User.findById(userId)
-  if (user) {
-    user.animals.push(animal)
-    await user.save()
-    return user.animals
-  } else throw new JsonError(`Can\'t find user with id ${userId}`)
-}
-
-export const deleteFromAnimal = async (userId: string, animalId: string): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    console.log('animalId -> ', animalId)
-    const newAnimals = user.animals.filter((x) => x._id.toString() !== animalId)
-    user.animals = newAnimals
-    console.log(newAnimals)
-    await user.save()
-    return user.animals
-  } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
+  if (cic.length === 0){
+    throw new JsonBadReqError("You must add at least one cart item!")
   }
+
+  if (!await ProductService.evalCartItemCreations(cic)) {
+    throw new JsonBadReqError("Invalid cart item creation")   
+  }
+  const cart = await CartService.createActiveCartIfNotExists(userId)
+  return (await CartService.addToCart(cart._id, cic)).cartItems
 }
 
-export const updateFromAnimal = async (
-  userId: string,
-  animalId: string,
-  updateAnimal: JsonAnimal
-): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    user.animals.map((x) => {
-      if (x._id.toString() === animalId) {
-        x.age = updateAnimal.age
-        x.name = updateAnimal.name
-        x.type = updateAnimal.type
-      }
-    })
-    await user.save()
-    return user.animals
-  } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
-  }
+export const getUserCartItems = async (userId: string) => {
+  const cartItems = (await CartService.findActiveCartOfUser(userId))?.cartItems
+  return cartItems || [] // The empty cart
+}
+
+export const deleteFromUserCart = async (userId: string, cartItemsIds: string[]): Promise<ICartItem[]> => {
+  const cart = await CartService.findActiveCartOfUser(userId)
+  return (await CartService.deleteFromCart(cart.id, cartItemsIds)).cartItems
+}
+
+export const deleteAllFromCart = async (userId: string): Promise<ICartItem[]> => {
+  const cart = await CartService.findActiveCartOfUser(userId)
+  return (await CartService.deleteAllFromCart(cart.id)).cartItems
 }
 
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
@@ -192,27 +160,41 @@ export const addPictureToUser = async (userId: string, picture: JsonPicture) => 
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-export const addPictureToAnimal = async (userId: string, animalId: string, picture: JsonPicture) => {
-  const user = await User.findById(userId)
-  if (user) {
-    try {
-      let index = 0
-      user.animals.map((x, i) => {
-        index = i
-        if (x._id.toString() === animalId) {
-          x.picture = picture
-        }
-      })
-      await user.save()
-      return user.animals[index]
-    } catch (err) {
-      throw new JsonError(err.message)
-    }
-  } else throw new JsonError(`Can\'t find user with id ${userId}`)
+export const addPictureToAnimal = async (animalId: string, picture: JsonPicture) => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
+    await animal.updateOne({ picture: picture })
+    await animal.save()
+    return animal
+  } else throw new JsonError(`Can\'t find animal with id ${animalId}`)
 }
 
 export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then((x) => x.map(userToJsonUser))
 
+export const updateUserDescription = async (userId: string, updateUser: JsonUser) => {
+  const user = await User.findById(userId)
+  if (user) {
+    try {
+      await User.findByIdAndUpdate({ _id: userId }, updateUser)
+      return user
+    } catch (error) {
+      throw new JsonError(error.message)
+    }
+  } else throw new JsonError(`Can\'t find user with id ${userId}`)
+}
+
+
+export const getUserOrders = async (userId: string): Promise<JsonOrder[]> =>
+  (await Order.find({userId: userId})).map(OrderService.orderToJsonOrder)
+
+export const createUserOrder = async (userId: string, paymentDetails: JsonPaymentDetails) => {
+  const oldCart = await CartService.findActiveCartOfUser(userId)
+  
+  await CartService.generateNewCartForUser(userId)
+
+  return await OrderService.createOrderForUser(oldCart._id, paymentDetails)
+}
+  
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
   const user = await User.findById(id)
   if (user.address == undefined) { user.address = { country: " ", city: " ", street: " ", zip: " " } }

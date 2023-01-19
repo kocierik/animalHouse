@@ -23,48 +23,62 @@ import { ProductPatch } from '@/json/patch/ProductPatch'
  * */
 export const getProducts = async (_: Request, res: Response) => res.json(await ProductService.findAllProduct())
 
+
 /**
  * @swagger
- *  /products/{id}:
- *    get:
- *        tags:
- *        - products
- *        summary: Searches the specified product
- *        parameters:
- *          - in: path
- *            name: id
- *            type: string
- *            required: true
+ *
+ *  {
+ *     "/products/{id}": {
+ *      get : {
+ *        tags: [ products ],
+ *        summary : Searches the specified product,
+ *        parameters : [{
+ *            in: path,
+ *            name: id,
+ *            type: string,
+ *            required: true,
  *            description: Id of the product to be searched
- *        responses:
- *          200:
- *            description: successful operation
- *            schema:
- *              type: array
- *              items:
+ *          }],
+ *        responses: {
+ *          200: {
+ *            description: successful operation,
+ *            schema: {
+ *              type: array,
+ *              items: {
  *                $ref: "#/components/schemas/Product"
+ *               }
+ *             }
+ *           }
+ *         }
+ *      }
+ *     }
+ *  }
  * */
 export const getProduct = async (req: Request, res: Response) =>
   res.status(Const.STATUS_OK).json(await ProductService.findProductByid(req.params.id))
 
 /**
  * @swagger
- *   /products/{id}:
- *    delete:
- *      tags:
- *      - products
- *      summary: Deletes a product based on the received id
- *      security:
- *        - JWT: []
- *      parameters:
- *        - in: path
- *          name: id
- *          type: string
- *          required: true
- *          description: Id of the product to be deleted
- *      responses:
- *        200:
+ *   /products/{id}: {
+ *    delete: {
+ *      tags: [products],
+ *      summary: Deletes a product based on the received id,
+ *      parameters: [
+ *       {
+ *        in: path,
+ *        name: id,
+ *        type: string,
+ *        required: true,
+ *        description: Id of the product to be deleted
+ *        }
+ *       ],
+ *      responses: {
+ *        200: {
  *          description: successful operation
+ *          }
+ *        }
+ *     }
+ *   }
  * */
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
@@ -79,25 +93,32 @@ export const deleteProduct = async (req: Request, res: Response) => {
 }
 /**
  * @swagger
- *   /products/{id}:
- *    patch:
- *      tags:
- *      - products
- *      summary: Modify a product based on the received id
- *      security:
- *        - JWT: []
- *      parameters:
- *        - in: path
- *          name: id
- *          type: string
- *          required: true
- *          description: Id of the product to be deleted
-*         - in: body
-*           schema:
-*             $ref: "#/components/schemas/ProductPatch"
- *      responses:
- *        200:
+ *   /products/{id}: {
+ *    patch: {
+ *     tags: [ products ],
+ *     summary: Modify a product based on the received id,
+ *     parameters: [
+ *       {
+ *         in : path,
+ *        name: id,
+ *        type: string,
+ *        required: true,
+ *        description: Id of the product to be deleted
+ *       },
+ *       {
+ *         in: body,
+ *        schema: {
+ *          $ref: "#/components/schemas/ProductPatch"
+ *         }
+ *       }
+ *     ],
+ *      responses: {
+ *        200: {
  *          description: successful operation
+ *       }
+ *      }
+ *     }
+ *   }
  * */
 export const patchProduct = async (req: Request, res: Response) => {
   try {
@@ -105,10 +126,8 @@ export const patchProduct = async (req: Request, res: Response) => {
     const body = req.body as ProductPatch
     return res.status(Const.STATUS_OK).json(ProductService.patchProduct(id, body))
   } catch (err) {
-    if (err instanceof JsonError)
-      return res.status(Const.STATUS_BAD_REQUEST).json(err)
-    else
-      return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
 
@@ -144,6 +163,7 @@ export const patchProduct = async (req: Request, res: Response) => {
  *            description: Success
  *
  * */
+ /* TODO levare user creation*/
 export const postProduct = async (req: Request, res: Response) => {
   //TODO: check input
   let productCreation = req.body as JsonProduct
@@ -274,6 +294,53 @@ export const putProductPicture = async (req: Request, res: Response) => {
 export const getProductSumUp = async (req: Request, res: Response) => {
   try {
     return res.status(Const.STATUS_OK).json(await ProductService.getProductReviewSumUp(req.path.id))
+  } catch (err) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+
+
+/**
+ * @swagger
+ *  /products/category/{id}:
+ *    get:
+ *      tags:
+ *      - products
+ *      summary: Get the product category
+ *      parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *        description: Id of the category product
+ *      responses:
+ *        200:
+ *          description: Success
+ * */
+export const getProductCategory = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await ProductService.getProductCategory(req.params.id))
+  } catch (err) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+
+/**
+ * @swagger
+ *  /products/categories:
+ *    get:
+ *      tags:
+ *      - products
+ *      summary: Get all the product categories
+ *      responses:
+ *        200:
+ *          description: Success
+ * */
+export const getProductCategoriesName = async (_: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await ProductService.getProductCategoriesName())
   } catch (err) {
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }

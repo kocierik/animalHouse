@@ -1,30 +1,18 @@
-import { Schema, model, Types } from 'mongoose';
-import { JsonAddress } from '../json/JsonUser';
-import { IAddress } from './User';
+import { Schema, model, Types } from 'mongoose'
+import { addressSchema } from './Address'
+import { ILocation } from './Location'
 
-
-export interface ILocation {
-  _id: Types.ObjectId
-  name: string
-  address: JsonAddress
-}
 
 export interface IReservation {
   _id: string
-  animalName: string
-  serviceName: string
+  animalId: string
+  serviceId: string
   userId: string
-  date: Date
+  date: string
   information: string
-  location: ILocation
+  locationId: string
 }
 
-const addressSchema = new Schema<IAddress>({
-  country: { type: String, required: true },
-  city: { type: String, required: true },
-  street: { type: String, required: true },
-  zip: { type: String, required: true },
-})
 
 const locationSchema = new Schema<ILocation>({
   name: { type: String, required: true },
@@ -32,12 +20,12 @@ const locationSchema = new Schema<ILocation>({
 })
 
 export const reservationSchema = new Schema<IReservation>({
-  animalName: { type: String, required: true },
-  serviceName: { type: String, required: true },
+  animalId: { type: String, required: true },
+  serviceId: { type: String, required: true },
   userId: { type: String, required: true },
-  date: { type: Date, required: true },
+  date: { type: String, required: true },
   information: { type: String, required: false },
-  location: { type: locationSchema, required: true },
+  locationId: { type: String, required: true },
 })
 
 const Reservation = model<IReservation>('Reservation', reservationSchema)
