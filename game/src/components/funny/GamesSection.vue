@@ -2,11 +2,13 @@
 import GameCard from '../games/GameCard.vue'
 import { gameList } from '@/oth/games'
 import * as router from '@/router/index'
+import { Helpers } from 'shared';
 
 const GAME_NO = 3
 const games = gameList.filter((_, index) => index < GAME_NO)
 
-const goToMoreGames = () => window.location.href = router.FunnyGamesRoute
+const goToMoreGames = () => 
+  router.redirect(router.FunnyGamesRoute)
 
 </script>
 

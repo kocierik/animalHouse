@@ -4,7 +4,7 @@ db.createUser({
   roles: [
     {
       role: 'readWrite',
-      db: 'animal-house-db',
-    },
-  ],
+      db: 'animal-house-db'
+    }
+  ]
 })

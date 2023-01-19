@@ -1,7 +1,6 @@
 import { connect } from 'mongoose'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
-import { resolve } from 'path'
 import { appRouter } from './routes/router'
 import * as parser from 'body-parser'
 import swaggerOptions from './swagger-config'
@@ -23,6 +22,7 @@ app.use(appRouter)
 // Db initialization
 async function db() {
   const uri = `mongodb://${Const.DB_USER}:${Const.DB_SECRET}@${Const.DB_ADDR}:${Const.DB_PORT}/${Const.DB_NAME}`
+  console.log(uri)
   await connect(uri)
   await migrations.initGames()
   await migrations.initProductCategories()
@@ -36,20 +36,6 @@ async function db() {
 }
 
 db().catch((err) => console.log(err))
-
-// Backoffice
-const pubDir = resolve(__dirname + Const.BACKOFFICE_DIR)
-console.log('[INFO] Pub dir is at ' + pubDir)
-app.use(express.static(pubDir))
-
-// Log
-const log = (req: Request, _: Response, next: Function) => {
-  console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
-  next()
-}
-
-console.log('[INFO] Pictures dir is at ' + Const.picDir)
-app.use(`/pictures/`, log, express.static(Const.picDir))
 
 // Swagger
 app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))

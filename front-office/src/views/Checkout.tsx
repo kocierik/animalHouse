@@ -4,6 +4,7 @@ import { ApiRepository, Helpers, JsonCart, JsonProduct } from 'shared';
 import { toast, ToastContainer } from 'react-toastify';
 import { JsonPaymentDetails } from 'shared/src/json/Orders';
 import { JsonAddress } from 'shared/src/json/user';
+import { redirect } from './router';
 
 const Checkout = () => {
   interface BuyingProduct {
@@ -24,7 +25,7 @@ const Checkout = () => {
   const userId = Helpers.getUserId()
 
   if (!userId) {
-    window.location.href = "/login"
+    redirect("/login")
     return <div />
   }
 

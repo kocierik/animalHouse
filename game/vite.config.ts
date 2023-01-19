@@ -10,10 +10,12 @@ export default defineConfig({
   plugins: [vue(), VitePWA({ registerType: 'autoUpdate' }), vueJsx()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   },
   build: {
     target: 'esnext',
-  },
+    outDir: '../public/game',
+    assetsDir: 'assets'
+  }
 })

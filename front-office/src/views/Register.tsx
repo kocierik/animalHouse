@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ApiRepository, ApiResponse, JsonUser } from 'shared'
 import ErrorBox from './common/ErrorBox'
+import { redirect } from './router'
 
 const Register = () => {
   const [username, setUsername] = useState('')
@@ -27,7 +28,7 @@ const Register = () => {
 
     const response: ApiResponse<JsonUser.JsonUser> = await ApiRepository.register(input)
     if (response.esit) {
-      window.location.href = '/register/animal'
+      redirect('/register/animal')
     } else {
       console.log(response.error!.mex)
       setError(response.error!.mex)
