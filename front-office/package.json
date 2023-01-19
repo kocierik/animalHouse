@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "vite --host",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --emptyOutDir --base=/frontoffice",
     "serve": "vite preview"
   },
   "eslintConfig": {
