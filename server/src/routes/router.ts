@@ -28,87 +28,76 @@ console.log('[INFO] Game dir is at ' + gameDir)
 appRouter.use(express.static(pubDir))
 appRouter.use("/frontoffice", express.static(frontofficeDir))
 appRouter.use("/game", express.static(gameDir))
-
-appRouter.get(
-  "/frontoffice/*",
-  (_: Request, res: Response) => res.sendFile(`${frontofficeDir}/index.html`)
-)
-
-// appRouter.get(
-//   "/game/*",
-//   (_: Request, res: Response) => res.sendFile(`${gameDir}/index.html`)
-// )
-
 appRouter.use("/backoffice", express.static(backofficeDir))
 appRouter.use("/pictures", express.static(pictureDir))
 
 // REST API
-const version = Const.CURR_API_VERSION
+const prefix = Const.API_PREFIX + Const.CURR_API_VERSION
 
 // User
-appRouter.post(version + '/users/register', middlewares.log, userRoutes.registerPost)
-appRouter.post(version + '/users/login', middlewares.log, userRoutes.loginPost)
-appRouter.get(version + '/users', middlewares.log, userRoutes.getAllUsers)
-appRouter.get(version + '/users/current', middlewares.log, middlewares.verifyToken, userRoutes.getCurrentUser)
-appRouter.get(version + '/users/:id', middlewares.log, userRoutes.getUser)
+appRouter.post(prefix + '/users/register', middlewares.log, userRoutes.registerPost)
+appRouter.post(prefix + '/users/login', middlewares.log, userRoutes.loginPost)
+appRouter.get(prefix + '/users', middlewares.log, userRoutes.getAllUsers)
+appRouter.get(prefix + '/users/current', middlewares.log, middlewares.verifyToken, userRoutes.getCurrentUser)
+appRouter.get(prefix + '/users/:id', middlewares.log, userRoutes.getUser)
 appRouter.patch(
-  version + '/users/:id',
+  prefix + '/users/:id',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.patchUser
 )
 appRouter.put(
-  version + '/users/:id/scores',
+  prefix + '/users/:id/scores',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.putScore
 )
 appRouter.get(
-  version + '/users/:id/score/',
+  prefix + '/users/:id/score/',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.getScore
 )
 appRouter.get(
-  version + '/users/:id/cart',
+  prefix + '/users/:id/cart',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.getCart
 )
 appRouter.put(
-  version + '/users/:id/cart',
+  prefix + '/users/:id/cart',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.putInCart
 )
 appRouter.delete(
-  version + '/users/:id/cart',
+  prefix + '/users/:id/cart',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.deleteCart
 )
 appRouter.put(
-  version + '/users/:id/animals',
+  prefix + '/users/:id/animals',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.putAnimal
 )
 appRouter.put(
-  version + '/users/:id/description',
+  prefix + '/users/:id/description',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.updateUserDescription
 )
 appRouter.put(
-  version + '/users/:id/picture',
+  prefix + '/users/:id/picture',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
@@ -116,28 +105,28 @@ appRouter.put(
   userRoutes.putPicture
 )
 appRouter.put(
-  version + '/users/:id/animals',
+  prefix + '/users/:id/animals',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.putAnimal
 )
 appRouter.delete(
-  version + '/users/:uid/animals/:aid',
+  prefix + '/users/:uid/animals/:aid',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.deleteAnimal
 )
 appRouter.put(
-  version + '/users/:uid/animals/:aid',
+  prefix + '/users/:uid/animals/:aid',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.updateAnimal
 )
 appRouter.put(
-  version + '/users/:uid/animals/:id/picture',
+  prefix + '/users/:uid/animals/:id/picture',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
@@ -145,7 +134,7 @@ appRouter.put(
   userRoutes.putAnimalPicture
 )
 appRouter.get(
-  version + '/users/:id/orders',
+  prefix + '/users/:id/orders',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
@@ -153,7 +142,7 @@ appRouter.get(
 )
 
 appRouter.post(
-  version + '/users/:id/orders',
+  prefix + '/users/:id/orders',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
@@ -161,34 +150,34 @@ appRouter.post(
 )
 
 // Admins
-appRouter.post(version + '/admins/login', middlewares.log, adminRoutes.postLogin)
+appRouter.post(prefix + '/admins/login', middlewares.log, adminRoutes.postLogin)
 
 // Animals
-appRouter.get(version + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
-appRouter.get(version + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
-appRouter.patch(version + '/animal/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
+appRouter.get(prefix + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
+appRouter.get(prefix + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
+appRouter.patch(prefix + '/animal/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
 
 // Community
-appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)
-appRouter.get(version + '/community/game/scoreboard', middlewares.log, communityRoutes.getScoreboard)
+appRouter.get(prefix + '/community/game/', middlewares.log, communityRoutes.getGames)
+appRouter.get(prefix + '/community/game/scoreboard', middlewares.log, communityRoutes.getScoreboard)
 
 // Products
-appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
-appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
-appRouter.get(version + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
-appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
-appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct)
-appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert TODO add ADMIN middleware
-appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
-appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
-appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
-appRouter.get(version + '/products/categories', middlewares.log, marketRoutes.getProductCategoriesName)
+appRouter.get(prefix + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
+appRouter.get(prefix + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
+appRouter.get(prefix + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
+appRouter.delete(prefix + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
+appRouter.patch(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct)
+appRouter.post(prefix + '/products', middlewares.log, marketRoutes.postProduct) //insert TODO add ADMIN middleware
+appRouter.get(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
+appRouter.post(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
+appRouter.get(prefix + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
+appRouter.get(prefix + '/products/categories', middlewares.log, marketRoutes.getProductCategoriesName)
 
 
 // Reservations
-appRouter.get(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations)
-appRouter.post(version + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.postReservation)
-appRouter.delete(version + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation)
+appRouter.get(prefix + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations)
+appRouter.post(prefix + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.postReservation)
+appRouter.delete(prefix + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation)
 
 // Location
-appRouter.get(version + '/locations', middlewares.log, locationRoutes.getLocation) 
+appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocation) 
