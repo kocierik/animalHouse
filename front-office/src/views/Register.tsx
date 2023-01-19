@@ -27,7 +27,7 @@ const Register = () => {
 
     const response: ApiResponse<JsonUser.JsonUser> = await ApiRepository.register(input)
     if (response.esit) {
-      window.location.href = '/register/animal'
+      redirect('/register/animal')
     } else {
       console.log(response.error!.mex)
       setError(response.error!.mex)
