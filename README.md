@@ -78,7 +78,6 @@ to build only a specific project run
 yarn build:server
 yarn build:front
 yarn build:game
-yarn build:back
 ```
 
 ## Other
