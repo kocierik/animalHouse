@@ -12,7 +12,7 @@ const DefaultCard = (props: { setOpenNewAnimal: React.Dispatch<React.SetStateAct
         name: animalName.current?.value!,
         type: animalType.current?.value!,
         age: parseInt(animalAge.current?.value!),
-        picture: undefined //TODO
+        picture: null! //TODO
       }
       await ApiRepository.registerAnimal(animal, Helpers.getUserId()!)
         .catch(e => console.log("Errore aggiunta animale --> ", e))
