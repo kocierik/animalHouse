@@ -15,7 +15,8 @@ export const GAME_DIR = PUBLIC_DIR + '/game'
 export const PICTURE_DIR = PUBLIC_DIR + '/pictures'
 
 export const SERVER_PORT = 8080
-export const CURR_API_VERSION = '/v1'
+export const API_PREFIX = "/api"
+export const CURR_API_VERSION = '/v2'
 
 export const DB_NAME = 'animal-house-db'
 export const DB_ADDR = '127.0.0.1'

@@ -37,13 +37,6 @@ async function db() {
 
 db().catch((err) => console.log(err))
 
-// Log
-const log = (req: Request, _: Response, next: Function) => {
-  console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
-  next()
-}
-
-
 // Swagger
 app.use('/api/docs', swagger.serve, swagger.setup(swaggerJsdoc(swaggerOptions)))
 
