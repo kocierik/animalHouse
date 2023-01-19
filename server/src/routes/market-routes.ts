@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { JsonProduct } from '../json/JsonProduct'
+import { JsonProduct, JsonPicture } from '../json/JsonProduct'
 import JsonError from '../json/JsonError'
 import * as Const from '../const'
 import * as ProductService from '../services/product-service'
@@ -12,7 +12,7 @@ import { ProductPatch } from '@/json/patch/ProductPatch'
  *    get:
  *        tags:
  *        - products
- *        summary: Retrieve all products
+ *        summary: Returns all products
  *        responses:
  *          200:
  *            description: successful operation
@@ -22,6 +22,7 @@ import { ProductPatch } from '@/json/patch/ProductPatch'
  *                $ref: "#/components/schemas/Product"
  * */
 export const getProducts = async (_: Request, res: Response) => res.json(await ProductService.findAllProduct())
+
 
 /**
  * @swagger
@@ -137,6 +138,8 @@ export const patchProduct = async (req: Request, res: Response) => {
  *        tags:
  *        - products
  *        summary: Creates a new product
+ *        security:
+ *          - JWT: []
  *        parameters:
  *          - in: body
  *            name: body
@@ -162,7 +165,7 @@ export const patchProduct = async (req: Request, res: Response) => {
  * */
  /* TODO levare user creation*/
 export const postProduct = async (req: Request, res: Response) => {
-  //TODO: check admin token + check input
+  //TODO: check input
   let productCreation = req.body as JsonProduct
   return res.status(Const.STATUS_OK).json(await ProductService.createProduct(productCreation))
 }
@@ -252,6 +255,21 @@ export const postReview = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(error.message))
   }
+}
+
+export const putProductPicture = async (req: Request, res: Response) => {
+  // TODO swagger
+  try {
+    const pathId = req.params.id
+    const file = req.file as JsonPicture
+    const newData = ProductService.pictureToJsonPicture(file)
+    return res.status(Const.STATUS_OK).json(await ProductService.addPictureToProduct(pathId, newData))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+
+
 }
 
 /**

@@ -1,5 +1,7 @@
 import JsonError from '../json/JsonError'
 import Product, { IProduct } from '../entities/Product'
+import { JsonPicture } from '../json/JsonProduct'
+import { IPicture } from '../entities/Picture'
 import { ICartItem } from '../entities/CartItem'
 import { JsonProduct } from '../json/JsonProduct'
 import Review from '../entities/Review'
@@ -58,6 +60,24 @@ export const reviewById = (productId: string) => {
   return Review.find({ productId: productId })
 }
 
+export const pictureToJsonPicture = (pic: IPicture) => ({
+  size: pic.size,
+  filename: pic.filename,
+  mimetype: pic.mimetype,
+})
+
+export const addPictureToProduct = async (productId: string, picture: JsonPicture) => {
+  const product = await Product.findById(productId)
+  if (product) {
+    try {
+      await Product.findByIdAndUpdate({ _id: productId }, { image: picture })
+      return product
+    } catch (err) {
+      throw new JsonError(err.message)
+    }
+  } else throw new JsonError(`Can\'t find product with id ${productId}`)
+}
+
 export const createReview = async (reviewCreation: JsonReview) => {
   const review = new Review()
   review.username = reviewCreation.username
@@ -77,7 +97,7 @@ export const createProduct = async (productCreation: JsonProduct): Promise<IProd
   product.categoryId = productCreation.categoryId
   product.description = productCreation.description
   product.animalTargets = productCreation.animalTargets
-  product.images = [productCreation.image]
+  product.image = productCreation.image
   product.colors = productCreation.colors
   product.sizes = productCreation.sizes
   product.types = productCreation.types
@@ -113,7 +133,7 @@ export const patchProduct = async (id: string, patch: ProductPatch): Promise<IPr
   if (patch.types) prod.types = patch.types
   if (patch.categoryId) prod.categoryId = patch.categoryId
   if (patch.details) prod.details = patch.details
-  if (patch.highlights) prod.highlights = patch.highlights
+  if (patch.animalTargets) prod.animalTargets = patch.animalTargets
 
   await prod.save()
   return prod as IProduct

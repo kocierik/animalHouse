@@ -3,18 +3,21 @@ import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
 import Animal, { IAnimal } from '../entities/Animal'
 import { ICartItem } from '../entities/CartItem'
 import { Order } from '../entities/Order'
-import User, { IPicture, IUser } from '../entities/User'
+import User, { IUser } from '../entities/User'
 import { JsonAnimal } from '../json/JsonAnimal'
+import { JsonLogin } from '../json/JsonUser'
+import { AuthData } from '../routes/middlewares'
+import Admin from '../entities/Admin'
 import JsonError, { JsonBadReqError, JsonVisibilityError } from '../json/JsonError'
 import { JsonOrder } from '../json/JsonOrder'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
-import { JsonLogin, JsonPicture, JsonUser, JsonUserCreation } from '../json/JsonUser'
+import { JsonPicture, JsonUser, JsonUserCreation } from '../json/JsonUser'
 import { JsonUserPatch } from '../json/patch/UserPatch'
-import { AuthData } from '../routes/middlewares'
 import * as AnimalService from './animal-service'
 import * as CartService from './cart-service'
 import * as OrderService from './order-service'
 import * as ProductService from './product-service'
+import { IPicture } from '../entities/Picture'
 
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
@@ -42,6 +45,16 @@ const validateUserCreation = async (userCreation: JsonUserCreation): Promise<Jso
 
   return userCreation
 }
+
+export const getAllUSers = async () => {
+  const users = await User.find({})
+  let ret = []
+  for (const u of users) {
+    ret.push(userToJsonUser(u))
+  }
+  return ret
+}
+
 
 const userCreationToUser = (userCreation: JsonUserCreation) => {
   const user = new User()
@@ -184,15 +197,17 @@ export const createUserOrder = async (userId: string, paymentDetails: JsonPaymen
   
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
   const user = await User.findById(id)
-  if (patch.zip) user.address.zip = patch.zip
-  if (patch.city) user.address.city = patch.city
-  if (patch.street) user.address.street = patch.street
-  if (patch.country) user.address.country = patch.country
-  if (patch.lastName) user.lastName = patch.lastName
-  if (patch.firstName) user.firstName = patch.firstName
-  if (patch.username) user.username = patch.username
-  if (patch.email) user.email = patch.email
-  if (patch.description) user.description = patch.description
+  if (user.address == undefined) { user.address = { country: " ", city: " ", street: " ", zip: " " } }
+  if (patch.zip) { user.address.zip = patch.zip }
+  if (patch.city) { user.address.city = patch.city }
+  if (patch.street) { user.address.street = patch.street }
+  if (patch.country) { user.address.country = patch.country }
+  if (patch.lastName) { user.lastName = patch.lastName }
+  if (patch.firstName) { user.firstName = patch.firstName }
+  if (patch.username) { user.username = patch.username }
+  if (patch.password) { user.password = patch.password }
+  if (patch.email) { user.email = patch.email }
+  if (patch.description) { user.description = patch.description }
 
   await user.save()
   return userToJsonUser(user)

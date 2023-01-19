@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Helpers } from 'shared'
+import { JsonProduct } from 'shared'
+
 import { ApiRepository, Jsonlocation, ProductConstant } from 'shared'
-import { ProductMarked } from 'shared'
 
 const Articles = (props: { filterApplied: string[]}) => {
-  const [article, setArticle] = React.useState<ProductMarked.IProductMarked[]>([])
-  const [filterArticle,setFilterArticle] = useState<ProductMarked.IProductMarked[]>([])
+  const [article, setArticle] = React.useState<JsonProduct.IProduct[]>([])
+  const [filterArticle,setFilterArticle] = useState<JsonProduct.IProduct[]>([])
 
   const getMarketProducts = async () => {
     const values = (await ApiRepository.getMarketProducts()).data
@@ -14,7 +16,7 @@ const Articles = (props: { filterApplied: string[]}) => {
   }
   
   const filterMarketProducts = () => {
-    const productArray: ProductMarked.IProductMarked[] = []  
+    const productArray: JsonProduct.IProduct[] = []  
     article.map(async (singleArticle) => {
       setFilterArticle([])
 
@@ -47,9 +49,9 @@ const Articles = (props: { filterApplied: string[]}) => {
 
   const inputRef = useRef<HTMLHeadingElement[]>([])
 
-  const changeBg = (id: string, articles: ProductMarked.IProductMarked[]) => {
+  const changeBg = (id: string, articles: JsonProduct.IProduct[]) => {
     let index = 0
-    articles.forEach((element: ProductMarked.IProductMarked) => {
+    articles.forEach((element: JsonProduct.IProduct) => {
       if (element._id !== id) {
         inputRef.current[index].style.opacity = '0.70'
       }
@@ -58,9 +60,9 @@ const Articles = (props: { filterApplied: string[]}) => {
     index = 0
   }
 
-  const changeBgOut = (article: ProductMarked.IProductMarked[]) => {
+  const changeBgOut = (article: JsonProduct.IProduct[]) => {
     let index = 0
-    article.forEach((element: ProductMarked.IProductMarked) => {
+    article.forEach((element: JsonProduct.IProduct) => {
       inputRef.current[index].style.opacity = '1'
       index++
     })
@@ -84,7 +86,7 @@ const Articles = (props: { filterApplied: string[]}) => {
               >
                 <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden  lg:h-80 lg:aspect-none">
                   <img
-                    src={product.images[0]}
+                    src={product?.image?.filename ? Helpers.getImagePath(product?.image?.filename) : "/favicon.ico"}
                     alt={product.name}
                     className="w-full h-full object-center object-unset lg:w-full lg:h-full"
                   />

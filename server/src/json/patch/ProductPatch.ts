@@ -6,7 +6,7 @@ export interface ProductPatch {
   colors?: string[]
   sizes?: string[]
   types?: string[]
-  highlights?: string[]
+  animalTargets?: string[]
   details?: string
 }
 
@@ -44,7 +44,7 @@ export const SwaggerProductPatch = {
       nullable: true,
       items: 'string',
     },
-    highlights: {
+    animalTargets: {
       type: 'array',
       nullable: true,
       items: 'string',

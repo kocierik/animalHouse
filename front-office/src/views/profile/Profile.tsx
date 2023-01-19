@@ -52,8 +52,8 @@ const Profile = () => {
       const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
       setUser(userInfo)
       textValue.current!.value = userInfo?.description!
-      // --------------------
-      const image = (await ApiRepository.getPicture(user.id)).data
+
+      const image = (await (ApiRepository.getPicture(user.id))).data
       setImageProfile(image)
     }
   }

@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import { IPicture, picturesSchema } from './Picture'
 
 export interface IProduct {
   name: string
@@ -6,7 +7,7 @@ export interface IProduct {
   categoryId: string
   description: string
   animalTargets: string[]
-  images: string[]
+  image?: IPicture
   alt?: string[]
   colors?: string[]
   sizes?: string[]
@@ -15,12 +16,14 @@ export interface IProduct {
   details?: string
 }
 
+
+
 const productSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
   categoryId: { type: String, required: true },
-  images: { type: [String], required: true },
+  image: { type: picturesSchema, required: false },
   alt: { type: [String], required: false },
   animalTargets: { type: [String], required: true },
   colors: { type: [String], required: false },

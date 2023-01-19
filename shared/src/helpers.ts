@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./const"
+
 export const stringFormat = (str: string, ...args: string[]) =>
   str.replace(/{(\d+)}/g,
     (match, number) => typeof args[number] != 'undefined' ? args[number] : match
@@ -17,3 +19,5 @@ export const doLogout = () => localStorage.removeItem(LS_AuthToken)
 export const setUserId = (userId: string) => localStorage.setItem(LS_UserId, userId)
 
 export const getUserId = (): string | null => localStorage.getItem(LS_UserId)
+
+export const getImagePath = (fileName: string) => SERVER_URL + "/pictures/" + fileName
