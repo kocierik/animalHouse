@@ -182,63 +182,63 @@ export const initReservationCodes = async () => {
       _id: new Types.ObjectId('137a10397c883b752202e441'),
       title: 'Find Partner',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Introducing the ultimate matchmaking service for animals! Our state-of-the-art technology takes into consideration factors such as breed, personality, and compatibility to help you find the perfect partner for your furry friend. We've got you covered.",
       color: 'red',
     },
     {
       _id: new Types.ObjectId('237a10397c883b752202e442'),
       title: 'Help animals',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Introducing our animal assistance service, dedicated to helping animals in need. Our mission is to provide support and resources for animals of all kinds, whether they are stray, abandoned, or simply in need of a helping hand. We are the best in this sector!",
       color: 'green',
     },
     {
       _id: new Types.ObjectId('337a10397c883b752202e443'),
-      title: 'psychologist',
+      title: 'Psychologist',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Our animal psychology service offers a unique approach to understanding and improving the well-being of animals. Our team of trained and experienced animal psychologists specialize in providing behavioral and emotional support for a wide range of animals.",
       color: 'indigo',
     },
     {
       _id: new Types.ObjectId('437a10397c883b752202e444'),
       title: 'Dog Sitter',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled  it to make a type specimen book.",
+        "Introducing our top-rated dog sitting service for pet owners in need of a reliable and caring sitter for their furry friend. Our team of experienced dog sitters provide a safe and comfortable environment for your dog while you're away. All animal smile.",
       color: 'coral',
     },
     {
       _id: new Types.ObjectId('537a10397c883b752202e445'),
-      title: 'veterinary',
+      title: 'Veterinary',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Welcome to our comprehensive veterinary service for animals. Our team of highly trained and experienced veterinarians and staff are dedicated to providing the best possible care for your furry friend. We have many professional certification in this sector",
       color: 'blue',
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e446'),
       title: 'Pension',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Introducing our luxury animal pension service, where your pet can enjoy a comfortable and stress-free vacation while you're away. Our facilities offer spacious and well-appointed accommodations for a wide range of animals. from sleeping to have fun!",
       color: 'orange',
     },
     {
       _id: new Types.ObjectId('737a10397c883b752202e447'),
       title: 'Wash Animal',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Introducing our premium animal grooming service, where the care and comfort of your pet is our top priority. Our team of expert groomers use the latest techniques and high-quality products to keep your animal looking and feeling their best.",
       color: 'brown',
     },
     {
       _id: new Types.ObjectId('837a10397c883b752202e448'),
       title: 'Home visit',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Introducing our in-home animal care service, where we bring professional care to the comfort of your own home. Our team of trained and experienced animal caregivers provide a wide range of services to meet the needs of your pet, including all services.",
       color: 'pink',
     },
     {
       _id: new Types.ObjectId('937a10397c883b752202e449'),
       title: 'Grooming',
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "Introducing our luxury animal grooming service, where we pamper your pet with the highest quality grooming services. Our team of expert groomers use the latest techniques and high-quality products to keep your animal looking and feeling their best.",
       color: 'deeppink',
     },
   ])

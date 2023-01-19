@@ -26,7 +26,7 @@ const cards = [
   },
 
   {
-    title: 'veterinary',
+    title: 'Veterinary',
     id: '537a10397c883b752202e445',
     description: 'Last used 2 days ago',
     svg: (
