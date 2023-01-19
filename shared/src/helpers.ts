@@ -3,6 +3,8 @@ export const stringFormat = (str: string, ...args: string[]) =>
     (match, number) => typeof args[number] != 'undefined' ? args[number] : match
   )
 
+export enum Project { GAME, FRONTOFFICE }
+
 // LOCAL STORAGE
 export const LS_PersonalAnimals = 'PersonalAnimals'
 export const LS_AuthToken = 'token'

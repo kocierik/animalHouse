@@ -9,7 +9,7 @@ export const STATUS_NOT_FOUND = 404
 export const STATUS_INTERNAL_ERROR = 500
 
 export const PUBLIC_DIR = '/../../public/'
-export const BACKOFFICE_DIR = PUBLIC_DIR + 'backoffice'
+export const BACKOFFICE_DIR = '/../../backoffice'
 export const FRONTOFFICE_DIR = PUBLIC_DIR + 'frontoffice'
 export const GAME_DIR = PUBLIC_DIR + '/game'
 export const PICTURE_DIR = PUBLIC_DIR + '/pictures'
