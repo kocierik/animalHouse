@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
-import { ApiRepository, Helpers, JsonCart, ProductMarked } from 'shared';
+import { ApiRepository, Helpers, JsonCart, JsonProduct } from 'shared';
 import { toast, ToastContainer } from 'react-toastify';
 import { JsonPaymentDetails } from 'shared/src/json/Orders';
 import { JsonAddress } from 'shared/src/json/user';
@@ -8,7 +8,7 @@ import { JsonAddress } from 'shared/src/json/user';
 const Checkout = () => {
   interface BuyingProduct {
     cartItem: JsonCart.ICartItem
-    product: ProductMarked.IProductMarked
+    product: JsonProduct.IProduct
   }
 
   const [buyingProduct, setBuyingProduct] = useState<BuyingProduct[]>([])
@@ -34,7 +34,7 @@ const Checkout = () => {
       product: await fetchProduct(cartItem.productId)
     } as BuyingProduct)))
 
-  const fetchProduct = async (id: string): Promise<ProductMarked.IProductMarked | undefined> =>
+  const fetchProduct = async (id: string): Promise<JsonProduct.IProduct | undefined> =>
     (await ApiRepository.getMarketProduct(id)).data
 
   const fetchBuyingProducts = async () => {
@@ -63,7 +63,7 @@ const Checkout = () => {
   const constructPaymentDetails = (): JsonPaymentDetails =>
   ({
     address: {
-      zip: Number(postal),
+      zip: postal,
       city: city,
       country: stat,
       street: addr
@@ -111,7 +111,7 @@ const Checkout = () => {
                 {buyingProduct?.map((product, i) => (
                   <li key={i} className="flex py-6 space-x-6">
                     <img
-                      src={product.product.images[0]}
+                      src={product.product.image.filename}
                       alt={product.product.name}
                       className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                     />
@@ -153,7 +153,7 @@ const Checkout = () => {
             {buyingProduct?.map((product, i) => (
               <li key={i} className="flex py-6 space-x-6">
                 <img
-                  src={product.product.images[0]}
+                  src={product.product.image.filename}
                   alt={product.product.name}
                   className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                 />

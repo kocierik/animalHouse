@@ -30,9 +30,9 @@ export interface JsonLogin {
   password: string
 }
 export interface JsonPicture {
-  size: number
+  size?: number
   filename: string
-  mimetype: string
+  mimetype?: string
 }
 
 export const SwaggerUser = {

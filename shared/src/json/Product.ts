@@ -1,4 +1,4 @@
-import { IPicture } from "./Picture"
+import type { IPicture } from "./Picture"
 
 export interface IProduct {
   _id: string,

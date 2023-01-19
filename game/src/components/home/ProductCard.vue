@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { FRONTOFFICE } from '@/const';
-import type { ProductMarked } from 'shared';
+import type { JsonProduct } from 'shared';
+import { Helpers } from 'shared';
 
-const props = defineProps<{ product: ProductMarked.IProductMarked}>()
+const props = defineProps<{ product: JsonProduct.IProduct}>()
 
 </script>
 <template>
@@ -10,7 +11,7 @@ const props = defineProps<{ product: ProductMarked.IProductMarked}>()
     <div class="w-full p-3 max-w-sm bg-llime mx-auto rounded-lg shadow-lg overflow-hidden">
       <div
         class="flex items-end justify-end w-full bg-cover"
-        :style="`height: 20rem; background-image: url(${props.product.images[0]})`"
+        :style="`height: 20rem; background-image: url(${Helpers.getImagePath(props.product.image.filename)})`"
       >
         <button
           class="p-2 rounded-full bg-lgreen text-text mx-5 -mb-4 hover:dgreen focus:outline-none focus:bg-green-400"

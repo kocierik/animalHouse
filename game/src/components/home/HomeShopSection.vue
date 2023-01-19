@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import Product from './ProductCard.vue'
-import { ApiRepository, ProductMarked } from 'shared';
+import { ApiRepository, JsonProduct } from 'shared';
 import { onBeforeMount, ref } from 'vue';
 import { FRONTOFFICE } from '@/const'
 
 const PROD_NO = 4
-const products = ref<ProductMarked.IProductMarked[]>([])
+const products = ref<JsonProduct.IProduct[]>([])
 
 const fetchProducts = async () => {
     const response = await ApiRepository.getMarketProducts()
