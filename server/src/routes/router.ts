@@ -74,7 +74,7 @@ appRouter.get(prefix + '/community/game/scoreboard', middlewares.log, communityR
 
 // Location
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
-appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocation) 
+appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations) 
 
 // Products
 appRouter.get(prefix + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
