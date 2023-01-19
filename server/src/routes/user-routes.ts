@@ -457,6 +457,168 @@ export const deleteCart = async (req: Request, res: Response) => {
   }
 }
 
+
+/**
+ * @swagger
+ * /users/{id}/animals : {
+ *         "put": {
+ *              "tags": [
+ *                  "users"
+ *              ],
+ *              "summary": "Add an animal for the specified user",
+ *              "parameters": [
+ *                  {
+ *                      "in": "path",
+ *                      "name": "id",
+ *                      "type": "string",
+ *                      "required": true,
+ *                      "description": "Id of the user"
+ *                  },
+ *                  {
+ *                      "in": "body",
+ *                      "name": "body",
+ *                      "required": true,
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/Animal"
+ *                          }
+ *                      }
+ *                  }
+ *              ],
+ *              "security": [
+ *                  {
+ *                      "JWT": []
+ *                  }
+ *              ],
+ *              "responses": {
+ *                  "200": {
+ *                      "description": "ok",
+ *                      "schema": {
+ *                          "type": "array",
+ *                          "items": {
+ *                              "$ref": "#/definitions/Animal"
+ *                          }
+ *                      }
+ *                  }
+ *              }
+ *          }
+ *      }
+ * */
+ export const putAnimal = async (req: Request, res: Response) => {
+  try {
+    const pathId = req.params.id
+    const animal = req.body as JsonAnimal
+    return res.status(Const.STATUS_OK).json(await UserService.addAnimalsToUser(pathId, animal))
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
+/**
+ * @swagger
+ * /users/{uid}/animals/{aid}:
+ *  delete:
+ *      tags:
+ *      - users
+ *       summary: Retrive reviews about a product
+ *       parameters:
+ *       - in: path
+ *         name: uid
+ *         type: string
+ *         required: true
+ *         description: Id of the user to be searched
+ *      },
+ *       {
+ *          in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
+ *         description: Id of the animal to be deleted
+ *       security:
+ *         - JWT: []
+ *       responses:
+ *         200:
+ *           description: successful operation
+ * */
+export const deleteAnimal = async (req: Request, res: Response) => {
+  try {
+    const animalId = req.params.aid
+    const userId = req.params.uid
+    return res.status(Const.STATUS_OK).json(await UserService.deleteFromAnimal(userId, animalId))
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error)
+  }
+}
+
+/**
+ * @swagger
+ * /users/{uid}/animals/{aid}:
+ *  put:
+ *      tags:
+ *      - users
+ *      summary: edit a animal
+ *       parameters:
+ *       - in: path
+ *         name: uid
+ *         type: string
+ *         required: true
+ *         description: user id
+ *      },
+ *       { 
+ *         in: path,
+ *         name: aid,
+ *         type: string,
+ *         required: true,
+ *         description: animal id
+ *       - in: body
+ *         name: Animal
+ *         description: Animal info
+ *         schema:
+ *           type: object
+ *           properties:
+ *             _id:
+ *               type: string
+ *             type:
+ *               type: string
+ *             name:
+ *               type: string
+ *             userId:
+ *               type: string
+ *             age:
+ *               type: number
+ *             picture:
+ *               type: object
+ *               properties:
+ *                 filename:
+ *                   type: string
+ *                 mimetype:
+ *                   type: string
+ *                 size:
+ *                   type: number
+ *       security:
+ *         - JWT: []
+ *       responses:
+ *         200:
+ *           description: Success
+ *           schema:
+ *             $ref: "#/definitions/Animal"
+ *     
+* */
+export const updateAnimal = async (req: Request, res: Response) => {
+  try {
+    const animalId = req.params.aid
+    const userId = req.params.uid
+    console.log(userId)
+    let animal = req.body as JsonAnimal
+    console.log(animal)
+    return res.status(Const.STATUS_OK).json(await UserService.updateFromAnimal(userId, animalId, animal))
+  } catch (error) {
+    return res.status(Const.STATUS_BAD_REQUEST).json(error)
+  }
+}
+
 export const postPicture = (req: Request, res: Response) => {
   // TODO swagger
   try {

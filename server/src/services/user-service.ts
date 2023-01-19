@@ -18,6 +18,7 @@ import * as CartService from './cart-service'
 import * as OrderService from './order-service'
 import * as ProductService from './product-service'
 import { IPicture } from '../entities/Picture'
+import { AnimalPatch } from '@/json/patch/AnimalPatch'
 
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
@@ -146,6 +147,56 @@ export const deleteFromUserCart = async (userId: string, cartItemsIds: string[])
 export const deleteAllFromCart = async (userId: string): Promise<ICartItem[]> => {
   const cart = await CartService.findActiveCartOfUser(userId)
   return (await CartService.deleteAllFromCart(cart.id)).cartItems
+}
+export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
+  const user = await User.findById(userId)
+  if (user) {
+    user.animals.push(animal._id)
+    await user.save()
+    return user.animals
+  } else throw new JsonError(`Can\'t find user with id ${userId}`)
+}
+
+export const deleteFromAnimal = async (userId: string, animalId: string): Promise<IAnimal[]> => {
+  const user = await User.findById(userId)
+  if (user) {
+    const animal = await Animal.findById(animalId)
+    console.log(animal)
+    console.log('animalId -> ', animalId)
+    const newAnimals = user.animals.filter((x) => x !== animalId)
+    user.animals = newAnimals
+    console.log(newAnimals)
+    await user.save()
+    return await Promise.all(user.animals.map(AnimalService.findById))
+  } else {
+    throw new JsonError(`Can\'t find user with id ${userId}`)
+  }
+}
+
+export const updateFromAnimal = async (
+  userId: string,
+  animalId: string,
+  updateAnimal: JsonAnimal
+): Promise<IAnimal[]> => {
+  const user = await User.findById(userId)
+  if (user) {
+    const animal = await Animal.findById(animalId)
+    console.log(animal)
+    user.animals.map(async (x) => {
+      if (x === animalId) {
+        const patch: AnimalPatch = {
+          age: updateAnimal.age,
+          name: updateAnimal.name,
+          type: updateAnimal.type
+        }
+        await AnimalService.patchAnimal(x, patch)
+      }
+    })
+
+    return AnimalService.findAnimalsUser(userId)
+  } else {
+    throw new JsonError(`Can\'t find user with id ${userId}`)
+  }
 }
 
 export const addPictureToUser = async (userId: string, picture: JsonPicture) => {
