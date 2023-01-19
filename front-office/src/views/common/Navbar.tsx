@@ -56,7 +56,7 @@ const Navbar = () => {
                   }}
                   style={{ filter: 'invert(1)' }}
                   className="h-10 w-10 cursor-pointer"
-                  src="/logoTransparent.png"
+                  src={import.meta.env.BASE_URL + "/logoTransparent.png"}
                   alt="Workflow"
                 />
               </div>

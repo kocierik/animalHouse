@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ApiRepository, ApiResponse, JsonAnimal, Helpers } from 'shared'
 import ErrorBox from './common/ErrorBox'
 import Select from 'react-select'
+import { redirect } from './router'
 
 interface SelectProp {
   label: string
@@ -35,7 +36,7 @@ const RegisterAnimal = () => {
 
       const response = await ApiRepository.registerAnimal(input, userId)
       if (response.esit) {
-        window.location.href = '/'
+        redirect('/')
       } else {
         setError(response.error!.mex)
         setIsError(true)

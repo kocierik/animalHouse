@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AnimalType } from 'shared';
+import { AnimalType, Helpers } from 'shared';
 import { onBeforeMount, ref } from 'vue'
 import VideoCard from '../personal/VideoCard.vue';
 import * as router from '@/router/index'
@@ -7,7 +7,8 @@ import * as router from '@/router/index'
 const VIDEO_NO = 3
 const randomAnimalTypes = ref<AnimalType[]>()
 
-const goToVideoWall = () => window.location.href = router.FunnyVideosRoute
+const goToVideoWall = () => 
+    router.redirect(router.FunnyVideosRoute)
 
 const calculateRandomAnimalType = () => {
     const animalTypes = [AnimalType.Bunny, AnimalType.Cat, AnimalType.Dog, AnimalType.Duck, AnimalType.Fox, AnimalType.Koala, AnimalType.Lizard, AnimalType.Panda]

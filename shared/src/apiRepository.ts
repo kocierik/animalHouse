@@ -14,7 +14,7 @@ import type * as order from "./json/Orders";
 import type * as service from "./json/Service";
 
 // Server api urls
-const _BASE_URL = SERVER_URL + '/v1'
+const _BASE_URL = 'http://localhost:8080/api/v2'
 
 const _ANIMAL_GET = "/animals/{0}/info";
 const _ANIMAL_GETALL = "/users/{0}/animals";

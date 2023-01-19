@@ -5,6 +5,7 @@ import JsonError, { JsonVisibilityError } from '../json/JsonError'
 import * as AdminService from '../services/admin-service'
 import multer from 'multer'
 import * as Const from '../const'
+import { pubDir } from './router'
 
 export interface AuthData {
   username: string
@@ -16,7 +17,7 @@ export const verifyToken = async (req: Request, res: Response, next: Function) =
   if (authHeader !== undefined) {
     jwt.verify(authHeader, SECRET, (err, authData) => {
       if (err) {
-         return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError(`error validating token: ${err}`))
+        return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError(`error validating token: ${err}`))
       } else {
         req.authData = authData.authData
         return next()
@@ -33,7 +34,7 @@ export const verifyUser = async (req: Request, res: Response, next: Function) =>
 
   if (pathId === authId || await AdminService.isAdmin(authId)) {
     return next()
-  } 
+  }
   else {
     return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
   }
@@ -46,7 +47,7 @@ export const log = (req: Request, _: Response, next: Function) => {
 
 // Multer
 const storage = multer.diskStorage({
-  destination: Const.picDir,
+  destination: pubDir,
   filename: (req: Request, _: any, cb: Function) => {
     cb(null, req.params.id)
   },

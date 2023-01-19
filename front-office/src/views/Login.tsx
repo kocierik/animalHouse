@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { ApiRepository, ApiResponse, Helpers, JsonUser } from 'shared'
 import ErrorBox from './common/ErrorBox'
+import { redirect } from './router'
 
 export default function Login() {
   /* If the user is already logged redirect to main page */
   if (Helpers.isLogged()) {
-    window.location.href = '/'
+    redirect('/')
   }
 
   const errors = [
@@ -38,7 +39,7 @@ export default function Login() {
       const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
       if (resp2.esit) {
         Helpers.setUserId(resp2.data?.id!)
-        window.location.href = '/'
+        redirect('/')
       }
     }
   }

@@ -60,7 +60,8 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ['src/doc/*.yml', 'src/routes/*.ts'],
+  // TODO questo è un accrocchio
+  apis: ['src/doc/*.yml', 'server/src/routes/*.ts'],
 }
 
 export default swaggerOptions

@@ -6,7 +6,8 @@
     "allowJs": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "outDir": "../out/game"
   },
   "references": [
     {

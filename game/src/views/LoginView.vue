@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import ErrorBox from '@/components/common/ErrorBox.vue'
-import { FRONTOFFICE } from '@/const'
 import { ApiRepository, ApiResponse, Helpers, JsonUser } from 'shared'
+import { redirect } from '@/router';
 
 /* If the user is already logged redirect to main page */
 if (Helpers.isLogged()) {
-  window.location.href = '/'
+  redirect('/')
 }
 
 let username = ref<string>('')
@@ -39,14 +39,16 @@ const doLogin = async () => {
     const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
     if (resp2.esit) {
       Helpers.setUserId(resp2.data!.id)
-      window.location.href = '/'
+      redirect('/')
     }
   }
 }
 
 const goToRegister = () => {
-  window.location.href = `${FRONTOFFICE}/register`
+  redirect('/register', true)
 }
+
+const imageUrl = import.meta.env.BASE_URL + "/login.jpg"
 </script>
 
 <template>
@@ -54,12 +56,12 @@ const goToRegister = () => {
     <div class="flex justify-around p-8">
       <div
         class="hidden bg-cover lg:block lg:w-2/4"
-        style="
+        :style="`
           border-radius: 1rem;
-          background-image: url(/login.jpg);
+          background-image: url(${imageUrl});
           background-size: contain;
           background-position: right;
-          background-repeat: no-repeat;
+          background-repeat: no-repeat;`
         "
       />
 

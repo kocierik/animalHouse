@@ -1,14 +1,14 @@
 {
-      "name": "shared",
-      "version": "1.0.0",
-      "description": "",
-      "main": "shared.ts",
-      "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1"
-      },
-      "author": "",
-      "license": "ISC",
-      "dependencies": {
-            "typescript": "^4.6.3"
-      }
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "shared.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.6.3"
+  }
 }
