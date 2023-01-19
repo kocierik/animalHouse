@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ApiRepository, ApiResponse, JsonUser } from 'shared'
 import ErrorBox from './common/ErrorBox'
+import { redirect } from './router'
 
 const Register = () => {
   const [username, setUsername] = useState('')
