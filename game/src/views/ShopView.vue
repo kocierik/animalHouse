@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import ErrorBox from '@/components/common/ErrorBox.vue';
 import ProductCard from '@/components/home/ProductCard.vue';
-import { ApiRepository, ProductMarked } from 'shared';
+import { ApiRepository, JsonProduct } from 'shared';
 import { onBeforeMount, ref } from 'vue';
 
-const products = ref<ProductMarked.IProductMarked[]>([])
+const products = ref<JsonProduct.IProduct[]>([])
 const loading = ref<boolean>(true)
 const isError = ref<boolean>(false)
 const error = ref<string>("")
