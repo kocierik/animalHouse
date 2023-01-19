@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "vite --host",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit && vite build --base=/game --emptyOutDir",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit"
   },
@@ -42,5 +42,7 @@
     "vite": "4.0.0",
     "vite-plugin-pwa": "^0.14.0",
     "vue-tsc": "^0.34.7"
-  }
+  },
+  "proxy": "http://localhost:8080/game",
+  "homepage": "/game"
 }

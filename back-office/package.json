@@ -1,0 +1,11 @@
+{
+  "name": "back-office",
+  "version": "1.0.0",
+  "description": "",
+  "main": "login.js",
+  "scripts": {
+    "build": "cp -p -r * ../public/backoffice"
+  },
+  "author": "",
+  "license": "ISC"
+}

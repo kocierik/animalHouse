@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express'
+import express, { Router, Request, Response } from 'express'
 import * as animalRoutes from '../routes/animal-routes'
 import * as middlewares from '../routes/middlewares'
 import * as userRoutes from '../routes/user-routes'
@@ -7,10 +7,42 @@ import * as marketRoutes from '../routes/market-routes'
 import * as adminRoutes from '../routes/admin-routes'
 import * as reservationRoutes from "../routes/reservation-routes"
 import * as locationRoutes from "../routes/location-routes"
-
 import * as Const from '../const'
+import { resolve } from 'path'
 
 export const appRouter = Router()
+
+// STATIC 
+export const pubDir = resolve(__dirname + Const.PUBLIC_DIR)
+const frontofficeDir = resolve(__dirname + Const.FRONTOFFICE_DIR)
+const backofficeDir = resolve(__dirname + Const.BACKOFFICE_DIR)
+const gameDir = resolve(__dirname + Const.GAME_DIR)
+const pictureDir = resolve(__dirname + Const.PICTURE_DIR)
+
+console.log('[INFO] Public dir is at ' + pubDir)
+console.log('[INFO] Pictures dir is at ' + pictureDir)
+console.log('[INFO] Frontoffice dir is at ' + frontofficeDir)
+console.log('[INFO] Backoffice dir is at ' + backofficeDir)
+console.log('[INFO] Game dir is at ' + gameDir)
+
+appRouter.use(express.static(pubDir))
+appRouter.use("/frontoffice", express.static(frontofficeDir))
+appRouter.use("/game", express.static(gameDir))
+
+appRouter.get(
+  "/frontoffice/*",
+  (_: Request, res: Response) => res.sendFile(`${frontofficeDir}/index.html`)
+)
+
+// appRouter.get(
+//   "/game/*",
+//   (_: Request, res: Response) => res.sendFile(`${gameDir}/index.html`)
+// )
+
+appRouter.use("/backoffice", express.static(backofficeDir))
+appRouter.use("/pictures", express.static(pictureDir))
+
+// REST API
 const version = Const.CURR_API_VERSION
 
 // User

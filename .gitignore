@@ -3,6 +3,7 @@ node_modules/
 database-data/
 pictures/
 out/
+public/
 
 # REACT
 front-office/node_modules
