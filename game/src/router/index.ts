@@ -104,4 +104,13 @@ const router = createRouter({
   ],
 })
 
+export const redirect = (path: string, frontoffice = false) => {
+  if (import.meta.env.NODE_ENV === 'localhost')
+    window.location.href = path
+  else if (frontoffice)
+    window.location.href = `/frontoffice${path}`
+  else
+    window.location.href = `${import.meta.env.BASE_URL}${path}`
+}
+
 export default router

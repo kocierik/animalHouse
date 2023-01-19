@@ -50,21 +50,23 @@ const toggleMenu = () => {
 }
 
 const login = () => {
-  window.location.href = '/login'
+  router.redirect('/login')
 }
 
 const logout = () => {
   // TODO maybe an alert
   Helpers.doLogout()
-  window.location.href = '/'
+  router.redirect('/')
 }
+
+const root = import.meta.env.BASE_URL
 </script>
 
 <template>
   <div class="animate-in fade-in zoom-in duration-500">
     <nav class="px-2 sm:px-4">
       <div class="container justify-between flex flex-wrap items-center mx-auto">
-        <a href="/" class="flex items-center ml-2">
+        <a :href="root" class="flex items-center ml-2">
           <img src="/logoTransparent.png" width="80" />
         </a>
         <button

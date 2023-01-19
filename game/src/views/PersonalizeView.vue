@@ -31,6 +31,7 @@
 </template>
 
 <script lang="ts" setup>
+import { redirect } from '@/router';
 import { ApiRepository, Helpers } from 'shared'
 import { onBeforeMount, ref } from 'vue'
 import Chip from '../components/common/Chip.vue'
@@ -61,6 +62,6 @@ onBeforeMount(async () => {
 const onConfirm = () => {
   const toStore = animals.value.filter((e) => e.selected).map((e) => e.name)
   localStorage.setItem(Helpers.LS_PersonalAnimals, JSON.stringify(toStore))
-  window.location.href = '/personal'
+  redirect('/personal')
 }
 </script>

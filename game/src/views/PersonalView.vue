@@ -13,7 +13,8 @@ import HoroscopeCard from '../components/personal/horoscopeCard.vue'
 
 const animals = ref<AnimalType[]>()
 const a = localStorage.getItem(Helpers.LS_PersonalAnimals)
-if (a === null) window.location.href = router.PersonalizeRoute
+if (!a) 
+  router.redirect(router.PersonalizeRoute)
 else {
   animals.value = JSON.parse(a)
 }
