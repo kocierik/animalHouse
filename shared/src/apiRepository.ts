@@ -12,7 +12,7 @@ import type * as location from "./json/Location"
 import { stringFormat } from './helpers'
 
 // Server api urls
-const _BASE_URL = 'http://localhost:8080/v1'
+const _BASE_URL = 'http://localhost:8080/api/v2'
 const _USERS_LOGIN = '/users/login'
 const _USER_INFO = '/users/{0}'
 const _USER_CURRENT = '/users/current'

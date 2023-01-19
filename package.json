@@ -13,8 +13,7 @@
     "build:server": "tsc -p server",
     "build:front": "npm run --prefix front-office build",
     "build:game": "npm run --prefix game build",
-    "build:back": "npm run --prefix back-office build",
-    "build": "tsc -p server && npm run --prefix back-office build && npm run --prefix front-office build && npm run --prefix game build",
+    "build": "tsc -p server && npm run --prefix front-office build && npm run --prefix game build",
     "start": "node out/index.js",
     "format": "eslint --fix & prettier --write './**/*.{js,jsx,ts,tsx,css,md,json,vue}' --config ./.prettierrc",
     "setup": "npm --prefix front-office install && npm --prefix game install && npm --prefix server install"
