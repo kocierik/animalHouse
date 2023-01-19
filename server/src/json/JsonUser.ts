@@ -1,4 +1,5 @@
 import * as JsonAnimal from './JsonAnimal'
+import type { JsonAddress } from './JsonAddress'
 
 export interface JsonUserCreation {
   username: string
@@ -19,16 +20,9 @@ export interface JsonUser {
   firstName: string
   lastName: string
   description: string
-  animals: JsonAnimal.JsonAnimal[]
+  animals: string[]
   address: JsonAddress
   profilePicture?: JsonPicture
-}
-
-export interface JsonAddress {
-  country: string
-  city: string
-  street: string
-  zip: string
 }
 
 export interface JsonLogin {
@@ -79,20 +73,19 @@ export const SwaggerUser = {
     },
     address: {
       type: 'object',
-      properties: {
-        country: {
-          type: 'string',
-        },
-        city: {
-          type: 'string',
-        },
-        street: {
-          type: 'string',
-        },
-        zip: {
-          type: 'string',
-        },
-      },
-    },
+      schema: {
+          "$ref": "#/components/schemas/Address"
+      }
+    }
   },
+}
+
+export const SwaggerAddress = {
+  type: "object",
+  properties: {
+    country:{ type: "string"},
+    city: { type: "string" },
+    street: { type: "string" },
+    zip: { type: "string" }
+  }
 }

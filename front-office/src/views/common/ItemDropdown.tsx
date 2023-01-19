@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const ItemDropdown = (props: { game: string }) => {
+const ItemDropdown = (props: { game: string, filter : string[], setFilter: React.Dispatch<React.SetStateAction<string[]>> }) => {
+  const [isChecked,setIsChecked] = useState<boolean>(true)
+  const getIsChecked = async () => {
+    setIsChecked(!isChecked)
+    if(isChecked){
+      props.setFilter([...props.filter,props.game])
+    } else{
+      const val = props.filter.filter(item => item !== props.game)
+      props.setFilter(val)
+    }
+  }
   return (
     <>
       <div className="hover:-translate-y-1  duration-300 flex items-center justify-between mt-4">
         <div className="flex items-center">
           <div className="pl-4 flex items-center">
             <div className="bg-gray-100 dark:bg-gray-800 border rounded-sm border-gray-200 dark:border-gray-700 w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
-              <input type="checkbox" className="checkbox opacity-0 absolute cursor-pointer w-full h-full" />
+              <input type="checkbox" onChange={() => getIsChecked()} className="checkbox opacity-0 absolute cursor-pointer w-full h-full" />
               <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
                 <svg
                   className="icon icon-tabler icon-tabler-check"

@@ -1,8 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react'
 import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
-import { JsonAnimal, ApiRepository, Helpers, JsonUser } from 'shared';
-const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOptionEnable: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>> }) => {
+import { JsonAnimal, ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared'
+import defaultImage from './defaultImage.jpg'
+const AnimalCard = (props: {
+  index: number
+  animal: JsonAnimal.JsonAnimal
+  isOptionEnable: boolean
+  allAnimals: JsonAnimal.JsonAnimal[]
+  setUserAnimals: React.Dispatch<React.SetStateAction<JsonAnimal.JsonAnimal[]>>
+  user: JsonUser.JsonUser
+  setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>
+  setViewModalReservation: React.Dispatch<React.SetStateAction<boolean>>
+  viewModalReservation: boolean
+  setAnimalReservation: React.Dispatch<React.SetStateAction<JsonReservation.IReservation[]>>
+}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
@@ -14,20 +26,30 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const settingAnimals: IsettingInfo[] = [
     {
       name: 'modify',
-      setting: () => { setCanWrite(true) }
+      setting: () => {
+        setCanWrite(true)
+      }
     },
     {
       name: 'delete',
       setting: async () => {
         if (Helpers.getUserId()) {
           try {
-            await ApiRepository.deleteAnimal(Helpers.getUserId()!, props.animal._id!)
-            const newAnimals = props.allAnimals.filter(item => item._id !== props.animal._id)
-            props.setUser({ ...props.user, animals: newAnimals })
+            const animal = (await ApiRepository.deleteAnimal(props.animal._id!)).data
+            const newAnimals = props.allAnimals.filter((item) => item._id !== animal?._id)
+            props.setUserAnimals(newAnimals)
           } catch (error: any) {
-            throw new Error("errore salvataggio descrizione -> ", error)
+            throw new Error('errore salvataggio descrizione -> ', error)
           }
         }
+      }
+    },
+    {
+      name: 'reservation',
+      setting: async () => {
+        props.setViewModalReservation(true)
+        const resp = await ApiRepository.getAnimalReservations(props.animal._id!)
+        if (resp.esit) props.setAnimalReservation(resp.data!)
       }
     }
   ]
@@ -43,17 +65,17 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
         age: parseInt(animalAge.current?.value!),
         picture: undefined    //TODO
       }
-      await ApiRepository.editAnimal(Helpers.getUserId()!, props.animal._id!, changesAnimal)
+      console.log(props.animal._id)
+      await ApiRepository.editAnimal(props.animal._id!, changesAnimal)
     }
   }
-
 
   const updateAnimalPhoto = async () => {
     if (Helpers.getUserId()) {
       if (file) {
-        const resp = (await ApiRepository.putAnimalPicture(Helpers.getUserId()!, props.animal._id!, file))
+        const resp = await ApiRepository.putAnimalPicture(props.animal._id!, file)
         if (resp) {
-          setImageProfileAnimal(resp?.data?.filename)
+          setImageProfileAnimal(resp?.data?.picture?.filename)
         }
         setFile(undefined)
       }
@@ -64,9 +86,8 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
   const getImage = async () => {
     const user = (await ApiRepository.getCurrentUser()).data
     if (user) {
-      const userInfo = (await ApiRepository.getUserInfoById(user.id)).data
-      if (userInfo?.animals[props.index].picture) {
-        const image = (await (ApiRepository.getPicture(userInfo?.animals[props.index].picture?.filename!))).data
+      if (props.animal.picture?.filename) {
+        const image = (await ApiRepository.getPicture(props.animal.picture?.filename!)).data
         setImageProfileAnimal(image)
       }
     }
@@ -74,22 +95,23 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
 
   useEffect(() => {
     updateAnimalPhoto()
-    // getImage()
   }, [file, props.animal._id])
 
   return (
-    <div data-aos="zoom-in" className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
+    <div
+      data-aos="zoom-in"
+      className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 "
+    >
       {props.isOptionEnable && <Setting settingInfoDesk={animals} />}
 
       <div className="flex flex-col items-center">
         <div>
-
           <img
             style={{
               borderWidth: canWrite ? '1px' : '0px',
               borderColor: 'whitesmoke',
               opacity: canWrite ? '0.7' : '1',
-              cursor: canWrite ? 'pointer' : "default",
+              cursor: canWrite ? 'pointer' : 'default'
             }}
             onClick={async () => {
               if (canWrite) {
@@ -97,8 +119,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
                 setFile(animalImage.current?.files![0])
                 await updateAnimalPhoto()
               }
-            }
-            }
+            }}
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
             src={imageProfileAnimal ? imageProfileAnimal : "/defaultImage.jpg"}
             alt="your animal"
@@ -111,8 +132,7 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
               animalImage.current?.click()
               setFile(animalImage.current?.files![0])
               await updateAnimalPhoto()
-            }
-            }
+            }}
           />
         </div>
         <input
@@ -148,8 +168,24 @@ const AnimalCard = (props: { index: number, animal: JsonAnimal.JsonAnimal, isOpt
           defaultValue={props.animal.age}
           ref={animalAge}
         />
-        <div className='p-2'>
-          {canWrite && <input type="button" style={{ "borderWidth": "1px", "borderColor": "whitesmoke", "borderRadius": "2px", "padding": "4px", "cursor": "pointer" }} value="save" onClick={async () => { setCanWrite(false); await saveChangesAnimal() }} />}
+        <div className="p-2">
+          {canWrite && (
+            <input
+              type="button"
+              style={{
+                borderWidth: '1px',
+                borderColor: 'whitesmoke',
+                borderRadius: '2px',
+                padding: '4px',
+                cursor: 'pointer'
+              }}
+              value="save"
+              onClick={async () => {
+                setCanWrite(false)
+                await saveChangesAnimal()
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

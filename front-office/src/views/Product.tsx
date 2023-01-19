@@ -4,7 +4,8 @@ import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
 import { useParams } from 'react-router-dom'
-import { ApiRepository, JsonProduct, ProductConstant, JsonReview, Helpers } from 'shared';
+import { ApiRepository, JsonProduct, ProductConstant, JsonReview, Helpers, JsonCart} from 'shared';
+import { toast } from 'react-toastify';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -35,10 +36,10 @@ export default function Product() {
   const [avarage, setAvarage] = useState(0)
 
   const fetchReview = async (productId: string) => {
-    const val = (await (ApiRepository.getProductReviews(productId))).data
+    const val = (await ApiRepository.getProductReviews(productId)).data
     setReviewsStar(val!)
     if (val) {
-      const sum = val.reduce((b, a) => b + a.star, 1);
+      const sum = val.reduce((b, a) => b + a.star, 1)
       setAvarage(sum / val?.length!)
     }
   }
@@ -49,8 +50,39 @@ export default function Product() {
     fetchReview(id)
   }, [])
 
-
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
+
+  const addToCart = async () => {
+    if((ProductConstant.PRODUCT_TYPE[prod?.categoryId as string] !== "FOOD")){
+      if(!selectedColor){
+        toast.warn('You should select a color and a size!', {position: toast.POSITION.TOP_CENTER})
+        return
+      }
+    }
+    if(!selectedSize){
+      toast.warn('You should select a size!', {position: toast.POSITION.TOP_CENTER})
+      return
+    }
+
+    const userId = Helpers.getUserId()
+
+    if (!userId) {
+      toast.warn('You should login first!', {position: toast.POSITION.TOP_CENTER})
+      return
+    }
+
+    const cartItemCreation: JsonCart.ICartItemCreation= {
+      productId: prod?._id!,
+      color: selectedColor,
+      type: ProductConstant.PRODUCT_TYPE[prod?.categoryId as string],
+      size: selectedSize,
+    }
+    const resp = await ApiRepository.putCart(userId, cartItemCreation)
+    if(resp.esit)
+       toast.success("Product addded to cart", {position: toast.POSITION.TOP_CENTER})
+    else
+       toast.error(`Something wrong appened :/ (${resp.error?.mex})`, {position: toast.POSITION.TOP_CENTER})
+  }
 
   return (
     <>
@@ -124,38 +156,41 @@ export default function Product() {
 
               <form className="mt-10">
                 {/* Colors */}
-                <div>
+                {(ProductConstant.PRODUCT_TYPE[prod?.categoryId as string] !== "FOOD") &&
+                  <div>
                   <h3 className="text-md text-gray-900 font-medium">Color</h3>
 
                   <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                     <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                     <div className="flex items-center space-x-3">
-                      {
-                        productColor && productColor.map(
-                          (color) => {
-                            return (
-                              <RadioGroup.Option
-                                key={color}
-                                value={color}
-                                style={{ backgroundColor: color }}
-                                onClick={(() => { setSelectedColor(color); console.log(selectedColor) })}
-                                className={({ active, checked }) =>
-                                  classNames(
-                                    active || checked ? 'ring-2 bg-white' : '',
-                                    'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                                  )
-                                }
-                              >
-                                <RadioGroup.Label as="span" className="sr-only">
-                                  {color}
-                                </RadioGroup.Label>
-                              </RadioGroup.Option>
-                            )
-                          })}
+                      {productColor &&
+                        productColor.map((color) => {
+                          return (
+                            <RadioGroup.Option
+                              key={color}
+                              value={color}
+                              style={{ backgroundColor: color }}
+                              onClick={() => {
+                                setSelectedColor(color)
+                                console.log(selectedColor)
+                              }}
+                              className={({ active, checked }) =>
+                                classNames(
+                                  active || checked ? 'ring-2 bg-white' : '',
+                                  'h-8 w-8 border border-red border-opacity-10 rounded-full -m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                                )
+                              }
+                            >
+                              <RadioGroup.Label as="span" className="sr-only">
+                                {color}
+                              </RadioGroup.Label>
+                            </RadioGroup.Option>
+                          )
+                        })}
                     </div>
                   </RadioGroup>
                 </div>
-
+                }
                 {/* Sizes */}
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
@@ -166,19 +201,21 @@ export default function Product() {
                     <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                       <label className="sr-only">Choose a size</label>
                       <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                        {prod?.sizes?.map(size => {
+                        {prod?.sizes?.map((size) => {
                           return (
                             <RadioGroup.Option
                               key={size}
                               value={size}
-                              onClick={(() => setSelectedSize(size))}
+                              onClick={() => setSelectedSize(size)}
                               className={({ active }) =>
                                 classNames(
-                                  active ? "ring-1 bg-green-400 " : "",
+                                  active ? 'ring-1 bg-green-400 ' : '',
                                   'border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'
                                 )
                               }
-                            >{size}</RadioGroup.Option>
+                            >
+                              {size}
+                            </RadioGroup.Option>
                           )
                         })}
                       </div>
@@ -188,6 +225,7 @@ export default function Product() {
 
                 <button
                   type="button"
+                  onClick={async () => await addToCart() }
                   className="mt-10 ring-1 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Add to bag
@@ -197,14 +235,14 @@ export default function Product() {
           </div>
 
           {/* Product info */}
-          <div className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+          <div className="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-16 lg:px-8 lg:grid lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">Description</h1>
             </div>
             <div
               data-aos="fade-up"
               data-aos-duration="500"
-              className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8"
+              className="py-10 lg:pt-6 lg:pb-1 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8"
             >
               {/* Description and details */}
               <div>

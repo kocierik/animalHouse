@@ -45,14 +45,13 @@ export default function Login() {
 
   return (
     <>
-      <div className="bg-white" data-aos="fade-up" data-aos-duration="500">
-        <div className="flex justify-center h-screen">
+      <div className="bg-white rounded" data-aos="fade-up" data-aos-duration="500">
+        <div className="flex justify-center h-screen rounded">
           <div
             className="hidden bg-cover lg:block lg:w-2/4"
             style={{
-              //border-radius: 1rem;
-              backgroundImage:
-                'url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=htmlFormat&fit=crop&w=1470&q=80)'
+              backgroundImage: "url('/login.jpg')"
+
             }}
           >
             <div
@@ -60,11 +59,11 @@ export default function Login() {
               className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40"
             >
               <div>
-                <h2 className="text-4xl font-bold text-white">Brand</h2>
+                <h2 className="text-4xl font-bold text-white">Login</h2>
 
                 <p className="max-w-xl mt-3 text-gray-300">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. In autem ipsa, nulla laboriosam dolores,
-                  repellendus perferendis libero suscipit nam temporibus molestiae
+                  Welcome to our animal website! To access all of our features and content, please log in to your account.
+                   If you do not have an account yet, please sign up for one. 
                 </p>
               </div>
             </div>
@@ -78,7 +77,13 @@ export default function Login() {
                 <p className="mt-3 text-gray-500">Sign in to access your account</p>
               </div>
 
-              <form className="mt-8"  onSubmit={async (e) => {e.preventDefault(); await doLogin()}}>
+              <form
+                className="mt-8"
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  await doLogin()
+                }}
+              >
                 <div className="my-10">{error != -1 ? <ErrorBox text={errors[error]} /> : <div />}</div>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm text-gray-600">
@@ -132,7 +137,8 @@ export default function Login() {
                   }
                 "*/
                     className="text-green-500 focus:outline-none focus:underline hover:underline"
-                  >{' '}
+                  >
+                    {' '}
                     Sign up
                   </a>
                   .

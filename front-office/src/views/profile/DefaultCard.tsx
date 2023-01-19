@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ApiRepository, Helpers, JsonAnimal, JsonUser } from 'shared';
-const DefaultCard = (props: { setOpenNewAnimal: React.Dispatch<React.SetStateAction<boolean>>, openNewAnimal: boolean, allAnimals: JsonAnimal.JsonAnimal[], user: JsonUser.JsonUser, setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>> }) => {
+import { ApiRepository, Helpers, JsonAnimal, JsonUser } from 'shared'
+import defaultImage from './defaultImage.jpg'
+const DefaultCard = (props: {
+  setOpenNewAnimal: React.Dispatch<React.SetStateAction<boolean>>
+  openNewAnimal: boolean
+  allAnimals: JsonAnimal.JsonAnimal[]
+  user: JsonUser.JsonUser
+  setUser: React.Dispatch<React.SetStateAction<JsonUser.JsonUser | undefined>>
+}) => {
   const animalName = useRef<HTMLInputElement>(null)
   const animalType = useRef<HTMLInputElement>(null)
   const animalAge = useRef<HTMLInputElement>(null)
@@ -15,7 +22,6 @@ const DefaultCard = (props: { setOpenNewAnimal: React.Dispatch<React.SetStateAct
         picture: null! //TODO
       }
       await ApiRepository.registerAnimal(animal, Helpers.getUserId()!)
-        .catch(e => console.log("Errore aggiunta animale --> ", e))
       const newAnimals = [...props.allAnimals, animal]
       props.setUser({ ...props.user, animals: newAnimals })
       props.setOpenNewAnimal(!props.openNewAnimal)
@@ -27,14 +33,32 @@ const DefaultCard = (props: { setOpenNewAnimal: React.Dispatch<React.SetStateAct
     // saveAnimal()
   }, [props.user.animals.length])
 
-
   return (
-    <div data-aos="zoom-in" className="w-full flex  flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 ">
-      <div className='flex self-end items-center '>
-        <svg onClick={async () => await saveAnimal()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 border rounded p-1 bg-gray-100">
+    <div
+      data-aos="zoom-in"
+      className="w-full flex  flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 "
+    >
+      <div className="flex self-end items-center ">
+        <svg
+          onClick={async () => await saveAnimal()}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6 border rounded p-1 bg-gray-100"
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" onClick={() => props.setOpenNewAnimal(!props.openNewAnimal)} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5  h-5 flex self-end m-3 border rounded ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={() => props.setOpenNewAnimal(!props.openNewAnimal)}
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-5  h-5 flex self-end m-3 border rounded "
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </div>

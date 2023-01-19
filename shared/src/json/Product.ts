@@ -16,3 +16,18 @@ export interface IProduct {
   details?: string
 }
 
+export interface IProductCategory{
+  _id: string,
+  name: string
+}
+
+export interface JsonProductInstance{
+  productId: string
+  name: string
+  images: string[]
+  color?: string
+  type?: string
+  size?: string
+  price: number
+}
+

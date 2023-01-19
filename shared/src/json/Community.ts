@@ -4,6 +4,11 @@ export interface IGameValues {
   scores: IScores[]
 }
 
+export interface IGame {
+  gameId: string,
+  name: string,
+}
+
 export interface IScores {
   userId: string,
   score: number[],

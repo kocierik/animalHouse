@@ -15,44 +15,44 @@ export const SwaggerProductPatch = {
   properties: {
     name: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     description: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     price: {
       type: 'number',
-      nullable: true
+      nullable: true,
     },
     categoryId: {
       type: 'string',
-      nullable: true
+      nullable: true,
     },
     colors: {
       type: 'array',
       nullable: true,
-      items: 'string'
+      items: 'string',
     },
     sizes: {
       type: 'array',
       nullable: true,
-      items: 'string'
+      items: 'string',
     },
     types: {
       type: 'array',
       nullable: true,
-      items: 'string'
+      items: 'string',
     },
     animalTargets: {
       type: 'array',
       nullable: true,
-      items: 'string'
+      items: 'string',
     },
     details: {
       type: 'array',
       nullable: true,
-      items: 'string'
+      items: 'string',
     },
   },
 }
