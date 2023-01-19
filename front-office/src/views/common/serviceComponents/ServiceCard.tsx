@@ -54,7 +54,6 @@ const ServiceCard = () => {
 
   const getServices = async () => {
     const resp = await ApiRepository.getServices()
-    console.log(resp)
     await setServices(resp.data!)
   }
 
@@ -87,7 +86,7 @@ const ServiceCard = () => {
                   data-aos="zoom-in"
                   className="p-10   rounded flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer"
                 >
-                  <span className={`p-5 rounded-full text-white shadow-lg   ${service.color} `}>
+                  <span style={{background: service.color}} className={`p-5 rounded-full text-white shadow-lg   `}>
                     {serviceIcon[i].icon}
                   </span>
                   <p className="text-xl font-medium text-slate-700 mt-3">{service.title}</p>
@@ -106,7 +105,7 @@ const ServiceCard = () => {
             {' '}
             <span className="text-xl font-medium">Still Confused?</span>{' '}
           </p>
-          <button className="px-5 py-3 hover:-translate-y-2 hover:scale-100 duration-300 font-medium text-white shadow-xl  hover:bg-indigo-900 duration-150  bg-indigo-800">
+          <button onClick={() =>executeScroll()} className="px-5 py-3 hover:-translate-y-2 hover:scale-100 duration-300 font-medium text-white shadow-xl  hover:bg-indigo-900 duration-150  bg-indigo-800">
             BOOK AN APPOINTMENT{' '}
           </button>
         </div>
