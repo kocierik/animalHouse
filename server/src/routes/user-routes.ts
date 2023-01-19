@@ -483,23 +483,22 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- *  /users/{id}/description:
- *    put:
- *      tags:
- *      - users
- *      summary: Put a profile description
- *      parameters:
- *      - in: path
- *        name: id
- *        type: string
- *        required: true
- *        description: Id of user
- *      - in: body
+ * /users/{id}/description:
+ *   put:
+ *     tags:
+ *     - users
+ *     summary: Put a profile description
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       type: string
+ *       required: true
+ *       description: Id of user
+ *     - in: body
  *       name: body
  *       description: user description
  *       schema:
- *           $ref: "#/definitions/User"
- *
+ *         $ref: "#/definitions/User"
  *     security:
  *       - JWT: []
  *     responses:
