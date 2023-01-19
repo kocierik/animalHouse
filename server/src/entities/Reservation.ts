@@ -1,4 +1,7 @@
 import { Schema, model, Types } from 'mongoose'
+import { addressSchema } from './Address'
+import { ILocation } from './Location'
+
 
 export interface IReservation {
   _id: string
@@ -9,6 +12,12 @@ export interface IReservation {
   information: string
   locationId: string
 }
+
+
+const locationSchema = new Schema<ILocation>({
+  name: { type: String, required: true },
+  address: { type: addressSchema, required: true }
+})
 
 export const reservationSchema = new Schema<IReservation>({
   animalId: { type: String, required: true },

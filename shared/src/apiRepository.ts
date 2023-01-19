@@ -1,19 +1,20 @@
-import { Api } from "./api";
-import type * as user from "./json/user";
-import type * as animal from "./json/animal";
-import type * as score from "./json/Games";
-import type * as product from "./json/ProductMarked";
-import type * as community from "./json/Community";
-import type * as review from "./json/Review";
+import { Api } from './api'
+import type * as user from './json/user'
+import type * as animal from './json/animal'
+import type * as score from './json/Games'
+import type * as product from './json/Product'
+import type * as community from './json/Community'
+import type * as review from './json/Review'
+import { stringFormat } from './helpers'
+import { SERVER_URL } from './const'
 import type * as reservation from "./json/Reservation";
 import type * as location from "./json/Location";
 import type * as cart from "./json/Cart";
 import type * as order from "./json/Orders";
 import type * as service from "./json/Service";
-import { stringFormat } from "./helpers";
 
 // Server api urls
-const _BASE_URL = 'http://localhost:8080/v1'
+const _BASE_URL = SERVER_URL + '/v1'
 
 const _ANIMAL_GET = "/animals/{0}/info";
 const _ANIMAL_GETALL = "/users/{0}/animals";
@@ -41,8 +42,8 @@ const _RESERVATIONS_PUT = "/reservations/{0}";
 const _LOCATION = '/locations'
 const _PICTURES = '/pictures/{0}'
 
-const _COMMUNITY_GAME_SCOREBOARD = "/community/game/scoreboard";
 
+const _COMMUNITY_GAME_SCOREBOARD = '/community/games/scoreboard'
 const _PRODUCTS = "/products/";
 const _PRODUCTS_REVIEW = "/products/{0}/reviews/";
 const _PRODUCTS_REVIEWS_SUM_UP = "/products/{0}/reviews/sum-up";
@@ -69,7 +70,7 @@ export const getUserInfoById = async (id: string) =>
   Api.get<user.JsonUser>(stringFormat(_BASE_URL + _USER_INFO, id));
 
 export const getPicture = async (id: string) =>
-  Api.getImage(stringFormat(_BASE_URL + _PICTURES, id));
+  Api.getImage(stringFormat(SERVER_URL + _PICTURES, id))
 
 export const register = async (registration: user.JsonRegistration) =>
   Api.post<user.JsonUser>(_BASE_URL + _USER_REGISTER, registration);
@@ -122,13 +123,11 @@ export const putUserScore = async (
 
 export const getUserScore = async () => Api.get<community.IGameValues[]>(_BASE_URL + _COMMUNITY_GAME_SCOREBOARD)
 
-export const getGames = async () => Api.get<community.IGame[]>(_BASE_URL + _COMMUNITY_GAME)
-
-export const getMarketProducts = async () =>
-  Api.get<product.IProductMarked[]>(_BASE_URL + _PRODUCTS);
+export const getMarketProducts = async () => Api.get<product.IProduct[]>(_BASE_URL + _PRODUCTS)
 
 export const getMarketProduct = async (productId: string) =>
-  Api.get<product.IProductMarked>(_BASE_URL + _PRODUCTS + productId);
+  Api.get<product.IProduct>(_BASE_URL + _PRODUCTS + productId)
+export const getGames = async () => Api.get<community.IGame[]>(_BASE_URL + _COMMUNITY_GAME)
 
 export const getProductCategory = async (categoryId: string) =>
   Api.get<string>(stringFormat(_BASE_URL + _PRODUCTS_CATEGORY, categoryId))
@@ -185,7 +184,7 @@ export const updateUserDescription = async (
 };
 
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
-  Api.get<review.JsonProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
+  Api.get<review.IProductSumUp>(stringFormat(_BASE_URL + _PRODUCTS_REVIEWS_SUM_UP, productId))
 
 export const putCart = async (userId: string, product : cart.ICartItemCreation) =>
   Api.put<cart.ICartItem[]>(stringFormat(_BASE_URL + _USER_CART, userId),[product], true)

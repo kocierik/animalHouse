@@ -65,13 +65,6 @@ appRouter.delete(
 )
 
 appRouter.put(
-  version + '/users/:id/description',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  userRoutes.updateUserDescription
-)
-appRouter.put(
   version + '/users/:id/picture',
   middlewares.log,
   middlewares.verifyToken,
@@ -137,20 +130,23 @@ appRouter.post(
 appRouter.patch(version + '/animal/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
 
 // Community
-appRouter.get(version + '/community/game/', middlewares.log, communityRoutes.getGames)
-appRouter.get(version + '/community/game/scoreboard', middlewares.log, communityRoutes.getScoreboard)
+appRouter.get(version + '/community/games/', middlewares.log, communityRoutes.getGames)
+appRouter.get(version + '/community/games/scoreboard', middlewares.log, communityRoutes.getScoreboard)
 
 // Products
 appRouter.get(version + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
+appRouter.post(version + '/products', middlewares.log, middlewares.verifyToken, marketRoutes.postProduct) //insert
 appRouter.get(version + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
-appRouter.get(version + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
-appRouter.delete(version + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
-appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct)
-appRouter.post(version + '/products', middlewares.log, marketRoutes.postProduct) //insert TODO add ADMIN middleware
+appRouter.delete(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.deleteProduct) //remove
+appRouter.patch(version + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct) //edit product
+appRouter.put(version + '/products/:id/picture', middlewares.log, middlewares.verifyToken, middlewares.multerMiddleware('product'), marketRoutes.putProductPicture) //put picture
 appRouter.get(version + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(version + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(version + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
+// TODO fix category to categories
 appRouter.get(version + '/products/categories', middlewares.log, marketRoutes.getProductCategoriesName)
+appRouter.get(version + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
+
 
 
 // Reservations

@@ -58,17 +58,12 @@ const AnimalCard = (props: {
 
   const saveChangesAnimal = async () => {
     if (Helpers.getUserId()) {
-      const defaultPicture: JsonAnimal.JsonPicture = {
-        filename: '635c088531e05da80c7faf61',
-        mimetype: 'image/jpeg',
-        size: 2766
-      }
       const changesAnimal: JsonAnimal.JsonAnimal = {
         name: animalName.current?.value!,
         type: animalType.current?.value!,
         userId: Helpers.getUserId()!,
         age: parseInt(animalAge.current?.value!),
-        picture: defaultPicture
+        picture: undefined    //TODO
       }
       console.log(props.animal._id)
       await ApiRepository.editAnimal(props.animal._id!, changesAnimal)
@@ -126,7 +121,7 @@ const AnimalCard = (props: {
               }
             }}
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
-            src={imageProfileAnimal ? imageProfileAnimal : defaultImage}
+            src={imageProfileAnimal ? imageProfileAnimal : "/defaultImage.jpg"}
             alt="your animal"
           />
           <input

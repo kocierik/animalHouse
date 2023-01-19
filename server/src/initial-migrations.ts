@@ -8,9 +8,33 @@ import User from './entities/User'
 import Admin from './entities/Admin'
 import ReservationCode from './entities/Service'
 import Location from './entities/Location'
+import Animal from './entities/Animal'
 
 export const test = async () => {
   await User.deleteMany()
+  await Animal.deleteMany()
+  await Animal.insertMany([
+    {
+      _id: new Types.ObjectId('635c088531e05da80c7faf6a'),
+      age: 20,
+      name: 'Stefano Volpe',
+      type: 'fox',
+      userId: '635c088531e05da80c7faf61',
+      picture: null,
+    },
+    {
+      _id: new Types.ObjectId('635c088531e05da80c7faf6b'),
+      age: 2,
+      name: 'lalalal',
+      type: 'dog',
+      userId: '635c088531e05da80c7faf61',
+      picture: {
+        filename: "pappa.png",
+        mimetype: "image/png",
+        size: 1033
+      },
+    },
+  ])
   await User.insertMany([
     {
       email: 'mattia@ah.com',
@@ -33,7 +57,7 @@ export const test = async () => {
       description: 'ciao',
       phone: '3333333333',
       profilePicture: null,
-      animals: [],
+      animals: ['635c088531e05da80c7faf6a','635c088531e05da80c7faf6b'],
     },
     {
       email: 'lele@ah.com',
@@ -51,6 +75,24 @@ export const test = async () => {
   await Product.deleteMany()
   await Product.insertMany([
     {
+      _id: new Types.ObjectId('62f425273418f02b236b58b0'),
+      name: 'dog food',
+      description: 'dog for every food',
+      price: 69,
+      categoryId: '62f3c0540ac73a2bc4764da8',
+      image: {
+        filename: "pappa.png",
+        mimetype: "image/png",
+        size: 1033
+      },
+      alt: 'dog',
+      animalTargets: ['0'],
+      colors: ['black', 'white'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['great', 'confort', 'animal', 'hot', 'cold'],
+      details: 'perfect for burn cat',
+    },
+    {
       _id: new Types.ObjectId('62f425273418f02b236b58b1'),
       name: 'cool T-shirt',
       description: 'so fresh',
@@ -58,7 +100,11 @@ export const test = async () => {
       categoryId: '62f3c0540ac73a2bc4764da7',
       colors: ['white', 'red'],
       types: ['man', 'child', 'woman'],
-      images: ['https://www.impericon.com/media/catalog/product/s/p/spongebobsquarepants_happyface_yellow_girl_lg.jpg'],
+      image: {
+        filename: "62f425273418f02b236b58b1",
+        mimetype: "image/png",
+        size: 1033
+      },
       alt: 'shirt',
       animalTargets: ['human'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
@@ -72,7 +118,7 @@ export const test = async () => {
       price: 1550,
       categoryId: '62f3c0540ac73a2bc4764da7',
       types: ['man', 'child', 'woman'],
-      images: ['https://a-z-animals.com/media/2022/10/71ki1ydVToL._SL500_.webp'],
+      image: { filename:'62f425273418f02b236b58b4' },
       alt: 'shirt',
       animalTargets: ['human'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
@@ -87,7 +133,7 @@ export const test = async () => {
       categoryId: '62f3c0540ac73a2bc4764da7',
       colors: ['white', 'red'],
       types: ['man', 'child', 'woman'],
-      images: ['data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE5NCI+PGRlZnM+PGZpbHRlciBpZD0iZGFya3JlYWRlci1pbWFnZS1maWx0ZXIiPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwLjMzMyAtMC42NjcgLTAuNjY3IDAuMDAwIDEuMDAwIC0wLjY2NyAwLjMzMyAtMC42NjcgMC4wMDAgMS4wMDAgLTAuNjY3IC0wLjY2NyAwLjMzMyAwLjAwMCAxLjAwMCAwLjAwMCAwLjAwMCAwLjAwMCAxLjAwMCAwLjAwMCIgLz48L2ZpbHRlcj48L2RlZnM+PGltYWdlIHdpZHRoPSIxNTAiIGhlaWdodD0iMTk0IiBmaWx0ZXI9InVybCgjZGFya3JlYWRlci1pbWFnZS1maWx0ZXIpIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3dlYnA7YmFzZTY0LC85ai8yd0JEQUFZRUJRWUZCQVlHQlFZSEJ3WUlDaEFLQ2drSkNoUU9Ed3dRRnhRWUdCY1VGaFlhSFNVZkdoc2pIQllXSUN3Z0l5WW5LU29wR1I4dE1DMG9NQ1VvS1NqLzJ3QkRBUWNIQndvSUNoTUtDaE1vR2hZYUtDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2dvS0Nnb0tDZ29LQ2ovd0FBUkNBRENBSllEQVNJQUFoRUJBeEVCLzhRQUhBQUJBQUlEQVFFQkFBQUFBQUFBQUFBQUFBVUdBUU1IQkFnQy84UUFLaEFCQUFJQ0FnRUNCUVFEQVFBQUFBQUFBQUVDQXdRRkVRWVNJU0l4TXBHaEUwRkNVUlpoY1lIL3hBQVlBUUVCQVFFQkFBQUFBQUFBQUFBQUFBQUFBUUlEQlAvRUFCd1JBUUVCQVFFQkFBTUFBQUFBQUFBQUFBQUJBaEVERWdRaE1mL2FBQXdEQVFBQ0VRTVJBRDhBK2tRQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFQOEEwQU80L3VBQUFBQUFBQUFBQUFBQUFBR1FhZG5OR0drek05S3h5ZmtlUEJhWTlVSkh5YTk2YXRwcDgrbkIvS2VUMk1XMWJ1WjY3V0pYWU5MeVdtVzhSNjRXWFMzcVo2eDFNUG12anVmdlMwZDJsMFB4anlLYittSnN0aVN1dnhNVEFyMnR6RmJZNG4xTmtjdFdaK3BscE9zb3ZEeU5MZnUvT3p5ZE1jZDlnbGhYS2M1U2JkVFpJNjNJNDh2WFZvRHFSR0tXaTBkd3lBQUFBQUFBQUR5OGhyUnNZclZtUG01VjVqNGxPYjEzcFIxOXAyTmJIbXJNV2lKQjhwY2p3bWZTenozV1lpSlMzQmJFNEpqMVQwNjk1WDQzank0N1dwU08vd0Rqa1hOYU9UUXpXNmlZaUpMVmtpMjRlYW10SWoxTnRlY252Nm5PSTVDOWZhWlpuazdSL0puclhIVXRmbit2NU51WGxweng3V2Nwcnk4MW4zc2tkSG00bThSNmw2WEs4WmRuSlQ0b21YcjRmbHN2Njlhek1vempMeHVVajM3N1QvSGNYVEhlTHkxMXo0di9BQStXY3VHc3ovU1JWL1Izc1d2aml2cWhKYSs5VEw4cGhGZTBJbnVQWUFBQUFBQUJsNTlqYXBock0ybUliN2ZUS21lVjU4MWFXakgyRGZ6SE82MFV0VzFvY3U4cTI5ZlltM282bVd2ZXB1N0dhWWoxZE1hL2oyMXNXajF4YWUxUlNNK3ZlMlNmUkV0VnVOMkx4M0ZiT3Q4ZDRiTnVwdlQ4TEZxK0c0dlRIZEkreFZscjUwMmVPMnFmeHM4K3ZpMnNlV080cytrOWp3akJlUG9qN0l6TjREaTk1akhIMlJldWUrTjhyZldyWDlUdFpjL2xsS1krb3QxTDA3L2hkOFZKL1Rxb2ZQOEFCN1d2TnVvdDFDRVdEL0xMWHllMS93QXJWNDc1RE9TMVl0Yjh1SFJPYkJrK0tKV1RndVduRmtyM1BUTnZQM1hTWityeVBwWGk5eU0rT3M5cEp6VHhibmFUU3NUZVB1dmVweU9QTFdPclFaOUpvOVBIV1A2a0JpdG90SGNNdHVRQUFBQlB2Q08zZU5wczkrcU8waUFnY2ZqdUNMZHpTSHV3OFZneGZLc0pBQnJwZ3gwK21zTmtSRWZJQUNZaWYyZ0Fhc21ESGtpWXRXRmU1cnh6QnQwdDhFZS8rbG1BY1Y1endYdTFwcFQ4S2p0ZUtiR3RlWnJTZlo5S1pNR1BKSHhWaEg3UERhK2FKN3BDWFBXczd1YjJPRDhiaDI5VzBSMWFGLzhBR3MreGExWXYyczJUeGpETnU0cEQzYVBEWTllWTZyRGxueStiMk8rL3lMdWNxUjBabWNNZC9ONkdNZFlwWHFHWFo1Z0FBQUFBQUFBQUFBQUFBQUdXQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUIvLzJRPT0iIC8+PC9zdmc+'],
+      image: {filename:'62f425273418f02b236b58b5'},
       alt: 'shirt',
       animalTargets: ['dog', 'cat'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
@@ -102,7 +148,7 @@ export const test = async () => {
       categoryId: '62f3c0540ac73a2bc4764da7',
       colors: ['white', 'red'],
       types: ['man', 'child', 'woman'],
-      images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHvbEjb4FMUsELWrEpGUdCWbHgedCZLkABKw&usqp=CAU'],
+      image: {filename:'62f425273418f02b236b58b6'},
       alt: 'shirt',
       animalTargets: ['dog'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],

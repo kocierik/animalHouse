@@ -8,7 +8,7 @@ export interface JsonUserPatch {
   country?: string
   city?: string
   street?: string
-  zip?: number
+  zip?: string
 }
 
 export const SwaggerUserPatch = {

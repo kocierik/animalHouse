@@ -6,7 +6,7 @@ interface SumUpProps {
 }
 
 const StarsSumUp = (props: SumUpProps) => {
-  const [data, setData] = useState<JsonReview.JsonProductSumUp | null>()
+  const [data, setData] = useState<JsonReview.IProductSumUp | null>()
 
   const loadData = async () => {
     const resp = await ApiRepository.getMarketProductsReviewsSumUp(props.productId)

@@ -14,21 +14,14 @@ const DefaultCard = (props: {
   const animalImage = useRef<HTMLInputElement>(null)
   const saveAnimal = async () => {
     if (props.openNewAnimal && animalName.current?.value! && Helpers.getUserId()) {
-      const defaultPicture: JsonAnimal.JsonPicture = {
-        filename: '635c088531e05da80c7faf61',
-        mimetype: 'image/jpeg',
-        size: 2766
-      }
       const animal: JsonAnimal.JsonAnimal = {
         userId: Helpers.getUserId()!.toString(),
         name: animalName.current?.value!,
         type: animalType.current?.value!,
         age: parseInt(animalAge.current?.value!),
-        picture: null!
+        picture: null! //TODO
       }
-      await ApiRepository.registerAnimal(animal, Helpers.getUserId()!).catch((e) =>
-        console.log('Errore aggiunta animale --> ', e)
-      )
+      await ApiRepository.registerAnimal(animal, Helpers.getUserId()!)
       const newAnimals = [...props.allAnimals, animal]
       props.setUser({ ...props.user, animals: newAnimals })
       props.setOpenNewAnimal(!props.openNewAnimal)
@@ -70,7 +63,12 @@ const DefaultCard = (props: {
         </svg>
       </div>
       <div className="flex flex-col items-center w-max-sm w-100">
-        <img className="mb-3 w-24 h-24 rounded-full shadow-lg" src={defaultImage} alt="your animal" />
+
+        <img
+          className="mb-3 w-24 h-24 rounded-full shadow-lg"
+          src="/defaultImage.jpg"
+          alt="your animal"
+        />
         <input
           style={{
             borderWidth: '1px',

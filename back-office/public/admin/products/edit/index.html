@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" contend="width=device-width, initial-scale=1" />
+
+    <link href="/css/style.css" type="text/css" rel="stylesheet" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- stylesheet -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+
+    <script src="/js/login.js"></script>
+    <script>
+      loginCheck();
+    </script>
+
+    <title>Animal House - Edit Product</title>
+  </head>
+
+  <body>
+    <div id="app" class="md:flex antialiased">
+      <!--iframe con autorimozione, simile all'include in php-->
+      <iframe
+        src="/sidebar.html"
+        onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"
+      ></iframe>
+
+      <main class="bg-gray-100 h-screen w-full overflow-y-auto">
+        <section id="performance">
+          <header class="border-b border-solid border-gray-300 bg-gray-700">
+            <h2 class="p-6 text-gray-100">Products</h2>
+          </header>
+          <section
+            class="m-4 bg-white border border-gray-300 border-solid rounded shadow"
+          >
+            <header
+              class="border-b border-solid border-gray-300 p-4 text-lg font-medium"
+            >
+              <table class="w-full">
+                <tr>
+                  <td class="p-2 py-4">Edit product</td>
+                  <td class="text-right p-2 pr-4 text-gray-700">
+                    <a href="../"
+                      ><i class="bi bi-skip-backward"></i> Go back</a
+                    >
+                  </td>
+                </tr>
+              </table>
+            </header>
+            <div class="w-full lg:w">
+              <section class="overflow-x-auto w-full">
+                <form>
+                  <div class="flex justify-center m-8">
+                    <div class="rounded-lg shadow-xl bg-gray-50 lg:w-3/4">
+                      <div class="m-4">
+                        <label class="inline-block mb-2 text-gray-500"
+                          >Upload Image (jpg,png,jpeg)*</label
+                        >
+                        <div class="flex w-full mb-6">
+                          <label
+                            class="flex flex-col w-48 h-32 hover:bg-gray-100 hover:border-gray-300"
+                          >
+                            <div
+                              class="flex flex-col items-center justify-center"
+                            >
+                              <div
+                                class="w-32 h-32 text-gray-400 group-hover:text-gray-600"
+                              >
+                                <div
+                                  class="h-32 w-32 block flex flex-row items-center"
+                                >
+                                  <img
+                                    class="rounded-lg"
+                                    id="imgplaceholder"
+                                    style="max-height: 100%; max-width: 100%"
+                                    src="/favicon.ico"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <input
+                              id="grid-image"
+                              type="file"
+                              class="opacity-0"
+                              accept=".jpg, .png, .jpeg|image/*"
+                              onchange="showImage()"
+                              required
+                            />
+                          </label>
+                          <div class="flex flex-wrap -mx-3 m-6 w-full">
+                            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                              <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                              >
+                                Product name*
+                              </label>
+                              <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-prod-name"
+                                type="text"
+                                placeholder="Puppy food"
+                                required
+                              />
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                              <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                              >
+                                Price*
+                              </label>
+                              <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-price"
+                                type="number"
+                                placeholder="1.50"
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                          <div class="w-full px-3">
+                            <label
+                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            >
+                              Description*
+                            </label>
+                            <p class="text-gray-600 text-xs italic">
+                              Describe what your customers will see
+                            </p>
+                            <textarea
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="grid-description"
+                              type="text"
+                              rows="20"
+                              placeholder="Freshly handmade food for all your puppies"
+                              required
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-4">
+                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label
+                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            >
+                              Category*
+                            </label>
+                            <p class="text-gray-600 text-xs italic">
+                              Select one category
+                            </p>
+
+                            <div class="relative">
+                              <select
+                                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-category"
+                                required
+                              >
+                                <option value="62f3c0540ac73a2bc4764da7">
+                                  Clothes
+                                </option>
+                                <option value="62f3c0540ac73a2bc4764da8">
+                                  Food
+                                </option>
+                                <option value="62f3c0540ac73a2bc4764da9">
+                                  Health
+                                </option>
+                                <option value="62f3c0540ac73a2bc4764daa">
+                                  Accessories
+                                </option>
+                                <option value="62f3c0540ac73a2bc4764dab">
+                                  Puppies
+                                </option>
+                                <option value="62f3c0540ac73a2bc4764dac">
+                                  Entertainment
+                                </option>
+                                <option value="62f3c0540ac73a2bc4764dad">
+                                  Beauty
+                                </option>
+                              </select>
+                              <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                              >
+                                <svg
+                                  class="fill-current h-4 w-4"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path
+                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label
+                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                              for="grid-zip"
+                            >
+                              Details
+                            </label>
+                            <p class="text-gray-600 text-xs italic">
+                              Explain something extra to your customers
+                            </p>
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="grid-details"
+                              type="text"
+                              placeholder="Some extra details"
+                            />
+                          </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-4">
+                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label
+                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                              for="grid-zip"
+                            >
+                              Sizes
+                            </label>
+                            <p class="text-gray-600 text-xs italic">
+                              Comma-separated value list
+                            </p>
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="grid-sizes"
+                              type="text"
+                              placeholder="S, M, L"
+                            />
+                          </div>
+                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label
+                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                              for="grid-zip"
+                            >
+                              Colors
+                            </label>
+                            <p class="text-gray-600 text-xs italic">
+                              Comma-separated value list
+                            </p>
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="grid-colors"
+                              type="text"
+                              placeholder="red, blue, cyan"
+                            />
+                          </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-4">
+                          <div class="w-full px-3 mb-6 md:mb-0">
+                            <label
+                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                              for="grid-zip"
+                            >
+                              Animal targets*
+                            </label>
+                            <p class="text-gray-600 text-xs italic">
+                              What is your product for?
+                            </p>
+                            <div id="targets-list"></div>
+                          </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-2 flow-root">
+                          <div class="m-2 mr-16 float-right">
+                            <button
+                              id="send"
+                              class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
