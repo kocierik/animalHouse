@@ -42,6 +42,7 @@ export const test = async () => {
       }
     }
   ])
+  await User.deleteMany()
   await User.insertMany([
     {
       email: 'mattia@ah.com',
