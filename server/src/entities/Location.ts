@@ -6,11 +6,15 @@ export interface ILocation {
   _id: Types.ObjectId
   name: string
   address: JsonAddress
+  latitude?: string
+  longitude?: string
 }
 
 const locationSchema = new Schema<ILocation>({
   name: { type: String, required: true },
   address: { type: addressSchema, required: true },
+  latitude: { type: String, required: false },
+  longitude: { type: String, required: false },
 })
 
 const Location = model<ILocation>('Location', locationSchema)

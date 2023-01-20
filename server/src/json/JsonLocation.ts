@@ -4,6 +4,8 @@ export interface JsonLocation {
   _id: string
   name: string
   address: JsonAddress
+  latitude?: string
+  longitude?: string
 }
 
 export const SwaggerLocation = {
@@ -28,9 +30,15 @@ export const SwaggerLocation = {
           type: 'string',
         },
         zip: {
-          type: 'number',
+          type: 'string',
         },
       },
+    },
+    latitude: {
+      type: 'string',
+    },
+    longitude: {
+      type: 'string',
     },
   },
 }
