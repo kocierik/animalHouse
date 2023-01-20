@@ -14,11 +14,11 @@ import { resolve } from 'path'
 export const appRouter = Router()
 
 // STATIC 
-export const pubDir = resolve(__dirname + Const.PUBLIC_DIR)
+const pubDir = resolve(__dirname + Const.PUBLIC_DIR)
 const frontofficeDir = resolve(__dirname + Const.FRONTOFFICE_DIR)
 const backofficeDir = resolve(__dirname + Const.BACKOFFICE_DIR)
 const gameDir = resolve(__dirname + Const.GAME_DIR)
-const pictureDir = resolve(__dirname + Const.PICTURE_DIR)
+export const pictureDir = resolve(__dirname + Const.PICTURE_DIR)
 
 console.log('[INFO] Public dir is at ' + pubDir)
 console.log('[INFO] Pictures dir is at ' + pictureDir)
