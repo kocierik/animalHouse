@@ -716,6 +716,32 @@ export const getUserOrders = async (req: Request, res: Response) => {
 
 /**
  * @swagger
+ * /orders:
+ *   get:
+ *     tags:
+ *     - users
+ *     summary: gets all orders
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/components/schemas/Order"
+ * */
+export const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.getAllOrders())
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
  * /users/{id}/orders:
  *   post:
  *     tags:

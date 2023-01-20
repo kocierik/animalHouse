@@ -235,6 +235,9 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
 export const getUserOrders = async (userId: string): Promise<JsonOrder[]> =>
   (await Order.find({ userId: userId })).map(OrderService.orderToJsonOrder)
 
+export const getAllOrders = async (): Promise<JsonOrder[]> =>
+  (await Order.find({})).map(OrderService.orderToJsonOrder)
+
 export const createUserOrder = async (userId: string, paymentDetails: JsonPaymentDetails) => {
   const oldCart = await CartService.findActiveCartOfUser(userId)
 
