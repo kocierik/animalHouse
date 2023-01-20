@@ -27,19 +27,19 @@ yarn db:down
 
 _Note:_ you will find an handy mongo-express GUI at `http://localhost:8081`.
 
-### API and Backoffice 
+### API and Backoffice
 
-To _compile_  and _start_ the server run
+To _compile_ and _start_ the server run
 
 ```sh
 yarn server
 ```
 
-it will start the server for the apis and the backoffice. 
+it will start the server for the apis and the backoffice.
 
-### Front-office
+### frontoffice
 
-To run the front-office React project _in dev mode_ simply run
+To run the frontoffice React project _in dev mode_ simply run
 
 ```sh
 yarn front
@@ -64,16 +64,19 @@ yarn all
 ## Build and production mode
 
 To build all the sub-projects run
+
 ```sh
 yarn build
 ```
 
 and to start then in production mode run
+
 ```sh
 yarn start
 ```
 
 to build only a specific project run
+
 ```sh
 yarn build:server
 yarn build:front
@@ -83,14 +86,7 @@ yarn build:game
 ## Other
 
 To format all the sub-projects run
+
 ```sh
 yarn format
 ```
-
-
-
-
-
-
-
-
