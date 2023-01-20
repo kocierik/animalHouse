@@ -60,6 +60,7 @@ export const test = async () => {
       animals: ['635c088531e05da80c7faf6a','635c088531e05da80c7faf6b'],
     },
     {
+      _id: new Types.ObjectId('635c088531e05da80c7faf62'),
       email: 'lele@ah.com',
       username: 'lele',
       password: 'gabriele',
@@ -67,7 +68,7 @@ export const test = async () => {
       lastName: 'crestanello',
       phone: '3333333333',
       description: 'ciao',
-      profilePicture: null,
+      profilePicture: {filename:"635c088531e05da80c7faf62"},
       animals: [],
     },
   ])

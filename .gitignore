@@ -1,21 +1,20 @@
 *.ignore
 node_modules/
 database-data/
-pictures/
 out/
 public/
 
 # REACT
-front-office/node_modules
-front-office/build
-front-office/.DS_Store
-front-office/.env.local
-front-office/.env.development.local
-front-office/.env.test.local
-front-office/.env.production.local
-front-office/npm-debug.log*
-front-office/yarn-debug.log*
-front-office/yarn-error.log*
+frontoffice/node_modules
+frontoffice/build
+frontoffice/.DS_Store
+frontoffice/.env.local
+frontoffice/.env.development.local
+frontoffice/.env.test.local
+frontoffice/.env.production.local
+frontoffice/npm-debug.log*
+frontoffice/yarn-debug.log*
+frontoffice/yarn-error.log*
 
 # VUE
 game/logs
@@ -48,12 +47,13 @@ server/node_modules
 server/mongo-volume/*
 server/out/*
 server/pictures
+
 # SHARED
 shared/node_modules
 shared/.DS_Store
 
-# BACK-OFFICE
-back-office/.DS_Store
-back-office/public/js/tsc.js
-back-office/public/js/tsc.js.map
+# backoffice
+backoffice/.DS_Store
+backoffice/public/js/tsc.js
+backoffice/public/js/tsc.js.map
 
