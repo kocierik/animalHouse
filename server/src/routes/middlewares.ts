@@ -5,7 +5,7 @@ import JsonError, { JsonVisibilityError } from '../json/JsonError'
 import * as AdminService from '../services/admin-service'
 import multer from 'multer'
 import * as Const from '../const'
-import { pubDir } from './router'
+import { pictureDir } from './router'
 
 export interface AuthData {
   username: string
@@ -47,7 +47,7 @@ export const log = (req: Request, _: Response, next: Function) => {
 
 // Multer
 const storage = multer.diskStorage({
-  destination: pubDir,
+  destination: pictureDir,
   filename: (req: Request, _: any, cb: Function) => {
     cb(null, req.params.id)
   },

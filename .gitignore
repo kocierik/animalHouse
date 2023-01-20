@@ -1,7 +1,6 @@
 *.ignore
 node_modules/
 database-data/
-pictures/
 out/
 public/
 
@@ -48,6 +47,7 @@ server/node_modules
 server/mongo-volume/*
 server/out/*
 server/pictures
+
 # SHARED
 shared/node_modules
 shared/.DS_Store
