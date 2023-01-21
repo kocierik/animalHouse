@@ -3,7 +3,7 @@
     <button
       @click="state.showPopupGridSize = !state.showPopupGridSize"
       :class="{
-        'bg-emerald-500 hover:bg-emerald-600': state.showPopupGridSize,
+        'bg-emerald-500 hover:bg-emerald-600': state.showPopupGridSize
       }"
       class="ml-auto mr-3 px-3 py-2 select-none transition-colors rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.15)] bg-zinc-700 hover:bg-zinc-600 text-white"
     >

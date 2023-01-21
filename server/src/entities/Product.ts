@@ -16,8 +16,6 @@ export interface IProduct {
   details?: string
 }
 
-
-
 const productSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   description: { type: String, required: true },
@@ -30,7 +28,7 @@ const productSchema = new Schema<IProduct>({
   sizes: { type: [String], required: false },
   types: { type: [String], required: false },
   highlights: { type: [String], required: false },
-  details: { type: String, required: false },
+  details: { type: String, required: false }
 })
 
 const Product = model<IProduct>('Product', productSchema)

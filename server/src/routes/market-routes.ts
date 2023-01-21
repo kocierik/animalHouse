@@ -23,7 +23,6 @@ import { ProductPatch } from '@/json/patch/ProductPatch'
  * */
 export const getProducts = async (_: Request, res: Response) => res.json(await ProductService.findAllProduct())
 
-
 /**
  * @swagger
  *
@@ -163,7 +162,7 @@ export const patchProduct = async (req: Request, res: Response) => {
  *            description: Success
  *
  * */
- /* TODO levare user creation*/
+/* TODO levare user creation*/
 export const postProduct = async (req: Request, res: Response) => {
   //TODO: check input
   let productCreation = req.body as JsonProduct
@@ -268,8 +267,6 @@ export const putProductPicture = async (req: Request, res: Response) => {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
-
-
 }
 
 /**
@@ -299,8 +296,6 @@ export const getProductSumUp = async (req: Request, res: Response) => {
   }
 }
 
-
-
 /**
  * @swagger
  *  /products/category/{id}:
@@ -325,7 +320,6 @@ export const getProductCategory = async (req: Request, res: Response) => {
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
-
 
 /**
  * @swagger

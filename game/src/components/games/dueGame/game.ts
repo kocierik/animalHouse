@@ -46,7 +46,7 @@ const isTileMatcheAvailable = () => {
 
       const index = getTileIndex({
         x: tile.x + vector.x,
-        y: tile.y + vector.y,
+        y: tile.y + vector.y
       })
 
       if (index !== -1 && state.currentGame.tiles[index].v === tile.v) {
@@ -65,7 +65,7 @@ const addRandomTiles = (n: number) => {
       state.currentGame.tiles.push({
         ...randomCell,
         v: Math.random() < 0.9 ? 2 : 4,
-        i: ++state.currentGame.uid,
+        i: ++state.currentGame.uid
       })
     }
   }
@@ -109,7 +109,7 @@ export const move = (direction: number) => {
         Object.assign(state.currentGame.tiles[tileIndex], {
           x: tileDest.x,
           y: tileDest.y,
-          t: 1,
+          t: 1
         })
 
         state.currentGame.tiles[nextTileIndex].t = true
@@ -127,7 +127,7 @@ export const move = (direction: number) => {
           y: tileDest.y,
           v: value,
           m: 1,
-          i: ++state.currentGame.uid,
+          i: ++state.currentGame.uid
         })
 
         moved = true

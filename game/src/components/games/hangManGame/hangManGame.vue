@@ -8,7 +8,7 @@
         <div
           class="flex pc-background"
           :style="{
-            background: `conic-gradient(#ec826f ${degrees}deg, #ddd ${degrees}deg)`,
+            background: `conic-gradient(#ec826f ${degrees}deg, #ddd ${degrees}deg)`
           }"
         ></div>
       </div>
@@ -36,7 +36,7 @@
         class="button-disabling-overlay"
         :style="{
           pointerEvents: puzzleSolved ? 'all' : 'none',
-          background: puzzleSolved ? '#fff7' : '#0000',
+          background: puzzleSolved ? '#fff7' : '#0000'
         }"
       ></div>
       <button
@@ -67,7 +67,7 @@ export default {
       currentGuess: [],
       tries: 0,
       progress: 0,
-      message: '',
+      message: ''
     }
   },
   mounted() {
@@ -88,7 +88,7 @@ export default {
     },
     puzzleSolved() {
       return this.progress === this.currentWord.length
-    },
+    }
   },
   methods: {
     reset() {
@@ -130,18 +130,18 @@ export default {
             text: `You found the word ${this.currentWord} in ${this.tries} tries! Do you want save your record?`,
             icon: 'warning',
             buttons: true,
-            dangerMode: false,
+            dangerMode: false
           }).then(async (willSave) => {
             console.log(point)
             if (willSave) {
               let totalScore = {
                 gameId: GameConstant.HANGMAN,
-                score: point,
+                score: point
               }
               let response = await ApiRepository.putUserScore(totalScore, Helpers.getUserId())
               console.log(response)
               swal('Poof! Your record is saved!', {
-                icon: 'success',
+                icon: 'success'
               })
             } else {
               swal('Your record is NOT saved!')
@@ -152,13 +152,13 @@ export default {
             title: 'Good job!',
             text: `You found the word ${this.currentWord} in ${this.tries} tries!`,
             icon: 'warning',
-            dangerMode: false,
+            dangerMode: false
           })
         }
         this.loadGame()
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

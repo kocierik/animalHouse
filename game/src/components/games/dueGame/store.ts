@@ -6,7 +6,7 @@ export const defaultGameState = () => ({
   score: 0,
   uid: 0,
   win: false,
-  isGameover: false,
+  isGameover: false
 })
 
 const size = getItem('game-size', 4)
@@ -17,7 +17,7 @@ export const state = reactive({
   currentGame: getItem('game-state-' + size, defaultGameState(), true),
   boardWidth: 0,
   showPopupGridSize: false,
-  showPopupWin: false,
+  showPopupWin: false
 })
 
 export const setCurrentGame = (game: any) => {

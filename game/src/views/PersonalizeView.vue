@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { redirect } from '@/router';
+import { redirect } from '@/router'
 import { ApiRepository, Helpers } from 'shared'
 import { onBeforeMount, ref } from 'vue'
 import Chip from '../components/common/Chip.vue'
@@ -53,7 +53,7 @@ onBeforeMount(async () => {
         click: () => {
           animals.value[element.code].selected = !animals.value[element.code].selected
         },
-        selected: false,
+        selected: false
       }
     })
   } // TODO handle error

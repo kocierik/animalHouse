@@ -1,5 +1,5 @@
 const Constants = {
-  ALPHABETS: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  ALPHABETS: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 }
 
 export default Constants

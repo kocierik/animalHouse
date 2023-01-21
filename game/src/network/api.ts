@@ -16,7 +16,7 @@ export const fetchHoroscope = async (sign: string): Promise<ApiResponse<IHorosco
 
 export const fetchFakeFact = async (animal: AnimalType) => {
   const response = await fetchCatFacts()
-  if (response.data){
+  if (response.data) {
     response.data.data[0] = response.data!.data[0].replace(/cat/gi, animal)
   }
   return response

@@ -18,7 +18,7 @@ class Cell {
     this.hasBomb = false
     this.position = {
       row: row,
-      column: column,
+      column: column
     }
     this.bomCount = 0
     this.isOpen = false
@@ -98,7 +98,7 @@ class Table {
       for (var j = 0; j < this.columnLength; j++) {
         var bomCount = this.getbomCount(this.cells[i][j].neighborhood)
         this.cells[i][j].update({
-          bomCount: bomCount,
+          bomCount: bomCount
         })
       }
     }
@@ -107,7 +107,7 @@ class Table {
   changeTableStateToBomb() {
     var bombState = {
       bombing: true,
-      isOpen: true,
+      isOpen: true
     }
     this.chageEachCellState(bombState)
     this.isGameOver = true
@@ -173,7 +173,7 @@ class Table {
   }
   applayOpenState(clickedCell: any) {
     this.cells[clickedCell.position.row][clickedCell.position.column].update({
-      isOpen: true,
+      isOpen: true
     })
   }
   isFinish() {
@@ -195,7 +195,7 @@ class Table {
           text: `You won in ${this.try} tries! Do you want save your record?`,
           icon: 'warning',
           buttons: [true],
-          dangerMode: false,
+          dangerMode: false
         }).then(async (willSave) => {
           if (willSave) {
             const userId = Helpers.getUserId()
@@ -205,11 +205,11 @@ class Table {
             const totalScore = {
               userId: userId,
               gameId: GameConstant.MINESWEEPER,
-              score: points,
+              score: points
             } as JsonGames.IGameResult
             let response = await ApiRepository.putUserScore(totalScore, userId)
             swal('Poof! Your record is saved!', {
-              icon: 'success',
+              icon: 'success'
             })
           } else {
             swal('Your record is NOT saved!')
@@ -220,7 +220,7 @@ class Table {
           title: 'Good job!',
           text: `You won in ${this.try} tries!`,
           icon: 'warning',
-          dangerMode: false,
+          dangerMode: false
         })
       }
 
@@ -233,11 +233,11 @@ class Table {
     var cell = this.cells[clickedCell.position.row][clickedCell.position.column]
     if (cell.hasFlag) {
       cell.update({
-        hasFlag: false,
+        hasFlag: false
       })
     } else {
       cell.update({
-        hasFlag: true,
+        hasFlag: true
       })
     }
   }
@@ -249,7 +249,7 @@ class Table {
       hasBomb: false,
       bomCount: null,
       bombing: false,
-      isFinished: false,
+      isFinished: false
     }
     this.chageEachCellState(initialState)
     this.isFinished = false
@@ -315,7 +315,7 @@ const restart = () => {
               hasFlag: item.hasFlag,
               count2: item.bomCount === 2 && item.isOpen,
               count3: item.bomCount === 3 && item.isOpen,
-              count4: item.bomCount === 4 && item.isOpen,
+              count4: item.bomCount === 4 && item.isOpen
             }"
           >
             <p v-if="item.isOpen && item.bomCount !== 0">{{ item.hasFlag ? '' : item.bomCount }}</p>

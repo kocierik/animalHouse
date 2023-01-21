@@ -66,8 +66,8 @@ const Register = () => {
                 <h2 className="text-4xl font-bold text-white">Register</h2>
 
                 <p className="max-w-xl mt-3 text-gray-300">
-                  Welcome to our animal website! To access all of our features and content, please log in to your account.
-                   If you do not have an account yet, please sign up for one. 
+                  Welcome to our animal website! To access all of our features and content, please log in to your
+                  account. If you do not have an account yet, please sign up for one.
                 </p>
               </div>
             </div>

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import ErrorBox from '@/components/common/ErrorBox.vue'
 import { ApiRepository, ApiResponse, Helpers, JsonUser } from 'shared'
-import { redirect } from '@/router';
+import { redirect } from '@/router'
 
 /* If the user is already logged redirect to main page */
 if (Helpers.isLogged()) {
@@ -17,7 +17,7 @@ const errors = [
   'invalid username or password',
   'username can not be empty',
   'password can not be empty',
-  'check your internet connection',
+  'check your internet connection'
 ]
 
 const doLogin = async () => {
@@ -48,7 +48,7 @@ const goToRegister = () => {
   redirect('/register', true)
 }
 
-const imageUrl = import.meta.env.BASE_URL + "/login.jpg"
+const imageUrl = import.meta.env.BASE_URL + '/login.jpg'
 </script>
 
 <template>
@@ -61,8 +61,7 @@ const imageUrl = import.meta.env.BASE_URL + "/login.jpg"
           background-image: url(${imageUrl});
           background-size: contain;
           background-position: right;
-          background-repeat: no-repeat;`
-        "
+          background-repeat: no-repeat;`"
       />
 
       <div class="flex justify-start items-center w-full max-w-md px-6 mx-auto lg:w-2/6">

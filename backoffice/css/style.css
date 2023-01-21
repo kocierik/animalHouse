@@ -2,11 +2,11 @@
 .ct-series-a .ct-line,
 .ct-series-a .ct-point,
 .ct-series-a .ct-slice-donut {
-    stroke: #6920f0;
+  stroke: #6920f0;
 }
 
 .ct-series-a .ct-area,
 .ct-series-a .ct-slice-donut-solid,
 .ct-series-a .ct-slice-pie {
-    fill: #6920f0;
+  fill: #6920f0;
 }

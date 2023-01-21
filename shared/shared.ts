@@ -7,7 +7,7 @@ export * as GameConstant from './src/gameConstant'
 export * as ProductConstant from './src/productConstant'
 export * as JsonUser from './src/json/user'
 export * as JsonAnimal from './src/json/animal'
-export * as JsonProduct from "./src/json/Product"
+export * as JsonProduct from './src/json/Product'
 export * as Community from './src/json/Community'
 export * as JsonGames from './src/json/Games'
 export * as JsonReview from './src/json/Review'

@@ -6,7 +6,7 @@
 import { createToaster } from '@meforma/vue-toaster'
 import { Helpers } from 'shared'
 import GameCard from '../components/games/GameCard.vue'
-import { gameList } from '@/oth/games';
+import { gameList } from '@/oth/games'
 
 const toaster = createToaster({
   /* options */
@@ -18,9 +18,8 @@ if (!Helpers.isLogged())
     position: 'top',
     queue: false,
     duration: 3000,
-    max: 1,
+    max: 1
   })
-
 </script>
 
 <template>

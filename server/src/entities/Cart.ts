@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose'
-import { ICartItem, cartItemSchema} from './CartItem'
+import { ICartItem, cartItemSchema } from './CartItem'
 
 export interface ICart {
-  _id: string,
+  _id: string
   userId: string
   active: boolean
   cartItems: ICartItem[]
@@ -10,8 +10,8 @@ export interface ICart {
 
 const cartSchema = new Schema<ICart>({
   userId: { type: String, required: true },
-  active: {type: Boolean, default: true},
-  cartItems: { type: [cartItemSchema], required: true },
+  active: { type: Boolean, default: true },
+  cartItems: { type: [cartItemSchema], required: true }
 })
 
 const Cart = model<ICart>('Cart', cartSchema)

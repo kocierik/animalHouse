@@ -1,9 +1,8 @@
 <script setup lang="ts">
-
 import swal from 'sweetalert'
 import { ref, onBeforeMount } from 'vue'
 import { Helpers, GameConstant, ApiRepository, JsonGames, AnimalType, getAnimalPicture } from 'shared'
-import { assert } from '@vue/compiler-core';
+import { assert } from '@vue/compiler-core'
 
 interface MemoryCard {
   id: number
@@ -12,29 +11,36 @@ interface MemoryCard {
   guessed: boolean
 }
 
-const animalTypes = [AnimalType.Cat, AnimalType.Bunny, AnimalType.Panda, AnimalType.Dog, AnimalType.Lizard, AnimalType.Koala]
+const animalTypes = [
+  AnimalType.Cat,
+  AnimalType.Bunny,
+  AnimalType.Panda,
+  AnimalType.Dog,
+  AnimalType.Lizard,
+  AnimalType.Koala
+]
 const cards = ref<MemoryCard[]>([])
 const moves = ref<number>(0)
 
-const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+const sleep = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 
-const findIndex = (id: number): number => cards.value.findIndex(c => c.id === id)
+const findIndex = (id: number): number => cards.value.findIndex((c) => c.id === id)
 
-const generateCards = async ()=> {
+const generateCards = async () => {
   moves.value = 0
   cards.value = []
   let id = 0
   for (const type of animalTypes) {
     const pic = await getAnimalPicture(type)
-    cards.value.push({id: id, image: pic, selected: false,guessed: false}) 
-    cards.value.push({id: id+1, image: pic, selected: false, guessed: false}) 
+    cards.value.push({ id: id, image: pic, selected: false, guessed: false })
+    cards.value.push({ id: id + 1, image: pic, selected: false, guessed: false })
     id += 2
   }
   cards.value.sort(() => Math.random() - 0.5)
 }
 
 const getOtherSelected = (current: number) => {
-  const ids = cards.value.filter(x => x.selected && x.id !== current).map(x => x.id)
+  const ids = cards.value.filter((x) => x.selected && x.id !== current).map((x) => x.id)
   assert(ids.length <= 1)
   return ids.length === 1 ? ids[0] : -1
 }
@@ -43,8 +49,7 @@ const areTweens = (id1: number, id2: number) => Math.trunc(id1 / 2) === Math.tru
 
 const onCardSelected = async (id: number) => {
   // Check if the card could be clicked
-  if (cards.value[findIndex(id)].selected || cards.value[findIndex(id)].guessed) 
-    return
+  if (cards.value[findIndex(id)].selected || cards.value[findIndex(id)].guessed) return
 
   moves.value++
   // Make it visible
@@ -59,8 +64,8 @@ const onCardSelected = async (id: number) => {
 
   if (areTweens(id, other)) {
     // Mark as guessed
-    cards.value[findIndex(id)].guessed = true 
-    cards.value[findIndex(other)].guessed = true 
+    cards.value[findIndex(id)].guessed = true
+    cards.value[findIndex(other)].guessed = true
 
     if (hasWon()) {
       await showWinMessage()
@@ -77,46 +82,42 @@ const onCardSelected = async (id: number) => {
   }
 }
 
-const hasWon = () => cards.value.filter(x => !x.guessed).length === 0
+const hasWon = () => cards.value.filter((x) => !x.guessed).length === 0
 
 const showWinMessage = async () => {
   if (Helpers.isLogged()) {
     const willSave = await swal({
-            title: 'Good job!',
-            text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
-            icon: 'success',
-            // @ts-ignore
-            buttons: true,
-            dangerMode: false,
-            })
+      title: 'Good job!',
+      text: `You found all the couples in ${moves.value} tries! Do you want save your record?`,
+      icon: 'success',
+      // @ts-ignore
+      buttons: true,
+      dangerMode: false
+    })
     if (willSave) {
       let totalScore: JsonGames.IGameResult = {
         gameId: GameConstant.MEMORYGAME,
-        score: moves.value,
+        score: moves.value
       }
       const userId = Helpers.getUserId()
       if (!userId) return
-        let response = await ApiRepository.putUserScore(totalScore, userId)
-        if (response.esit)
-          swal('Poof! Your record is saved!', {icon: 'success'})
-        else
-          swal('Ups, something wrong appened :/\nTry again later!', {icon: 'error'})
+      let response = await ApiRepository.putUserScore(totalScore, userId)
+      if (response.esit) swal('Poof! Your record is saved!', { icon: 'success' })
+      else swal('Ups, something wrong appened :/\nTry again later!', { icon: 'error' })
     }
   } else {
-          swal({
-            title: 'Good job!',
-            text: `You found all the couples in ${moves.value} tries!`,
-            icon: 'warning',
-            dangerMode: false,
-          })
+    swal({
+      title: 'Good job!',
+      text: `You found all the couples in ${moves.value} tries!`,
+      icon: 'warning',
+      dangerMode: false
+    })
   }
 }
 
-onBeforeMount(async ()=> {
+onBeforeMount(async () => {
   await generateCards()
 })
-
-
 </script>
 
 <template>
@@ -126,22 +127,31 @@ onBeforeMount(async ()=> {
         class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
         >Memory Game</a
       >
-      <h2 class="mt-3 text-black text-xl font-bold">Moves: {{moves}}</h2>
+      <h2 class="mt-3 text-black text-xl font-bold">Moves: {{ moves }}</h2>
     </div>
     <div class="game">
       <div id="memory">
-        <div class="rouned shadow m-3 overflow-hidden" :style="{width: 100, height: 100}" v-for="card in cards" :key="card.id">
+        <div
+          class="rouned shadow m-3 overflow-hidden"
+          :style="{ width: 100, height: 100 }"
+          v-for="card in cards"
+          :key="card.id"
+        >
           <!-- Hidden -->
-          <div v-show="!card.guessed && !card.selected" @click="onCardSelected(card.id)" class="flex justify-center items-center">
+          <div
+            v-show="!card.guessed && !card.selected"
+            @click="onCardSelected(card.id)"
+            class="flex justify-center items-center"
+          >
             <img src="/memory.webp" class="max-w-xs max-h-xs object-scale-down" />
           </div>
           <!-- Revealed -->
           <div v-show="card.guessed || card.selected" class="h-full flex justify-center items-center">
-            <img :src="card.image" class="max-w-xs max-h-xs object-scale-down"  />
+            <img :src="card.image" class="max-w-xs max-h-xs object-scale-down" />
           </div>
         </div>
       </div>
-        <button class="py-3 px-5 m-5 font-black bg-lyellow rounded-full " @click="generateCards"> RESTART</button>
+      <button class="py-3 px-5 m-5 font-black bg-lyellow rounded-full" @click="generateCards">RESTART</button>
     </div>
   </section>
 </template>
@@ -176,7 +186,6 @@ onBeforeMount(async ()=> {
   align-items: center;
   margin: 10px;
 }
-
 
 @media screen and (max-width: 400px) {
   img {

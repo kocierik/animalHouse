@@ -21,7 +21,7 @@ const swaggerOptions = {
     info: {
       title: 'Animal House',
       version: '2.0.0',
-      description: 'Animal houz back& api',
+      description: 'Animal houz back& api'
     },
     host: 'localhost:8080',
     basePath: '/api/v2',
@@ -29,8 +29,8 @@ const swaggerOptions = {
       JWT: {
         type: 'apiKey',
         in: 'header',
-        name: 'authorization',
-      },
+        name: 'authorization'
+      }
     },
     components: {
       tags: [
@@ -39,7 +39,7 @@ const swaggerOptions = {
         { name: 'community' },
         { name: 'animals' },
         { name: 'reservations' },
-        { name: 'locations' },
+        { name: 'locations' }
       ],
       schemas: {
         User: SwaggerUser,
@@ -64,7 +64,7 @@ const swaggerOptions = {
     },
   },
   // TODO questo è un accrocchio
-  apis: ['src/doc/*.yml', 'server/src/routes/*.ts'],
+  apis: ['src/doc/*.yml', 'server/src/routes/*.ts']
 }
 
 export default swaggerOptions

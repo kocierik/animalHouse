@@ -9,7 +9,7 @@ import { ref, watch } from 'vue'
 export default {
   props: {
     placement: Array,
-    label: String,
+    label: String
   },
   setup(props, { emit }) {
     const place = ref(props.placement)
@@ -25,9 +25,9 @@ export default {
       place,
       // eslint-disable-next-line vue/no-dupe-keys
       label,
-      setCell,
+      setCell
     }
-  },
+  }
 }
 </script>
 

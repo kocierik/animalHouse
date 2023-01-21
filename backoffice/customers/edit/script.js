@@ -1,154 +1,164 @@
 //https://stackoverflow.com/questions/19491336/how-to-get-url-parameter-using-jquery-or-plain-javascript
 var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = window.location.search.substring(1),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
+  var sPageURL = window.location.search.substring(1),
+    sURLVariables = sPageURL.split('&'),
+    sParameterName,
+    i
 
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
+  for (i = 0; i < sURLVariables.length; i++) {
+    sParameterName = sURLVariables[i].split('=')
 
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-        }
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1])
     }
-    return false;
-};
-
-$(document).ready(function () {
-    var id = getUrlParameter('id');
-    if (id) {
-        fetch("/api/v2/users/"+id+"/score/",{
-            method: "GET",
-            headers:{
-                "authorization": localStorage.token
-            }
-        }).then((response)=>response.json()).then((el)=>{
-            console.log(el)
-        })
-        retrieveUser(id);
-    } else {
-        window.location.href = "../"
-    }
-});
-
-function showImage() {
-    var file = $('#grid-image').prop('files')[0];
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        $("#imgplaceholder").attr("src", String(reader.result))
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
+  }
+  return false
 }
 
-function resetPassword(){
-    var newPwd = Math.random().toString(36).slice(2, 12)
-    
-    fetch("/api/v2/users/" + getUrlParameter('id'), {
-        method: "PATCH",
-        headers: {
-            "authorization": localStorage.token,
-            "Content-Type": "application/json",
-            "Access-Control-Origin": "*"
-        },
-        body: JSON.stringify({
-            "password": newPwd,
-        })
+$(document).ready(function () {
+  var id = getUrlParameter('id')
+  if (id) {
+    fetch('/api/v2/users/' + id + '/score/', {
+      method: 'GET',
+      headers: {
+        authorization: localStorage.token
+      }
     })
-    alert(getUrlParameter("id")+"\'s new password is: "+newPwd)
+      .then((response) => response.json())
+      .then((el) => {
+        console.log(el)
+      })
+    retrieveUser(id)
+  } else {
+    window.location.href = '../'
+  }
+})
 
+function showImage() {
+  var file = $('#grid-image').prop('files')[0]
+  var reader = new FileReader()
+  reader.readAsDataURL(file)
+  reader.onload = function () {
+    $('#imgplaceholder').attr('src', String(reader.result))
+  }
+  reader.onerror = function (error) {
+    console.log('Error: ', error)
+  }
+}
 
+function resetPassword() {
+  var newPwd = Math.random().toString(36).slice(2, 12)
+
+  fetch('/api/v2/users/' + getUrlParameter('id'), {
+    method: 'PATCH',
+    headers: {
+      authorization: localStorage.token,
+      'Content-Type': 'application/json',
+      'Access-Control-Origin': '*'
+    },
+    body: JSON.stringify({
+      password: newPwd
+    })
+  })
+  alert(getUrlParameter('id') + "'s new password is: " + newPwd)
 }
 
 function retrieveUser(id) {
-    var url = "/api/v2/users/" + id;
-    fetch(url, {
-        headers: {
-            'authorization': localStorage.token
-        }
-    }).then((response) => response.json()).then((el) => {
-        console.log(el);
-        $("#grid-firstName").val(el.firstName);
-        $("#grid-lastName").val(el.lastName);
-        $("#grid-category").val(el.categoryId);
-        $("#grid-description").val(el.description);
-        $("#grid-email").val(el.email);
-        $("#grid-username").val(el.username);
-        $("#animals-place-username").html(el.username);
-        $("#games-place-username").html(el.username);
-        if (el.address) {
-            $("#grid-street").val(el.address.street);
-            $("#grid-city").val(el.address.city);
-            $("#grid-zip").val(el.address.zip);
-            $("#grid-country").val(el.address.country);
-        }
-        if (el.animals.length == 0)
-            $("#animals-place-section").hide()
-        el.animals.forEach(a => {
-            $("#animals-place-list").append([{ picture: a.picture ? "/pictures/" + a.picture.filename : "/backoffice/favicon.ico", name: a.name, age: a.age, uid: el._id, aid: a._id, type: a.type }].map(AnimalItem));
-        });
-        //TODO IMPLEMENT GAMES SCORES
-        $("#games-place-list").append([{ gameName: "MineSweeperHARDCODED", score: 21334 }].map(GameItem));
-        $("#games-place-list").append([{ gameName: "HangManHARDCODED", score: 23423 }].map(GameItem));
+  var url = '/api/v2/users/' + id
+  fetch(url, {
+    headers: {
+      authorization: localStorage.token
+    }
+  })
+    .then((response) => response.json())
+    .then((el) => {
+      console.log(el)
+      $('#grid-firstName').val(el.firstName)
+      $('#grid-lastName').val(el.lastName)
+      $('#grid-category').val(el.categoryId)
+      $('#grid-description').val(el.description)
+      $('#grid-email').val(el.email)
+      $('#grid-username').val(el.username)
+      $('#animals-place-username').html(el.username)
+      $('#games-place-username').html(el.username)
+      if (el.address) {
+        $('#grid-street').val(el.address.street)
+        $('#grid-city').val(el.address.city)
+        $('#grid-zip').val(el.address.zip)
+        $('#grid-country').val(el.address.country)
+      }
+      if (el.animals.length == 0) $('#animals-place-section').hide()
+      el.animals.forEach((a) => {
+        $('#animals-place-list').append(
+          [
+            {
+              picture: a.picture ? '/pictures/' + a.picture.filename : '/backoffice/favicon.ico',
+              name: a.name,
+              age: a.age,
+              uid: el._id,
+              aid: a._id,
+              type: a.type
+            }
+          ].map(AnimalItem)
+        )
+      })
+      //TODO IMPLEMENT GAMES SCORES
+      $('#games-place-list').append([{ gameName: 'MineSweeperHARDCODED', score: 21334 }].map(GameItem))
+      $('#games-place-list').append([{ gameName: 'HangManHARDCODED', score: 23423 }].map(GameItem))
 
-
-        let img = el.profilePicture;
-        $("#imgplaceholder").attr("src", img ? "/pictures/" + img.filename : "/backoffice/favicon.ico");
-
-    });
+      let img = el.profilePicture
+      $('#imgplaceholder').attr('src', img ? '/pictures/' + img.filename : '/backoffice/favicon.ico')
+    })
 }
 
-$("#send").click(function () {
-    //EDIT USER
-    fetch("/api/v2/users/" + getUrlParameter('id'), {
-        method: "PATCH",
-        headers: {
-            "authorization": localStorage.token,
-            "Content-Type": "application/json",
-            "Access-Control-Origin": "*"
-        },
-        body: JSON.stringify({
-            "firstName": $("#grid-firstName").val(),
-            "lastName": $("#grid-lastName").val(),
-            "username": $("#grid-username").val(),
-            "description": $("#grid-description").val(),
-            "email": $("#grid-email").val(),
-            "street": $("#grid-street").val(),
-            "city": $("#grid-city").val(),
-            "zip": $("#grid-zip").val(),
-            "country": $("#grid-country").val(),
-        })
+$('#send').click(function () {
+  //EDIT USER
+  fetch('/api/v2/users/' + getUrlParameter('id'), {
+    method: 'PATCH',
+    headers: {
+      authorization: localStorage.token,
+      'Content-Type': 'application/json',
+      'Access-Control-Origin': '*'
+    },
+    body: JSON.stringify({
+      firstName: $('#grid-firstName').val(),
+      lastName: $('#grid-lastName').val(),
+      username: $('#grid-username').val(),
+      description: $('#grid-description').val(),
+      email: $('#grid-email').val(),
+      street: $('#grid-street').val(),
+      city: $('#grid-city').val(),
+      zip: $('#grid-zip').val(),
+      country: $('#grid-country').val()
     })
-    //EDIT IMAGE
-    let img = $('#grid-image').prop('files')[0];
-    if (img) {
-        var send = new FormData()
-        send.append("profile", img)
-        fetch("/api/v2/users/" + getUrlParameter('id') + "/picture", {
-            method: "PUT",
-            headers: {
-                "Access-Control-Origin": "*",
-                "authorization": localStorage.token,
-            },
-            body: send
-        })
-    }
-});
+  })
+  //EDIT IMAGE
+  let img = $('#grid-image').prop('files')[0]
+  if (img) {
+    var send = new FormData()
+    send.append('profile', img)
+    fetch('/api/v2/users/' + getUrlParameter('id') + '/picture', {
+      method: 'PUT',
+      headers: {
+        'Access-Control-Origin': '*',
+        authorization: localStorage.token
+      },
+      body: send
+    })
+  }
+})
 
 ///users/:uid/animals/:aid
 function animalRemove(name, uid, aid) {
-    if (confirm('Are you sure you want to remove ' + name + " | " + aid + '?')) {
-        fetch("/api/v2/users/" + uid + "/animals/" + aid, {
-            method: "DELETE",
-            headers: {
-                "authorization": localStorage.token
-            }
-        })
-        window.location.href = window.location.href
-    }
+  if (confirm('Are you sure you want to remove ' + name + ' | ' + aid + '?')) {
+    fetch('/api/v2/users/' + uid + '/animals/' + aid, {
+      method: 'DELETE',
+      headers: {
+        authorization: localStorage.token
+      }
+    })
+    window.location.href = window.location.href
+  }
 }
 
 //GameItem template
@@ -162,7 +172,7 @@ const GameItem = ({ gameName, score }) => `
     </div>
    
 </div>
-`;
+`
 
 //Animalitem template
 const AnimalItem = ({ name, age, picture, aid, uid, type }) => `
@@ -182,4 +192,4 @@ const AnimalItem = ({ name, age, picture, aid, uid, type }) => `
     </div>
    
 </div>
-`;
+`

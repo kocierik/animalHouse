@@ -7,7 +7,7 @@ interface IAnimalCode {
 
 const animalCodeSchema = new Schema<IAnimalCode>({
   code: { type: Number, required: true },
-  value: { type: String, required: true },
+  value: { type: String, required: true }
 })
 
 const AnimalCode = model<IAnimalCode>('AnimalCode', animalCodeSchema)

@@ -8,16 +8,16 @@ export const SwaggerReviewSumUp = {
   type: 'object',
   properties: {
     average: {
-      type: 'number',
+      type: 'number'
     },
     total: {
-      type: 'number',
+      type: 'number'
     },
     percentage: {
       type: 'array',
       items: {
-        type: 'string',
-      },
-    },
-  },
+        type: 'string'
+      }
+    }
+  }
 }

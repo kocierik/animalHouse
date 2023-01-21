@@ -32,10 +32,9 @@ export const verifyUser = async (req: Request, res: Response, next: Function) =>
   const authId = req.authData.id
   const pathId = req.params.id
 
-  if (pathId === authId || await AdminService.isAdmin(authId)) {
+  if (pathId === authId || (await AdminService.isAdmin(authId))) {
     return next()
-  }
-  else {
+  } else {
     return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
   }
 }
@@ -63,7 +62,7 @@ const storage = multer.diskStorage({
   destination: pictureDir,
   filename: (req: Request, _: any, cb: Function) => {
     cb(null, req.params.id)
-  },
+  }
 })
 
 const upload = multer({ storage: storage })

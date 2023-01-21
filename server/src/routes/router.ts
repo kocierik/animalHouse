@@ -13,7 +13,7 @@ import { resolve } from 'path'
 
 export const appRouter = Router()
 
-// STATIC 
+// STATIC
 const pubDir = resolve(__dirname + Const.PUBLIC_DIR)
 const frontofficeDir = resolve(__dirname + Const.FRONTOFFICE_DIR)
 const backofficeDir = resolve(__dirname + Const.BACKOFFICE_DIR)
@@ -27,10 +27,10 @@ console.log('[INFO] Backoffice dir is at ' + backofficeDir)
 console.log('[INFO] Game dir is at ' + gameDir)
 
 appRouter.use(express.static(pubDir))
-appRouter.use("/frontoffice", express.static(frontofficeDir))
-appRouter.use("/game", express.static(gameDir))
-appRouter.use("/backoffice", express.static(backofficeDir))
-appRouter.use("/pictures", express.static(pictureDir))
+appRouter.use('/frontoffice', express.static(frontofficeDir))
+appRouter.use('/game', express.static(gameDir))
+appRouter.use('/backoffice', express.static(backofficeDir))
+appRouter.use('/pictures', express.static(pictureDir))
 
 // REST API
 const prefix = Const.API_PREFIX + Const.CURR_API_VERSION
@@ -70,7 +70,6 @@ appRouter.post(
 appRouter.get(prefix + '/community/game/', middlewares.log, communityRoutes.getGames)
 appRouter.get(prefix + '/community/game/scoreboard', middlewares.log, communityRoutes.getScoreboard)
 
-
 // Location
 appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations)
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
@@ -92,11 +91,28 @@ appRouter.get(prefix + '/products/categories', middlewares.log, marketRoutes.get
 // TODO fix category to categories
 appRouter.get(prefix + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
 
-
 // Reservations
-appRouter.get(prefix + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.getReservations)
-appRouter.post(prefix + '/users/:id/reservations', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.postReservation)
-appRouter.delete(prefix + '/reservations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyUser, reservationRoutes.deleteReservation)
+appRouter.get(
+  prefix + '/users/:id/reservations',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.getReservations
+)
+appRouter.post(
+  prefix + '/users/:id/reservations',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.postReservation
+)
+appRouter.delete(
+  prefix + '/reservations/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  reservationRoutes.deleteReservation
+)
 
 appRouter.get(
   prefix + '/animals/:id/reservations',
@@ -123,8 +139,6 @@ appRouter.put(
 // Service
 appRouter.get(prefix + '/services', middlewares.log, serviceRoutes.getAllServices)
 appRouter.get(prefix + '/services/names/:id', middlewares.log, serviceRoutes.getSingleServicesName)
-
-
 
 // User
 appRouter.post(prefix + '/users/register', middlewares.log, userRoutes.registerPost)
@@ -258,4 +272,3 @@ appRouter.post(
   middlewares.verifyUser,
   reservationRoutes.postReservation
 )
-

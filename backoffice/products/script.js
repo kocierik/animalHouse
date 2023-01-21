@@ -1,25 +1,37 @@
 function retrieveProducts(target) {
-    var url = "/api/v2/products/";
-    fetch(url).then((response) => response.json()).then((data) => {
-        $(target).text("");
-        data.forEach(function (el) {
-            console.log(el)
-            var img = "/backoffice/favicon.ico"
-            if (el.image)
-                img = "/pictures/" + el.image.filename
-            $(target).append([{ img: img, name: el.name, price: el.price, id: el._id, description: el.description, alt: el.name + "'s picture" }].map(Item));
-        });
-    });
+  var url = '/api/v2/products/'
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      $(target).text('')
+      data.forEach(function (el) {
+        console.log(el)
+        var img = '/backoffice/favicon.ico'
+        if (el.image) img = '/pictures/' + el.image.filename
+        $(target).append(
+          [
+            {
+              img: img,
+              name: el.name,
+              price: el.price,
+              id: el._id,
+              description: el.description,
+              alt: el.name + "'s picture"
+            }
+          ].map(Item)
+        )
+      })
+    })
 }
 function itemRemove(name, id) {
-    if (confirm('Are you sure you want to remove the product ' + name + " | " + id + '?')) {
-        fetch("/api/v2/products/" + id, {
-            method: 'DELETE',
-            headers: {
-                "authorization": localStorage.token,
-            }
-        }).then(retrieveProducts("#itemList"))
-    }
+  if (confirm('Are you sure you want to remove the product ' + name + ' | ' + id + '?')) {
+    fetch('/api/v2/products/' + id, {
+      method: 'DELETE',
+      headers: {
+        authorization: localStorage.token
+      }
+    }).then(retrieveProducts('#itemList'))
+  }
 }
 
 //item template
@@ -41,8 +53,8 @@ const Item = ({ img, name, price, id, description, alt }) => `
         <button onclick='itemRemove("${name}","${id}")'><i class="bi bi-trash"></i></button>
     </td>
 </tr>
-`;
+`
 
 $(document).ready(function () {
-    retrieveProducts('#itemList');
-});
+  retrieveProducts('#itemList')
+})

@@ -40,22 +40,22 @@ export const SwaggerUser = {
   properties: {
     id: {
       type: 'integer',
-      format: 'int64',
+      format: 'int64'
     },
     username: {
-      type: 'string',
+      type: 'string'
     },
     firstName: {
-      type: 'string',
+      type: 'string'
     },
     lastName: {
-      type: 'string',
+      type: 'string'
     },
     email: {
-      type: 'string',
+      type: 'string'
     },
     phone: {
-      type: 'string',
+      type: 'string'
     },
     pets: {
       type: 'array',
@@ -63,29 +63,29 @@ export const SwaggerUser = {
         type: 'object',
         properties: {
           id: {
-            type: 'integer',
+            type: 'integer'
           },
           name: {
-            type: 'string',
-          },
-        },
-      },
+            type: 'string'
+          }
+        }
+      }
     },
     address: {
       type: 'object',
       schema: {
-          "$ref": "#/components/schemas/Address"
+        $ref: '#/components/schemas/Address'
       }
     }
-  },
+  }
 }
 
 export const SwaggerAddress = {
-  type: "object",
+  type: 'object',
   properties: {
-    country:{ type: "string"},
-    city: { type: "string" },
-    street: { type: "string" },
-    zip: { type: "string" }
+    country: { type: 'string' },
+    city: { type: 'string' },
+    street: { type: 'string' },
+    zip: { type: 'string' }
   }
 }

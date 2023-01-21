@@ -63,12 +63,7 @@ const DefaultCard = (props: {
         </svg>
       </div>
       <div className="flex flex-col items-center w-max-sm w-100">
-
-        <img
-          className="mb-3 w-24 h-24 rounded-full shadow-lg"
-          src="/defaultImage.jpg"
-          alt="your animal"
-        />
+        <img className="mb-3 w-24 h-24 rounded-full shadow-lg" src="/defaultImage.jpg" alt="your animal" />
         <input
           style={{
             borderWidth: '1px',

@@ -19,22 +19,22 @@ export const SwaggerLocation = {
   type: 'object',
   properties: {
     _id: {
-      type: 'string',
+      type: 'string'
     },
     name: {
-      type: 'string',
+      type: 'string'
     },
     address: {
       type: 'object',
       properties: {
         country: {
-          type: 'string',
+          type: 'string'
         },
         city: {
-          type: 'string',
+          type: 'string'
         },
         street: {
-          type: 'string',
+          type: 'string'
         },
         zip: {
           type: 'string',

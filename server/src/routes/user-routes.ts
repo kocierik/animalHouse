@@ -449,14 +449,14 @@ export const deleteCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const piIds = req.body as string[]
-    const result = (piIds.length === 0) ? UserService.deleteAllFromCart(pathId) : UserService.deleteFromUserCart(pathId, piIds)
+    const result =
+      piIds.length === 0 ? UserService.deleteAllFromCart(pathId) : UserService.deleteFromUserCart(pathId, piIds)
     return res.status(Const.STATUS_OK).json(await result)
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
-
 
 /**
  * @swagger
@@ -566,7 +566,7 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *         required: true
  *         description: user id
  *      },
- *       { 
+ *       {
  *         in: path,
  *         name: aid,
  *         type: string,
@@ -604,8 +604,8 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *           description: Success
  *           schema:
  *             $ref: "#/definitions/Animal"
- *     
-* */
+ *
+ * */
 export const updateAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
@@ -744,7 +744,9 @@ export const getUserOrders = async (req: Request, res: Response) => {
  * */
 export const postUserOrders = async (req: Request, res: Response) => {
   try {
-    return res.status(Const.STATUS_OK).json(await UserService.createUserOrder(req.params.id, req.body as JsonPaymentDetails))
+    return res
+      .status(Const.STATUS_OK)
+      .json(await UserService.createUserOrder(req.params.id, req.body as JsonPaymentDetails))
   } catch (err) {
     if (err instanceof JsonError) return res.status(err.code).json(err)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
