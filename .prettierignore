@@ -1,2 +1,6 @@
-out
-database_data
+*
+!frontoffice/
+!server/
+!backoffice/
+!game/
+!shared/
