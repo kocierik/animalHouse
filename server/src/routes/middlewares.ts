@@ -40,6 +40,19 @@ export const verifyUser = async (req: Request, res: Response, next: Function) =>
   }
 }
 
+export const verifyAdmin = async (req: Request, res: Response, next: Function) => {
+  const authId = req.authData.id
+  const pathId = req.params.id
+
+  if (await AdminService.isAdmin(authId)) {
+    return next()
+  }
+  else {
+    return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
+  }
+}
+
+
 export const log = (req: Request, _: Response, next: Function) => {
   console.log(`[INFO] ${req.method} to ${req.originalUrl}`)
   return next()

@@ -3,7 +3,7 @@ import type { JsonAddress } from '../json/JsonAddress'
 import { addressSchema } from './Address'
 
 export interface ILocation {
-  _id: Types.ObjectId
+  _id: string,
   name: string
   address: JsonAddress
   latitude?: string

@@ -73,8 +73,11 @@ appRouter.get(prefix + '/community/game/scoreboard', middlewares.log, communityR
 
 
 // Location
+appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations)
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
-appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations) 
+appRouter.post(prefix + '/locations/:id', middlewares.log, middlewares.verifyAdmin, locationRoutes.postLocation)
+appRouter.patch(prefix + '/locations/:id', middlewares.log, middlewares.verifyAdmin, locationRoutes.patchLocation)
+appRouter.delete(prefix + '/locations/:id', middlewares.log, middlewares.verifyAdmin, locationRoutes.deleteLocation)
 
 // Products
 appRouter.get(prefix + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products

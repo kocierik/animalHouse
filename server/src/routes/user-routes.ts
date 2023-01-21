@@ -449,7 +449,7 @@ export const deleteCart = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const piIds = req.body as string[]
-    const result = (piIds.length === 0)? UserService.deleteAllFromCart(pathId) : UserService.deleteFromUserCart(pathId, piIds)
+    const result = (piIds.length === 0) ? UserService.deleteAllFromCart(pathId) : UserService.deleteFromUserCart(pathId, piIds)
     return res.status(Const.STATUS_OK).json(await result)
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
@@ -505,7 +505,7 @@ export const deleteCart = async (req: Request, res: Response) => {
  *          }
  *      }
  * */
- export const putAnimal = async (req: Request, res: Response) => {
+export const putAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const animal = req.body as JsonAnimal
@@ -706,7 +706,7 @@ export const updateUserDescription = async (req: Request, res: Response) => {
  *              schema:
  *                $ref: "#/components/schemas/Order"
  * */
- export const getUserOrders = async (req: Request, res: Response) => {
+export const getUserOrders = async (req: Request, res: Response) => {
   try {
     return res.status(Const.STATUS_OK).json(await UserService.getUserOrders(req.params.id))
   } catch (err) {
