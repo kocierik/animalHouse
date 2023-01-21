@@ -60,8 +60,8 @@ const swaggerOptions = {
         Location: SwaggerLocation,
         LocationPatch: SwaggerLocationPatch,
         LocationCreation: SwaggerLocationCreation
-      },
-    },
+      }
+    }
   },
   // TODO questo è un accrocchio
   apis: ['src/doc/*.yml', 'server/src/routes/*.ts']

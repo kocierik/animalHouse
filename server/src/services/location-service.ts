@@ -43,8 +43,7 @@ export const deleteLocation = async (id: string): Promise<boolean> => {
   if (!location) {
     throw new JsonNotFoundError(`Cannot find location with id ${id}`)
   }
-  if (await Location.deleteOne({ _id: id }))
-    return true
+  if (await Location.deleteOne({ _id: id })) return true
   return false
 }
 
@@ -53,11 +52,9 @@ export const createLocation = async (creation: JsonLocationCreation): Promise<Js
   location.name = creation.name
   location.address = creation.address
 
-  if (creation.longitude)
-    location.longitude = creation.longitude
+  if (creation.longitude) location.longitude = creation.longitude
 
-  if (creation.latitude)
-    location.latitude = creation.latitude
+  if (creation.latitude) location.latitude = creation.latitude
 
-  return await location.save() as ILocation
+  return (await location.save()) as ILocation
 }

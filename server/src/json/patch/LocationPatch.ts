@@ -13,31 +13,31 @@ export const SwaggerLocationPatch = {
   properties: {
     name: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     latitude: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     longitude: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     country: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     city: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     street: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     zip: {
       type: 'string',
-      nullable: true,
-    },
-  },
+      nullable: true
+    }
+  }
 }

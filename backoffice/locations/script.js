@@ -1,25 +1,27 @@
 fetchLocations()
 
-function fetchLocations(){
-    var url = "/api/v2/locations/";
-    fetch(url, {
-        headers: {
-            'authorization': localStorage.token
-        }
-    }).then((response) => response.json()).then((data) => {
-        target = "locationsList"
-        document.getElementById('locationsList').innerHTML = "";
+function fetchLocations() {
+  var url = '/api/v2/locations/'
+  fetch(url, {
+    headers: {
+      authorization: localStorage.token
+    }
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      target = 'locationsList'
+      document.getElementById('locationsList').innerHTML = ''
 
-        let coords = []
-        data.forEach(function (el) {
-            console.log(el)
-            var addr = `${el.address.street}, ${el.address.city}, ${el.address.zip}, ${el.address.country}`
-            var c = { lon: el.longitude, lat: el.latitude }
-            coords.push(c)
-            document.getElementById('locationsList').innerHTML += [{ name: el.name, id: el._id, address: addr }].map(Item);
-        });
-        initMap('map', coords)
-    });
+      let coords = []
+      data.forEach(function (el) {
+        console.log(el)
+        var addr = `${el.address.street}, ${el.address.city}, ${el.address.zip}, ${el.address.country}`
+        var c = { lon: el.longitude, lat: el.latitude }
+        coords.push(c)
+        document.getElementById('locationsList').innerHTML += [{ name: el.name, id: el._id, address: addr }].map(Item)
+      })
+      initMap('map', coords)
+    })
 }
 //item template
 const Item = ({ name, id, address }) => `
@@ -36,7 +38,7 @@ const Item = ({ name, id, address }) => `
             <button onclick='locationRemove("${name}","${id}")'><i class="bi bi-trash"></i></button>
         </td>
     </tr>
-`;
+`
 
 // MAP-RELATED FUNCTIONS
 function initMap(target, coords) {

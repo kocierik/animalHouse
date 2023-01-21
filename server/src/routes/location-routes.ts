@@ -62,37 +62,37 @@ export const getLocationById = async (req: Request, res: Response) => {
 
 /**
  * @swagger
-*  /location/{id}: {
-*   patch: {
-*     tags: [ "locations" ],
-*     summary: "patch a location",
-*     parameters: [
-*       {
-*         in: "path",
-*         name: "id",
-*         type: "string",
-*         required: "string",
-*         description: "id of the location"
-*       },
-*       {
-*         in: body,
-*         schema: {
-*           $ref: "#/components/schemas/LocationPatch"
-*         }
-*       }
-*     ],
-*     responses: {
-*       200: {
-*           schema: {
-*             type: "object",
-*             items: {
-*               $ref: "#/components/schemas/Location"
-*             }
-*           }         
-*       }
-*     }
-*   }
-*  }
+ *  /location/{id}: {
+ *   patch: {
+ *     tags: [ "locations" ],
+ *     summary: "patch a location",
+ *     parameters: [
+ *       {
+ *         in: "path",
+ *         name: "id",
+ *         type: "string",
+ *         required: "string",
+ *         description: "id of the location"
+ *       },
+ *       {
+ *         in: body,
+ *         schema: {
+ *           $ref: "#/components/schemas/LocationPatch"
+ *         }
+ *       }
+ *     ],
+ *     responses: {
+ *       200: {
+ *           schema: {
+ *             type: "object",
+ *             items: {
+ *               $ref: "#/components/schemas/Location"
+ *             }
+ *           }
+ *       }
+ *     }
+ *   }
+ *  }
  * */
 export const patchLocation = async (req: Request, res: Response) => {
   try {
@@ -107,25 +107,25 @@ export const patchLocation = async (req: Request, res: Response) => {
 
 /**
  * @swagger
-*  /location/{id}: {
-*   delete: {
-*     tags: [ "locations" ],
-*     summary: "delete a location",
-*     parameters: [
-*       {
-*         in: "path",
-*         name: "id",
-*         type: "string",
-*         required: "string",
-*         description: "id of the location"
-*       },
-*     ],
-*     responses: {
-*       204: {
-*       }
-*     }
-*   }
-*  }
+ *  /location/{id}: {
+ *   delete: {
+ *     tags: [ "locations" ],
+ *     summary: "delete a location",
+ *     parameters: [
+ *       {
+ *         in: "path",
+ *         name: "id",
+ *         type: "string",
+ *         required: "string",
+ *         description: "id of the location"
+ *       },
+ *     ],
+ *     responses: {
+ *       204: {
+ *       }
+ *     }
+ *   }
+ *  }
  * */
 export const deleteLocation = async (req: Request, res: Response) => {
   try {
@@ -139,37 +139,37 @@ export const deleteLocation = async (req: Request, res: Response) => {
 
 /**
  * @swagger
-*  /location/{id}: {
-*   post: {
-*     tags: [ "locations" ],
-*     summary: "create a location",
-*     parameters: [
-*       {
-*         in: "path",
-*         name: "id",
-*         type: "string",
-*         required: "string",
-*         description: "id of the location"
-*       },
-*       {
-*         in: body,
-*         schema: {
-*           $ref: "#/components/schemas/LocationCreation"
-*         }
-*       }
-*     ],
-*     responses: {
-*       200: {
-*           schema: {
-*             type: "object",
-*             items: {
-*               $ref: "#/components/schemas/Location"
-*             }
-*           }         
-*       }
-*     }
-*   }
-*  }
+ *  /location/{id}: {
+ *   post: {
+ *     tags: [ "locations" ],
+ *     summary: "create a location",
+ *     parameters: [
+ *       {
+ *         in: "path",
+ *         name: "id",
+ *         type: "string",
+ *         required: "string",
+ *         description: "id of the location"
+ *       },
+ *       {
+ *         in: body,
+ *         schema: {
+ *           $ref: "#/components/schemas/LocationCreation"
+ *         }
+ *       }
+ *     ],
+ *     responses: {
+ *       200: {
+ *           schema: {
+ *             type: "object",
+ *             items: {
+ *               $ref: "#/components/schemas/Location"
+ *             }
+ *           }
+ *       }
+ *     }
+ *   }
+ *  }
  * */
 export const postLocation = async (req: Request, res: Response) => {
   try {

@@ -45,12 +45,10 @@ export const verifyAdmin = async (req: Request, res: Response, next: Function) =
 
   if (await AdminService.isAdmin(authId)) {
     return next()
-  }
-  else {
+  } else {
     return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
   }
 }
-
 
 export const log = (req: Request, _: Response, next: Function) => {
   console.log(`[INFO] ${req.method} to ${req.originalUrl}`)

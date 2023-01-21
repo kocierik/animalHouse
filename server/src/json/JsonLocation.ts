@@ -37,47 +37,47 @@ export const SwaggerLocation = {
           type: 'string'
         },
         zip: {
-          type: 'string',
-        },
-      },
+          type: 'string'
+        }
+      }
     },
     latitude: {
-      type: 'string',
+      type: 'string'
     },
     longitude: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }
 
 export const SwaggerLocationCreation = {
   type: 'object',
   properties: {
     name: {
-      type: 'string',
+      type: 'string'
     },
     address: {
       type: 'object',
       properties: {
         country: {
-          type: 'string',
+          type: 'string'
         },
         city: {
-          type: 'string',
+          type: 'string'
         },
         street: {
-          type: 'string',
+          type: 'string'
         },
         zip: {
-          type: 'string',
-        },
-      },
+          type: 'string'
+        }
+      }
     },
     latitude: {
-      type: 'string',
+      type: 'string'
     },
     longitude: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

@@ -299,42 +299,42 @@ export const initLocationCodes = async () => {
       address: { country: 'Italy', city: 'Bologna', street: 'Via Eleonora Duse, 13/C', zip: '40127' },
       name: 'Animal House',
       latitude: '44.5019306',
-      longitude: '11.3705182',
+      longitude: '11.3705182'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e442'),
       address: { country: 'Italy', city: 'Ravenna', street: 'SS16, km 162', zip: '47832' },
       name: 'Mirabilandia',
       latitude: '44.3378048',
-      longitude: '12.2633986',
+      longitude: '12.2633986'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e443'),
       address: { country: 'Veneto', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
       name: 'Nave de Vero',
       latitude: '45.4595039',
-      longitude: '12.2126283',
+      longitude: '12.2126283'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e445'),
       address: { country: 'Italy', city: 'Milano Marittima (RA)', street: 'Via III Traversa, 281', zip: '48015' },
       name: 'Papeete Beach',
       latitude: '44.2816929',
-      longitude: '12.3521182',
+      longitude: '12.3521182'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e446'),
       address: { country: 'Veneto', city: 'Porto Tolle (RO)', street: '???', zip: '???' },
       name: 'Palude',
       latitude: '44.9734477',
-      longitude: '12.5529393',
+      longitude: '12.5529393'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e447'),
-      address: { country: 'Veneto', city: 'Asiago (VI)', street: 'Via Trento e Trieste, 15', zip: '36012'},
+      address: { country: 'Veneto', city: 'Asiago (VI)', street: 'Via Trento e Trieste, 15', zip: '36012' },
       name: 'Animal Zone',
       latitude: '45.8741378',
-      longitude: '11.5078029',
-    },
+      longitude: '11.5078029'
+    }
   ])
 }
