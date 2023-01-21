@@ -42,7 +42,7 @@ appRouter.post(prefix + '/admins/login', middlewares.log, adminRoutes.postLogin)
 appRouter.get(prefix + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
 appRouter.get(prefix + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
 appRouter.get(prefix + '/animals/:id/info', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimal)
-appRouter.get(prefix + '/users/:id/animals', middlewares.log, animalRoutes.findAnimalsUser)
+appRouter.patch(prefix + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
 
 appRouter.put(
   prefix + '/animals/:aid/edit',
@@ -65,7 +65,6 @@ appRouter.post(
   middlewares.verifyUser,
   animalRoutes.postAnimal
 )
-appRouter.patch(prefix + '/animal/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
 
 // Community
 appRouter.get(prefix + '/community/game/', middlewares.log, communityRoutes.getGames)
@@ -83,9 +82,9 @@ appRouter.delete(prefix + '/locations/:id', middlewares.log, middlewares.verifyA
 appRouter.get(prefix + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(prefix + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.get(prefix + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
-appRouter.delete(prefix + '/products/:id', middlewares.log, marketRoutes.deleteProduct) //remove
-appRouter.patch(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, marketRoutes.patchProduct)
-appRouter.post(prefix + '/products', middlewares.log, marketRoutes.postProduct) //insert TODO add ADMIN middleware
+appRouter.delete(prefix + '/products/:id', middlewares.log, middlewares.verifyAdmin, marketRoutes.deleteProduct) //remove
+appRouter.patch(prefix + '/products/:id', middlewares.log, middlewares.verifyAdmin, marketRoutes.patchProduct)
+appRouter.post(prefix + '/products', middlewares.log, middlewares.verifyAdmin, marketRoutes.postProduct) //insert TODO add ADMIN middleware
 appRouter.get(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(prefix + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
@@ -124,9 +123,6 @@ appRouter.put(
 // Service
 appRouter.get(prefix + '/services', middlewares.log, serviceRoutes.getAllServices)
 appRouter.get(prefix + '/services/names/:id', middlewares.log, serviceRoutes.getSingleServicesName)
-appRouter.get(prefix + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
-appRouter.get(prefix + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimalCodes)
-appRouter.patch(prefix + '/animal/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
 
 
 
@@ -200,6 +196,8 @@ appRouter.put(
   middlewares.multerMiddleware('profile'),
   userRoutes.postPicture
 )
+
+appRouter.get(prefix + '/users/:id/animals', middlewares.log, animalRoutes.findAnimalsUser)
 
 appRouter.put(
   prefix + '/users/:id/animals',
