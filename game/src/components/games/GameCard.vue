@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
-  name: string,
-  url: string,
-  image: string,
+  name: string
+  url: string
+  image: string
 }>()
 </script>
 <style>

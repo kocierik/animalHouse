@@ -25,7 +25,7 @@ const userSchema = new Schema<IUser>({
   description: { type: String, required: false },
   animals: { type: [String], required: true, default: [] },
   address: { type: addressSchema },
-  profilePicture: { type: picturesSchema, required: false },
+  profilePicture: { type: picturesSchema, required: false }
 })
 
 const User = model<IUser>('User', userSchema)

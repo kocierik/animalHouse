@@ -1,27 +1,27 @@
-import type { IPicture } from "./Picture"
+import type { IPicture } from './Picture'
 
 export interface IProduct {
-  _id: string,
-  name: string,
-  description: string,
-  price: number,
-  categoryId: string,
-  image: IPicture,
-  alt: string[],
+  _id: string
+  name: string
+  description: string
+  price: number
+  categoryId: string
+  image: IPicture
+  alt: string[]
   animalTargets: string[]
-  colors?: string[],
-  sizes?: string[],
-  types?: string[],
-  highlights?: string[],
+  colors?: string[]
+  sizes?: string[]
+  types?: string[]
+  highlights?: string[]
   details?: string
 }
 
-export interface IProductCategory{
-  _id: string,
+export interface IProductCategory {
+  _id: string
   name: string
 }
 
-export interface JsonProductInstance{
+export interface JsonProductInstance {
   productId: string
   name: string
   images: string[]
@@ -30,4 +30,3 @@ export interface JsonProductInstance{
   size?: string
   price: number
 }
-

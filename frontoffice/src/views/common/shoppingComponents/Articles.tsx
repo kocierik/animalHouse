@@ -5,39 +5,38 @@ import { JsonProduct } from 'shared'
 
 import { ApiRepository, Jsonlocation, ProductConstant } from 'shared'
 
-const Articles = (props: { filterApplied: string[]}) => {
+const Articles = (props: { filterApplied: string[] }) => {
   const [article, setArticle] = React.useState<JsonProduct.IProduct[]>([])
-  const [filterArticle,setFilterArticle] = useState<JsonProduct.IProduct[]>([])
+  const [filterArticle, setFilterArticle] = useState<JsonProduct.IProduct[]>([])
 
   const getMarketProducts = async () => {
     const values = (await ApiRepository.getMarketProducts()).data
     setArticle(values!)
     setFilterArticle(values!)
   }
-  
+
   const filterMarketProducts = () => {
-    const productArray: JsonProduct.IProduct[] = []  
+    const productArray: JsonProduct.IProduct[] = []
     article.map(async (singleArticle) => {
       setFilterArticle([])
 
       const singleArticleCategoryName = (await ApiRepository.getProductCategory(singleArticle.categoryId)).data
-      props.filterApplied.map(singleFilter => {
-        if(singleArticleCategoryName == singleFilter){
+      props.filterApplied.map((singleFilter) => {
+        if (singleArticleCategoryName == singleFilter) {
           productArray.push(singleArticle)
         }
-        
-        const uniqueArray = productArray.filter(function(item, pos) {
-          return productArray.indexOf(item) == pos;
+
+        const uniqueArray = productArray.filter(function (item, pos) {
+          return productArray.indexOf(item) == pos
         })
         setFilterArticle(uniqueArray)
       })
     })
 
-    if(props.filterApplied.length == 0){
+    if (props.filterApplied.length == 0) {
       setFilterArticle(article)
     }
   }
-
 
   React.useEffect(() => {
     getMarketProducts()
@@ -86,7 +85,7 @@ const Articles = (props: { filterApplied: string[]}) => {
               >
                 <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden  lg:h-80 lg:aspect-none">
                   <img
-                    src={product?.image?.filename ? Helpers.getImagePath(product?.image?.filename) : "/favicon.ico"}
+                    src={product?.image?.filename ? Helpers.getImagePath(product?.image?.filename) : '/favicon.ico'}
                     alt={product.name}
                     className="w-full h-full object-center object-unset lg:w-full lg:h-full"
                   />

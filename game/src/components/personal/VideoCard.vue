@@ -2,7 +2,7 @@
 import { video } from '../../network/models/VideoLink'
 import type { AnimalType } from 'shared'
 
-const props = defineProps<{ animal?: AnimalType, videoCode?: string }>()
+const props = defineProps<{ animal?: AnimalType; videoCode?: string }>()
 
 const getRandomVideo = (animal: AnimalType) => {
   const number = Math.floor(Math.random() * 3)
@@ -10,9 +10,7 @@ const getRandomVideo = (animal: AnimalType) => {
   return uri
 }
 
-const videoFromVideoCode = (code: string) => 
-  `https://www.youtube.com/embed/${code}?autoplay=1&mute=1`
-
+const videoFromVideoCode = (code: string) => `https://www.youtube.com/embed/${code}?autoplay=1&mute=1`
 </script>
 
 <template>

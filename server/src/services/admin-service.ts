@@ -20,6 +20,6 @@ const constructAuthDataForAdmin = async (username: string, password: string): Pr
   }
   return {
     username: result[0].username,
-    id: result[0]._id.toString(),
+    id: result[0]._id.toString()
   } as AuthData
 }

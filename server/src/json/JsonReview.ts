@@ -10,22 +10,22 @@ export const SwaggerReview = {
   type: 'object',
   properties: {
     _id: {
-      type: 'string',
+      type: 'string'
     },
     username: {
-      type: 'string',
+      type: 'string'
     },
     productId: {
-      type: 'string',
+      type: 'string'
     },
     comment: {
-      type: 'string',
+      type: 'string'
     },
     star: {
-      type: 'number',
+      type: 'number'
     },
     date: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

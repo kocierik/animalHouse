@@ -1,4 +1,3 @@
-
 export const RIMINI = 'a2f3c0540ac13a2bc4764daa'
 export const VENETO = 'b2f3c0540ac13a2bc4764dab'
 export const MESTRE = 'e2f3c0540ac13a2bc4764dae'

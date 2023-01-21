@@ -4,17 +4,17 @@ import swal from 'sweetalert'
 import { ref, onBeforeMount } from 'vue'
 
 interface ApiResponse {
-  response_code: number,
+  response_code: number
   results: ApiQuestion[]
 }
 
 interface ApiQuestion {
-    category:          string;
-    type:              string;
-    difficulty:        string;
-    question:          string;
-    correct_answer:    string;
-    incorrect_answers: string[];
+  category: string
+  type: string
+  difficulty: string
+  question: string
+  correct_answer: string
+  incorrect_answers: string[]
 }
 
 interface QuizQuestion {
@@ -40,23 +40,23 @@ const playAgain = () => {
 }
 
 const fetchQuestions = async () => {
-    questions.value = []
-    const resp = await Api.get<ApiResponse>(_URL)
-    if (resp.esit && resp.data)  {
-      questions.value = resp.data.results.map(mapQuestion) 
-      error.value = false
-    } else {
-      error.value = true
-    }
+  questions.value = []
+  const resp = await Api.get<ApiResponse>(_URL)
+  if (resp.esit && resp.data) {
+    questions.value = resp.data.results.map(mapQuestion)
+    error.value = false
+  } else {
+    error.value = true
   }
+}
 
-const mapQuestion = (q : ApiQuestion, id: number) : QuizQuestion => {
-  const x = Math.floor(Math.random() * 4);
+const mapQuestion = (q: ApiQuestion, id: number): QuizQuestion => {
+  const x = Math.floor(Math.random() * 4)
   q.incorrect_answers.splice(x, 0, q.correct_answer)
   return {
     id: id,
     question: q.question,
-    answers: q.incorrect_answers, 
+    answers: q.incorrect_answers,
     correct: x,
     reveled: false
   }
@@ -70,19 +70,19 @@ const showResults = () => {
       icon: 'warning',
       // @ts-ignore
       buttons: true,
-      dangerMode: false,
+      dangerMode: false
     }).then(async (willSave) => {
       if (willSave) {
         let totalScore: JsonGames.IGameResult = {
           gameId: GameConstant.QUIZGAME,
-          score: correct.value,
+          score: correct.value
         }
         const userId = Helpers.getUserId()
         if (!userId) return
         let response = await ApiRepository.putUserScore(totalScore, userId)
         console.log(response)
         swal('Poof! Your record is saved!', {
-          icon: 'success',
+          icon: 'success'
         })
       } else {
         swal('Your record is NOT saved!')
@@ -93,7 +93,7 @@ const showResults = () => {
       title: 'Good job!',
       text: `You have response correctly to ${correct.value} answers!`,
       icon: 'warning',
-      dangerMode: false,
+      dangerMode: false
     })
   }
 }
@@ -103,8 +103,7 @@ const answered = (id: number, guess: number) => {
 
   questions.value[id].reveled = true
 
-  if (guess === questions.value[id].correct)
-    correct.value ++
+  if (guess === questions.value[id].correct) correct.value++
 }
 
 const goToNextQuestion = () => {
@@ -113,13 +112,15 @@ const goToNextQuestion = () => {
 
 const getAnswerColor = (q: QuizQuestion, index: number) => {
   if (q.reveled) {
-    return q.correct === index? "bg-right" : "bg-wrong"
+    return q.correct === index ? 'bg-right' : 'bg-wrong'
   } else {
-    return "bg-white"
+    return 'bg-white'
   }
 }
 
-onBeforeMount(async () => {await fetchQuestions()})
+onBeforeMount(async () => {
+  await fetchQuestions()
+})
 </script>
 
 <template class="animate-in fade-in zoom-in duration-500 antialiased text-gray-700 bg-gray-100">
@@ -127,18 +128,20 @@ onBeforeMount(async () => {await fetchQuestions()})
     <div class="w-full max-w-xl p-3 justify-center items-center">
       <div>
         <h1 class="font-bold text-5xl text-center text-black">Quiz</h1>
-        <div v-show="!error" class="bg-white p-10 rounded-lg shadow-lg w-full mt-1" >
-
+        <div v-show="!error" class="bg-white p-10 rounded-lg shadow-lg w-full mt-1">
           <!-- Questions -->
           <div v-if="progress < _COUNT && questions && questions[progress]">
-            <p class="text-center font-bold mb-4">{{progress + 1}} of {{_COUNT}}</p>
+            <p class="text-center font-bold mb-4">{{ progress + 1 }} of {{ _COUNT }}</p>
             <p class="text-2xl font-bold" v-html="questions[progress].question" />
             <div v-for="(answer, index) of questions[progress].answers" class="mt-4">
               <label
                 :key="index"
                 :for="index.toString()"
-                :class="'cursor-pointer block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg ' + getAnswerColor(questions[progress], index) " >
-
+                :class="
+                  'cursor-pointer block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg ' +
+                  getAnswerColor(questions[progress], index)
+                "
+              >
                 <input
                   :id="index.toString()"
                   type="radio"
@@ -148,7 +151,7 @@ onBeforeMount(async () => {await fetchQuestions()})
                   class="mr-3"
                 />
 
-                <span v-html="answer"/>
+                <span v-html="answer" />
               </label>
             </div>
             <div class="mt-6 flow-root">
@@ -160,7 +163,10 @@ onBeforeMount(async () => {await fetchQuestions()})
                 Next &gt;
               </button>
               <button
-                @click="goToNextQuestion();showResults()"
+                @click="
+                  goToNextQuestion()
+                  showResults()
+                "
                 v-show="progress === _COUNT - 1"
                 class="float-right bg-dyellow text-black text-sm font-bold tracking-wide rounded-full px-5 py-2"
               >

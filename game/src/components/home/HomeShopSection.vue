@@ -1,21 +1,21 @@
 <script lang="ts" setup>
 import Product from './ProductCard.vue'
-import { ApiRepository, JsonProduct } from 'shared';
-import { onBeforeMount, ref } from 'vue';
+import { ApiRepository, JsonProduct } from 'shared'
+import { onBeforeMount, ref } from 'vue'
 import { FRONTOFFICE } from '@/const'
 
 const PROD_NO = 4
 const products = ref<JsonProduct.IProduct[]>([])
 
 const fetchProducts = async () => {
-    const response = await ApiRepository.getMarketProducts()
-    if (response.esit) {
-        products.value = response.data!.filter((_, i) => i < PROD_NO)
-    }
+  const response = await ApiRepository.getMarketProducts()
+  if (response.esit) {
+    products.value = response.data!.filter((_, i) => i < PROD_NO)
+  }
 }
 
 onBeforeMount(async () => {
-    await fetchProducts()
+  await fetchProducts()
 })
 </script>
 <template>
@@ -24,7 +24,7 @@ onBeforeMount(async () => {
       <h2 class="text-4xl text-text leading-normal mb-2 font-black text-black">Check some of our products</h2>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
         <a v-for="product in products" :key="product._id" class="hover:-translate-y-3 duration-300">
-          <Product :product="product"/>
+          <Product :product="product" />
         </a>
       </div>
     </main>

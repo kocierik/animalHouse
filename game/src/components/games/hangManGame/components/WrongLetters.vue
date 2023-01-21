@@ -1,8 +1,8 @@
 <script lang="ts">
 export default {
   props: {
-    wrongLetters: { type: Array, default: () => [] },
-  },
+    wrongLetters: { type: Array, default: () => [] }
+  }
 }
 </script>
 <template>

@@ -4,7 +4,7 @@ export default {
   setup(props: { wrongCount: number }) {
     const lte = (num: number) => props.wrongCount >= num
     return { lte }
-  },
+  }
 }
 </script>
 <template>

@@ -15,7 +15,7 @@ export const animalSchema = new Schema<IAnimal>({
   type: { type: String, required: true },
   userId: { type: String, required: true },
   age: { type: Number, required: true },
-  picture: { type: picturesSchema, required: false },
+  picture: { type: picturesSchema, required: false }
 })
 
 const Animal = model<IAnimal>('Animal', animalSchema)

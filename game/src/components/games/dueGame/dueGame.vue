@@ -68,10 +68,10 @@ onMounted(() => {
   window.addEventListener('resize', setBoardWidth)
   document.addEventListener('keydown', onKeyDown)
   gameBoardElement.value.addEventListener('touchstart', onTouchStart, {
-    passive: false,
+    passive: false
   })
   gameBoardElement.value.addEventListener('touchmove', onTouchMove, {
-    passive: false,
+    passive: false
   })
   gameBoardElement.value.addEventListener('touchend', onTouchEnd, false)
   if (!hasGame()) {
@@ -82,10 +82,10 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', setBoardWidth)
   document.removeEventListener('keydown', onKeyDown)
   gameBoardElement.value.removeEventListener('touchstart', onTouchStart, {
-    passive: false,
+    passive: false
   })
   gameBoardElement.value.removeEventListener('touchmove', onTouchMove, {
-    passive: false,
+    passive: false
   })
   gameBoardElement.value.removeEventListener('keydown', onKeyDown)
 })
@@ -98,15 +98,15 @@ const saveDbResult = () => {
         text: `You have done ${state.currentGame.score} points! Do you want save your record?`,
         icon: 'warning',
         buttons: [true],
-        dangerMode: false,
+        dangerMode: false
       }).then((willSave) => {
         if (willSave) {
           let totalScore: JsonGames.IGameResult = {
             gameId: GameConstant.DUE48,
-            score: state.currentGame.score as number,
+            score: state.currentGame.score as number
           }
           swal('Poof! Your record is saved!', {
-            icon: 'success',
+            icon: 'success'
           }).then(async () => {
             let userId = Helpers.getUserId()
             if (!userId) return
@@ -123,7 +123,7 @@ const saveDbResult = () => {
         title: 'Good job!',
         text: `You have done ${state.currentGame.score} points!`,
         icon: 'warning',
-        dangerMode: false,
+        dangerMode: false
       }).then(() => document.location.reload())
     }
   }
@@ -139,7 +139,7 @@ const saveDbResult = () => {
         class="game-grid-wrap mb-4 relative overflow-hidden shadow-[inset_0_2px_0_rgba(255,255,255,.15)]"
         :style="{
           '--game-base-fontsize': `${state.boardWidth / (state.size * 2)}px`,
-          '--game-grid-size': state.size,
+          '--game-grid-size': state.size
         }"
       >
         <div ref="gameBoardElement" class="game-grid flex backgroundIm">

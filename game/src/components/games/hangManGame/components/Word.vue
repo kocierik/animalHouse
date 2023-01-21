@@ -2,8 +2,8 @@
 export default {
   props: {
     letters: { type: Array, required: true },
-    correctLetters: { type: Array, default: () => [] },
-  },
+    correctLetters: { type: Array, default: () => [] }
+  }
 }
 </script>
 <template>

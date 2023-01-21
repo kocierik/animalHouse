@@ -29,8 +29,7 @@ const EditmodalReservationCard = (props: {
 
   const getUserReservationName = async () => {
     props.animalReservation.map(async (singleRes) => {
-      if (!singleRes.serviceId)
-        return
+      if (!singleRes.serviceId) return
       const resp = await ApiRepository.getServicesName(singleRes.serviceId)
       if (resp.esit) {
         setServiceName([...serviceName, resp.data!])

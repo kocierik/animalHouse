@@ -20,7 +20,6 @@ import * as ProductService from './product-service'
 import { IPicture } from '../entities/Picture'
 import { AnimalPatch } from '@/json/patch/AnimalPatch'
 
-
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
     .then(userCreationToUser)
@@ -56,7 +55,6 @@ export const getAllUSers = async () => {
   return ret
 }
 
-
 const userCreationToUser = (userCreation: JsonUserCreation) => {
   const user = new User()
   user.username = userCreation.username
@@ -87,7 +85,7 @@ const constructAuthDataForUser = async (username: string, password: string): Pro
   }
   return {
     username: result[0].username,
-    id: result[0]._id.toString(),
+    id: result[0]._id.toString()
   } as AuthData
 }
 
@@ -109,13 +107,13 @@ export const userToJsonUser = (user: IUser): JsonUser => ({
   description: user.description,
   animals: user.animals,
   profilePicture: user.profilePicture,
-  address: user.address as IAddress,
+  address: user.address as IAddress
 })
 
 export const pictureToJsonPicture = (pic: IPicture) => ({
   size: pic.size,
   filename: pic.filename,
-  mimetype: pic.mimetype,
+  mimetype: pic.mimetype
 })
 
 export const addProductToUserCart = async (userId: string, cic: JsonCartItemCreation[]): Promise<ICartItem[]> => {
@@ -123,12 +121,12 @@ export const addProductToUserCart = async (userId: string, cic: JsonCartItemCrea
     e.g. if you buy a tshirt you can't only specify the color, you need also the
     size. */
 
-  if (cic.length === 0){
-    throw new JsonBadReqError("You must add at least one cart item!")
+  if (cic.length === 0) {
+    throw new JsonBadReqError('You must add at least one cart item!')
   }
 
-  if (!await ProductService.evalCartItemCreations(cic)) {
-    throw new JsonBadReqError("Invalid cart item creation")   
+  if (!(await ProductService.evalCartItemCreations(cic))) {
+    throw new JsonBadReqError('Invalid cart item creation')
   }
   const cart = await CartService.createActiveCartIfNotExists(userId)
   return (await CartService.addToCart(cart._id, cic)).cartItems
@@ -234,31 +232,52 @@ export const updateUserDescription = async (userId: string, updateUser: JsonUser
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-
 export const getUserOrders = async (userId: string): Promise<JsonOrder[]> =>
-  (await Order.find({userId: userId})).map(OrderService.orderToJsonOrder)
+  (await Order.find({ userId: userId })).map(OrderService.orderToJsonOrder)
 
 export const createUserOrder = async (userId: string, paymentDetails: JsonPaymentDetails) => {
   const oldCart = await CartService.findActiveCartOfUser(userId)
-  
+
   await CartService.generateNewCartForUser(userId)
 
   return await OrderService.createOrderForUser(oldCart._id, paymentDetails)
 }
-  
+
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
   const user = await User.findById(id)
-  if (user.address == undefined) { user.address = { country: " ", city: " ", street: " ", zip: " " } }
-  if (patch.zip) { user.address.zip = patch.zip }
-  if (patch.city) { user.address.city = patch.city }
-  if (patch.street) { user.address.street = patch.street }
-  if (patch.country) { user.address.country = patch.country }
-  if (patch.lastName) { user.lastName = patch.lastName }
-  if (patch.firstName) { user.firstName = patch.firstName }
-  if (patch.username) { user.username = patch.username }
-  if (patch.password) { user.password = patch.password }
-  if (patch.email) { user.email = patch.email }
-  if (patch.description) { user.description = patch.description }
+  if (user.address == undefined) {
+    user.address = { country: ' ', city: ' ', street: ' ', zip: ' ' }
+  }
+  if (patch.zip) {
+    user.address.zip = patch.zip
+  }
+  if (patch.city) {
+    user.address.city = patch.city
+  }
+  if (patch.street) {
+    user.address.street = patch.street
+  }
+  if (patch.country) {
+    user.address.country = patch.country
+  }
+  if (patch.lastName) {
+    user.lastName = patch.lastName
+  }
+  if (patch.firstName) {
+    user.firstName = patch.firstName
+  }
+  if (patch.username) {
+    user.username = patch.username
+  }
+  if (patch.password) {
+    user.password = patch.password
+  }
+  if (patch.email) {
+    user.email = patch.email
+  }
+  if (patch.description) {
+    user.description = patch.description
+  }
 
   await user.save()
   return userToJsonUser(user)

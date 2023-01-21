@@ -7,8 +7,8 @@ import { Community } from 'shared'
 
 const CommunityPage = () => {
   const [usersData, setUsersData] = useState<Community.IGameValues[]>([])
-  const [games,setGames] = useState<string[]>([])
-  const [filter,setFilter] = useState<string[]>([])
+  const [games, setGames] = useState<string[]>([])
+  const [filter, setFilter] = useState<string[]>([])
 
   const handlePromise = async () => {
     if ((await ApiRepository.getUserScore()).esit) {
@@ -20,8 +20,8 @@ const CommunityPage = () => {
 
   const getGames = async () => {
     const resp = (await ApiRepository.getGames()).data
-    if(resp){
-      resp.map(item => setGames([...games,item.name]))
+    if (resp) {
+      resp.map((item) => setGames([...games, item.name]))
     }
   }
 
@@ -36,7 +36,7 @@ const CommunityPage = () => {
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-            <DropDown list={games} filter={filter} setFilter={setFilter}/>
+            <DropDown list={games} filter={filter} setFilter={setFilter} />
           </div>
           <div className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">

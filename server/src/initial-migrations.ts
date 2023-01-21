@@ -20,7 +20,7 @@ export const test = async () => {
       name: 'Stefano Volpe',
       type: 'fox',
       userId: '635c088531e05da80c7faf61',
-      picture: null,
+      picture: null
     },
     {
       _id: new Types.ObjectId('635c088531e05da80c7faf6b'),
@@ -29,11 +29,11 @@ export const test = async () => {
       type: 'dog',
       userId: '635c088531e05da80c7faf61',
       picture: {
-        filename: "pappa.png",
-        mimetype: "image/png",
+        filename: 'pappa.png',
+        mimetype: 'image/png',
         size: 1033
-      },
-    },
+      }
+    }
   ])
   await User.insertMany([
     {
@@ -45,7 +45,7 @@ export const test = async () => {
       phone: '3333333333',
       description: 'ciao',
       profilePicture: null,
-      animals: [],
+      animals: []
     },
     {
       _id: new Types.ObjectId('635c088531e05da80c7faf61'),
@@ -57,7 +57,7 @@ export const test = async () => {
       description: 'ciao',
       phone: '3333333333',
       profilePicture: null,
-      animals: ['635c088531e05da80c7faf6a','635c088531e05da80c7faf6b'],
+      animals: ['635c088531e05da80c7faf6a', '635c088531e05da80c7faf6b']
     },
     {
       _id: new Types.ObjectId('635c088531e05da80c7faf62'),
@@ -68,9 +68,9 @@ export const test = async () => {
       lastName: 'crestanello',
       phone: '3333333333',
       description: 'ciao',
-      profilePicture: {filename:"635c088531e05da80c7faf62"},
-      animals: [],
-    },
+      profilePicture: { filename: '635c088531e05da80c7faf62' },
+      animals: []
+    }
   ])
 
   await Product.deleteMany()
@@ -82,8 +82,8 @@ export const test = async () => {
       price: 69,
       categoryId: '62f3c0540ac73a2bc4764da8',
       image: {
-        filename: "pappa.png",
-        mimetype: "image/png",
+        filename: 'pappa.png',
+        mimetype: 'image/png',
         size: 1033
       },
       alt: 'dog',
@@ -91,7 +91,7 @@ export const test = async () => {
       colors: ['black', 'white'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
       highlights: ['great', 'confort', 'animal', 'hot', 'cold'],
-      details: 'perfect for burn cat',
+      details: 'perfect for burn cat'
     },
     {
       _id: new Types.ObjectId('62f425273418f02b236b58b1'),
@@ -102,15 +102,15 @@ export const test = async () => {
       colors: ['white', 'red'],
       types: ['man', 'child', 'woman'],
       image: {
-        filename: "62f425273418f02b236b58b1",
-        mimetype: "image/png",
+        filename: '62f425273418f02b236b58b1',
+        mimetype: 'image/png',
         size: 1033
       },
       alt: 'shirt',
       animalTargets: ['human'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
       highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human',
+      details: 'perfect for burn human'
     },
     {
       _id: new Types.ObjectId('62f425273418f02b236b58b4'),
@@ -119,12 +119,12 @@ export const test = async () => {
       price: 1550,
       categoryId: '62f3c0540ac73a2bc4764da7',
       types: ['man', 'child', 'woman'],
-      image: { filename:'62f425273418f02b236b58b4' },
+      image: { filename: '62f425273418f02b236b58b4' },
       alt: 'shirt',
       animalTargets: ['human'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
       highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human',
+      details: 'perfect for burn human'
     },
     {
       _id: new Types.ObjectId('62f425273418f02b236b58b5'),
@@ -134,12 +134,12 @@ export const test = async () => {
       categoryId: '62f3c0540ac73a2bc4764da7',
       colors: ['white', 'red'],
       types: ['man', 'child', 'woman'],
-      image: {filename:'62f425273418f02b236b58b5'},
+      image: { filename: '62f425273418f02b236b58b5' },
       alt: 'shirt',
       animalTargets: ['dog', 'cat'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
       highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human',
+      details: 'perfect for burn human'
     },
     {
       _id: new Types.ObjectId('62f425273418f02b236b58b6'),
@@ -149,13 +149,13 @@ export const test = async () => {
       categoryId: '62f3c0540ac73a2bc4764da7',
       colors: ['white', 'red'],
       types: ['man', 'child', 'woman'],
-      image: {filename:'62f425273418f02b236b58b6'},
+      image: { filename: '62f425273418f02b236b58b6' },
       alt: 'shirt',
       animalTargets: ['dog'],
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
       highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human',
-    },
+      details: 'perfect for burn human'
+    }
   ])
 }
 
@@ -164,8 +164,8 @@ export const initAdmin = async () => {
   await Admin.insertMany([
     {
       username: 'admin',
-      password: 'secret',
-    },
+      password: 'secret'
+    }
   ])
 }
 
@@ -179,32 +179,32 @@ export const initProductCategories = async () => {
   await ProductCategory.insertMany([
     {
       name: 'wearing',
-      _id: new Types.ObjectId('62f3c0540ac73a2bc4764da7'),
+      _id: new Types.ObjectId('62f3c0540ac73a2bc4764da7')
     },
     {
       name: 'food',
-      _id: new Types.ObjectId('62f3c0540ac73a2bc4764da8'),
+      _id: new Types.ObjectId('62f3c0540ac73a2bc4764da8')
     },
     {
       name: 'health',
-      _id: new Types.ObjectId('62f3c0540ac73a2bc4764da9'),
+      _id: new Types.ObjectId('62f3c0540ac73a2bc4764da9')
     },
     {
       name: 'accessories',
-      _id: new Types.ObjectId('62f3c0540ac73a2bc4764daa'),
+      _id: new Types.ObjectId('62f3c0540ac73a2bc4764daa')
     },
     {
       name: 'puppies',
-      _id: new Types.ObjectId('62f3c0540ac73a2bc4764dab'),
+      _id: new Types.ObjectId('62f3c0540ac73a2bc4764dab')
     },
     {
       name: 'entertainment',
-      _id: new Types.ObjectId('62f3c0540ac73a2bc4764dac'),
+      _id: new Types.ObjectId('62f3c0540ac73a2bc4764dac')
     },
     {
       name: 'beauty',
-      _id: new Types.ObjectId('62f3c0540ac73a2bc4764dad'),
-    },
+      _id: new Types.ObjectId('62f3c0540ac73a2bc4764dad')
+    }
   ])
 }
 
@@ -219,7 +219,7 @@ export const initAnimalCodes = async () => {
     { code: 5, value: 'Koala' },
     { code: 6, value: 'Panda' },
     { code: 7, value: 'Shiba' },
-    { code: 8, value: 'Lizard' },
+    { code: 8, value: 'Lizard' }
   ])
 }
 export const initReservationCodes = async () => {
@@ -230,64 +230,64 @@ export const initReservationCodes = async () => {
       title: 'Find Partner',
       description:
         "Introducing the ultimate matchmaking service for animals! Our state-of-the-art technology takes into consideration factors such as breed, personality, and compatibility to help you find the perfect partner for your furry friend. We've got you covered.",
-      color: 'red',
+      color: 'red'
     },
     {
       _id: new Types.ObjectId('237a10397c883b752202e442'),
       title: 'Help animals',
       description:
-        "Introducing our animal assistance service, dedicated to helping animals in need. Our mission is to provide support and resources for animals of all kinds, whether they are stray, abandoned, or simply in need of a helping hand. We are the best in this sector!",
-      color: 'green',
+        'Introducing our animal assistance service, dedicated to helping animals in need. Our mission is to provide support and resources for animals of all kinds, whether they are stray, abandoned, or simply in need of a helping hand. We are the best in this sector!',
+      color: 'green'
     },
     {
       _id: new Types.ObjectId('337a10397c883b752202e443'),
       title: 'Psychologist',
       description:
-        "Our animal psychology service offers a unique approach to understanding and improving the well-being of animals. Our team of trained and experienced animal psychologists specialize in providing behavioral and emotional support for a wide range of animals.",
-      color: 'indigo',
+        'Our animal psychology service offers a unique approach to understanding and improving the well-being of animals. Our team of trained and experienced animal psychologists specialize in providing behavioral and emotional support for a wide range of animals.',
+      color: 'indigo'
     },
     {
       _id: new Types.ObjectId('437a10397c883b752202e444'),
       title: 'Dog Sitter',
       description:
         "Introducing our top-rated dog sitting service for pet owners in need of a reliable and caring sitter for their furry friend. Our team of experienced dog sitters provide a safe and comfortable environment for your dog while you're away. All animal smile.",
-      color: 'coral',
+      color: 'coral'
     },
     {
       _id: new Types.ObjectId('537a10397c883b752202e445'),
       title: 'Veterinary',
       description:
-        "Welcome to our comprehensive veterinary service for animals. Our team of highly trained and experienced veterinarians and staff are dedicated to providing the best possible care for your furry friend. We have many professional certification in this sector",
-      color: 'blue',
+        'Welcome to our comprehensive veterinary service for animals. Our team of highly trained and experienced veterinarians and staff are dedicated to providing the best possible care for your furry friend. We have many professional certification in this sector',
+      color: 'blue'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e446'),
       title: 'Pension',
       description:
         "Introducing our luxury animal pension service, where your pet can enjoy a comfortable and stress-free vacation while you're away. Our facilities offer spacious and well-appointed accommodations for a wide range of animals. from sleeping to have fun!",
-      color: 'orange',
+      color: 'orange'
     },
     {
       _id: new Types.ObjectId('737a10397c883b752202e447'),
       title: 'Wash Animal',
       description:
-        "Introducing our premium animal grooming service, where the care and comfort of your pet is our top priority. Our team of expert groomers use the latest techniques and high-quality products to keep your animal looking and feeling their best.",
-      color: 'brown',
+        'Introducing our premium animal grooming service, where the care and comfort of your pet is our top priority. Our team of expert groomers use the latest techniques and high-quality products to keep your animal looking and feeling their best.',
+      color: 'brown'
     },
     {
       _id: new Types.ObjectId('837a10397c883b752202e448'),
       title: 'Home visit',
       description:
-        "Introducing our in-home animal care service, where we bring professional care to the comfort of your own home. Our team of trained and experienced animal caregivers provide a wide range of services to meet the needs of your pet, including all services.",
-      color: 'pink',
+        'Introducing our in-home animal care service, where we bring professional care to the comfort of your own home. Our team of trained and experienced animal caregivers provide a wide range of services to meet the needs of your pet, including all services.',
+      color: 'pink'
     },
     {
       _id: new Types.ObjectId('937a10397c883b752202e449'),
       title: 'Grooming',
       description:
-        "Introducing our luxury animal grooming service, where we pamper your pet with the highest quality grooming services. Our team of expert groomers use the latest techniques and high-quality products to keep your animal looking and feeling their best.",
-      color: 'deeppink',
-    },
+        'Introducing our luxury animal grooming service, where we pamper your pet with the highest quality grooming services. Our team of expert groomers use the latest techniques and high-quality products to keep your animal looking and feeling their best.',
+      color: 'deeppink'
+    }
   ])
 }
 
@@ -297,32 +297,32 @@ export const initLocationCodes = async () => {
     {
       _id: new Types.ObjectId('637a10397c883b752202e442'),
       address: { country: 'Rimini', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Rimini',
+      name: 'Rimini'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e443'),
       address: { country: 'Mestre', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Mestre',
+      name: 'Mestre'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e444'),
       address: { country: 'Bologna', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Bologna',
+      name: 'Bologna'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e445'),
       address: { country: 'Riccione', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Riccione',
+      name: 'Riccione'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e446'),
       address: { country: 'Palermo', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Palermo',
+      name: 'Palermo'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e447'),
       address: { country: 'Roma', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Roma',
-    },
+      name: 'Roma'
+    }
   ])
 }

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import DropDown from './common/DropDown'
 import Articles from './common/shoppingComponents/Articles'
-import { ApiRepository } from 'shared';
+import { ApiRepository } from 'shared'
 const Shopping = () => {
-  const producs = ['wearing','food', 'health', 'accessories', 'puppies', 'entertainment', 'beauty']
-  const [filter,setFilter] = useState<string[]>([])
+  const producs = ['wearing', 'food', 'health', 'accessories', 'puppies', 'entertainment', 'beauty']
+  const [filter, setFilter] = useState<string[]>([])
 
-  const getCategoryProduct = async () =>{
+  const getCategoryProduct = async () => {
     try {
       const resp = await ApiRepository.getProductCategoriesName()
       console.log(resp)
@@ -14,7 +14,6 @@ const Shopping = () => {
       console.log(error)
     }
   }
-  
 
   return (
     <>
@@ -30,9 +29,9 @@ const Shopping = () => {
                 <span className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
                   Store
                 </span>
-                <DropDown list={producs} filter={filter} setFilter={setFilter}/>
+                <DropDown list={producs} filter={filter} setFilter={setFilter} />
               </div>
-              <Articles filterApplied={filter}/>
+              <Articles filterApplied={filter} />
             </nav>
           </div>
         </section>

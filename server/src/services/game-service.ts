@@ -21,7 +21,7 @@ export const getScoreboardForGame = async (id: string) => {
     let result: JsonScoreboardItem = {
       gameId: game._id.toString(),
       gameName: game.name,
-      scores: [],
+      scores: []
     }
 
     let userScoresMap = new Map<string, number[]>()
@@ -37,7 +37,7 @@ export const getScoreboardForGame = async (id: string) => {
       let jss: JsonScoreboardScore = {
         userId: uId,
         score: scr.sort(),
-        username: (await UserService.findUserById(uId)).username,
+        username: (await UserService.findUserById(uId)).username
       }
 
       result.scores.push(jss)

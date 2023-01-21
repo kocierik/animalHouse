@@ -13,7 +13,7 @@ const reviewSchema = new Schema<IReview>({
   productId: { type: String, required: true },
   comment: { type: String, required: false },
   star: { type: Number, required: true },
-  date: { type: Date, required: true },
+  date: { type: Date, required: true }
 })
 
 const Review = model<IReview>('Review', reviewSchema)

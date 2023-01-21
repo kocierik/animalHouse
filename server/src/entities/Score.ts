@@ -9,7 +9,7 @@ interface IScore {
 const scoreSchema = new Schema<IScore>({
   userId: { type: String, required: true },
   gameId: { type: String, required: true },
-  value: { type: Number, required: true },
+  value: { type: Number, required: true }
 })
 
 const Score = model<IScore>('Score', scoreSchema)

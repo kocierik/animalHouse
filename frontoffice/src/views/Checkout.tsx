@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
-import { ApiRepository, Helpers, JsonCart, JsonProduct } from 'shared';
-import { toast, ToastContainer } from 'react-toastify';
-import { JsonPaymentDetails } from 'shared/src/json/Orders';
-import { JsonAddress } from 'shared/src/json/user';
-import { redirect } from './router';
+import { ApiRepository, Helpers, JsonCart, JsonProduct } from 'shared'
+import { toast, ToastContainer } from 'react-toastify'
+import { JsonPaymentDetails } from 'shared/src/json/Orders'
+import { JsonAddress } from 'shared/src/json/user'
+import { redirect } from './router'
 
 const Checkout = () => {
   interface BuyingProduct {
@@ -13,27 +13,32 @@ const Checkout = () => {
   }
 
   const [buyingProduct, setBuyingProduct] = useState<BuyingProduct[]>([])
-  const [name, setName] = useState("")
-  const [exp, setExp] = useState("")
-  const [addr, setAddr] = useState("")
-  const [cvc, setCvc] = useState("")
-  const [card, setCard] = useState("")
-  const [stat, setStat] = useState("")
-  const [city, setCity] = useState("")
-  const [postal, setPostal] = useState("")
+  const [name, setName] = useState('')
+  const [exp, setExp] = useState('')
+  const [addr, setAddr] = useState('')
+  const [cvc, setCvc] = useState('')
+  const [card, setCard] = useState('')
+  const [stat, setStat] = useState('')
+  const [city, setCity] = useState('')
+  const [postal, setPostal] = useState('')
 
   const userId = Helpers.getUserId()
 
   if (!userId) {
-    redirect("/login")
+    redirect('/login')
     return <div />
   }
 
   const mapCartToBuyingProducts = (cartItems: JsonCart.ICartItem[]): Promise<BuyingProduct[]> =>
-    Promise.all(cartItems.map(async cartItem => ({
-      cartItem: cartItem,
-      product: await fetchProduct(cartItem.productId)
-    } as BuyingProduct)))
+    Promise.all(
+      cartItems.map(
+        async (cartItem) =>
+          ({
+            cartItem: cartItem,
+            product: await fetchProduct(cartItem.productId)
+          } as BuyingProduct)
+      )
+    )
 
   const fetchProduct = async (id: string): Promise<JsonProduct.IProduct | undefined> =>
     (await ApiRepository.getMarketProduct(id)).data
@@ -57,12 +62,9 @@ const Checkout = () => {
   }
 
   const getTotalPrice = (shipping: number = 0): number =>
-    buyingProduct?.map(bp => bp.cartItem).reduce((accumulator, value) =>
-      accumulator + value.price, shipping) || 0
+    buyingProduct?.map((bp) => bp.cartItem).reduce((accumulator, value) => accumulator + value.price, shipping) || 0
 
-
-  const constructPaymentDetails = (): JsonPaymentDetails =>
-  ({
+  const constructPaymentDetails = (): JsonPaymentDetails => ({
     address: {
       zip: postal,
       city: city,
@@ -89,24 +91,24 @@ const Checkout = () => {
     const resp = await ApiRepository.postUserOrder(userId, constructPaymentDetails())
     if (resp.esit) {
       setBuyingProduct(await mapCartToBuyingProducts([]))
-      toast.success("Congratulation, Bought!", { position: toast.POSITION.TOP_CENTER })
+      toast.success('Congratulation, Bought!', { position: toast.POSITION.TOP_CENTER })
     }
   }
 
   return (
     <>
-      <main
-        data-aos="zoom-in"
-        data-aos-duration="500"
-        className="lg:overflow-hidden lg:flex lg:flex-row-reverse"
-      >
+      <main data-aos="zoom-in" data-aos-duration="500" className="lg:overflow-hidden lg:flex lg:flex-row-reverse">
         <h1 className="sr-only">Checkout</h1>
 
         {/* Mobile order summary */}
-        <section aria-labelledby="order-heading" className="bg-gray-50 px-4 pt-10 sm:px-6 lg:hidden" data-aos="zoom-in"
-          data-aos-duration="500">
+        <section
+          aria-labelledby="order-heading"
+          className="bg-gray-50 px-4 pt-10 sm:px-6 lg:hidden"
+          data-aos="zoom-in"
+          data-aos-duration="500"
+        >
           <Disclosure as="div" className="max-w-lg mx-auto">
-            <div className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5'> Summary</div>
+            <div className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5"> Summary</div>
             <Disclosure.Panel>
               <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
                 {buyingProduct?.map((product, i) => (
@@ -143,8 +145,12 @@ const Checkout = () => {
         </section>
 
         {/* Order summary */}
-        <section aria-labelledby="summary-heading" className=" bg-gray-50 w-full max-w-md flex-col lg:flex" data-aos="zoom-in"
-          data-aos-duration="500">
+        <section
+          aria-labelledby="summary-heading"
+          className=" bg-gray-50 w-full max-w-md flex-col lg:flex"
+          data-aos="zoom-in"
+          data-aos-duration="500"
+        >
           {/* <h2 id="summary-heading" className="flex text-xl justify-center mt-5">
             Order summary
           </h2> */}
@@ -167,7 +173,11 @@ const Checkout = () => {
                   </div>
                   <div className="flex list-item  space-x-4">
                     <div className="flex 	  border-gray-300">
-                      <button onClick={async () => await removeFromCart(product.cartItem._id)} type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                      <button
+                        onClick={async () => await removeFromCart(product.cartItem._id)}
+                        type="button"
+                        className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      >
                         Remove
                       </button>
                     </div>
@@ -192,12 +202,12 @@ const Checkout = () => {
               </dl>
             </div>
           </ul>
-
         </section>
 
         {/* Checkout form */}
         <section
-          aria-labelledby="payment-heading" data-aos="zoom-in"
+          aria-labelledby="payment-heading"
+          data-aos="zoom-in"
           className="flex-auto overflow-y-auto px-4 pt-12 pb-16 sm:px-6 sm:pt-16 lg:px-8 lg:pt-0 lg:pb-24"
         >
           <div className="max-w-lg mx-auto">
@@ -205,7 +215,6 @@ const Checkout = () => {
 
             <form className="mt-5 p-5" data-aos="zoom-in" data-aos-duration="500">
               <div className="grid grid-cols-12 gap-y-6 gap-x-4">
-
                 <div className="col-span-full">
                   <label htmlFor="name-on-card" className="block text-sm font-medium text-gray-700">
                     Name on card
@@ -349,7 +358,9 @@ const Checkout = () => {
 
               <button
                 type="submit"
-                onClick={async (e) => { await order(e); }}
+                onClick={async (e) => {
+                  await order(e)
+                }}
                 className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Pay {getTotalPrice(10)}$

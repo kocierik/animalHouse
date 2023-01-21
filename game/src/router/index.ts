@@ -13,13 +13,20 @@ import HangManGame from '@/components/games/hangManGame/hangManGame.vue'
 import DueGame from '@/components/games/dueGame/dueGame.vue'
 import MinesweeperGame from '@/components/games/minesweeper/MinesweeperGame.vue'
 import ticTacToeGame from '@/components/games/ticTacToeGame/ticTacToeGame.vue'
-import { GameDueRoute, GameHangManRoute, GameMemoryRoute, GameMinesweeperRoute, GameQuizRoute, GameTicTacToeRoute } from '@/oth/games'
+import {
+  GameDueRoute,
+  GameHangManRoute,
+  GameMemoryRoute,
+  GameMinesweeperRoute,
+  GameQuizRoute,
+  GameTicTacToeRoute
+} from '@/oth/games'
 
 export const HomeRoute = '/'
 
 export const LoginRoute = '/login'
 
-export const ShopRoute = "/shop"
+export const ShopRoute = '/shop'
 
 export const PersonalRoute = '/personal'
 export const PersonalizeRoute = '/personal/personalize'
@@ -34,12 +41,12 @@ const router = createRouter({
     {
       path: HomeRoute,
       name: 'home',
-      component: HomeView,
+      component: HomeView
     },
     {
       path: LoginRoute,
       name: 'login',
-      component: LoginView,
+      component: LoginView
     },
     {
       path: ShopRoute,
@@ -49,68 +56,65 @@ const router = createRouter({
     {
       path: PersonalRoute,
       name: 'personal',
-      component: PersonalView,
+      component: PersonalView
     },
     {
       path: PersonalizeRoute,
       name: 'personalize',
-      component: PersonalizeView,
+      component: PersonalizeView
     },
     {
       path: FunnyRoute,
       name: 'funny',
-      component: FunnyView,
+      component: FunnyView
     },
     {
       path: GameMemoryRoute,
       name: 'memory',
-      component: MemoryGame,
+      component: MemoryGame
     },
     {
       path: GameQuizRoute,
       name: 'quiz',
-      component: QuizGame,
+      component: QuizGame
     },
     {
       path: GameHangManRoute,
       name: 'HangMan',
-      component: HangManGame,
+      component: HangManGame
     },
     {
       path: GameDueRoute,
       name: 'due48',
-      component: DueGame,
+      component: DueGame
     },
     {
       path: GameMinesweeperRoute,
       name: 'MinesweeperGame',
-      component: MinesweeperGame,
+      component: MinesweeperGame
     },
     {
       path: GameTicTacToeRoute,
       name: 'ticTacToeGame',
-      component: ticTacToeGame,
+      component: ticTacToeGame
     },
     {
       path: FunnyVideosRoute,
       name: 'video',
-      component: VideosView,
+      component: VideosView
     },
     {
       path: FunnyGamesRoute,
       name: 'video',
-      component: GamesView,
-    },
-  ],
+      component: GamesView
+    }
+  ]
 })
 
 export const redirect = (path: string, frontoffice = false) => {
-  if (import.meta.env.NODE_ENV === 'localhost')
-    window.location.href = path
-  else if (frontoffice)
-    window.location.href = `/frontoffice${path}`
-  else
-    window.location.href = `${import.meta.env.BASE_URL}${path}`
+  if (import.meta.env.NODE_ENV === 'localhost') window.location.href = path
+  else if (frontoffice) window.location.href = `/frontoffice${path}`
+  else window.location.href = `${import.meta.env.BASE_URL}${path}`
 }
 
 export default router

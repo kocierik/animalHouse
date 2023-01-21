@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { FRONTOFFICE } from '@/const';
-import type { JsonProduct } from 'shared';
-import { Helpers } from 'shared';
+import { FRONTOFFICE } from '@/const'
+import type { JsonProduct } from 'shared'
+import { Helpers } from 'shared'
 
-const props = defineProps<{ product: JsonProduct.IProduct}>()
-
+const props = defineProps<{ product: JsonProduct.IProduct }>()
 </script>
 <template>
   <a :href="`${FRONTOFFICE}/shopping/product/${props.product._id}`">

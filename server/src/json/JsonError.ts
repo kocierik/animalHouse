@@ -1,10 +1,11 @@
-import { STATUS_BAD_REQUEST, STATUS_INTERNAL_ERROR, STATUS_NOT_FOUND, STATUS_UNAUTHORIZED } from "../const"
+import { STATUS_BAD_REQUEST, STATUS_INTERNAL_ERROR, STATUS_NOT_FOUND, STATUS_UNAUTHORIZED } from '../const'
 
 export default class JsonError {
   mex: string
   code: number
 
-  constructor(mex: string, code=400) { // TODO
+  constructor(mex: string, code = 400) {
+    // TODO
     this.mex = mex
     this.code = code
   }

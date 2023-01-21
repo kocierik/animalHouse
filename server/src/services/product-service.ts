@@ -24,7 +24,7 @@ export const findProductByid = async (id: string): Promise<IProduct> => {
 
 export const getProductCategory = async (id: string): Promise<string> => {
   try {
-    const category = (await ProductCategory.findById(id))
+    const category = await ProductCategory.findById(id)
     return category.name
   } catch (err) {
     throw new JsonError(`Cannot find category with id ${id} (${err.message})`)
@@ -33,7 +33,7 @@ export const getProductCategory = async (id: string): Promise<string> => {
 
 export const getProductCategoriesName = async (): Promise<IProductCategory[]> => {
   try {
-    const categories = (await ProductCategory.find({}))
+    const categories = await ProductCategory.find({})
     return categories
   } catch (err) {
     throw new JsonError(`Cannot find categories (${err.message})`)
@@ -63,7 +63,7 @@ export const reviewById = (productId: string) => {
 export const pictureToJsonPicture = (pic: IPicture) => ({
   size: pic.size,
   filename: pic.filename,
-  mimetype: pic.mimetype,
+  mimetype: pic.mimetype
 })
 
 export const addPictureToProduct = async (productId: string, picture: JsonPicture) => {
@@ -117,7 +117,7 @@ export const getProductReviewSumUp = async (prodId: string) => {
   const result: JsonProductSumUp = {
     average: avg,
     total: reviews.length,
-    percentage: percentages.map((x) => `${Math.round(x)}%`),
+    percentage: percentages.map((x) => `${Math.round(x)}%`)
   }
   return result
 }

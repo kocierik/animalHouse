@@ -4,7 +4,7 @@ import { computed } from 'vue'
 export default {
   props: {
     status: { type: String, default: '' },
-    word: { type: String, default: '' },
+    word: { type: String, default: '' }
   },
   setup(props: { status: string }, { emit }: unknown) {
     const finalMessage = computed(() => {
@@ -22,7 +22,7 @@ export default {
 
     const reset = () => emit('reset')
     return { finalMessage, reset }
-  },
+  }
 }
 </script>
 <template>

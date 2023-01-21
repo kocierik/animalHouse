@@ -25,7 +25,7 @@ let partyjsTimer: any = null
 onMounted(() => {
   partyjsTimer = setInterval(() => {
     party.confetti(confetti.value!, {
-      count: party.variation.range(20, 50),
+      count: party.variation.range(20, 50)
     })
   }, 750)
 })

@@ -7,8 +7,8 @@ import Grid from './components/Grid.vue'
 
 export default {
   components: {
-    Grid,
-  },
+    Grid
+  }
 }
 </script>
 

@@ -1,38 +1,51 @@
 function retrieveUsers(target) {
-    var url = "/api/v2/users/";
-    fetch(url, {
-        headers: {
-            'authorization': localStorage.token
-        }
-    }).then((response) => response.json()).then((data) => {
-        $(target).text("");
+  var url = '/api/v2/users/'
+  fetch(url, {
+    headers: {
+      authorization: localStorage.token
+    }
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      $(target).text('')
 
-        data.forEach(function (el) {
-            console.log(el)
-            pic = "/backoffice/favicon.ico"
-            let addr = ""
-            if (el.profilePicture)
-                pic = "/pictures/" + el.profilePicture.filename
-            if (el.address != undefined) {
-                el.address.street != " " ? addr+=el.address.street + ", " : ""
-                el.address.city != " " ? addr+=el.address.city + ", " : ""
-                el.address.zip != " " ? addr+=el.address.zip + ", " : ""
-                el.address.country != " " ? addr+= el.address.country : ""
+      data.forEach(function (el) {
+        console.log(el)
+        pic = '/backoffice/favicon.ico'
+        let addr = ''
+        if (el.profilePicture) pic = '/pictures/' + el.profilePicture.filename
+        if (el.address != undefined) {
+          el.address.street != ' ' ? (addr += el.address.street + ', ') : ''
+          el.address.city != ' ' ? (addr += el.address.city + ', ') : ''
+          el.address.zip != ' ' ? (addr += el.address.zip + ', ') : ''
+          el.address.country != ' ' ? (addr += el.address.country) : ''
+        }
+        $(target).append(
+          [
+            {
+              username: el.username,
+              firstName: el.firstName,
+              lastName: el.lastName,
+              id: el._id,
+              email: el.email,
+              address: addr,
+              picture: pic
             }
-            $(target).append([{ username: el.username, firstName: el.firstName, lastName: el.lastName, id: el._id, email: el.email, address: addr, picture: pic }].map(Item));
-        });
-    });
+          ].map(Item)
+        )
+      })
+    })
 }
 function userRemove(username, id) {
-    if (confirm('Are you sure you want to remove the user ' + username + " | " + id + '?')) {
-        fetch("/api/v2/users/" + id, {
-            method: "DELETE",
-            headers: {
-                "authorization": localStorage.token
-            }
-        })
-        retrieveUsers('#itemList');
-    }
+  if (confirm('Are you sure you want to remove the user ' + username + ' | ' + id + '?')) {
+    fetch('/api/v2/users/' + id, {
+      method: 'DELETE',
+      headers: {
+        authorization: localStorage.token
+      }
+    })
+    retrieveUsers('#itemList')
+  }
 }
 
 //item template
@@ -57,8 +70,8 @@ const Item = ({ username, firstName, lastName, id, email, address, picture }) =>
         <button onclick='userRemove("${username}","${id}")'><i class="bi bi-trash"></i></button>
     </td>
 </tr>
-`;
+`
 
 $(document).ready(function () {
-    retrieveUsers('#itemList');
-});
+  retrieveUsers('#itemList')
+})

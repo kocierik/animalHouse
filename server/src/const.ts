@@ -15,7 +15,7 @@ export const GAME_DIR = PUBLIC_DIR + '/game'
 export const PICTURE_DIR = '/../../pictures'
 
 export const SERVER_PORT = 8080
-export const API_PREFIX = "/api"
+export const API_PREFIX = '/api'
 export const CURR_API_VERSION = '/v2'
 
 export const DB_NAME = 'animal-house-db'
@@ -27,26 +27,26 @@ export const DB_SECRET = 'animal'
 export const GAMES = [
   {
     name: 'minesweeper',
-    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da1'),
+    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da1')
   },
   {
     name: '2048',
-    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da2'),
+    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da2')
   },
   {
     name: 'hangMan',
-    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da3'),
+    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da3')
   },
   {
     name: 'memoryGame',
-    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da4'),
+    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da4')
   },
   {
     name: 'quizGame',
-    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da5'),
+    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da5')
   },
   {
     name: 'ticTacToe',
-    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da6'),
-  },
+    _id: new Types.ObjectId('62f3c0540ac73a2bc4764da6')
+  }
 ]

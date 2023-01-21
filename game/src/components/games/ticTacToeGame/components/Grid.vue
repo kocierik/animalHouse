@@ -22,13 +22,13 @@ import { reactive, ref, computed } from 'vue'
 import swal from 'sweetalert'
 export default {
   components: {
-    Cell,
+    Cell
   },
   setup() {
     const gameGrid = reactive([
       ['', '', ''],
       ['', '', ''],
-      ['', '', ''],
+      ['', '', '']
     ])
     const board = reactive(new Board(gameGrid))
     const lastWasX = ref(false)
@@ -73,9 +73,9 @@ export default {
       winner,
       setPlace,
       turn,
-      reset,
+      reset
     }
-  },
+  }
 }
 </script>
 

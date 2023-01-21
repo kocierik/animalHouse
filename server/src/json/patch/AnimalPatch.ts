@@ -9,15 +9,15 @@ export const SwaggerAnimalPatch = {
   properties: {
     name: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     type: {
       type: 'string',
-      nullable: true,
+      nullable: true
     },
     age: {
       type: 'number',
-      nullable: true,
-    },
-  },
+      nullable: true
+    }
+  }
 }

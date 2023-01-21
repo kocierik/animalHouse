@@ -62,14 +62,14 @@ const PostReview = (props: IProps) => {
           {/* Top Half - Avatar & Text Box */}
           <div className="flex flex-col mt-10 content-start p-4">
             <div className="flex mb-5">
-              <span className="flex" style={{"flex": "0 0 auto"}}>
+              <span className="flex" style={{ flex: '0 0 auto' }}>
                 <img
                   src="/imageprofile.jpg"
                   className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14  duration-150"
                   alt="User profile"
                 />
               </span>
-              <div className="flex items-center" style={{"flex": "1 1 90%"}}>
+              <div className="flex items-center" style={{ flex: '1 1 90%' }}>
                 <span className="font-black	text-lg	p-4">{username}</span>
                 <div className=" flex ">
                   {valueProduct.map((rating) => (

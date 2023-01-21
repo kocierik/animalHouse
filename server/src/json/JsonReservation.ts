@@ -11,25 +11,25 @@ export const SwaggerReservation = {
   type: 'object',
   properties: {
     _id: {
-      type: 'string',
+      type: 'string'
     },
     animalId: {
-      type: 'string',
+      type: 'string'
     },
     serviceName: {
-      type: 'string',
+      type: 'string'
     },
     userId: {
-      type: 'string',
+      type: 'string'
     },
     date: {
-      type: 'string',
+      type: 'string'
     },
     information: {
-      type: 'string',
+      type: 'string'
     },
     locationId: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

@@ -8,16 +8,16 @@ export const SwaggerReservation = {
   type: 'object',
   properties: {
     _id: {
-      type: 'string',
+      type: 'string'
     },
     title: {
-      type: 'string',
+      type: 'string'
     },
     description: {
-      type: 'string',
+      type: 'string'
     },
     color: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

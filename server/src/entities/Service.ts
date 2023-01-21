@@ -10,7 +10,7 @@ interface IService {
 const ServiceCodeSchema = new Schema<IService>({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  color: { type: String, required: true },
+  color: { type: String, required: true }
 })
 
 const Service = model<IService>('Service', ServiceCodeSchema)
