@@ -40,12 +40,7 @@ export const verifyUser = async (req: Request, res: Response, next: Function) =>
 }
 
 export const verifyAdmin = async (req: Request, res: Response, next: Function) => {
-  console.log(req.authData)
   const authId = req.authData.id
-
-  const isAdmin = await AdminService.isAdmin(authId)
-
-  console.log(isAdmin)
 
   if (await AdminService.isAdmin(authId)) {
     return next()

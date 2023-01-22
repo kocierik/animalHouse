@@ -149,6 +149,7 @@ export const deleteLocation = async (req: Request, res: Response) => {
  *     parameters: [
  *       {
  *         in: "body",
+ *         required: true,
  *         description: "location creation",
  *         schema: {
  *            "$ref": "#/definitions/LocationCreation"

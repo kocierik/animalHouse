@@ -72,7 +72,7 @@ appRouter.get(prefix + '/community/game/scoreboard', middlewares.log, communityR
 
 // Location
 appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations)
-appRouter.post(prefix + '/locations', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.postLocation)
+appRouter.post(prefix + '/locations', middlewares.log, /*middlewares.verifyToken, middlewares.verifyAdmin,*/ locationRoutes.postLocation)
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
 appRouter.patch(prefix + '/locations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.patchLocation)
 appRouter.delete(prefix + '/locations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.deleteLocation)
