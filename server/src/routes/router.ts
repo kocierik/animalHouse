@@ -83,7 +83,7 @@ appRouter.get(prefix + '/products/:id', middlewares.log, marketRoutes.getProduct
 appRouter.get(prefix + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
 appRouter.delete(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.deleteProduct) //remove
 appRouter.patch(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.patchProduct)
-appRouter.post(prefix + '/products', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.postProduct) //insert TODO add ADMIN middleware
+appRouter.post(prefix + '/products', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.postProduct) //insert
 appRouter.get(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(prefix + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)
