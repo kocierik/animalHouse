@@ -40,7 +40,6 @@ export const getProductCategoriesName = async (): Promise<IProductCategory[]> =>
   }
 }
 
-// TODO verify not
 const isValidOption = (x: any, y: any[]): boolean => !x || y.includes(x)
 
 export const evalCartItemCreation = async (pq: JsonCartItemCreation): Promise<boolean> => {
