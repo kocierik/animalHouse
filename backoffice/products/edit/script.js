@@ -101,7 +101,7 @@ $('#send').click(function () {
   fetch('/api/v2/products/' + getUrlParameter('id'), {
     method: 'PATCH',
     headers: {
-      authorization: localStorage.token,
+      authorization: localStorage.bo_token,
       'Content-Type': 'application/json',
       'Access-Control-Origin': '*'
     },
@@ -127,7 +127,7 @@ $('#send').click(function () {
         fetch('/api/v2/products/' + getUrlParameter('id') + '/picture', {
           method: 'PUT',
           headers: {
-            authorization: localStorage.token,
+            authorization: localStorage.bo_token,
             'Access-Control-Origin': '*'
           },
           body: send

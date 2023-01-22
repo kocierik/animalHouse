@@ -4,7 +4,7 @@ function fetchLocations() {
   var url = '/api/v2/locations/'
   fetch(url, {
     headers: {
-      authorization: localStorage.token
+      authorization: localStorage.bo_token
     }
   })
     .then((response) => response.json())

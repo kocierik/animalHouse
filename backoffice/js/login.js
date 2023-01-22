@@ -1,5 +1,5 @@
 async function doLogin() {
-  if (localStorage.token) {
+  if (localStorage.bo_token) {
     if (localStorage.prevPage) {
       window.location.href = localStorage.prevPage
       localStorage.removeItem('prevPage')
@@ -27,7 +27,7 @@ async function doLogin() {
     })
     const body = await response.json()
     if (response.status >= 200 && response.status < 300) {
-      localStorage.token = body.token
+      localStorage.bo_token = body.token
       if (localStorage.prevPage) {
         window.location.href = localStorage.prevPage
         localStorage.removeItem('prevPage')
@@ -42,13 +42,13 @@ async function doLogin() {
 }
 
 function loginCheck() {
-  if (!localStorage.token) {
+  if (!localStorage.bo_token) {
     if (!window.location.href.includes('login')) localStorage.prevPage = window.location.href
     window.location.href = '/backoffice/login'
   }
 }
 function logout() {
-  localStorage.removeItem('token')
+  localStorage.removeItem('bo_token')
   localStorage.removeItem('user')
   window.location.href = '/backoffice'
 }
