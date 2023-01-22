@@ -9,7 +9,7 @@ AOS.init()
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <Router basename='/frontoffice'>
+  <Router basename="/frontoffice">
     <App />
   </Router>
 )

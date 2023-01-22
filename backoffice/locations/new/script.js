@@ -1,15 +1,20 @@
-initMap('map',[]);
-lat = ""
-lon = ""
-
+initMap('map', [])
+lat = ''
+lon = ''
 
 $('#send').click(async function () {
-  if(lat == "" || lon == ""){
-    alert("Please, click on the map to set location coordinates")
+  if (lat == '' || lon == '') {
+    alert('Please, click on the map to set location coordinates')
     return
   }
-  if($('#grid-name').val()=="" || $('#grid-street').val()=="" || $('#grid-city').val()==""||$('#grid-zip').val()==""||$('#grid-country').val()==""){
-    alert("Please, fill all the required fields")
+  if (
+    $('#grid-name').val() == '' ||
+    $('#grid-street').val() == '' ||
+    $('#grid-city').val() == '' ||
+    $('#grid-zip').val() == '' ||
+    $('#grid-country').val() == ''
+  ) {
+    alert('Please, fill all the required fields')
     return
   }
   //SEND USER
@@ -24,7 +29,7 @@ $('#send').click(async function () {
       name: $('#grid-name').val(),
       longitude: lon,
       latitude: lat,
-      address:{
+      address: {
         street: $('#grid-street').val(),
         city: $('#grid-city').val(),
         zip: $('#grid-zip').val(),
@@ -39,9 +44,6 @@ $('#send').click(async function () {
     alert(data.mex)
   }
 })
-
-
-
 
 // MAP RELATED FUNCTIONS
 function initMap(target, coords) {
@@ -79,13 +81,18 @@ function addMarkers(map, coords) {
     markers.addMarker(new OpenLayers.Marker(loc, icon.clone()))
   })
 
-  map.events.register("click", map, function(e) {
-    var lonlat = map.getLonLatFromViewPortPx(e.xy).transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-    lon = lonlat.lon;
-    lat = lonlat.lat;
-    var loc = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection('EPSG:4326'), map.getProjectionObject())
+  map.events.register('click', map, function (e) {
+    var lonlat = map
+      .getLonLatFromViewPortPx(e.xy)
+      .transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'))
+    lon = lonlat.lon
+    lat = lonlat.lat
+    var loc = new OpenLayers.LonLat(lon, lat).transform(
+      new OpenLayers.Projection('EPSG:4326'),
+      map.getProjectionObject()
+    )
     markers.clearMarkers()
     markers.addMarker(new OpenLayers.Marker(loc, icon.clone()))
-    console.log("Latitude: " + lat + " Longitude: " + lon);
-  });
+    console.log('Latitude: ' + lat + ' Longitude: ' + lon)
+  })
 }

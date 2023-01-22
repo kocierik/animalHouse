@@ -53,7 +53,7 @@ const _SERVICES_GET = '/services'
 const _SERVICES_SINGLE_GET = '/services/names/{0}'
 
 const _LOCATION_GET = '/locations/{0}'
-const _COMMUNITY_GAME = '/community/game'
+const _COMMUNITY_GAME = '/community/games'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, {

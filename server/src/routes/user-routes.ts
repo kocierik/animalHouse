@@ -587,12 +587,12 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *       {
  *         in: body,
  *         name: Animal,
-*          required: true,
+ *          required: true,
  *         description: Animal info,
  *         schema: {
  *            $ref: "#/definitions/Animal"
  *         }
-*         }
+ *         }
  *       ],
  *       security: [{JWT: [] }],
  *       responses: {
@@ -601,9 +601,9 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *          schema: {
  *            $ref: "#/definitions/Animal"
  *          }
- *        } 
- *     } 
-*     }
+ *        }
+ *     }
+ *     }
  * }
  * */
 export const updateAnimal = async (req: Request, res: Response) => {

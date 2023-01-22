@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 
-const headerBg = import.meta.env.BASE_URL+ '/homeHeader.jpg'
+const headerBg = import.meta.env.BASE_URL + '/homeHeader.jpg'
 </script>
 <template>
   <header>

@@ -45,7 +45,9 @@ export const verifyAdmin = async (req: Request, res: Response, next: Function) =
   if (await AdminService.isAdmin(authId)) {
     return next()
   } else {
-    return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("You must log as an admin to do this operation"))
+    return res
+      .status(STATUS_UNAUTHORIZED)
+      .json(new JsonVisibilityError('You must log as an admin to do this operation'))
   }
 }
 

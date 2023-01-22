@@ -114,7 +114,7 @@ const router = createRouter({
 
 export const redirect = (path: string, frontoffice = false) => {
   if (frontoffice) window.location.href = FRONTOFFICE + path
-  else router.push({path: path})
+  else router.push({ path: path })
 }
 
 export default router
