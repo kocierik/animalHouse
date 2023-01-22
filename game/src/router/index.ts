@@ -21,6 +21,7 @@ import {
   GameQuizRoute,
   GameTicTacToeRoute
 } from '@/oth/games'
+import { FRONTOFFICE } from '@/const'
 
 export const HomeRoute = '/'
 
@@ -112,9 +113,8 @@ const router = createRouter({
 })
 
 export const redirect = (path: string, frontoffice = false) => {
-  if (import.meta.env.NODE_ENV === 'localhost') window.location.href = path
-  else if (frontoffice) window.location.href = `/frontoffice${path}`
-  else window.location.href = `${import.meta.env.BASE_URL}${path}`
+  if (frontoffice) window.location.href = FRONTOFFICE + path
+  else router.push({path: path})
 }
 
 export default router

@@ -28,7 +28,7 @@ function itemRemove(name, id) {
     fetch('/api/v2/products/' + id, {
       method: 'DELETE',
       headers: {
-        authorization: localStorage.token
+        authorization: localStorage.bo_token
       }
     }).then(retrieveProducts('#itemList'))
   }

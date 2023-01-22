@@ -2,7 +2,7 @@ import { SwaggerAnimal } from './json/JsonAnimal'
 import { SwaggerCart } from './json/JsonCart'
 import { SwaggerCartItem } from './json/JsonCartItem'
 import { SwaggerCartItemCreation } from './json/JsonCartItemCreation'
-import { SwaggerLocation } from './json/JsonLocation'
+import { SwaggerLocation, SwaggerLocationCreation } from './json/JsonLocation'
 import { SwaggerOrder } from './json/JsonOrder'
 import { SwaggerPaymentDetails } from './json/JsonPaymentDetails'
 import { SwaggerProduct } from './json/JsonProduct'
@@ -11,6 +11,7 @@ import { SwaggerReservation } from './json/JsonReservation'
 import { SwaggerReview } from './json/JsonReview'
 import { SwaggerAddress, SwaggerUser } from './json/JsonUser'
 import { SwaggerAnimalPatch } from './json/patch/AnimalPatch'
+import { SwaggerLocationPatch } from './json/patch/LocationPatch'
 import { SwaggerProductPatch } from './json/patch/ProductPatch'
 import { SwaggerUserPatch } from './json/patch/UserPatch'
 
@@ -31,6 +32,26 @@ const swaggerOptions = {
         name: 'authorization'
       }
     },
+    definitions: {
+      User: SwaggerUser,
+      UserPatch: SwaggerUserPatch,
+      Animal: SwaggerAnimal,
+      AnimalPatch: SwaggerAnimalPatch,
+      Address: SwaggerAddress,
+      Product: SwaggerProduct,
+      ProductPatch: SwaggerProductPatch,
+      ReviewSumUp: SwaggerReviewSumUp,
+      Review: SwaggerReview,
+      Cart: SwaggerCart,
+      CartItem: SwaggerCartItem,
+      CartItemCreation: SwaggerCartItemCreation,
+      Order: SwaggerOrder,
+      PaymentDetails: SwaggerPaymentDetails,
+      Reservation: SwaggerReservation,
+      Location: SwaggerLocation,
+      LocationPatch: SwaggerLocationPatch,
+      LocationCreation: SwaggerLocationCreation
+    },
     components: {
       tags: [
         { name: 'users' },
@@ -40,24 +61,6 @@ const swaggerOptions = {
         { name: 'reservations' },
         { name: 'locations' }
       ],
-      schemas: {
-        User: SwaggerUser,
-        Animal: SwaggerAnimal,
-        Address: SwaggerAddress,
-        Product: SwaggerProduct,
-        ReviewSumUp: SwaggerReviewSumUp,
-        Review: SwaggerReview,
-        Cart: SwaggerCart,
-        CartItem: SwaggerCartItem,
-        CartItemCreation: SwaggerCartItemCreation,
-        Order: SwaggerOrder,
-        PaymentDetails: SwaggerPaymentDetails,
-        Reservation: SwaggerReservation,
-        Location: SwaggerLocation,
-        UserPatch: SwaggerUserPatch,
-        AnimalPatch: SwaggerAnimalPatch,
-        ProductPatch: SwaggerProductPatch
-      }
     }
   },
   // TODO questo è un accrocchio

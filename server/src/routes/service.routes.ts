@@ -42,7 +42,7 @@ export const getAllServices = async (req: Request, res: Response) => {
  *         schema:
  *           type: object
  *           items:
- *             $ref: "#/components/schemas/Service"
+ *             $ref: "#/definitions/Service"
  * */
 export const getSingleServicesName = async (req: Request, res: Response) => {
   try {

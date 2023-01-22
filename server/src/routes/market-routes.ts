@@ -19,7 +19,7 @@ import { ProductPatch } from '@/json/patch/ProductPatch'
  *            schema:
  *              type: array
  *              items:
- *                $ref: "#/components/schemas/Product"
+ *                $ref: "#/definitions/Product"
  * */
 export const getProducts = async (_: Request, res: Response) => res.json(await ProductService.findAllProduct())
 
@@ -44,7 +44,7 @@ export const getProducts = async (_: Request, res: Response) => res.json(await P
  *            schema: {
  *              type: array,
  *              items: {
- *                $ref: "#/components/schemas/Product"
+ *                $ref: "#/definitions/Product"
  *               }
  *             }
  *           }
@@ -107,7 +107,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
  *       {
  *         in: body,
  *        schema: {
- *          $ref: "#/components/schemas/ProductPatch"
+ *          $ref: "#/definitions/ProductPatch"
  *         }
  *       }
  *     ],
@@ -188,7 +188,7 @@ export const postProduct = async (req: Request, res: Response) => {
  *            schema:
  *              type: array
  *              items:
- *                $ref: "#/components/schemas/Review"
+ *                $ref: "#/definitions/Review"
  * */
 export const getReviews = async (req: Request, res: Response) => {
   const pathId = req.params.id
@@ -234,7 +234,7 @@ export const getReviews = async (req: Request, res: Response) => {
  *        200:
  *          description: Success
  *          schema:
- *            $ref: "#/components/schemas/Review"
+ *            $ref: "#/definitions/Review"
  * */
 export const postReview = async (req: Request, res: Response) => {
   try {
@@ -286,7 +286,7 @@ export const putProductPicture = async (req: Request, res: Response) => {
  *        200:
  *          description: Success
  *          schema:
- *            $ref: "#/components/schemas/ReviewSumUp"
+ *            $ref: "#/definitions/ReviewSumUp"
  * */
 export const getProductSumUp = async (req: Request, res: Response) => {
   try {

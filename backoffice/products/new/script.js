@@ -40,7 +40,7 @@ $('#send').click(async function () {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        authorization: localStorage.token,
+        authorization: localStorage.bo_token,
         'Access-Control-Origin': '*'
       },
       body: JSON.stringify({
@@ -65,7 +65,7 @@ $('#send').click(async function () {
     dataRes = await fetch('/api/v2/products/' + data._id + '/picture', {
       method: 'PUT',
       headers: {
-        authorization: localStorage.token,
+        authorization: localStorage.bo_token,
         'Access-Control-Origin': '*'
       },
       body: send

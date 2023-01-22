@@ -42,7 +42,7 @@ import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
  *       200:
  *         description: Success
  *         schema:
- *           $ref: "#/components/schemas/User"
+ *           $ref: "#/definitions/User"
  * */
 export const registerPost = async (req: Request, res: Response) => {
   try {
@@ -136,7 +136,7 @@ export const getCurrentUser = (req: Request, res: Response) => {
  *        schema:
  *          type: array
  *          items:
- *            $ref: "#/components/schemas/User"
+ *            $ref: "#/definitions/User"
  */
 export const getAllUsers = async (_: Request, res: Response) => {
   try {
@@ -165,7 +165,7 @@ export const getAllUsers = async (_: Request, res: Response) => {
  *       200: {
  *         description: ok,
  *         schema: {
- *           $ref: "#/components/schemas/User"
+ *           $ref: "#/definitions/User"
  *         }
  *        }
  *       }
@@ -196,7 +196,7 @@ export const getUser = async (req: Request, res: Response) => {
  *     {
  *       in: body,
  *        schema: {
- *          $ref: "#/components/schemas/UserPatch"
+ *          $ref: "#/definitions/UserPatch"
  *        }
  *      }
  *    ],
@@ -204,7 +204,7 @@ export const getUser = async (req: Request, res: Response) => {
  *       200: {
  *         description: ok,
  *         schema: {
- *           $ref: "#/components/schemas/User"
+ *           $ref: "#/definitions/User"
  *         }
  *        }
  *      }
@@ -357,7 +357,7 @@ export const getScore = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/definitions/ProductInstance"
  *     security:
  *     - JWT: []
  *     responses:
@@ -366,7 +366,7 @@ export const getScore = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/definitions/ProductInstance"
  * */
 export const putInCart = async (req: Request, res: Response) => {
   try {
@@ -400,7 +400,7 @@ export const putInCart = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/definitions/CartItem"
  * */
 export const getCart = async (req: Request, res: Response) => {
   try {
@@ -442,7 +442,7 @@ export const getCart = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/ProductInstance"
+ *             $ref: "#/definitions/ProductInstance"
  *
  * */
 export const deleteCart = async (req: Request, res: Response) => {
@@ -518,29 +518,40 @@ export const putAnimal = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{uid}/animals/{aid}:
- *  delete:
- *      tags:
- *      - users
- *       summary: Retrive reviews about a product
- *       parameters:
- *       - in: path
- *         name: uid
- *         type: string
- *         required: true
+ * /users/{uid}/animals/{aid}: {
+ *  delete: {
+ *      tags: [ users ],
+ *      summary: Retrive reviews about a product,
+ *       parameters: [
+ *       {
+ *         in: path,
+ *         name: uid,
+ *         type: string,
+ *         required: true,
  *         description: Id of the user to be searched
  *      },
  *       {
- *          in: path,
+ *         in: path,
  *         name: aid,
  *         type: string,
  *         required: true,
  *         description: Id of the animal to be deleted
- *       security:
- *         - JWT: []
- *       responses:
- *         200:
- *           description: successful operation
+ *        }
+ *      ],
+ *       security: [ { JWT: [] } ],
+ *       responses: {
+ *         200: {
+ *           description: successful operation,
+ *           "schema": {
+ *           "type": "array",
+ *           "items": {
+ *              "$ref": "#/definitions/Animal"
+ *            }
+ *          }
+ *         }
+ *       }
+ *     }
+ * }
  * */
 export const deleteAnimal = async (req: Request, res: Response) => {
   try {
@@ -554,16 +565,16 @@ export const deleteAnimal = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{uid}/animals/{aid}:
- *  put:
- *      tags:
- *      - users
- *      summary: edit a animal
- *       parameters:
- *       - in: path
- *         name: uid
- *         type: string
- *         required: true
+ * /users/{uid}/animals/{aid}: {
+ *  put: {
+ *      tags: ["users"],
+ *      summary: "edit a animal",
+ *       parameters: [
+ *       {
+ *         in: path,
+ *         name: uid,
+ *         type: string,
+ *         required: true,
  *         description: user id
  *      },
  *       {
@@ -572,39 +583,28 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *         type: string,
  *         required: true,
  *         description: animal id
- *       - in: body
- *         name: Animal
- *         description: Animal info
- *         schema:
- *           type: object
- *           properties:
- *             _id:
- *               type: string
- *             type:
- *               type: string
- *             name:
- *               type: string
- *             userId:
- *               type: string
- *             age:
- *               type: number
- *             picture:
- *               type: object
- *               properties:
- *                 filename:
- *                   type: string
- *                 mimetype:
- *                   type: string
- *                 size:
- *                   type: number
- *       security:
- *         - JWT: []
- *       responses:
- *         200:
- *           description: Success
- *           schema:
- *             $ref: "#/definitions/Animal"
- *
+ *       },
+ *       {
+ *         in: body,
+ *         name: Animal,
+*          required: true,
+ *         description: Animal info,
+ *         schema: {
+ *            $ref: "#/definitions/Animal"
+ *         }
+*         }
+ *       ],
+ *       security: [{JWT: [] }],
+ *       responses: {
+ *        200: {
+ *          description: success,
+ *          schema: {
+ *            $ref: "#/definitions/Animal"
+ *          }
+ *        } 
+ *     } 
+*     }
+ * }
  * */
 export const updateAnimal = async (req: Request, res: Response) => {
   try {
@@ -704,7 +704,7 @@ export const updateUserDescription = async (req: Request, res: Response) => {
  *            items:
  *              type: object
  *              schema:
- *                $ref: "#/components/schemas/Order"
+ *                $ref: "#/definitions/Order"
  * */
 export const getUserOrders = async (req: Request, res: Response) => {
   try {
@@ -731,7 +731,7 @@ export const getUserOrders = async (req: Request, res: Response) => {
  *       - in: body
  *         type: object
  *         schema:
- *          $ref: "#/components/schemas/PaymentDetails"
+ *          $ref: "#/definitions/PaymentDetails"
  *     responses:
  *       200:
  *         description: Success
@@ -740,7 +740,7 @@ export const getUserOrders = async (req: Request, res: Response) => {
  *            items:
  *              type: object
  *              schema:
- *                $ref: "#/components/schemas/Order"
+ *                $ref: "#/definitions/Order"
  * */
 export const postUserOrders = async (req: Request, res: Response) => {
   try {

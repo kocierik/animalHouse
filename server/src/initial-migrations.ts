@@ -11,6 +11,11 @@ import Location from './entities/Location'
 import Animal from './entities/Animal'
 
 export const test = async () => {
+  await Admin.deleteOne({username: "test-admin"})
+  await Admin.insertMany([{username: "test-admin", password: "test", 
+      _id: new Types.ObjectId('000000000000000000000001')}])
+
+
   await User.deleteMany()
   await Animal.deleteMany()
   await Animal.insertMany([
@@ -295,34 +300,46 @@ export const initLocationCodes = async () => {
   await Location.deleteMany()
   await Location.insertMany([
     {
+      _id: new Types.ObjectId('637a10397c883b752202e444'),
+      address: { country: 'IT', city: 'Bologna', street: 'Via Eleonora Duse, 13/C', zip: '40127' },
+      name: 'Animal House',
+      latitude: '44.5019306',
+      longitude: '11.3705182'
+    },
+    {
       _id: new Types.ObjectId('637a10397c883b752202e442'),
-      address: { country: 'Rimini', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Rimini'
+      address: { country: 'IT', city: 'Ravenna', street: 'SS16, km 162', zip: '47832' },
+      name: 'Mirabilandia',
+      latitude: '44.3378048',
+      longitude: '12.2633986'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e443'),
-      address: { country: 'Mestre', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Mestre'
-    },
-    {
-      _id: new Types.ObjectId('637a10397c883b752202e444'),
-      address: { country: 'Bologna', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Bologna'
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+      name: 'Nave de Vero',
+      latitude: '45.4595039',
+      longitude: '12.2126283'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e445'),
-      address: { country: 'Riccione', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Riccione'
+      address: { country: 'IT', city: 'Milano Marittima (RA)', street: 'Via III Traversa, 281', zip: '48015' },
+      name: 'Papeete Beach',
+      latitude: '44.2816929',
+      longitude: '12.3521182'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e446'),
-      address: { country: 'Palermo', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Palermo'
+      address: { country: 'IT', city: 'Porto Tolle (RO)', street: '???', zip: '00000' },
+      name: 'Palude',
+      latitude: '44.9734477',
+      longitude: '12.5529393'
     },
     {
       _id: new Types.ObjectId('637a10397c883b752202e447'),
-      address: { country: 'Roma', city: 'mirabilandia', street: 'via casa', zip: 47832 },
-      name: 'Roma'
+      address: { country: 'IT', city: 'Asiago (VI)', street: 'Via Trento e Trieste, 15', zip: '36012' },
+      name: 'Animal Zone',
+      latitude: '45.8741378',
+      longitude: '11.5078029'
     }
   ])
 }

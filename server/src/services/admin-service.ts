@@ -1,4 +1,4 @@
-import JsonError, { JsonVisibilityError } from '../json/JsonError'
+import { JsonVisibilityError } from '../json/JsonError'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'

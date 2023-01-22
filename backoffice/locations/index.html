@@ -46,7 +46,7 @@
                 <tr>
                   <td class="p-2 py-4">Manage your locations</td>
                   <td class="text-right p-2 pr-4 text-gray-700">
-                    <a href="#"><i class="bi bi-plus-circle-dotted"></i> New location</a>
+                    <a href="new"><i class="bi bi-plus-circle-dotted"></i> New location</a>
                   </td>
                 </tr>
               </table>
@@ -64,23 +64,12 @@
                       <th class="p-2 py-4 border-b border-solid border-gray-300">
                         <div class="pl-4 flex flex-wrap flex-row items-center">
                           <div class="mr-4 h-16 w-64 block flex flex-row items-center">Name</div>
-                          <div class="mr-4 h-16 w-64 block flex flex-row items-center">Address</div>
-                          <div class="mr-4 h-16 w-16 block flex flex-row items-center">Employees</div>
+                          <div class="mr-4 h-16 w-flex block flex flex-row items-center">Address</div>
                         </div>
                       </th>
                     </tr>
                   </thead>
-                  <tbody id="locationsList">
-                    <tr p-2 class="py-8 border-b border-solid border-gray-300">
-                      <td class="p-2 py-4 border-b border-solid border-gray-300">
-                        <div class="pl-4 flex flex-wrap flex-row items-center">
-                          <div class="mr-4 h-16 w-64 block flex flex-row items-center">Prova</div>
-                          <div class="mr-4 h-16 w-64 block flex flex-row items-center">Via Irnerio 1 Bologna</div>
-                          <div class="mr-4 h-16 w-16 block flex flex-row items-center">12</div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody id="locationsList"></tbody>
                 </table>
               </section>
             </div>
@@ -88,13 +77,7 @@
         </section>
       </main>
     </div>
-    <script src="script.js"></script>
     <script src="https://openlayers.org/api/2.13.1/OpenLayers.js"></script>
-    <script>
-      initMap('map', [
-        { lon: 11.3705182, lat: 44.5019306 },
-        { lon: 11.4588, lat: 45.7497 }
-      ])
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>

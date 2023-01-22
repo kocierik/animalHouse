@@ -163,10 +163,7 @@ onBeforeMount(async () => {
                 Next &gt;
               </button>
               <button
-                @click="
-                  goToNextQuestion()
-                  showResults()
-                "
+                @click="showResults()"
                 v-show="progress === _COUNT - 1"
                 class="float-right bg-dyellow text-black text-sm font-bold tracking-wide rounded-full px-5 py-2"
               >
