@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import DropDown from './common/DropDown'
 import Rawtable from './common/communityComponents/Rawtable'
 import { ApiRepository, JsonGames } from 'shared'
-import useEffect from 'react'
 import { Community } from 'shared'
 
 const CommunityPage = () => {
@@ -19,13 +18,17 @@ const CommunityPage = () => {
   }
 
   const getGames = async () => {
-    const resp = (await ApiRepository.getGames()).data
-    if (resp) {
-      resp.map((item) => setGames([...games, item.name]))
+    const data = (await ApiRepository.getGames()).data
+    if (data) {
+      data.map(item => {
+        setGames((game => [...game,item.name]))
+        console.log(item)
+      })
+      console.log(data)
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     getGames()
     handlePromise()
   }, [])
