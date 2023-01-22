@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import * as router from '@/router/index'
 
-const headerBg = import.meta.env.BASE_URL + '/homeHeader.jpg'
+const headerBg = import.meta.env.BASE_URL+ '/homeHeader.jpg'
 </script>
 <template>
   <header>
-    <!-- Background image -->
     <div
       class="relative overflow-hidden bg-no-repeat bg-cover animate-in fade-in zoom-in duration-500"
       :style="`background-position: 50%; background-image: url(${headerBg}); height: 95vh`"
@@ -31,6 +30,5 @@ const headerBg = import.meta.env.BASE_URL + '/homeHeader.jpg'
         </div>
       </div>
     </div>
-    <!-- Background image -->
   </header>
 </template>
