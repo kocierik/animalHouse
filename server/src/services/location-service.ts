@@ -1,8 +1,8 @@
 import { JsonNotFoundError } from '../json/JsonError'
 import type { ILocation } from '../entities/Location'
 import Location from '../entities/Location'
-import { LocationPatch } from '@/json/patch/LocationPatch'
-import { JsonLocation, JsonLocationCreation } from '@/json/JsonLocation'
+import { LocationPatch } from '../json/patch/LocationPatch'
+import { JsonLocation, JsonLocationCreation } from '../json/JsonLocation'
 
 export const getAllLocation = async (): Promise<ILocation[]> => {
   try {

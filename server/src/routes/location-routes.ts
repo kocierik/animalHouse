@@ -2,8 +2,8 @@ import * as Const from '../const'
 import { Request, Response } from 'express'
 import JsonError from '../json/JsonError'
 import * as LocationService from '../services/location-service'
-import { LocationPatch } from '@/json/patch/LocationPatch'
-import { JsonLocationCreation } from '@/json/JsonLocation'
+import { LocationPatch } from '../json/patch/LocationPatch'
+import { JsonLocationCreation } from '../json/JsonLocation'
 
 /**
  * @swagger
