@@ -72,18 +72,18 @@ appRouter.get(prefix + '/community/game/scoreboard', middlewares.log, communityR
 
 // Location
 appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations)
+appRouter.post(prefix + '/locations', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.postLocation)
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
-appRouter.post(prefix + '/locations/:id', middlewares.log, middlewares.verifyAdmin, locationRoutes.postLocation)
-appRouter.patch(prefix + '/locations/:id', middlewares.log, middlewares.verifyAdmin, locationRoutes.patchLocation)
-appRouter.delete(prefix + '/locations/:id', middlewares.log, middlewares.verifyAdmin, locationRoutes.deleteLocation)
+appRouter.patch(prefix + '/locations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.patchLocation)
+appRouter.delete(prefix + '/locations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.deleteLocation)
 
 // Products
 appRouter.get(prefix + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(prefix + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.get(prefix + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
-appRouter.delete(prefix + '/products/:id', middlewares.log, middlewares.verifyAdmin, marketRoutes.deleteProduct) //remove
-appRouter.patch(prefix + '/products/:id', middlewares.log, middlewares.verifyAdmin, marketRoutes.patchProduct)
-appRouter.post(prefix + '/products', middlewares.log, middlewares.verifyAdmin, marketRoutes.postProduct) //insert TODO add ADMIN middleware
+appRouter.delete(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.deleteProduct) //remove
+appRouter.patch(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.patchProduct)
+appRouter.post(prefix + '/products', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.postProduct) //insert TODO add ADMIN middleware
 appRouter.get(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(prefix + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)

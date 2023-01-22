@@ -30,7 +30,7 @@ export const SwaggerOrder = {
     address: {
       type: 'object',
       schema: {
-        $ref: '#/components/schemas/Address'
+        $ref: '#/definitions/Address'
       }
     }
   }

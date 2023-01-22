@@ -14,7 +14,7 @@ export interface AuthData {
 
 export const verifyToken = async (req: Request, res: Response, next: Function) => {
   const authHeader = req.headers['authorization']
-  if (authHeader !== undefined) {
+  if (authHeader) {
     jwt.verify(authHeader, SECRET, (err, authData) => {
       if (err) {
         return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError(`error validating token: ${err}`))
@@ -40,13 +40,17 @@ export const verifyUser = async (req: Request, res: Response, next: Function) =>
 }
 
 export const verifyAdmin = async (req: Request, res: Response, next: Function) => {
+  console.log(req.authData)
   const authId = req.authData.id
-  const pathId = req.params.id
+
+  const isAdmin = await AdminService.isAdmin(authId)
+
+  console.log(isAdmin)
 
   if (await AdminService.isAdmin(authId)) {
     return next()
   } else {
-    return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("Can't access user with id " + pathId))
+    return res.status(STATUS_UNAUTHORIZED).json(new JsonVisibilityError("You must log as an admin to do this operation"))
   }
 }
 

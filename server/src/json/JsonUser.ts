@@ -1,4 +1,3 @@
-import * as JsonAnimal from './JsonAnimal'
 import type { JsonAddress } from './JsonAddress'
 
 export interface JsonUserCreation {
@@ -72,10 +71,7 @@ export const SwaggerUser = {
       }
     },
     address: {
-      type: 'object',
-      schema: {
-        $ref: '#/components/schemas/Address'
-      }
+      $ref: '#/definitions/Address'
     }
   }
 }

@@ -18,7 +18,7 @@ import { JsonLocationCreation } from '@/json/JsonLocation'
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/Location"
+ *             $ref: "#/definitions/Location"
  * */
 export const getLocations = async (_: Request, res: Response) => {
   try {
@@ -48,7 +48,7 @@ export const getLocations = async (_: Request, res: Response) => {
  *         schema:
  *           type: object
  *           items:
- *             $ref: "#/components/schemas/Location"
+ *             $ref: "#/definitions/Location"
  * */
 export const getLocationById = async (req: Request, res: Response) => {
   try {
@@ -62,10 +62,11 @@ export const getLocationById = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- *  /location/{id}: {
+ *  /locations/{id}: {
  *   patch: {
  *     tags: [ "locations" ],
  *     summary: "patch a location",
+ *     security: [ {JWT: [] } ],
  *     parameters: [
  *       {
  *         in: "path",
@@ -77,7 +78,7 @@ export const getLocationById = async (req: Request, res: Response) => {
  *       {
  *         in: body,
  *         schema: {
- *           $ref: "#/components/schemas/LocationPatch"
+ *           $ref: "#/definitions/LocationPatch"
  *         }
  *       }
  *     ],
@@ -86,7 +87,7 @@ export const getLocationById = async (req: Request, res: Response) => {
  *           schema: {
  *             type: "object",
  *             items: {
- *               $ref: "#/components/schemas/Location"
+ *               $ref: "#/definitions/Location"
  *             }
  *           }
  *       }
@@ -107,8 +108,9 @@ export const patchLocation = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- *  /location/{id}: {
+ *  /locations/{id}: {
  *   delete: {
+ *     security: [ {JWT: [] } ],
  *     tags: [ "locations" ],
  *     summary: "delete a location",
  *     parameters: [
@@ -139,32 +141,24 @@ export const deleteLocation = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- *  /location/{id}: {
+ *  /locations: {
  *   post: {
  *     tags: [ "locations" ],
  *     summary: "create a location",
+ *     security: [ {JWT: [] } ],
  *     parameters: [
  *       {
- *         in: "path",
- *         name: "id",
- *         type: "string",
- *         required: "string",
- *         description: "id of the location"
- *       },
- *       {
- *         in: body,
+ *         in: "body",
+ *         description: "location creation",
  *         schema: {
- *           $ref: "#/components/schemas/LocationCreation"
+ *            "$ref": "#/definitions/LocationCreation"
  *         }
  *       }
  *     ],
  *     responses: {
  *       200: {
  *           schema: {
- *             type: "object",
- *             items: {
- *               $ref: "#/components/schemas/Location"
- *             }
+ *               $ref: "#/definitions/Location"
  *           }
  *       }
  *     }
@@ -173,9 +167,8 @@ export const deleteLocation = async (req: Request, res: Response) => {
  * */
 export const postLocation = async (req: Request, res: Response) => {
   try {
-    const locationId = req.params.id
     const creation = req.body as JsonLocationCreation
-    return res.status(Const.STATUS_OK).json(await LocationService.createLocation(locationId, creation))
+    return res.status(Const.STATUS_OK).json(await LocationService.createLocation(creation))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(ex.code).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))

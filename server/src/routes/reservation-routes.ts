@@ -26,7 +26,7 @@ import JsonError from '../json/JsonError'
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/Reservation"
+ *             $ref: "#/definitions/Reservation"
  * */
 export const getReservations = async (req: Request, res: Response) => {
   try {
@@ -80,7 +80,7 @@ export const getReservations = async (req: Request, res: Response) => {
  *         schema:
  *           type: object
  *           items:
- *             $ref: "#/components/schemas/Reservation"
+ *             $ref: "#/definitions/Reservation"
  * */
 export const postReservation = async (req: Request, res: Response) => {
   try {
@@ -114,7 +114,7 @@ export const postReservation = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/Reservation"
+ *             $ref: "#/definitions/Reservation"
  * */
 export const getAnimalReservations = async (req: Request, res: Response) => {
   try {
@@ -147,7 +147,7 @@ export const getAnimalReservations = async (req: Request, res: Response) => {
  *         schema:
  *           type: object
  *           items:
- *             $ref: "#/components/schemas/Reservation"
+ *             $ref: "#/definitions/Reservation"
  * */
 export const deleteReservation = async (req: Request, res: Response) => {
   try {
@@ -180,7 +180,7 @@ export const deleteReservation = async (req: Request, res: Response) => {
  *         schema:
  *           type: object
  *           items:
- *             $ref: "#/components/schemas/Reservation"
+ *             $ref: "#/definitions/Reservation"
  * */
 export const getSingleReservation = async (req: Request, res: Response) => {
   try {
@@ -229,7 +229,7 @@ export const getSingleReservation = async (req: Request, res: Response) => {
  *         schema:
  *           type: object
  *           items:
- *             $ref: "#/components/schemas/Reservation"
+ *             $ref: "#/definitions/Reservation"
  * */
 export const putReservation = async (req: Request, res: Response) => {
   try {

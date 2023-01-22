@@ -22,10 +22,7 @@ export const SwaggerCart = {
     cartItems: {
       type: 'array',
       items: {
-        type: 'object',
-        schema: {
-          $ref: '#/components/schemas/CartItem'
-        }
+          $ref: '#/definitions/CartItem'
       }
     }
   }

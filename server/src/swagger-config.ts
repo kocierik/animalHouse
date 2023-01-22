@@ -32,6 +32,26 @@ const swaggerOptions = {
         name: 'authorization'
       }
     },
+    definitions: {
+      User: SwaggerUser,
+      UserPatch: SwaggerUserPatch,
+      Animal: SwaggerAnimal,
+      AnimalPatch: SwaggerAnimalPatch,
+      Address: SwaggerAddress,
+      Product: SwaggerProduct,
+      ProductPatch: SwaggerProductPatch,
+      ReviewSumUp: SwaggerReviewSumUp,
+      Review: SwaggerReview,
+      Cart: SwaggerCart,
+      CartItem: SwaggerCartItem,
+      CartItemCreation: SwaggerCartItemCreation,
+      Order: SwaggerOrder,
+      PaymentDetails: SwaggerPaymentDetails,
+      Reservation: SwaggerReservation,
+      Location: SwaggerLocation,
+      LocationPatch: SwaggerLocationPatch,
+      LocationCreation: SwaggerLocationCreation
+    },
     components: {
       tags: [
         { name: 'users' },
@@ -41,26 +61,6 @@ const swaggerOptions = {
         { name: 'reservations' },
         { name: 'locations' }
       ],
-      schemas: {
-        User: SwaggerUser,
-        UserPatch: SwaggerUserPatch,
-        Animal: SwaggerAnimal,
-        AnimalPatch: SwaggerAnimalPatch,
-        Address: SwaggerAddress,
-        Product: SwaggerProduct,
-        ProductPatch: SwaggerProductPatch,
-        ReviewSumUp: SwaggerReviewSumUp,
-        Review: SwaggerReview,
-        Cart: SwaggerCart,
-        CartItem: SwaggerCartItem,
-        CartItemCreation: SwaggerCartItemCreation,
-        Order: SwaggerOrder,
-        PaymentDetails: SwaggerPaymentDetails,
-        Reservation: SwaggerReservation,
-        Location: SwaggerLocation,
-        LocationPatch: SwaggerLocationPatch,
-        LocationCreation: SwaggerLocationCreation
-      }
     }
   },
   // TODO questo è un accrocchio

@@ -44,7 +44,7 @@ export const getAnimalCodes = async (_: Request, res: Response) =>
  *          200:
  *            description: successful operation
  *            schema:
- *              $ref: "#/components/schemas/Animal"
+ *              $ref: "#/definitions/Animal"
  * */
 export const getAnimal = async (req: Request, res: Response) => {
   const animal = await AnimalService.findById(req.params.id)
@@ -76,7 +76,7 @@ export const getAnimal = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/Animal"
+ *             $ref: "#/definitions/Animal"
  *     security:
  *       - JWT: []
  *     responses:
@@ -85,7 +85,7 @@ export const getAnimal = async (req: Request, res: Response) => {
  *         schema:
  *           type: array
  *           items:
- *             $ref: "#/components/schemas/Animal"
+ *             $ref: "#/definitions/Animal"
  * */
 export const postAnimal = async (req: Request, res: Response) => {
   try {
@@ -213,7 +213,7 @@ export const deleteAnimal = async (req: Request, res: Response) => {
  *          200:
  *            description: successful operation
  *            schema:
- *              $ref: "#/components/schemas/Animal"
+ *              $ref: "#/definitions/Animal"
  * */
 export const findAnimalsUser = async (req: Request, res: Response) => {
   try {
@@ -240,12 +240,12 @@ export const findAnimalsUser = async (req: Request, res: Response) => {
  *          description: Id of the animal
  *        - in: body
  *          schema:
- *            $ref: "#/components/schemas/AnimalPatch"
+ *            $ref: "#/definitions/AnimalPatch"
  *      responses:
  *          200:
  *            description: successful operation
  *            schema:
- *              $ref: "#/components/schemas/Animal"
+ *              $ref: "#/definitions/Animal"
  */
 
 export const patchAnimal = async (req: Request, res: Response) => {
