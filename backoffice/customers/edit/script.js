@@ -21,7 +21,7 @@ $(document).ready(function () {
     fetch('/api/v2/users/' + id + '/score/', {
       method: 'GET',
       headers: {
-        authorization: localStorage.token
+        authorization: localStorage.bo_token
       }
     })
       .then((response) => response.json())
@@ -52,7 +52,7 @@ function resetPassword() {
   fetch('/api/v2/users/' + getUrlParameter('id'), {
     method: 'PATCH',
     headers: {
-      authorization: localStorage.token,
+      authorization: localStorage.bo_token,
       'Content-Type': 'application/json',
       'Access-Control-Origin': '*'
     },
@@ -67,7 +67,7 @@ function retrieveUser(id) {
   var url = '/api/v2/users/' + id
   fetch(url, {
     headers: {
-      authorization: localStorage.token
+      authorization: localStorage.bo_token
     }
   })
     .then((response) => response.json())
@@ -116,7 +116,7 @@ $('#send').click(function () {
   fetch('/api/v2/users/' + getUrlParameter('id'), {
     method: 'PATCH',
     headers: {
-      authorization: localStorage.token,
+      authorization: localStorage.bo_token,
       'Content-Type': 'application/json',
       'Access-Control-Origin': '*'
     },
@@ -141,7 +141,7 @@ $('#send').click(function () {
       method: 'PUT',
       headers: {
         'Access-Control-Origin': '*',
-        authorization: localStorage.token
+        authorization: localStorage.bo_token
       },
       body: send
     })
@@ -154,7 +154,7 @@ function animalRemove(name, uid, aid) {
     fetch('/api/v2/users/' + uid + '/animals/' + aid, {
       method: 'DELETE',
       headers: {
-        authorization: localStorage.token
+        authorization: localStorage.bo_token
       }
     })
     window.location.href = window.location.href

@@ -2,7 +2,7 @@ function retrieveUsers(target) {
   var url = '/api/v2/users/'
   fetch(url, {
     headers: {
-      authorization: localStorage.token
+      authorization: localStorage.bo_token
     }
   })
     .then((response) => response.json())
@@ -41,7 +41,7 @@ function userRemove(username, id) {
     fetch('/api/v2/users/' + id, {
       method: 'DELETE',
       headers: {
-        authorization: localStorage.token
+        authorization: localStorage.bo_token
       }
     })
     retrieveUsers('#itemList')

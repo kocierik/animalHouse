@@ -17,7 +17,7 @@ $('#send').click(async function () {
   var dataRes = await fetch('/api/v2/users/register', {
     method: 'POST',
     headers: {
-      authorization: localStorage.token,
+      authorization: localStorage.bo_token,
       'Content-Type': 'application/json',
       'Access-Control-Origin': '*'
     },
@@ -50,7 +50,7 @@ $('#send').click(async function () {
       method: 'PUT',
       headers: {
         'Access-Control-Origin': '*',
-        authorization: localStorage.token
+        authorization: localStorage.bo_token
       },
       body: send
     })

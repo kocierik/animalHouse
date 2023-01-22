@@ -4,7 +4,7 @@ function fetchLocations() {
   var url = '/api/v2/locations/'
   fetch(url, {
     headers: {
-      authorization: localStorage.token
+      authorization: localStorage.bo_token
     }
   })
     .then((response) => response.json())
@@ -39,6 +39,16 @@ const Item = ({ name, id, address }) => `
         </td>
     </tr>
 `
+function locationRemove(name, id) {
+  if (confirm('Are you sure you want to remove the location ' + name + ' | ' + id + '?')) {
+    fetch('/api/v2/locations/' + id, {
+      method: 'DELETE',
+      headers: {
+        authorization: localStorage.bo_token
+      }
+    }).then(fetchLocations())
+  }
+}
 
 // MAP-RELATED FUNCTIONS
 function initMap(target, coords) {
