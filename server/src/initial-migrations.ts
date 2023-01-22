@@ -11,10 +11,10 @@ import Location from './entities/Location'
 import Animal from './entities/Animal'
 
 export const test = async () => {
-  await Admin.deleteOne({username: "test-admin"})
-  await Admin.insertMany([{username: "test-admin", password: "test", 
-      _id: new Types.ObjectId('000000000000000000000001')}])
-
+  await Admin.deleteOne({ username: 'test-admin' })
+  await Admin.insertMany([
+    { username: 'test-admin', password: 'test', _id: new Types.ObjectId('000000000000000000000001') }
+  ])
 
   await User.deleteMany()
   await Animal.deleteMany()

@@ -60,7 +60,7 @@ const swaggerOptions = {
         { name: 'animals' },
         { name: 'reservations' },
         { name: 'locations' }
-      ],
+      ]
     }
   },
   // TODO questo è un accrocchio

@@ -22,7 +22,7 @@ export const SwaggerCart = {
     cartItems: {
       type: 'array',
       items: {
-          $ref: '#/definitions/CartItem'
+        $ref: '#/definitions/CartItem'
       }
     }
   }

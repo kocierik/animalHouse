@@ -67,23 +67,57 @@ appRouter.post(
 )
 
 // Community
-appRouter.get(prefix + '/community/game/', middlewares.log, communityRoutes.getGames)
-appRouter.get(prefix + '/community/game/scoreboard', middlewares.log, communityRoutes.getScoreboard)
+appRouter.get(prefix + '/community/games/', middlewares.log, communityRoutes.getGames)
+appRouter.get(prefix + '/community/games/scoreboard', middlewares.log, communityRoutes.getScoreboard)
 
 // Location
 appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations)
-appRouter.post(prefix + '/locations', middlewares.log, /*middlewares.verifyToken, middlewares.verifyAdmin,*/ locationRoutes.postLocation)
+appRouter.post(
+  prefix + '/locations',
+  middlewares.log,
+  /*middlewares.verifyToken, middlewares.verifyAdmin,*/ locationRoutes.postLocation
+)
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
-appRouter.patch(prefix + '/locations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.patchLocation)
-appRouter.delete(prefix + '/locations/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, locationRoutes.deleteLocation)
+appRouter.patch(
+  prefix + '/locations/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  locationRoutes.patchLocation
+)
+appRouter.delete(
+  prefix + '/locations/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  locationRoutes.deleteLocation
+)
 
 // Products
 appRouter.get(prefix + '/products/', middlewares.log, marketRoutes.getProducts) //retrieve all products
 appRouter.get(prefix + '/products/:id', middlewares.log, marketRoutes.getProduct) //search
 appRouter.get(prefix + '/products/category/:id', middlewares.log, marketRoutes.getProductCategory) //search
-appRouter.delete(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.deleteProduct) //remove
-appRouter.patch(prefix + '/products/:id', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.patchProduct)
-appRouter.post(prefix + '/products', middlewares.log, middlewares.verifyToken, middlewares.verifyAdmin, marketRoutes.postProduct) //insert
+appRouter.delete(
+  prefix + '/products/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  marketRoutes.deleteProduct
+) //remove
+appRouter.patch(
+  prefix + '/products/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  marketRoutes.patchProduct
+)
+appRouter.post(
+  prefix + '/products',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  marketRoutes.postProduct
+) //insert
 appRouter.get(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.getReviews)
 appRouter.post(prefix + '/products/:id/reviews', middlewares.log, marketRoutes.postReview)
 appRouter.get(prefix + '/products/:id/reviews/sum-up', middlewares.log, marketRoutes.getProductSumUp)

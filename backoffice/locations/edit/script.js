@@ -1,4 +1,3 @@
-
 //https://stackoverflow.com/questions/19491336/how-to-get-url-parameter-using-jquery-or-plain-javascript
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
@@ -16,44 +15,51 @@ var getUrlParameter = function getUrlParameter(sParam) {
   return false
 }
 
-initMap('map',[]);
-lat = ""
-lon = ""
-getLocationDetails();
+initMap('map', [])
+lat = ''
+lon = ''
+getLocationDetails()
 
-function getLocationDetails(){
+function getLocationDetails() {
   //GET REQUEST
-  fetch("/api/v2/locations/"+getUrlParameter('id'),{
+  fetch('/api/v2/locations/' + getUrlParameter('id'), {
     headers: {
       authorization: localStorage.bo_token
     }
-  }).then((response) => response.json())
-  .then((el) => {
-    $('#grid-name').val(el.name),
-    $('#grid-street').val(el.address.street),
-    $('#grid-city').val(el.address.city),
-    $('#grid-zip').val(el.address.zip),
-    $('#grid-country').val(el.address.country)
-    var coords = []
-    lat = el.latitude
-    lon = el.longitude
-    coords.push({ lon: lon, lat: lat })
-    addMarkers(map,coords)
   })
+    .then((response) => response.json())
+    .then((el) => {
+      $('#grid-name').val(el.name),
+        $('#grid-street').val(el.address.street),
+        $('#grid-city').val(el.address.city),
+        $('#grid-zip').val(el.address.zip),
+        $('#grid-country').val(el.address.country)
+      var coords = []
+      lat = el.latitude
+      lon = el.longitude
+      coords.push({ lon: lon, lat: lat })
+      addMarkers(map, coords)
+    })
 }
 
 $('#send').click(async function () {
   //PATCH REQUEST
-  if(lat == "" || lon == ""){
-    alert("Please, click on the map to set location coordinates")
+  if (lat == '' || lon == '') {
+    alert('Please, click on the map to set location coordinates')
     return
   }
-  if($('#grid-name').val()=="" || $('#grid-street').val()=="" || $('#grid-city').val()==""||$('#grid-zip').val()==""||$('#grid-country').val()==""){
-    alert("Please, fill all the required fields")
+  if (
+    $('#grid-name').val() == '' ||
+    $('#grid-street').val() == '' ||
+    $('#grid-city').val() == '' ||
+    $('#grid-zip').val() == '' ||
+    $('#grid-country').val() == ''
+  ) {
+    alert('Please, fill all the required fields')
     return
   }
   //SEND USER
-  var dataRes = await fetch('/api/v2/locations/'+getUrlParameter('id'), {
+  var dataRes = await fetch('/api/v2/locations/' + getUrlParameter('id'), {
     method: 'PATCH',
     headers: {
       authorization: localStorage.bo_token,
@@ -68,7 +74,6 @@ $('#send').click(async function () {
       city: $('#grid-city').val(),
       zip: $('#grid-zip').val(),
       country: $('#grid-country').val()
-      
     })
   })
   var data = await dataRes.json()
@@ -78,9 +83,6 @@ $('#send').click(async function () {
     alert(data.mex)
   }
 })
-
-
-
 
 // MAP RELATED FUNCTIONS
 function initMap(target, coords) {
@@ -118,13 +120,18 @@ function addMarkers(map, coords) {
     markers.addMarker(new OpenLayers.Marker(loc, icon.clone()))
   })
 
-  map.events.register("click", map, function(e) {
-    var lonlat = map.getLonLatFromViewPortPx(e.xy).transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-    lon = lonlat.lon;
-    lat = lonlat.lat;
-    var loc = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection('EPSG:4326'), map.getProjectionObject())
+  map.events.register('click', map, function (e) {
+    var lonlat = map
+      .getLonLatFromViewPortPx(e.xy)
+      .transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'))
+    lon = lonlat.lon
+    lat = lonlat.lat
+    var loc = new OpenLayers.LonLat(lon, lat).transform(
+      new OpenLayers.Projection('EPSG:4326'),
+      map.getProjectionObject()
+    )
     markers.clearMarkers()
     markers.addMarker(new OpenLayers.Marker(loc, icon.clone()))
-    console.log("Latitude: " + lat + " Longitude: " + lon);
-  });
+    console.log('Latitude: ' + lat + ' Longitude: ' + lon)
+  })
 }
