@@ -38,10 +38,9 @@ const CommunityPage = () => {
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
-            <h2 className="text-2xl font-semibold mb-5 leading-tight">Game leaderboard</h2>
-            <DropDown list={games} filter={filter} setFilter={setFilter} />
+            <h1 className="text-3xl font-semibold mb-5 leading-tight">Game leaderboard</h1>
+            {/* <DropDown list={games} filter={filter} setFilter={setFilter} /> */}
           </div>
-
           {usersData.map((games, i) => {
             return (
               games.scores.map((user) => {
