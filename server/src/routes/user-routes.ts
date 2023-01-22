@@ -590,7 +590,7 @@ export const deleteAnimal = async (req: Request, res: Response) => {
 *          required: true,
  *         description: Animal info,
  *         schema: {
- *            $ref: #/definitions/Animal
+ *            $ref: "#/definitions/Animal"
  *         }
 *         }
  *       ],
