@@ -224,7 +224,7 @@ export const patchUser = async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}/score : {
+ * /users/{id}/scores : {
  *            "put": {
  *              "tags": [
  *                  "users"
@@ -296,7 +296,7 @@ export const putScore = async (req: Request, res: Response) => {
 
 /**
 * @swagger
-* /users/{id}/score:
+* /users/{id}/scores:
 *   get:
 *     tags:
 *     - users
