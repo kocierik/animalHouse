@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 function Feed() {
   const params = useParams()
   const [forumPost, setForumPost] = useState<JsonForum.IPost[]>([])
+  const [update, setUpdate] = useState<boolean>(false)
 
   const idForum = params.id
   if (!idForum)
@@ -20,13 +21,12 @@ function Feed() {
     const data = (await ApiRepository.getForumPost(idForum!)).data
     if (data) {
       setForumPost(data)
-      console.log(data)
     }
   }
 
   useEffect(() => {
     getPostForum()
-  }, [params])
+  }, [params, update])
 
   return (
     <>
@@ -36,9 +36,9 @@ function Feed() {
         data-aos-duration="500"
         className="mb-5 mt-5 flex flex-1 flex-col p-5 sm:flex-row p-5"
       >
-        <div className='flex flex-1 p-5 flex-col items-center'>
+        <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 p-5 flex-col items-center'>
           <h1 className="text-3xl font-semibold mb-5 leading-tight"></h1>
-          <PostCard />
+          <PostCard setUpdate={setUpdate} update={update} />
           {forumPost?.reverse().map(
             (data, i: number) => {
               return (

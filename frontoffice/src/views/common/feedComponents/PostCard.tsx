@@ -4,7 +4,7 @@ import './PostCard.css'
 import { ApiRepository, Helpers, JsonForum, JsonUser } from 'shared'
 import { useParams } from 'react-router-dom'
 
-const PostCard = () => {
+const PostCard = (props: { setUpdate: React.Dispatch<React.SetStateAction<boolean>>, update: boolean }) => {
   const [inputText, setInputText] = useState<string>('')
 
   const params = useParams()
@@ -38,6 +38,7 @@ const PostCard = () => {
       }
       console.log(data)
       await ApiRepository.postForum(Helpers.getUserId()!, data)
+      props.setUpdate(!props.update)
       setInputText('')
     } else {
       alert('You did not enter anything. Please enter text before submitting your post.')
@@ -47,7 +48,7 @@ const PostCard = () => {
   return (
     <>
       {/* Card Base */}
-      <div className="flex-row   container max-w-md sm:max-w-xl mb-14 h-auto p-2 rounded-lg shadow-md divide-y divide-solid bg-gray-50">
+      <div data-aos-duration="500" data-aos="zoom-in" className="flex-row   container max-w-md sm:max-w-xl mb-14 h-auto p-2 rounded-lg shadow-md divide-y divide-solid bg-gray-50">
         {/* Top Half - Avatar & Text Box */}
         <div className="flex flex-col	 content-start p-4">
           <div className="flex mb-8">
