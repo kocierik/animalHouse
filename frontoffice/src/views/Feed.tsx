@@ -3,6 +3,7 @@ import PostCard from './common/feedComponents/PostCard'
 import FeedCard from './common/feedComponents/FeedCard'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import Trending from './common/feedComponents/Trending'
 
 function Feed() {
   const [posts, setPosts] = useState(getInitialPosts())
@@ -137,39 +138,42 @@ function Feed() {
         id="main"
         data-aos="zoom-in"
         data-aos-duration="500"
-        className="mb-5 mt-5 flex flex-1 flex-col p-5 items-center"
+        className="mb-5 mt-5 flex flex-1 flex-col p-5 sm:flex-row p-5"
       >
-        <PostCard addPostProps={addPostToFeed} />
-        {posts.map(
-          (data: {
-            id: any
-            name: any
-            location: any
-            timestamp: any
-            content: any
-            likes: any
-            comments: any
-            isLiked: any
-          }) => {
-            return (
-              <FeedCard
-                key={uuidv4()}
-                id={data.id}
-                name={data.name}
-                location={data.location}
-                timestamp={data.timestamp}
-                content={data.content}
-                likes={data.likes}
-                comments={data.comments}
-                isLiked={data.isLiked}
-                addCommentProps={addCommentToPost}
-                handleLikeProps={likePost}
-                handleCommentDeleteProps={deleteComment}
-                handleCommentLikeProps={likeComment}
-              />
-            )
-          }
-        )}
+        <div className='flex flex-1 p-5 flex-col items-center'>
+          <PostCard addPostProps={addPostToFeed} />
+          {posts.map(
+            (data: {
+              id: any
+              name: any
+              location: any
+              timestamp: any
+              content: any
+              likes: any
+              comments: any
+              isLiked: any
+            }, i: number) => {
+              return (
+                <FeedCard
+                  key={i}
+                  id={data.id}
+                  name={data.name}
+                  location={data.location}
+                  timestamp={data.timestamp}
+                  content={data.content}
+                  likes={data.likes}
+                  comments={data.comments}
+                  isLiked={data.isLiked}
+                  addCommentProps={addCommentToPost}
+                  handleLikeProps={likePost}
+                  handleCommentDeleteProps={deleteComment}
+                  handleCommentLikeProps={likeComment}
+                />
+              )
+            }
+          )}
+        </div>
+        <Trending />
       </div>
     </>
   )

@@ -26,7 +26,7 @@ const PostCard = (props) => {
         {/* Top Half - Avatar & Text Box */}
         <div className="flex flex-col	 content-start p-4">
           <div className="flex mb-8">
-            <span className="">
+            <span>
               <img
                 src="/imageprofile.jpg"
                 className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14  duration-150"
@@ -51,12 +51,12 @@ const PostCard = (props) => {
 
         {/* Lower Half - Photo/Video & Post Buttons */}
         <div className="flex justify-between p-2 sm:p-4">
-          <button className="hover:-translate-y-1 hover:scale-105 duration-300 flex items-center px-3 sm:px-4 sm:py-2 text-sm space-x-2 max-h-10 rounded-full bg-green-500 hover:bg-green-600 text-white duration-150">
+          <button className="hover:-translate-y-1 hover:scale-105 duration-300 flex items-center px-3 sm:px-4 sm:py-2 text-sm space-x-2 max-h-10 rounded-full bg-indigo-800 hover:bg-indigo-900 text-white duration-150">
             <FaPhotoVideo />
             <p>Photo/Video</p>
           </button>
           <button
-            className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-green-500 hover:bg-green-600 duration-150"
+            className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-indigo-800 hover:bg-indigo-900 duration-150"
             onClick={handleSubmit}
           >
             Post It
