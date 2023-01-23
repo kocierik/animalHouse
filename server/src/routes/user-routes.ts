@@ -8,9 +8,11 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import * as ForumService from '../services/forum-service'
 import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
 import { JsonUserPatch } from '../json/patch/UserPatch'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
+import { JsonPostCreation } from '@/json/JsonPost'
 
 /**
  * @swagger
@@ -750,5 +752,105 @@ export const postUserOrders = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof JsonError) return res.status(err.code).json(err)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
+ *   /users/{id}/posts: {
+ *    post: {
+ *      tags: [users],
+ *      summary: add a post,
+ *      parameters: [
+ *        {
+ *          in: path,
+ *          name: id,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the user 
+ *        },
+ *        {
+ *          in: body,
+ *          name: creation,
+ *          schema: {
+ *            $ref: '#/definitions/PostCreation'  
+ *          },
+ *          required: true,
+ *          description: Id of the user 
+ *        }
+ *      ],
+ *      responses: {
+ *        200: {
+ *          description: successful operation,
+ *          schema: {
+ *              $ref: '#/definitions/Post'
+ *          }
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+export const postUserPost = async (req: Request, res:Response) => {
+  try {
+    return res
+      .status(Const.STATUS_OK)
+      .json(await ForumService.createPost(
+        req.body as JsonPostCreation,
+        req.params.id
+      ))
+  } catch(err) {
+    if (err instanceof JsonError) 
+      return res.status(err.code).json(err.mex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+  }
+}
+
+/**
+ * @swagger
+ *   /users/{uid}/posts/{pid}: {
+ *    post: {
+ *      tags: [users],
+ *      summary: add a post,
+ *      parameters: [
+ *        {
+ *          in: path,
+ *          name: uid,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the user 
+ *        },
+ *        {
+ *          in: path,
+ *          name: pid,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the post
+ *        },
+ *      ],
+ *      responses: {
+ *        204: {
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+export const deleteUserPost = async (req: Request, res:Response) => {
+  try {
+    const uid = req.path.uid
+    const pid = req.path.pid
+    const hasRights = await ForumService.checkPostAccess(uid, pid)
+    if (!hasRights)
+      throw new JsonVisibilityError(`User ${uid} can't access post ${pid}`)
+    return res
+      .status(Const.STATUS_OK)
+      .json(await ForumService.deletePost(
+        pid
+      ))
+  } catch(err) {
+    if (err instanceof JsonError) 
+      return res.status(err.code).json(err.mex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
   }
 }
