@@ -12,7 +12,7 @@ import * as ForumService from '../services/forum-service'
 import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
 import { JsonUserPatch } from '../json/patch/UserPatch'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
-import { JsonPostCreation } from '@/json/JsonPost'
+import { JsonPostCreation } from '../json/JsonPost'
 
 /**
  * @swagger
