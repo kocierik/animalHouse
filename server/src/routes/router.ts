@@ -195,7 +195,7 @@ appRouter.put(
   userRoutes.putScore
 )
 appRouter.get(
-  prefix + '/users/:id/score/',
+  prefix + '/users/:id/scores/',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,

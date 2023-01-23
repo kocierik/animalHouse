@@ -1,3 +1,4 @@
+var games = []
 //https://stackoverflow.com/questions/19491336/how-to-get-url-parameter-using-jquery-or-plain-javascript
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
@@ -18,17 +19,8 @@ var getUrlParameter = function getUrlParameter(sParam) {
 $(document).ready(function () {
   var id = getUrlParameter('id')
   if (id) {
-    fetch('/api/v2/users/' + id + '/score/', {
-      method: 'GET',
-      headers: {
-        authorization: localStorage.bo_token
-      }
-    })
-      .then((response) => response.json())
-      .then((el) => {
-        console.log(el)
-      })
     retrieveUser(id)
+    retrieveScores(id)
   } else {
     window.location.href = '../'
   }
@@ -63,7 +55,41 @@ function resetPassword() {
   alert(getUrlParameter('id') + "'s new password is: " + newPwd)
 }
 
-function retrieveUser(id) {
+//fills games' scores
+function retrieveScores(id){
+  fetch("/api/v2/community/games/").then((res)=>res.json()).then(async (el)=>{
+    games = await el
+  })
+
+
+
+  fetch('/api/v2/users/' + id + '/scores/', {
+    method: 'GET',
+    headers: {
+      authorization: localStorage.bo_token
+    }
+  })
+  .then((response) => response.json())
+  .then((el) => {
+    console.log(el)
+    if(el == undefined || el.length == 0 || el.mex != undefined) {
+      $('#games-place-list').append(`
+      <div class="p-2 py-8 border-b border-solid border-gray-300">
+          <div class="pl-4 flex flex-wrap flex-row items-center">
+              <div class="mr-4 h-16 w-96 block flex flex-row items-center text-gray-700">This user hasn't played any games, yet</div>
+          </div>
+      </div>`)
+      return
+    }
+    el.forEach(g => {
+      gameName = games.find(a => a._id == g.gameId).name
+      $('#games-place-list').append([{ gameName: gameName, score: g.value }].map(GameItem))
+    });
+  })
+}
+
+//fills user data
+async function retrieveUser(id) {
   var url = '/api/v2/users/' + id
   fetch(url, {
     headers: {
@@ -102,10 +128,6 @@ function retrieveUser(id) {
           ].map(AnimalItem)
         )
       })
-      //TODO IMPLEMENT GAMES SCORES
-      $('#games-place-list').append([{ gameName: 'MineSweeperHARDCODED', score: 21334 }].map(GameItem))
-      $('#games-place-list').append([{ gameName: 'HangManHARDCODED', score: 23423 }].map(GameItem))
-
       let img = el.profilePicture
       $('#imgplaceholder').attr('src', img ? '/pictures/' + img.filename : '/backoffice/favicon.ico')
     })
@@ -170,7 +192,6 @@ const GameItem = ({ gameName, score }) => `
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">with ${score} points</div>
         </div>
     </div>
-   
 </div>
 `
 
@@ -190,6 +211,5 @@ const AnimalItem = ({ name, age, picture, aid, uid, type }) => `
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${aid}</div>
         </div>
     </div>
-   
 </div>
 `
