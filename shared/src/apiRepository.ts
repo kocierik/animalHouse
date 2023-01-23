@@ -175,8 +175,8 @@ export const getServicesName = async () =>
 export const getForum = async () =>
   Api.get<forum.IForum[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM), false)
 
-export const getForumContent = async (forumId: string) =>
-  Api.get<forum.IForum[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM_CONTENT, forumId), false)
+export const getForumPost = async (forumId: string) =>
+  Api.get<forum.IPost[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM_CONTENT, forumId), false)
 
 export const postForum = async (userId: string, data: forum.IPostCreation) =>
   Api.post<forum.IPostCreation>(stringFormat(_BASE_URL + _FORUM_POST, userId), data, true)

@@ -4,133 +4,29 @@ import FeedCard from './common/feedComponents/FeedCard'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Trending from './common/feedComponents/Trending'
+import { ApiRepository, JsonForum } from 'shared'
+import { useParams } from 'react-router-dom'
 
 function Feed() {
-  const [posts, setPosts] = useState(getInitialPosts())
+  const params = useParams()
+  const [forumPost, setForumPost] = useState<JsonForum.IPost[]>([])
+
+  const idForum = params.id
+  if (!idForum)
+    // TODO redirect to 404
+    return <div />
+
+  const getPostForum = async () => {
+    const data = await (await ApiRepository.getForumPost(idForum!)).data
+    if (data) {
+      setForumPost(data)
+      console.log(data)
+    }
+  }
 
   useEffect(() => {
-    const temp = JSON.stringify(posts)
-    localStorage.setItem('posts', temp)
-  }, [posts])
-
-  function getInitialPosts() {
-    const temp: any = localStorage.getItem('posts')
-    const savedPosts = JSON.parse(temp)
-    return savedPosts || postsData
-  }
-
-  function getTimestamp() {
-    var today = new Date()
-    var yyyy = today.getFullYear()
-    var mm = String(today.getMonth() + 1).padStart(2, '0')
-    var dd = String(today.getDate()).padStart(2, '0')
-    var hr = String(today.getHours()).padStart(2, '0')
-    var min = String(today.getMinutes()).padStart(2, '0')
-    var sec = String(today.getSeconds()).padStart(2, '0')
-
-    let timestamp = yyyy + '-' + mm + '-' + dd + ' ' + hr + ':' + min + ':' + sec
-
-    return timestamp
-  }
-
-  const addPostToFeed = (content: any) => {
-    let k = uuidv4()
-    const newPost = {
-      key: k,
-      id: k,
-      name: 'Fake Guy',
-      location: 'OH, USA',
-      timestamp: getTimestamp(),
-      content: content,
-      likes: 0,
-      comments: [],
-      isLiked: false
-    }
-    setPosts([newPost, ...posts])
-  }
-
-  const addCommentToPost = (comment: any, pId: any) => {
-    let k = uuidv4()
-    const newComment = {
-      key: k,
-      id: k,
-      name: 'Fake Guy',
-      title: 'Bot Lane',
-      timestamp: getTimestamp(),
-      content: comment,
-      likes: 0,
-      isLiked: false
-    }
-    setPosts((prevState: any[]) =>
-      prevState.map((post) => {
-        if (post.id === pId) {
-          console.log(`Map ID: ${post.id}`)
-          console.log(`Passed ID: ${pId}`)
-          return {
-            ...post,
-            comments: [newComment, ...post.comments]
-          }
-        }
-        return post
-      })
-    )
-  }
-
-  const deleteComment = (pId: any, cId: any) => {
-    setPosts((prevState: any[]) =>
-      prevState.map((post) => {
-        if (post.id === pId) {
-          post.comments = [
-            ...post.comments.filter((c: { id: any }) => {
-              return c.id !== cId
-            })
-          ]
-          return {
-            ...post
-          }
-        }
-        return post
-      })
-    )
-  }
-
-  const likeComment = (pId: any, cId: any) => {
-    setPosts((prevState: any[]) =>
-      prevState.map((post) => {
-        if (post.id === pId) {
-          post.comments = [
-            ...post.comments.map((c: { id: any; isLiked: boolean }) => {
-              if (c.id === cId) {
-                c.isLiked = !c.isLiked
-                return {
-                  ...c
-                }
-              }
-              return c
-            })
-          ]
-          return {
-            ...post
-          }
-        }
-        return post
-      })
-    )
-  }
-
-  const likePost = (pId: any) => {
-    setPosts((prevState: any[]) =>
-      prevState.map((post) => {
-        if (post.id === pId) {
-          return {
-            ...post,
-            isLiked: !post.isLiked
-          }
-        }
-        return post
-      })
-    )
-  }
+    getPostForum()
+  }, [params])
 
   return (
     <>
@@ -143,32 +39,17 @@ function Feed() {
         <div className='flex flex-1 p-5 flex-col items-center'>
           <h1 className="text-3xl font-semibold mb-5 leading-tight">Forum</h1>
           <PostCard />
-          {posts.map(
-            (data: {
-              id: any
-              name: any
-              location: any
-              timestamp: any
-              content: any
-              likes: any
-              comments: any
-              isLiked: any
-            }, i: number) => {
+          {forumPost?.reverse().map(
+            (data, i: number) => {
               return (
                 <FeedCard
                   key={i}
-                  id={data.id}
-                  name={data.name}
-                  location={data.location}
-                  timestamp={data.timestamp}
-                  content={data.content}
-                  likes={data.likes}
-                  comments={data.comments}
-                  isLiked={data.isLiked}
-                  addCommentProps={addCommentToPost}
-                  handleLikeProps={likePost}
-                  handleCommentDeleteProps={deleteComment}
-                  handleCommentLikeProps={likeComment}
+                  userId={data.userId}
+                  forumId={data.forumId}
+                  date={data.date}
+                  text={data.text}
+                  valid={true}
+                // likes={1}
                 />
               )
             }

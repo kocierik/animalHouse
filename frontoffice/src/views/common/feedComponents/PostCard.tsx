@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaPhotoVideo } from 'react-icons/fa'
 import './PostCard.css'
-import { ApiRepository, Helpers, JsonForum } from 'shared'
+import { ApiRepository, Helpers, JsonForum, JsonUser } from 'shared'
 import { useParams } from 'react-router-dom'
 
 const PostCard = () => {
@@ -13,6 +13,17 @@ const PostCard = () => {
   if (!id)
     // TODO redirect to 404
     return <div />
+  const [user, setUser] = useState<JsonUser.JsonUser>()
+
+  const getUserName = async () => {
+    const data = (await ApiRepository.getUserInfoById(localStorage.getItem('userId')!)).data
+    if (data) {
+      setUser(data)
+    }
+  }
+  useEffect(() => {
+    getUserName()
+  }, [])
 
   const onChange = (e: { target: { value: React.SetStateAction<string> } }) => {
     setInputText(e.target.value)
@@ -42,13 +53,13 @@ const PostCard = () => {
           <div className="flex mb-8">
             <span>
               <img
-                src="/imageprofile.jpg"
+                src={user?.profilePicture?.filename}
                 className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14  duration-150"
                 alt="User profile"
               />
             </span>
             <div className="flex flex-1 px-5 items-center">
-              <span className="font-black	text-lg	">Erik Koci</span>
+              <span className="font-black	text-lg	">{user?.username}</span>
             </div>
           </div>
           <div className="flex">

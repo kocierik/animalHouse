@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { ApiRepository, JsonForum } from 'shared'
 
 const Trending = () => {
-
   const [listForum, setListForum] = useState<JsonForum.IForum[]>([])
-
+  const navigate = useNavigate()
   const getForum = async () => {
     const data = (await ApiRepository.getForum()).data
     if (data) {
@@ -28,7 +28,7 @@ const Trending = () => {
               <span className="flex-shrink-0 w-10 h-10 bg-gray-400 rounded-full"></span>
               <div className="flex flex-col flex-grow ml-2">
                 <div className="flex text-sm">
-                  <span className="text-md font-black	 text-indigo-800">{forum.name}</span>
+                  <span onClick={() => { navigate("/forum/" + forum._id) }} className="text-md font-black	 text-indigo-800">{forum.name}</span>
                 </div>
                 <p className="mt-1 text-sm">{forum.description}</p>
               </div>
