@@ -50,11 +50,7 @@ const PostCard = (props) => {
         </div>
 
         {/* Lower Half - Photo/Video & Post Buttons */}
-        <div className="flex justify-between p-2 sm:p-4">
-          <button className="hover:-translate-y-1 hover:scale-105 duration-300 flex items-center px-3 sm:px-4 sm:py-2 text-sm space-x-2 max-h-10 rounded-full bg-indigo-800 hover:bg-indigo-900 text-white duration-150">
-            <FaPhotoVideo />
-            <p>Photo/Video</p>
-          </button>
+        <div className="flex justify-end p-2 sm:p-4">
           <button
             className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-indigo-800 hover:bg-indigo-900 duration-150"
             onClick={handleSubmit}

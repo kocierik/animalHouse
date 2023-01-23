@@ -20,12 +20,6 @@ const PostHeader = (props) => {
           {/* <FaEllipsisH className="text-gray-500 hover:text-current duration-150" /> */}
         </div>
 
-        {/* Location */}
-        <span className="flex items-center align text-green-500 space-x-1 text-sm font-semibold">
-          <FaMapMarkerAlt />
-          <p>{props.location}</p>
-        </span>
-
         {/* Time */}
         <TimeAgo
           className="flex ml-0.5 text-tiny font-sans font-semibold text-gray-600"

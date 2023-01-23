@@ -26,14 +26,6 @@ const LikeCommentButtons = (props) => {
         <p>{props.isLiked ? 'Liked' : 'Like'}</p>
       </button>
 
-      {/* Comment Button */}
-      <button
-        className="flex items-center px-2 pt-3 space-x-2 max-h-10 rounded-full bg-transparent text-gray-600 hover:text-green-500 duration-150"
-        onClick={() => handleDrawerInteraction()}
-      >
-        <FaCommentDots className="fill-current" />
-        <p>Comment</p>
-      </button>
     </div>
   )
 }
