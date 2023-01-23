@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 function Feed() {
   const params = useParams()
   const [forumPost, setForumPost] = useState<JsonForum.IPost[]>([])
+  const [forumName, setForumName] = useState<string>('')
   const [update, setUpdate] = useState<boolean>(false)
 
   const idForum = params.id
@@ -23,9 +24,16 @@ function Feed() {
       setForumPost(data)
     }
   }
+  const getForumName = async () => {
+    const data = (await ApiRepository.getForumName(idForum)).data
+    if (data) {
+      setForumName(data)
+    }
+  }
 
   useEffect(() => {
     getPostForum()
+    getForumName()
   }, [params, update])
 
   return (
@@ -34,10 +42,10 @@ function Feed() {
         id="main"
         data-aos="zoom-in"
         data-aos-duration="500"
-        className="mb-5 mt-5 flex flex-1 flex-col p-5 sm:flex-row p-5"
+        className="mb-5 mt-5 flex flex-col lg:flex-row md:flex-row sm:flex-col sm:flex-col"
       >
-        <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 p-5 flex-col items-center'>
-          <h1 className="text-3xl font-semibold mb-5 leading-tight"></h1>
+        <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 mt-10 flex-col items-center'>
+          <h1 className="text-3xl font-semibold mb-5 leading-tight">{forumName}</h1>
           <PostCard setUpdate={setUpdate} update={update} />
           {forumPost?.reverse().map(
             (data, i: number) => {

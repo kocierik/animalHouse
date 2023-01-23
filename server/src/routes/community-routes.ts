@@ -113,7 +113,7 @@ export const getScoreboard = async (req: Request, res: Response) => {
  *   }
  * */
 export const getForums = async (_: Request, res: Response) =>
-   res
+  res
     .status(Const.STATUS_OK)
     .json(await ForumService.getForums())
 
@@ -147,7 +147,15 @@ export const getForums = async (_: Request, res: Response) =>
  *   }
  * */
 // TODO implement valid filter
-export const getForumPosts = async (req: Request, res:Response) => 
+export const getForumPosts = async (req: Request, res: Response) => {
   res
     .status(Const.STATUS_OK)
     .json(await ForumService.getPostOfForum(req.params.id))
+}
+
+export const getForumsName = async (req: Request, res: Response) => {
+  res
+    .status(Const.STATUS_OK)
+    .json(await ForumService.getNameOfForum(req.params.id))
+}
+

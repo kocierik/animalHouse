@@ -54,3 +54,8 @@ export const getPostOfForum = async (forumId: string, showInvalid = false): Prom
     }
     throw new JsonNotFoundError(`Can't find forum with id ${forumId}`)
 }
+
+export const getNameOfForum = async (forumId: string) => {
+    const forumName = await Forum.findById(forumId)
+    return forumName.name
+}

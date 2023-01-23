@@ -19,8 +19,8 @@ const Trending = () => {
   }, [])
 
   return (
-    <div style={{ flex: '0 1 30%' }} className="flex pl-10 flex-col  shrink py-4 ">
-      <h3 className="mt-6 font-semibold">See More</h3>
+    <div style={{ flex: '0 1 30%' }} className="flex lg:pl-10  flex-col p-5  shrink py-4 ">
+      <h3 className="mt-6 text-xl font-semibold">Trending</h3>
       {
         listForum?.map((forum, i) => {
           return (
