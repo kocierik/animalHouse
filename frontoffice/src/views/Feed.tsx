@@ -17,7 +17,7 @@ function Feed() {
     return <div />
 
   const getPostForum = async () => {
-    const data = await (await ApiRepository.getForumPost(idForum!)).data
+    const data = (await ApiRepository.getForumPost(idForum!)).data
     if (data) {
       setForumPost(data)
       console.log(data)
@@ -37,7 +37,7 @@ function Feed() {
         className="mb-5 mt-5 flex flex-1 flex-col p-5 sm:flex-row p-5"
       >
         <div className='flex flex-1 p-5 flex-col items-center'>
-          <h1 className="text-3xl font-semibold mb-5 leading-tight">Forum</h1>
+          <h1 className="text-3xl font-semibold mb-5 leading-tight"></h1>
           <PostCard />
           {forumPost?.reverse().map(
             (data, i: number) => {
