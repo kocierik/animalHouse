@@ -8,7 +8,7 @@ const Adoption = () => {
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h2 className="text-2xl font-semibold mb-5 leading-tight">Adoption</h2>
           </div>
-          <div className="grid grid-cols-2 gap-4 -mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 -mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div>
                 <p className="mb-4">
                     Adopting animals is an important and rewarding choice. Not only does it provide a loving home for a creature in need, but it can also bring a sense of purpose and joy to the adopter's life.
@@ -32,15 +32,19 @@ const Adoption = () => {
           </div>
         </div>
         <div>
-            <h2 className="text-2xl font-bold">Adopt a new friend via one of our partners</h2>
-            <div className="m-4 flex items-center">
-                <img style={{height: '10rem', width: '16rem'}} src="https://static.lav.it/images/logo/lav.svg" />
-                <div>
+            <h2 className="text-2xl font-bold">Adopt a new friend via our partner LAV</h2>
+            <div className="m-4 flex flex-wrap justify-center items-center">
+                <img style={{height: '15rem', width: '21rem'}} src="https://static.lav.it/images/logo/lav.svg" />
+                <div className="grid grid-row-2 gap-6 m-4">
                     <a href="https://amarefabene.lav.it/">
-                        <h3 className="text-xl font-bold">Direct adoption</h3>
+                        <div className="bg-indigo-800 p-6 rounded-xl text-white font-black shadow">
+                            <h3 className="text-xl font-bold text-center">Direct adoption</h3>
+                        </div>
                     </a>
                     <a href="https://adozioneadistanza.lav.it/">
-                        <h3 className="text-xl font-bold">Distance adoption</h3>
+                        <div className="bg-blue-600 p-6 rounded-xl text-white font-black shadow">
+                            <h3 className="text-xl text-center font-bold">Distance adoption</h3>
+                        </div>
                     </a>
                 </div>
             </div>
