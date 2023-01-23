@@ -12,6 +12,8 @@ import type * as location from './json/Location'
 import type * as cart from './json/Cart'
 import type * as order from './json/Orders'
 import type * as service from './json/Service'
+import type * as forum from './json/Forum'
+import { JsonForum } from '../shared'
 
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/api/v2'
@@ -54,6 +56,8 @@ const _SERVICES_SINGLE_GET = '/services/names/{0}'
 
 const _LOCATION_GET = '/locations/{0}'
 const _COMMUNITY_GAME = '/community/games'
+const _COMMUNITY_FORUM = '/community/forums'
+const _COMMUNITY_FORUM_CONTENT = '/community/forums/{0}/posts'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, {
@@ -166,7 +170,13 @@ export const getLocationById = async (locationId: string) =>
 
 export const getServices = async () => Api.get<service.IService[]>(stringFormat(_BASE_URL + _SERVICES_GET), false)
 
-export const getServicesName = async (serviceId: string) =>
-  Api.get<string>(stringFormat(_BASE_URL + _SERVICES_SINGLE_GET, serviceId), false)
+export const getServicesName = async () =>
+  Api.get<string>(stringFormat(_BASE_URL + _SERVICES_SINGLE_GET), false)
+
+export const getForum = async () =>
+  Api.get<forum.IForum[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM), false)
+
+export const getForumContent = async (forumId: string) =>
+  Api.get<forum.IForum[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM_CONTENT, forumId), false)
 
 // TODO insert here other calls!!!!
