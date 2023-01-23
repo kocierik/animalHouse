@@ -8,9 +8,11 @@ import * as jwt from 'jsonwebtoken'
 import * as Const from '../const'
 import * as UserService from '../services/user-service'
 import * as GameService from '../services/game-service'
+import * as ForumService from '../services/forum-service'
 import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
 import { JsonUserPatch } from '../json/patch/UserPatch'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
+import { JsonPostCreation } from '../json/JsonPost'
 
 /**
  * @swagger
@@ -610,9 +612,7 @@ export const updateAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
     const userId = req.params.uid
-    console.log(userId)
     let animal = req.body as JsonAnimal
-    console.log(animal)
     return res.status(Const.STATUS_OK).json(await UserService.updateFromAnimal(userId, animalId, animal))
   } catch (error) {
     return res.status(Const.STATUS_BAD_REQUEST).json(error)
@@ -675,7 +675,6 @@ export const updateUserDescription = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     let updateUser = req.body as JsonUser
-    console.log(updateUser)
     return res.status(Const.STATUS_OK).json(await UserService.updateUserDescription(pathId, updateUser))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
@@ -750,5 +749,107 @@ export const postUserOrders = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof JsonError) return res.status(err.code).json(err)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
+ *   /users/{id}/posts: {
+ *    post: {
+ *      tags: [users],
+ *      summary: add a post,
+ *      security: [ {JWT: []}],
+ *      parameters: [
+ *        {
+ *          in: path,
+ *          name: id,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the user 
+ *        },
+ *        {
+ *          in: body,
+ *          name: creation,
+ *          schema: {
+ *            $ref: '#/definitions/PostCreation'  
+ *          },
+ *          required: true,
+ *          description: Id of the user 
+ *        }
+ *      ],
+ *      responses: {
+ *        200: {
+ *          description: successful operation,
+ *          schema: {
+ *              $ref: '#/definitions/Post'
+ *          }
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+export const postUserPost = async (req: Request, res:Response) => {
+  try {
+    return res
+      .status(Const.STATUS_OK)
+      .json(await ForumService.createPost(
+        req.body as JsonPostCreation,
+        req.params.id
+      ))
+  } catch(err) {
+    if (err instanceof JsonError) 
+      return res.status(err.code).json(err.mex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+  }
+}
+
+/**
+ * @swagger
+ *   /users/{uid}/posts/{pid}: {
+ *    delete: {
+ *      tags: [users],
+ *      summary: '[ONLY FOR ADMINS] add a post',
+ *      security: [ {JWT: []}],
+ *      parameters: [
+ *        {
+ *          in: path,
+ *          name: uid,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the user 
+ *        },
+ *        {
+ *          in: path,
+ *          name: pid,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the post
+ *        },
+ *      ],
+ *      responses: {
+ *        204: {
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+export const deleteUserPost = async (req: Request, res:Response) => {
+  try {
+    const uid = req.authData.id
+    const pid = req.params.pid
+    const hasRights = await ForumService.checkPostAccess(uid, pid)
+    if (!hasRights)
+      throw new JsonVisibilityError(`User ${uid} can't access post ${pid}`)
+    return res
+      .status(Const.STATUS_OK)
+      .json(await ForumService.deletePost(
+        pid
+      ))
+  } catch(err) {
+    if (err instanceof JsonError) 
+      return res.status(err.code).json(err.mex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(err.message)
   }
 }

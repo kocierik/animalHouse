@@ -69,13 +69,17 @@ appRouter.post(
 // Community
 appRouter.get(prefix + '/community/games/', middlewares.log, communityRoutes.getGames)
 appRouter.get(prefix + '/community/games/scoreboard', middlewares.log, communityRoutes.getScoreboard)
+appRouter.get(prefix + '/community/forums', middlewares.log, communityRoutes.getForums)
+appRouter.get(prefix + '/community/forums/:id/posts', middlewares.log, communityRoutes.getForumPosts)
 
 // Location
 appRouter.get(prefix + '/locations', middlewares.log, locationRoutes.getLocations)
 appRouter.post(
   prefix + '/locations',
   middlewares.log,
-  /*middlewares.verifyToken, middlewares.verifyAdmin,*/ locationRoutes.postLocation
+  middlewares.verifyToken,
+   middlewares.verifyAdmin,
+    locationRoutes.postLocation
 )
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
 appRouter.patch(
@@ -305,4 +309,20 @@ appRouter.post(
   middlewares.verifyToken,
   middlewares.verifyUser,
   reservationRoutes.postReservation
+)
+
+appRouter.post(
+  prefix + '/users/:id/posts',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.postUserPost
+)
+
+appRouter.delete(
+  prefix + '/users/:uid/posts/:pid',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  userRoutes.deleteUserPost
 )

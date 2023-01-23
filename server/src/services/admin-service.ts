@@ -2,10 +2,11 @@ import { JsonVisibilityError } from '../json/JsonError'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'
+import { Types } from 'mongoose'
 
 export const isAdmin = async (id: string): Promise<boolean> => {
-  const x = await Admin.exists({ _id: id })
-  return x ? true : false
+  const x = await Admin.exists({ _id: new Types.ObjectId(id)})
+  return x !== null
 }
 
 export const verifyLogin = (login: JsonLogin): Promise<AuthData> => {

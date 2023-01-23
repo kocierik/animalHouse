@@ -9,6 +9,7 @@ import Admin from './entities/Admin'
 import ReservationCode from './entities/Service'
 import Location from './entities/Location'
 import Animal from './entities/Animal'
+import { Forum } from './entities/Forum'
 
 export const test = async () => {
   await Admin.deleteOne({ username: 'test-admin' })
@@ -170,6 +171,32 @@ export const initAdmin = async () => {
     {
       username: 'admin',
       password: 'secret'
+    }
+  ])
+}
+
+export const initForums = async () => {
+  await Forum.deleteMany()
+  await Forum.insertMany([
+    { 
+      name: 'Here it is',
+      description: 'Share the photos of your friends with the Animal House community!'
+    },
+    { 
+      name: 'Help',
+      description: 'Ask the Animal House community for help!'
+    },
+    {
+      name: 'It\'s your turn!',
+      description: 'Let your animal share his/her thoughts with the House comunity for help!'
+    },
+    {
+      name: 'My advice is...',
+      description: 'Here users can share advices with other memeber of the community'
+    },
+    {
+      name: 'LOL - laughing togheter',
+      description: 'Share your jokes with the Animal House comunity'
     }
   ])
 }

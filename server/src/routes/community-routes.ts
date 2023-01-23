@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { Game } from '../entities/Community'
 import * as Const from '../const'
 import * as GameService from '../services/game-service'
+import * as ForumService from '../services/forum-service'
 import JsonError from '../json/JsonError'
 
 /**
@@ -89,3 +90,64 @@ export const getScoreboard = async (req: Request, res: Response) => {
   }
   return res.status(Const.STATUS_OK).json(result)
 }
+
+
+/**
+ * @swagger
+ *   /community/forums: {
+ *    get: {
+ *      tags: [community],
+ *      summary: get all forums,
+ *      responses: {
+ *        200: {
+ *          description: successful operation,
+ *          schema: {
+ *            type: array,
+ *            items: {
+ *              $ref: '#/definitions/Forum'
+ *            }
+ *          }
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+export const getForums = async (_: Request, res: Response) =>
+   res
+    .status(Const.STATUS_OK)
+    .json(await ForumService.getForums())
+
+/**
+ * @swagger
+ *   /community/forums/{id}/posts: {
+ *    get: {
+ *      tags: [community],
+ *      summary: get the post of the forum,
+ *      parameters: [
+ *        {
+ *          in: path,
+ *          name: id,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the forum
+ *        }
+ *      ],
+ *      responses: {
+ *        200: {
+ *          description: successful operation,
+ *          schema: {
+ *            type: array,
+ *            items: {
+ *              $ref: '#/definitions/Post'
+ *            }
+ *          }
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+// TODO implement valid filter
+export const getForumPosts = async (req: Request, res:Response) => 
+  res
+    .status(Const.STATUS_OK)
+    .json(await ForumService.getPostOfForum(req.params.id))

@@ -2,9 +2,11 @@ import { SwaggerAnimal } from './json/JsonAnimal'
 import { SwaggerCart } from './json/JsonCart'
 import { SwaggerCartItem } from './json/JsonCartItem'
 import { SwaggerCartItemCreation } from './json/JsonCartItemCreation'
+import { SwaggerForum } from './json/JsonForum'
 import { SwaggerLocation, SwaggerLocationCreation } from './json/JsonLocation'
 import { SwaggerOrder } from './json/JsonOrder'
 import { SwaggerPaymentDetails } from './json/JsonPaymentDetails'
+import { SwaggerPost, SwaggerPostCreation } from './json/JsonPost'
 import { SwaggerProduct } from './json/JsonProduct'
 import { SwaggerReviewSumUp } from './json/JsonProductSumUp'
 import { SwaggerReservation } from './json/JsonReservation'
@@ -50,7 +52,10 @@ const swaggerOptions = {
       Reservation: SwaggerReservation,
       Location: SwaggerLocation,
       LocationPatch: SwaggerLocationPatch,
-      LocationCreation: SwaggerLocationCreation
+      LocationCreation: SwaggerLocationCreation,
+      Forum: SwaggerForum,
+      Post: SwaggerPost,
+      PostCreation: SwaggerPostCreation,
     },
     components: {
       tags: [
