@@ -82,10 +82,10 @@ const Navbar = () => {
                     <Link to="/community/">Community</Link>
                   </span>
                   <span
-                    style={{ backgroundColor: history.pathname === '/forum/' ? 'indigo' : '' }}
+                    style={{ backgroundColor: history.pathname === '/forum/63cef427d93bbce76c2ca583' ? 'indigo' : '' }}
                     className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    <Link to="/forum/">Forum</Link>
+                    <Link to="/forum/63cef427d93bbce76c2ca583">Forum</Link>
                   </span>
                 </div>
               </div>
@@ -289,7 +289,7 @@ const Navbar = () => {
               >
                 <a
                   onClick={() => {
-                    navigate('/forum/')
+                    navigate('/forum/63cef427d93bbce76c2ca583')
                     setNav(!nav)
                   }}
                   className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"

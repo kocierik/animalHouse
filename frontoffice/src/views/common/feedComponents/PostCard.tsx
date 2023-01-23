@@ -1,18 +1,32 @@
 import React, { useState } from 'react'
 import { FaPhotoVideo } from 'react-icons/fa'
 import './PostCard.css'
+import { ApiRepository, Helpers, JsonForum } from 'shared'
+import { useParams } from 'react-router-dom'
 
-const PostCard = (props) => {
-  const [inputText, setInputText] = useState()
+const PostCard = () => {
+  const [inputText, setInputText] = useState<string>('')
 
-  const onChange = (e) => {
+  const params = useParams()
+  const id = params.id
+
+  if (!id)
+    // TODO redirect to 404
+    return <div />
+
+  const onChange = (e: { target: { value: React.SetStateAction<string> } }) => {
     setInputText(e.target.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (inputText.trim()) {
-      props.addPostProps(inputText)
+      const data: JsonForum.IPostCreation = {
+        text: inputText,
+        forumId: id!
+      }
+      console.log(data)
+      await ApiRepository.postForum(Helpers.getUserId()!, data)
       setInputText('')
     } else {
       alert('You did not enter anything. Please enter text before submitting your post.')

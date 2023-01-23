@@ -142,7 +142,7 @@ function Feed() {
       >
         <div className='flex flex-1 p-5 flex-col items-center'>
           <h1 className="text-3xl font-semibold mb-5 leading-tight">Forum</h1>
-          <PostCard addPostProps={addPostToFeed} />
+          <PostCard />
           {posts.map(
             (data: {
               id: any

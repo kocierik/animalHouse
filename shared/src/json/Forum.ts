@@ -1,5 +1,9 @@
 export interface IForum {
-  _id: string
   name: string
   description: string
+}
+
+export interface IPostCreation {
+  text: string
+  forumId: string
 }

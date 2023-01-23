@@ -13,8 +13,6 @@ import type * as cart from './json/Cart'
 import type * as order from './json/Orders'
 import type * as service from './json/Service'
 import type * as forum from './json/Forum'
-import { JsonForum } from '../shared'
-
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/api/v2'
 
@@ -58,6 +56,7 @@ const _LOCATION_GET = '/locations/{0}'
 const _COMMUNITY_GAME = '/community/games'
 const _COMMUNITY_FORUM = '/community/forums'
 const _COMMUNITY_FORUM_CONTENT = '/community/forums/{0}/posts'
+const _FORUM_POST = '/users/{0}/posts'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, {
@@ -178,5 +177,9 @@ export const getForum = async () =>
 
 export const getForumContent = async (forumId: string) =>
   Api.get<forum.IForum[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM_CONTENT, forumId), false)
+
+export const postForum = async (userId: string, data: forum.IPostCreation) =>
+  Api.post<forum.IPostCreation>(stringFormat(_BASE_URL + _FORUM_POST, userId), data, true)
+
 
 // TODO insert here other calls!!!!

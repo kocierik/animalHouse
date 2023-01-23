@@ -21,9 +21,9 @@ export const createPost = async (postCreation: JsonPostCreation, userId: string)
 }
 
 const validatePostCreation = async (postCreation: JsonPostCreation) => {
-    if(!postCreation.text) throw new JsonBadReqError(`'text' field is undefined or null`)
-    if(postCreation.text === '') throw new JsonBadReqError(`Cannot create an empty post. Please provide a valid 'text' field`)
-    if(await Forum.exists({_id: postCreation.forumId}))
+    if (!postCreation.text) throw new JsonBadReqError(`'text' field is undefined or null`)
+    if (postCreation.text === '') throw new JsonBadReqError(`Cannot create an empty post. Please provide a valid 'text' field`)
+    if (await Forum.exists({ _id: postCreation.forumId }))
         return true
     throw new JsonNotFoundError(`Can't create post for forum ${postCreation.forumId} because it doesn't exists`)
 }
@@ -35,7 +35,7 @@ export const checkPostAccess = async (userId: string, postId: string): Promise<b
     return isOwner || isAdmin
 }
 
-export const deletePost = async (postId: string) : Promise<JsonPost> => {
+export const deletePost = async (postId: string): Promise<JsonPost> => {
     const post = await Post.findById(postId)
     if (!post) {
         throw new JsonNotFoundError(`Can't find post with id ${postId}`)
@@ -45,12 +45,12 @@ export const deletePost = async (postId: string) : Promise<JsonPost> => {
     return post as JsonPost
 }
 
-export const getForums = (): Promise<JsonForum[]> => 
+export const getForums = (): Promise<JsonForum[]> =>
     Forum.find({}).then(x => x.map(y => y as JsonForum))
 
-export const getPostOfForum = async (forumId: string, showInvalid=false) : Promise<JsonPost[]> => {
-    if(await Forum.exists({_id: forumId})) {
-        return (await Post.find({forumId: forumId})).filter(x => showInvalid || x.valid) as JsonPost[]
+export const getPostOfForum = async (forumId: string, showInvalid = false): Promise<JsonPost[]> => {
+    if (await Forum.exists({ _id: forumId })) {
+        return (await Post.find({ forumId: forumId })).filter(x => showInvalid || x.valid) as JsonPost[]
     }
     throw new JsonNotFoundError(`Can't find forum with id ${forumId}`)
 }

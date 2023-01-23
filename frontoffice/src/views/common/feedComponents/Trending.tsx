@@ -28,7 +28,7 @@ const Trending = () => {
               <span className="flex-shrink-0 w-10 h-10 bg-gray-400 rounded-full"></span>
               <div className="flex flex-col flex-grow ml-2">
                 <div className="flex text-sm">
-                  <span className="font-semibold">{forum.name}</span>
+                  <span className="text-md font-black	 text-indigo-800">{forum.name}</span>
                 </div>
                 <p className="mt-1 text-sm">{forum.description}</p>
               </div>

@@ -178,11 +178,16 @@ export const initAdmin = async () => {
 export const initForums = async () => {
   await Forum.deleteMany()
   await Forum.insertMany([
-    { 
+    {
+      _id: '63cef427d93bbce76c2ca583',
+      name: 'Welcome',
+      description: 'Welcome to our community! Speak with other people here!'
+    },
+    {
       name: 'Here it is',
       description: 'Share the photos of your friends with the Animal House community!'
     },
-    { 
+    {
       name: 'Help',
       description: 'Ask the Animal House community for help!'
     },

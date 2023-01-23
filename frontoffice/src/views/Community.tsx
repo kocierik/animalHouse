@@ -13,7 +13,6 @@ const CommunityPage = () => {
     if ((await ApiRepository.getUserScore()).esit) {
       const val = (await ApiRepository.getUserScore()).data! as Community.IGameValues[]
       setUsersData(val!)
-      console.log(val!)
     }
   }
 
@@ -22,9 +21,7 @@ const CommunityPage = () => {
     if (data) {
       data.map(item => {
         setGames((game => [...game, item.name]))
-        console.log(item)
       })
-      console.log(data)
     }
   }
 
