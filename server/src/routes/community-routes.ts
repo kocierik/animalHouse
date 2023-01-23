@@ -146,6 +146,7 @@ export const getForums = async (_: Request, res: Response) =>
  *     }
  *   }
  * */
+// TODO implement valid filter
 export const getForumPosts = async (req: Request, res:Response) => 
   res
     .status(Const.STATUS_OK)

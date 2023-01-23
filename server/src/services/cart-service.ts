@@ -2,7 +2,7 @@ import JsonError, { JsonNotFoundError, JsonServerError, JsonVisibilityError } fr
 import Cart, { ICart } from '../entities/Cart'
 import { CartItem, ICartItem } from '../entities/CartItem'
 import { JsonCart } from '../json/JsonCart'
-import { JsonCartItemCreation } from '@/json/JsonCartItemCreation'
+import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
 import * as ProductService from './product-service'
 
 export const cartToJsonCart = (cart: ICart) => cart as JsonCart

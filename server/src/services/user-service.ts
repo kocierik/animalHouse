@@ -18,7 +18,7 @@ import * as CartService from './cart-service'
 import * as OrderService from './order-service'
 import * as ProductService from './product-service'
 import { IPicture } from '../entities/Picture'
-import { AnimalPatch } from '@/json/patch/AnimalPatch'
+import { AnimalPatch } from '../json/patch/AnimalPatch'
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)

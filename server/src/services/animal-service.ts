@@ -3,7 +3,7 @@ import Animal, { IAnimal } from '../entities/Animal'
 import AnimalCode from '../entities/AnimalCode'
 import User from '../entities/User'
 import JsonError from '../json/JsonError'
-import { AnimalPatch } from '@/json/patch/AnimalPatch'
+import { AnimalPatch } from '../json/patch/AnimalPatch'
 
 export const createAnimals = async (animals: JsonAnimal[]): Promise<IAnimal[]> =>
   (await Animal.insertMany(animals.map(jsonAnimalToAnimal))) as IAnimal[]
