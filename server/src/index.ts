@@ -31,6 +31,7 @@ async function db() {
   await migrations.initAdmin()
   await migrations.initReservationCodes()
   await migrations.initLocationCodes()
+  await migrations.initForums()
   // TODO remove
   await migrations.test()
 }
