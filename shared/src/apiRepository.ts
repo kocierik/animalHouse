@@ -170,8 +170,8 @@ export const getLocationById = async (locationId: string) =>
 
 export const getServices = async () => Api.get<service.IService[]>(stringFormat(_BASE_URL + _SERVICES_GET), false)
 
-export const getServicesName = async () =>
-  Api.get<string>(stringFormat(_BASE_URL + _SERVICES_SINGLE_GET), false)
+export const getServicesName = async (serviceId: string) =>
+  Api.get<string>(stringFormat(_BASE_URL + _SERVICES_SINGLE_GET, serviceId), false)
 
 export const getForum = async () =>
   Api.get<forum.IForum[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM), false)
