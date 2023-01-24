@@ -100,8 +100,8 @@ const Item = ({ text, username, profilePic, date, id, uid }) => `
       <div class="w-full h-64 flex items-top justify-center">
         <div><p class="text-l m-8 text-justify">${text}</p></div>
       </div>
-      <div class="w-full h-8 flex items-center justify-center">
-        <button class="text-l m-8" style="color:red; text-decoration:underline;" onclick="deletePost('${id}','${uid}')">Delete this post</button>
+      <div class="w-full h-8 flex items-end justify-center">
+        <button class="text-l m-8" style="color:red; text-decoration:underline;" onclick="deletePost('${id}','${uid}')"><i class="bi bi-trash"></i></button>
       </div>  
     </section>
   </section>
