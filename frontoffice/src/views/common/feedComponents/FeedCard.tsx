@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PostHeader from './PostHeader'
-import LikeCommentButtons from './LikeCommentButtons'
-import CommentFeed from './CommentFeed'
 import { ApiRepository, JsonForum } from 'shared'
+import LikeButtons from './LikeButtons'
 
 const FeedCard = (post: JsonForum.IPost) => {
   const [userName, setUsername] = useState<string>('')
@@ -38,24 +37,11 @@ const FeedCard = (post: JsonForum.IPost) => {
         </div>
 
         {/* Lower Fourth - Like & Comment Buttons + Feed */}
-        {/* {drawerState ? (
-          // Drawer Open
-          <div>
-            <LikeCommentButtons
-              isLiked={props.isLiked}
-              postLikeHandler={handlePostLike}
-              drawerHandler={handleDrawerInteraction}
-              drawerState={drawerState}
-            />
-          </div>
-        ) : (
-          // Drawer Closed
-          <LikeCommentButtons
-            isLiked={props.isLiked}
-            postLikeHandler={handlePostLike}
-            drawerHandler={handleDrawerInteraction}
+        <div>
+          <LikeButtons
+            isLiked={false}
           />
-        )} */}
+        </div>
       </div>
     </>
   )

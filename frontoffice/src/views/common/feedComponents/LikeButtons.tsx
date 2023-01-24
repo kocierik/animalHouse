@@ -1,18 +1,16 @@
 import React from 'react'
 import { FaCommentDots, FaHeart } from 'react-icons/fa'
 
-const LikeCommentButtons = (props) => {
-  function handlePostLike() {
-    props.postLikeHandler()
-  }
+const LikeButtons = (props: { isLiked: boolean }) => {
 
-  function handleDrawerInteraction() {
-    props.drawerHandler()
+
+  function handlePostLike(): void {
+    throw new Error('Function not implemented.')
   }
 
   return (
     // COLORE LIKE E COMMENTO STATIC
-    <div className={props.drawerState ? 'flex justify-start pl-2 pb-3 ' : 'flex justify-start pl-2 pb-3  rounded-b-lg'}>
+    <div className='flex justify-start pl-2 pb-3 ml-2  rounded-b-lg'>
       {/* Like Button */}
       <button
         className={
@@ -30,4 +28,4 @@ const LikeCommentButtons = (props) => {
   )
 }
 
-export default LikeCommentButtons
+export default LikeButtons
