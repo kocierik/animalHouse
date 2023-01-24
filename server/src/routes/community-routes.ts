@@ -148,14 +148,54 @@ export const getForums = async (_: Request, res: Response) =>
  * */
 // TODO implement valid filter
 export const getForumPosts = async (req: Request, res: Response) => {
-  res
+  try {
+   return res
     .status(Const.STATUS_OK)
     .json(await ForumService.getPostOfForum(req.params.id))
+  } catch(err) {
+    if (err instanceof JsonError) 
+      return res.status(err.code).json(err.mex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+  }
 }
 
-export const getForumsName = async (req: Request, res: Response) => {
-  res
+/**
+ * @swagger
+ *   /community/forums/{id}: {
+ *    get: {
+ *      tags: [community],
+ *      summary: get information about a forum,
+ *      parameters: [
+ *        {
+ *          in: path,
+ *          name: id,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the forum
+ *        }
+ *      ],
+ *      responses: {
+ *        200: {
+ *          description: successful operation,
+ *          schema: {
+ *              $ref: '#/definitions/Forum'
+ *          }
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+export const getForumsById = async (req: Request, res: Response) =>  {
+  try {
+    return res
     .status(Const.STATUS_OK)
-    .json(await ForumService.getNameOfForum(req.params.id))
-}
+    .json(await ForumService.getForum(req.params.id))
+  } catch(err) {
+    if (err instanceof JsonError) 
+      return res.status(err.code).json(err.mex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
+  }
 
+}

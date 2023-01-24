@@ -70,7 +70,7 @@ appRouter.post(
 appRouter.get(prefix + '/community/games/', middlewares.log, communityRoutes.getGames)
 appRouter.get(prefix + '/community/games/scoreboard', middlewares.log, communityRoutes.getScoreboard)
 appRouter.get(prefix + '/community/forums', middlewares.log, communityRoutes.getForums)
-appRouter.get(prefix + '/community/forums/:id', middlewares.log, communityRoutes.getForumsName)
+appRouter.get(prefix + '/community/forums/:id', middlewares.log, communityRoutes.getForumsById)
 appRouter.get(prefix + '/community/forums/:id/posts', middlewares.log, communityRoutes.getForumPosts)
 
 // Location
@@ -320,8 +320,16 @@ appRouter.post(
   userRoutes.postUserPost
 )
 
+appRouter.patch(
+  prefix + '/users/:id/posts/:pid',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.patchUserPost
+)
+
 appRouter.delete(
-  prefix + '/users/:uid/posts/:pid',
+  prefix + '/users/:id/posts/:pid',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyAdmin,

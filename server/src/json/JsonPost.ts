@@ -3,7 +3,8 @@ export interface JsonPost{
   text: string
   date: string
   userId: string
-  forumId: string,
+  forumId: string
+  likes: number
   valid: boolean
 }
 
@@ -20,6 +21,9 @@ export const SwaggerPost = {
     },
     text: {
       type: 'string'
+    },
+    likes: {
+      type: 'number'
     },
     date: {
       type: 'string'

@@ -1,3 +1,5 @@
+import { PostPatch } from "../json/patch/PostPatch";
+import { Types } from "mongoose";
 import { Forum } from "../entities/Forum";
 import { Post } from "../entities/Post";
 import { JsonBadReqError, JsonNotFoundError } from "../json/JsonError";
@@ -31,7 +33,6 @@ const validatePostCreation = async (postCreation: JsonPostCreation) => {
 export const checkPostAccess = async (userId: string, postId: string): Promise<boolean> => {
     const isOwner = userId === (await Post.findById(postId))?.userId
     const isAdmin = await AdminService.isAdmin(userId)
-    console.log("isOwner:", isOwner, "isadmin", isAdmin)
     return isOwner || isAdmin
 }
 
@@ -49,13 +50,35 @@ export const getForums = (): Promise<JsonForum[]> =>
     Forum.find({}).then(x => x.map(y => y as JsonForum))
 
 export const getPostOfForum = async (forumId: string, showInvalid = false): Promise<JsonPost[]> => {
-    if (await Forum.exists({ _id: forumId })) {
+    let id: Types.ObjectId
+    try { 
+        id = new Types.ObjectId(forumId) 
+    } catch(err) {
+        throw new JsonBadReqError(`Value ${forumId} for field 'id' is invalid`)
+    }
+    if (await Forum.exists({ _id: id})) {
         return (await Post.find({ forumId: forumId })).filter(x => showInvalid || x.valid) as JsonPost[]
     }
     throw new JsonNotFoundError(`Can't find forum with id ${forumId}`)
 }
 
-export const getNameOfForum = async (forumId: string) => {
-    const forumName = await Forum.findById(forumId)
-    return forumName.name
+export const getForum = async (forumId: string): Promise<JsonForum> => {
+    const forum = await Forum.findById(forumId)
+    if (!forum) 
+        throw new JsonNotFoundError(`Can't find forum with id ${forumId}`)
+    return forum
+}
+
+export const patchPost = async (postId: string, postPatch: PostPatch): Promise<JsonPost> => {
+    const post = await Post.findById(postId)
+    if (!post)
+        throw new JsonNotFoundError(`Post with id '${postId}' not found`)
+
+    // Not the best solution but it works and we have no time
+    if (postPatch.likes)
+        post.likes = postPatch.likes
+
+    await post.save()
+
+    return post
 }
