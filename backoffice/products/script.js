@@ -48,9 +48,9 @@ const Item = ({ img, name, price, id, description, alt }) => `
 
     </td>
     <td class="text-right p-2 pr-4 border-b border-solid border-gray-300 text-gray-700">
-        <a href="edit/?id=${id}"><i class="bi bi-pencil"></i></a>
+        <a href="edit/?id=${id}"><i class="bi bi-pencil text-orange-600"></i></a>
         &nbsp;&nbsp;
-        <button onclick='itemRemove("${name}","${id}")'><i class="bi bi-trash"></i></button>
+        <button onclick='itemRemove("${name}","${id}")'><i class="bi bi-trash text-red-600"></i></button>
     </td>
 </tr>
 `
