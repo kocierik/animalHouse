@@ -39,15 +39,14 @@ var stringToColour = function(str) {
 const Item = ({ color, name, description, id }) => `
 <div class="w-full lg:w-1/2">
   <section class="m-4 bg-white border border-gray-300 border-solid rounded shadow"  style="background-color: ${color}; filter: saturate(50%)">
-    <a href="?id=${id}">
+    <a href="/backoffice/forum?id=${id}">
       <section class="overflow-x-auto w-full">
         <div class="w-full h-48 flex items-end justify-center">
-          <div class="margin-bottom: 2rem;"><h2 class="text-3xl text-slate-100 font-extrabold break-all">${name}</h2></div>
+          <div class="margin-bottom: 2rem;"><div class="text-3xl text-slate-100 font-extrabold break-all">${name}</div></div>
         </div>  
         <div class="w-full h-48 flex items-top justify-center">
           <div><p class="text-l text-slate-200 my-4">${description}</p></div>
         </div> 
-
       </section>
     </a>
   </section>
