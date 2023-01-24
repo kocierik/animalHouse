@@ -10,6 +10,7 @@ import ReservationCode from './entities/Service'
 import Location from './entities/Location'
 import Animal from './entities/Animal'
 import { Forum } from './entities/Forum'
+import { Post } from './entities/Post'
 
 export const test = async () => {
   await Admin.deleteOne({ username: 'test-admin' })
@@ -179,6 +180,7 @@ export const initForums = async () => {
   await Forum.deleteMany()
   await Forum.insertMany([
     { 
+      _id: new Types.ObjectId('63cfc9ffab338c98b2473d37'),
       name: 'Here it is',
       description: 'Share the photos of your friends with the Animal House community!'
     },
@@ -197,6 +199,51 @@ export const initForums = async () => {
     {
       name: 'LOL - laughing togheter',
       description: 'Share your jokes with the Animal House comunity'
+    }
+  ])
+  await Post.deleteMany()
+  await Post.insertMany([
+    {
+      text: "Il mio animale domestico è un gatto di nome Luna. È una gatta tigrata dolce e affettuosa, sempre pronta a ricevere coccole. Adora giocare con i suoi giocattoli e passare del tempo con la sua famiglia umana. Non potrei chiedere di meglio come compagnia!",
+      date: "2023-01-24T12:22:01.880Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Mi chiamo Luna e ho un gatto adorabile di nome Felix. È un gattino tigrato con occhi verdi e una personalità dolce e affettuosa. Adoro guardarlo giocare e ronfare accanto a me mentre lavoro. Non posso immaginare la mia vita senza di lui!",
+      date: "2023-01-24T12:23:05.880Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Il mio cane si chiama Bella e lei è un Labrador Retriever. È così leale e divertente, sempre pronta per una passeggiata o un gioco. Ha un pelo morbido e marrone scuro che amo accarezzare. È anche una grande guardiana e mi fa sentire sempre al sicuro. Non potrei chiedere di meglio come animale domestico!",
+      date: "2023-01-24T12:28:31.800Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Il mio animale domestico è un pappagallo di nome Polly. È una parlantina intelligente e adoro insegnarle nuove parole e trucchi. Ha un piumaggio colorato con sfumature di verde, giallo e rosso che è sempre un piacere vedere. E' molto affettuosa e mi fa compagnia durante le lunghe giornate. Non potrei immaginare la mia vita senza di lei.",
+      date: "2023-01-24T12:28:31.800Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Questo post non dovrebbe essere valido",
+      date: "2023-01-24T12:32:31.800Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: false,
+    },
+    {
+      text: "Il mio animale domestico è un pesce rosso chiamato Nemo (sì, come quello del film). Non fa molto, a parte nuotare in cerchio e guardarmi mentre mangio. Ma devo ammettere che è un gran esperto di scienze marine, basta guardare la sua abilità nel respirare sott'acqua. E' anche un gran nuotatore, se solo avesse un po' più di carattere sarebbe un vero campione!",
+      date: "2023-01-24T12:29:31.800Z",
+      userId: "635c088531e05da80c7faf61",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
     }
   ])
 }
