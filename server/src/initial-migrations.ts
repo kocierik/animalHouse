@@ -237,6 +237,13 @@ export const initForums = async () => {
       userId: "635c088531e05da80c7faf62",
       forumId: "63cfc9ffab338c98b2473d37",
       valid: false,
+    },
+    {
+      text: "Il mio animale domestico è un pesce rosso chiamato Nemo (sì, come quello del film). Non fa molto, a parte nuotare in cerchio e guardarmi mentre mangio. Ma devo ammettere che è un gran esperto di scienze marine, basta guardare la sua abilità nel respirare sott'acqua. E' anche un gran nuotatore, se solo avesse un po' più di carattere sarebbe un vero campione!",
+      date: "2023-01-24T12:29:31.800Z",
+      userId: "635c088531e05da80c7faf61",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
     }
   ])
 }
