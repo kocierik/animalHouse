@@ -52,6 +52,7 @@ function Feed() {
               return (
                 <FeedCard
                   key={i}
+                  _id={data._id}
                   userId={data.userId}
                   forumId={data.forumId}
                   date={data.date}

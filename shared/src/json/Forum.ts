@@ -10,6 +10,7 @@ export interface IPostCreation {
 }
 
 export interface IPost {
+  _id?: string
   text: string
   date: string
   userId: string

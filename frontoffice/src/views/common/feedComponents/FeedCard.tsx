@@ -42,7 +42,7 @@ const FeedCard = (post: JsonForum.IPost) => {
             isLiked={isLiked}
             setIsLiked={setIsLiked}
             likes={post.likes}
-            forumId={post.forumId}
+            postId={post._id!}
           />
         </div>
       </div>

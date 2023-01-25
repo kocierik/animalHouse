@@ -2,14 +2,14 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { ApiRepository } from 'shared'
 
-const LikeButtons = (props: { likes: number, forumId: string, isLiked: boolean, setIsLiked: Dispatch<SetStateAction<boolean>> }) => {
+const LikeButtons = (props: { likes: number, postId: string, isLiked: boolean, setIsLiked: Dispatch<SetStateAction<boolean>> }) => {
 
 
   const handlePostLike = async (): Promise<void> => {
     if (props.isLiked) {
-      await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.forumId, { likes: props.likes - 1 })
+      await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.postId, { likes: props.likes - 1 })
     } else {
-      await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.forumId, { likes: props.likes + 1 })
+      await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.postId, { likes: props.likes + 1 })
     }
     props.setIsLiked(!props.isLiked)
   }
