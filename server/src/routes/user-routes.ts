@@ -687,7 +687,7 @@ export const updateUserDescription = async (req: Request, res: Response) => {
  * /users/{id}/orders:
  *   get:
  *     tags:
- *     - users
+ *     - orders
  *     summary: get orders of an user
  *     parameters:
  *       - in: path
@@ -719,8 +719,10 @@ export const getUserOrders = async (req: Request, res: Response) => {
  * /orders:
  *   get:
  *     tags:
- *     - users
+ *     - orders
  *     summary: gets all orders
+ *     security:
+ *       - JWT: []
  *     responses:
  *       200:
  *         description: Success
@@ -729,7 +731,7 @@ export const getUserOrders = async (req: Request, res: Response) => {
  *            items:
  *              type: object
  *              schema:
- *                $ref: "#/components/schemas/Order"
+ *                $ref: "#/definitions/Order"
  * */
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
@@ -745,7 +747,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
  * /users/{id}/orders:
  *   post:
  *     tags:
- *     - users
+ *     - orders
  *     summary: create an order for a user
  *     parameters:
  *       - in: path
