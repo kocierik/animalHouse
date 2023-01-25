@@ -689,6 +689,8 @@ export const updateUserDescription = async (req: Request, res: Response) => {
  *     tags:
  *     - orders
  *     summary: get orders of an user
+ *     security:
+ *       - JWT: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -749,6 +751,8 @@ export const getAllOrders = async (req: Request, res: Response) => {
  *     tags:
  *     - orders
  *     summary: create an order for a user
+ *     security:
+ *       - JWT: []
  *     parameters:
  *       - in: path
  *         name: id
