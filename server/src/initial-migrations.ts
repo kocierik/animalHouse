@@ -11,6 +11,8 @@ import Location from './entities/Location'
 import Animal from './entities/Animal'
 import { Forum } from './entities/Forum'
 import { Post } from './entities/Post'
+import { Order } from './entities/Order'
+import Cart from './entities/Cart'
 
 export const test = async () => {
   await Admin.deleteOne({ username: 'test-admin' })
@@ -18,7 +20,6 @@ export const test = async () => {
     { username: 'test-admin', password: 'test', _id: new Types.ObjectId('000000000000000000000001') }
   ])
 
-  await User.deleteMany()
   await Animal.deleteMany()
   await Animal.insertMany([
     {
@@ -80,7 +81,6 @@ export const test = async () => {
       animals: []
     }
   ])
-
   await Product.deleteMany()
   await Product.insertMany([
     {
@@ -163,6 +163,35 @@ export const test = async () => {
       sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
       highlights: ['beauty', 'confort', 'human', 'cold'],
       details: 'perfect for burn human'
+    }
+  ])
+  await Cart.deleteMany()
+  await Cart.insertMany([
+    {
+      _id: new Types.ObjectId('62f425273418f02b244b5801'),
+      userId: "635c088531e05da80c7faf62",
+      active: true,
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b4',
+          price: 1550
+        },
+        {
+          productId: '62f425273418f02b236b58b5',
+          price: 4,
+          size: 'XL'
+        }
+      ]
+    }
+  ])
+  await Order.deleteMany()
+  await Order.insertMany([
+    {
+      cartId: "62f425273418f02b244b5801",
+      executionDate: new Date(),
+      cardName: "LELE",
+      cardNumber: "1234 1234 1213 1234",
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
     }
   ])
 }
