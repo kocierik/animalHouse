@@ -191,6 +191,13 @@ appRouter.patch(
   middlewares.verifyUser,
   userRoutes.patchUser
 )
+appRouter.delete(
+  prefix + '/users/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.disableUser
+)
 appRouter.put(
   prefix + '/users/:id/scores',
   middlewares.log,

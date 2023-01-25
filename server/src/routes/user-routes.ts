@@ -181,6 +181,13 @@ export const getUser = async (req: Request, res: Response) => {
   else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
 }
 
+export const disableUser = async (req: Request, res: Response) => {
+  const pathId = req.params.id
+  const user = await UserService.disableUserById(pathId)
+  if (user) return res.status(Const.STATUS_OK).json(UserService.userToJsonUser(user))
+  else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
+}
+
 /**
  * @swagger
  * /users/{id}: {

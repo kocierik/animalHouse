@@ -22,6 +22,7 @@ export interface JsonUser {
   animals: string[]
   address: JsonAddress
   profilePicture?: JsonPicture
+  valid: boolean
 }
 
 export interface JsonLogin {
@@ -55,6 +56,9 @@ export const SwaggerUser = {
     },
     phone: {
       type: 'string'
+    },
+    valid: {
+      type: 'boolean'
     },
     pets: {
       type: 'array',
