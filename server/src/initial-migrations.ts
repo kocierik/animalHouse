@@ -188,6 +188,18 @@ export const test = async () => {
   await Order.insertMany([
     {
       cartId: "62f425273418f02b244b5801",
+      userId: "635c088531e05da80c7faf62",
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b4',
+          price: 1550
+        },
+        {
+          productId: '62f425273418f02b236b58b5',
+          price: 4,
+          size: 'XL'
+        }
+      ],
       executionDate: new Date(),
       cardName: "LELE",
       cardNumber: "1234 1234 1213 1234",

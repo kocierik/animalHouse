@@ -1,8 +1,11 @@
 import { JsonAddress } from './JsonAddress'
+import { JsonCartItem } from './JsonCartItem'
 
 export interface JsonOrder {
   _id: string
   cartId: string
+  userId: string
+  cartItems: JsonCartItem[]
   executionDate: string
   cardName: string
   cardNumber: string
@@ -17,6 +20,15 @@ export const SwaggerOrder = {
     },
     cartId: {
       type: 'string'
+    },
+    userId: {
+      type: 'string'
+    },
+    cartItems: {
+      type: 'array',
+      items: {
+        $ref: '#/definitions/CartItem'
+      }
     },
     executionDate: {
       type: 'string'
