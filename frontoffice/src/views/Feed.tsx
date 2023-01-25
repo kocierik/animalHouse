@@ -44,7 +44,7 @@ function Feed() {
         data-aos-duration="500"
         className="mb-5 mt-5 flex flex-col lg:flex-row md:flex-row sm:flex-col sm:flex-col"
       >
-        <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 mt-10 flex-col items-center'>
+        <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 mt-10 border-x-2 border-slate-100	 flex-col items-center'>
           <h1 className="text-3xl font-semibold mb-5 leading-tight">{forumName}</h1>
           <PostCard setUpdate={setUpdate} update={update} />
           {forumPost?.reverse().map(
@@ -64,6 +64,7 @@ function Feed() {
             }
           )}
         </div>
+
         <Trending />
       </div>
     </>
