@@ -1,12 +1,19 @@
-import React from 'react'
-import { FaCommentDots, FaHeart } from 'react-icons/fa'
+import React, { Dispatch, SetStateAction } from 'react'
+import { FaHeart } from 'react-icons/fa'
+import { ApiRepository } from 'shared'
 
-const LikeButtons = (props: { isLiked: boolean }) => {
+const LikeButtons = (props: { likes: number, forumId: string, isLiked: boolean, setIsLiked: Dispatch<SetStateAction<boolean>> }) => {
 
 
-  function handlePostLike(): void {
-    throw new Error('Function not implemented.')
+  const handlePostLike = async (): Promise<void> => {
+    if (props.isLiked) {
+      await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.forumId, { likes: props.likes - 1 })
+    } else {
+      await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.forumId, { likes: props.likes + 1 })
+    }
+    props.setIsLiked(!props.isLiked)
   }
+
 
   return (
     // COLORE LIKE E COMMENTO STATIC
@@ -21,7 +28,7 @@ const LikeButtons = (props: { isLiked: boolean }) => {
         onClick={() => handlePostLike()}
       >
         <FaHeart className="fill-current" />
-        <p>{props.isLiked ? 'Liked' : 'Like'}</p>
+        <p>{props.isLiked ? 'Liked' : 'Like'} {props.isLiked ? props.likes + 1 : props.likes}</p>
       </button>
 
     </div>

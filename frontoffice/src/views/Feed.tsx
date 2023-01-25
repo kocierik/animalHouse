@@ -27,7 +27,7 @@ function Feed() {
   const getForumName = async () => {
     const data = (await ApiRepository.getForumName(idForum)).data
     if (data) {
-      setForumName(data)
+      setForumName(data.name)
     }
   }
 
@@ -57,7 +57,7 @@ function Feed() {
                   date={data.date}
                   text={data.text}
                   valid={true}
-                // likes={1}
+                  likes={data.likes}
                 />
               )
             }

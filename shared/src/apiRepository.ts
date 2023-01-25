@@ -58,6 +58,7 @@ const _COMMUNITY_FORUM = '/community/forums'
 const _COMMUNITY_FORUM_CONTENT = '/community/forums/{0}/posts'
 const _FORUM_SINGLE_NAME = '/community/forums/{0}'
 const _FORUM_POST = '/users/{0}/posts'
+const _FORUM_POST_EDIT = '/users/{0}/posts/{1}'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, {
@@ -183,7 +184,10 @@ export const postForum = async (userId: string, data: forum.IPostCreation) =>
   Api.post<forum.IPostCreation>(stringFormat(_BASE_URL + _FORUM_POST, userId), data, true)
 
 export const getForumName = async (forumId: string) =>
-  Api.get<string>(stringFormat(_BASE_URL + _FORUM_SINGLE_NAME, forumId), false)
+  Api.get<forum.IForum>(stringFormat(_BASE_URL + _FORUM_SINGLE_NAME, forumId), false)
+
+export const editForumPost = async (userId: string, forumId: string, data: { likes: number }) =>
+  Api.put<forum.IPost>(stringFormat(_BASE_URL + _FORUM_POST_EDIT, userId, forumId), data, true)
 
 
 // TODO insert here other calls!!!!

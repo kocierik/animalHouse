@@ -5,7 +5,7 @@ import LikeButtons from './LikeButtons'
 
 const FeedCard = (post: JsonForum.IPost) => {
   const [userName, setUsername] = useState<string>('')
-
+  const [isLiked, setIsLiked] = useState<boolean>(false)
   const getUserName = async () => {
     const data = (await ApiRepository.getUserInfoById(post.userId)).data
     if (data) {
@@ -39,7 +39,10 @@ const FeedCard = (post: JsonForum.IPost) => {
         {/* Lower Fourth - Like & Comment Buttons + Feed */}
         <div>
           <LikeButtons
-            isLiked={false}
+            isLiked={isLiked}
+            setIsLiked={setIsLiked}
+            likes={post.likes}
+            forumId={post.forumId}
           />
         </div>
       </div>

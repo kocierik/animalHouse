@@ -15,4 +15,5 @@ export interface IPost {
   userId: string
   forumId: string
   valid: boolean
+  likes: number
 }
