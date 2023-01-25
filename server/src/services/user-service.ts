@@ -243,7 +243,7 @@ export const createUserOrder = async (userId: string, paymentDetails: JsonPaymen
 
   await CartService.generateNewCartForUser(userId)
 
-  return await OrderService.createOrderForUser(oldCart._id, paymentDetails)
+  return await OrderService.createOrderForUser(oldCart, paymentDetails, userId)
 }
 
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
