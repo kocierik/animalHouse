@@ -127,8 +127,8 @@ export const putAnimalPicture = (animalId: string, image: string | Blob) => {
   return Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USER_ANIMAL_PICTURE, animalId), formdata, true, false)
 }
 
-export const updateUserDescription = async (userId: string, updateUser: user.JsonUser) => {
-  return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId), updateUser, true)
+export const updateUserDescription = async (userId: string, updateUser: { description: string }) => {
+  return Api.patch<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId), updateUser, true)
 }
 
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
@@ -186,8 +186,8 @@ export const postForum = async (userId: string, data: forum.IPostCreation) =>
 export const getForumName = async (forumId: string) =>
   Api.get<forum.IForum>(stringFormat(_BASE_URL + _FORUM_SINGLE_NAME, forumId), false)
 
-export const editForumPost = async (userId: string, forumId: string, data: { likes: number }) =>
-  Api.put<forum.IPost>(stringFormat(_BASE_URL + _FORUM_POST_EDIT, userId, forumId), data, true)
+export const editForumPost = async (userId: string, forumId: string, data: { userLikes: string[] }) =>
+  Api.patch<forum.IPost>(stringFormat(_BASE_URL + _FORUM_POST_EDIT, userId, forumId), data, true)
 
 
 // TODO insert here other calls!!!!

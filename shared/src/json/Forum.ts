@@ -14,6 +14,7 @@ export interface IPost {
   text: string
   date: string
   userId: string
+  userLikes: string[]
   forumId: string
   valid: boolean
   likes: number

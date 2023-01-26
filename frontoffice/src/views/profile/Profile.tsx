@@ -74,7 +74,7 @@ const Profile = () => {
       if (Helpers.getUserId()) {
         let newUser = user
         newUser!.description = textValue.current?.value!
-        const result = await ApiRepository.updateUserDescription(Helpers.getUserId()!, newUser!)
+        const result = await ApiRepository.updateUserDescription(Helpers.getUserId()!, { description: textValue.current?.value! })
         console.log(result)
       }
     } catch (error: any) {
