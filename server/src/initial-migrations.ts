@@ -173,7 +173,6 @@ export const initAdmin = async () => {
   await Admin.deleteMany()
   await Admin.insertMany([
     {
-      id: new Types.ObjectId('000000001234567890000000'),
       username: 'admin',
       password: 'secret'
     }

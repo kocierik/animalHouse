@@ -195,7 +195,7 @@ appRouter.delete(
   prefix + '/users/:id',
   middlewares.log,
   middlewares.verifyToken,
-  middlewares.verifyUser,
+  middlewares.verifyAdmin,
   userRoutes.disableUser
 )
 appRouter.put(

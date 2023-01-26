@@ -24,7 +24,7 @@ const userSchema = new Schema<IUser>({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   description: { type: String, required: false },
-  valid: { type: Boolean, required: true },
+  valid: { type: Boolean, required: false, default: true },
   animals: { type: [String], required: true, default: [] },
   address: { type: addressSchema },
   profilePicture: { type: picturesSchema, required: false }

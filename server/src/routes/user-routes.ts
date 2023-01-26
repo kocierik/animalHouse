@@ -181,11 +181,46 @@ export const getUser = async (req: Request, res: Response) => {
   else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
 }
 
+/**
+ * @swagger
+ * /users/{id}: {
+ *  delete: {
+ *      tags: [ users ],
+ *      summary: Disable a user,
+ *       parameters: [
+ *       {
+ *         in: path,
+ *         name: id,
+ *         type: string,
+ *         required: true,
+ *         description: Id of the user to be disabled
+ *      }
+ *      ],
+ *       security: [ { JWT: [] } ],
+ *       responses: {
+ *         200: {
+ *           description: successful operation,
+ *           "schema": {
+ *           "type": "object",
+ *           "items": {
+ *              "$ref": "#/definitions/User"
+ *            }
+ *          }
+ *         }
+ *       }
+ *     }
+ * }
+ * */
 export const disableUser = async (req: Request, res: Response) => {
-  const pathId = req.params.id
-  const user = await UserService.disableUserById(pathId)
-  if (user) return res.status(Const.STATUS_OK).json(UserService.userToJsonUser(user))
-  else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
+  try{
+    const pathId = req.params.id
+    const user = await UserService.disableUserById(pathId)  
+    return res.status(Const.STATUS_OK).json(UserService.userToJsonUser(user))
+  }catch(err){
+    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+  
 }
 
 /**
