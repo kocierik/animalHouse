@@ -191,6 +191,13 @@ appRouter.patch(
   middlewares.verifyUser,
   userRoutes.patchUser
 )
+appRouter.delete(
+  prefix + '/users/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  userRoutes.disableUser
+)
 appRouter.put(
   prefix + '/users/:id/scores',
   middlewares.log,
@@ -232,13 +239,6 @@ appRouter.put(
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.putAnimal
-)
-appRouter.put(
-  prefix + '/users/:id/description',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  userRoutes.updateUserDescription
 )
 appRouter.put(
   prefix + '/users/:id/picture',

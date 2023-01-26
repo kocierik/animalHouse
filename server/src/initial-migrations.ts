@@ -53,6 +53,7 @@ export const test = async () => {
       lastName: 'girolimetto',
       phone: '3333333333',
       description: 'ciao',
+      valid: true,
       profilePicture: null,
       animals: []
     },
@@ -65,6 +66,7 @@ export const test = async () => {
       lastName: 'koci',
       description: 'ciao',
       phone: '3333333333',
+      valid: true,
       profilePicture: null,
       animals: ['635c088531e05da80c7faf6a', '635c088531e05da80c7faf6b']
     },
@@ -75,6 +77,7 @@ export const test = async () => {
       password: 'gabriele',
       firstName: 'gabriele',
       lastName: 'crestanello',
+      valid: true,
       phone: '3333333333',
       description: 'ciao',
       profilePicture: { filename: '635c088531e05da80c7faf62' },

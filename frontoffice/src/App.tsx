@@ -11,6 +11,7 @@ import Profile from './views/profile/Profile'
 import Checkout from './views/Checkout'
 import Product from './views/Product'
 import Login from './views/Login'
+import Adoption from './views/Adoption'
 import Register from './views/Register'
 import RegisterAnimal from './views/RegisterAnimal'
 import 'react-toastify/dist/ReactToastify.css'
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/register/animal" element={<RegisterAnimal />} />
+        <Route path="/adoption" element={<Adoption/>} />
       </Routes>
       <Footer />
     </div>

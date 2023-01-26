@@ -81,6 +81,13 @@ const Navbar = () => {
                   >
                     <Link to="/community/">Community</Link>
                   </span>
+
+                  <span
+                    style={{ backgroundColor: history.pathname === '/adoption/' ? 'indigo' : '' }}
+                    className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    <Link to="/adoption/">Adoption</Link>
+                  </span>
                 </div>
               </div>
             </div>

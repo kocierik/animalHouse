@@ -113,6 +113,7 @@ async function retrieveUser(id) {
         $('#grid-zip').val(el.address.zip)
         $('#grid-country').val(el.address.country)
       }
+      if(!el.valid) $('#disable-customer').hide()
       if (el.animals.length == 0) $('#animals-place-section').hide()
       el.animals.forEach((a) => {
         $('#animals-place-list').append(
@@ -131,6 +132,19 @@ async function retrieveUser(id) {
       let img = el.profilePicture
       $('#imgplaceholder').attr('src', img ? '/pictures/' + img.filename : '/backoffice/favicon.ico')
     })
+}
+
+function userRemove() {
+  var id = getUrlParameter('id')
+  if (confirm('Are you sure you want to remove this user?')) {
+    fetch('/api/v2/users/' + id, {
+      method: 'DELETE',
+      headers: {
+        authorization: localStorage.bo_token
+      }
+    })
+    window.location.reload()
+  }
 }
 
 $('#send').click(function () {
