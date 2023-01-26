@@ -7,7 +7,7 @@ import User, { IUser } from '../entities/User'
 import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
-import JsonError, { JsonBadReqError, JsonNotFoundError JsonVisibilityError } from '../json/JsonError'
+import JsonError, { JsonBadReqError, JsonNotFoundError, JsonVisibilityError } from '../json/JsonError'
 import Admin from '../entities/Admin'
 
 import { JsonOrder } from '../json/JsonOrder'
@@ -104,7 +104,7 @@ export const disableUserById = async (id: string): Promise<IUser> => {
     const result = await User.findById(id)
 
     if (!result) {
-        throw new JsonNotFoundError(`Can't find user with id ${id}`)
+      throw new JsonNotFoundError(`Can't find user with id ${id}`)
     }
     result.valid = false
     await result.save()
