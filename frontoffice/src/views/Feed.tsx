@@ -16,7 +16,7 @@ function Feed() {
   const idForum = params.id
   if (!idForum)
     // TODO redirect to 404
-    return <div />
+    return (<div />)
 
   const getPostForum = async () => {
     const data = (await ApiRepository.getForumPost(idForum!)).data
@@ -43,29 +43,33 @@ function Feed() {
         data-aos="zoom-in"
         data-aos-duration="500"
         className="mb-5 mt-5 flex flex-col lg:flex-row md:flex-row sm:flex-col sm:flex-col"
-      >
-        <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 mt-10 border-x-2 border-slate-100	 flex-col items-center'>
-          <h1 className="text-3xl font-semibold mb-5 leading-tight">{forumName}</h1>
-          <PostCard setUpdate={setUpdate} update={update} />
-          {forumPost?.reverse().map(
-            (data, i: number) => {
-              return (
-                <FeedCard
-                  key={i}
-                  _id={data._id}
-                  userId={data.userId}
-                  forumId={data.forumId}
-                  date={data.date}
-                  text={data.text}
-                  valid={true}
-                  userLikes={data.userLikes}
-                  likes={data.likes}
-                />
-              )
-            }
-          )}
-        </div>
-        <Trending />
+      > {idForum != 'trending' ?
+        <>
+          <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 mt-10 border-x-2 border-slate-100	 flex-col items-center'>
+            <h1 data-aos="zoom-in"
+              data-aos-duration="500" className="text-3xl font-semibold mb-5 leading-tight">{forumName}</h1>
+            <PostCard setUpdate={setUpdate} update={update} />
+            {forumPost?.reverse().map(
+              (data, i: number) => {
+                return (
+                  <FeedCard
+                    key={i}
+                    _id={data._id}
+                    userId={data.userId}
+                    forumId={data.forumId}
+                    date={data.date}
+                    text={data.text}
+                    valid={true}
+                    userLikes={data.userLikes}
+                    likes={data.likes} />
+                )
+              }
+            )}
+          </div>
+          <Trending />  </> : <div data-aos="zoom-in"
+            data-aos-duration="500" className='flex flex-1 items-center justify-center flex-col'> <Trending /></div>
+        }
+        {/* <Trending /> */}
       </div>
     </>
   )
