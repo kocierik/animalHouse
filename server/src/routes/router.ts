@@ -241,13 +241,6 @@ appRouter.put(
   userRoutes.putAnimal
 )
 appRouter.put(
-  prefix + '/users/:id/description',
-  middlewares.log,
-  middlewares.verifyToken,
-  middlewares.verifyUser,
-  userRoutes.updateUserDescription
-)
-appRouter.put(
   prefix + '/users/:id/picture',
   middlewares.log,
   middlewares.verifyToken,
