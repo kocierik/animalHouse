@@ -8,7 +8,7 @@ import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import Admin from '../entities/Admin'
-import JsonError, { JsonBadReqError, JsonVisibilityError } from '../json/JsonError'
+import JsonError, { JsonBadReqError, JsonNotFoundError, JsonVisibilityError } from '../json/JsonError'
 import { JsonOrder } from '../json/JsonOrder'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 import { JsonPicture, JsonUser, JsonUserCreation } from '../json/JsonUser'
@@ -98,12 +98,28 @@ export const findUserById = async (id: string): Promise<IUser> => {
   }
 }
 
+export const disableUserById = async (id: string): Promise<IUser> => {
+  try {
+    const result = await User.findById(id)
+
+    if (!result) {
+        throw new JsonNotFoundError(`Can't find user with id ${id}`)
+    }
+    result.valid = false
+    await result.save()
+    return result as IUser
+  } catch (err) {
+    return null
+  }
+}
+
 export const userToJsonUser = (user: IUser): JsonUser => ({
   _id: user._id,
   username: user.username,
   firstName: user.firstName,
   lastName: user.lastName,
   email: user.email,
+  valid: user.valid,
   description: user.description,
   animals: user.animals,
   profilePicture: user.profilePicture,
@@ -220,17 +236,6 @@ export const addPictureToAnimal = async (animalId: string, picture: JsonPicture)
 
 export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then((x) => x.map(userToJsonUser))
 
-export const updateUserDescription = async (userId: string, updateUser: JsonUser) => {
-  const user = await User.findById(userId)
-  if (user) {
-    try {
-      await User.findByIdAndUpdate({ _id: userId }, updateUser)
-      return user
-    } catch (error) {
-      throw new JsonError(error.message)
-    }
-  } else throw new JsonError(`Can\'t find user with id ${userId}`)
-}
 
 export const getUserOrders = async (userId: string): Promise<JsonOrder[]> =>
   (await Order.find({ userId: userId })).map(OrderService.orderToJsonOrder)

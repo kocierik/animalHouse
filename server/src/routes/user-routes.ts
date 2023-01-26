@@ -181,6 +181,13 @@ export const getUser = async (req: Request, res: Response) => {
   else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
 }
 
+export const disableUser = async (req: Request, res: Response) => {
+  const pathId = req.params.id
+  const user = await UserService.disableUserById(pathId)
+  if (user) return res.status(Const.STATUS_OK).json(UserService.userToJsonUser(user))
+  else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`Cannot find user with id ${pathId}`))
+}
+
 /**
  * @swagger
  * /users/{id}: {
@@ -645,42 +652,6 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
   }
 }
 
-/**
- * @swagger
- * /users/{id}/description:
- *   put:
- *     tags:
- *     - users
- *     summary: Put a profile description
- *     parameters:
- *     - in: path
- *       name: id
- *       type: string
- *       required: true
- *       description: Id of user
- *     - in: body
- *       name: body
- *       description: user description
- *       schema:
- *         $ref: "#/definitions/User"
- *     security:
- *       - JWT: []
- *     responses:
- *       200:
- *         description: Success
- *         schema:
- *           $ref: "#/definitions/User"
- * */
-export const updateUserDescription = async (req: Request, res: Response) => {
-  try {
-    const pathId = req.params.id
-    let updateUser = req.body as JsonUser
-    return res.status(Const.STATUS_OK).json(await UserService.updateUserDescription(pathId, updateUser))
-  } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
-    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
-  }
-}
 
 /**
  * @swagger
