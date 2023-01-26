@@ -188,8 +188,6 @@ export const initForums = async () => {
       description: 'Welcome to our community! Speak with other people here!'
     },
     {
-      _id: '63cef427d93bbce76c2ca584',
-    { 
       _id: new Types.ObjectId('63cfc9ffab338c98b2473d37'),
       name: 'Here it is',
       description: 'Share the photos of your friends with the Animal House community!'
