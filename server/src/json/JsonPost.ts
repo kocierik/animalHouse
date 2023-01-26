@@ -1,14 +1,15 @@
-export interface JsonPost{
+export interface JsonPost {
   _id: string
   text: string
   date: string
   userId: string
   forumId: string
   likes: number
+  userLikes: string[]
   valid: boolean
 }
 
-export interface JsonPostCreation{
+export interface JsonPostCreation {
   text: string
   forumId: string
 }
@@ -24,6 +25,12 @@ export const SwaggerPost = {
     },
     likes: {
       type: 'number'
+    },
+    userLikes: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
     },
     date: {
       type: 'string'

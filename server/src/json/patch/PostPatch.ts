@@ -1,6 +1,7 @@
 export interface PostPatch {
-    likes?: number
-} 
+  likes?: number
+  userLikes: string[]
+}
 
 export const SwaggerPostPatch = {
   type: 'object',
@@ -8,6 +9,12 @@ export const SwaggerPostPatch = {
     likes: {
       type: 'number',
       nullable: true
+    },
+    userLikes: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
     },
   }
 }

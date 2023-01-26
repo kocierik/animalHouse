@@ -51,12 +51,12 @@ export const getForums = (): Promise<JsonForum[]> =>
 
 export const getPostOfForum = async (forumId: string, showInvalid = false): Promise<JsonPost[]> => {
     let id: Types.ObjectId
-    try { 
-        id = new Types.ObjectId(forumId) 
-    } catch(err) {
+    try {
+        id = new Types.ObjectId(forumId)
+    } catch (err) {
         throw new JsonBadReqError(`Value ${forumId} for field 'id' is invalid`)
     }
-    if (await Forum.exists({ _id: id})) {
+    if (await Forum.exists({ _id: id })) {
         return (await Post.find({ forumId: forumId })).filter(x => showInvalid || x.valid) as JsonPost[]
     }
     throw new JsonNotFoundError(`Can't find forum with id ${forumId}`)
@@ -64,7 +64,7 @@ export const getPostOfForum = async (forumId: string, showInvalid = false): Prom
 
 export const getForum = async (forumId: string): Promise<JsonForum> => {
     const forum = await Forum.findById(forumId)
-    if (!forum) 
+    if (!forum)
         throw new JsonNotFoundError(`Can't find forum with id ${forumId}`)
     return forum
 }
@@ -77,7 +77,8 @@ export const patchPost = async (postId: string, postPatch: PostPatch): Promise<J
     // Not the best solution but it works and we have no time
     if (postPatch.likes)
         post.likes = postPatch.likes
-
+    if (postPatch.userLikes)
+        post.userLikes = postPatch.userLikes
     await post.save()
 
     return post

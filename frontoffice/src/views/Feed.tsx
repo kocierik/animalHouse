@@ -58,13 +58,13 @@ function Feed() {
                   date={data.date}
                   text={data.text}
                   valid={true}
+                  userLikes={data.userLikes}
                   likes={data.likes}
                 />
               )
             }
           )}
         </div>
-
         <Trending />
       </div>
     </>
