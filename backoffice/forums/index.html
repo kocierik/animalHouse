@@ -24,7 +24,7 @@
       loginCheck()
     </script>
 
-    <title>Animal House - Products</title>
+    <title>Animal House - Forums</title>
   </head>
 
   <body>
@@ -38,36 +38,19 @@
       <main class="bg-gray-100 h-screen w-full overflow-y-auto">
         <section id="performance">
           <header class="border-b border-solid border-gray-300 bg-gray-700">
-            <h2 class="p-6 text-gray-100">Products</h2>
+            <h2 class="p-6 text-gray-100">Forums</h2>
           </header>
           <section class="m-4 bg-white border border-gray-300 border-solid rounded shadow">
             <header class="border-b border-solid border-gray-300 p-4 text-lg font-medium">
               <table class="w-full">
                 <tr>
-                  <td class="p-2 py-4">Manage your products</td>
-                  <td class="text-right p-2 pr-4 text-green-800">
-                    <a href="new/"><i class="bi bi-plus-circle-dotted"></i> New product</a>
-                  </td>
+                  <td class="p-2 py-4">Forums</td>
                 </tr>
               </table>
             </header>
             <div class="w-full lg:w">
               <section class="overflow-x-auto w-full">
-                <table class="w-full" cellpadding="0" cellspacing="0" border="0">
-                  <thead>
-                    <tr p-2 class="py-8 border-b border-solid border-gray-300">
-                      <th class="p-2 py-4 border-b border-solid border-gray-300">
-                        <div class="pl-4 flex flex-wrap flex-row items-center">
-                          <div class="mr-4 h-16 w-16 block flex flex-row items-center">Image</div>
-                          <div class="mr-4 h-16 w-64 block flex flex-row items-center">Name</div>
-                          <div class="mr-4 h-16 w-16 block flex flex-row items-center">Price</div>
-                          <div class="mr-4 h-16 w-64 block flex flex-row items-center">Description</div>
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="itemList"></tbody>
-                </table>
+                <div class="flex flex-wrap flex-row" id="forums_place"></div>
               </section>
             </div>
           </section>

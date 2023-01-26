@@ -13,6 +13,8 @@ function retrieveUsers(target) {
         console.log(el)
         pic = '/backoffice/favicon.ico'
         let addr = ''
+        var disabledText = ""
+        if(!el.valid) disabledText = "This user is disabled"
         if (el.profilePicture) pic = '/pictures/' + el.profilePicture.filename
         if (el.address != undefined) {
           el.address.street != ' ' ? (addr += el.address.street + ', ') : ''
@@ -29,7 +31,8 @@ function retrieveUsers(target) {
               id: el._id,
               email: el.email,
               address: addr,
-              picture: pic
+              picture: pic,
+              disabledText: disabledText
             }
           ].map(Item)
         )
@@ -44,12 +47,12 @@ function userRemove(username, id) {
         authorization: localStorage.bo_token
       }
     })
-    retrieveUsers('#itemList')
+    window.location.reload()
   }
 }
 
 //item template
-const Item = ({ username, firstName, lastName, id, email, address, picture }) => `
+const Item = ({ username, firstName, lastName, id, email, address, picture, disabledText }) => `
 <tr>
     <td class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
@@ -59,15 +62,15 @@ const Item = ({ username, firstName, lastName, id, email, address, picture }) =>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${firstName}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${lastName}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${email}</div>
-            <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${address}</div>
-
+            <div class="mr-4 h-16 w-96 block flex flex-row items-center text-gray-700">${address}</div>
+            <div class="mr-4 h-16 w-48 block flex flex-row items-center text-red-700">${disabledText}</div>
         </div>
 
     </td>
     <td class="text-right p-2 pr-4 border-b border-solid border-gray-300 text-gray-700">
-        <a href="edit/?id=${id}"><i class="bi bi-pencil"></i></a>
+        <a href="edit/?id=${id}"><i class="bi bi-pencil text-orange-600"></i></a>
         &nbsp;&nbsp;
-        <button onclick='userRemove("${username}","${id}")'><i class="bi bi-trash"></i></button>
+        <button onclick='userRemove("${username}","${id}")'><i class="bi bi-trash text-red-600"></i></button>
     </td>
 </tr>
 `
