@@ -13,12 +13,11 @@ const CommentFeed = (props) => {
 
   return (
     <div>
-      {props.comments.map((data) => {
+      {props.comments.map((data,i) => {
         return (
-          <>
+          <div key={i}> 
             {/* COLORE COMMENTI */}
             <div
-              key={data.id}
               className={
                 data.id === props.comments[props.comments.length - 1].id
                   ? 'flex items-center px-4 pb-4 rounded-b-lg space-x-4 border-b border-gray-300/50'
@@ -77,7 +76,7 @@ const CommentFeed = (props) => {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         )
       })}
     </div>

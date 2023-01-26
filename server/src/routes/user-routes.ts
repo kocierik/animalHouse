@@ -13,6 +13,7 @@ import { JsonCartItemCreation } from '../json/JsonCartItemCreation'
 import { JsonUserPatch } from '../json/patch/UserPatch'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 import { JsonPostCreation } from '../json/JsonPost'
+import { PostPatch } from '@/json/patch/PostPatch'
 
 /**
  * @swagger
@@ -857,5 +858,70 @@ export const deleteUserPost = async (req: Request, res:Response) => {
       return res.status(err.code).json(err.mex)
     else
       return res.status(Const.STATUS_BAD_REQUEST).json(err.message)
+  }
+}
+
+/**
+ * @swagger
+ *   /users/{uid}/posts/{pid}: {
+ *    patch: {
+ *      tags: [users],
+ *      summary: add a post,
+ *      security: [ {JWT: []}],
+ *      parameters: [
+ *        {
+ *          in: path,
+ *          name: uid,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the user 
+ *        },
+ *        {
+ *          in: path,
+ *          name: pid,
+ *          type: string,
+ *          required: true,
+ *          description: Id of the post
+ *        },
+ *        {
+ *          in: body,
+ *          name: creation,
+ *          schema: {
+ *            $ref: '#/definitions/PostPatch'  
+ *          },
+ *          required: true,
+ *          description: Id of the user 
+ *        }
+ *      ],
+ *      responses: {
+ *        200: {
+ *          description: successful operation,
+ *          schema: {
+ *              $ref: '#/definitions/Post'
+ *          }
+ *         }
+ *        }
+ *     }
+ *   }
+ * */
+export const patchUserPost = async (req: Request, res:Response) => {
+  try {
+    const uid = req.authData.id
+    const pid = req.params.pid
+    const hasRights = await ForumService.checkPostAccess(uid, pid)
+    if (!hasRights)
+      throw new JsonVisibilityError(`User ${uid} can't access post ${pid}`)
+
+    return res
+      .status(Const.STATUS_OK)
+      .json(await ForumService.patchPost(
+        pid,
+        req.body as PostPatch,
+      ))
+  } catch(err) {
+    if (err instanceof JsonError) 
+      return res.status(err.code).json(err.mex)
+    else
+      return res.status(Const.STATUS_BAD_REQUEST).json(err)
   }
 }

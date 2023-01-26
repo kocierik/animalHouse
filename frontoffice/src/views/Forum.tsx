@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Feed from './Feed'
 
-const Home = () => {
+const Forum = () => {
   return (
     <>
       <Feed />
@@ -10,4 +10,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Forum

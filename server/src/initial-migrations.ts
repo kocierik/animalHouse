@@ -182,24 +182,33 @@ export const initAdmin = async () => {
 export const initForums = async () => {
   await Forum.deleteMany()
   await Forum.insertMany([
-    { 
+    {
+      _id: '63cef427d93bbce76c2ca583',
+      name: 'Welcome',
+      description: 'Welcome to our community! Speak with other people here!'
+    },
+    {
       _id: new Types.ObjectId('63cfc9ffab338c98b2473d37'),
       name: 'Here it is',
       description: 'Share the photos of your friends with the Animal House community!'
     },
-    { 
+    {
+      _id: '63cef427d93bbce76c2ca585',
       name: 'Help',
       description: 'Ask the Animal House community for help!'
     },
     {
+      _id: '63cef427d93bbce76c2ca586',
       name: 'It\'s your turn!',
       description: 'Let your animal share his/her thoughts with the House comunity for help!'
     },
     {
+      _id: '63cef427d93bbce76c2ca587',
       name: 'My advice is...',
       description: 'Here users can share advices with other memeber of the community'
     },
     {
+      _id: '63cef427d93bbce76c2ca588',
       name: 'LOL - laughing togheter',
       description: 'Share your jokes with the Animal House comunity'
     }

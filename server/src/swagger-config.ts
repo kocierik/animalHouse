@@ -14,6 +14,7 @@ import { SwaggerReview } from './json/JsonReview'
 import { SwaggerAddress, SwaggerUser } from './json/JsonUser'
 import { SwaggerAnimalPatch } from './json/patch/AnimalPatch'
 import { SwaggerLocationPatch } from './json/patch/LocationPatch'
+import { SwaggerPostPatch } from './json/patch/PostPatch'
 import { SwaggerProductPatch } from './json/patch/ProductPatch'
 import { SwaggerUserPatch } from './json/patch/UserPatch'
 
@@ -56,6 +57,7 @@ const swaggerOptions = {
       Forum: SwaggerForum,
       Post: SwaggerPost,
       PostCreation: SwaggerPostCreation,
+      PostPatch: SwaggerPostPatch,
     },
     components: {
       tags: [
