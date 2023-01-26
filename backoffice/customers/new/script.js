@@ -38,7 +38,7 @@ $('#send').click(async function () {
   console.log(data)
 
   if (data.mex != undefined) {
-    alert(data.mex)
+    swal(data.mex)
   }
 
   //SEND IMAGE

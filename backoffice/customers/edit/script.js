@@ -52,7 +52,7 @@ function resetPassword() {
       password: newPwd
     })
   })
-  alert(getUrlParameter('id') + "'s new password is: " + newPwd)
+  swal(getUrlParameter('id') + "'s new password is: " + newPwd)
 }
 
 //fills games' scores
