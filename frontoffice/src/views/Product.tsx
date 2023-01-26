@@ -78,7 +78,7 @@ export default function Product() {
       size: selectedSize
     }
     const resp = await ApiRepository.putCart(userId, cartItemCreation)
-    if (resp.esit) toast.success('Product addded to cart', { position: toast.POSITION.TOP_CENTER })
+    if (resp.esit) toast.success('Product added to cart', { position: toast.POSITION.TOP_CENTER })
     else toast.error(`Something wrong appened :/ (${resp.error?.mex})`, { position: toast.POSITION.TOP_CENTER })
   }
 
