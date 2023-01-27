@@ -311,6 +311,14 @@ appRouter.post(
   middlewares.verifyUser,
   reservationRoutes.postReservation
 )
+// TODO: swagger
+appRouter.get(
+  prefix + '/orders',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyUser,
+  userRoutes.getAllOrders
+)
 
 appRouter.post(
   prefix + '/users/:id/posts',

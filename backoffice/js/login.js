@@ -14,7 +14,7 @@ async function doLogin() {
   const url = '/api/v2/admins/login'
 
   if (username && username !== '' && password && password !== '') {
-    localStorage.user = username
+    localStorage.bo_user = username
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -35,7 +35,7 @@ async function doLogin() {
         window.location.href = '/backoffice'
       }
     } else {
-      localStorage.removeItem('user')
+      localStorage.removeItem()
       $('#errorDiv').text(body.mex)
     }
   }
@@ -49,6 +49,7 @@ function loginCheck() {
 }
 function logout() {
   localStorage.removeItem('bo_token')
-  localStorage.removeItem('user')
+  localStorage.removeItem('bo_user')
+  localStorage.removeItem('userId')
   window.location.href = '/backoffice'
 }

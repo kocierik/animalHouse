@@ -694,8 +694,10 @@ export const putAnimalPicture = async (req: Request, res: Response) => {
  * /users/{id}/orders:
  *   get:
  *     tags:
- *     - users
+ *     - orders
  *     summary: get orders of an user
+ *     security:
+ *       - JWT: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -723,11 +725,41 @@ export const getUserOrders = async (req: Request, res: Response) => {
 
 /**
  * @swagger
+ * /orders:
+ *   get:
+ *     tags:
+ *     - orders
+ *     summary: gets all orders
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              schema:
+ *                $ref: "#/definitions/Order"
+ * */
+export const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await UserService.getAllOrders())
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(err.code).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
+/**
+ * @swagger
  * /users/{id}/orders:
  *   post:
  *     tags:
- *     - users
+ *     - orders
  *     summary: create an order for a user
+ *     security:
+ *       - JWT: []
  *     parameters:
  *       - in: path
  *         name: id

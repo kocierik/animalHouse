@@ -241,12 +241,15 @@ export const getAllJsonUser = (): Promise<JsonUser[]> => User.find({}).then((x) 
 export const getUserOrders = async (userId: string): Promise<JsonOrder[]> =>
   (await Order.find({ userId: userId })).map(OrderService.orderToJsonOrder)
 
+export const getAllOrders = async (): Promise<JsonOrder[]> =>
+  (await Order.find({})).map(OrderService.orderToJsonOrder)
+
 export const createUserOrder = async (userId: string, paymentDetails: JsonPaymentDetails) => {
   const oldCart = await CartService.findActiveCartOfUser(userId)
 
   await CartService.generateNewCartForUser(userId)
 
-  return await OrderService.createOrderForUser(oldCart._id, paymentDetails)
+  return await OrderService.createOrderForUser(oldCart, paymentDetails, userId)
 }
 
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
