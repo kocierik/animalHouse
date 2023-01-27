@@ -169,28 +169,25 @@ export const test = async () => {
     }
   ])
   await Cart.deleteMany()
-  await Cart.insertMany([
-    {
-      _id: new Types.ObjectId('62f425273418f02b244b5801'),
-      userId: "635c088531e05da80c7faf62",
-      active: true,
-      cartItems: [
-        {
-          productId: '62f425273418f02b236b58b4',
-          price: 1550
-        },
-        {
-          productId: '62f425273418f02b236b58b5',
-          price: 4,
-          size: 'XL'
-        }
-      ]
-    }
-  ])
   await Order.deleteMany()
   await Order.insertMany([
     {
-      cartId: "62f425273418f02b244b5801",
+      userId: "635c088531e05da80c7faf62",
+      cartId: "635c088531e05da80c7fff62",
+      executionDate: new Date("Thu 25 Jan 2023"),
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b5',
+          price: 2563
+        }
+      ],
+      cardName: "LELE",
+      cardNumber: "1234 1234 1213 1234",
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+    },
+    {
+      cartId: "635c088531e05da80c7fff62",
+      executionDate: new Date("Thu 26 Jan 2023"),
       userId: "635c088531e05da80c7faf62",
       cartItems: [
         {
@@ -203,8 +200,64 @@ export const test = async () => {
           size: 'XL'
         }
       ],
-      executionDate: new Date(),
       cardName: "LELE",
+      cardNumber: "1234 1234 1213 1234",
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+    },
+    {
+      userId: "635c088531e05da80c7faf61",
+      cartId: "635c088531e05da80c7fff62",
+      executionDate: new Date("Thu 27 Jan 2023"),
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b4',
+          price: 155
+        }
+      ],
+      cardName: "MAN",
+      cardNumber: "1234 1234 1213 1234",
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+    },
+    {
+      userId: "635c088531e05da80c7faf61",
+      cartId: "635c088531e05da80c7fff62",
+      executionDate: new Date("Thu 27 Jan 2023"),
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b4',
+          price: 165
+        }
+      ],
+      cardName: "MAN",
+      cardNumber: "1234 1234 1213 1234",
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+    },
+    {
+      userId: "635c088531e05da80c7faf61",
+      cartId: "635c088531e05da80c7fff62",
+      executionDate: new Date("Thu 27 Jan 2023"),
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b5',
+          price: 12
+        }
+      ],
+      cardName: "MAN",
+      cardNumber: "1234 1234 1213 1234",
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+    }
+    ,
+    {
+      userId: "635c088531e05da80c7faf61",
+      cartId: "635c088531e05da80c7fff62",
+      executionDate: new Date("Thu 27 Jan 2023"),
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b5',
+          price: 114
+        }
+      ],
+      cardName: "MAN",
       cardNumber: "1234 1234 1213 1234",
       address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
     }

@@ -35,8 +35,8 @@ async function doLogin() {
         window.location.href = '/backoffice'
       }
     } else {
-      localStorage.removeItem()
-      $('#errorDiv').text(body.mex)
+      localStorage.removeItem('user')
+      swal("Error",body.mex, "error")
     }
   }
 }

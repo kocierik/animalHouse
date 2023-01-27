@@ -4,7 +4,7 @@ lon = ''
 
 $('#send').click(async function () {
   if (lat == '' || lon == '') {
-    alert('Please, click on the map to set location coordinates')
+    swal('Error','Please, click on the map to set location coordinates','error')
     return
   }
   if (
@@ -14,7 +14,7 @@ $('#send').click(async function () {
     $('#grid-zip').val() == '' ||
     $('#grid-country').val() == ''
   ) {
-    alert('Please, fill all the required fields')
+    swal('Error','Please, fill all the required fields','error')
     return
   }
   //SEND USER
@@ -41,7 +41,7 @@ $('#send').click(async function () {
   console.log(data)
 
   if (data.mex != undefined) {
-    alert(data.mex)
+    swal(data.mex)
   }
 })
 
