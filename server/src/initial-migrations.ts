@@ -173,7 +173,7 @@ export const test = async () => {
     {
       _id: new Types.ObjectId('62f425273418f02b244b5801'),
       userId: "635c088531e05da80c7faf62",
-      active: true,
+      active: false,
       cartItems: [
         {
           productId: '62f425273418f02b236b58b4',
@@ -185,14 +185,32 @@ export const test = async () => {
           size: 'XL'
         }
       ]
+    },
+    {
+      _id: new Types.ObjectId('62f425273418f02b244b5802'),
+      userId: "635c088531e05da80c7faf61",
+      active: false,
+      cartItems: [
+        {
+          productId: '62f425273418f02b236b58b4',
+          price: 155
+        }
+      ]
     }
   ])
   await Order.deleteMany()
   await Order.insertMany([
     {
       cartId: "62f425273418f02b244b5801",
-      executionDate: new Date(),
+      executionDate: new Date("Thu 26 Jan 2023"),
       cardName: "LELE",
+      cardNumber: "1234 1234 1213 1234",
+      address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+    },
+    {
+      cartId: "62f425273418f02b244b5802",
+      executionDate: new Date(),
+      cardName: "MAN",
       cardNumber: "1234 1234 1213 1234",
       address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
     }
