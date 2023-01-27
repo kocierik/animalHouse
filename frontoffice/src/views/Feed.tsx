@@ -15,7 +15,7 @@ function Feed() {
 
   const idForum = params.id
   if (!idForum)
-    // TODO redirect to 404
+    // TODO useNavigate() to 404
     return (<div />)
 
   const getPostForum = async () => {

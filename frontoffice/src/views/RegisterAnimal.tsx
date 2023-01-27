@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ApiRepository, ApiResponse, JsonAnimal, Helpers } from 'shared'
 import ErrorBox from './common/ErrorBox'
 import Select from 'react-select'
-import { redirect } from './router'
+import { useNavigate } from 'react-router-dom'
 
 interface SelectProp {
   label: string
@@ -20,6 +20,7 @@ const RegisterAnimal = () => {
   const [doneClickable, setDoneClickable] = useState(false)
 
   const [types, setTypes] = useState<SelectProp[]>([])
+  const navigate = useNavigate()
 
   const register = async () => {
     if (!doneClickable) return
@@ -36,7 +37,7 @@ const RegisterAnimal = () => {
 
       const response = await ApiRepository.registerAnimal(input, userId)
       if (response.esit) {
-        redirect('/')
+        navigate('/')
       } else {
         setError(response.error!.mex)
         setIsError(true)

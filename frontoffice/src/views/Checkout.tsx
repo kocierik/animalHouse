@@ -4,7 +4,7 @@ import { ApiRepository, Helpers, JsonCart, JsonProduct } from 'shared'
 import { toast, ToastContainer } from 'react-toastify'
 import { JsonPaymentDetails } from 'shared/src/json/Orders'
 import { JsonAddress } from 'shared/src/json/user'
-import { redirect } from './router'
+import { useNavigate } from 'react-router-dom'
 
 const Checkout = () => {
   interface BuyingProduct {
@@ -23,9 +23,9 @@ const Checkout = () => {
   const [postal, setPostal] = useState('')
 
   const userId = Helpers.getUserId()
-
+  const navigate = useNavigate()
   if (!userId) {
-    redirect('/login')
+    navigate('/login')
     return <div />
   }
 
@@ -33,10 +33,10 @@ const Checkout = () => {
     Promise.all(
       cartItems.map(
         async (cartItem) =>
-          ({
-            cartItem: cartItem,
-            product: await fetchProduct(cartItem.productId)
-          } as BuyingProduct)
+        ({
+          cartItem: cartItem,
+          product: await fetchProduct(cartItem.productId)
+        } as BuyingProduct)
       )
     )
 

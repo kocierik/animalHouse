@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ApiRepository, ApiResponse, Helpers, JsonUser } from 'shared'
 import ErrorBox from './common/ErrorBox'
-import { redirect } from './router'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
-  /* If the user is already logged redirect to main page */
+  /* If the user is already logged useNavigate() to main page */
+  const navigate = useNavigate()
   if (Helpers.isLogged()) {
-    redirect('/')
+    navigate('/')
   }
 
   const errors = [
@@ -37,12 +38,14 @@ export default function Login() {
     } else {
       Helpers.doLogin(resp.data.token)
       const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
-      if (resp2.esit) {
+      if (resp2) {
         Helpers.setUserId(resp2.data?.id!)
-        redirect('/')
+        navigate('/')
+        window.location.reload()
       }
     }
   }
+
 
   return (
     <>

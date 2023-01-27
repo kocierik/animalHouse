@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ApiRepository, ApiResponse, JsonUser } from 'shared'
 import ErrorBox from './common/ErrorBox'
-import { redirect } from './router'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const [username, setUsername] = useState('')
@@ -14,6 +14,7 @@ const Register = () => {
   const [isError, setIsError] = useState(false)
   const [error, setError] = useState('')
   const [doneClickable, setDoneClickable] = useState(false)
+  const navigate = useNavigate()
 
   const register = async () => {
     if (!doneClickable) return
@@ -28,7 +29,7 @@ const Register = () => {
 
     const response: ApiResponse<JsonUser.JsonUser> = await ApiRepository.register(input)
     if (response.esit) {
-      redirect('/register/animal')
+      navigate('/register/animal')
     } else {
       console.log(response.error!.mex)
       setError(response.error!.mex)
@@ -39,12 +40,12 @@ const Register = () => {
   useEffect(() => {
     setDoneClickable(
       username !== '' &&
-        email !== '' &&
-        password !== '' &&
-        name !== '' &&
-        surname !== '' &&
-        retyped !== '' &&
-        retyped === password
+      email !== '' &&
+      password !== '' &&
+      name !== '' &&
+      surname !== '' &&
+      retyped !== '' &&
+      retyped === password
     )
   }, [username, email, password, name, surname, retyped, isError])
 

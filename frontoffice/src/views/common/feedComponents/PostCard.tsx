@@ -11,7 +11,7 @@ const PostCard = (props: { setUpdate: React.Dispatch<React.SetStateAction<boolea
   const id = params.id
 
   if (!id)
-    // TODO redirect to 404
+    // TODO useNavigate() to 404
     return <div />
   const [user, setUser] = useState<JsonUser.JsonUser>()
 

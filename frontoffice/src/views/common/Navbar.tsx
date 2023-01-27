@@ -146,7 +146,6 @@ const Navbar = () => {
                         aria-orientation="vertical"
                         aria-labelledby="user-menu-button"
                         tabIndex={-1}
-                        z-10
                       >
                         <span
                           className="block px-4 py-2 text-sm text-gray-700"

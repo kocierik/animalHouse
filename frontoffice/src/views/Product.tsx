@@ -21,7 +21,7 @@ export default function Product() {
   const params = useParams()
   const id = params.id
   if (!id)
-    // TODO redirect to 404
+    // TODO useNavigate() to 404
     return <div />
 
   const fetchProduct = async (id: string) => {
