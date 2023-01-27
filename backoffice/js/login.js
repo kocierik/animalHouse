@@ -36,7 +36,7 @@ async function doLogin() {
       }
     } else {
       localStorage.removeItem('user')
-      $('#errorDiv').text(body.mex)
+      swal("Error",body.mex, "error")
     }
   }
 }
