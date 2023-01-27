@@ -1,4 +1,5 @@
 var orders = []
+var products = []
 main()
 
 async function main(){
@@ -31,6 +32,9 @@ function showLocationsNumber(){
 }
 
 async function getSales(){
+    await fetch("/api/v2/products/").then((res)=>res.json()).then(async (data)=>{
+        products = await data
+    })
     var url = "/api/v2/orders/";
     await fetch(url, {
         headers: {
@@ -41,7 +45,39 @@ async function getSales(){
         orders = await data
         showRevenue()
         showLastInvoices()
+        showSalesByProduct(products,orders)
     });
+}
+
+function showSalesByProduct(products,sales){
+    var ret = []
+    console.log("products")
+    console.log(products)
+    console.log("sales")
+    console.log(sales)
+    products.forEach((p)=>{
+        p.revenue = 0
+        
+    })
+    sales.forEach((s)=>{
+        s.cartItems.forEach((item)=>{
+            index = products.findIndex(el=>(el._id == item.productId))
+            products[index].revenue += item.price
+        })
+    })  
+    var prods = products.sort(function(a, b) {
+    return b.revenue - a.revenue;
+    })
+    console.log(prods) 
+    var n=5
+    for(var i=0; i<n && i<prods.length; i++){
+        if(prods[i].revenue == 0){
+            n++
+        }
+        else{
+            $("#profitableproducts_place").append([{name: prods[i].name, total: prods[i].revenue, img: "/pictures/"+prods[i].image?.filename}].map(ItemRevenue))
+        }
+    }  
 }
 
 async function showRevenue(){
@@ -88,6 +124,21 @@ const ItemInvoice = ({ username, total, img, date }) => `
         </div>
         <div class="text-gray-700 w-48">${username}</div>
         <div class="text-gray-700 w-32">${date}</div>
+    </div>
+
+    </td>
+    <td class="text-right p-2 pr-4 border-b border-solid border-gray-300 text-gray-700">${total}$
+    </td>
+</tr>
+`
+const ItemRevenue = ({ name, total, img }) => `
+<tr>
+    <td class="p-2 py-4 border-b border-solid border-gray-300">
+    <div class="pl-4 flex flex-wrap flex-row items-center">
+        <div class="mr-4 h-16 w-16 block flex flex-row items-center">
+            <img class="rounded-lg" src="${img}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico' alt="${name}\'s picture">
+        </div>
+        <div class="text-gray-700 w-48">${name}</div>
     </div>
 
     </td>

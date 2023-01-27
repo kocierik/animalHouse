@@ -29,7 +29,7 @@ function getPosts(){
         count++
         var user = users.find(e => e._id == el.userId)
         var pic = "/pictures/"+user.profilePicture?.filename
-        $("#posts_place").append([{text: el.text, username: user.username, profilePic: pic, date: el.date, id:el._id, uid:user._id}].map(Item))
+        $("#posts_place").append([{text: el.text, username: user.username, profilePic: pic, date: el.date.substring(0,16).replace('T',' '), id:el._id, uid:user._id}].map(Item))
       }
     });
     if(count == 0){
