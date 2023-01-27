@@ -36,7 +36,6 @@ const changeColorNav = (id: string) => {
     dict.forEach((element) => {
       document.getElementById(element.name)!.style.backgroundColor = 'white'
     })
-    document.getElementById(id)!.style.backgroundColor = '#eafff1'
   })
 }
 
@@ -56,6 +55,7 @@ const login = () => {
 const logout = () => {
   // TODO maybe an alert
   Helpers.doLogout()
+  window.location.reload()
   router.redirect('/')
 }
 

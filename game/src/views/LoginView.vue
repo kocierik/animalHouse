@@ -39,6 +39,7 @@ const doLogin = async () => {
     const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
     if (resp2.esit) {
       Helpers.setUserId(resp2.data!.id)
+      window.location.reload()
       redirect('/')
     }
   }
@@ -89,9 +90,6 @@ const imageUrl = import.meta.env.BASE_URL + '/login.jpg'
             <div class="mt-6">
               <div class="flex justify-between mb-2">
                 <label for="password" class="text-sm font-bold text-text">Password</label>
-                <a href="#" class="text-sm text-text-400 focus:text-green-500 hover:text-green-500 hover:underline"
-                  >Forgot password?</a
-                >
               </div>
               <input
                 v-model="password"
