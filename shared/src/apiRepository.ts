@@ -12,7 +12,7 @@ import type * as location from './json/Location'
 import type * as cart from './json/Cart'
 import type * as order from './json/Orders'
 import type * as service from './json/Service'
-
+import type * as forum from './json/Forum'
 // Server api urls
 const _BASE_URL = 'http://localhost:8080/api/v2'
 
@@ -54,6 +54,11 @@ const _SERVICES_SINGLE_GET = '/services/names/{0}'
 
 const _LOCATION_GET = '/locations/{0}'
 const _COMMUNITY_GAME = '/community/games'
+const _COMMUNITY_FORUM = '/community/forums'
+const _COMMUNITY_FORUM_CONTENT = '/community/forums/{0}/posts'
+const _FORUM_SINGLE_NAME = '/community/forums/{0}'
+const _FORUM_POST = '/users/{0}/posts'
+const _FORUM_POST_EDIT = '/users/{0}/posts/{1}'
 
 export const login = async (username: string, password: string) =>
   Api.post<any>(_BASE_URL + _USERS_LOGIN, {
@@ -122,8 +127,8 @@ export const putAnimalPicture = (animalId: string, image: string | Blob) => {
   return Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USER_ANIMAL_PICTURE, animalId), formdata, true, false)
 }
 
-export const updateUserDescription = async (userId: string, updateUser: user.JsonUser) => {
-  return Api.put<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId), updateUser, true)
+export const updateUserDescription = async (userId: string, updateUser: { description: string }) => {
+  return Api.patch<user.JsonUser>(stringFormat(_BASE_URL + _USER_UPDATE_DESCRIPTION, userId), updateUser, true)
 }
 
 export const getMarketProductsReviewsSumUp = async (productId: string) =>
@@ -168,5 +173,21 @@ export const getServices = async () => Api.get<service.IService[]>(stringFormat(
 
 export const getServicesName = async (serviceId: string) =>
   Api.get<string>(stringFormat(_BASE_URL + _SERVICES_SINGLE_GET, serviceId), false)
+
+export const getForum = async () =>
+  Api.get<forum.IForum[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM), false)
+
+export const getForumPost = async (forumId: string) =>
+  Api.get<forum.IPost[]>(stringFormat(_BASE_URL + _COMMUNITY_FORUM_CONTENT, forumId), false)
+
+export const postForum = async (userId: string, data: forum.IPostCreation) =>
+  Api.post<forum.IPostCreation>(stringFormat(_BASE_URL + _FORUM_POST, userId), data, true)
+
+export const getForumName = async (forumId: string) =>
+  Api.get<forum.IForum>(stringFormat(_BASE_URL + _FORUM_SINGLE_NAME, forumId), false)
+
+export const editForumPost = async (userId: string, forumId: string, data: { userLikes: string[] }) =>
+  Api.patch<forum.IPost>(stringFormat(_BASE_URL + _FORUM_POST_EDIT, userId, forumId), data, true)
+
 
 // TODO insert here other calls!!!!

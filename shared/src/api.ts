@@ -72,6 +72,20 @@ export abstract class Api {
     return this.request(url, options, auth)
   }
 
+  public static patch<T>(url: string, body: any, auth = false, sendingJson = true): Promise<ApiResponse<T>> {
+    const headers: Headers = new Headers({ Accept: 'application/json' })
+
+    if (sendingJson) headers.append('Content-Type', 'application/json')
+
+    const options: RequestInit = {
+      method: 'PATCH',
+      body: body instanceof FormData ? body : JSON.stringify(body),
+      headers: headers
+    }
+
+    return this.request(url, options, auth)
+  }
+
   public static delete<T>(url: string, body: any, auth = false): Promise<ApiResponse<T>> {
     const options: RequestInit = {
       method: 'DELETE',

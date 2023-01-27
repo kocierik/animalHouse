@@ -3,7 +3,7 @@ import Navbar from './views/common/Navbar'
 import Footer from './views/common/Footer'
 import './App.css'
 import { Route, Routes } from 'react-router'
-import Home from './views/Home'
+import Forum from './views/Forum'
 import Shopping from './views/Shopping'
 import Community from './views/Community'
 import Service from './views/Service'
@@ -23,14 +23,14 @@ const App = () => {
         <Route path="/" element={<Service />} />
         <Route path="/shopping/" element={<Shopping />} />
         <Route path="/community/" element={<Community />} />
-        {/* <Route path="/home/" element={<Home />} /> */}
+        <Route path="/forum/:id" element={<Forum />} />
         <Route path="/profile/" element={<Profile />} />
         <Route path="/checkout/" element={<Checkout />} />
         <Route path="/shopping/product/:id" element={<Product />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/register/animal" element={<RegisterAnimal />} />
-        <Route path="/adoption" element={<Adoption/>} />
+        <Route path="/adoption" element={<Adoption />} />
       </Routes>
       <Footer />
     </div>

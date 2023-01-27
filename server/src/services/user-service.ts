@@ -7,8 +7,9 @@ import User, { IUser } from '../entities/User'
 import { JsonAnimal } from '../json/JsonAnimal'
 import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
-import Admin from '../entities/Admin'
 import JsonError, { JsonBadReqError, JsonNotFoundError, JsonVisibilityError } from '../json/JsonError'
+import Admin from '../entities/Admin'
+
 import { JsonOrder } from '../json/JsonOrder'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 import { JsonPicture, JsonUser, JsonUserCreation } from '../json/JsonUser'
@@ -103,7 +104,7 @@ export const disableUserById = async (id: string): Promise<IUser> => {
     const result = await User.findById(id)
 
     if (!result) {
-        throw new JsonNotFoundError(`Can't find user with id ${id}`)
+      throw new JsonNotFoundError(`Can't find user with id ${id}`)
     }
     result.valid = false
     await result.save()
@@ -248,7 +249,7 @@ export const createUserOrder = async (userId: string, paymentDetails: JsonPaymen
 
   await CartService.generateNewCartForUser(userId)
 
-  return await OrderService.createOrderForUser(oldCart._id, paymentDetails)
+  return await OrderService.createOrderForUser(oldCart, paymentDetails, userId)
 }
 
 export const patchUser = async (id: string, patch: JsonUserPatch): Promise<JsonUser> => {
