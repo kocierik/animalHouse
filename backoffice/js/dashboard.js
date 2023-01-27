@@ -57,22 +57,25 @@ async function showRevenue(){
     document.getElementById("revenue_place").innerHTML = `${total}$`
 }
 
-function showLastInvoices(){
+async function showLastInvoices(){
     var ord = orders.reverse()
     $("#lastinvoices_place").text("")
     for(var i=0; i<5 && i<ord.length; i++){
         var total = 0
-        ord[i].cartItems.forEach(el => {
+        ord[i].cartItems?.forEach(el => {
             total+=el.price
         });
-        var date = `${ord[i].executionDate.getDate()}-${ord[i].executionDate.getMonth()+1}-${ord[i].executionDate.getFullYear()}`
-        fetch(`/api/v2/users/${ord[i].userId}`,{
+        var pic = '/backoffice/favicon.ico'
+        var username = ''
+        var date = `${ord[i].executionDate.getDate()}/${ord[i].executionDate.getMonth()+1}/${ord[i].executionDate.getFullYear()}`
+        await fetch(`/api/v2/users/${ord[i].userId}`,{
             authorization: localStorage.bo_token
         }).then((res)=>res.json()).then((data)=>{
-            var pic = '/backoffice/favicon.ico'
             if (data.profilePicture) pic = '/pictures/' + data.profilePicture.filename
-            $("#lastinvoices_place").append([{username: data.username, total: total, img: pic, date: date}].map(ItemInvoice))
+            username = data.username
         })
+        $("#lastinvoices_place").append([{username: username, total: total, img: pic, date: date}].map(ItemInvoice))
+
     }
 }
 
