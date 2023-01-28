@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="EN">
+    <head>
+
+        <style>
+            a:link, a:visited, a:hover, a:active{
+                color:white;
+                text-decoration: none;
+            }
+
+            .list {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .base-div {
+                font-family: Arial, Helvetica, sans-serif;
+                color: white;
+                width: 10rem;
+                display: block;
+                margin: 1rem;
+                padding: 2rem;
+                text-align: center;
+                border-radius: 1rem;
+            }
+
+
+            .frontoffice {
+                background-color: #283593;
+            }
+
+            .game {
+                background-color: #66bb6a;
+            }
+
+            .backoffice {
+                background-color: #d00000;
+            }
+
+            .api{
+                background-color: #111827;
+            }
+
+            .logo {
+                width: 17rem;
+                height: 15rem;
+                margin-bottom: 5rem;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <div class="list">
+            <img class="logo" src="/game/logoTransparent.png" alt="Animal House logo" />
+
+            <a href="/frontoffice">
+                <div class="base-div frontoffice">
+                    <h2> FRONTOFFICE </h2>
+                </div>
+            </a>
+
+            <a href="/game">
+                <div class="base-div game">
+                    <h2> GAME </h2>
+                </div>
+            </a>
+
+            <a href="/backoffice">
+                <div class="base-div backoffice">
+                    <h2> BACKOFFICE </h2>
+                </div>
+            </a>
+
+            <a href="/api/docs">
+                <div class="base-div api">
+                    <h2> API REFERENCE</h2>
+                </div>
+            </a>
+
+        </div>
+
+    </body>
+</html>

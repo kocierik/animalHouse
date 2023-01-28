@@ -10,6 +10,7 @@ import * as locationRoutes from '../routes/location-routes'
 import * as serviceRoutes from '../routes/service.routes'
 import * as Const from '../const'
 import { resolve } from 'path'
+import { readFileSync } from 'fs'
 
 export const appRouter = Router()
 

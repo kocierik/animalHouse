@@ -6,7 +6,7 @@
   "scripts": {
     "db": "docker-compose up -d",
     "db:down": "docker-compose down",
-    "server": "tsc -p server && node out/index.js",
+    "server": "tsc -p server && cp server/src/index.html public/ && node out/index.js",
     "front": "npm run --prefix frontoffice start",
     "game": "npm run --prefix game start",
     "all": "npm run server & npm run front & npm run game",
