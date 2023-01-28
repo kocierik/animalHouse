@@ -14,7 +14,7 @@ export const FRONTOFFICE_DIR = PUBLIC_DIR + 'frontoffice'
 export const GAME_DIR = PUBLIC_DIR + '/game'
 export const PICTURE_DIR = '/../../pictures'
 
-export const SERVER_PORT = 8080
+export const SERVER_PORT = 8000
 export const API_PREFIX = '/api'
 export const CURR_API_VERSION = '/v2'
 
