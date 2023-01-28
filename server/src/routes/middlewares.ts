@@ -58,7 +58,7 @@ export const log = (req: Request, _: Response, next: Function) => {
 
 // Multer
 const storage = multer.diskStorage({
-  destination: "./pictures", 
+  destination: pictureDir,
   filename: (req: Request, _: any, cb: Function) => {
     cb(null, req.params.id)
   }

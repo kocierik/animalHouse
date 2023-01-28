@@ -21,8 +21,9 @@ export const CURR_API_VERSION = '/v2'
 export const DB_NAME = 'animal-house-db'
 export const DB_ADDR = '127.0.0.1'
 export const DB_PORT = '27017'
-export const DB_USER = 'AnimalHouse'
-export const DB_SECRET = 'animal'
+export const DB_USER = 'root'
+export const DB_SECRET = 'secret'
+export const DB_URI = `mongodb://${DB_USER}:${DB_SECRET}@${DB_ADDR}:${DB_PORT}`
 
 export const GAMES = [
   {
