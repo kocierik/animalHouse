@@ -665,12 +665,13 @@ export const updateAnimal = async (req: Request, res: Response) => {
 export const postPicture = async (req: Request, res: Response) => {
   // TODO swagger
   try {
+    console.log(req.file)
     const pathId = req.params.id
     const file = req.file as JsonPicture
     const newData = UserService.pictureToJsonPicture(file)
     return res.status(Const.STATUS_OK).json(await UserService.addPictureToUser(pathId, newData))
   } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    if (ex instanceof JsonError) return res.status(ex.code).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
