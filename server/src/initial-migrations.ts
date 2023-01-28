@@ -46,6 +46,7 @@ export const test = async () => {
   await User.deleteMany()
   await User.insertMany([
     {
+      _id: new Types.ObjectId('635c088531e05da80c7faf69'),
       email: 'mattia@ah.com',
       username: 'mattia',
       password: 'mattia',
