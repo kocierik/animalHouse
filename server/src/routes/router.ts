@@ -42,6 +42,7 @@ appRouter.post(prefix + '/admins/login', middlewares.log, adminRoutes.postLogin)
 // Animal
 appRouter.get(prefix + '/animals/codes', middlewares.log, animalRoutes.getAnimalCodes)
 appRouter.get(prefix + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimal)
+appRouter.get(prefix + '/animals/:id/info', middlewares.log, middlewares.verifyToken, animalRoutes.getAnimal)
 appRouter.patch(prefix + '/animals/:id', middlewares.log, middlewares.verifyToken, animalRoutes.patchAnimal)
 
 appRouter.put(
