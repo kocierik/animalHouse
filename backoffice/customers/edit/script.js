@@ -116,18 +116,25 @@ async function retrieveUser(id) {
       if(!el.valid) $('#disable-customer').hide()
       if (el.animals.length == 0) $('#animals-place-section').hide()
       el.animals.forEach((a) => {
-        $('#animals-place-list').append(
-          [
-            {
-              picture: a.picture ? '/pictures/' + a.picture.filename : '/backoffice/favicon.ico',
-              name: a.name,
-              age: a.age,
-              uid: el._id,
-              aid: a._id,
-              type: a.type
-            }
-          ].map(AnimalItem)
-        )
+        console.log(a)
+        fetch(`/api/v2/animals/${a}`,{
+          headers: {
+            authorization: localStorage.bo_token
+          }
+        }).then((res)=>res.json()).then((data)=>{
+          $('#animals-place-list').append(
+            [
+              {
+                picture: data.picture ? '/pictures/' + data.picture.filename : '/backoffice/favicon.ico',
+                name: data.name,
+                age: data.age,
+                uid: el._id,
+                aid: data._id,
+                type: data.type
+              }
+            ].map(AnimalItem)
+          )
+        })
       })
       let img = el.profilePicture
       $('#imgplaceholder').attr('src', img ? '/pictures/' + img.filename : '/backoffice/favicon.ico')
@@ -186,7 +193,7 @@ $('#send').click(function () {
 
 ///users/:uid/animals/:aid
 function animalRemove(name, uid, aid) {
-  if (confirm('Are you sure you want to remove ' + name + ' | ' + aid + '?')) {
+  if (confirm('Are you sure you want to remove ' + name + '?')) {
     fetch('/api/v2/users/' + uid + '/animals/' + aid, {
       method: 'DELETE',
       headers: {
@@ -222,7 +229,6 @@ const AnimalItem = ({ name, age, picture, aid, uid, type }) => `
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${name}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${age} years old</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${type}</div>
-            <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${aid}</div>
         </div>
     </div>
 </div>
