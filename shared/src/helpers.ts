@@ -1,4 +1,4 @@
-import { SERVER_URL } from './const'
+import { SERVER_URL } from "./apiRepository"
 
 export const stringFormat = (str: string, ...args: string[]) =>
   str.replace(/{(\d+)}/g, (match, number) => (typeof args[number] != 'undefined' ? args[number] : match))

@@ -6,7 +6,6 @@ import type * as product from './json/Product'
 import type * as community from './json/Community'
 import type * as review from './json/Review'
 import { stringFormat } from './helpers'
-import { SERVER_URL } from './const'
 import type * as reservation from './json/Reservation'
 import type * as location from './json/Location'
 import type * as cart from './json/Cart'
@@ -14,7 +13,10 @@ import type * as order from './json/Orders'
 import type * as service from './json/Service'
 import type * as forum from './json/Forum'
 // Server api urls
-const _BASE_URL = 'http://localhost:8080/api/v2'
+//export const SERVER_URL = 'http://localhost:8000' // keep this for dev
+export const SERVER_URL = '' // keep this for production
+const _BASE_URL = `${SERVER_URL}/api/v2`
+
 
 const _ANIMAL_GET = '/animals/{0}/info'
 const _ANIMAL_GETALL = '/users/{0}/animals'
