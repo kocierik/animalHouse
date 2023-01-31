@@ -187,10 +187,37 @@ export const getSingleReservation = async (req: Request, res: Response) => {
     const reservationId = req.params.id
     return res.status(Const.STATUS_OK).json(await ReservationService.getSingleReservation(reservationId))
   } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    if (ex instanceof JsonError) return res.status(ex.code).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+/**
+ * @swagger
+ * /reservations:
+ *   get:
+ *     tags:
+ *     - reservations
+ *     summary: '[ONLY FOR ADMINS] get all reservations'
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       200:
+ *         description: got reservations
+ *         schema:
+ *           type: object
+ *           items:
+ *             $ref: "#/definitions/Reservation"
+ * */
+export const getAllReservations = async (req: Request, res: Response) => {
+  try {
+    return res.status(Const.STATUS_OK).json(await ReservationService.getAllReservations())
+  } catch (ex) {
+    if (ex instanceof JsonError) return res.status(ex.code).json(ex)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
+  }
+}
+
 
 // header error
 /**

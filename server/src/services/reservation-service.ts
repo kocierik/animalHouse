@@ -55,6 +55,15 @@ export const getSingleReservation = async (id: string): Promise<IReservation> =>
   }
 }
 
+export const getAllReservations = async (): Promise<IReservation[]> => {
+  try {
+    const userReservation = await Reservation.find({})
+    return userReservation
+  } catch (err) {
+    throw new JsonError(`Cannot find reservations(${err.message})`)
+  }
+}
+
 export const putReservation = async (id: string, reservation: IReservation): Promise<IReservation> => {
   try {
     let userReservation = await Reservation.findById(id)
