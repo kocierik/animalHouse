@@ -187,7 +187,7 @@ export const getSingleReservation = async (req: Request, res: Response) => {
     const reservationId = req.params.id
     return res.status(Const.STATUS_OK).json(await ReservationService.getSingleReservation(reservationId))
   } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    if (ex instanceof JsonError) return res.status(ex.code).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
@@ -213,7 +213,7 @@ export const getAllReservations = async (req: Request, res: Response) => {
   try {
     return res.status(Const.STATUS_OK).json(await ReservationService.getAllReservations())
   } catch (ex) {
-    if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
+    if (ex instanceof JsonError) return res.status(ex.code).json(ex)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
