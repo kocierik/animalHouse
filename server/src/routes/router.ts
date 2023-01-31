@@ -167,6 +167,13 @@ appRouter.get(
   middlewares.verifyUser,
   reservationRoutes.getSingleReservation
 )
+appRouter.get(
+  prefix + '/reservations/',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  reservationRoutes.getAllReservations
+)
 appRouter.put(
   prefix + '/reservations/:id',
   middlewares.log,
