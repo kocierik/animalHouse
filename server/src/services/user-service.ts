@@ -159,7 +159,7 @@ export const deleteFromUserCart = async (userId: string, cartItemsIds: string[])
   return (await CartService.deleteFromCart(cart.id, cartItemsIds)).cartItems
 }
 
-export const deleteOrderById = async (orderId: string) => Order.deleteOne({ _id: orderId })
+export const deleteOrderById = async (orderId: string) => await Order.deleteOne({ _id: orderId })
 
 
 export const deleteAllFromCart = async (userId: string): Promise<ICartItem[]> => {

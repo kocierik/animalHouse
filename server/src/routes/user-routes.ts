@@ -531,7 +531,7 @@ export const deleteOrder = async (req: Request, res: Response) => {
     return res.status(Const.STATUS_OK)
   } catch (err) {
     if (err instanceof JsonError) return res.status(Const.STATUS_NOT_FOUND).json(err)
-    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`${req.params.it} is not a valid order id`))
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(`${req.params.id} is not a valid order id`))
   }
 }
 
