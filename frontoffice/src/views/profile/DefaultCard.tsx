@@ -21,6 +21,7 @@ const DefaultCard = (props: {
         age: parseInt(animalAge.current?.value!),
         picture: null! //TODO
       }
+      await ApiRepository.addAnimal(Helpers.getUserId()!, animal)
       await ApiRepository.registerAnimal(animal, Helpers.getUserId()!)
       const newAnimals = [...props.allAnimals, animal]
       props.setUser({ ...props.user, animals: newAnimals })

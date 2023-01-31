@@ -213,15 +213,15 @@ export const getUser = async (req: Request, res: Response) => {
  * }
  * */
 export const disableUser = async (req: Request, res: Response) => {
-  try{
+  try {
     const pathId = req.params.id
-    const user = await UserService.disableUserById(pathId)  
+    const user = await UserService.disableUserById(pathId)
     return res.status(Const.STATUS_OK).json(UserService.userToJsonUser(user))
-  }catch(err){
+  } catch (err) {
     if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
-  
+
 }
 
 /**
@@ -554,6 +554,7 @@ export const putAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const animal = req.body as JsonAnimal
+    console.log(animal)
     return res.status(Const.STATUS_OK).json(await UserService.addAnimalsToUser(pathId, animal))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
@@ -828,7 +829,7 @@ export const postUserOrders = async (req: Request, res: Response) => {
  *     }
  *   }
  * */
-export const postUserPost = async (req: Request, res:Response) => {
+export const postUserPost = async (req: Request, res: Response) => {
   try {
     return res
       .status(Const.STATUS_OK)
@@ -836,8 +837,8 @@ export const postUserPost = async (req: Request, res:Response) => {
         req.body as JsonPostCreation,
         req.params.id
       ))
-  } catch(err) {
-    if (err instanceof JsonError) 
+  } catch (err) {
+    if (err instanceof JsonError)
       return res.status(err.code).json(err.mex)
     else
       return res.status(Const.STATUS_BAD_REQUEST).json(err)
@@ -874,7 +875,7 @@ export const postUserPost = async (req: Request, res:Response) => {
  *     }
  *   }
  * */
-export const deleteUserPost = async (req: Request, res:Response) => {
+export const deleteUserPost = async (req: Request, res: Response) => {
   try {
     const uid = req.authData.id
     const pid = req.params.pid
@@ -886,8 +887,8 @@ export const deleteUserPost = async (req: Request, res:Response) => {
       .json(await ForumService.deletePost(
         pid
       ))
-  } catch(err) {
-    if (err instanceof JsonError) 
+  } catch (err) {
+    if (err instanceof JsonError)
       return res.status(err.code).json(err.mex)
     else
       return res.status(Const.STATUS_BAD_REQUEST).json(err.message)
@@ -937,7 +938,7 @@ export const deleteUserPost = async (req: Request, res:Response) => {
  *     }
  *   }
  * */
-export const patchUserPost = async (req: Request, res:Response) => {
+export const patchUserPost = async (req: Request, res: Response) => {
   try {
     const uid = req.authData.id
     const pid = req.params.pid
@@ -951,8 +952,8 @@ export const patchUserPost = async (req: Request, res:Response) => {
         pid,
         req.body as PostPatch,
       ))
-  } catch(err) {
-    if (err instanceof JsonError) 
+  } catch (err) {
+    if (err instanceof JsonError)
       return res.status(err.code).json(err.mex)
     else
       return res.status(Const.STATUS_BAD_REQUEST).json(err)

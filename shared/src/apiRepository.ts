@@ -19,6 +19,7 @@ const _BASE_URL = `${SERVER_URL}/api/v2`
 
 
 const _ANIMAL_GET = '/animals/{0}/info'
+const _ANIMAL_POST = '/animals/{0}'
 const _ANIMAL_GETALL = '/users/{0}/animals'
 const _ANIMAL_CODES = '/animals/codes'
 
@@ -86,13 +87,18 @@ export const findAnimalsUser = async (userId: string) =>
   Api.get<animal.JsonAnimal[]>(stringFormat(_BASE_URL + _ANIMAL_GETALL, userId))
 
 export const registerAnimal = async (registration: animal.JsonAnimal, userId: string) =>
-  Api.post<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
+  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
 
 export const deleteAnimal = async (animalId: string) =>
   Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, animalId), true)
 
 export const editAnimal = async (animalId: string, animal: animal.JsonAnimal) =>
   Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, animalId), animal, true)
+
+export const addAnimal = async (userId: string, animal: animal.JsonAnimal) =>
+  Api.post<animal.JsonAnimal>(stringFormat(_BASE_URL + _ANIMAL_POST, userId), animal, true)
+
+
 
 export const putUserScore = async (gameScore: score.IGameResult, userId: string) =>
   Api.put<score.IGameScore>(stringFormat(_BASE_URL + _USERS_SCORES, userId), gameScore, true)
