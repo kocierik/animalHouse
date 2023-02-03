@@ -15,6 +15,7 @@ import Adoption from './views/Adoption'
 import Register from './views/Register'
 import RegisterAnimal from './views/RegisterAnimal'
 import 'react-toastify/dist/ReactToastify.css'
+import Order from './views/Order'
 const App = () => {
   return (
     <div>
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/register/animal" element={<RegisterAnimal />} />
         <Route path="/adoption" element={<Adoption />} />
+        <Route path="/order" element={<Order />} />
       </Routes>
       <Footer />
     </div>

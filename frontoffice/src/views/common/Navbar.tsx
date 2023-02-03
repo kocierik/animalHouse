@@ -173,6 +173,23 @@ const Navbar = () => {
                           <a
                             className="cursor-pointer"
                             onClick={() => {
+                              navigate('/order/')
+                              setInfoProfile(!infoProfile)
+                            }}
+                          >
+                            My Order
+                          </a>
+                        </span>
+
+                        <span
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex={-1}
+                          id="user-menu-item-1"
+                        >
+                          <a
+                            className="cursor-pointer"
+                            onClick={() => {
                               navigate('/checkout/')
                               setInfoProfile(!infoProfile)
                             }}
@@ -345,6 +362,16 @@ const Navbar = () => {
                       }}
                     >
                       Cart
+                    </a>
+                  </span>
+                  <span className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                    <a
+                      onClick={() => {
+                        navigate('/order/')
+                        setNav(!nav)
+                      }}
+                    >
+                      My Order
                     </a>
                   </span>
 
