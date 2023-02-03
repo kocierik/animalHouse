@@ -13,8 +13,8 @@ import type * as order from './json/Orders'
 import type * as service from './json/Service'
 import type * as forum from './json/Forum'
 // Server api urls
-//export const SERVER_URL = 'http://localhost:8000' // keep this for dev
-export const SERVER_URL = '' // keep this for production
+export const SERVER_URL = 'http://localhost:8000' // keep this for dev
+//export const SERVER_URL = '' // keep this for production
 const _BASE_URL = `${SERVER_URL}/api/v2`
 
 
@@ -47,6 +47,7 @@ const _PICTURES = '/pictures/{0}'
 
 const _COMMUNITY_GAME_SCOREBOARD = '/community/games/scoreboard'
 const _PRODUCTS = '/products/'
+const _PRODUCTS_GET = '/products/{0}'
 const _PRODUCTS_REVIEW = '/products/{0}/reviews/'
 const _PRODUCTS_REVIEWS_SUM_UP = '/products/{0}/reviews/sum-up'
 const _PRODUCTS_CATEGORY = '/products/category/{0}'
@@ -153,6 +154,10 @@ export const deleteCart = async (userId: string, cartItems: string[]) =>
 
 export const postUserOrder = async (userId: string, paymentDetails: order.JsonPaymentDetails) =>
   Api.post<order.JsonOrder>(stringFormat(_BASE_URL + _USER_ORDERS, userId), paymentDetails, true)
+
+export const getUserOrder = async (userId: string) =>
+  Api.get<order.JsonAllOrder[]>(stringFormat(_BASE_URL + _USER_ORDERS, userId), true)
+
 
 export const getReservations = async (userId: string) =>
   Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _RESERVATIONS, userId), true)
