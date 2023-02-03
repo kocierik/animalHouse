@@ -1,4 +1,4 @@
-import { ICartItem } from './Cart'
+import type { ICartItem } from './Cart'
 import type { JsonAddress } from './user'
 
 export interface JsonPaymentDetails {
