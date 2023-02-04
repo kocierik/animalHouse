@@ -171,7 +171,7 @@ const Register = () => {
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     className={
-                      (doneClickable ? 'bg-green-500 hover:bg-green-600  ' : 'bg-green-300 ') +
+                      (doneClickable ? 'bg-indigo-800 hover:bg-indigo-900  ' : 'bg-indigo-800 ') +
                       ' w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm rounded-md focus:outline-none'
                     }
                   >
@@ -179,7 +179,7 @@ const Register = () => {
                   </button>
                 </div>
 
-                <p className="mt-6 text-sm text-center text-gray-400">
+                <p className="mt-6 text-sm text-center text-indigo-500">
                   Already have an account?
                   <a
                     href="#"
@@ -189,7 +189,7 @@ const Register = () => {
                     error = -1
                   }
                 "*/
-                    className="text-green-500 focus:outline-none focus:underline hover:underline"
+                    className="text-indigo-600 focus:outline-none focus:underline hover:underline"
                   >
                     {' '}
                     Sign in
