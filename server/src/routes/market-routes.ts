@@ -123,9 +123,9 @@ export const patchProduct = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
     const body = req.body as ProductPatch
-    return res.status(Const.STATUS_OK).json(ProductService.patchProduct(id, body))
+    return res.status(Const.STATUS_OK).json(await ProductService.patchProduct(id, body))
   } catch (err) {
-    if (err instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(err)
+    if (err instanceof JsonError) return res.status(err.code).json(err)
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
 }
