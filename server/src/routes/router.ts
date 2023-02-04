@@ -27,7 +27,7 @@ console.log('[INFO] Backoffice dir is at ' + backofficeDir)
 console.log('[INFO] Game dir is at ' + gameDir)
 
 appRouter.use(express.static(pubDir))
-appRouter.use('/frontoffice', express.static(frontofficeDir))
+appRouter.use('/frontoffice/*', express.static(frontofficeDir))
 appRouter.use('/game', express.static(gameDir))
 appRouter.use('/backoffice', express.static(backofficeDir))
 appRouter.use('/pictures', express.static(pictureDir))
