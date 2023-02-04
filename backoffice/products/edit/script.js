@@ -131,12 +131,14 @@ $('#send').click(async function() {
         body: send
       })
       if (!r2.ok) {
-        await swal(`Error modifyng product image: ${(await r2.json()).mex}`)
+        await swal("Error",`Error modifying product image: ${(await r2.json()).mex}`,"error")
+        return
       }
     }
   } else {
-    await swal(`Error modifyng product details: ${(await r1.json()).mex}`)
+    await swal("Error",`Error modifying product details: ${(await r1.json()).mex}`,"error")
+    return
   }
-  window.location.href = '../'
+  await swal("Success!", "Product edited successfully","success")
 
 })

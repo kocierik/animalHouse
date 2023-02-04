@@ -23,14 +23,15 @@ function retrieveProducts(target) {
       })
     })
 }
-function itemRemove(name, id) {
+async function itemRemove(name, id) {
   if (confirm('Are you sure you want to remove the product ' + name + ' | ' + id + '?')) {
-    fetch('/api/v2/products/' + id, {
+    await fetch('/api/v2/products/' + id, {
       method: 'DELETE',
       headers: {
         authorization: localStorage.bo_token
       }
-    }).then(retrieveProducts('#itemList'))
+    }).then(window.location.reload())
+    
   }
 }
 
@@ -42,7 +43,7 @@ const Item = ({ img, name, price, id, description, alt }) => `
             <div class="mr-4 h-16 w-16 block flex flex-row items-center">
                 <img class="rounded-lg" alt="${alt}" src="${img}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico'"></div>
             <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${name}</div>
-            <div class="mr-4 h-16 w-16 block flex flex-row items-center text-gray-700">${price} $</div>
+            <div class="mr-4 h-16 w-32 block flex flex-row items-center text-gray-700">${price} $</div>
             <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${description}</div>
         </div>
 
