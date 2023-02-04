@@ -122,11 +122,13 @@ const AnimalCard = (props: {
             }}
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
             src={imageProfileAnimal ? imageProfileAnimal : '/defaultImage.jpg'}
-            alt="your animal"
+            alt={props.animal.name}
           />
+          <label htmlFor={props.animal._id} className='hidden'>animal image</label>
           <input
             style={{ display: 'none' }}
             type="file"
+            id={props.animal._id}
             ref={animalImage}
             onChange={async () => {
               animalImage.current?.click()
@@ -135,6 +137,7 @@ const AnimalCard = (props: {
             }}
           />
         </div>
+        <label htmlFor={props.animal.name} className='hidden'>name</label>
         <input
           style={{
             borderWidth: canWrite ? '1px' : '0px',
@@ -143,9 +146,11 @@ const AnimalCard = (props: {
           }}
           className=" bg-white mb-1 text-xl font-medium text-gray-90 text-center"
           disabled={!canWrite}
+          id={props.animal.name}
           defaultValue={props.animal.name}
           ref={animalName}
         />
+        <label htmlFor={props.animal.type} className='hidden'>type</label>
         <input
           style={{
             borderWidth: canWrite ? '1px' : '0px',
@@ -154,9 +159,11 @@ const AnimalCard = (props: {
           }}
           className="bg-white text-md text-center text-gray-500"
           disabled={!canWrite}
+          id={props.animal.type}
           defaultValue={props.animal.type}
           ref={animalType}
         />
+        <label htmlFor={props.animal.age.toString()} className='hidden'>age</label>
         <input
           style={{
             borderWidth: canWrite ? '1px' : '0px',
@@ -165,6 +172,7 @@ const AnimalCard = (props: {
           }}
           className="bg-white text-xs	 text-center text-gray-500"
           disabled={!canWrite}
+          id={props.animal.age.toString()}
           defaultValue={props.animal.age}
           ref={animalAge}
         />

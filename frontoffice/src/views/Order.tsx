@@ -44,7 +44,7 @@ const Order = () => {
                   {
                     productsInfo?.map((product, i) => {
                       return (
-                        <div key={i} className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto border-slate-100 border-b-2">
+                        <div tabIndex={0} key={i} className="-mx-4 mt-10 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto border-slate-100 border-b-2">
                           {/* <h2 className="text-2xl font-semibold mb-5 leading-tight"> {ordersProducts.executionDate.toString()} </h2> */}
                           <div className=" min-w-full shadow-md rounded-lg overflow-hidden inline-block">
                             <table className="min-w-full leading-normal text-center">

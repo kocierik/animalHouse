@@ -102,7 +102,6 @@ const Checkout = () => {
 
         {/* Mobile order summary */}
         <section
-          aria-labelledby="order-heading"
           className="bg-gray-50 px-4 pt-10 sm:px-6 lg:hidden"
           data-aos="zoom-in"
           data-aos-duration="500"
@@ -146,7 +145,6 @@ const Checkout = () => {
 
         {/* Order summary */}
         <section
-          aria-labelledby="summary-heading"
           className=" bg-gray-50 w-full max-w-md flex-col lg:flex"
           data-aos="zoom-in"
           data-aos-duration="500"
@@ -206,7 +204,6 @@ const Checkout = () => {
 
         {/* Checkout form */}
         <section
-          aria-labelledby="payment-heading"
           data-aos="zoom-in"
           className="flex-auto overflow-y-auto px-4 pt-12 pb-16 sm:px-6 sm:pt-16 lg:px-8 lg:pt-0 lg:pb-24"
         >
