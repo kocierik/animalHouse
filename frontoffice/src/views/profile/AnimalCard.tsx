@@ -98,7 +98,7 @@ const AnimalCard = (props: {
   }, [file, props.animal._id])
 
   return (
-    <div
+    <div tabIndex={0}
       data-aos="zoom-in"
       className="w-full flex flex-col max-w-sm bg-white flex-end rounded-lg border border-gray-200 shadow-md pb-8 py-1 "
     >
