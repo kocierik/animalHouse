@@ -74,7 +74,7 @@ const ServiceCard = () => {
         <div className="grid mb-10 lg:grid-cols-2 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
           {services?.map((service, i) => {
             return (
-              <div
+              <button
                 onClick={() => {
                   setShowModal(true)
                   setOpenService(service._id?.toString()!)
@@ -92,7 +92,7 @@ const ServiceCard = () => {
                   <p className="text-xl font-medium text-slate-700 mt-3">{service.title}</p>
                   <p className="mt-2 text-sm text-slate-500">{service.description}</p>
                 </div>
-              </div>
+              </button>
             )
           })}
         </div>

@@ -115,17 +115,21 @@ const FeatureCard = () => {
           <ModalReservationCard showModal={showModal} setShowModal={setShowModal} openService={openService} />
         )}
       </div>
-      <h2 className="mb-4 text-2xl font-bold">Most Used Services</h2>
+      <h1 className="mb-4 text-2xl font-bold">Most Used Services</h1>
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {cards.map((card, i) => {
           return (
             <div
+
               key={i}
               className="flex hover:-translate-y-3 hover:scale-105 duration-300  items-start rounded-xl bg-white p-4 shadow-lg"
             >
               <div className={card.color}>{card.svg}</div>
-              <div
+              <button
+                tabIndex={0}
+                aria-pressed={'true'}
+                role={'button'}
                 className="ml-4 cursor-pointer"
                 onClick={() => {
                   setShowModal(true)
@@ -134,7 +138,7 @@ const FeatureCard = () => {
               >
                 <h2 className="font-semibold">{card.title}</h2>
                 <p className="mt-2 text-sm text-gray-500">{card.description}</p>
-              </div>
+              </button>
             </div>
           )
         })}
