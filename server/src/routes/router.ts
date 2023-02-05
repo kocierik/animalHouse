@@ -116,6 +116,16 @@ appRouter.patch(
   middlewares.verifyAdmin,
   marketRoutes.patchProduct
 )
+
+appRouter.put(
+  prefix + '/products/:id/pictures',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  middlewares.multerMiddleware('product'),
+  marketRoutes.putProductPicture
+)
+
 appRouter.post(
   prefix + '/products',
   middlewares.log,

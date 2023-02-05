@@ -36,7 +36,7 @@ $('#send').click(async function () {
   let img = $('#grid-image').prop('files')[0]
   if (img) {
     //create product
-    const dataRes = await fetch('/api/v2/products', {
+    const r1 = await fetch('/api/v2/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,24 +55,33 @@ $('#send').click(async function () {
         details: $('#grid-details').val()
       })
     })
-    const data = await dataRes.json()
+    if(r1.ok){
+      const data = await r1.json()
 
-    //add product picture
-    console.log(data)
-
-    var send = new FormData()
-    send.append('product', img)
-    dataRes = await fetch('/api/v2/products/' + data._id + '/picture', {
-      method: 'PUT',
-      headers: {
-        authorization: localStorage.bo_token,
-        'Access-Control-Origin': '*'
-      },
-      body: send
-    })
-    data = await dataRes.json()
-
-    console.log(data)
+      //upload image
+      var send = new FormData()
+      send.append('product', img)
+      const r2 = await fetch('/api/v2/products/' + data._id + '/pictures', {
+        method: 'PUT',
+        headers: {
+          authorization: localStorage.bo_token,
+          'Access-Control-Origin': '*'
+        },
+        body: send
+      })
+      if (!r2.ok) {
+        await swal("Error",`Error uploading product image: ${(await r2.json()).mex}`,"error")
+        return
+      }
+    }
+    else {
+      await swal("Error",`Error sending product details: ${(await r1.json()).mex}`,"error")
+      return
+    }
+    await swal("Success!","Product created successfully","success")
+    
+  }else{
+    swal("Error",`Please, upload a picture`,"error")
   }
 })
 
