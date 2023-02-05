@@ -20,7 +20,7 @@ const Trending = () => {
 
   return (
     <div style={{ flex: '0 1 30%' }} className="flex lg:pl-10  flex-col p-5  shrink py-4 ">
-      <h3 className="mt-6 text-xl font-semibold py-5">Trending Forum</h3>
+      <h1 className="mt-6 text-xl font-semibold py-5">Trending Forum</h1>
       {
         listForum?.map((forum, i) => {
           return (
@@ -28,7 +28,7 @@ const Trending = () => {
               <span className="flex-shrink-0 w-10 h-10 bg-gray-400 rounded-full"></span>
               <div className="flex flex-col flex-grow ml-2">
                 <div className="flex text-sm cursor-pointer">
-                  <span onClick={() => { navigate("/forum/" + forum._id) }} className="text-md font-black	 text-indigo-800">{forum.name}</span>
+                  <button onClick={() => { navigate("/forum/" + forum._id) }} className="text-md font-black	 text-indigo-800">{forum.name}</button>
                 </div>
                 <p className="mt-1 text-sm">{forum.description}</p>
               </div>

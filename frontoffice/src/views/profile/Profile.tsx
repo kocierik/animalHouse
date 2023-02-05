@@ -119,40 +119,41 @@ const Profile = () => {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative -mt-20 w-30 h-24 flex  justify-center">
+                      <label htmlFor='imageProfile' className='hidden'>profile Image</label>
                       <img
+                        id='imageProfile'
                         src={imageProfile}
                         className="lg:-mt-10 lg:w-40 lg:h-40 h-32 w-32 rounded-full shadow-lg bg-white shadow-sm border border-gray-100"
-                        alt="user image"
+                        alt="personal profile account"
                       />
                       <div className="absolute top-0 right-0 h-6 w-6 my-1  border-2 border-white rounded-full bg-gray-300 z-2">
-                        <label>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2.5"
-                            stroke="black"
-                            className="w-6 h-6 cursor-pointer "
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                            />
-                          </svg>
-                          <input
-                            id="dropzone-file"
-                            type="file"
-                            className="hidden"
-                            onChange={(e) => setFile(e.target.files![0])}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2.5"
+                          stroke="black"
+                          className="w-6 h-6 cursor-pointer "
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
                           />
-                        </label>
+                        </svg>
+                        <label htmlFor='dropProfile' className='hidden'>drop profile image</label>
+                        <input
+                          type="file"
+                          id='dropProfile'
+                          className="hidden"
+                          onChange={(e) => setFile(e.target.files![0])}
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">{user?.username} </h3>
+                  <h1 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">{user?.username} </h1>
                   <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
                     <i className="fas fa-map-marker-alt text-lg text-gray-500"></i> {user?.firstName} {user?.lastName}
                   </div>
@@ -220,7 +221,7 @@ const Profile = () => {
                   </div>
                 </div>
                 <div data-aos="zoom-in" className="mt-10 w-full py-10 border-t border-gray-300">
-                  <h3 className="text-3xl font-semibold leading-normal mb-2 text-gray-800 p-3">Description</h3>
+                  <span className="text-3xl font-semibold leading-normal mb-2 text-gray-800 p-3">Description</span>
                   <div className="flex w-full flex-wrap justify-center ">
                     <div className="flex flex-1  justify-center flex-col items-center bg-white rounded-lg border border-gray-200 shadow-md ">
                       {isOptionEnable && (
@@ -228,6 +229,7 @@ const Profile = () => {
                           <Setting settingInfoDesk={info} />{' '}
                         </div>
                       )}
+                      <label htmlFor='description' className='hidden'>description</label>
                       <textarea
                         ref={textValue}
                         style={{
@@ -235,6 +237,7 @@ const Profile = () => {
                           borderColor: '#E3E3E3',
                           borderRadius: '10px'
                         }}
+                        id='description'
                         className=" flex w-11/12	 mt-10 mb-7 flex-1 border-0 focus:border-0 ring-0 text-center 	m-5"
                         disabled={!canWrite}
                         onBlur={async () => {

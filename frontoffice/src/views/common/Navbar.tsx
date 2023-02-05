@@ -106,6 +106,7 @@ const Navbar = () => {
                       type="button"
                       className="hover:-translate-y-1 hover:scale-105 duration-300 bg-gray-800 p-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
+                      <span className='hidden'>cart</span>
                       <svg
                         className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                         xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +122,6 @@ const Navbar = () => {
                           d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                         />
                       </svg>
-                      <span className="sr-only">favorites</span>
                     </button>
                   </Link>
                   <div className="ml-3 relative">
@@ -145,60 +145,48 @@ const Navbar = () => {
                         data-aos="zoom-in"
                         aria-orientation="vertical"
                         aria-labelledby="user-menu-button"
-                        tabIndex={-1}
+                        tabIndex={0}
                       >
-                        <span
-                          className="block px-4 py-2 text-sm text-gray-700"
+                        <button
+                          className="block px-4 py-2 cursor-pointer text-sm text-gray-700"
                           role="menuitem"
-                          tabIndex={-1}
+                          tabIndex={0}
+                          onClick={() => {
+                            navigate('/profile/')
+                            setInfoProfile(!infoProfile)
+                          }}
                           id="user-menu-item-0"
                         >
-                          <a
-                            className="cursor-pointer"
-                            onClick={() => {
-                              navigate('/profile/')
-                              setInfoProfile(!infoProfile)
-                            }}
-                          >
-                            Your Profile
-                          </a>
-                        </span>
+                          Your Profile
+                        </button>
 
-                        <span
-                          className="block px-4 py-2 text-sm text-gray-700"
+                        <button
+                          className="block px-4 py-2 text-sm cursor-pointer text-gray-700"
                           role="menuitem"
-                          tabIndex={-1}
+                          tabIndex={0}
+                          onClick={() => {
+                            navigate('/order/')
+                            setInfoProfile(!infoProfile)
+                          }}
                           id="user-menu-item-1"
                         >
-                          <a
-                            className="cursor-pointer"
-                            onClick={() => {
-                              navigate('/order/')
-                              setInfoProfile(!infoProfile)
-                            }}
-                          >
-                            My Order
-                          </a>
-                        </span>
+                          My Order
+                        </button>
 
-                        <span
-                          className="block px-4 py-2 text-sm text-gray-700"
+                        <button
+                          className="block px-4 py-2 cursor-pointer text-sm text-gray-700"
                           role="menuitem"
-                          tabIndex={-1}
+                          tabIndex={0}
+                          onClick={() => {
+                            navigate('/checkout/')
+                            setInfoProfile(!infoProfile)
+                          }}
                           id="user-menu-item-1"
                         >
-                          <a
-                            className="cursor-pointer"
-                            onClick={() => {
-                              navigate('/checkout/')
-                              setInfoProfile(!infoProfile)
-                            }}
-                          >
-                            Cart
-                          </a>
-                        </span>
+                          Cart
+                        </button>
 
-                        <a
+                        <button
                           className="cursor-pointer block px-4 py-2 text-sm text-gray-700"
                           onClick={() => {
                             localStorage.clear()
@@ -207,11 +195,11 @@ const Navbar = () => {
                             setInfoProfile(!infoProfile)
                           }}
                           role="menuitem"
-                          tabIndex={-1}
+                          tabIndex={0}
                           id="user-menu-item-2"
                         >
                           Sign out
-                        </a>
+                        </button>
                       </div>
                     )}
                   </div>

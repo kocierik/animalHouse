@@ -63,13 +63,15 @@ const PostCard = (props: { setUpdate: React.Dispatch<React.SetStateAction<boolea
               <span className="font-black	text-lg	">{user?.username}</span>
             </div>
           </div>
+          <label htmlFor='postComment' className='invisible'>post comment</label>
           <div className="flex">
             <textarea
               id="post-input"
               rows={3}
+              aria-label='postComment'
               placeholder="What is on your pet mind?"
               value={inputText}
-              className="flex-grow rounded font-sans placeholder-gray-400 self-start ml-3 sm:ml-4 mt-2 sm:mt-3 text-sm sm:text-base focus:outline-none"
+              className="flex-grow flex-1 rounded font-sans placeholder-gray-400 self-start ml-3 sm:ml-4 mt-2 sm:mt-3 text-sm sm:text-base focus:outline-none"
               onChange={onChange}
             />
           </div>

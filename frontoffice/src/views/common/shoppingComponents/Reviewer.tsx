@@ -45,20 +45,20 @@ const Reviewer = (props: IProps) => {
             <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-white bg-opacity-40">
               <div className="flex flex-wrap items-center">
                 <img className="mr-6" src="" alt="" />
-                <h4 className="w-full md:w-auto text-xl font-heading font-medium">{review.username}</h4>
+                <h2 className="w-full md:w-auto text-xl font-heading font-medium">{review.username}</h2>
                 <div className="w-full md:w-px h-2 md:h-8 mx-8 bg-transparent md:bg-gray-200"></div>
                 <span className="mr-4 text-xl font-heading font-medium">{review.star}</span>
                 <div className="inline-flex">
                   {Array.from(Array(review.star), (_, i) => {
                     return (
-                      <a className="inline-block mr-1" href="#" key={i}>
+                      <span className="inline-block mr-1" key={i}>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M20 7.91677H12.4167L10 0.416763L7.58333 7.91677H0L6.18335 12.3168L3.81668 19.5834L10 15.0834L16.1834 19.5834L13.8167 12.3168L20 7.91677Z"
                             fill="#FFCB00"
                           ></path>
                         </svg>
-                      </a>
+                      </span>
                     )
                   })}
                 </div>
