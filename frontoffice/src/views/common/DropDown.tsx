@@ -10,7 +10,7 @@ const DropDown = (props: {
   const [isList, setIsList] = useState(false)
   return (
     <div className="hover:-translate-y-1 hover:scale-105 duration-300 z-10">
-      <div
+      <button
         onClick={() => setIsList(!isList)}
         className="w-64 p-4 shadow rounded bg-white text-sm font-medium leading-none text-gray-800 flex items-center justify-between cursor-pointer"
       >
@@ -30,7 +30,7 @@ const DropDown = (props: {
             </div>
           )}
         </div>
-      </div>
+      </button>
       {isList && (
         <div data-aos="zoom-in" className=" absolute w-64 mt-2 p-4 bg-white shadow rounded">
           {props.list.map((item, i) => {

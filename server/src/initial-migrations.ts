@@ -13,6 +13,7 @@ import { Forum } from './entities/Forum'
 import { Post } from './entities/Post'
 import { Order } from './entities/Order'
 import Cart from './entities/Cart'
+import Reservation from './entities/Reservation'
 
 export const test = async () => {
   await Admin.deleteOne({ username: 'test-admin' })
@@ -175,7 +176,7 @@ export const test = async () => {
     {
       userId: "635c088531e05da80c7faf62",
       cartId: "635c088531e05da80c7fff62",
-      executionDate: new Date("Thu 25 Jan 2023"),
+      executionDate: new Date("1 Feb 2023"),
       cartItems: [
         {
           productId: '62f425273418f02b236b58b5',
@@ -188,7 +189,7 @@ export const test = async () => {
     },
     {
       cartId: "635c088531e05da80c7fff62",
-      executionDate: new Date("Thu 26 Jan 2023"),
+      executionDate: new Date("1 Feb 2023"),
       userId: "635c088531e05da80c7faf62",
       cartItems: [
         {
@@ -208,7 +209,7 @@ export const test = async () => {
     {
       userId: "635c088531e05da80c7faf61",
       cartId: "635c088531e05da80c7fff62",
-      executionDate: new Date("Thu 27 Jan 2023"),
+      executionDate: new Date("2 Feb 2023"),
       cartItems: [
         {
           productId: '62f425273418f02b236b58b4',
@@ -222,7 +223,7 @@ export const test = async () => {
     {
       userId: "635c088531e05da80c7faf61",
       cartId: "635c088531e05da80c7fff62",
-      executionDate: new Date("Thu 27 Jan 2023"),
+      executionDate: new Date("3 Feb 2023"),
       cartItems: [
         {
           productId: '62f425273418f02b236b58b4',
@@ -236,7 +237,7 @@ export const test = async () => {
     {
       userId: "635c088531e05da80c7faf61",
       cartId: "635c088531e05da80c7fff62",
-      executionDate: new Date("Thu 27 Jan 2023"),
+      executionDate: new Date("3 Feb 2023"),
       cartItems: [
         {
           productId: '62f425273418f02b236b58b5',
@@ -251,7 +252,7 @@ export const test = async () => {
     {
       userId: "635c088531e05da80c7faf61",
       cartId: "635c088531e05da80c7fff62",
-      executionDate: new Date("Thu 27 Jan 2023"),
+      executionDate: new Date("3 Feb 2023"),
       cartItems: [
         {
           productId: '62f425273418f02b236b58b5',
@@ -261,6 +262,25 @@ export const test = async () => {
       cardName: "MAN",
       cardNumber: "1234 1234 1213 1234",
       address: { country: 'IT', city: 'Venezia', street: 'Via Pietro Arduino, 20', zip: '30175' },
+    }
+  ])
+  await Reservation.deleteMany()
+  await Reservation.insertMany([
+    {
+      animalId: "635c088531e05da80c7faf6a",
+      serviceId: "737a10397c883b752202e447",
+      userId: "635c088531e05da80c7faf61",
+      date: new Date("1 May 2023 15:00:00"),
+      information: "I need to wash my pet",
+      locationId: "637a10397c883b752202e444",
+    },
+    {
+      animalId: "635c088531e05da80c7faf6b",
+      serviceId: "637a10397c883b752202e446",
+      userId: "635c088531e05da80c7faf61",
+      date: new Date("20 Jun 2023 12:00:00"),
+      information: "TAKE MY DOGGO PLEASE",
+      locationId: "637a10397c883b752202e445",
     }
   ])
 }

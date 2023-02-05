@@ -47,7 +47,7 @@ function setSelectedTargets(t) {
   }
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
   var id = getUrlParameter('id')
   if (id) {
     getAnimalCodes()
@@ -79,10 +79,10 @@ function showImage() {
   var file = $('#grid-image').prop('files')[0]
   var reader = new FileReader()
   reader.readAsDataURL(file)
-  reader.onload = function () {
+  reader.onload = function() {
     $('#imgplaceholder').attr('src', String(reader.result))
   }
-  reader.onerror = function (error) {
+  reader.onerror = function(error) {
     console.log('Error: ', error)
   }
 }
@@ -94,11 +94,10 @@ function CsvToArr(csv) {
   return csv.replace(/\s/g, '').split(',')
 }
 
-$('#send').click(function () {
+$('#send').click(async function() {
   getSelectedTargets()
-  var img = $('#grid-image').prop('files')[0]
   //patch product fields
-  fetch('/api/v2/products/' + getUrlParameter('id'), {
+  const r1 = await fetch('/api/v2/products/' + getUrlParameter('id'), {
     method: 'PATCH',
     headers: {
       authorization: localStorage.bo_token,
@@ -117,25 +116,29 @@ $('#send').click(function () {
       details: $('#grid-details').val()
     })
   })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data)
-      if (img) {
-        //edit image
-        var send = new FormData()
-        send.append('product', img)
-        fetch('/api/v2/products/' + getUrlParameter('id') + '/picture', {
-          method: 'PUT',
-          headers: {
-            authorization: localStorage.bo_token,
-            'Access-Control-Origin': '*'
-          },
-          body: send
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data)
-          })
+  if (r1.ok) {
+    const img = $('#grid-image').prop('files')[0]
+    if (img) {
+      //edit image
+      var send = new FormData()
+      send.append('product', img)
+      const r2 = await fetch('/api/v2/products/' + getUrlParameter('id') + '/pictures', {
+        method: 'PUT',
+        headers: {
+          authorization: localStorage.bo_token,
+          'Access-Control-Origin': '*'
+        },
+        body: send
+      })
+      if (!r2.ok) {
+        await swal("Error",`Error modifying product image: ${(await r2.json()).mex}`,"error")
+        return
       }
-    })
+    }
+  } else {
+    await swal("Error",`Error modifying product details: ${(await r1.json()).mex}`,"error")
+    return
+  }
+  await swal("Success!", "Product edited successfully","success")
+
 })

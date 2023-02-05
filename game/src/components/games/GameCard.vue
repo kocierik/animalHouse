@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { redirect } from '@/router';
+
 const props = defineProps<{
   name: string
   url: string
   image: string
 }>()
+
 </script>
 <style>
 .imageCover {
@@ -16,21 +19,19 @@ const props = defineProps<{
     v-bind:style="{ backgroundImage: 'url(' + props.image + ')' }"
     class="max-w-sm bg-white imageCover rounded-lg border border-gray-200 shadow-md dark:border-gray-700"
   >
+            <router-link :to="props.url">
     <div style="background-color: #4444" class="w-100 h-100 bg-red">
       <a href="#"> </a>
       <div class="p-5">
         <a href="#">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            <router-link :to="props.url">
               <a href="#" class="text-white text-2xl"> {{ props.name }}</a>
-            </router-link>
           </h5>
         </a>
         <p class="mb-3 font-bold text-white">
           Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
         </p>
-        <a
-          :href="props.url"
+        <div
           class="hover:-translate-y-1 duration-300 inline-flex items-center py-2 px-3 text-sm font-black text-center text-text bg-lyellow rounded-2xl hover:bg-dyellow focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >
           Play now
@@ -41,8 +42,9 @@ const props = defineProps<{
               clip-rule="evenodd"
             ></path>
           </svg>
-        </a>
+        </div>
       </div>
     </div>
+            </router-link>
   </div>
 </template>

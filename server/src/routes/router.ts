@@ -27,7 +27,7 @@ console.log('[INFO] Backoffice dir is at ' + backofficeDir)
 console.log('[INFO] Game dir is at ' + gameDir)
 
 appRouter.use(express.static(pubDir))
-appRouter.use('/frontoffice', express.static(frontofficeDir))
+appRouter.use('/frontoffice/*', express.static(frontofficeDir))
 appRouter.use('/game', express.static(gameDir))
 appRouter.use('/backoffice', express.static(backofficeDir))
 appRouter.use('/pictures', express.static(pictureDir))
@@ -116,6 +116,16 @@ appRouter.patch(
   middlewares.verifyAdmin,
   marketRoutes.patchProduct
 )
+
+appRouter.put(
+  prefix + '/products/:id/pictures',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  middlewares.multerMiddleware('product'),
+  marketRoutes.putProductPicture
+)
+
 appRouter.post(
   prefix + '/products',
   middlewares.log,
@@ -166,6 +176,13 @@ appRouter.get(
   middlewares.verifyToken,
   middlewares.verifyUser,
   reservationRoutes.getSingleReservation
+)
+appRouter.get(
+  prefix + '/reservations/',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  reservationRoutes.getAllReservations
 )
 appRouter.put(
   prefix + '/reservations/:id',

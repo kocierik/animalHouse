@@ -26,7 +26,7 @@ const swaggerOptions = {
       version: '2.0.0',
       description: 'Animal houz back& api'
     },
-    host: 'localhost:8080',
+    host: 'localhost:8000',
     basePath: '/api/v2',
     securityDefinitions: {
       JWT: {

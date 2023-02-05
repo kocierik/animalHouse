@@ -16,17 +16,17 @@ const ApproceCard = () => {
                 className="w-10"
                 width="512"
                 height="512"
-                alt="burger illustration"
+                alt="start concept"
               />
 
-              <div className="space-y-2">
-                <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
+              <button className="space-y-2">
+                <h3 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
                   Analize the problem
-                </h5>
+                </h3>
                 <p className="text-sm text-gray-600">
                   Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.
                 </p>
-              </div>
+              </button>
             </div>
           </div>
           <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
@@ -36,17 +36,17 @@ const ApproceCard = () => {
                 className="w-10"
                 width="512"
                 height="512"
-                alt="burger illustration"
+                alt="initializazion icon"
               />
 
-              <div className="space-y-2">
-                <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
+              <button className="space-y-2">
+                <h3 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
                   Ask to our expert
-                </h5>
+                </h3>
                 <p className="text-sm text-gray-600">
                   Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.
                 </p>
-              </div>
+              </button>
             </div>
           </div>
           <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
@@ -56,17 +56,17 @@ const ApproceCard = () => {
                 className="w-10"
                 width="512"
                 height="512"
-                alt="burger illustration"
+                alt="icon for the caus"
               />
 
-              <div className="space-y-2">
-                <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
+              <button className="space-y-2">
+                <h3 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
                   Diagnostics the cause
-                </h5>
+                </h3>
                 <p className="text-sm text-gray-600">
                   Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.
                 </p>
-              </div>
+              </button>
             </div>
           </div>
           <div className="relative group bg-gray-100 transition hover:z-[1] hover:shadow-2xl lg:hidden xl:block">
@@ -76,17 +76,17 @@ const ApproceCard = () => {
                 className="w-10"
                 width="512"
                 height="512"
-                alt="burger illustration"
+                alt="leave animal icon"
               />
 
-              <div className="space-y-2">
-                <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
+              <button className="space-y-2">
+                <h3 className="text-xl text-gray-800 font-medium transition group-hover:text-blue-600">
                   Left the animal
-                </h5>
+                </h3>
                 <p className="text-sm text-gray-600">
                   Neque Dolor, fugiat non cum doloribus aperiam voluptates nostrum.
                 </p>
-              </div>
+              </button>
             </div>
           </div>
         </div>

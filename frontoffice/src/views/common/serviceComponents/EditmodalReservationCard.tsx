@@ -109,24 +109,26 @@ const EditmodalReservationCard = (props: {
             data-aos="zoom-in"
             className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"
           >
-            <div className="flex flex-1 justify-end">
-              <svg
-                onClick={() => props.setShowModal(false)}
-                xmlns="http://www.w3.org/2000/svg"
-                className="icon icon-tabler icon-tabler-x cursor-pointer"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                strokeWidth="2.5"
-                stroke="currentColor"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" />
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+            <div className='flex flex-1 justify-end'>
+              <button onClick={() => props.setShowModal(false)} className="flex flex-1 justify-end" >
+                <span className='hidden'>exit form</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-x cursor-pointer"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2.5"
+                  stroke="currentColor"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
             </div>
             <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">
               {props.openService.charAt(0).toUpperCase() + props.openService.slice(1)}
@@ -140,6 +142,7 @@ const EditmodalReservationCard = (props: {
                 setSelectedService(value.target.value)
                 getSelectedService(value.target.value)
               }}
+              id='selectService'
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
             >
               <option>Select...</option>

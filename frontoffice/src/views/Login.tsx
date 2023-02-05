@@ -123,7 +123,7 @@ export default function Login() {
                     type="submit"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-green-500 rounded-md hover:bg-green-400 focus:outline-none focus:bg-green-400 focus:ring focus:ring-green-300 focus:ring-opacity-50"
+                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-indigo-800 rounded-md hover:bg-indigo-900 focus:outline-none focus:bg-green-400 focus:ring focus:ring-green-300 focus:ring-opacity-50"
                   >
                     Sign in
                   </button>
@@ -139,7 +139,7 @@ export default function Login() {
                     error = -1
                   }
                 "*/
-                    className="text-green-500 focus:outline-none focus:underline hover:underline"
+                    className="text-indigo-500 focus:outline-none focus:underline hover:underline"
                   >
                     {' '}
                     Sign up

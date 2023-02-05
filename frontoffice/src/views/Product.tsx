@@ -128,15 +128,14 @@ export default function Product() {
 
             {/* Options */}
             <div className="mt-4 lg:mt-0 lg:row-span-3">
-              <h2 className="sr-only">Product information</h2>
               <span className="text-3xl text-gray-900">
                 {' '}
-                <p className="pb-5">{prod?.name}</p> <p className="text-2xl">Price: {prod?.price}$</p>
+                <h1 className="pb-5">{prod?.name}</h1> <h1 className="text-2xl">Price: {prod?.price}$</h1>
               </span>
 
               {/* Reviews */}
               <div className="mt-6">
-                <h3 className="sr-only">Reviews</h3>
+                <h2 className="sr-only">Reviews</h2>
                 <div className="flex items-center">
                   <div className="flex items-center">
                     {valueProduct.map((rating) => (
@@ -256,7 +255,7 @@ export default function Product() {
               </div>
 
               <div className="mt-10">
-                <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Highlights</h3>
+                <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Highlights</h2>
                 <div className="mt-4">
                   <ul role="list" className="pl-10 list-disc text-sm space-y-3">
                     {prod &&

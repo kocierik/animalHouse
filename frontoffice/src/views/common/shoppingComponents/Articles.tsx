@@ -92,12 +92,12 @@ const Articles = (props: { filterApplied: string[] }) => {
                 </div>
                 <div className="mt-4 flex justify-between">
                   <div>
-                    <h3 className="text-sm text-gray-700">
+                    <h2 className="text-sm text-gray-700">
                       <span>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {product.name}
                       </span>
-                    </h3>
+                    </h2>
                     <p className="mt-1 text-sm text-gray-500">{product.description}</p>
                   </div>
                   <p className="text-sm font-medium text-gray-900">{product.price}$</p>

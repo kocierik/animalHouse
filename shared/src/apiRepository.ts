@@ -13,12 +13,13 @@ import type * as order from './json/Orders'
 import type * as service from './json/Service'
 import type * as forum from './json/Forum'
 // Server api urls
-//export const SERVER_URL = 'http://localhost:8000' // keep this for dev
-export const SERVER_URL = '' // keep this for production
+export const SERVER_URL = 'http://localhost:8000' // keep this for dev
+//export const SERVER_URL = '' // keep this for production
 const _BASE_URL = `${SERVER_URL}/api/v2`
 
 
 const _ANIMAL_GET = '/animals/{0}/info'
+const _ANIMAL_POST = '/animals/{0}'
 const _ANIMAL_GETALL = '/users/{0}/animals'
 const _ANIMAL_CODES = '/animals/codes'
 
@@ -46,6 +47,7 @@ const _PICTURES = '/pictures/{0}'
 
 const _COMMUNITY_GAME_SCOREBOARD = '/community/games/scoreboard'
 const _PRODUCTS = '/products/'
+const _PRODUCTS_GET = '/products/{0}'
 const _PRODUCTS_REVIEW = '/products/{0}/reviews/'
 const _PRODUCTS_REVIEWS_SUM_UP = '/products/{0}/reviews/sum-up'
 const _PRODUCTS_CATEGORY = '/products/category/{0}'
@@ -86,13 +88,18 @@ export const findAnimalsUser = async (userId: string) =>
   Api.get<animal.JsonAnimal[]>(stringFormat(_BASE_URL + _ANIMAL_GETALL, userId))
 
 export const registerAnimal = async (registration: animal.JsonAnimal, userId: string) =>
-  Api.post<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
+  Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS, userId), registration, true)
 
 export const deleteAnimal = async (animalId: string) =>
   Api.delete<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_DELETE, animalId), true)
 
 export const editAnimal = async (animalId: string, animal: animal.JsonAnimal) =>
   Api.put<animal.JsonAnimal>(stringFormat(_BASE_URL + _USERS_ANIMALS_EDIT, animalId), animal, true)
+
+export const addAnimal = async (userId: string, animal: animal.JsonAnimal) =>
+  Api.post<animal.JsonAnimal>(stringFormat(_BASE_URL + _ANIMAL_POST, userId), animal, true)
+
+
 
 export const putUserScore = async (gameScore: score.IGameResult, userId: string) =>
   Api.put<score.IGameScore>(stringFormat(_BASE_URL + _USERS_SCORES, userId), gameScore, true)
@@ -147,6 +154,10 @@ export const deleteCart = async (userId: string, cartItems: string[]) =>
 
 export const postUserOrder = async (userId: string, paymentDetails: order.JsonPaymentDetails) =>
   Api.post<order.JsonOrder>(stringFormat(_BASE_URL + _USER_ORDERS, userId), paymentDetails, true)
+
+export const getUserOrder = async (userId: string) =>
+  Api.get<order.JsonAllOrder[]>(stringFormat(_BASE_URL + _USER_ORDERS, userId), true)
+
 
 export const getReservations = async (userId: string) =>
   Api.get<reservation.IReservation[]>(stringFormat(_BASE_URL + _RESERVATIONS, userId), true)
