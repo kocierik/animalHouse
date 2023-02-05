@@ -14,6 +14,7 @@ import { JsonUserPatch } from '../json/patch/UserPatch'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 import { JsonPostCreation } from '../json/JsonPost'
 import { PostPatch } from '@/json/patch/PostPatch'
+import { Order } from '@/entities/Order'
 
 /**
  * @swagger
@@ -502,6 +503,38 @@ export const deleteCart = async (req: Request, res: Response) => {
     else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(ex.message))
   }
 }
+
+/**
+ * @swagger
+ * /orders/{id}:
+ *   delete:
+ *     tags:
+ *     - orders
+ *     summary: Delete an order
+ *     description: Deletes an order from an id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the order
+ *     security:
+ *     - JWT: []
+ *     responses:
+ *       200:
+ *         description: ok
+ *
+ * */
+export const deleteOrder = async (req: Request, res: Response) => {
+  try {
+    await UserService.deleteOrderById(req.params.id)
+    return res.status(Const.STATUS_OK)
+  } catch (err) {
+    if (err instanceof JsonError) return res.status(Const.STATUS_NOT_FOUND).json(err)
+    else return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
+  }
+}
+
 
 /**
  * @swagger

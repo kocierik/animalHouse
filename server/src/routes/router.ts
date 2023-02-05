@@ -336,6 +336,13 @@ appRouter.get(
   middlewares.verifyUser,
   userRoutes.getAllOrders
 )
+appRouter.delete(
+  prefix + '/orders/:id',
+  middlewares.log,
+  middlewares.verifyToken,
+  middlewares.verifyAdmin,
+  userRoutes.deleteOrder
+)
 
 appRouter.post(
   prefix + '/users/:id/posts',
