@@ -182,7 +182,7 @@ const Register = () => {
                 <p className="mt-6 text-sm text-center text-indigo-500">
                   Already have an account?
                   <a
-                    href="#"
+                    href="/frontoffice/login"
                     /* click="
                   () => {
                     isLogin = false

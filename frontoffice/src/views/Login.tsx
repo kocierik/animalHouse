@@ -132,7 +132,7 @@ export default function Login() {
                 <p className="mt-6 text-sm text-center text-gray-400">
                   Don&#x27;t have an account yet?
                   <a
-                    href="#"
+                    href="/frontoffice/register"
                     /* click="
                   () => {
                     isLogin = false
