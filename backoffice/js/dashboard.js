@@ -49,21 +49,23 @@ async function getSales(){
     });
 }
 
-function showSalesByProduct(products,sales){
+async function showSalesByProduct(products,sales){
     var ret = []
     console.log("products")
     console.log(products)
     console.log("sales")
     console.log(sales)
-    products.forEach((p)=>{
+    await products.forEach((p)=>{
         p.revenue = 0
-        
     })
     sales.forEach((s)=>{
-        s.cartItems.forEach((item)=>{
-            index = products.findIndex(el=>(el._id == item.productId))
-            products[index].revenue += item.price
-        })
+        try {
+            s.cartItems.forEach((item)=>{
+                index = products.findIndex(el=>(el._id == item.productId))
+                products[index].revenue += item.price
+            })
+        }catch(ex){console.log(s)}
+        
     })  
     var prods = products.sort(function(a, b) {
     return b.revenue - a.revenue;

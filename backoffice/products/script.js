@@ -44,7 +44,7 @@ const Item = ({ img, name, price, id, description, alt }) => `
                 <img class="rounded-lg" alt="${alt}" src="${img}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico'"></div>
             <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${name}</div>
             <div class="mr-4 h-16 w-32 block flex flex-row items-center text-gray-700">${price} $</div>
-            <div class="mr-4 h-16 w-64 block flex flex-row items-center text-gray-700">${description}</div>
+            <div class="mr-4 h-16 w-96 block flex flex-row items-center text-gray-700">${description}</div>
         </div>
 
     </td>
