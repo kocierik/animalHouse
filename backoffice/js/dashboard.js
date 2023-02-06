@@ -120,7 +120,7 @@ const ItemInvoice = ({ username, total, img, date }) => `
     <td class="p-2 py-4 border-b border-solid border-gray-300">
     <div class="pl-4 flex flex-wrap flex-row items-center">
         <div class="mr-4 h-16 w-16 block flex flex-row items-center">
-            <img class="rounded-lg" src="${img}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico' alt="${username}\'s picture">
+            <img class="rounded-lg" src="${img}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico'" alt="${username}\'s picture">
         </div>
         <div class="text-gray-700 w-48">${username}</div>
         <div class="text-gray-700 w-32">${date}</div>
