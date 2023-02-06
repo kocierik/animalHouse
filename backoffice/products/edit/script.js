@@ -22,7 +22,7 @@ function getAnimalCodes() {
       el.forEach((e) => {
         $('#targets-list').append(`
             <span class="m-2">
-                <input type="checkbox" class="grid-targets" value="${e.code}"> ${e.value} 
+                <input type="checkbox" class="grid-targets" value="${e.code}" aria-label="Target ${e.value}" > ${e.value} 
             </span>
             `)
       })
