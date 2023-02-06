@@ -72,8 +72,8 @@ const PostReview = (props: IProps) => {
               <div className="flex items-center" style={{ flex: '1 1 90%' }}>
                 <span className="font-black	text-lg	p-4">{username}</span>
                 <div className="flex">
-                  {valueProduct.map((rating) => (
-                    <button aria-label={rating.star.toString() + " star"} onClick={() => setStar(rating.star)}>
+                  {valueProduct.map((rating, i) => (
+                    <button key={i} aria-label={rating.star.toString() + " star"} onClick={() => setStar(rating.star)}>
                       <StarIcon
                         key={rating.star}
                         className={classNames(

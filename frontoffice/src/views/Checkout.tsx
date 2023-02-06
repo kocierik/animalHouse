@@ -358,7 +358,7 @@ const Checkout = () => {
                 onClick={async (e) => {
                   await order(e)
                 }}
-                className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full mt-6 bg-indigo-800 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Pay {getTotalPrice(10)}$
               </button>

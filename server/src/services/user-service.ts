@@ -175,45 +175,30 @@ export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-export const deleteFromAnimal = async (userId: string, animalId: string): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
+export const deleteFromAnimal = async (animalId: string): Promise<IAnimal> => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
     console.log(animal)
     console.log('animalId -> ', animalId)
-    const newAnimals = user.animals.filter((x) => x !== animalId)
-    user.animals = newAnimals
-    console.log(newAnimals)
-    await user.save()
-    return await Promise.all(user.animals.map(AnimalService.findById))
+    Animal.deleteOne({ _id: animalId })
+    await animal.save()
+    return animal
   } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
+    throw new JsonError(`Can\'t find animal with id ${animalId}`)
   }
 }
 
 export const updateFromAnimal = async (
-  userId: string,
   animalId: string,
   updateAnimal: JsonAnimal
-): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
+): Promise<IAnimal> => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
     console.log(animal)
-    user.animals.map(async (x) => {
-      if (x === animalId) {
-        const patch: AnimalPatch = {
-          age: updateAnimal.age,
-          name: updateAnimal.name,
-          type: updateAnimal.type
-        }
-        await AnimalService.patchAnimal(x, patch)
-      }
-    })
-
-    return AnimalService.findAnimalsUser(userId)
+    await AnimalService.patchAnimal(animalId, updateAnimal)
+    return animal
   } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
+    throw new JsonError(`Can\'t find animal with id ${animal}`)
   }
 }
 

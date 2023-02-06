@@ -83,6 +83,7 @@ appRouter.post(
   locationRoutes.postLocation
 )
 appRouter.get(prefix + '/locations/:id', middlewares.log, locationRoutes.getLocationById)
+
 appRouter.patch(
   prefix + '/locations/:id',
   middlewares.log,
@@ -167,14 +168,14 @@ appRouter.get(
   prefix + '/animals/:id/reservations',
   middlewares.log,
   middlewares.verifyToken,
-  middlewares.verifyUser,
+  // middlewares.verifyUser,
   reservationRoutes.getAnimalReservations
 )
 appRouter.get(
   prefix + '/reservations/:id',
   middlewares.log,
   middlewares.verifyToken,
-  middlewares.verifyUser,
+  // middlewares.verifyUser,
   reservationRoutes.getSingleReservation
 )
 appRouter.get(
@@ -188,7 +189,7 @@ appRouter.put(
   prefix + '/reservations/:id',
   middlewares.log,
   middlewares.verifyToken,
-  middlewares.verifyUser,
+  // middlewares.verifyUser,
   reservationRoutes.putReservation
 )
 
@@ -277,24 +278,24 @@ appRouter.put(
   userRoutes.putAnimal
 )
 appRouter.delete(
-  prefix + '/users/:uid/animals/:aid',
+  prefix + '/animals/:aid',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
   userRoutes.deleteAnimal
 )
 appRouter.put(
-  prefix + '/users/:uid/animals/:aid',
+  prefix + '/animals/:aid',
   middlewares.log,
   middlewares.verifyToken,
-  middlewares.verifyUser,
+  // middlewares.verifyUser,
   userRoutes.updateAnimal
 )
 appRouter.put(
-  prefix + '/users/:uid/animals/:id/picture',
+  prefix + '/animals/:id/picture',
   middlewares.log,
   middlewares.verifyToken,
-  middlewares.verifyUser,
+  // middlewares.verifyUser,
   middlewares.multerMiddleware('profileAnimal'),
   userRoutes.putAnimalPicture
 )

@@ -123,7 +123,7 @@ export default function Login() {
                     type="submit"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-indigo-800 rounded-md hover:bg-indigo-900 focus:outline-none focus:bg-green-400 focus:ring focus:ring-green-300 focus:ring-opacity-50"
+                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-indigo-800 rounded-md hover:bg-indigo-900 focus:outline-none focus:bg-indigo-700 focus:ring  focus:ring-opacity-50"
                   >
                     Sign in
                   </button>
@@ -131,8 +131,8 @@ export default function Login() {
 
                 <p className="mt-6 text-sm text-center text-gray-400">
                   Don&#x27;t have an account yet?
-                  <a
-                    href="#"
+                  <button
+                    onClick={() => navigate("/register")}
                     /* click="
                   () => {
                     isLogin = false
@@ -143,7 +143,7 @@ export default function Login() {
                   >
                     {' '}
                     Sign up
-                  </a>
+                  </button>
                   .
                 </p>
               </form>

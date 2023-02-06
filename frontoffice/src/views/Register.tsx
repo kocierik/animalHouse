@@ -180,9 +180,9 @@ const Register = () => {
                 </div>
 
                 <p className="mt-6 text-sm text-center text-indigo-500">
-                  Already have an account?
-                  <a
-                    href="#"
+                  Already have an account? {' '}
+                  <button
+                    onClick={() => navigate('/login')}
                     /* click="
                   () => {
                     isLogin = false
@@ -193,7 +193,7 @@ const Register = () => {
                   >
                     {' '}
                     Sign in
-                  </a>
+                  </button>
                   !
                 </p>
               </div>
