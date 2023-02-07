@@ -13,8 +13,8 @@ import type * as order from './json/Orders'
 import type * as service from './json/Service'
 import type * as forum from './json/Forum'
 // Server api urls
-//export const SERVER_URL = 'http://localhost:8000' // keep this for dev
-export const SERVER_URL = '' // keep this for production
+export const SERVER_URL = 'http://localhost:8000' // keep this for dev
+//export const SERVER_URL = '' // keep this for production
 const _BASE_URL = `${SERVER_URL}/api/v2`
 
 

@@ -25,7 +25,12 @@ const Trending = () => {
         listForum?.map((forum, i) => {
           return (
             <div key={i} className="flex w-full py-4 border-b border-gray-300">
-              <span className="flex-shrink-0 w-10 h-10 bg-gray-400 rounded-full"></span>
+              {
+                forum.picture ?
+                  <img src={forum.picture} className="flex-shrink-0 w-10 h-10 bg-gray-400 rounded-full"></img>
+                  :
+                  <span className="flex-shrink-0 w-10 h-10 bg-gray-400 rounded-full"></span>
+              }
               <div className="flex flex-col flex-grow ml-2">
                 <div className="flex text-sm cursor-pointer">
                   <button onClick={() => { navigate("/forum/" + forum._id) }} className="text-md font-black	 text-indigo-800">{forum.name}</button>
