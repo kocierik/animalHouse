@@ -2,6 +2,7 @@ export interface JsonForum {
   _id: string
   name: string
   description: string
+  picture?: string
 }
 
 export const SwaggerForum = {
@@ -15,6 +16,9 @@ export const SwaggerForum = {
     },
     description: {
       type: 'string'
+    },
+    picture: {
+      type: 'string',
     },
   }
 }

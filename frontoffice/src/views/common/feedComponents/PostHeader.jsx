@@ -7,9 +7,9 @@ const PostHeader = (props) => {
     <div className="flex pt-4 px-4 pb-2 w-full align items-center">
       {/* User Avatar */}
       <img
-        src="/imageprofile.jpg"
+        src={props.picture}
         className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14 duration-150"
-        alt="User profile"
+        alt="User profile picture"
       />
 
       {/* User & Post Info */}

@@ -9,6 +9,7 @@ export interface JsonRegistration {
 }
 
 export interface JsonUser {
+  _id: string
   username: string
   email: string
   firstName: string
