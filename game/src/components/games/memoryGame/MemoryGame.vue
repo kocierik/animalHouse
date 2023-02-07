@@ -123,9 +123,9 @@ onBeforeMount(async () => {
 <template>
   <section class="main animate-in fade-in zoom-in duration-500">
     <div class="flex flex-col items-center p-10">
-      <a
+      <p
         class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
-        >Memory Game</a
+        >Memory Game</p
       >
       <h2 class="mt-3 text-black text-xl font-bold">Moves: {{ moves }}</h2>
     </div>
