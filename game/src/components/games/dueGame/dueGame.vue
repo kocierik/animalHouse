@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import PopupTransitionVue from './components/PopupTransition.vue'
+import PopupSelectGridSizeVue from './components/PopupSelectGridSize.vue'
 import PopupGameoverVue from './components/PopupGameover.vue'
+import PopupWinVue from './components/PopupWin.vue'
+import GameControlsVue from './components/GameControls.vue'
+
+import GameScore from './components/GameScore.vue'
 import { state, canMove } from './store'
 import { hasGame, newGame, move } from './game'
 import { keysMap } from './utils'
@@ -9,7 +14,6 @@ import './style.scss'
 import swal from 'sweetalert'
 import { GameConstant, ApiRepository, Helpers, JsonGames } from 'shared'
 
-let score2048: number
 
 const gameBoardElement = ref<any>(null)
 const setBoardWidth = () => {
@@ -131,9 +135,9 @@ const saveDbResult = () => {
 </script>
 
 <template>
-  <div class="animate-in fade-in zoom-in duration-500 flex justify-center h-full items-center">
-    <div class="max-w-[500px] p-10">
-      <GameScoreVue />
+  <div class="animate-in fade-in zoom-in duration-500 flex justify-center w-full h-screen ">
+    <div class="max-w-[500px] p-10 w-full">
+      <GameScore />
 
       <div
         class="game-grid-wrap mb-4 relative overflow-hidden shadow-[inset_0_2px_0_rgba(255,255,255,.15)]"
