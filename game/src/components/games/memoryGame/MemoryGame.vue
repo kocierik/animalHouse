@@ -130,9 +130,9 @@ onBeforeMount(async () => {
       <h2 class="mt-3 text-black text-xl font-bold">Moves: {{ moves }}</h2>
     </div>
     <div class="game">
-      <div id="memory">
+      <div class="grid grid-cols-2 grid-rows-6 md:grid-cols-4 md:grid-rows-3">
         <div
-          class="rouned shadow m-3 overflow-hidden"
+          class="rouned shadow m-3 overflow-hidden object-cover"
           :style="{ width: 100, height: 100 }"
           v-for="card in cards"
           :key="card.id"
@@ -146,8 +146,7 @@ onBeforeMount(async () => {
             <img src="/memory.webp" class="max-w-xs max-h-xs object-scale-down" />
           </div>
           <!-- Revealed -->
-          <div v-show="card.guessed || card.selected" class="h-full flex justify-center items-center">
-            <img :src="card.image" class="max-w-xs max-h-xs object-scale-down" />
+          <div v-show="card.guessed || card.selected" class="h-full bg-cover flex justify-center items-center"  :style='"background-image: url(" + card.image+ ")"'>
           </div>
         </div>
       </div>
@@ -167,13 +166,6 @@ onBeforeMount(async () => {
   display: flex;
   align-items: center;
   flex-direction: column;
-}
-
-#memory {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
 }
 
 .value {
