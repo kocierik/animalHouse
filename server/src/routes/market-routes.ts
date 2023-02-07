@@ -290,7 +290,7 @@ export const putProductPicture = async (req: Request, res: Response) => {
  * */
 export const getProductSumUp = async (req: Request, res: Response) => {
   try {
-    return res.status(Const.STATUS_OK).json(await ProductService.getProductReviewSumUp(req.path.id))
+    return res.status(Const.STATUS_OK).json(await ProductService.getProductReviewSumUp(req.params.id))
   } catch (err) {
     return res.status(Const.STATUS_BAD_REQUEST).json(new JsonError(err.message))
   }
