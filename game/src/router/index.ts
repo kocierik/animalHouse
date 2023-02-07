@@ -106,7 +106,7 @@ const router = createRouter({
     },
     {
       path: FunnyGamesRoute,
-      name: 'video',
+      name: 'games',
       component: GamesView
     }
   ]

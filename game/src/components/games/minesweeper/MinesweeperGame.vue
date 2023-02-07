@@ -294,8 +294,19 @@ const restart = () => {
 }
 </script>
 <template>
+  <div class="h-screen">
+  <div class="flex justify-center m-10">
+      <p
+        class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
+        >Minesweeper</p
+      >
+  </div>
+  <!-- <div class="flex justify-center"> -->
+  <!-- <button @click="restart" -->
+  <!--   class="py-3 px-5 m-5 font-black bg-lyellow rounded-full"  -->
+  <!--   v-bind:class="{ finished: table.isFinished }">RESTART</button> -->
+  <!-- </div> -->
   <div id="field" class="animate-in fade-in zoom-in duration-500">
-    <p class="message p-10">Minesweeper's</p>
     <table class="flex justify-center p-2">
       <tbody>
         <tr v-for="row in tableCell" v-bind:key="row">
@@ -336,7 +347,7 @@ const restart = () => {
         </tr>
       </tbody>
     </table>
-    <button v-on:click="restart" class="btn-restart" v-bind:class="{ finished: table.isFinished }">RESTART</button>
+  </div>
   </div>
 </template>
 
