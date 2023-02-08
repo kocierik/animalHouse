@@ -9,9 +9,9 @@ const Shopping = () => {
   const getCategoryProduct = async () => {
     try {
       const resp = await ApiRepository.getProductCategoriesName()
-      console.log(resp)
+
     } catch (error) {
-      console.log(error)
+
     }
   }
 

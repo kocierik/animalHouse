@@ -110,34 +110,39 @@ const Checkout = () => {
             <div className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5"> Summary</div>
             <Disclosure.Panel>
               <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
-                {buyingProduct?.map((product, i) => (
-                  <li key={i} className="flex py-6 space-x-6">
-                    <img
-                      src={product.product.image.filename}
-                      alt={product.product.name}
-                      className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
-                    />
-                    <div className="flex flex-col  space-y-4">
-                      <div className="text-sm font-medium space-y-1">
-                        <h3 className="text-gray-900">Name: {product.product.name}</h3>
-                        <p className="text-gray-900">Price: {product.cartItem.price}$</p>
-                        {product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
-                        <p className="text-gray-500">Size: {product.cartItem.size}</p>
-                      </div>
-                      <div className="flex 	 space-x-4">
-                        <div className="flex  border-gray-300 ">
-                          <button
-                            type="button"
-                            onClick={async () => await removeFromCart(product.cartItem._id)}
-                            className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
+                {
+                  buyingProduct.length === 0 ?
+                    <div>
+                      <h2> The cart is empty </h2>
                     </div>
-                  </li>
-                ))}
+                    : buyingProduct?.map((product, i) => (
+                      <li key={i} className="flex py-6 space-x-6">
+                        <img
+                          src={product.product.image.filename}
+                          alt={product.product.name}
+                          className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
+                        />
+                        <div className="flex flex-col  space-y-4">
+                          <div className="text-sm font-medium space-y-1">
+                            <h3 className="text-gray-900">Name: {product.product.name}</h3>
+                            <p className="text-gray-900">Price: {product.cartItem.price}$</p>
+                            {product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
+                            <p className="text-gray-500">Size: {product.cartItem.size}</p>
+                          </div>
+                          <div className="flex 	 space-x-4">
+                            <div className="flex  border-gray-300 ">
+                              <button
+                                type="button"
+                                onClick={async () => await removeFromCart(product.cartItem._id)}
+                                className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
               </ul>
             </Disclosure.Panel>
           </Disclosure>
@@ -183,22 +188,30 @@ const Checkout = () => {
                 </div>
               </li>
             ))}
-            <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
-              <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
-                <div className="flex justify-between">
-                  <dt>Subtotal:</dt>
-                  <dd className="text-gray-900">{getTotalPrice()}$</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt>Shipping</dt>
-                  <dd className="text-gray-900">10$</dd>
-                </div>
-                <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
-                  <dt className="text-base">Total:</dt>
-                  <dd className="text-base">{getTotalPrice(10)}$</dd>
-                </div>
-              </dl>
-            </div>
+            {buyingProduct.length == 0 ?
+              <div className=" bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
+                <dl className=" text-center text-sm font-medium text-indigo-800 mt-10 space-y-6">
+                  <h2> The cart is empty </h2>
+                </dl>
+              </div>
+              : (
+                <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
+                  <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
+                    <div className="flex justify-between">
+                      <dt>Subtotal:</dt>
+                      <dd className="text-gray-900">{getTotalPrice()}$</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt>Shipping</dt>
+                      <dd className="text-gray-900">10$</dd>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
+                      <dt className="text-base">Total:</dt>
+                      <dd className="text-base">{getTotalPrice(10)}$</dd>
+                    </div>
+                  </dl>
+                </div>)
+            }
           </ul>
         </section>
 
@@ -358,7 +371,7 @@ const Checkout = () => {
                 onClick={async (e) => {
                   await order(e)
                 }}
-                className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full mt-6 bg-indigo-800 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Pay {getTotalPrice(10)}$
               </button>

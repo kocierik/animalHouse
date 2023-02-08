@@ -587,7 +587,6 @@ export const putAnimal = async (req: Request, res: Response) => {
   try {
     const pathId = req.params.id
     const animal = req.body as JsonAnimal
-    console.log(animal)
     return res.status(Const.STATUS_OK).json(await UserService.addAnimalsToUser(pathId, animal))
   } catch (ex) {
     if (ex instanceof JsonError) return res.status(Const.STATUS_BAD_REQUEST).json(ex)
@@ -635,8 +634,7 @@ export const putAnimal = async (req: Request, res: Response) => {
 export const deleteAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
-    const userId = req.params.uid
-    return res.status(Const.STATUS_OK).json(await UserService.deleteFromAnimal(userId, animalId))
+    return res.status(Const.STATUS_OK).json(await UserService.deleteFromAnimal(animalId))
   } catch (error) {
     return res.status(Const.STATUS_BAD_REQUEST).json(error)
   }
@@ -688,9 +686,8 @@ export const deleteAnimal = async (req: Request, res: Response) => {
 export const updateAnimal = async (req: Request, res: Response) => {
   try {
     const animalId = req.params.aid
-    const userId = req.params.uid
     let animal = req.body as JsonAnimal
-    return res.status(Const.STATUS_OK).json(await UserService.updateFromAnimal(userId, animalId, animal))
+    return res.status(Const.STATUS_OK).json(await UserService.updateFromAnimal(animalId, animal))
   } catch (error) {
     return res.status(Const.STATUS_BAD_REQUEST).json(error)
   }
@@ -699,7 +696,6 @@ export const updateAnimal = async (req: Request, res: Response) => {
 export const postPicture = async (req: Request, res: Response) => {
   // TODO swagger
   try {
-    console.log(req.file)
     const pathId = req.params.id
     const file = req.file as JsonPicture
     const newData = UserService.pictureToJsonPicture(file)

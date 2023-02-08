@@ -1,10 +1,14 @@
 <template>
-  <div class="flex justify-center flex-col justify-items-center p-5 h-full">
-    <h1>Tic Tac Toe</h1>
+  <div class="flex justify-center flex-col items-center justify-items-center p-5 h-full">
+      <p
+        class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
+        >Tic Tac Toe
+
+    </p>
     <div class="flex flex-col justify-center items-center p-10">
       <div v-if="winner" class="flex"></div>
       <div v-else class="flex p-5">
-        <h2>Turn: {{ turn }}</h2>
+        <h2 class="text-black text-xl font-bold">Turn: {{ turn }}</h2>
       </div>
       <div class="flex" v-for="(n, i) in 3" :key="i">
         <div v-for="(n, j) in 3" :key="j">

@@ -11,7 +11,7 @@ async function getUsers(){
     }
   }).then((res) => res.json()).then(async(data)=>{
     users = await data
-    console.log(data)
+    
   })
 }
 async function getReservations(){
@@ -21,7 +21,7 @@ async function getReservations(){
     }
   }).then((res) => res.json()).then(async(data)=>{
     reservations = await data
-    console.log(data)
+    
   })
 }
 async function getLocations(){
@@ -31,7 +31,7 @@ async function getLocations(){
     }
   }).then((res) => res.json()).then(async(data)=>{
     locations = await data
-    console.log(data)
+    
   })
 }
 async function getServices(){
@@ -41,7 +41,7 @@ async function getServices(){
     }
   }).then((res) => res.json()).then(async(data)=>{
     services = await data
-    console.log(data)
+    
   })
 }
 function reservationRemove(id) {
@@ -59,7 +59,7 @@ function reservationRemove(id) {
 async function fillDashboard(){
   $("#orderList").text("")
   reservations.forEach(async r => {
-    console.log(r)
+    
     var u = users.find((x) => x._id == r.userId)
     var l = locations.find((x)=>x._id == r.locationId)
     l.name != undefined ? l=`${l.name}, ${l.address.city}` : ""
@@ -71,7 +71,7 @@ async function fillDashboard(){
       }
     }).then((res)=>res.json()).then(async (data)=>{
       a = await data
-      console.log(data)
+      
     })
     var s = services.find((x)=> x._id == r.serviceId)
     s.title != undefined ? s=s.title : ""

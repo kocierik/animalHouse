@@ -8,7 +8,7 @@ function showImage() {
     $('#imgplaceholder').attr('src', String(reader.result))
   }
   reader.onerror = function (error) {
-    console.log('Error: ', error)
+    
   }
 }
 
@@ -60,6 +60,4 @@ $('#send').click(async function () {
     await swal("Error",`Error sending customer details: ${(await r1.json()).mex}`,"error")
     return
   }
-
-  
 })

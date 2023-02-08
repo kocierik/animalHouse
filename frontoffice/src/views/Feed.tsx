@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom'
 function Feed() {
   const params = useParams()
   const [forumPost, setForumPost] = useState<JsonForum.IPost[]>([])
-  const [forumName, setForumName] = useState<string>('')
+  const [forum, setForum] = useState<JsonForum.IForum>()
   const [update, setUpdate] = useState<boolean>(false)
 
   const idForum = params.id
@@ -27,7 +27,7 @@ function Feed() {
   const getForumName = async () => {
     const data = (await ApiRepository.getForumName(idForum)).data
     if (data) {
-      setForumName(data.name)
+      setForum(data)
     }
   }
 
@@ -46,8 +46,11 @@ function Feed() {
       > {idForum != 'trending' ?
         <>
           <div data-aos-duration="500" data-aos="zoom-in" className='flex flex-1 mt-10 border-x-2 border-slate-100	 flex-col items-center'>
-            <h1 data-aos="zoom-in"
-              data-aos-duration="500" className="text-3xl font-semibold mb-5 leading-tight">{forumName}</h1>
+            <div className="flex items-center justify-start m-5">
+              <img src={forum?.picture} className="flex-shrink-0 w-40 h-40 bg-gray-400 rounded-full"></img>
+              <h1 data-aos="zoom-in"
+                data-aos-duration="500" className="text-3xl font-semibold ml-10 mb-5 leading-tight">{forum?.name}</h1>
+            </div>
             <PostCard setUpdate={setUpdate} update={update} />
             {forumPost?.reverse().map(
               (data, i: number) => {

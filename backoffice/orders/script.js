@@ -45,7 +45,7 @@ function invoiceRemove(id) {
 function fillDashboard(){
   $("#orderList").text("")
   orders.forEach(o => {
-    console.log(o)
+    
       var total = 0
       
       var pic = ""
@@ -54,7 +54,7 @@ function fillDashboard(){
         total += el.price
       })
       var u = users.find((x) => x._id == o.userId)
-      console.log(u)
+      
       var mail = u.email
       var user = u.username
 

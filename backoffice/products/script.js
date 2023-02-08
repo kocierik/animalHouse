@@ -5,7 +5,7 @@ function retrieveProducts(target) {
     .then((data) => {
       $(target).text('')
       data.forEach(function (el) {
-        console.log(el)
+        
         var img = '/backoffice/favicon.ico'
         if (el.image) img = '/pictures/' + el.image.filename
         $(target).append(

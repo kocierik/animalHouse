@@ -34,7 +34,7 @@ function showImage() {
     $('#imgplaceholder').attr('src', String(reader.result))
   }
   reader.onerror = function (error) {
-    console.log('Error: ', error)
+    
   }
 }
 
@@ -71,7 +71,7 @@ function retrieveScores(id){
   })
   .then((response) => response.json())
   .then((el) => {
-    console.log(el)
+    
     if(el == undefined || el.length == 0 || el.mex != undefined) {
       $('#games-place-list').append(`
       <div class="p-2 py-8 border-b border-solid border-gray-300">
@@ -98,7 +98,7 @@ async function retrieveUser(id) {
   })
     .then((response) => response.json())
     .then((el) => {
-      console.log(el)
+      
       $('#grid-firstName').val(el.firstName)
       $('#grid-lastName').val(el.lastName)
       $('#grid-category').val(el.categoryId)
@@ -116,7 +116,7 @@ async function retrieveUser(id) {
       if(!el.valid) $('#disable-customer').hide()
       if (el.animals.length == 0) $('#animals-place-section').hide()
       el.animals.forEach((a) => {
-        console.log(a)
+        
         fetch(`/api/v2/animals/${a}`,{
           headers: {
             authorization: localStorage.bo_token

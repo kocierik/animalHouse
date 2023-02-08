@@ -9,11 +9,11 @@ const LikeButtons = (props: { likes: number, postId: string, userLikes: string[]
   const handlePostLike = async (): Promise<void> => {
     if (userId) {
       const likeUsers = props.userLikes.filter((value) => value !== userId)
-      console.log("dislike: ", likeUsers)
+
       await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.postId, { userLikes: likeUsers })
       setUserId('')
     } else {
-      console.log("like: ", localStorage.getItem('userId'))
+
       await ApiRepository.editForumPost(localStorage.getItem('userId')!, props.postId, { userLikes: [...props.userLikes, localStorage.getItem('userId')!] })
       // props.userLikes.push(localStorage.getItem('userId')!)
       setUserId(localStorage.getItem('userId')!)

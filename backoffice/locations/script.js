@@ -14,7 +14,7 @@ function fetchLocations() {
 
       let coords = []
       data.forEach(function (el) {
-        console.log(el)
+        
         var addr = `${el.address.street}, ${el.address.city}, ${el.address.zip}, ${el.address.country}`
         var c = { lon: el.longitude, lat: el.latitude }
         coords.push(c)

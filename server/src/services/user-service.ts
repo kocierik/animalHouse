@@ -9,7 +9,7 @@ import { JsonLogin } from '../json/JsonUser'
 import { AuthData } from '../routes/middlewares'
 import JsonError, { JsonBadReqError, JsonNotFoundError, JsonVisibilityError } from '../json/JsonError'
 import Admin from '../entities/Admin'
-
+import fs from 'fs'
 import { JsonOrder } from '../json/JsonOrder'
 import { JsonPaymentDetails } from '../json/JsonPaymentDetails'
 import { JsonPicture, JsonUser, JsonUserCreation } from '../json/JsonUser'
@@ -20,12 +20,21 @@ import * as OrderService from './order-service'
 import * as ProductService from './product-service'
 import { IPicture } from '../entities/Picture'
 import { AnimalPatch } from '../json/patch/AnimalPatch'
+import { PICTURE_DIR } from '../const'
 
 export const createUser = async (userCreation: JsonUserCreation): Promise<IUser> =>
   validateUserCreation(userCreation)
     .then(userCreationToUser)
     .then((x) => x.save())
-    .then((x) => x as IUser)
+    .then(async (x) => {
+      defaultPictureForUser(x._id)
+      await addPictureToUser(x._id, { filename: x._id, mimetype: "image/png" })
+      return x as IUser
+    })
+
+const defaultPictureForUser = (userId: string) => {
+  fs.copyFileSync(`${__dirname}${PICTURE_DIR}/userdefault.png`, `${__dirname}${PICTURE_DIR}/${userId}`)
+}
 
 const validateUserCreation = async (userCreation: JsonUserCreation): Promise<JsonUserCreation> => {
   // Password checks
@@ -63,6 +72,7 @@ const userCreationToUser = (userCreation: JsonUserCreation) => {
   user.password = userCreation.password //bcrypt.hashSync(userCreation.password, 5)
   user.firstName = userCreation.firstName
   user.lastName = userCreation.lastName
+  user.description = "No description"
 
   const address = new Address()
   address.country = userCreation.country
@@ -175,45 +185,27 @@ export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
   } else throw new JsonError(`Can\'t find user with id ${userId}`)
 }
 
-export const deleteFromAnimal = async (userId: string, animalId: string): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    console.log('animalId -> ', animalId)
-    const newAnimals = user.animals.filter((x) => x !== animalId)
-    user.animals = newAnimals
-    console.log(newAnimals)
-    await user.save()
-    return await Promise.all(user.animals.map(AnimalService.findById))
+export const deleteFromAnimal = async (animalId: string): Promise<IAnimal> => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
+    await Animal.deleteOne({ _id: animalId })
+    await animal.save()
+    return animal
   } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
+    throw new JsonError(`Can\'t find animal with id ${animalId}`)
   }
 }
 
 export const updateFromAnimal = async (
-  userId: string,
   animalId: string,
   updateAnimal: JsonAnimal
-): Promise<IAnimal[]> => {
-  const user = await User.findById(userId)
-  if (user) {
-    const animal = await Animal.findById(animalId)
-    console.log(animal)
-    user.animals.map(async (x) => {
-      if (x === animalId) {
-        const patch: AnimalPatch = {
-          age: updateAnimal.age,
-          name: updateAnimal.name,
-          type: updateAnimal.type
-        }
-        await AnimalService.patchAnimal(x, patch)
-      }
-    })
-
-    return AnimalService.findAnimalsUser(userId)
+): Promise<IAnimal> => {
+  const animal = await Animal.findById(animalId)
+  if (animal) {
+    await AnimalService.patchAnimal(animalId, updateAnimal)
+    return animal
   } else {
-    throw new JsonError(`Can\'t find user with id ${userId}`)
+    throw new JsonError(`Can\'t find animal with id ${animal}`)
   }
 }
 

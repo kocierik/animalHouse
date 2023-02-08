@@ -16,6 +16,51 @@ import Cart from './entities/Cart'
 import Reservation from './entities/Reservation'
 
 export const test = async () => {
+  await Post.deleteMany()
+  await Post.insertMany([
+    {
+      text: "Il mio animale domestico è un gatto di nome Luna. È una gatta tigrata dolce e affettuosa, sempre pronta a ricevere coccole. Adora giocare con i suoi giocattoli e passare del tempo con la sua famiglia umana. Non potrei chiedere di meglio come compagnia!",
+      date: "2023-01-24T12:22:01.880Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Mi chiamo Luna e ho un gatto adorabile di nome Felix. È un gattino tigrato con occhi verdi e una personalità dolce e affettuosa. Adoro guardarlo giocare e ronfare accanto a me mentre lavoro. Non posso immaginare la mia vita senza di lui!",
+      date: "2023-01-24T12:23:05.880Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Il mio cane si chiama Bella e lei è un Labrador Retriever. È così leale e divertente, sempre pronta per una passeggiata o un gioco. Ha un pelo morbido e marrone scuro che amo accarezzare. È anche una grande guardiana e mi fa sentire sempre al sicuro. Non potrei chiedere di meglio come animale domestico!",
+      date: "2023-01-24T12:28:31.800Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Il mio animale domestico è un pappagallo di nome Polly. È una parlantina intelligente e adoro insegnarle nuove parole e trucchi. Ha un piumaggio colorato con sfumature di verde, giallo e rosso che è sempre un piacere vedere. E' molto affettuosa e mi fa compagnia durante le lunghe giornate. Non potrei immaginare la mia vita senza di lei.",
+      date: "2023-01-24T12:28:31.800Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    },
+    {
+      text: "Questo post non dovrebbe essere valido",
+      date: "2023-01-24T12:32:31.800Z",
+      userId: "635c088531e05da80c7faf62",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: false,
+    },
+    {
+      text: "Il mio animale domestico è un pesce rosso chiamato Nemo (sì, come quello del film). Non fa molto, a parte nuotare in cerchio e guardarmi mentre mangio. Ma devo ammettere che è un gran esperto di scienze marine, basta guardare la sua abilità nel respirare sott'acqua. E' anche un gran nuotatore, se solo avesse un po' più di carattere sarebbe un vero campione!",
+      date: "2023-01-24T12:29:31.800Z",
+      userId: "635c088531e05da80c7faf61",
+      forumId: "63cfc9ffab338c98b2473d37",
+      valid: true,
+    }
+  ])
   await Admin.deleteOne({ username: 'test-admin' })
   await Admin.insertMany([
     { username: 'test-admin', password: 'test', _id: new Types.ObjectId('000000000000000000000001') }
@@ -301,77 +346,38 @@ export const initForums = async () => {
     {
       _id: '63cef427d93bbce76c2ca583',
       name: 'Welcome',
-      description: 'Welcome to our community! Speak with other people here!'
+      description: 'Welcome to our community! Speak with other people here!',
+      picture: 'https://cdn-icons-png.flaticon.com/512/1026/1026658.png'
     },
     {
       _id: new Types.ObjectId('63cfc9ffab338c98b2473d37'),
-      name: 'Here it is',
-      description: 'Share the photos of your friends with the Animal House community!'
+      name: 'Here it is!',
+      description: 'Share the photos of your friends with the Animal House community!',
+      picture: 'https://wallpaperaccess.com/full/5054499.jpg'
     },
     {
       _id: '63cef427d93bbce76c2ca585',
       name: 'Help',
-      description: 'Ask the Animal House community for help!'
+      description: 'Ask the Animal House community for help!',
+      picture: 'https://www.pngall.com/wp-content/uploads/5/Help-PNG-Free-Download.png'
     },
     {
       _id: '63cef427d93bbce76c2ca586',
       name: 'It\'s your turn!',
-      description: 'Let your animal share his/her thoughts with the House comunity for help!'
+      description: 'Let your animal share his/her thoughts with the House comunity for help!',
+      picture: 'https://png.pngtree.com/png-clipart/20221015/original/pngtree-cartoon-illustration-of-funny-dog-animal-character-with-personal-computer-png-image_8695075.png'
     },
     {
       _id: '63cef427d93bbce76c2ca587',
       name: 'My advice is...',
-      description: 'Here users can share advices with other memeber of the community'
+      description: 'Here users can share advices with other memeber of the community',
+      picture: 'https://www.pngmart.com/files/21/Advice-PNG-Picture.png'
     },
     {
       _id: '63cef427d93bbce76c2ca588',
       name: 'LOL - laughing togheter',
-      description: 'Share your jokes with the Animal House comunity'
-    }
-  ])
-  await Post.deleteMany()
-  await Post.insertMany([
-    {
-      text: "Il mio animale domestico è un gatto di nome Luna. È una gatta tigrata dolce e affettuosa, sempre pronta a ricevere coccole. Adora giocare con i suoi giocattoli e passare del tempo con la sua famiglia umana. Non potrei chiedere di meglio come compagnia!",
-      date: "2023-01-24T12:22:01.880Z",
-      userId: "635c088531e05da80c7faf62",
-      forumId: "63cfc9ffab338c98b2473d37",
-      valid: true,
-    },
-    {
-      text: "Mi chiamo Luna e ho un gatto adorabile di nome Felix. È un gattino tigrato con occhi verdi e una personalità dolce e affettuosa. Adoro guardarlo giocare e ronfare accanto a me mentre lavoro. Non posso immaginare la mia vita senza di lui!",
-      date: "2023-01-24T12:23:05.880Z",
-      userId: "635c088531e05da80c7faf62",
-      forumId: "63cfc9ffab338c98b2473d37",
-      valid: true,
-    },
-    {
-      text: "Il mio cane si chiama Bella e lei è un Labrador Retriever. È così leale e divertente, sempre pronta per una passeggiata o un gioco. Ha un pelo morbido e marrone scuro che amo accarezzare. È anche una grande guardiana e mi fa sentire sempre al sicuro. Non potrei chiedere di meglio come animale domestico!",
-      date: "2023-01-24T12:28:31.800Z",
-      userId: "635c088531e05da80c7faf62",
-      forumId: "63cfc9ffab338c98b2473d37",
-      valid: true,
-    },
-    {
-      text: "Il mio animale domestico è un pappagallo di nome Polly. È una parlantina intelligente e adoro insegnarle nuove parole e trucchi. Ha un piumaggio colorato con sfumature di verde, giallo e rosso che è sempre un piacere vedere. E' molto affettuosa e mi fa compagnia durante le lunghe giornate. Non potrei immaginare la mia vita senza di lei.",
-      date: "2023-01-24T12:28:31.800Z",
-      userId: "635c088531e05da80c7faf62",
-      forumId: "63cfc9ffab338c98b2473d37",
-      valid: true,
-    },
-    {
-      text: "Questo post non dovrebbe essere valido",
-      date: "2023-01-24T12:32:31.800Z",
-      userId: "635c088531e05da80c7faf62",
-      forumId: "63cfc9ffab338c98b2473d37",
-      valid: false,
-    },
-    {
-      text: "Il mio animale domestico è un pesce rosso chiamato Nemo (sì, come quello del film). Non fa molto, a parte nuotare in cerchio e guardarmi mentre mangio. Ma devo ammettere che è un gran esperto di scienze marine, basta guardare la sua abilità nel respirare sott'acqua. E' anche un gran nuotatore, se solo avesse un po' più di carattere sarebbe un vero campione!",
-      date: "2023-01-24T12:29:31.800Z",
-      userId: "635c088531e05da80c7faf61",
-      forumId: "63cfc9ffab338c98b2473d37",
-      valid: true,
+      description: 'Share your jokes with the Animal House comunity',
+      picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHCJtscC7bZW-RHJjif_k_U8tzKkG8jr9I7A&usqp=CAU'
     }
   ])
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ApiRepository, ApiResponse, JsonUser } from 'shared'
 import ErrorBox from './common/ErrorBox'
 import { useNavigate } from 'react-router-dom'
+import { Helpers } from 'shared'
 
 const Register = () => {
   const [username, setUsername] = useState('')
@@ -10,6 +11,10 @@ const Register = () => {
   const [retyped, setRetyped] = useState('')
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('')
+  const [country, setCountry] = useState('')
+  const [zip, setZip] = useState('')
 
   const [isError, setIsError] = useState(false)
   const [error, setError] = useState('')
@@ -17,21 +22,36 @@ const Register = () => {
   const navigate = useNavigate()
 
   const register = async () => {
-    if (!doneClickable) return
+    // if (!doneClickable) return alert('Please fill all the fields!')
     setIsError(false)
     const input: JsonUser.JsonRegistration = {
       username: username,
       email: email,
       password: password,
       firstName: name,
-      lastName: surname
+      lastName: surname,
+      city: city,
+      country: country,
+      street: street,
+      zip: zip
     }
 
     const response: ApiResponse<JsonUser.JsonUser> = await ApiRepository.register(input)
     if (response.esit) {
-      navigate('/register/animal')
+      let resp = await ApiRepository.login(username, password)
+      if (!resp.esit) {
+        setError(response.error!.mex)
+        return
+      } else {
+        Helpers.doLogin(resp.data.token)
+        const resp2: ApiResponse<JsonUser.JsonAuthInfo> = await ApiRepository.getCurrentUser()
+        if (resp2) {
+          Helpers.setUserId(resp2.data?.id!)
+          navigate('/')
+          window.location.reload()
+        }
+      }
     } else {
-      console.log(response.error!.mex)
       setError(response.error!.mex)
       setIsError(true)
     }
@@ -44,19 +64,23 @@ const Register = () => {
       password !== '' &&
       name !== '' &&
       surname !== '' &&
+      city !== '' &&
+      zip !== '' &&
+      country !== '' &&
+      street !== '' &&
       retyped !== '' &&
       retyped === password
     )
-  }, [username, email, password, name, surname, retyped, isError])
+  }, [username, email, password, name, surname, city, country, zip, street, retyped, isError])
 
   return (
     <>
       <div className="bg-white">
-        <div className="flex justify-center h-screen">
+        <div className="flex justify-center ">
           <div
             className="hidden bg-cover lg:block lg:w-2/4"
             style={{
-              backgroundImage: "url('/login.jpg')"
+              backgroundImage: "url('../login.jpg')"
             }}
           >
             <div
@@ -76,7 +100,12 @@ const Register = () => {
 
           <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
             <div className="flex-1">
-              <div className="mt-8">
+              <div className="text-center">
+                <h2 className="text-4xl font-bold text-center text-gray-700 mt-5">Register</h2>
+
+                <p className="mt-3 text-gray-500">Sign up to access your account</p>
+              </div>
+              <div className=" flex flex-col">
                 {isError ? <ErrorBox text={error} /> : <div />}
                 {/* Name */}
                 <div>
@@ -89,7 +118,7 @@ const Register = () => {
                     name="name"
                     id="name"
                     placeholder="name"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 {/* Surname */}
@@ -103,7 +132,7 @@ const Register = () => {
                     name="surname"
                     id="surname"
                     placeholder="surname"
-                    className="block w-full px-4 py-2 mt-2 mt-6 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 mt-6 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 {/* Email */}
@@ -117,7 +146,7 @@ const Register = () => {
                     onChange={(event) => setEmail(event.target.value)}
                     id="email"
                     placeholder="email"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 {/* Username */}
@@ -131,7 +160,7 @@ const Register = () => {
                     onChange={(event) => setUsername(event.target.value)}
                     id="username"
                     placeholder="username"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
@@ -146,28 +175,70 @@ const Register = () => {
                     id="password"
                     onChange={(event) => setPassword(event.target.value)}
                     placeholder="your password"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
-                {/* Confirm Password */}
-                <div className="mt-6">
-                  <label htmlFor="confpassword" className="text-sm text-gray-600">
-                    Retype password
+                {/* Country */}
+                <div>
+                  <label htmlFor="country" className="block mb-2 mt-6 text-sm text-gray-600">
+                    Country
                   </label>
                   <input
-                    type="password"
-                    id="confpassword"
-                    onChange={(event) => setRetyped(event.target.value)}
-                    placeholder="your password"
-                    className="block w-full px-4 py-2 mt-2 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    type="text"
+                    name="country"
+                    onChange={(event) => setCountry(event.target.value)}
+                    id="country"
+                    placeholder="country"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
-                  {retyped !== password && retyped !== '' ? <ErrorBox text="passwords do not match :/" /> : <div />}
+                </div>
+                {/* City */}
+                <div>
+                  <label htmlFor="city" className="block mb-2 mt-6 text-sm text-gray-600">
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    onChange={(event) => setCity(event.target.value)}
+                    id="city"
+                    placeholder="city"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+                {/* Street */}
+                <div>
+                  <label htmlFor="street" className="block mb-2 mt-6 text-sm text-gray-600">
+                    Street
+                  </label>
+                  <input
+                    type="text"
+                    name="street"
+                    onChange={(event) => setStreet(event.target.value)}
+                    id="street"
+                    placeholder="street"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+                {/* Zip */}
+                <div>
+                  <label htmlFor="zip" className="block mb-2 mt-6 text-sm text-gray-600">
+                    ZIP code
+                  </label>
+                  <input
+                    type="text"
+                    name="zip"
+                    onChange={(event) => setZip(event.target.value)}
+                    id="zip"
+                    placeholder="zip"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
                 </div>
 
                 <div className="mt-6">
                   <button
-                    onClick={register}
+                    onClick={async () => register()}
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     className={
@@ -180,9 +251,9 @@ const Register = () => {
                 </div>
 
                 <p className="mt-6 text-sm text-center text-indigo-500">
-                  Already have an account?
-                  <a
-                    href="/frontoffice/login"
+                  Already have an account? {' '}
+                  <button
+                    onClick={() => navigate('/login')}
                     /* click="
                   () => {
                     isLogin = false
@@ -193,7 +264,7 @@ const Register = () => {
                   >
                     {' '}
                     Sign in
-                  </a>
+                  </button>
                   !
                 </p>
               </div>

@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import PostHeader from './PostHeader'
-import { ApiRepository, JsonForum } from 'shared'
+import { ApiRepository, JsonForum, JsonUser } from 'shared'
 import LikeButtons from './LikeButtons'
 
 const FeedCard = (post: JsonForum.IPost) => {
-  const [userName, setUsername] = useState<string>('')
+  const [user, setUser] = useState<JsonUser.JsonUser>()
+  const [userPic, setUserPic] = useState<string>('')
   const liked = post.userLikes.find((value) => value == localStorage.getItem('userId'))
 
   const [isLiked, setIsLiked] = useState<boolean>(liked ? true : false)
   const getUserName = async () => {
     const data = (await ApiRepository.getUserInfoById(post.userId)).data
     if (data) {
-      setUsername(data.username)
+      setUser(data!)
+      const data2 = (await ApiRepository.getPicture(data._id)).data
+      if (data2)
+        setUserPic(data2!)
     }
   }
   useEffect(() => {
@@ -26,7 +30,11 @@ const FeedCard = (post: JsonForum.IPost) => {
         className="flex-row p-1 mb-14 container max-w-md sm:max-w-xl h-auto rounded-lg shadow-md bg-gray-50 m-2"
       >
         {/* Top Fourth - Avatar & User/Post Info */}
-        <PostHeader name={userName} location={post.forumId} timestamp={post.date} />
+        <PostHeader
+          name={user ? user.username : ""}
+          location={post.forumId}
+          picture={userPic!}
+          timestamp={post.date} />
 
         {/* Mid-Top Fourth - Post Content */}
         <div className="p-5 ml-20 pb-2 break-words	">

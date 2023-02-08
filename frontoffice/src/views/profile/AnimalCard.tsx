@@ -3,6 +3,7 @@ import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared'
 import defaultImage from './defaultImage.jpg'
+import { ToastContainer, toast } from 'react-toastify'
 const AnimalCard = (props: {
   index: number
   animal: JsonAnimal.JsonAnimal
@@ -33,15 +34,17 @@ const AnimalCard = (props: {
     {
       name: 'delete',
       setting: async () => {
-        if (Helpers.getUserId()) {
-          try {
-            const animal = (await ApiRepository.deleteAnimal(props.animal._id!)).data
-            const newAnimals = props.allAnimals.filter((item) => item._id !== animal?._id)
-            props.setUserAnimals(newAnimals)
-          } catch (error: any) {
-            throw new Error('errore salvataggio descrizione -> ', error)
-          }
-        }
+        toast.warn('A pet is forever :)', { position: toast.POSITION.TOP_CENTER })
+        //   if (Helpers.getUserId()) {
+        //     try {
+        //       const animal = (await ApiRepository.deleteAnimal(props.animal._id!)).data
+        //       const newAnimals = props.allAnimals.filter((item) => item._id !== animal?._id)
+        //       props.setUserAnimals(newAnimals)
+        //     } catch (error: any) {
+        //       throw new Error('errore salvataggio descrizione -> ', error)
+        //     }
+        //   }
+        // }
       }
     },
     {
@@ -65,15 +68,17 @@ const AnimalCard = (props: {
         age: parseInt(animalAge.current?.value!),
         picture: undefined //TODO
       }
-      console.log(props.animal._id)
       await ApiRepository.editAnimal(props.animal._id!, changesAnimal)
+      window.location.reload()
     }
   }
 
   const updateAnimalPhoto = async () => {
     if (Helpers.getUserId()) {
       if (file) {
+
         const resp = await ApiRepository.putAnimalPicture(props.animal._id!, file)
+
         if (resp) {
           setImageProfileAnimal(resp?.data?.picture?.filename)
         }
@@ -95,6 +100,7 @@ const AnimalCard = (props: {
 
   useEffect(() => {
     updateAnimalPhoto()
+    getImage()
   }, [file, props.animal._id])
 
   return (
@@ -138,6 +144,8 @@ const AnimalCard = (props: {
           />
         </div>
         <label htmlFor={props.animal.name} className='hidden'>name</label>
+        <ToastContainer />
+
         <input
           style={{
             borderWidth: canWrite ? '1px' : '0px',

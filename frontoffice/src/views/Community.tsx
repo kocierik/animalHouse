@@ -3,6 +3,7 @@ import DropDown from './common/DropDown'
 import Rawtable from './common/communityComponents/Rawtable'
 import { ApiRepository, JsonGames } from 'shared'
 import { Community } from 'shared'
+import { CurrencyBangladeshiIcon } from '@heroicons/react/solid'
 
 const CommunityPage = () => {
   const [usersData, setUsersData] = useState<Community.IGameValues[]>([])
@@ -37,7 +38,7 @@ const CommunityPage = () => {
           <div className="flex mt-8  justify-between" style={{ flexFlow: 'wrap' }}>
             <h1 className="text-3xl font-semibold mb-5 leading-tight">Game leaderboard</h1>
           </div>
-          {usersData.map((games, i) => {
+          {usersData.length > 0 ? usersData.map((games, i) => {
             return (
               games.scores.map((user) => {
                 return (
@@ -77,19 +78,12 @@ const CommunityPage = () => {
                 )
               })
             )
-          })
+          }) : <div data-aos='zoom-in' className='flex justify-center items-center font-bold	text-2xl mt-20'> There aren't game records</div>
           }
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
 export default CommunityPage
-                    // return games.scores.map((user) => {
-                    //   return user.score.map((value) => {
-                    //     return (
-
-                    //     )
-                    //   })
-                    // })

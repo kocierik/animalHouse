@@ -17,11 +17,14 @@ const PostReview = (props: IProps) => {
   const { post, setPost, productId } = props
   const [textComment, setTextComment] = React.useState('')
   const [username, setUsername] = React.useState('')
+  const [picture, setPicture] = React.useState('')
 
   const getUserInfo = async () => {
     if (Helpers.isLogged()) {
       const user = (await ApiRepository.getCurrentUser()).data
       setUsername(user?.username!)
+      const data = (await ApiRepository.getPicture(Helpers.getUserId()!)).data
+      setPicture(data!)
     }
   }
 
@@ -64,7 +67,7 @@ const PostReview = (props: IProps) => {
             <div className="flex mb-5">
               <span className="flex" style={{ flex: '0 0 auto' }}>
                 <img
-                  src="/imageprofile.jpg"
+                  src={picture}
                   className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14  duration-150"
                   alt="User profile"
                 />
@@ -72,8 +75,8 @@ const PostReview = (props: IProps) => {
               <div className="flex items-center" style={{ flex: '1 1 90%' }}>
                 <span className="font-black	text-lg	p-4">{username}</span>
                 <div className="flex">
-                  {valueProduct.map((rating) => (
-                    <button aria-label={rating.star.toString() + " star"} onClick={() => setStar(rating.star)}>
+                  {valueProduct.map((rating, i) => (
+                    <button key={i} aria-label={rating.star.toString() + " star"} onClick={() => setStar(rating.star)}>
                       <StarIcon
                         key={rating.star}
                         className={classNames(
@@ -102,7 +105,7 @@ const PostReview = (props: IProps) => {
           <div className="flex p-2 justify-end sm:p-4 mr-5">
             <button
               onClick={postComment}
-              className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-green-500 hover:bg-green-600 duration-150"
+              className="hover:-translate-y-1 hover:scale-105 duration-300 px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white sm:font-medium sm:text-base text-sm bg-indigo-800 hover:bg-indigo-600 duration-150"
             >
               Post It
             </button>

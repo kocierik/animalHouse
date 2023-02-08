@@ -1,6 +1,8 @@
 <template>
   <button @click="setCell()" class="flex">
-    {{ label }}
+    <p class="text-black text-5xl font-bold" >
+      {{ label }}
+    </p>
   </button>
 </template>
 

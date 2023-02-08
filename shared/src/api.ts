@@ -91,8 +91,9 @@ export abstract class Api {
       method: 'DELETE',
       body: body instanceof FormData ? body : JSON.stringify(body),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       }
+
     }
 
     return this.request(url, options, auth)

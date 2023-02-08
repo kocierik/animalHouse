@@ -2,6 +2,7 @@ export interface IForum {
   _id?: string
   name: string
   description: string
+  picture?: string
 }
 
 export interface IPostCreation {

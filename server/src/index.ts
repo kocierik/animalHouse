@@ -24,8 +24,8 @@ async function db() {
   const uri = Const.DB_URI
   console.log(uri)
   await connect(uri)
-  return
   // avoid initial migrations in non-dev environments
+  return
   await migrations.initGames()
   await migrations.initProductCategories()
   await migrations.initAnimalCodes()
