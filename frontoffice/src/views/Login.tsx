@@ -133,12 +133,6 @@ export default function Login() {
                   Don&#x27;t have an account yet?
                   <a
                     href="/frontoffice/register"
-                    /* click="
-                  () => {
-                    isLogin = false
-                    error = -1
-                  }
-                "*/
                     className="text-indigo-500 focus:outline-none focus:underline hover:underline"
                   >
                     {' '}
