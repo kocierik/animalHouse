@@ -53,8 +53,8 @@ const imageUrl = import.meta.env.BASE_URL + '/login.jpg'
 </script>
 
 <template>
-  <div class="bg-white animate-in fade-in zoom-in duration-500">
-    <div class="flex justify-around p-8">
+  <div class="h-screen bg-white animate-in fade-in zoom-in duration-500">
+    <div class="flex justify-around p-8 h-screen items-center">
       <div
         class="hidden bg-cover lg:block lg:w-2/4"
         :style="`
