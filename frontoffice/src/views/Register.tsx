@@ -56,7 +56,7 @@ const Register = () => {
           <div
             className="hidden bg-cover lg:block lg:w-2/4"
             style={{
-              backgroundImage: "url('/login.jpg')"
+              backgroundImage: "url('../login.jpg')"
             }}
           >
             <div
@@ -89,7 +89,7 @@ const Register = () => {
                     name="name"
                     id="name"
                     placeholder="name"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 {/* Surname */}
@@ -103,7 +103,7 @@ const Register = () => {
                     name="surname"
                     id="surname"
                     placeholder="surname"
-                    className="block w-full px-4 py-2 mt-2 mt-6 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 mt-6 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 {/* Email */}
@@ -117,7 +117,7 @@ const Register = () => {
                     onChange={(event) => setEmail(event.target.value)}
                     id="email"
                     placeholder="email"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 {/* Username */}
@@ -131,7 +131,7 @@ const Register = () => {
                     onChange={(event) => setUsername(event.target.value)}
                     id="username"
                     placeholder="username"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
@@ -146,7 +146,7 @@ const Register = () => {
                     id="password"
                     onChange={(event) => setPassword(event.target.value)}
                     placeholder="your password"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
@@ -160,7 +160,7 @@ const Register = () => {
                     id="confpassword"
                     onChange={(event) => setRetyped(event.target.value)}
                     placeholder="your password"
-                    className="block w-full px-4 py-2 mt-2 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                   {retyped !== password && retyped !== '' ? <ErrorBox text="passwords do not match :/" /> : <div />}
                 </div>
