@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import DropDown from './common/DropDown'
 import Articles from './common/shoppingComponents/Articles'
-import { ApiRepository } from 'shared'
+
 const Shopping = () => {
   const producs = ['wearing', 'food', 'health', 'accessories', 'puppies', 'entertainment', 'beauty']
   const [filter, setFilter] = useState<string[]>([])
-
-  const getCategoryProduct = async () => {
-    try {
-      const resp = await ApiRepository.getProductCategoriesName()
-
-    } catch (error) {
-
-    }
-  }
 
   return (
     <>

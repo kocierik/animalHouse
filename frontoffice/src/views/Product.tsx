@@ -3,9 +3,10 @@ import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import { RadioGroup } from '@headlessui/react'
 import Reviewer from './common/shoppingComponents/Reviewer'
-import { useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { ApiRepository, JsonProduct, ProductConstant, JsonReview, Helpers, JsonCart } from 'shared'
 import { toast } from 'react-toastify'
+import NotFound from './NotFound'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -17,17 +18,18 @@ export default function Product() {
   const [prod, setProd] = useState<JsonProduct.IProduct>()
   const [productColor, setProductColor] = React.useState<string[]>([])
   const [post, setPost] = useState<boolean>(null!)
-
+  const navigate = useNavigate()
   const params = useParams()
   const id = params.id
+  const [selectedSizePrice, setSelectedSizePrice] = useState(0)
   if (!id)
-    // TODO useNavigate() to 404
-    return <div />
+    return navigate('404')
 
   const fetchProduct = async (id: string) => {
     if ((await ApiRepository.getMarketProduct(id)).esit) {
       const val = (await ApiRepository.getMarketProduct(id)).data! as JsonProduct.IProduct
       setProd(val!)
+      console.log(val.price)
       setProductColor(val.colors!)
     }
   }
@@ -130,7 +132,7 @@ export default function Product() {
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <span className="text-3xl text-gray-900">
                 {' '}
-                <h1 className="pb-5">{prod?.name}</h1> <h1 className="text-2xl">Price: {prod?.price}$</h1>
+                <h1 className="pb-5">{prod?.name}</h1> <h1 className="text-2xl">Price: {prod?.price[selectedSizePrice]}$</h1>
               </span>
 
               {/* Reviews */}
@@ -201,12 +203,12 @@ export default function Product() {
                     <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                       <label className="sr-only">Choose a size</label>
                       <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                        {prod?.sizes?.map((size) => {
+                        {prod?.sizes?.map((size, i) => {
                           return (
                             <RadioGroup.Option
                               key={size}
                               value={size}
-                              onClick={() => setSelectedSize(size)}
+                              onClick={() => { setSelectedSize(size); setSelectedSizePrice(i) }}
                               className={({ active }) =>
                                 classNames(
                                   active ? 'ring-1 bg-indigo-400 ' : '',

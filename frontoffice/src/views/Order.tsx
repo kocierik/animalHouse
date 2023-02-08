@@ -4,8 +4,8 @@ import Rawtable from './common/communityComponents/Rawtable'
 
 const Order = () => {
   const [ordersData, setOrdersData] = useState<JsonOrder.JsonAllOrder[]>([])
-  const [productsInfo, setProductsInfo] = useState<JsonProduct.IProduct[]>([])
-
+  const [productsInfo, setProductsInfo] = useState<{ product: JsonProduct.IProduct, index: number }[]>([])
+  const [indexSize, setIndexSize] = useState<number>(0)
   const getOrder = async () => {
     const data = (await ApiRepository.getUserOrder(localStorage.getItem('userId')!)).data
     if (data) {
@@ -13,9 +13,16 @@ const Order = () => {
     }
     data?.map((allOrder) => {
       allOrder?.cartItems?.map(async (order) => {
+        console.log(order.size)
         const data = (await ApiRepository.getMarketProduct(order.productId)).data
-        if (data) {
-          setProductsInfo((last) => [...last, data])
+        if (data && data.sizes) {
+          let index = 0
+          for (let i = 0; i < data?.sizes!.length; i++) {
+            const size = data?.sizes[i]
+            if (size === order.size) index = i
+          }
+          setIndexSize(index)
+          setProductsInfo((last) => [...last, { product: data, index: index }])
         }
       })
     })
@@ -67,11 +74,11 @@ const Order = () => {
                                 </thead>
                                 <tbody>
                                   <Rawtable
-                                    name={product.name}
+                                    name={product.product.name}
                                     key={i}
-                                    points={product.price + 10}
+                                    points={product.product.price[product.index] + 10}
                                     data={""}
-                                    game={product.description}
+                                    game={product.product.description}
                                   />
                                 </tbody>
                               </table>
