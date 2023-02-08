@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react'
 import Setting from '../common/Setting'
 import { IsettingInfo } from './Profile'
 import { JsonAnimal, ApiRepository, Helpers, JsonUser, JsonReservation } from 'shared'
-import defaultImage from './defaultImage.jpg'
 import { ToastContainer, toast } from 'react-toastify'
 const AnimalCard = (props: {
   index: number
@@ -127,7 +126,7 @@ const AnimalCard = (props: {
               }
             }}
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
-            src={imageProfileAnimal ? imageProfileAnimal : '/defaultImage.jpg'}
+            src={imageProfileAnimal ? imageProfileAnimal : '/pictures/defaultanimal.png'}
             alt={props.animal.name}
           />
           <label htmlFor={props.animal._id} className='hidden'>animal image</label>
