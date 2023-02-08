@@ -3,7 +3,7 @@ import { IPicture, picturesSchema } from './Picture'
 
 export interface IProduct {
   name: string
-  price: number
+  price: number[]
   categoryId: string
   description: string
   animalTargets: string[]
@@ -19,7 +19,7 @@ export interface IProduct {
 const productSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  price: { type: Number, required: true },
+  price: { type: [Number], required: true },
   categoryId: { type: String, required: true },
   image: { type: picturesSchema, required: false },
   alt: { type: [String], required: false },

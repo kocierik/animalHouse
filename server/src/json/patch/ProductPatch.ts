@@ -1,7 +1,8 @@
 export interface ProductPatch {
   name?: string
   description?: string
-  price?: number
+  price?: number[]
+  increment?: number
   categoryId?: string
   colors?: string[]
   sizes?: string[]

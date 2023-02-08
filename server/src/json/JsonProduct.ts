@@ -1,6 +1,6 @@
 export interface JsonProduct {
   name: string
-  price: number
+  price: number[]
   categoryId: string
   description: string
   animalTargets: string[]

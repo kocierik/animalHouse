@@ -73,9 +73,16 @@ const constructCartItem = async (creation: JsonCartItemCreation): Promise<ICartI
   cartItem.type = creation.type
   cartItem.productId = creation.productId
   const product = await ProductService.findProductByid(creation.productId)
-  cartItem.price = product.price
+  let index = 0
+  for (let i = 0; i < product.sizes.length; i++) {
+    const size = product.sizes[i]
+    if (size === creation.size) index = i
+  }
+  cartItem.price = product.price[index]
   return cartItem
 }
+
+
 
 const deactivateCart = async (cartId: string): Promise<ICart> => {
   const cart = await Cart.findById(cartId)
