@@ -188,22 +188,30 @@ const Checkout = () => {
                 </div>
               </li>
             ))}
-            <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
-              <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
-                <div className="flex justify-between">
-                  <dt>Subtotal:</dt>
-                  <dd className="text-gray-900">{getTotalPrice()}$</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt>Shipping</dt>
-                  <dd className="text-gray-900">10$</dd>
-                </div>
-                <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
-                  <dt className="text-base">Total:</dt>
-                  <dd className="text-base">{getTotalPrice(10)}$</dd>
-                </div>
-              </dl>
-            </div>
+            {buyingProduct.length == 0 ?
+              <div className=" bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
+                <dl className=" text-center text-sm font-medium text-indigo-800 mt-10 space-y-6">
+                  <h2> The cart is empty </h2>
+                </dl>
+              </div>
+              : (
+                <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
+                  <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
+                    <div className="flex justify-between">
+                      <dt>Subtotal:</dt>
+                      <dd className="text-gray-900">{getTotalPrice()}$</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt>Shipping</dt>
+                      <dd className="text-gray-900">10$</dd>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
+                      <dt className="text-base">Total:</dt>
+                      <dd className="text-base">{getTotalPrice(10)}$</dd>
+                    </div>
+                  </dl>
+                </div>)
+            }
           </ul>
         </section>
 
