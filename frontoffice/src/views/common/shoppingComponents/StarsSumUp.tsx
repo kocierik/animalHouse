@@ -27,8 +27,9 @@ const StarsSumUp = (props: SumUpProps) => {
         <div>
           <div className="flex items-center mb-3">
             {
-              [1, 2, 3, 4, 5].filter(x => x <= data.average).map(_ =>
+              [1, 2, 3, 4, 5].filter(x => x <= data.average).map((_, i) =>
                 <svg
+                  key={i}
                   aria-hidden="true"
                   className="w-5 h-5 text-yellow-400"
                   fill="currentColor"
