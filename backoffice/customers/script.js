@@ -57,7 +57,7 @@ const Item = ({ username, firstName, lastName, id, email, address, picture, disa
     <td class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
             <div class="mr-4 h-16 w-16 block flex flex-row items-center">
-                <img class="rounded-lg" src="${picture}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico' alt="${username}\'s picture"></div>
+                <img class="rounded-lg" src="${picture}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico'" alt="${username}\'s picture"></div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${username}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${firstName}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${lastName}</div>

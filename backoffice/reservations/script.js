@@ -90,7 +90,14 @@ async function fillDashboard(){
     a.name != undefined ? a=a.name : ""
     u.username != undefined ? u=u.username : ""
     d = new Date(r.date)
-    date = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+    let hours = d.getHours()
+    hours = hours < 10 ? '0'+hours:hours;
+    let minutes = d.getMinutes();
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    let seconds = d.getSeconds();
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    date = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${hours}:${minutes}:${seconds}`
+
 
     $("#reservationList").append([{username: u,id: r._id, animal: a, location: l, service: s, info:r.information, date:date, picture: pic}].map(Reservation))
   });

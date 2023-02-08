@@ -8,6 +8,7 @@
       <p class="font-normal text-text">Tell me what are your favourites animals:</p>
       <div class="m-5 flex flex-wrap justify-center space-y-2 space-x-2 items-end">
         <Chip
+          tabindex="0"
           v-bind:key="a.name"
           v-for="a in animals"
           :text="a.name"
@@ -26,7 +27,7 @@
     </div>
   </main>
   <div class="flex justify-center">
-    <img src="https://cdn.pixabay.com/photo/2020/02/20/14/37/zebra-4864906_1280.png" />
+    <img alt="animal zebra" src="https://cdn.pixabay.com/photo/2020/02/20/14/37/zebra-4864906_1280.png" />
   </div>
 </template>
 

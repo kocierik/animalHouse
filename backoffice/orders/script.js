@@ -36,7 +36,7 @@ function invoiceRemove(id) {
       method: 'DELETE',
       headers: {
         authorization: localStorage.bo_token
-      }
+      } 
     })
     window.location.reload()
   }
@@ -60,11 +60,11 @@ function fillDashboard(){
 
       pic = '/backoffice/favicon.ico'
       if (u.profilePicture) pic = '/pictures/' + u.profilePicture.filename
-      if (u.address != undefined) {
-        u.address.street != ' ' ? (addr += u.address.street + ', ') : ''
-        u.address.city != ' ' ? (addr += u.address.city + ', ') : ''
-        u.address.zip != ' ' ? (addr += u.address.zip + ', ') : ''
-        u.address.country != ' ' ? (addr += u.address.country) : ''
+      if (o.address != undefined) {
+        o.address.street != ' ' ? (addr += o.address.street + ', ') : ''
+        o.address.city != ' ' ? (addr += o.address.city + ', ') : ''
+        o.address.zip != ' ' ? (addr += o.address.zip + ', ') : ''
+        o.address.country != ' ' ? (addr += o.address.country) : ''
       }
 
       $("#orderList").append([{username: user,id: o._id,email: mail,address: addr,picture: pic, amount:total,date:o.executionDate}].map(Order))

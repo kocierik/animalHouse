@@ -66,8 +66,8 @@ const root = import.meta.env.BASE_URL
   <div class="animate-in fade-in zoom-in duration-500">
     <nav class="px-2 sm:px-4">
       <div class="container justify-between flex flex-wrap items-center mx-auto">
-        <a :href="root" class="flex items-center ml-2">
-          <img src="/logoTransparent.png" width="80" />
+        <a class="flex items-center ml-2">
+          <img alt="animal house logo" src="/logoTransparent.png" width="80" />
         </a>
         <button
           @click="toggleMenu"
@@ -113,9 +113,9 @@ const root = import.meta.env.BASE_URL
               </router-link>
             </li>
             <li class="flex flex-1 justify-start md:justify-end">
-              <router-link :to="router.LoginRoute" class="hover:-translate-y-1 duration-300 self-center ml-3">
+              <router-link :to="router.LoginRoute" v-if="isLogged" class="hover:-translate-y-1 duration-300 self-center ml-3">
                 <a
-                  v-if="isLogged"
+                  
                   v-on:click="changeColorNav('isLogin')"
                   @click="logout()"
                   href="#"
@@ -123,8 +123,9 @@ const root = import.meta.env.BASE_URL
                 >
                   Logout
                 </a>
+              </router-link>
+                <div class="flex gap-5" v-else>
                 <a
-                  v-else
                   v-on:click="changeColorNav('isLogin')"
                   @click="login()"
                   href="#"
@@ -132,7 +133,13 @@ const root = import.meta.env.BASE_URL
                 >
                   Login
                 </a>
-              </router-link>
+                <a
+                  href="/frontoffice/register"
+                  class="hover:bg-yellow-100 lg:bg-yellow-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Register
+                </a>
+                </div>
             </li>
           </ul>
         </div>

@@ -26,11 +26,11 @@ const Reviewer = (props: IProps) => {
   }, [productId, post])
 
   return (
-    <div className="max-w-2xl mx-auto  px-4 sm:px-6 lg:max-w-7xl  lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl  lg:pb-24 lg:px-8 lg:grid lg:grid-cols-1 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
       <div className="">
         <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Reviews</h1>
         <StarsSumUp productId={productId} />
-        <div className="">
+        <div className="mb-10">
           <PostReview productId={productId} post={post} setPost={setPost} />
         </div>
       </div>
@@ -70,7 +70,7 @@ const Reviewer = (props: IProps) => {
                   <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">{review.comment}</p>
                 </div>
                 <div className="w-full md:w-1/3 text-right">
-                  <p className="mb-8 text-sm text-gray-300">{String(review.date)}</p>
+                  <p className="mb-8 text-sm text-gray-300">{String(review.date).replace('T', ' ').slice(0, -5)}</p>
                 </div>
               </div>
             </div>

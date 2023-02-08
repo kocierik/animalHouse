@@ -42,6 +42,8 @@ $('#send').click(async function () {
 
   if (data.mex != undefined) {
     swal(data.mex)
+  }else{
+    swal("Success!","Location added","success")
   }
 })
 

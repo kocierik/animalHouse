@@ -100,7 +100,12 @@ const Register = () => {
 
           <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
             <div className="flex-1">
-              <div className="mt-8 flex flex-col">
+              <div className="text-center">
+                <h2 className="text-4xl font-bold text-center text-gray-700 mt-5">Register</h2>
+
+                <p className="mt-3 text-gray-500">Sign up to access your account</p>
+              </div>
+              <div className=" flex flex-col">
                 {isError ? <ErrorBox text={error} /> : <div />}
                 {/* Name */}
                 <div>

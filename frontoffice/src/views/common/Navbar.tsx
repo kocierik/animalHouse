@@ -193,12 +193,20 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <a
-                onClick={() => navigate('/login')}
-                className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 bg-indigo-800 hover:bg-indigo-900 cursor-pointer hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Login
-              </a>
+              <div className='flex flex-1 lg:justify-end justify-center gap-5'>
+                <a
+                  onClick={() => navigate('/login')}
+                  className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 bg-indigo-700 hover:bg-indigo-900 cursor-pointer hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Login
+                </a>
+                <a
+                  onClick={() => navigate('/register')}
+                  className="hover:-translate-y-1 hover:scale-105 duration-300 text-gray-300 bg-blue-800 hover:bg-indigo-900 cursor-pointer hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Register
+                </a>
+              </div>
             )}
             <div className="-mr-2 flex md:hidden ">
               <button

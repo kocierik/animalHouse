@@ -27,7 +27,7 @@ else {
         <h1 class="text-3xl p-5 font-semibold text-gray-800 capitalize lg:text-4xl">Animal Music</h1>
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
           <div v-for="a in animals" :animal="a" v-bind:key="a" class="lg:flex">
-            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/music.jpg" alt="" />
+            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/music.jpg" alt="music" />
 
             <div class="flex flex-col justify-between py-6 lg:mx-6">
               <MusicCard class="m-1" :animal="a" />
@@ -39,7 +39,7 @@ else {
         <h1 class="text-3xl p-5 font-semibold text-gray-800 capitalize lg:text-4xl">Animal Video</h1>
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
           <div v-for="a in animals" :animal="a" v-bind:key="a" class="lg:flex">
-            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/video.jpg" alt="" />
+            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/video.jpg" alt="video" />
             <div class="flex flex-col justify-between py-6 lg:mx-6">
               <Video :animal="a" class="m-1" />
             </div>
@@ -50,7 +50,7 @@ else {
 
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
           <div v-for="a in animals" :animal="a" v-bind:key="a" class="lg:flex">
-            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/horoscope.jpg" alt="" />
+            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/horoscope.jpg" alt="horoscope" />
 
             <div class="flex flex-col justify-between py-6 lg:mx-6">
               <HoroscopeCard signType="aries" />
@@ -62,7 +62,7 @@ else {
 
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
           <div v-for="a in animals" :animal="a" v-bind:key="a" class="lg:flex">
-            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/picsDay.jpg" alt="" />
+            <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="/picsDay.jpg" alt="animal day" />
 
             <div class="flex flex-col justify-between py-6 lg:mx-6">
               <ImageCard :animal="a" class="m-1" />
