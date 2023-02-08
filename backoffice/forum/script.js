@@ -22,7 +22,7 @@ function getPosts(){
   .then((res)=>res.json())
   .then((data)=>{
     $("#posts_place").text("")
-    console.log(data)
+    
     var count = 0
     data.forEach(el => {
       if(el.valid){
@@ -53,7 +53,7 @@ async function getUsers(){
   .then((res)=>res.json())
   .then(async (data)=>{
     users = await data
-    console.log(users)
+    
   })
 }
 

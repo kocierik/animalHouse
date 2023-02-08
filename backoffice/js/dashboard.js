@@ -51,10 +51,10 @@ async function getSales(){
 
 function showSalesByProduct(products,sales){
     var ret = []
-    console.log("products")
-    console.log(products)
-    console.log("sales")
-    console.log(sales)
+    
+    
+    
+    
     products.forEach((p)=>{
         p.revenue = 0
         
@@ -68,7 +68,7 @@ function showSalesByProduct(products,sales){
     var prods = products.sort(function(a, b) {
     return b.revenue - a.revenue;
     })
-    console.log(prods) 
+    
     var n=5
     for(var i=0; i<n && i<prods.length; i++){
         if(prods[i].revenue == 0){
@@ -82,14 +82,14 @@ function showSalesByProduct(products,sales){
 
 async function showRevenue(){
     var total = 0
-    console.log(orders)
+    
     orders.forEach(el => {
         el.executionDate = new Date(el.executionDate)   //converting executionDate from "ddd MM DD YYYY" to Date
         el.cartItems.forEach(i => {
             total+=i.price
         });
     });
-    console.log(orders)
+    
     document.getElementById("revenue_place").innerHTML = `${total}$`
 }
 

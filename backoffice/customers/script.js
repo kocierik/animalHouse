@@ -10,7 +10,7 @@ function retrieveUsers(target) {
       $(target).text('')
 
       data.forEach(function (el) {
-        console.log(el)
+        
         pic = '/backoffice/favicon.ico'
         let addr = ''
         var disabledText = ""

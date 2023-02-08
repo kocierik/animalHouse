@@ -93,6 +93,6 @@ function showImage() {
     $('#imgplaceholder').attr('src', String(reader.result))
   }
   reader.onerror = function (error) {
-    console.log('Error: ', error)
+    
   }
 }

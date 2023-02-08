@@ -8,7 +8,7 @@ function showImage() {
     $('#imgplaceholder').attr('src', String(reader.result))
   }
   reader.onerror = function (error) {
-    console.log('Error: ', error)
+    
   }
 }
 
@@ -35,7 +35,7 @@ $('#send').click(async function () {
     })
   })
   var data = await dataRes.json()
-  console.log(data)
+  
 
   if (data.mex != undefined) {
     swal(data.mex)
@@ -56,7 +56,7 @@ $('#send').click(async function () {
     })
     data = await dataRes.json()
 
-    console.log(data)
+    
   } else if (data._id != undefined) {
     window.location.href = '../'
   }

@@ -62,7 +62,7 @@ function retrieveProducts(id) {
   fetch(url)
     .then((response) => response.json())
     .then((el) => {
-      console.log(el)
+      
       $('#grid-prod-name').val(el.name)
       $('#grid-price').val(el.price)
       $('#grid-category').val(el.categoryId)
@@ -83,7 +83,7 @@ function showImage() {
     $('#imgplaceholder').attr('src', String(reader.result))
   }
   reader.onerror = function(error) {
-    console.log('Error: ', error)
+    
   }
 }
 

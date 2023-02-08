@@ -38,7 +38,7 @@ $('#send').click(async function () {
     })
   })
   var data = await dataRes.json()
-  console.log(data)
+  
 
   if (data.mex != undefined) {
     swal(data.mex)
@@ -93,6 +93,6 @@ function addMarkers(map, coords) {
     )
     markers.clearMarkers()
     markers.addMarker(new OpenLayers.Marker(loc, icon.clone()))
-    console.log('Latitude: ' + lat + ' Longitude: ' + lon)
+    
   })
 }

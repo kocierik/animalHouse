@@ -80,7 +80,7 @@ function drawIncomeByDatesGraph(dates, salesByDates){
     d.push(el.getDate()+"/"+(el.getMonth()+1))
   });
   var c = []
-  console.log(salesByDates)
+  
   salesByDates.forEach(i => {
     var total = 0
 
