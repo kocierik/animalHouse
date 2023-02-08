@@ -23,7 +23,7 @@ export default function Product() {
   const id = params.id
   const [selectedSizePrice, setSelectedSizePrice] = useState(0)
   if (!id)
-    return navigate('404')
+    return <div></div>
 
   const fetchProduct = async (id: string) => {
     if ((await ApiRepository.getMarketProduct(id)).esit) {
