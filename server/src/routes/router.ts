@@ -278,7 +278,7 @@ appRouter.put(
   userRoutes.putAnimal
 )
 appRouter.delete(
-  prefix + '/animals/:aid',
+  prefix + '/users/:uid/animals/:aid',
   middlewares.log,
   middlewares.verifyToken,
   middlewares.verifyUser,
