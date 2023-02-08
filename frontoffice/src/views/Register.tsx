@@ -76,7 +76,7 @@ const Register = () => {
   return (
     <>
       <div className="bg-white">
-        <div className="flex justify-center h-screen">
+        <div className="flex justify-center ">
           <div
             className="hidden bg-cover lg:block lg:w-2/4"
             style={{
@@ -100,7 +100,7 @@ const Register = () => {
 
           <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
             <div className="flex-1">
-              <div className="mt-8">
+              <div className="mt-8 flex flex-col">
                 {isError ? <ErrorBox text={error} /> : <div />}
                 {/* Name */}
                 <div>
@@ -174,20 +174,6 @@ const Register = () => {
                   />
                 </div>
 
-                {/* Confirm Password */}
-                <div className="mt-6">
-                  <label htmlFor="confpassword" className="text-sm text-gray-600">
-                    Retype password
-                  </label>
-                  <input
-                    type="password"
-                    id="confpassword"
-                    onChange={(event) => setRetyped(event.target.value)}
-                    placeholder="your password"
-                    className="block w-full px-4 py-2 mt-2 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                  {retyped !== password && retyped !== '' ? <ErrorBox text="passwords do not match :/" /> : <div />}
-                </div>
                 {/* Country */}
                 <div>
                   <label htmlFor="country" className="block mb-2 mt-6 text-sm text-gray-600">
