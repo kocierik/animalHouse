@@ -10,7 +10,6 @@ const Order = () => {
     const data = (await ApiRepository.getUserOrder(localStorage.getItem('userId')!)).data
     if (data) {
       setOrdersData(data)
-      console.log(data)
     }
     data?.map((allOrder) => {
       allOrder?.cartItems?.map(async (order) => {
