@@ -126,7 +126,7 @@ const AnimalCard = (props: {
               }
             }}
             className="mb-3 w-24 h-24 rounded-full shadow-lg"
-            src={imageProfileAnimal ? imageProfileAnimal : 'pictures/defaultanimal.png'}
+            src={imageProfileAnimal ? imageProfileAnimal : '/pictures/defaultanimal.png'}
             alt={props.animal.name}
           />
           <label htmlFor={props.animal._id} className='hidden'>animal image</label>
