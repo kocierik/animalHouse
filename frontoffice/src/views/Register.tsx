@@ -22,7 +22,7 @@ const Register = () => {
   const navigate = useNavigate()
 
   const register = async () => {
-    if (!doneClickable) return
+    // if (!doneClickable) return alert('Please fill all the fields!')
     setIsError(false)
     const input: JsonUser.JsonRegistration = {
       username: username,
@@ -233,7 +233,7 @@ const Register = () => {
 
                 <div className="mt-6">
                   <button
-                    onClick={register}
+                    onClick={async () => register()}
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     className={
