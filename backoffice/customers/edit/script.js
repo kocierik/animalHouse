@@ -154,9 +154,9 @@ function userRemove() {
   }
 }
 
-$('#send').click(function () {
+$('#send').click(async function () {
   //EDIT USER
-  fetch('/api/v2/users/' + getUrlParameter('id'), {
+  var r1 = await fetch('/api/v2/users/' + getUrlParameter('id'), {
     method: 'PATCH',
     headers: {
       authorization: localStorage.bo_token,
@@ -166,7 +166,7 @@ $('#send').click(function () {
     body: JSON.stringify({
       firstName: $('#grid-firstName').val(),
       lastName: $('#grid-lastName').val(),
-      username: $('#grid-username').val(),
+      username: $('#grid-username').val().replace("@",""),
       description: $('#grid-description').val(),
       email: $('#grid-email').val(),
       street: $('#grid-street').val(),
@@ -175,20 +175,31 @@ $('#send').click(function () {
       country: $('#grid-country').val()
     })
   })
-  //EDIT IMAGE
-  let img = $('#grid-image').prop('files')[0]
-  if (img) {
-    var send = new FormData()
-    send.append('profile', img)
-    fetch('/api/v2/users/' + getUrlParameter('id') + '/picture', {
-      method: 'PUT',
-      headers: {
-        'Access-Control-Origin': '*',
-        authorization: localStorage.bo_token
-      },
-      body: send
-    })
+  if(r1.ok){
+    let img = $('#grid-image').prop('files')[0]
+    if (img) {
+      var send = new FormData()
+      send.append('profile', img)
+      var r2 = await fetch('/api/v2/users/' + getUrlParameter('id') + '/picture', {
+        method: 'PUT',
+        headers: {
+          'Access-Control-Origin': '*',
+          authorization: localStorage.bo_token
+        },
+        body: send
+      })
+      if (!r2.ok) {
+        await swal("Error",`Error uploading customer image: ${(await r2.json()).mex}`,"error")
+        return
+      }
+    }
+    await swal("Success!","Customer updated successfully","success")
+    return
+  }else{
+    await swal("Error",`Error sending customer details: ${(await r1.json()).mex}`,"error")
+    return
   }
+
 })
 
 ///users/:uid/animals/:aid
@@ -221,11 +232,11 @@ const AnimalItem = ({ name, age, picture, aid, uid, type }) => `
 <div>
     <div class="p-2 py-8 border-b border-solid border-gray-300">
         <div class="pl-4 flex flex-wrap flex-row items-center">
-            <div class="mr-4 h-16 w-8 block flex flex-row items-center text-gray-700">            
+            <div class="mr-4 h-16 w-8 block flex flex-row items-center text-red-600">            
                 <button type="button" onclick='animalRemove("${name}","${uid}","${aid}")'><i class="bi bi-trash"></i></button>
             </div>
             <div class="mr-4 h-16 w-16 block flex flex-row items-center">
-                <img class="rounded-lg" src="${picture}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico' alt="${name}\'s picture"></div>
+                <img class="rounded-lg" src="${picture}" onerror="this.onerror=null; this.src='/backoffice/favicon.ico'" alt="${name}\'s picture"></div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${name}</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${age} years old</div>
             <div class="mr-4 h-16 w-48 block flex flex-row items-center text-gray-700">${type}</div>
