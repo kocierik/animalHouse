@@ -69,7 +69,7 @@ const Order = () => {
                                   <Rawtable
                                     name={product.name}
                                     key={i}
-                                    points={product.price}
+                                    points={product.price + 10}
                                     data={""}
                                     game={product.description}
                                   />
