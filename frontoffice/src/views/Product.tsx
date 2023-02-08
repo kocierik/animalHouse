@@ -149,7 +149,7 @@ export default function Product() {
                       />
                     ))}
                   </div>
-                  <span className="ml-3 text-sm font-medium text-green-600 hover:text-green-500">
+                  <span className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     {reviewsStar.length} reviews
                   </span>
                 </div>
@@ -210,7 +210,7 @@ export default function Product() {
                               onClick={() => setSelectedSize(size)}
                               className={({ active }) =>
                                 classNames(
-                                  active ? 'ring-1 bg-green-400 ' : '',
+                                  active ? 'ring-1 bg-indigo-400 ' : '',
                                   'border-2 shadow-sm text-gray-900 cursor-pointer rounded	flex justify-center'
                                 )
                               }
@@ -227,7 +227,7 @@ export default function Product() {
                 <button
                   type="button"
                   onClick={async () => await addToCart()}
-                  className="mt-10 ring-1 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="mt-10 ring-1 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Add to bag
                 </button>

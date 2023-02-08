@@ -29,7 +29,7 @@ onBeforeMount(async () => {
       </div>
     </main>
     <div data-aos="fade-down" data-aos-easing="linear" class="flex justify-center">
-      <a :href="FRONTOFFICE + '/shop'" class="flex justify m-8">
+      <a :href="FRONTOFFICE + '/shopping'" class="flex justify m-8">
         <button
           class="hover:-translate-y-1 duration-300 bg-lyellow px-6 py-3 rounded-full text-xl text-text font-bold mr-2"
         >

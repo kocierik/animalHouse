@@ -26,9 +26,9 @@ onBeforeMount(async () => {
 })
 </script>
 <template>
-  <div v-if="fact" class="p-5 animate-in fade-in zoom-in duration-500">
+  <div v-if="fact" class="p-5 animate-in fade-in zoom-in duration-500 flex flex-col items-center">
     <h1 class="text-text font-black text-6xl text-center mb-10">Curiosity</h1>
-    <div class="shadow rounded-xl p-4">
+    <div class="shadow rounded-xl w-50 p-4">
       <h2 class="font-black text-2xl text-text">Did you know that...</h2>
       <p class="my-2">
         {{ fact }}

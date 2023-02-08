@@ -14,11 +14,15 @@ const PostCard = (props: { setUpdate: React.Dispatch<React.SetStateAction<boolea
     // TODO useNavigate() to 404
     return <div />
   const [user, setUser] = useState<JsonUser.JsonUser>()
+  const [userPicture, setUserPicture] = useState<string>('')
 
   const getUserName = async () => {
     const data = (await ApiRepository.getUserInfoById(localStorage.getItem('userId')!)).data
     if (data) {
       setUser(data)
+      const data2 = (await ApiRepository.getPicture(Helpers.getUserId()!)).data
+      if (data2)
+        setUserPicture(data2!)
     }
   }
   useEffect(() => {
@@ -54,7 +58,7 @@ const PostCard = (props: { setUpdate: React.Dispatch<React.SetStateAction<boolea
           <div className="flex mb-8">
             <span>
               <img
-                src={user?.profilePicture?.filename}
+                src={userPicture}
                 className="rounded-full flex-initial max-h-12 w-12 sm:max-h-14 sm:w-14  duration-150"
                 alt="User profile"
               />

@@ -10,16 +10,16 @@ import { idText } from 'typescript'
 import { ICart } from '../entities/Cart'
 
 export const orderToJsonOrder = (order: IOrder): JsonOrder =>
-  ({
-    _id: order._id,
-    address: order.address as JsonAddress,
-    cardName: order.cardName,
-    cardNumber: order.cardNumber,
-    userId: order.userId,
-    cartItems: order.cartItems,
-    executionDate: order.executionDate.toDateString(),
-    cartId: order.cartId
-  } as JsonOrder)
+({
+  _id: order._id,
+  address: order.address as JsonAddress,
+  cardName: order.cardName,
+  cardNumber: order.cardNumber,
+  userId: order.userId,
+  cartItems: order.cartItems,
+  executionDate: order.executionDate.toDateString(),
+  cartId: order.cartId
+} as JsonOrder)
 
 export const findOrderById = (id: string) => Order.findById(id)
 

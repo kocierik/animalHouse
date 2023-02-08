@@ -1,10 +1,11 @@
 <template>
-  <div class="flex mb-4">
-    <div
-      class="bg-zinc-700 px-4 mr-5 py-2 text-white font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
-    >
-      2048
+    <div class="flex flex-col items-center p-10">
+      <a
+        class="bg-stone-100 px-4 py-2 text-black font-bold text-4xl rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)]"
+        >2048</a
+      >
     </div>
+  <div class="flex mb-4">
     <div
       class="flex justify-center justify-evenly flex-col ml-auto mr-4 relative bg-zinc-700 px-3 py-1 text-white rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.25)] text-center"
     >
