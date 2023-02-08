@@ -38,7 +38,7 @@
             </div>     
             <div >
             <a href="https://lndcanimalprotection.org/">
-                <img style="height: 12rem; width: 12rem;" src="/ldc.png" />
+                <img alt="ldc" style="height: 12rem; width: 12rem;" src="/ldc.png" />
             </a>
             </div>     
             <div >

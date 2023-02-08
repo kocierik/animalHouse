@@ -66,8 +66,8 @@ const root = import.meta.env.BASE_URL
   <div class="animate-in fade-in zoom-in duration-500">
     <nav class="px-2 sm:px-4">
       <div class="container justify-between flex flex-wrap items-center mx-auto">
-        <a :href="root" class="flex items-center ml-2">
-          <img src="/logoTransparent.png" width="80" />
+        <a class="flex items-center ml-2">
+          <img alt="animal house logo" src="/logoTransparent.png" width="80" />
         </a>
         <button
           @click="toggleMenu"

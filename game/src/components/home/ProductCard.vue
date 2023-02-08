@@ -14,7 +14,7 @@ const props = defineProps<{ product: JsonProduct.IProduct }>()
       >
         <button
           class="p-2 rounded-full bg-lgreen text-text mx-5 -mb-4 hover:dgreen focus:outline-none focus:bg-green-400"
-        >
+        > <span class="hidden">buy</span>
           <svg
             class="h-5 w-5"
             fill="none"

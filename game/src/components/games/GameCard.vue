@@ -21,12 +21,11 @@ const props = defineProps<{
   >
             <router-link :to="props.url">
     <div style="background-color: #4444" class="w-100 h-100 bg-red">
-      <a href="#"> </a>
       <div class="p-5">
         <a href="#">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               <a href="#" class="text-white text-2xl"> {{ props.name }}</a>
-          </h5>
+          </h2>
         </a>
         <p class="mb-3 font-bold text-white">
           Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
