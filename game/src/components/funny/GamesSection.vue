@@ -12,7 +12,7 @@ const goToMoreGames = () => router.redirect(router.FunnyGamesRoute)
 
 <template>
   <div class="animate-in fade-in zoom-in duration-500">
-    <h2 class="font-black text-6xl text-center text-text">Games</h2>
+    <h1 class="font-black text-6xl text-center text-text">Games</h1>
     <div class="flex justify-center align-center flex-wrap p-4">
       <div
         v-for="game in games"

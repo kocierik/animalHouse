@@ -9,7 +9,7 @@
         <AnimalIcon class="mb-2 text-2xl font-bold tracking-tight" :animal="props.animal" />
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Pic of the day</h5>
       </div>
-      <img :src="img" />
+      <img :src="img" alt="beautiful animal"/>
     </div>
   </div>
 </template>

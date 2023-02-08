@@ -70,7 +70,7 @@ const Reviewer = (props: IProps) => {
                   <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">{review.comment}</p>
                 </div>
                 <div className="w-full md:w-1/3 text-right">
-                  <p className="mb-8 text-sm text-gray-300">{String(review.date)}</p>
+                  <p className="mb-8 text-sm text-gray-300">{String(review.date).replace('T', ' ').slice(0, -5)}</p>
                 </div>
               </div>
             </div>
