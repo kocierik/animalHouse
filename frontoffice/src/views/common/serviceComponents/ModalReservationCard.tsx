@@ -59,7 +59,7 @@ const ModalReservationCard = (props: { showModal: boolean; setShowModal: any; op
         const id = Helpers.getUserId()
         const data = await ApiRepository.postReservation(id!, reservation)
 
-        console.log('data ', data)
+
         await toast.success('Prenotation confirmed!', {
           position: toast.POSITION.TOP_CENTER,
           hideProgressBar: true
@@ -70,7 +70,7 @@ const ModalReservationCard = (props: { showModal: boolean; setShowModal: any; op
         toast.warn('You should compile all the form correctly!', {
           position: toast.POSITION.TOP_CENTER
         })
-        console.log('compila il form')
+
       }
     } else {
       toast.warn('You should login first!', {

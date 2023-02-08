@@ -76,9 +76,9 @@ const AnimalCard = (props: {
   const updateAnimalPhoto = async () => {
     if (Helpers.getUserId()) {
       if (file) {
-        console.log(props.animal)
+
         const resp = await ApiRepository.putAnimalPicture(props.animal._id!, file)
-        console.log(resp)
+
         if (resp) {
           setImageProfileAnimal(resp?.data?.picture?.filename)
         }

@@ -188,9 +188,7 @@ export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
 export const deleteFromAnimal = async (animalId: string): Promise<IAnimal> => {
   const animal = await Animal.findById(animalId)
   if (animal) {
-    console.log(animal)
-    console.log('animalId -> ', animalId)
-    Animal.deleteOne({ _id: animalId })
+    await Animal.deleteOne({ _id: animalId })
     await animal.save()
     return animal
   } else {
@@ -204,7 +202,6 @@ export const updateFromAnimal = async (
 ): Promise<IAnimal> => {
   const animal = await Animal.findById(animalId)
   if (animal) {
-    console.log(animal)
     await AnimalService.patchAnimal(animalId, updateAnimal)
     return animal
   } else {

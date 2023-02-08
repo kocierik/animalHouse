@@ -31,7 +31,6 @@ export const addAnimalsToUser = async (userId: string, animal: JsonAnimal) => {
     newAnimal.userId = animal.userId
     await newAnimal.save()
     const newAnim = user.animals.push(newAnimal._id)
-    console.log(newAnim)
     await user.save()
     return user.animals
   } else throw new JsonError(`Can\'t find user with id ${userId}`)

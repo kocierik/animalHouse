@@ -24,8 +24,6 @@ const Profile = () => {
   const sendImage = async () => {
     if (file && Helpers.getUserId()) {
       const resp = await ApiRepository.putUserPicture(Helpers.getUserId()!, file!)
-      if (!resp.esit) console.log(resp, 'error sendImage')
-      console.log(resp)
     }
   }
 
@@ -75,7 +73,7 @@ const Profile = () => {
         let newUser = user
         newUser!.description = textValue.current?.value!
         const result = await ApiRepository.updateUserDescription(Helpers.getUserId()!, { description: textValue.current?.value! })
-        console.log(result)
+
       }
     } catch (error: any) {
       throw new Error('errore salvataggio descrizione -> ', error)

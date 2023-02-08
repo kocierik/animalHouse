@@ -40,7 +40,7 @@ const PostCard = (props: { setUpdate: React.Dispatch<React.SetStateAction<boolea
         text: inputText,
         forumId: id!
       }
-      console.log(data)
+
       await ApiRepository.postForum(Helpers.getUserId()!, data)
       props.setUpdate(!props.update)
       setInputText('')

@@ -173,7 +173,6 @@ export default function Product() {
                                 style={{ backgroundColor: color }}
                                 onClick={() => {
                                   setSelectedColor(color)
-                                  console.log(selectedColor)
                                 }}
                                 className={({ active, checked }) =>
                                   classNames(

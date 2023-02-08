@@ -29,7 +29,6 @@ const CommunityPage = () => {
   useEffect(() => {
     getGames()
     handlePromise()
-    console.log(usersData)
   }, [])
 
   return (
