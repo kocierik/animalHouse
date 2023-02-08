@@ -47,6 +47,7 @@ const PostReview = (props: IProps) => {
     }
     setTextComment('')
     await ApiRepository.postProductReview(productId, data)
+    window.location.reload()
   }
 
   const valueProduct = [{ star: 1 }, { star: 2 }, { star: 3 }, { star: 4 }, { star: 5 }]
