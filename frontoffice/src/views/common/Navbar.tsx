@@ -174,19 +174,6 @@ const Navbar = () => {
                         </button>
 
                         <button
-                          className="block px-4 py-2 cursor-pointer text-sm text-gray-700"
-                          role="menuitem"
-                          tabIndex={0}
-                          onClick={() => {
-                            navigate('/checkout/')
-                            setInfoProfile(!infoProfile)
-                          }}
-                          id="user-menu-item-1"
-                        >
-                          Cart
-                        </button>
-
-                        <button
                           className="cursor-pointer block px-4 py-2 text-sm text-gray-700"
                           onClick={() => {
                             localStorage.clear()
@@ -339,17 +326,6 @@ const Navbar = () => {
                       }}
                     >
                       Your Profile
-                    </a>
-                  </span>
-
-                  <span className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                    <a
-                      onClick={() => {
-                        navigate('/checkout/')
-                        setNav(!nav)
-                      }}
-                    >
-                      Cart
                     </a>
                   </span>
                   <span className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
