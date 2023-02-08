@@ -64,7 +64,7 @@ function retrieveProducts(id) {
     .then((el) => {
       
       $('#grid-prod-name').val(el.name)
-      $('#grid-price').val(el.price)
+      $('#grid-price').val(ArrToCsv(el.price))
       $('#grid-category').val(el.categoryId)
       $('#grid-description').val(el.description)
       $('#grid-colors').val(ArrToCsv(el.colors))
@@ -88,7 +88,9 @@ function showImage() {
 }
 
 function ArrToCsv(arr) {
-  return arr.join(', ')
+  try{
+    return arr.join(', ')
+  }catch{}
 }
 function CsvToArr(csv) {
   return csv.replace(/\s/g, '').split(',')
@@ -96,6 +98,10 @@ function CsvToArr(csv) {
 
 $('#send').click(async function() {
   getSelectedTargets()
+  if(CsvToArr($('#grid-price').val()).length != CsvToArr($('#grid-sizes').val()).length)  {
+    swal("Error","Prices and colors length do not match","error")
+    return
+  }
   //patch product fields
   const r1 = await fetch('/api/v2/products/' + getUrlParameter('id'), {
     method: 'PATCH',
@@ -106,7 +112,7 @@ $('#send').click(async function() {
     },
     body: JSON.stringify({
       name: $('#grid-prod-name').val(),
-      price: $('#grid-price').val(),
+      price: CsvToArr($('#grid-price').val()),
       categoryId: $('#grid-category').val(),
       description: $('#grid-description').val(),
       animalTargets: getSelectedTargets(),

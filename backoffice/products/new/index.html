@@ -98,18 +98,19 @@
                                 aria-label="Product Name"
                               />
                             </div>
-                            <div class="w-full md:w-1/2 px-3">
-                              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Price*
+                            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                              <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-zip"
+                              >
+                                Details
                               </label>
                               <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-price"
-                                required
-                                type="number"
-                                placeholder="1.50"
-                                required
-                                aria-label="Price"
+                                id="grid-details"
+                                type="text"
+                                placeholder="Some extra details"
+                                aria-label="Details"
                               />
                             </div>
                           </div>
@@ -133,6 +134,22 @@
                           </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-4">
+                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label
+                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                              for="grid-zip"
+                            >
+                              Colors
+                            </label>
+                            <p class="text-gray-600 text-xs italic">Comma-separated value list</p>
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="grid-colors"
+                              type="text"
+                              placeholder="red, blue, cyan"
+                              aria-label="Colors"
+                            />
+                          </div>
                           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                               Category*
@@ -169,24 +186,23 @@
                               </div>
                             </div>
                           </div>
-                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label
-                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                              for="grid-zip"
-                            >
-                              Details
-                            </label>
-                            <p class="text-gray-600 text-xs italic">Explain something extra to your customers</p>
-                            <input
-                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                              id="grid-details"
-                              type="text"
-                              placeholder="Some extra details"
-                              aria-label="Details"
-                            />
-                          </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-4">
+                          <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                              Prices*
+                            </label>
+                            <p class="text-gray-600 text-xs italic">Comma-separated value list</p>
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="grid-price"
+                              required
+                              type="text"
+                              placeholder="1.50"
+                              required
+                              aria-label="Price"
+                            />
+                          </div>
                           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label
                               class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -201,22 +217,6 @@
                               type="text"
                               placeholder="S, M, L"
                               aria-label="Sizes"
-                            />
-                          </div>
-                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label
-                              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                              for="grid-zip"
-                            >
-                              Colors
-                            </label>
-                            <p class="text-gray-600 text-xs italic">Comma-separated value list</p>
-                            <input
-                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                              id="grid-colors"
-                              type="text"
-                              placeholder="red, blue, cyan"
-                              aria-label="Colors"
                             />
                           </div>
                         </div>

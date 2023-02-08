@@ -1,8 +1,12 @@
 function ArrToCsv(arr) {
-  return arr.join(', ')
+  try{
+    return arr.join(', ')
+  }catch{}
 }
 function CsvToArr(csv) {
-  return csv.replace(/\s/g, '').split(',')
+  try{  
+    return csv.replace(/\s/g, '').split(',')
+  }catch{}
 }
 
 function getAnimalCodes() {
@@ -33,6 +37,10 @@ $(document).ready(function () {
 })
 
 $('#send').click(async function () {
+  if(CsvToArr($('#grid-price').val()).length != CsvToArr($('#grid-sizes').val()).length)  {
+    swal("Error","Prices and colors length do not match","error")
+    return
+  }
   let img = $('#grid-image').prop('files')[0]
   if (img) {
     //create product
@@ -45,7 +53,7 @@ $('#send').click(async function () {
       },
       body: JSON.stringify({
         name: $('#grid-prod-name').val(),
-        price: $('#grid-price').val(),
+        price: CsvToArr($('#grid-price').val()),
         categoryId: $('#grid-category').val(),
         description: $('#grid-description').val(),
         animalTargets: getSelectedTargets(),

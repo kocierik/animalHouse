@@ -13,7 +13,7 @@ function retrieveProducts(target) {
             {
               img: img,
               name: el.name,
-              price: el.price,
+              price: el.price[0],
               id: el._id,
               description: el.description,
               alt: el.name + "'s picture"
