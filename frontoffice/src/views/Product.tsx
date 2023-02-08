@@ -255,20 +255,10 @@ export default function Product() {
 
               <div className="mt-10">
                 <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Highlights</h2>
-                <div className="mt-4">
-                  <ul role="list" className="pl-10 list-disc text-sm space-y-3">
-                    {prod &&
-                      prod.highlights?.map((highlight) => (
-                        <li key={highlight} className="text-gray-400">
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      ))}
-                  </ul>
-                </div>
               </div>
 
               <div className="mt-10">
-                <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 ">Details</h3>
+                <h3 className="text-2xl font-extrabold tracking-tight text-gray-900 ">Details</h3>
 
                 <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">{prod?.details}</p>

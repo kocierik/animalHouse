@@ -118,7 +118,7 @@ const Checkout = () => {
                     : buyingProduct?.map((product, i) => (
                       <li key={i} className="flex py-6 space-x-6">
                         <img
-                          src={product.product.image.filename}
+                          src={"/pictures/" + product.product.image.filename}
                           alt={product.product.name}
                           className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                         />
@@ -163,7 +163,7 @@ const Checkout = () => {
             {buyingProduct?.map((product, i) => (
               <li key={i} className="flex py-6 space-x-6">
                 <img
-                  src={product.product.image.filename}
+                  src={"/pictures/" + product.product.image.filename}
                   alt={product.product.name}
                   className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
                 />
