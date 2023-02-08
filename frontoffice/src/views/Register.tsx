@@ -50,7 +50,6 @@ const Register = () => {
           navigate('/')
           window.location.reload()
         }
-        navigate('/')
       }
     } else {
       setError(response.error!.mex)
