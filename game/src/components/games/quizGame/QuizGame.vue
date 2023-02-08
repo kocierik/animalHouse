@@ -135,6 +135,7 @@ onBeforeMount(async () => {
             <p class="text-2xl font-bold" v-html="questions[progress].question" />
             <div v-for="(answer, index) of questions[progress].answers" class="mt-4">
               <label
+                  tabindex="0"
                 :key="index"
                 :for="index.toString()"
                 :class="
@@ -145,6 +146,7 @@ onBeforeMount(async () => {
                 <input
                   :id="index.toString()"
                   type="radio"
+                  tabindex="0"
                   :value="index"
                   hidden="true"
                   @click="answered(questions[progress].id, Number(index))"
@@ -157,6 +159,7 @@ onBeforeMount(async () => {
             <div class="mt-6 flow-root">
               <button
                 @click="goToNextQuestion"
+                tabindex="0"
                 v-show="progress < _COUNT - 1 && questions[progress].reveled"
                 class="float-right bg-dyellow text-black text-sm font-bold tracking-wide rounded-full px-5 py-2"
               >

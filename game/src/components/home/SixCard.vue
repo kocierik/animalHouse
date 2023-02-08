@@ -133,36 +133,6 @@
                 width="2rem"
                 height="2rem"
                 fill="currentColor"
-                class="bi bi-wallet2"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"
-                ></path>
-              </svg>
-            </div>
-            <h3 class="text-lg leading-normal mb-2 font-semibold text-black">Shop</h3>
-            <p class="text-gray-500">Be sure to check our online shop. You will
-              find a lot of beautiful products for you and your friend!</p>
-          </div>
-          <!-- end service block -->
-        </div>
-        <div
-          class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp"
-          data-wow-duration="1s"
-          style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp"
-        >
-          <!-- service block -->
-          <div
-            class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-5"
-          >
-            <div class="inline-block text-gray-900 mb-4">
-              <!-- icon -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="2rem"
-                height="2rem"
-                fill="currentColor"
                 class="bi bi-card-checklist"
                 viewBox="0 0 16 16"
               >

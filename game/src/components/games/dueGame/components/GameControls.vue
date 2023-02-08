@@ -1,12 +1,14 @@
 <template>
   <div class="flex">
     <button
+      tabindex="0"
       @click="state.showPopupGridSize = !state.showPopupGridSize"
       :class="{
         'bg-emerald-500 hover:bg-emerald-600': state.showPopupGridSize
       }"
       class="ml-auto mr-3 px-3 py-2 select-none transition-colors rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.15)] bg-zinc-700 hover:bg-zinc-600 text-white"
-    >
+    > 
+    <span class="hidden"> grid size</span>
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path
           stroke-linecap="round"
@@ -18,9 +20,11 @@
     </button>
 
     <button
+      tabindex="0"
       class="px-3 py-2 select-none transition-colors rounded-lg shadow-[inset_0_3px_0_rgba(255,255,255,.15)] bg-zinc-700 hover:bg-zinc-600 text-white focus:outline-none"
       @click="newGame"
     >
+    <span class="hidden">new game</span>
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path
           stroke-linecap="round"

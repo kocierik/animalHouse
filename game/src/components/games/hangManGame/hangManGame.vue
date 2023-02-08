@@ -21,10 +21,12 @@
       <!-- Always remember to provide a key with v-for, 
         so that vue knows exactly what render to do, 
         and what to avoid -->
+        <label class="hidden" for="letter">letter</label>
       <input
         readonly
         class="word-display"
         v-for="(l, i) in currentWord.split('')"
+        id="letter"
         :key="i"
         :value="getGuessedLetter(i)"
       />

@@ -312,6 +312,7 @@ const restart = () => {
         <tr v-for="row in tableCell" v-bind:key="row">
           <td
             class="cell"
+            tabindex="0"
             v-for="item in row"
             v-bind:key="item"
             v-on:click="click(item)"
