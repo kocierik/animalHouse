@@ -16,6 +16,91 @@ import Cart from './entities/Cart'
 import Reservation from './entities/Reservation'
 
 export const test = async () => {
+  await Product.deleteMany()
+  await Product.insertMany([
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b0'),
+      name: 'dog food',
+      description: 'dog for every food',
+      price: [10, 20, 30, 40, 50, 60, 70, 80],
+      categoryId: '62f3c0540ac73a2bc4764da8',
+      image: {
+        filename: 'pappa.png',
+        mimetype: 'image/png',
+        size: 1033
+      },
+      alt: 'dog',
+      animalTargets: ['0'],
+      colors: ['black', 'white'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['great', 'confort', 'animal', 'hot', 'cold'],
+      details: 'perfect for burn cat'
+    },
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b1'),
+      name: 'cool T-shirt',
+      description: 'so fresh',
+      price: [10, 20, 30, 40, 50, 60, 70, 80],
+      categoryId: '62f3c0540ac73a2bc4764da7',
+      colors: ['white', 'red'],
+      types: ['man', 'child', 'woman'],
+      image: {
+        filename: '62f425273418f02b236b58b1',
+        mimetype: 'image/png',
+        size: 1033
+      },
+      alt: 'shirt',
+      animalTargets: ['human'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['beauty', 'confort', 'human', 'cold'],
+      details: 'perfect for burn human'
+    },
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b4'),
+      name: 'Grattaculo',
+      description: 'so fresh',
+      categoryId: '62f3c0540ac73a2bc4764da7',
+      types: ['man', 'child', 'woman'],
+      image: { filename: '62f425273418f02b236b58b4' },
+      alt: 'shirt',
+      animalTargets: ['human'],
+      price: [10, 20, 30, 40, 50, 60, 70, 80],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['beauty', 'confort', 'human', 'cold'],
+      details: 'perfect for burn human'
+    },
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b5'),
+      name: 'Pupazzo papero strano',
+      description: 'so fresh',
+      price: [10, 20, 30, 40, 50, 60, 70, 80],
+      categoryId: '62f3c0540ac73a2bc4764da7',
+      colors: ['white', 'red'],
+      types: ['man', 'child', 'woman'],
+      image: { filename: '62f425273418f02b236b58b5' },
+      alt: 'shirt',
+      animalTargets: ['dog', 'cat'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['beauty', 'confort', 'human', 'cold'],
+      details: 'perfect for burn human'
+    },
+    {
+      _id: new Types.ObjectId('62f425273418f02b236b58b6'),
+      name: 'sapone per cani',
+      description: 'so fresh',
+      price: [10, 20, 30, 40, 50, 60, 70, 80],
+      categoryId: '62f3c0540ac73a2bc4764da7',
+      colors: ['white', 'red'],
+      types: ['man', 'child', 'woman'],
+      image: { filename: '62f425273418f02b236b58b6' },
+      alt: 'shirt',
+      animalTargets: ['dog'],
+      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
+      highlights: ['beauty', 'confort', 'human', 'cold'],
+      details: 'perfect for burn human'
+    }
+  ])
+  return
   await Post.deleteMany()
   await Post.insertMany([
     {
@@ -122,90 +207,6 @@ export const test = async () => {
       description: 'ciao',
       profilePicture: { filename: '635c088531e05da80c7faf62' },
       animals: []
-    }
-  ])
-  await Product.deleteMany()
-  await Product.insertMany([
-    {
-      _id: new Types.ObjectId('62f425273418f02b236b58b0'),
-      name: 'dog food',
-      description: 'dog for every food',
-      price: 69,
-      categoryId: '62f3c0540ac73a2bc4764da8',
-      image: {
-        filename: 'pappa.png',
-        mimetype: 'image/png',
-        size: 1033
-      },
-      alt: 'dog',
-      animalTargets: ['0'],
-      colors: ['black', 'white'],
-      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
-      highlights: ['great', 'confort', 'animal', 'hot', 'cold'],
-      details: 'perfect for burn cat'
-    },
-    {
-      _id: new Types.ObjectId('62f425273418f02b236b58b1'),
-      name: 'cool T-shirt',
-      description: 'so fresh',
-      price: 420,
-      categoryId: '62f3c0540ac73a2bc4764da7',
-      colors: ['white', 'red'],
-      types: ['man', 'child', 'woman'],
-      image: {
-        filename: '62f425273418f02b236b58b1',
-        mimetype: 'image/png',
-        size: 1033
-      },
-      alt: 'shirt',
-      animalTargets: ['human'],
-      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
-      highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human'
-    },
-    {
-      _id: new Types.ObjectId('62f425273418f02b236b58b4'),
-      name: 'Grattaculo',
-      description: 'so fresh',
-      price: 1550,
-      categoryId: '62f3c0540ac73a2bc4764da7',
-      types: ['man', 'child', 'woman'],
-      image: { filename: '62f425273418f02b236b58b4' },
-      alt: 'shirt',
-      animalTargets: ['human'],
-      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
-      highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human'
-    },
-    {
-      _id: new Types.ObjectId('62f425273418f02b236b58b5'),
-      name: 'Pupazzo papero strano',
-      description: 'so fresh',
-      price: 10000000,
-      categoryId: '62f3c0540ac73a2bc4764da7',
-      colors: ['white', 'red'],
-      types: ['man', 'child', 'woman'],
-      image: { filename: '62f425273418f02b236b58b5' },
-      alt: 'shirt',
-      animalTargets: ['dog', 'cat'],
-      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
-      highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human'
-    },
-    {
-      _id: new Types.ObjectId('62f425273418f02b236b58b6'),
-      name: 'sapone per cani',
-      description: 'so fresh',
-      price: 10,
-      categoryId: '62f3c0540ac73a2bc4764da7',
-      colors: ['white', 'red'],
-      types: ['man', 'child', 'woman'],
-      image: { filename: '62f425273418f02b236b58b6' },
-      alt: 'shirt',
-      animalTargets: ['dog'],
-      sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L'],
-      highlights: ['beauty', 'confort', 'human', 'cold'],
-      details: 'perfect for burn human'
     }
   ])
   await Cart.deleteMany()
