@@ -54,7 +54,7 @@ export default function Login() {
           <div
             className="hidden bg-cover lg:block lg:w-2/4"
             style={{
-              backgroundImage: "url('/login.jpg')"
+              backgroundImage: "url('../login.jpg')"
             }}
           >
             <div
@@ -98,7 +98,7 @@ export default function Login() {
                     name="username"
                     id="email"
                     placeholder="username"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
@@ -114,7 +114,7 @@ export default function Login() {
                     name="password"
                     id="password"
                     placeholder="Your Password"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:ring-indigo-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
@@ -123,7 +123,7 @@ export default function Login() {
                     type="submit"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-indigo-800 rounded-md hover:bg-indigo-900 focus:outline-none focus:bg-green-400 focus:ring focus:ring-green-300 focus:ring-opacity-50"
+                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transhtmlForm bg-indigo-800 rounded-md hover:bg-indigo-900 focus:outline-none focus:bg-indigo-400 focus:ring focus:ring-indigo-300 focus:ring-opacity-50"
                   >
                     Sign in
                   </button>
@@ -133,12 +133,6 @@ export default function Login() {
                   Don&#x27;t have an account yet?
                   <a
                     href="/frontoffice/register"
-                    /* click="
-                  () => {
-                    isLogin = false
-                    error = -1
-                  }
-                "*/
                     className="text-indigo-500 focus:outline-none focus:underline hover:underline"
                   >
                     {' '}

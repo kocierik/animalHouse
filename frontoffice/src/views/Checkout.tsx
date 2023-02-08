@@ -110,34 +110,39 @@ const Checkout = () => {
             <div className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl pl-5"> Summary</div>
             <Disclosure.Panel>
               <ul role="list" className="divide-y divide-gray-200 border-b border-gray-200">
-                {buyingProduct?.map((product, i) => (
-                  <li key={i} className="flex py-6 space-x-6">
-                    <img
-                      src={product.product.image.filename}
-                      alt={product.product.name}
-                      className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
-                    />
-                    <div className="flex flex-col  space-y-4">
-                      <div className="text-sm font-medium space-y-1">
-                        <h3 className="text-gray-900">Name: {product.product.name}</h3>
-                        <p className="text-gray-900">Price: {product.cartItem.price}$</p>
-                        {product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
-                        <p className="text-gray-500">Size: {product.cartItem.size}</p>
-                      </div>
-                      <div className="flex 	 space-x-4">
-                        <div className="flex  border-gray-300 ">
-                          <button
-                            type="button"
-                            onClick={async () => await removeFromCart(product.cartItem._id)}
-                            className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
+                {
+                  buyingProduct.length === 0 ?
+                    <div>
+                      <h2> The cart is empty </h2>
                     </div>
-                  </li>
-                ))}
+                    : buyingProduct?.map((product, i) => (
+                      <li key={i} className="flex py-6 space-x-6">
+                        <img
+                          src={product.product.image.filename}
+                          alt={product.product.name}
+                          className="flex-none w-40 h-40 object-center  bg-gray-200 rounded-md"
+                        />
+                        <div className="flex flex-col  space-y-4">
+                          <div className="text-sm font-medium space-y-1">
+                            <h3 className="text-gray-900">Name: {product.product.name}</h3>
+                            <p className="text-gray-900">Price: {product.cartItem.price}$</p>
+                            {product.cartItem.color && <p className="text-gray-500">Color: {product.cartItem.color}</p>}
+                            <p className="text-gray-500">Size: {product.cartItem.size}</p>
+                          </div>
+                          <div className="flex 	 space-x-4">
+                            <div className="flex  border-gray-300 ">
+                              <button
+                                type="button"
+                                onClick={async () => await removeFromCart(product.cartItem._id)}
+                                className="text-sm  font-medium text-indigo-600 hover:text-indigo-500"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
               </ul>
             </Disclosure.Panel>
           </Disclosure>
