@@ -1,4 +1,10 @@
+
+<div align='center'>
+
 # Animal House
+
+<img width="735"  alt="preview" src="https://user-images.githubusercontent.com/41591336/219854344-4144d72e-27bb-41f5-b96b-c81dfaac7508.png">
+</div>
 
 ## Installing
 
